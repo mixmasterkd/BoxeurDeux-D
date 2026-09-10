@@ -1,0 +1,58 @@
+:root {
+  font-family: system-ui, sans-serif;
+  color: #b8cbd7;
+  background: #111925;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 240px;
+  min-height: 100svh;
+  margin: 0;
+  padding: 24px 16px;
+  display: grid;
+  place-items: center;
+}
+
+main {
+  width: min(100%, 768px);
+}
+
+#game {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px #304657, 0 16px 48px #0005;
+}
+
+canvas {
+  display: block;
+  image-rendering: pixelated;
+}
+
+p {
+  margin: 22px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+strong {
+  color: #f5d486;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
