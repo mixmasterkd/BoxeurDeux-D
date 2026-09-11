@@ -27,13 +27,12 @@
 .bag-pause-button, .bag-audio-button { width: 64px; height: 44px; padding: 3px; border: 1px solid #a1b6a66b; border-radius: 3px; background: #172c35; color: #ead6a9; font-size: 12px; }
 #bag-ui .input-rail .bag-audio-button { position: static; width: 64px; height: 44px; }
 #bag-ui .bag-action-dock, #bag-ui .bag-pause-button { display: none; }
-#bag-ui[data-touch="true"] .bag-action-dock { display: flex; }
-#bag-ui[data-touch="true"] .bag-pause-button { display: block; }
+html[data-touch="true"] #bag-ui .bag-action-dock { display: flex; }
+html[data-touch="true"] #bag-ui .bag-pause-button { display: block; }
 #bag-ui:not([data-phase="running"]) :is(.input-rail, .bag-choreography, .bag-feedback) { visibility: hidden; }
 html[data-touch="true"] .bag-choreography { top: 50%; left: auto; right: calc(100% + 6px); transform: translateY(-50%); width: 94px; }
 html[data-touch="true"] .bag-steps { flex-direction: column; gap: 6px; }
 html[data-touch="true"] .bag-step { font-size: 12px; }
-@media (any-pointer: coarse) { #bag-ui .bag-action-dock { display: flex; } #bag-ui .bag-pause-button { display: block; } }
 @container (max-width: 750px) {
   .bag-hud { padding: 8px 12px; font-size: 8px; letter-spacing: 0; }
   .bag-clock { font-size: 23px; }

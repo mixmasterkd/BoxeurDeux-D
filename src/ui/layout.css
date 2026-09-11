@@ -26,7 +26,7 @@ html[data-touch="true"] .shell-width { width: min(1480px, 100%); }
 .input-rail .gym-pause-button { justify-content: center; }
 #sparring-ui .opponent-info { padding-right: 0; }
 /* Desktop uses the keyboard; the paused Commandes page is its reference. */
-html[data-touch="false"] .input-rail, html[data-touch="false"] .keyboard-guide { display: none; }
+html[data-touch="false"] .input-rail, html .keyboard-guide { display: none; }
 html[data-touch="true"] .gym-heading { display: none; }
 html[data-touch="true"] .gym-nearby { max-width: 85%; }
 
@@ -40,4 +40,4 @@ html[data-touch="true"] .gym-pause-panel { width: min(355px, calc(var(--play-wid
 @container (max-width: 750px) {
   html[data-touch="false"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 12px); overflow: auto; }
 }
-@media (max-width: 900px) and (orientation: portrait) { #play-area { visibility: hidden; } }
+@media (pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait) { #play-area { visibility: hidden; } }

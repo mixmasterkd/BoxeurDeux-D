@@ -1,4 +1,4 @@
-import { mountSideControls } from './GameLayout.js';
+import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { LESSONS } from '../game/TrainingCoach.js';
 
 const KEY_ACTIONS = {
@@ -53,8 +53,8 @@ export class SparringUI {
     this.guardActive = false;
     this.abort = new AbortController();
     this.root = document.getElementById('sparring-ui');
-    this.root.dataset.touch = String(navigator.maxTouchPoints > 0);
-    this.portraitQuery = window.matchMedia('(max-width: 900px) and (orientation: portrait)');
+    this.portraitQuery = window.matchMedia(TOUCH_PORTRAIT_QUERY);
+    this.controlsQuery = window.matchMedia(TOUCH_CONTROLS_QUERY);
     this.root.innerHTML = `
       <div class="menu-shade is-visible" aria-hidden="true"></div>
       <div class="fight-hud">
@@ -201,10 +201,8 @@ export class SparringUI {
     });
     this.listen(window, 'keydown', (event) => this.keyDown(event));
     this.listen(window, 'keyup', (event) => this.keyUp(event));
-    this.listen(window, 'pointerdown', (event) => {
-      if (event.pointerType === 'touch') this.root.dataset.touch = 'true';
-    });
     this.listen(window, 'blur', () => this.loseFocus());
+    this.listen(this.controlsQuery, 'change', () => this.loseFocus());
     this.listen(document, 'visibilitychange', () => {
       if (document.hidden) this.loseFocus();
     });

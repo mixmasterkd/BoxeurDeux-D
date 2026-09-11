@@ -1,4 +1,4 @@
-import { mountSideControls } from './GameLayout.js';
+import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { BAG_RHYTHM } from '../game/BagSession.js';
 import './bag.css';
 
@@ -10,8 +10,8 @@ export class BagUI {
     this.phase = 'ready'; this.commandsOpen = false; this.sequenceIndex = -1;
     this.keys = new Set(); this.pointers = new Map(); this.menuPointers = new Map();
     this.abort = new AbortController();
-    this.portrait = matchMedia('(max-width: 900px) and (orientation: portrait)');
-    this.root.dataset.touch = String(navigator.maxTouchPoints > 0);
+    this.portrait = matchMedia(TOUCH_PORTRAIT_QUERY);
+    this.controlsQuery = matchMedia(TOUCH_CONTROLS_QUERY);
     this.root.innerHTML = `
       <header class="bag-hud"><span>LE SAC · RYTHME & ENCHAÎNEMENTS</span><strong class="bag-clock">0:45</strong><span><b data-bag-stat="accurate">0</b> frappes précises</span></header>
       <div class="bag-choreography"><div class="bag-sequence-title"></div><div class="bag-steps"></div><div class="bag-instruction"></div></div>
@@ -74,7 +74,6 @@ export class BagUI {
     }
     this.on(window, 'pointerup', e => this.release(e.pointerId));
     this.on(window, 'pointercancel', e => this.release(e.pointerId));
-    this.on(window, 'pointerdown', e => { if (e.pointerType === 'touch') this.root.dataset.touch = 'true'; });
     this.on(window, 'keydown', event => {
       if (this.portrait.matches || document.hidden) return;
       if (event.code === 'Tab' && this.phase !== 'running') {
@@ -102,6 +101,7 @@ export class BagUI {
     });
     this.on(window, 'keyup', e => this.keys.delete(e.code));
     const blur = () => { this.clear(); this.callbacks.onPause(); };
+    this.on(this.controlsQuery, 'change', blur);
     this.on(window, 'blur', blur);
     this.on(document, 'visibilitychange', () => { if (document.hidden) blur(); });
     this.on(this.portrait, 'change', event => { this.stage.inert = event.matches; if (event.matches) blur(); });

@@ -32,6 +32,8 @@ try {
       hasTouch: mobile,
       isMobile: mobile,
     });
+    // A mouse computer can report touch capacity; that must not enable phone rails.
+    if (!mobile) await page.addInitScript(() => Object.defineProperty(Navigator.prototype, 'maxTouchPoints', { get: () => 10, configurable: true }));
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     page.on('requestfailed', request => errors.push(`${request.url()}: ${request.failure()?.errorText}`));
@@ -87,6 +89,7 @@ try {
     else await page.keyboard.press('e');
     await press('.gym-session-button[data-lesson="free"]');
     await press('.primary-button');
+    if (!mobile) assert.equal(await page.locator('.input-rail button:visible').count(), 0);
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '1');
@@ -107,6 +110,7 @@ try {
     await press('.choose-session-button');
     await page.locator('[name="lesson"]').selectOption('jab');
     await press('.primary-button');
+    if (!mobile) assert.equal(await page.locator('.input-rail button:visible').count(), 0);
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-value="training-progress"]')?.textContent === '1 / 3');
@@ -121,6 +125,7 @@ try {
     await page.locator('#bag-ui').waitFor({ state: 'visible' });
     assert.equal(await page.evaluate(() => window.__bag), undefined, 'production does not expose bag development hooks');
     await press('.bag-start-button');
+    if (!mobile) assert.equal(await page.locator('.input-rail button:visible').count(), 0);
     if (mobile) await press('#bag-ui [data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-bag-stat="contacts"]')?.textContent === '1');

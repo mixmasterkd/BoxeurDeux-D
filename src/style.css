@@ -193,7 +193,7 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
   .round-footnote { display: none; }
   .keyboard-guide { opacity: .65; }
 }
-@media (max-width: 900px) and (orientation: portrait) {
+@media (pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait) {
   .game-header, #stage, .keyboard-guide { visibility: hidden; }
   .rotate-prompt { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; background: radial-gradient(ellipse at 50% 40%, #283a40, #101a20 75%); text-align: center; }
   .rotate-phone { display: block; width: 85px; height: 52px; border: 2px solid var(--amber); border-radius: 9px; margin-bottom: 30px; color: var(--amber); font: 38px/45px system-ui, sans-serif; box-shadow: 0 0 0 7px #e9ba7008; }
@@ -325,19 +325,13 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
 .commands-notes p, .commands-tip { margin: 7px 0 0; color: #baccbf; font-size: 11px; line-height: 1.45; }
 .commands-back-button { margin-top: 17px; }
 .commands-touch-tip { display: none; }
-[data-touch="true"] .commands-touch-tip { display: block; }
+html[data-touch="true"] .commands-touch-tip { display: block; }
 #sparring-ui.is-showing-commands .menu-shade { background: #07182091; pointer-events: auto; }
 #sparring-ui .action-dock, #sparring-ui .pause-button { display: none; }
 #sparring-ui .audio-button { top: 0; }
-#sparring-ui[data-touch="true"] .action-dock { display: flex; }
-#sparring-ui[data-touch="true"] .pause-button { display: block; }
-#sparring-ui[data-touch="true"][data-phase="running"] .audio-button { top: 48px; }
-@media (any-pointer: coarse) {
-  #sparring-ui .action-dock { display: flex; }
-  #sparring-ui .pause-button { display: block; }
-  #sparring-ui[data-phase="running"] .audio-button { top: 48px; }
-  .commands-touch-tip { display: block; }
-}
+html[data-touch="true"] #sparring-ui .action-dock { display: flex; }
+html[data-touch="true"] #sparring-ui .pause-button { display: block; }
+html[data-touch="true"] #sparring-ui[data-phase="running"] .audio-button { top: 48px; }
 @container (max-width: 750px) {
   .commands-panel { padding: 15px 18px; max-height: calc(100% - 20px); }
   .commands-panel h2 { font-size: 21px; margin-bottom: 9px; }

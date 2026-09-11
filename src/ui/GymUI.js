@@ -1,5 +1,5 @@
 import './gym.css';
-import { mountSideControls } from './GameLayout.js';
+import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 
 const DIRECTIONS = {
   ArrowUp: 'up', KeyW: 'up', KeyZ: 'up',
@@ -30,9 +30,9 @@ export class GymUI {
     this.nearby = null;
     this.destroyed = false;
     this.abort = new AbortController();
-    this.portraitQuery = window.matchMedia('(max-width: 900px) and (orientation: portrait)');
+    this.portraitQuery = window.matchMedia(TOUCH_PORTRAIT_QUERY);
+    this.controlsQuery = window.matchMedia(TOUCH_CONTROLS_QUERY);
     this.root.hidden = false;
-    this.root.dataset.touch = String(navigator.maxTouchPoints > 0);
     this.root.dataset.mode = 'walking';
     this.root.innerHTML = `
       <header class="gym-hud">
@@ -112,6 +112,7 @@ export class GymUI {
     this.listen(window, 'keydown', (event) => this.keyDown(event));
     this.listen(window, 'keyup', (event) => this.keyUp(event));
     this.listen(window, 'blur', () => this.loseFocus());
+    this.listen(this.controlsQuery, 'change', () => this.loseFocus());
     this.listen(document, 'visibilitychange', () => {
       if (document.hidden) this.loseFocus();
     });
@@ -128,9 +129,6 @@ export class GymUI {
     this.listenActivation(this.elements['gym-interact-button'], () => this.interact());
     this.listenActivation(this.elements['commands-open-button'], () => this.showCommands(true));
     this.listenActivation(this.elements['commands-back-button'], () => this.showCommands(false));
-    this.listen(window, 'pointerdown', (event) => {
-      if (event.pointerType === 'touch') this.root.dataset.touch = 'true';
-    });
     // Delegate the changing choices: revisiting a station does not retain old
     // buttons or register new listeners on the UI's long-lived abort signal.
     const actionRoot = this.elements['gym-dialog-actions'];
@@ -308,7 +306,7 @@ export class GymUI {
     this.renderMode();
     this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? 'Bienvenue au gym');
     this.setText(this.elements['gym-nearby-hint'], this.nearby
-      ? this.root.dataset.touch === 'true' ? 'Touchez Interagir pour participer.' : 'Un atelier ou un partenaire vous attend.'
+      ? document.documentElement.dataset.touch === 'true' ? 'Touchez Interagir pour participer.' : 'Un atelier ou un partenaire vous attend.'
       : 'Approchez-vous de Rémi ou d’un atelier.');
     this.elements['gym-nearby'].classList.toggle('is-available', Boolean(this.nearby));
     this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby;
