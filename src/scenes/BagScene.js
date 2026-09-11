@@ -5,13 +5,18 @@ import { BagUI } from '../ui/BagUI.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import { careerProfile } from '../game/CareerProfile.js';
+import { DailyActivityGate } from '../game/DailyActivityGate.js';
+import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
+import { rememberActivityReturn } from './activityLifecycle.js';
 
 export class BagScene extends Phaser.Scene {
   constructor() { super('BagScene'); }
   preload() { BagFighterView.preload(this); }
   create() {
     setSceneShell('bag');
+    rememberActivityReturn(this);
     this.session = new BagSession();
+    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: 'bag' });
     this.progressRecorded = false;
     this.fighter = new BagFighterView(this);
     this.audio = new SparringAudio();
@@ -19,10 +24,10 @@ export class BagScene extends Phaser.Scene {
       getState: () => this.session.state,
       onAction: input => this.session.act(input),
       onGuard: (held, level) => this.session.setGuard(held, level),
-      onStart: () => {
+      onStart: () => this.dailyGate.start(() => {
         this.audio.setActive(false); this.progressRecorded = false; this.session.reset(); this.fighter.reset(); this.session.start();
         this.audio.setActive(true); this.audio.play('round-start');
-      },
+      }),
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onReturnGym: () => {
@@ -35,6 +40,8 @@ export class BagScene extends Phaser.Scene {
         this.audio.setMuted(!this.audio.muted); this.audio.unlock(); this.ui.setAudioState(this.audio.getState());
       },
     });
+    this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.bag-panel-actions', primary: '.bag-start-button', restarts: ['.bag-restart-button'] });
+    this.dailyNotice.update(this.session.state);
     this.ui.setAudioState(this.audio.getState());
     this.fighter.render(this.session.state.player, 0);
     this.resizeObserver = new ResizeObserver(() => {
@@ -78,5 +85,6 @@ export class BagScene extends Phaser.Scene {
       }
     }
     this.ui.update(state);
+    this.dailyNotice.update(state);
   }
 }

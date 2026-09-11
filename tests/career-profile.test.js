@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CareerProfile, CAREER_STORAGE_KEY, CAREER_BACKUP_KEY } from '../src/game/CareerProfile.js';
+import { CareerProfile, CAREER_STORAGE_KEY, CAREER_BACKUP_KEY, CAREER_VERSION } from '../src/game/CareerProfile.js';
 
 class MemoryStorage {
   constructor() { this.values = new Map(); }
@@ -64,7 +64,7 @@ test('non-save JSON, future versions, malformed schemas and invalid numbers cann
   const before = profile.exportText(), saved = storage.getItem(CAREER_STORAGE_KEY);
   const mutate = callback => { const value = JSON.parse(before); callback(value); return JSON.stringify(value); };
   for (const invalid of ['{}', '[]', 'null', '42', '{bad',
-    mutate(p => { p.version = 2; }), mutate(p => { delete p.stats; }),
+    mutate(p => { p.version = CAREER_VERSION + 1; }), mutate(p => { delete p.stats; }),
     mutate(p => { delete p.activities.rope; }), mutate(p => { p.stats.endurance = '110'; }),
     mutate(p => { p.revision = -1; }), mutate(p => { p.createdAt = 'hier'; }),
     mutate(p => { p.activities.bag.sessions = 1.5; }), mutate(p => { p.fights.beton.wins = 4; }),
@@ -107,14 +107,14 @@ test('bad primary and backup data never crash startup or pretend to have saved',
 });
 
 test('future local save is protected from incidental writes by an older game', () => {
-  const storage = new MemoryStorage(), raw = create(new MemoryStorage()).snapshot(); raw.version = 2;
+  const storage = new MemoryStorage(), raw = create(new MemoryStorage()).snapshot(); raw.version = CAREER_VERSION + 1;
   const text = JSON.stringify(raw); storage.setItem(CAREER_STORAGE_KEY, text);
   const profile = create(storage);
   assert.equal(profile.saveStatus().state, 'incompatible');
   const reward = profile.reward('rope', qualified.rope);
   assert.equal(reward.saved, false); assert.equal(storage.getItem(CAREER_STORAGE_KEY), text);
   profile.reset();
-  assert.equal(JSON.parse(storage.getItem(CAREER_STORAGE_KEY)).version, 1);
+  assert.equal(JSON.parse(storage.getItem(CAREER_STORAGE_KEY)).version, CAREER_VERSION);
 });
 
 test('blocked reads, writes, and missing storage retain playable in-memory progress and honest status', () => {

@@ -5,6 +5,9 @@ import { FighterView, drawImpact } from './FighterView.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import { careerProfile } from '../game/CareerProfile.js';
+import { DailyActivityGate, sparringActivity } from '../game/DailyActivityGate.js';
+import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
+import { rememberActivityReturn } from './activityLifecycle.js';
 
 const FEEDBACK = {
   'player-hit': ['Touché !', 'success'],
@@ -27,6 +30,7 @@ export class SparringScene extends Phaser.Scene {
     this.opponentId = requested === 'beton' ? 'beton' : 'remi';
     this.initialLesson = this.opponentId === 'beton' ? 'resistance' : data.lesson ?? query.get('lesson') ?? 'free';
     this.backgroundKey = this.opponentId === 'beton' ? 'fight-hall' : 'gym';
+    this.returnToNeighborhood = this.opponentId === 'beton';
   }
 
   preload() {
@@ -36,7 +40,9 @@ export class SparringScene extends Phaser.Scene {
 
   create(data = {}) {
     setSceneShell('sparring', { opponent: this.opponentId });
+    rememberActivityReturn(this, { fight: this.returnToNeighborhood });
     this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId, ...careerProfile.bonuses() });
+    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: () => sparringActivity(this.session.state.settings) });
     this.progressRecorded = false;
     this.audio = new SparringAudio();
     const background = this.add.image(640, 360, this.backgroundKey);
@@ -69,7 +75,8 @@ export class SparringScene extends Phaser.Scene {
       onReturnGym: () => {
         this.session.pause(); this.session.releaseControls();
         this.audio.setActive(false);
-        this.scene.start('GymScene');
+        if (this.returnToNeighborhood) this.scene.start('ExplorationScene', { place: 'neighborhood', entrance: 'fight' });
+        else this.scene.start('GymScene');
       },
       onSettings: (settings) => {
         this.session.setSettings(settings);
@@ -84,6 +91,13 @@ export class SparringScene extends Phaser.Scene {
         this.ui.setAudioState(this.audio.getState());
       },
     });
+    this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.panel-actions', primary: '.primary-button', restarts: ['.secondary-button', '.next-lesson-button'] });
+    this.dailyNotice.update(this.session.state);
+    if (this.returnToNeighborhood) {
+      this.ui.root.querySelector('.return-gym-button').textContent = '← Retour au quartier';
+      const exit = this.ui.controls.exit;
+      exit.textContent = '← Quartier'; exit.setAttribute('aria-label', 'Quitter le combat et retourner au quartier');
+    }
     this.ui.setAudioState(this.audio.getState());
     this.remi.render(this.session.state.remi, 0);
     this.player.render(this.session.state.player, 0);
@@ -113,13 +127,15 @@ export class SparringScene extends Phaser.Scene {
   }
 
   beginSession(settings) {
-    this.audio.setActive(false);
-    this.progressRecorded = false;
-    this.ui.boutHUD.setReward(null);
-    this.session.reset({ ...settings, ...careerProfile.bonuses() });
-    this.session.start();
-    this.audio.setActive(true);
-    this.audio.play('round-start');
+    return this.dailyGate.start(() => {
+      this.audio.setActive(false);
+      this.progressRecorded = false;
+      this.ui.boutHUD.setReward(null);
+      this.session.reset({ ...settings, ...careerProfile.bonuses() });
+      this.session.start();
+      this.audio.setActive(true);
+      this.audio.play('round-start');
+    }, sparringActivity({ ...this.session.state.settings, ...settings }));
   }
 
   update(_time, delta) {
@@ -170,6 +186,7 @@ export class SparringScene extends Phaser.Scene {
       }
     }
     this.ui.update(state);
+    this.dailyNotice.update(state);
   }
 
   renderCue(state) {

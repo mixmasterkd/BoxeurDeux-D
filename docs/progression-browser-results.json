@@ -1,11 +1,11 @@
 {
-  "checkedAt": "2026-09-11T21:28:42.321Z",
+  "checkedAt": "2026-09-11T22:57:10.283Z",
   "base": "http://127.0.0.1:5173/",
   "reports": [
     "rope: full 45 s, 54 scored contacts, complete animations and saved reward (Playwright J/K).",
     "speedball: full 45 s, 63 scored contacts, complete animations and saved reward (Playwright J/K).",
-    "Gym: walking to both workshops, E interaction, exact return, pause/restart and no duplicate reward verified.",
-    "Progression: export, Continue/New cancellation, bonuses in an actual Béton bout and finished defeat persist after reload.",
+    "Gym: walking to both workshops, E interaction, exact return, pause/restart, daily energy 100→85→70→55 and no duplicate reward verified.",
+    "Progression: v2 export, Continue/New cancellation, actual walk gym→neighborhood→Béton, trained bonuses, free bout and finished defeat persist with day/energy/location after reload.",
     "rope: full 45 s, 54 scored contacts, complete animations and saved reward (CDP touch A/B).",
     "Mobile simulated: full A/B session, held/cancelled touch, joypad, portrait freeze, 844×390 and 568×320 with no scroll or action overlay. Not a physical-phone test.",
     "Progression browser checks passed."
@@ -26,7 +26,7 @@
     },
     {
       "case": "rope-keyboard",
-      "seconds": 45.152,
+      "seconds": 45.302,
       "summary": {
         "attempts": 54,
         "hits": 54,
@@ -44,7 +44,7 @@
     },
     {
       "case": "speedball-keyboard",
-      "seconds": 45.123,
+      "seconds": 45.245,
       "summary": {
         "attempts": 63,
         "hits": 63,
@@ -112,7 +112,7 @@
     },
     {
       "case": "rope-touch",
-      "seconds": 45.219,
+      "seconds": 45.404,
       "summary": {
         "attempts": 54,
         "hits": 54,

@@ -59,7 +59,7 @@ try{
   const desktop=await browser.newContext({viewport:{width:1440,height:1000},hasTouch:false});
   await desktop.addInitScript(()=>Object.defineProperty(Navigator.prototype,'maxTouchPoints',{configurable:true,get:()=>10}));
   const page=await desktop.newPage();watch(page);
-  await page.goto(base);await wait(page,()=>window.__gym?.world);
+  await page.goto(`${base}?scene=gym`);await wait(page,()=>window.__gym?.world);
   checkFit(await fit(page,'#gym-ui',false));
   const gymPosition=await walkMirror(page);
   await page.keyboard.press('e');
@@ -135,7 +135,7 @@ try{
   const mobile=await browser.newContext({viewport:{width:844,height:390},hasTouch:true,isMobile:true,deviceScaleFactor:1});
   const phone=await mobile.newPage();watch(phone);
   const cdp=await mobile.newCDPSession(phone);
-  await phone.goto(base);await wait(phone,()=>window.__gym?.world);
+  await phone.goto(`${base}?scene=gym`);await wait(phone,()=>window.__gym?.world);
   const start=await phone.evaluate(()=>({x:window.__gym.world.state.x,y:window.__gym.world.state.y}));
   let point=await joyPoint(phone,'#gym-ui','downRight');
   await dispatch(cdp,'touchStart',[point]);await phone.waitForTimeout(220);
@@ -150,7 +150,7 @@ try{
   assert.ok(horizontal.x>straightStart.x+8&&Math.abs(horizontal.y-straightStart.y)<1,JSON.stringify({straightStart,horizontal}));
   await dispatch(cdp,'touchCancel');await settled(phone);
   assert.equal(await phone.evaluate(()=>window.__gym.world.state.moving),false);
-  await phone.goto(base);await wait(phone,()=>window.__gym?.world);
+  await phone.goto(`${base}?scene=gym`);await wait(phone,()=>window.__gym?.world);
   const mobilePosition=await walkMirror(phone,cdp);
   await tapContact(phone,cdp,'#gym-ui [data-pad-button="a"]');
   await phone.locator('.gym-dialog').waitFor({state:'visible'});
@@ -207,7 +207,7 @@ try{
 
   for(const scene of ['gym','shadow','bag','sparring']){
     if(scene==='gym'){
-      await phone.goto(base);await wait(phone,()=>window.__gym?.world);
+      await phone.goto(`${base}?scene=gym`);await wait(phone,()=>window.__gym?.world);
       if(await phone.locator('.career-continue').isVisible()) await phone.locator('.career-continue').tap();
     }
     else await begin(phone,scene,true);

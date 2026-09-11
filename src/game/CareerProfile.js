@@ -1,7 +1,11 @@
+import { activityCost, DAILY_ENERGY_MAX, freshDaily, HOME_SPAWN, LEGACY_GYM_SPAWN,
+  validDaily, cleanLocation } from './DayRules.js';
+
+// Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
 const BACKUP_KEY = `${STORAGE_KEY}-backup`;
 const CORRUPT_KEY = `${STORAGE_KEY}-corrupt`;
-const VERSION = 1;
+const VERSION = 2;
 const ACTIVITIES = ['bag', 'speedball', 'rope', 'sparring', 'shadow'];
 // This is the Béton tier. A file cannot raise its own training ceilings.
 const CAPS = Object.freeze({ power: 5, recovery: 1.10, endurance: 110, resistance: 108 });
@@ -15,6 +19,7 @@ const date = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(va
 function freshProfile(now = new Date().toISOString()) {
   return {
     version: VERSION, revision: 0, createdAt: now, updatedAt: now,
+    daily: freshDaily(), location: { ...HOME_SPAWN },
     stats: { ...BASE_STATS }, caps: { ...CAPS },
     activities: Object.fromEntries(ACTIVITIES.map(id => [id, { sessions: 0, best: 0 }])),
     fights: { beton: { wins: 0, losses: 0, draws: 0, attempts: 0, bestScore: null } },
@@ -22,7 +27,7 @@ function freshProfile(now = new Date().toISOString()) {
 }
 
 function normalize(raw) {
-  if (!object(raw) || raw.version !== VERSION) {
+  if (!object(raw) || ![1, VERSION].includes(raw.version)) {
     if (object(raw) && typeof raw.version === 'number' && raw.version > VERSION) {
       const error = new Error('Cette sauvegarde vient d’une version plus récente du jeu.');
       error.code = 'future-version'; throw error;
@@ -35,6 +40,12 @@ function normalize(raw) {
   }
   const profile = freshProfile(raw.createdAt);
   profile.updatedAt = raw.updatedAt; profile.revision = raw.revision;
+  if (raw.version === 1) profile.location = { ...LEGACY_GYM_SPAWN };
+  else {
+    if (!validDaily(raw.daily)) throw new Error('Le jour ou l’énergie de cette sauvegarde est invalide.');
+    profile.daily = { day: raw.daily.day, energy: raw.daily.energy, maxEnergy: DAILY_ENERGY_MAX };
+    profile.location = cleanLocation(raw.location);
+  }
   for (const stat of Object.keys(BASE_STATS)) {
     const value = raw.stats[stat];
     if (typeof value !== 'number' || !Number.isFinite(value) || value < BASE_STATS[stat]
@@ -62,12 +73,13 @@ function normalize(raw) {
   return profile;
 }
 
-function parse(text) {
+function parseSource(text) {
   if (typeof text !== 'string' || text.length > 1_000_000) throw new Error('Fichier de sauvegarde invalide ou trop volumineux.');
   let value;
   try { value = JSON.parse(text); } catch { throw new Error('Ce fichier ne contient pas une sauvegarde JSON valide.'); }
-  return normalize(value);
+  return { profile: normalize(value), migrated: value.version === 1 };
 }
+const parse = text => parseSource(text).profile;
 
 const POLICIES = {
   bag: { stat: 'power', amount: 1, metric: m => finite(m.accuracy ?? m.precision), minimum: 50, volume: m => finite(m.contacts) >= 6, label: 'Puissance' },
@@ -80,7 +92,7 @@ export class CareerProfile {
   constructor(options = {}) {
     this.now = options.now ?? (() => new Date().toISOString());
     this.storage = null; this.lastPersisted = null; this.backupAvailable = false;
-    this.status = { state: 'new', persisted: false, message: 'La progression sera enregistrée après une séance terminée.' };
+    this.status = { state: 'new', persisted: false, message: 'Votre journée sera enregistrée automatiquement pendant la partie.' };
     // Accessing localStorage itself can throw in a blocked browser context.
     try { this.storage = Object.hasOwn(options, 'storage') ? options.storage : globalThis.localStorage; }
     catch { this._unavailable(); }
@@ -89,7 +101,7 @@ export class CareerProfile {
 
   _unavailable() {
     this.status = { state: 'unavailable', persisted: false,
-      message: 'Sauvegarde locale indisponible. Les acquis restent dans cette session : exportez votre partie pour les conserver.' };
+      message: 'Sauvegarde locale indisponible. Votre partie reste dans cette session : exportez-la pour la conserver.' };
   }
 
   _load() {
@@ -101,8 +113,19 @@ export class CareerProfile {
     if (backup) { try { backupProfile = parse(backup); this.backupAvailable = true; } catch { /* Never restore malformed backups. */ } }
     if (primary) {
       try {
-        const profile = parse(primary); this.lastPersisted = JSON.stringify(profile);
+        const { profile, migrated } = parseSource(primary);
+        this.lastPersisted = primary;
         this.status = { state: 'saved', persisted: true, message: `Sauvegarde locale · révision ${profile.revision}` };
+        if (migrated) {
+          let backupFailed = false;
+          try { this.storage.setItem(BACKUP_KEY, primary); this.backupAvailable = true; }
+          catch { backupFailed = true; }
+          try {
+            this.lastPersisted = JSON.stringify(profile);
+            this.storage.setItem(STORAGE_KEY, this.lastPersisted);
+            this.status.message = `Ancienne progression conservée · jour 1 au gym${backupFailed ? ' · copie de secours indisponible' : ''}`;
+          } catch { this.lastPersisted = primary; this._unavailable(); }
+        }
         return profile;
       } catch (error) {
         if (error.code === 'future-version') {
@@ -119,7 +142,7 @@ export class CareerProfile {
       this.lastPersisted = JSON.stringify(backupProfile);
       this.status = { state: 'recovered', persisted: true, message: 'Progression récupérée depuis la dernière copie de secours.' };
       try { this.storage.setItem(STORAGE_KEY, this.lastPersisted); }
-      catch { this.status.message += ' Exportez-la : le stockage est actuellement bloqué.'; }
+      catch { this.lastPersisted = backup; this._unavailable(); }
       return backupProfile;
     }
     if (primary || backup) this.status = { state: 'invalid', persisted: false,
@@ -130,6 +153,46 @@ export class CareerProfile {
   snapshot() { return clone(this.profile); }
   saveStatus() { return { ...this.status, revision: this.profile.revision, backupAvailable: this.backupAvailable }; }
   hasProgress() { return this.profile.revision > 0; }
+  dailyStatus() { return { ...this.profile.daily }; }
+  activityCost(activity) { return activityCost(activity); }
+  canStartActivity(activity) {
+    const cost = activityCost(activity), { energy } = this.profile.daily;
+    const ok = energy >= cost;
+    return { ok, activity, cost, energy,
+      message: ok ? (cost ? `Cette séance coûte ${cost} points d’énergie de journée.` : 'Cette activité ne coûte pas d’énergie de journée.')
+        : `Énergie insuffisante : ${cost} points nécessaires, ${energy} disponibles. Rentrez dormir pour passer au lendemain.` };
+  }
+  spendEnergy(activity) {
+    const availability = this.canStartActivity(activity);
+    if (!availability.ok || availability.cost === 0) return { ...availability, saved: this.status.persisted, saveMessage: this.status.message };
+    this.profile.daily.energy -= availability.cost;
+    this._save();
+    const message = `Séance commencée : ${availability.cost} points d’énergie de journée utilisés.`;
+    return { ...availability, energy: this.profile.daily.energy, saved: this.status.persisted, saveMessage: this.status.message,
+      message: this.status.persisted ? message : `${message} ${this.status.message}` };
+  }
+  sleep() {
+    if (this.profile.daily.day === Number.MAX_SAFE_INTEGER) {
+      return { ok: false, ...this.dailyStatus(), saved: this.status.persisted,
+        message: 'Le nombre maximal de journées de cette sauvegarde est atteint.' };
+    }
+    this.profile.daily.day += 1;
+    this.profile.daily.energy = DAILY_ENERGY_MAX;
+    if (this.profile.location.scene !== 'home') this.profile.location = { ...HOME_SPAWN };
+    this._save();
+    const message = `Jour ${this.profile.daily.day} : énergie de journée récupérée.`;
+    return { ok: true, ...this.dailyStatus(), saved: this.status.persisted, saveMessage: this.status.message,
+      message: this.status.persisted ? message : `${message} ${this.status.message}` };
+  }
+  setLocation(location) {
+    const next = cleanLocation(location), previous = this.profile.location;
+    if (Object.keys(next).some(key => next[key] !== previous[key])) {
+      this.profile.location = next;
+      this._save();
+    }
+    return { ok: true, location: { ...this.profile.location }, saved: this.status.persisted,
+      message: this.status.message, saveMessage: this.status.message };
+  }
   bonuses() {
     return { maxStamina: this.profile.stats.endurance, recoveryBonus: Number((this.profile.stats.recovery - 1).toFixed(2)),
       maxResistance: this.profile.stats.resistance, powerBonus: this.profile.stats.power };
@@ -194,4 +257,4 @@ export class CareerProfile {
 }
 
 export const careerProfile = new CareerProfile();
-export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY };
+export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY, VERSION as CAREER_VERSION };

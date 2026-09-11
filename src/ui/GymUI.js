@@ -6,9 +6,14 @@ const noop = () => {};
 
 /** Source-aware controls for the gym. Movement and activities belong to the scene. */
 export class GymUI {
-  constructor(callbacks = {}) {
+  constructor(callbacks = {}, options = {}) {
+    this.options = {
+      eyebrow: 'LE GYM DU QUARTIER', title: 'Explorer le gym', welcome: 'Bienvenue au gym',
+      hint: 'Approchez-vous de Rémi ou d’un atelier.', pauseText: 'Le gym vous attend. Reprenez quand vous êtes prêt.',
+      commandsTitle: 'Commandes du gym', commandsHint: 'Approchez-vous de Rémi ou d’un atelier, puis interagissez.', ...options,
+    };
     this.callbacks = Object.fromEntries([
-      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onShadow', 'onRhythm', 'onFight', 'onExportCareer', 'onImportCareer', 'onInspectCareer', 'onRefreshCareer', 'onBlur',
+      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onShadow', 'onRhythm', 'onFight', 'onDialogAction', 'onExportCareer', 'onImportCareer', 'onInspectCareer', 'onRefreshCareer', 'onBlur',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.root = document.getElementById('gym-ui');
     if (!this.root) throw new Error('GymUI requires #gym-ui inside the game stage.');
@@ -30,6 +35,7 @@ export class GymUI {
         <div class="gym-heading"><span class="gym-eyebrow">LE GYM DU QUARTIER</span><h2>Explorer le gym</h2></div>
         <button type="button" class="gym-pause-button" aria-label="Mettre la visite en pause" title="Pause — P ou Échap"><span aria-hidden="true">Ⅱ</span><span>Pause</span></button>
       </header>
+      <div class="gym-daily" aria-label="Journée et énergie"><span class="gym-day">Jour 1</span><span class="gym-energy">Énergie 100/100</span></div>
       <div class="gym-nearby" role="status" aria-live="polite" aria-atomic="true"><span class="gym-nearby-label">Bienvenue au gym</span><span class="gym-nearby-hint">Approchez-vous de Rémi ou d’un atelier.</span></div>
       <div class="gym-movement"></div>
       <button type="button" class="gym-interact-button" disabled><span class="gym-interact-key" aria-hidden="true">A</span><span class="gym-interact-label">Interagir</span></button>
@@ -59,13 +65,18 @@ export class GymUI {
     `;
     mountSideControls(this.root, { left: ['.gym-movement'], right: ['.gym-pause-button', '.gym-interact-button'] });
     this.elements = Object.fromEntries([
-      'gym-pause-button', 'gym-nearby', 'gym-nearby-label', 'gym-nearby-hint',
+      'gym-pause-button', 'gym-nearby', 'gym-nearby-label', 'gym-nearby-hint', 'gym-day', 'gym-energy',
       'gym-movement', 'gym-interact-button', 'gym-interact-label',
       'gym-modal-shade', 'gym-dialog', 'gym-dialog-speaker', 'gym-dialog-actions',
       'gym-pause-panel', 'gym-resume-button', 'commands-panel', 'commands-open-button', 'commands-back-button',
       'gym-export-button', 'gym-import-button', 'gym-import-file', 'gym-save-status',
       'gym-import-confirm', 'gym-import-preview', 'gym-import-cancel', 'gym-import-replace',
     ].map((name) => [name, this.root.querySelector(`.${name}`)]));
+    for (const [selector, value] of [
+      ['.gym-heading .gym-eyebrow', this.options.eyebrow], ['.gym-heading h2', this.options.title],
+      ['.gym-pause-panel > p:not(.gym-eyebrow)', this.options.pauseText],
+      ['#gym-commands-title', this.options.commandsTitle], ['.commands-panel .commands-notes p', this.options.commandsHint],
+    ]) this.setText(this.root.querySelector(selector), value);
     this.bindEvents();
     this.controls = installConsoleControls(this, 'gym');
     this.stage.inert = this.portraitQuery.matches || careerMenuOpen();
@@ -161,14 +172,15 @@ export class GymUI {
     });
     this.listen(actionRoot, 'click', (event) => {
       const button = actionButton(event);
-      if (!button || !this.consumeActivation(button, event) || this.paused || !this.dialog) return;
+      if (!button || button.disabled || !this.consumeActivation(button, event) || this.paused || !this.dialog) return;
       this.clearInputs();
       if (button.dataset.gymAction === 'sparring') this.callbacks.onSparring(button.dataset.lesson ?? 'free');
       else if (button.dataset.gymAction === 'bag') this.callbacks.onBag();
       else if (button.dataset.gymAction === 'shadow') this.callbacks.onShadow();
       else if (button.dataset.gymAction === 'rhythm') this.callbacks.onRhythm(button.dataset.activity);
       else if (button.dataset.gymAction === 'fight') this.callbacks.onFight();
-      else this.callbacks.onCloseDialog();
+      else if (button.dataset.gymAction === 'close') this.callbacks.onCloseDialog();
+      else this.callbacks.onDialogAction(this.dialog.actions[Number(button.dataset.actionIndex)]);
     });
   }
 
@@ -204,6 +216,13 @@ export class GymUI {
     if (!profile) return;
     for (const [key, value] of Object.entries({ endurance: `${profile.stats.endurance}/${profile.caps.endurance}`, resistance: `${profile.stats.resistance}/${profile.caps.resistance}`, power: `${profile.stats.power}/${profile.caps.power}`, recovery: `+${Math.round((profile.stats.recovery - 1) * 100)}%` })) this.setText(this.root.querySelector(`[data-career="${key}"]`), value);
     if (saveStatus) this.setText(this.elements['gym-save-status'], saveStatus.message);
+    if (profile.daily) this.setDaily(profile.daily);
+  }
+
+  setDaily({ day, energy, maxEnergy = 100 }) {
+    this.setText(this.elements['gym-day'], `Jour ${day}`);
+    this.setText(this.elements['gym-energy'], `Énergie ${energy}/${maxEnergy}`);
+    this.elements['gym-energy'].dataset.low = String(energy < 15);
   }
 
   cancelCareerImport() {
@@ -220,10 +239,10 @@ export class GymUI {
     this.nearby = state.nearby ?? null;
     if (wasPaused !== this.paused) this.clearInputs();
     this.renderMode();
-    this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? 'Bienvenue au gym');
+    this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? this.options.welcome);
     this.setText(this.elements['gym-nearby-hint'], this.nearby
-      ? document.documentElement.dataset.touch === 'true' ? 'Appuyez sur A pour participer.' : 'Un atelier ou un partenaire vous attend.'
-      : 'Approchez-vous de Rémi ou d’un atelier.');
+      ? document.documentElement.dataset.touch === 'true' ? 'Appuyez sur A pour interagir.' : 'Approchez-vous et interagissez.'
+      : this.options.hint);
     this.elements['gym-nearby'].classList.toggle('is-available', Boolean(this.nearby));
     this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby;
     this.controls?.refresh();
@@ -267,18 +286,20 @@ export class GymUI {
     const actionRoot = this.elements['gym-dialog-actions'];
     actionRoot.replaceChildren();
     const choices = actions.length ? actions : [{ id: 'close', label: 'Continuer la visite →' }];
-    for (const action of choices) {
+    for (const [index, action] of choices.entries()) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : action.id === 'shadow' ? ' gym-shadow-button' : action.id === 'rhythm' ? ' gym-rhythm-button' : action.id === 'fight' ? ' gym-fight-button' : ' gym-close-button'}`;
       button.dataset.gymAction = action.id;
+      button.dataset.actionIndex = index;
+      button.disabled = Boolean(action.disabled);
       if (action.lesson) button.dataset.lesson = action.lesson;
       if (action.activity) button.dataset.activity = action.activity;
       button.textContent = action.label;
       actionRoot.append(button);
     }
     this.renderMode();
-    if (!this.paused && !this.portraitQuery.matches) actionRoot.querySelector('button')?.focus({ preventScroll: true });
+    if (!this.paused && !this.portraitQuery.matches) actionRoot.querySelector('button:not(:disabled)')?.focus({ preventScroll: true });
   }
 
   closeDialog() {

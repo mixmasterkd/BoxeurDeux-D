@@ -1,0 +1,7 @@
+/* Exploration reuses the gym's controller and menus, including both side rails. */
+#stage:is([data-scene="home"], [data-scene="neighborhood"]) .gym-hud { background: none; }
+#stage:is([data-scene="home"], [data-scene="neighborhood"]) .gym-heading { display: none; }
+#gym-ui[data-sleeping="true"] > :not(.input-rail) { visibility: hidden; }
+#gym-ui[data-sleeping="true"] .input-rail { pointer-events: none; opacity: .3; }
+#gym-ui[data-sleeping="true"] .input-rail * { pointer-events: none; }
+#stage:is([data-scene="home"], [data-scene="neighborhood"]) .gym-nearby:not(.is-available) { opacity: .85; }

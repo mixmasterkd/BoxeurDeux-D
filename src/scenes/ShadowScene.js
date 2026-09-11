@@ -5,6 +5,9 @@ import { ShadowUI } from '../ui/ShadowUI.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import { careerProfile } from '../game/CareerProfile.js';
+import { DailyActivityGate } from '../game/DailyActivityGate.js';
+import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
+import { rememberActivityReturn } from './activityLifecycle.js';
 
 export class ShadowScene extends Phaser.Scene {
   constructor() { super('ShadowScene'); }
@@ -12,14 +15,16 @@ export class ShadowScene extends Phaser.Scene {
 
   create() {
     setSceneShell('shadow');
+    rememberActivityReturn(this);
     this.session = new ShadowSession();
+    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: 'shadow' });
     this.progressRecorded = false;
     this.fighter = new ShadowFighterView(this);
     this.audio = new SparringAudio();
-    const start = () => {
+    const start = () => this.dailyGate.start(() => {
       this.audio.setActive(false);
       this.progressRecorded = false; this.session.reset(); this.session.start(); this.audio.setActive(true);
-    };
+    });
     this.ui = new ShadowUI({
       getState: () => this.session.state,
       onAction: action => this.session.act(action),
@@ -39,6 +44,8 @@ export class ShadowScene extends Phaser.Scene {
         this.audio.setMuted(!this.audio.muted); this.audio.unlock(); this.ui.setAudioState(this.audio.getState());
       },
     });
+    this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.shadow-panel-actions', primary: '.shadow-start-button', restarts: ['.shadow-reset-button'] });
+    this.dailyNotice.update(this.session.state);
     this.ui.setAudioState(this.audio.getState());
     this.fighter.render(this.session.state.player, 0);
     this.ui.update(this.session.state);
@@ -82,5 +89,6 @@ export class ShadowScene extends Phaser.Scene {
       }
     }
     this.ui.update(state);
+    this.dailyNotice.update(state);
   }
 }

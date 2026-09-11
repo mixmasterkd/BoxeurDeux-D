@@ -24,7 +24,10 @@
     "test:bag": "node tests/bag-browser.mjs",
     "test:side-controls": "node tests/side-controls-browser.mjs",
     "test:input-device": "node tests/input-device-browser.mjs",
-    "test:progression": "node tests/progression-browser.mjs"
+    "test:progression": "node tests/progression-browser.mjs",
+    "test:exploration": "node tests/exploration-browser.mjs",
+    "test:days": "node tests/daily-activity-browser.mjs && node tests/daily-gym-browser.mjs",
+    "test:lifecycle": "node tests/world-lifecycle-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

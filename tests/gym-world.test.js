@@ -145,3 +145,28 @@ test('invalid input and elapsed time cannot corrupt the coordinates', () => {
   model.setInput({});
   assert.equal(model.state.moving, false);
 });
+
+test('the former fight poster is walkable and the real gym exit remains reachable', () => {
+  const model = new GymWorld();
+  assert.equal(GYM_LAYOUT.stations.some(station => station.id === 'combat'), false);
+  assert.equal(GYM_LAYOUT.obstacles.some(obstacle => obstacle.id === 'affiche-combat'), false);
+  model.restorePosition({ x: 1010, y: 610, facing: 'up' });
+  model.setInput({ y: -1 }); advance(model, .25);
+  assert.ok(Math.abs(model.state.y - 560) < 1e-6, 'no invisible poster collider remains');
+  model.restorePosition({ x: 640, y: 630, facing: 'up' });
+  assert.equal(model.state.nearby?.id, 'porte');
+  model.setInput({ y: 1 }); advance(model, .15);
+  assert.equal(model.state.nearby?.kind, 'exit');
+});
+
+test('a saved gym position restores only on walkable ground and releases prior movement', () => {
+  const model = new GymWorld();
+  model.setInput({ x: 1 });
+  model.restorePosition({ x: 312, y: 566, facing: 'left' });
+  model.update(1);
+  assert.equal(model.state.x, 312); assert.equal(model.state.y, 566); assert.equal(model.state.facing, 'left');
+  for (const position of [{ x: 640, y: 320 }, { x: 8000, y: 300 }, { x: 430, y: 442 }]) {
+    model.restorePosition(position);
+    assert.equal(model.state.x, GYM_LAYOUT.spawn.x); assert.equal(model.state.y, GYM_LAYOUT.spawn.y);
+  }
+});

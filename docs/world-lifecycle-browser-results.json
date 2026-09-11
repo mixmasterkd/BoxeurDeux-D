@@ -1,0 +1,43 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "tests": [
+    {
+      "case": "preload-new",
+      "destination": "home",
+      "preservedDay": 1,
+      "preservedEnergy": 100
+    },
+    {
+      "case": "preload-import",
+      "destination": "gym",
+      "preservedDay": 12,
+      "preservedEnergy": 0
+    },
+    {
+      "case": "preload-continue",
+      "destination": "gym",
+      "preservedDay": 7,
+      "preservedEnergy": 25
+    },
+    {
+      "case": "sleep-blur",
+      "dayAdvancedOnce": true,
+      "trainedStatsPreserved": true,
+      "explicitResume": true
+    },
+    {
+      "case": "sleep-portrait",
+      "dayAdvancedOnce": true,
+      "trainedStatsPreserved": true,
+      "explicitResume": true
+    },
+    {
+      "case": "sleep-reload",
+      "dayAdvancedOnce": true,
+      "trainedStatsPreserved": true,
+      "explicitResume": false
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

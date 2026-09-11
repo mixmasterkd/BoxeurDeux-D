@@ -1,0 +1,95 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "tests": [
+    {
+      "label": "desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "camera": {
+        "x": 479.78575494458374,
+        "y": 130
+      },
+      "roundTrip": true,
+      "sleepAndReload": true,
+      "freeFight": true
+    },
+    {
+      "label": "mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "camera": {
+        "x": 488.9964229331996,
+        "y": 130
+      },
+      "roundTrip": true,
+      "sleepAndReload": true,
+      "freeFight": true
+    },
+    {
+      "label": "mobile-depleted-import",
+      "cancelReadOnly": true,
+      "refusal": true,
+      "freeWalkHome": true,
+      "sleepPreservesTrainedStats": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

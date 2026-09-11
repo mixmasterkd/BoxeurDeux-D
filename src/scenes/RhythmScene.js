@@ -5,6 +5,9 @@ import { RhythmTrainingView } from './RhythmTrainingView.js';
 import { RhythmUI } from '../ui/RhythmUI.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
+import { DailyActivityGate } from '../game/DailyActivityGate.js';
+import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
+import { rememberActivityReturn } from './activityLifecycle.js';
 
 export class RhythmScene extends Phaser.Scene {
   constructor() { super('RhythmScene'); }
@@ -15,17 +18,21 @@ export class RhythmScene extends Phaser.Scene {
   preload() { RhythmTrainingView.preload(this); }
   create() {
     setSceneShell(this.activity); this.session = new RhythmSession({ activity: this.activity }); this.rewarded = false;
+    rememberActivityReturn(this);
+    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: this.activity });
     this.view = new RhythmTrainingView(this, this.activity); this.audio = new SparringAudio();
-    const start = () => {
+    const start = () => this.dailyGate.start(() => {
       this.audio.setActive(false); this.rewarded = false; this.view.reset(); this.session.reset(); this.session.start();
       if (import.meta.env.DEV && window.__rhythm) window.__rhythm.impacts.length = 0;
       this.audio.setActive(true); this.audio.play('round-start');
-    };
+    });
     this.ui = new RhythmUI(this.activity, { getState: () => this.session.state, onAction: input => this.session.act(input), onGuard: () => {}, onStart: start,
       onPause: () => { this.session.pause(); this.audio.setActive(false); }, onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onReturnGym: () => { this.session.pause(); this.audio.setActive(false); this.scene.start('GymScene'); },
       onAudioGesture: () => this.audio.unlock(),
       onMute: () => { this.audio.setMuted(!this.audio.getState().muted); this.ui.setAudioState(this.audio.getState()); if (!this.audio.getState().muted) this.audio.unlock(); } });
+    this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.rhythm-actions', primary: '.rhythm-primary', restarts: ['.rhythm-restart'] });
+    this.dailyNotice.update(this.session.state);
     this.ui.setAudioState(this.audio.getState());
     this.ui.update(this.session.state);
     this.resizeObserver = new ResizeObserver(() => { this.scale.getParentBounds(); this.scale.refresh(); }); this.resizeObserver.observe(document.getElementById('game'));
@@ -43,7 +50,7 @@ export class RhythmScene extends Phaser.Scene {
     const events = this.session.drainEvents();
     for (const event of events) { this.view.onEvent(event); if (event.type === 'hit') this.audio.play(this.activity === 'rope' ? 'shadow-motion' : 'player-blocked'); else if (event.type === 'round-end') this.audio.play('round-end'); }
     if (state.phase === 'finished' && !this.rewarded) { this.rewarded = true; this.ui.setReward(careerProfile.reward(this.activity, state.summary)); }
-    this.view.render(state); this.ui.update(state);
+    this.view.render(state); this.ui.update(state); this.dailyNotice.update(state);
     if (import.meta.env.DEV) for (const event of events) {
       if (event.input && ['hit', 'miss'].includes(event.type)) {
         window.__rhythm.impacts.push({ ...event, visual: this.view.contact });

@@ -8,6 +8,15 @@ const GUIDES = {
 };
 
 export function setSceneShell(mode, { opponent = 'remi' } = {}) {
+  if (mode === 'home' || mode === 'neighborhood') {
+    setSceneShell('gym');
+    document.getElementById('stage').dataset.scene = mode;
+    document.getElementById('stage').setAttribute('aria-label', mode === 'home' ? 'Maison explorable du boxeur' : 'Quartier de Montréal explorable');
+    document.getElementById('game').setAttribute('aria-label', mode === 'home' ? 'Maison en pixel art, lit et sortie. Ton boxeur porte sa tuque rouge et son survêtement.' : 'Rues de Montréal en pixel art. La caméra suit le boxeur entre maison, gym, parc et salle de boxe.');
+    document.querySelector('.gym-location').innerHTML = `MONTRÉAL <span aria-hidden="true">/</span> ${mode === 'home' ? 'CHEZ TOI' : 'LE QUARTIER'}`;
+    document.querySelector('.prototype-label').textContent = mode === 'home' ? 'MAISON' : 'LE QUARTIER';
+    return;
+  }
   const fight = mode === 'sparring' && opponent === 'beton';
   document.querySelector('.gym-location').innerHTML = `MONTRÉAL <span aria-hidden="true">/</span> ${fight ? 'SALLE DE BOXE' : 'AU GYM'}`;
   document.getElementById('stage').dataset.scene = mode;

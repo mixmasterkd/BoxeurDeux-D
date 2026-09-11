@@ -1,8 +1,55 @@
 # Suite du projet BoxeurDeux-D
 
-Direction confirmée par l’utilisateur, actualisée après le GO du 11 septembre 2026. Voir `VERIFICATIONS.md` pour les validations effectivement terminées; cette feuille de route ne confirme pas à elle seule une publication.
+Direction confirmée par l’utilisateur, actualisée avec le **GO maison, quartier explorable et journées**. Voir `VERIFICATIONS.md` pour les validations effectivement terminées; cette feuille de route ne confirme pas à elle seule une publication. La liste initiale en huit étapes est conservée plus bas, avec son contexte historique.
 
-## Livraison du GO « 1 à 4 »
+## Portée du GO actuel — maison, quartier et journées
+
+Après la livraison des ateliers, gains et sauvegarde, l’utilisateur a précisé qu’il veut **une vraie carte plus grande que l’écran, à explorer comme dans Zelda**, et une maison explorable pour dormir puis accueillir de futures activités. Le GO regroupe la boucle des journées et la partie maison/quartier de l’ancienne étape 6. **La maison accompagne maintenant le sommeil**; l’ancien ordre « dormir avant de construire la maison » ne s’applique plus.
+
+Cette phase est **intégrée et vérifiée localement** : maison, quartier, journées et sauvegarde fonctionnent ensemble. Les résultats détaillés et l’état de publication se trouvent dans `VERIFICATIONS.md`.
+
+| Travail autorisé | Portée actuelle |
+| --- | --- |
+| Maison explorable | Une pièce où marcher, une sortie et un lit. Confirmer le sommeil passe au lendemain. Prévoir de la place sans développer les futures activités domestiques. |
+| Quartier montréalais | Carte de 2379 × 1488, caméra suivant le boxeur dans une fenêtre 1280 × 720. Rues/ruelles, collisions, portes et repères visuels. Les cônes orange et travaux ferment les accès des futures extensions. |
+| Relier les lieux | Portes de la maison et du gym vers leurs intérieurs. La salle communautaire ouvre directement la présentation de Béton, sans intérieur explorable; elle remplace l’affiche du gym. Le dépanneur et le local fermé sont décoratifs. |
+| Tenue et commandes | Tuque rouge et survêtement noir à bandes blanches à la maison/dehors, tenue bleue/blanche au gym. Même E/A pour interagir, mêmes menus et même cadrage 16:9 sur ordinateur/mobile paysage. |
+| Énergie quotidienne | 100 points par jour, prix annoncé avant de commencer, débit au départ, refus sans assez d’énergie. Marcher et franchir les portes restent gratuits. Les combats gardent leurs jauges propres et restent accessibles. |
+| Sommeil et sauvegarde | Lit avec confirmation, jour +1, énergie quotidienne à 100 uniquement. Acquis conservés, pas de bonus nocturne. Sauvegarde du jour, de l’énergie et du lieu de reprise; migration des anciennes parties. |
+
+### Règles quotidiennes retenues
+
+| Activité | Coût de départ |
+| --- | --- |
+| Sac, corde ou speed ball | 15 chacun |
+| Shadow boxing au miroir | 5 |
+| Sparring libre ou Résistance et relevés | 20 |
+| Une leçon de Rémi | 10 |
+| Béton, y compris revanche | 0 |
+| Déplacements et menus | 0 |
+
+Le coût est enregistré au démarrage effectif de la séance, pas en ouvrant son accueil. Une pause/reprise conserve le même départ payé. Recommencer constitue une nouvelle séance payée; abandonner ne rembourse pas la dépense et ne donne pas de gain. Les activités peuvent toujours être pratiquées au plafond des capacités, avec leur coût annoncé. À zéro énergie, on peut rentrer chez soi, dormir et combattre; aucune dette ni attente en temps réel ne bloque le joueur. Les prix modifiables sont centralisés dans `src/game/DayRules.js`.
+
+Le sommeil confirmé avance exactement d’un jour et remplit seulement la réserve quotidienne. La résistance et l’endurance des combats restent séparées. Les bénéfices déjà acquis aux ateliers, leurs plafonds et l’historique des combats sont conservés.
+
+### Reprise et migration
+
+Une nouvelle partie commence à la **maison**. **Continuer** reprend le lieu sauvegardé parmi maison, quartier et gym, avec un point sûr; ni animation ni combat en cours ne sont reconstitués. Les URL `?scene=home`, `?scene=neighborhood` et `?scene=gym` sont des accès de développement qui prennent priorité sur le lieu sauvegardé, sans restaurer gratuitement l’énergie.
+
+Le format **v2** ajoute jour/énergie et lieu/position/direction à la progression déjà sauvegardée. Une partie v1 migre automatiquement au gym avec jour 1 et 100 d’énergie, sans perdre capacités et résultats; une copie de la source est conservée lorsque le stockage le permet. Le nom de la clé locale v1 reste inchangé pour récupérer les anciennes parties. Export/import transfère aussi le jour et le lieu; import et Nouvelle partie gardent leur confirmation. Le jeu indique une impossibilité d’enregistrement et reste jouable en mémoire; une version future n’est pas écrasée automatiquement.
+
+### Ce qui attend un prochain GO
+
+- **Travail et argent** : concevoir un premier mini-jeu, son salaire/coût quotidien, les plafonds d’épargne et l’usage de l’argent. Le gym reste gratuit.
+- **Maison et apparence** : éventuelle garde-robe, trophées ou carnet; pas d’activité cachée derrière les meubles actuels.
+- **Adversaires suivants** : un adversaire original à la fois, puis relèvement explicite des plafonds selon l’avancement.
+- **Tournoi** : petite carte dédiée sur trois jours, hôtel, restaurant, gym, inscription et récompenses en argent du jeu à définir.
+
+La boucle à vérifier maintenant est **maison → quartier → gym → séance payée/gain → salle de combat → retour maison → sommeil → rechargement**, au clavier et au tactile simulé. Le confort sur téléphone physique reste distinct d’un essai de viewport.
+
+## Historique — livraison du GO « 1 à 4 »
+
+Cette section conserve l’état de la précédente livraison. Les passages où maison, quartier et journées étaient encore « prochains » sont remplacés par le GO courant décrit ci-dessus.
 
 L’utilisateur a autorisé ensemble **la fin du gym, ses bénéfices de combat, la sauvegarde et la vérification de la boucle complète**. Il a ensuite demandé une reprise de la corde et de la speed ball avec de vrais personnages animés et les commandes adaptées au périphérique. Les travaux sont intégrés et vérifiés localement. Les résultats et la preuve de publication sont consignés séparément dans `VERIFICATIONS.md`.
 
@@ -27,7 +74,9 @@ Le premier adversaire reçoit les acquis d’entraînement du joueur sans deveni
 
 **Prochaine étape proposée : la boucle des journées et du sommeil**, puis le petit quartier avec maison, travail et argent. Le gym reste gratuit. Le sommeil fera avancer le jour et remplira uniquement l’énergie quotidienne. Ces systèmes, les adversaires suivants et le tournoi ne sont pas ajoutés à la livraison actuelle. La liste initiale complète ci-dessous reste la feuille de route.
 
-## Nouvelle direction — décisions validées et ordre proposé
+## Historique — décisions validées et ordre initial
+
+L’ordre ci-dessous est conservé pour ne pas perdre la liste initiale. Les étapes 1 à 4 sont les bases déjà livrées. Le GO courant regroupe l’étape 5 et la partie maison/quartier de l’étape 6; travail et argent restent ultérieurs. Les mentions de l’affiche de combat, du format v1 et du sommeil avant la maison décrivent leur époque, pas la navigation ni la sauvegarde actuelles.
 
 La discussion après le commit `74f87df` précise la progression à long terme. La résistance et le premier adversaire ont été livrés avant le GO actuel sur les ateliers, gains et sauvegarde. Le premier adversaire est **Béton**, accessible par l’affiche « Prochain combat » dans le gym existant, avec Rémi comme coach entre les rounds. Les journées, le quartier et les phases ultérieures restent à concevoir ensemble.
 
@@ -57,7 +106,7 @@ Rémi propose **Résistance et relevés**, trois rounds de 60 secondes. Résista
 
 ### Liste initiale conservée — ordre de réalisation
 
-Les étapes 1 et 2 ci-dessous ont leurs livraisons historiques. Les étapes 3 et 4 constituent maintenant l’intégration du GO actuel, avec les vérifications de boucle décrites en tête. L’étape 5 est la prochaine proposition; les étapes 5 à 8 ne sont pas réalisées ici.
+Cette table garde son contenu initial : étapes 1 et 2 (base de combat puis Béton), puis 3 et 4 (gains et ateliers) ont été livrées. **Le GO courant actualise leur suite comme expliqué en tête** : maison/quartier et journées ensemble, travail/argent puis adversaires et tournoi plus tard. Le texte historique « avant de construire la maison » de l’étape 5 est explicitement dépassé.
 
 | Étape | Contenu borné | Résultat à vérifier avant la suivante |
 | --- | --- | --- |
@@ -77,7 +126,9 @@ Les étapes 1 et 2 ci-dessous ont leurs livraisons historiques. Les étapes 3 et
 - Un KO immédiat éventuel doit également arriver à zéro résistance, avec une condition déterministe et annoncée. Candidat pour plus tard : un coup spécial clairement préparé, reçu en épuisement complet, qui vide la résistance restante. Pas de probabilité cachée.
 - La première livraison intègre chute, relevé et arrêt : six pressions alternées, résistance rendue 55/45/35 et trois rounds de 60 secondes. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. L’étape 2 ajoute pour Béton le départage aux points décrit plus haut; Rémi conserve son bilan d’entraînement.
 
-### Sauvegarde de la partie — intégrée avec les premiers gains
+### Historique de la sauvegarde — première intégration avec les gains
+
+Le contrat courant est désormais le schéma v2 et la reprise des lieux décrits plus haut; les lignes suivantes documentent la première sauvegarde v1.
 
 La sauvegarde locale versionnée contient maintenant les capacités/plafonds, les séances et meilleurs résultats des ateliers ainsi que les tentatives, victoires, défaites, égalités et meilleur score de Béton. Les préférences de son restent mémorisées séparément. Git/GitHub protègent le code et les ressources du projet, pas les parties individuelles.
 

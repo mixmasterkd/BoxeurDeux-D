@@ -1,6 +1,36 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## GO actuel « 1 à 4 » — gym complet, capacités et sauvegarde
+## GO actuel — maison, quartier explorable et journées
+
+L’utilisateur a confirmé puis donné **GO pour l’ensemble** : quartier plus grand que l’écran avec caméra suiveuse, maison explorable et lit, gym relié au quartier, salle communautaire accessible par une porte qui ouvre directement Béton, énergie quotidienne et sauvegarde du jour/énergie/lieu. Il a explicitement demandé de faire la maison avec le sommeil, puis confirmé que le quartier fait partie de ce GO. **Ne pas revenir à une carte réduite à un écran, ni attendre un nouveau GO pour terminer cette boucle.** Les anciennes portées et ordres conservés plus bas sont historiques.
+
+**Intégration terminée et vérifications locales réussies** : 207 tests autonomes, parcours complets du quartier et des journées, migration/reprise/import, interruptions pendant la nuit, ateliers de 45 secondes et bundle de production. Les preuves exactes et l’état de publication sont dans `docs/VERIFICATIONS.md`.
+
+Portée concrète :
+
+- **Quartier montréalais de 2379 × 1488** : l’écran reste une fenêtre de 1280 × 720; la caméra suit le boxeur et s’arrête aux bords. Quelques rues et ruelles, collisions, portes accessibles. Cônes orange et travaux bloquent les futurs accès. Le dépanneur et le local fermé sont du décor, sans interaction commerciale ni emploi.
+- **Maison explorable** : déplacement dans la pièce, sortie et lit. Interagir avec le lit propose une confirmation; seule la validation passe au lendemain. De l’espace reste disponible pour de futures activités; aucun achat de tenue, trophée interactif ou gestion domestique n’est demandé maintenant.
+- **Tenue** : tuque rouge à motif noir et survêtement noir à bandes blanches à la maison et dehors; la tenue bleue/blanche d’entraînement reste au gym. Préserver toutes les ressources et identités validées.
+- **Gym** : les cinq ateliers, Rémi et leurs contrôles sont conservés. La porte mène désormais au quartier. L’ancienne affiche de combat est supprimée.
+- **Salle communautaire** : sa porte extérieure ouvre la présentation du combat contre Béton, sans intérieur explorable. Retour au quartier après sortie du combat. Rémi conserve son sparring et son rôle de coach entre les rounds.
+
+Journées : base **100 énergie**, jour 1 pour une nouvelle partie. Coûts centralisés dans `src/game/DayRules.js` : **sac 15, corde 15, speed ball 15, miroir 5, sparring libre ou Résistance et relevés 20, leçon 10, Béton/revanche 0**. Marcher, franchir les portes et ouvrir un menu restent gratuits. Chaque accueil annonce le prix; le débit survient une seule fois au démarrage effectif. Pause/reprise ne redébite pas; recommencer coûte une nouvelle séance. L’abandon conserve la dépense et ne donne pas le gain. Un manque d’énergie bloque le départ de l’activité et propose de rentrer dormir; Béton reste accessible à zéro énergie.
+
+Le sommeil confirmé avance le jour de **un**, remet seulement l’énergie quotidienne à **100** et conserve toutes les capacités, plafonds et statistiques. Ni bonus nocturne ni récupération de compétence supplémentaire. Endurance et résistance des combats restent des réserves séparées avec leurs propres règles.
+
+Sauvegarde **schéma 2** sur la clé locale existante `boxeur-deux-d-career-v1` : champs `daily` (jour, énergie, maximum) et `location` (scène explorable, position, direction), avec acquis et résultats conservés. Les anciens profils v1 sont validés puis migrés automatiquement au **gym, jour 1, énergie 100**, en gardant leur source en secours si le stockage le permet. Nouveau profil à la maison. `Continuer` reprend le lieu sauvegardé, pas un round ou une animation en cours; une position est vérifiée par la scène avant reprise. Dépense, fin de séance, sommeil et points stables d’exploration sont sauvegardés. Export/import conserve aussi le jour et le lieu; import et Nouvelle partie demandent confirmation. Erreur de stockage signalée sans bloquer le jeu en mémoire, version future protégée. Ne pas effacer les sauvegardes pour faire fonctionner les nouveautés.
+
+Convention commune : directions **flèches/WASD/ZQSD** ou **joypad mobile**, interaction **E/Entrée** ou **A**, choix **Entrée/A**, retour **Échap/B**, pause **P/Échap** ou **☰**. J/K et A/B restent les attaques/gestes des activités. Les boutons mobiles restent dans les bandes latérales; aucun contrôleur affiché sur ordinateur. Cadrage **16:9, 1280 × 720**, mis à l’échelle uniformément en largeur et hauteur; paysage mobile, invitation à tourner en portrait, appuis libérés à la perte de focus et aux transitions.
+
+Accès de développement : `?scene=home`, `?scene=neighborhood`, `?scene=gym`, ainsi que les raccourcis d’activités existants. Ils prennent priorité sur le lieu sauvegardé, sans régénérer gratuitement l’énergie. Le démarrage normal sans paramètre passe par la reprise ou une nouvelle partie maison.
+
+Fichiers métier : `src/game/DayRules.js`, `src/game/CareerProfile.js`, `src/game/DailyActivityGate.js`, `src/game/ExplorationWorld.js`; les scènes et interfaces ajoutées sont à lire dans l’état réel du dépôt. Les acquis gym/Béton de la livraison précédente doivent rester fonctionnels. Préserver les changements locaux et réutiliser le Vite existant, port strict 5173. La publication GitHub Pages reste autorisée par les relais précédents, après intégration et contrôles; aucun autre service distant n’est demandé.
+
+Suite hors de ce GO : travail, argent, achats/vêtements, deuxième puis troisième adversaire et tournoi. **La liste initiale complète est conservée dans `docs/PROCHAINES_ETAPES.md`**; le présent GO regroupe sa boucle des journées et la partie maison/quartier de l’étape suivante. La maison précède/accompagne maintenant le sommeil. Les coûts monétaires et le tournoi ne sont pas implémentés par anticipation.
+
+## Historique — GO « 1 à 4 », gym complet, capacités et sauvegarde
+
+Les paragraphes de cette livraison décrivent l’état avant le GO maison/quartier ci-dessus. Leurs mentions d’un accueil au gym, d’un schéma v1 ou de journées encore futures sont remplacées par le contrat courant.
 
 L’utilisateur a autorisé les quatre travaux ensemble : **terminer les ateliers du gym, relier leurs gains au combat, sauvegarder la progression et vérifier la boucle entraînement → Béton → reprise**. Il a ensuite interrompu la première proposition de corde/speed ball pour demander de meilleurs visuels et les bonnes touches selon ordinateur/mobile. Cette correction complète le GO; elle ne ramène pas la mission à une maquette. Les anciennes attentes de confirmation et portées visuelles conservées ci-dessous sont historiques.
 

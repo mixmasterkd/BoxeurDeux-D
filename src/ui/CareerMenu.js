@@ -16,7 +16,7 @@ export function installCareerMenu() {
   let pending = null, held = new Set();
   const notify = open => window.dispatchEvent(new CustomEvent('career-menu-change', { detail: { open } }));
   root.hidden = false; if (stage) stage.inert = true;
-  root.innerHTML = `<section role="dialog" aria-modal="true" aria-labelledby="career-title"><p>BOXEURDEUX-D</p><h2 id="career-title">Retour au gym.</h2><dl class="career-stats"></dl><button type="button" class="career-continue primary-button">Continuer</button><div class="career-tools"><button type="button" class="career-export">Exporter ma partie</button><button type="button" class="career-import">Importer une partie</button><button type="button" class="career-new">Nouvelle partie</button></div><div class="career-confirm" hidden><p></p><div><button type="button" class="career-cancel">Annuler</button><button type="button" class="career-confirm-button">Confirmer</button></div></div><input class="career-file" type="file" accept="application/json,.json" hidden><small class="career-status" role="status" aria-live="polite"></small><small class="career-storage-note">Partie conservée dans ce navigateur et à cette adresse. Exporter permet de la transférer sur un autre appareil.</small></section>`;
+  root.innerHTML = `<section role="dialog" aria-modal="true" aria-labelledby="career-title"><p>BOXEURDEUX-D</p><h2 id="career-title">Reprendre ta journée.</h2><dl class="career-stats"></dl><button type="button" class="career-continue primary-button">Continuer</button><div class="career-tools"><button type="button" class="career-export">Exporter ma partie</button><button type="button" class="career-import">Importer une partie</button><button type="button" class="career-new">Nouvelle partie</button></div><div class="career-confirm" hidden><p></p><div><button type="button" class="career-cancel">Annuler</button><button type="button" class="career-confirm-button">Confirmer</button></div></div><input class="career-file" type="file" accept="application/json,.json" hidden><small class="career-status" role="status" aria-live="polite"></small><small class="career-storage-note">Partie conservée dans ce navigateur et à cette adresse. Exporter permet de la transférer sur un autre appareil.</small></section>`;
   const stats = root.querySelector('.career-stats'), confirmation = root.querySelector('.career-confirm');
   const status = root.querySelector('.career-status'), main = root.querySelector('.career-continue');
   const fileInput = root.querySelector('.career-file'), tools = root.querySelector('.career-tools');
@@ -24,12 +24,13 @@ export function installCareerMenu() {
   const focus = element => { element?.focus({ preventScroll: true }); element?.scrollIntoView({ block: 'nearest' }); };
   const render = () => {
     const p = careerProfile.snapshot();
-    stats.innerHTML = `<div><dt>Endurance</dt><dd>${p.stats.endurance}/${p.caps.endurance}</dd></div><div><dt>Résistance</dt><dd>${p.stats.resistance}/${p.caps.resistance}</dd></div><div><dt>Puissance</dt><dd>+${p.stats.power}/${p.caps.power}</dd></div><div><dt>Récupération</dt><dd>+${Math.round((p.stats.recovery - 1) * 100)}%</dd></div>`;
+    root.querySelector("#career-title").textContent = `Jour ${p.daily.day} · ${p.location.scene === "home" ? "Chez toi" : p.location.scene === "gym" ? "Au gym" : "Le quartier"}`;
+    stats.innerHTML = `<div><dt>Énergie de journée</dt><dd>${p.daily.energy}/${p.daily.maxEnergy}</dd></div><div><dt>Endurance</dt><dd>${p.stats.endurance}/${p.caps.endurance}</dd></div><div><dt>Résistance</dt><dd>${p.stats.resistance}/${p.caps.resistance}</dd></div><div><dt>Puissance</dt><dd>+${p.stats.power}/${p.caps.power}</dd></div><div><dt>Récupération</dt><dd>+${Math.round((p.stats.recovery - 1) * 100)}%</dd></div>`;
     status.textContent = careerProfile.saveStatus().message;
     status.dataset.state = careerProfile.saveStatus().state;
   };
   const close = () => {
-    root.hidden = true; if (stage) stage.inert = false; held.clear(); notify(false);
+    root.hidden = true; if (stage) stage.inert = matchMedia('(pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait)').matches; held.clear(); notify(false);
     if (previousFocus?.isConnected && previousFocus !== document.body) previousFocus.focus({ preventScroll: true });
   };
   const cancel = () => {

@@ -1,0 +1,22 @@
+{
+  "width": 1280,
+  "height": 720,
+  "coordinateSystem": "Artwork pixels. Actor position is the foot anchor; collision footprints are for feet, with actor foot-radius inflation by the scene.",
+  "walkBounds": { "left": 52, "top": 226, "right": 1225, "bottom": 662 },
+  "entrance": { "x": 640, "y": 622, "facing": "up" },
+  "exit": { "x": 640, "y": 655, "radius": 80 },
+  "bed": { "x": 965, "y": 330, "radius": 88, "facing": "right" },
+  "sleepResume": { "x": 944, "y": 365, "facing": "down" },
+  "wardrobe": { "x": 170, "y": 316, "radius": 72 },
+  "desk": { "x": 213, "y": 545, "radius": 72 },
+  "trophy": { "x": 1160, "y": 419, "radius": 74 },
+  "footObstacles": [
+    { "id": "wardrobe", "x": 53, "y": 0, "width": 190, "height": 279 },
+    { "id": "entry-bench", "x": 0, "y": 300, "width": 81, "height": 114 },
+    { "id": "desk-chair", "x": 0, "y": 453, "width": 183, "height": 215 },
+    { "id": "bed", "x": 990, "y": 0, "width": 225, "height": 365 },
+    { "id": "bedside-table", "x": 935, "y": 0, "width": 60, "height": 214 },
+    { "id": "right-dresser", "x": 1190, "y": 387, "width": 90, "height": 199 }
+  ],
+  "notes": "Suggested collision footprints measured from the final 1280×720 image. Wall line is y210–220, leaving an accessible parquet path. Trophies/wardrobe/desk are decoration or future activity hints only. Bed approach from its left, exit at the visible bottom doorway. Rugs are walkable. Use x640/y622 arrival so character is fully visible above foreground wall."
+}

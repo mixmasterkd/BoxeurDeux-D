@@ -16,7 +16,6 @@ export const GYM_LAYOUT = {
     { id: 'banc-gauche', x: 64, y: 320, width: 70, height: 111 },
     { id: 'banc-droit', x: 1162, y: 399, width: 55, height: 180 },
     { id: 'casiers', x: 1172, y: 213, width: 44, height: 115 },
-    { id: 'affiche-combat', x: 975, y: 561, width: 70, height: 17 },
   ],
   stations: [
     { id: 'remi', label: 'Rémi le Tank', x: 915, y: 470, radius: 85, kind: 'sparring' },
@@ -25,7 +24,6 @@ export const GYM_LAYOUT = {
     { id: 'speedball', label: 'Speed ball', x: 1070, y: 237, radius: 80, kind: 'rhythm' },
     { id: 'corde', label: 'Corde à danser', x: 210, y: 537, radius: 85, kind: 'rhythm' },
     { id: 'porte', label: 'Sortie du gym', x: 640, y: 659, radius: 50, kind: 'exit' },
-    { id: 'combat', label: 'Prochain combat · Béton', x: 1010, y: 575, radius: 75, kind: 'fight' },
   ],
 };
 
@@ -82,6 +80,22 @@ export class GymWorld {
     this.input.x = axis(x);
     this.input.y = axis(y);
     if (!this.input.x && !this.input.y) this.state.moving = false;
+  }
+
+  restorePosition(position) {
+    const bounds = this.layout.bounds || GYM_LAYOUT.bounds;
+    const foot = this.layout.footprint || GYM_LAYOUT.footprint;
+    const fallback = this.layout.spawn || GYM_LAYOUT.spawn;
+    const x = Number.isFinite(position?.x) ? position.x : fallback.x;
+    const y = Number.isFinite(position?.y) ? position.y : fallback.y;
+    const inside = x >= bounds.left + foot.halfWidth && x <= bounds.right - foot.halfWidth
+      && y >= bounds.top + foot.halfHeight && y <= bounds.bottom - foot.halfHeight;
+    const blocked = (this.layout.obstacles || []).some(rect => x + foot.halfWidth > rect.x
+      && x - foot.halfWidth < rect.x + rect.width && y + foot.halfHeight > rect.y
+      && y - foot.halfHeight < rect.y + rect.height);
+    Object.assign(this.state, inside && !blocked ? { x, y } : { x: fallback.x, y: fallback.y });
+    this.state.facing = ['up', 'down', 'left', 'right'].includes(position?.facing) ? position.facing : fallback.facing || 'down';
+    this.releaseControls(); this.getNearby();
   }
 
   releaseControls() {
