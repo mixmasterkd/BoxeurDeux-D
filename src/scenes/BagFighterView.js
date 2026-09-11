@@ -1,5 +1,9 @@
+import { fighterMotion } from '../game/FighterMotion.js';
+
 const ASSETS = 'assets/sprites/bag-orthodox/';
 const POSES = ['guard', 'windup', 'jab', 'cross', 'hook-windup', 'hook'];
+const BODY_POSES = ['windup-body', 'jab-body', 'cross-body', 'hook-windup-body', 'hook-body', 'block-body'];
+const DEFENSE_POSES = { block: 'player-block', dodgeLeft: 'player-dodge-left', dodgeRight: 'player-dodge-right' };
 const EPSILON = 1e-9; // Same contact boundary as BagSession.
 const clamp = (v, low = 0, high = 1) => Math.max(low, Math.min(high, v));
 const smooth = (v) => { const t = clamp(v); return t * t * (3 - 2 * t); };
@@ -10,13 +14,18 @@ export class BagFighterView {
     const base = import.meta.env.BASE_URL;
     scene.load.image('bag-room', `${base}assets/backgrounds/bag-training.png`);
     scene.load.json('bag-fighters', `${base}${ASSETS}fighters.json`);
+    scene.load.json('bag-body-data', `${base}assets/sprites/body-training/gym.json`);
+    scene.load.json('bag-defense-data', `${base}assets/sprites/mirror/fighters.json`);
     scene.load.image('heavy-bag', `${base}assets/sprites/bag/heavy-bag.png`);
     for (const pose of POSES) scene.load.image(`bag-player-${pose}`, `${base}${ASSETS}player-${pose}.png`);
+    for (const pose of BODY_POSES) scene.load.image(`bag-player-${pose}`, `${base}assets/sprites/body-training/gym-${pose}.png`);
+    for (const [pose, file] of Object.entries(DEFENSE_POSES)) scene.load.image(`bag-player-${pose}`, `${base}assets/sprites/mirror/${file}.png`);
   }
 
   constructor(scene) {
     this.scene = scene;
-    this.metadata = scene.cache.json.get('bag-fighters');
+    const original = scene.cache.json.get('bag-fighters');
+    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('bag-body-data').poses, ...scene.cache.json.get('bag-defense-data').poses } };
     this.anchor = this.metadata.anchor;
     this.x = 595;
     this.feet = 618;
@@ -45,10 +54,10 @@ export class BagFighterView {
     this.contactPoint = this.targetPoint();
   }
 
-  targetPoint() {
+  targetPoint(target = 'head') {
     const data = this.metadata.bag;
     const dx = data.target.x - data.pivot.x;
-    const dy = data.target.y - data.pivot.y;
+    const dy = data.target.y + (target === 'body' ? 89 : 0) - data.pivot.y;
     const angle = this.bag.rotation;
     return {
       x: this.pivot.x + dx * Math.cos(angle) - dy * Math.sin(angle),
@@ -90,6 +99,7 @@ export class BagFighterView {
     const attacking = ['jab', 'cross', 'hook'].includes(action);
     let dx = 0;
     let dy = Math.sin(time * 5.2) * 1.8;
+    let rotation = 0;
     let pose = 'guard';
     let phase = 'guard';
     if (attacking) {
@@ -99,12 +109,13 @@ export class BagFighterView {
       const duration = player.duration;
       const isContact = elapsed + EPSILON >= contact && elapsed + EPSILON < contact + hold;
       const isRecovering = elapsed + EPSILON >= contact + hold;
-      const target = this.targetPoint();
+      const suffix = player.target === 'body' ? '-body' : '';
+      const target = this.targetPoint(player.target);
       // Reacquire on the exact first contact frame: an already swinging bag
       // may have moved since the final anticipation frame.
       if (elapsed + EPSILON < contact || (isContact && this.phase !== 'contact')) this.attackAim = target;
       if (!this.attackAim) this.attackAim = target;
-      const glove = this.metadata.poses[action].contact;
+      const glove = this.metadata.poses[`${action}${suffix}`].contact;
       const baseContact = { x: this.x + glove.x - this.anchor.x, y: this.feet + glove.y - this.anchor.y };
       const aim = this.attackAim;
       const reach = isContact ? 1 : isRecovering
@@ -115,14 +126,22 @@ export class BagFighterView {
       dx = (aim.x - baseContact.x) * reach;
       dy = (aim.y - baseContact.y) * reach;
       phase = isContact ? 'contact' : isRecovering ? 'recovery' : 'anticipation';
-      pose = isContact ? action : action === 'hook' ? 'hook-windup' : 'windup';
+      pose = isContact ? `${action}${suffix}` : `${action === 'hook' ? 'hook-windup' : 'windup'}${suffix}`;
       if (isRecovering && elapsed > contact + hold + (duration - contact - hold) * .6) pose = 'guard';
       // The impact drawing is selected on precisely the same model tick as
       // scoring. It stays readable for the model's full contact hold.
     } else {
       this.attackAim = null;
+      if (action === 'guard' || action === 'dodgeLeft' || action === 'dodgeRight') {
+        const defense = fighterMotion(player, time, 'player');
+        pose = defense.pose === 'dodge' ? action : defense.pose;
+        dx = defense.dx;
+        dy = defense.dy;
+        rotation = defense.rotation;
+        phase = defense.phase;
+      }
     }
-    this.sprite.setTexture(`bag-player-${pose}`).setPosition(Math.round(this.x + dx), Math.round(this.feet + dy));
+    this.sprite.setTexture(`bag-player-${pose}`).setPosition(Math.round(this.x + dx), Math.round(this.feet + dy)).setRotation(rotation);
     this.playerShadow.setPosition(this.x - 8 + dx, this.feet - 5 + dy * .2);
     this.pose = pose;
     this.phase = phase;
@@ -132,7 +151,7 @@ export class BagFighterView {
     this.contactPoint = glove ? {
       x: this.sprite.x + glove.x - this.anchor.x,
       y: this.sprite.y + glove.y - this.anchor.y,
-    } : this.targetPoint();
+    } : this.targetPoint(player.target);
     this.drawImpact(time);
   }
 

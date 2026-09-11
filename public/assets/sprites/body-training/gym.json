@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 420,
+    "height": 360
+  },
+  "anchor": {
+    "x": 170,
+    "y": 340
+  },
+  "sources": [
+    "references/characters/body-training/gym-alpha.png"
+  ],
+  "note": "Original orthodox body punches and low guard; same stance, camera and anchor as bag-orthodox. No sprite flipping.",
+  "poses": {
+    "windup-body": {
+      "file": "body-training/gym-windup-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 42,
+        "y": 8,
+        "width": 252,
+        "height": 332
+      },
+      "sourceBounds": {
+        "x": 88,
+        "y": 23,
+        "w": 357,
+        "h": 470
+      },
+      "target": "body"
+    },
+    "jab-body": {
+      "file": "body-training/gym-jab-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 37,
+        "y": 8,
+        "width": 298,
+        "height": 332
+      },
+      "sourceBounds": {
+        "x": 583,
+        "y": 23,
+        "w": 422,
+        "h": 470
+      },
+      "glove": {
+        "x": 331,
+        "y": 155
+      },
+      "contact": {
+        "x": 331,
+        "y": 155
+      },
+      "punchingHand": "left",
+      "target": "body"
+    },
+    "cross-body": {
+      "file": "body-training/gym-cross-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 16,
+        "y": 8,
+        "width": 286,
+        "height": 332
+      },
+      "sourceBounds": {
+        "x": 1062,
+        "y": 23,
+        "w": 406,
+        "h": 471
+      },
+      "glove": {
+        "x": 300,
+        "y": 163
+      },
+      "contact": {
+        "x": 300,
+        "y": 163
+      },
+      "punchingHand": "right",
+      "target": "body"
+    },
+    "hook-windup-body": {
+      "file": "body-training/gym-hook-windup-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 39,
+        "y": 10,
+        "width": 256,
+        "height": 330
+      },
+      "sourceBounds": {
+        "x": 88,
+        "y": 526,
+        "w": 363,
+        "h": 468
+      },
+      "target": "body"
+    },
+    "hook-body": {
+      "file": "body-training/gym-hook-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 29,
+        "y": 10,
+        "width": 261,
+        "height": 330
+      },
+      "sourceBounds": {
+        "x": 576,
+        "y": 526,
+        "w": 370,
+        "h": 468
+      },
+      "glove": {
+        "x": 266,
+        "y": 148
+      },
+      "contact": {
+        "x": 266,
+        "y": 148
+      },
+      "punchingHand": "left",
+      "target": "body"
+    },
+    "block-body": {
+      "file": "body-training/gym-block-body.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 39,
+        "y": 9,
+        "width": 253,
+        "height": 331
+      },
+      "sourceBounds": {
+        "x": 1100,
+        "y": 524,
+        "w": 359,
+        "h": 469
+      },
+      "target": "body"
+    }
+  }
+}

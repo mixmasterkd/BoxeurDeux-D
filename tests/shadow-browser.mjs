@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import os from 'node:os';
 import path from 'node:path';
+import { joyPoint } from './control-helpers.mjs';
 
 const require = createRequire(import.meta.url);
 let modulePath = process.env.PLAYWRIGHT_MODULE_PATH;
@@ -67,7 +68,7 @@ async function layout(page, touch) {
     const canvas = document.querySelector('#game canvas');
     return {
       logical: [canvas.width, canvas.height], canvas: rect(canvas), area: rect(document.getElementById('play-area')),
-      controls: [...document.querySelectorAll('#shadow-ui .input-rail button')].filter(visible).map(button => ({ name: button.dataset.action ?? button.className, ...rect(button) })),
+      controls: [...document.querySelectorAll('#shadow-ui .input-rail button, #shadow-ui .joypad')].filter(visible).map(button => ({ name: button.dataset.action ?? button.className, ...rect(button) })),
       guideVisible: Boolean(visible(document.querySelector('.keyboard-guide'))), width: innerWidth, height: innerHeight,
       noScroll: document.documentElement.scrollWidth <= innerWidth + 1 && document.documentElement.scrollHeight <= innerHeight + 1,
       primaryFine: matchMedia('(pointer: fine) and (hover: hover)').matches,
@@ -79,7 +80,7 @@ async function layout(page, touch) {
   assert.ok(value.canvas.x >= -1 && value.canvas.y >= -1 && value.canvas.right <= value.width + 1 && value.canvas.bottom <= value.height + 1 && value.noScroll, JSON.stringify(value));
   assert.equal(value.guideVisible, false, 'commands remain in the menu');
   if (touch) {
-    assert.equal(value.controls.length, 7, 'five actions, pause and audio are available');
+    assert.equal(value.controls.length, 4, 'joypad, A/B and pause are available');
     assert.equal(value.touchLayout, 'true');
     for (const button of value.controls) {
       assert.ok(button.right <= value.canvas.x + 1 || button.x >= value.canvas.right - 1, `${button.name} stays outside the canvas`);
@@ -164,13 +165,14 @@ async function renderedMotions(page) {
 
 async function assertReleased(page) {
   assert.deepEqual(await page.evaluate(() => ({
-    keys: window.__shadow.ui.keys.size,
-    pointers: window.__shadow.ui.pointers.size,
-    guard: window.__shadow.ui.guardActive,
+    keys: window.__shadow.ui.controls.keys.size,
+    pointers: window.__shadow.ui.controls.pointers.size,
+    guard: Boolean(window.__shadow.ui.controls.guard),
   })), { keys: 0, pointers: 0, guard: false }, 'all input sources release together on interruption');
 }
 
 async function touchPoint(page, action, id = 1, offset = 0) {
+  if (action === 'guard') return joyPoint(page, '#shadow-ui', 'up', id);
   const box = await page.locator(`#shadow-ui [data-action="${action}"]`).boundingBox();
   return { id, x: box.x + box.width / 2 + offset, y: box.y + box.height / 2 };
 }
@@ -189,13 +191,13 @@ try {
     const desktop = await layout(page, false);
     assert.ok(desktop.primaryFine && desktop.touchPoints === 10, 'reproduce the actual fine-pointer PC touch-capacity regression');
     measurements.desktopLayout = desktop;
-    await page.keyboard.down('Space');
+    await page.keyboard.down('ArrowUp');
     await wait(page, () => window.__shadow.session.state.player.action === 'guard' && window.__shadow.scene.fighter.pose === 'block');
     await page.waitForTimeout(200);
     assert.ok((await state(page)).stats.guardSeconds > .1);
     assert.equal(await page.evaluate(() => window.__shadow.scene.fighter.sprite.texture.key === window.__shadow.scene.fighter.reflection.texture.key), true);
     await page.screenshot({ path: 'docs/miroir-garde.png' });
-    await page.keyboard.up('Space');
+    await page.keyboard.up('ArrowUp');
     await strike(page, 'jab');
     await strike(page, 'cross');
     await idle(page);
@@ -220,7 +222,7 @@ try {
     const frozen = await state(page);
     await page.locator('#shadow-ui .commands-open-button').click();
     assert.equal(await page.locator('#shadow-ui .commands-panel').isVisible(), true);
-    await page.keyboard.press('j');
+    await page.keyboard.press('ArrowUp');
     await page.waitForTimeout(200);
     assert.deepEqual(await state(page), frozen);
     await page.keyboard.press('Escape');
@@ -243,11 +245,11 @@ try {
     await page.keyboard.up('j');
     assert.equal((await state(page)).stats.jab, 3, 'holding the keyboard key produces one movement only');
     await idle(page);
-    await page.keyboard.down('Space');
+    await page.keyboard.down('ArrowUp');
     await page.evaluate(() => window.dispatchEvent(new Event('blur')));
     await wait(page, () => window.__shadow.session.state.phase === 'paused');
     await assertReleased(page);
-    await page.keyboard.up('Space');
+    await page.keyboard.up('ArrowUp');
     const blurred = await state(page);
     await page.waitForTimeout(150);
     assert.deepEqual(await state(page), blurred);
@@ -311,17 +313,16 @@ try {
     await wait(page, () => window.__shadow.session.state.stats.jab === 2);
     // CDP ends the listed contact; keep the guard finger on the glass.
     await dispatch('touchEnd', [jab]);
-    assert.equal(await page.evaluate(() => window.__shadow.ui.pointers.size), 1);
-    assert.equal(await page.locator('#shadow-ui [data-action="guard"]').getAttribute('aria-pressed'), 'true');
+    assert.notEqual(await page.evaluate(() => window.__shadow.ui.controls.padId), null);
+    assert.equal(await page.evaluate(() => window.__shadow.ui.controls.guard), 'head');
     await wait(page, () => window.__shadow.session.state.player.action === 'guard');
     await page.waitForTimeout(160);
     assert.ok((await state(page)).stats.guardSeconds > guardBefore);
-    const guard2 = await touchPoint(page, 'guard', 3, 12);
-    await dispatch('touchStart', [guard, guard2]);
+    // A keyboard direction is a separate source from the one-thumb pad.
+    await page.keyboard.down('ArrowUp');
     await dispatch('touchEnd', [guard]);
-    assert.equal(await page.evaluate(() => window.__shadow.ui.pointers.size), 1);
-    assert.equal(await page.locator('#shadow-ui [data-action="guard"]').evaluate(button => button.classList.contains('is-held')), true, 'the second finger independently keeps guard held');
-    await dispatch('touchCancel', []);
+    assert.equal((await state(page)).player.action, 'guard');
+    await page.keyboard.up('ArrowUp');
     await assertReleased(page);
     await idle(page);
 
@@ -334,26 +335,27 @@ try {
     await page.keyboard.press('Space');
     await wait(page, count => window.__shadow.session.state.stats.cross === count + 1, beforeNative.stats.cross);
     await idle(page);
-    await page.locator('#shadow-ui [data-action="guard"]').focus();
-    await page.keyboard.down('Enter');
+    await page.keyboard.down('ArrowUp');
     await wait(page, () => window.__shadow.session.state.player.action === 'guard');
-    await page.keyboard.up('Enter');
+    await page.keyboard.up('ArrowUp');
     await idle(page);
     await assertReleased(page);
     await strike(page, 'jab', 'jab', true);
     await strike(page, 'cross', 'cross', true);
     await idle(page);
-    assert.equal(await page.locator('#shadow-ui [data-action="jab"] .control-key').textContent(), 'Crochet');
+    assert.equal(await page.locator('#shadow-ui [data-action="jab"] .control-key').textContent(), 'A');
+    assert.equal(await page.locator('#shadow-ui [data-action="jab"] .control-label').textContent(), 'Crochet');
     await strike(page, 'jab', 'hook', true);
     assert.equal((await state(page)).stats.combos, 1, 'the same combo is playable with two ordinary attack buttons');
     for (const action of ['dodgeLeft', 'dodgeRight']) {
       await idle(page);
-      await page.locator(`#shadow-ui [data-action="${action}"]`).tap();
+      await dispatch('touchStart', [await joyPoint(page, '#shadow-ui', action === 'dodgeLeft' ? 'left' : 'right')]);
+      await dispatch('touchEnd', []);
       await wait(page, action => window.__shadow.session.state.stats[action] === 1, action);
     }
     await idle(page);
     await page.screenshot({ path: 'docs/miroir-mobile.png' });
-    report('Simulated touch: held attacks do not repeat; guard and attack work together, separate fingers release independently, cancellation clears, native Enter/Space buttons work, and J–K–J is a real touch combo.');
+    report('Simulated touch: held attacks do not repeat; guard and attack work together, pad and attack sources release independently, cancellation clears, native Enter/Space buttons work, and J–K–J is a real touch combo.');
 
     measurements.mobileLayouts = [];
     for (const viewport of [{ width: 844, height: 390 }, { width: 667, height: 375 }, { width: 568, height: 320 }]) {
@@ -418,7 +420,7 @@ try {
     await page.locator('.shadow-start-button').tap();
     await wait(page, () => window.__shadow.session.state.phase === 'running');
     assert.equal((await state(page)).stats.jab, 0);
-    report('Simulated 844×390, 667×375 and 568×320: full fixed frame, seven outside-margin controls, accessible pause/help menus. Focus, portrait and primary-pointer changes clear inputs and require explicit resume; touch summary/restart passed.');
+    report('Simulated 844×390, 667×375 and 568×320: full fixed frame, joypad and A/B outside the image, accessible pause/help menus. Focus, portrait and primary-pointer changes clear inputs and require explicit resume; touch summary/restart passed.');
     await context.close();
   }
 

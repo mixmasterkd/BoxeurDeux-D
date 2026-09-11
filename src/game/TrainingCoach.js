@@ -10,7 +10,7 @@ export const LESSONS = Object.freeze({
 const EPSILON = 1e-9;
 const CUES = {
   jab: 'Attends mon ouverture, puis place un jab.',
-  guard: 'Bloque mon coup, puis relâche la garde pour souffler.',
+  guard: 'Maintiens haut pour bloquer à la tête, puis relâche pour souffler.',
   counter: 'Esquive du côté indiqué, puis réponds dans mon ouverture.',
 };
 
@@ -79,7 +79,7 @@ export class TrainingCoach {
     if (id === 'jab') {
       if (event.type === 'player-blocked') this.state.cue = 'Mes gants sont fermés. Attends l’ouverture.';
       if (event.type === 'player-hit') {
-        if (event.attack !== 'jab') this.state.cue = 'Pour cet exercice, utilise le jab.';
+        if (event.attack !== 'jab' || event.target === 'body') this.state.cue = 'Pour cet exercice, utilise le jab à la tête.';
         else if (context.remiAction !== 'open' || context.remiRemaining <= EPSILON) this.state.cue = 'Touche réussie. Attends maintenant une vraie ouverture.';
         else if (this.usedOpening === context.remiStage) this.state.cue = 'Un seul jab compte par ouverture. Attends la suivante.';
         else {
@@ -92,20 +92,20 @@ export class TrainingCoach {
         this.recovery = { released: false, target: Infinity };
         this.state.cue = 'Bien bloqué. Relâche la garde et souffle.';
       } else if (event.type === 'remi-hit') {
-        this.state.cue = 'Monte la garde avant le contact, puis relâche après le coup.';
+        this.state.cue = 'Maintiens haut avant le contact, puis relâche après le coup.';
       }
     } else if (id === 'counter') {
       if (event.type === 'remi-dodged') {
         this.counter = { waiting: true, attack: context.remiStage };
         this.state.cue = 'Belle esquive. Attends mon ouverture pour répondre.';
       } else if (event.type === 'player-hit') {
-        if (this.counter && !this.counter.waiting
+        if (event.target !== 'body' && this.counter && !this.counter.waiting
           && context.remiAction === 'open' && context.remiRemaining > EPSILON
           && this.counter.opening === context.remiStage) {
           this.counter = null;
           return this.advance(context, 'Esquive et réponse réussies. Prépare le prochain échange.');
         }
-        this.state.cue = this.counter?.waiting
+        this.state.cue = event.target === 'body' ? 'Pour cet exercice, réponds à la tête.' : this.counter?.waiting
           ? 'Attends la fin de mon coup pour répondre dans l’ouverture.'
           : 'Touche réussie. Pour le contre, esquive d’abord.';
       } else if (event.type === 'remi-blocked') {

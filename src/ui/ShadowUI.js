@@ -1,10 +1,7 @@
+import { installConsoleControls } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import './shadow.css';
 
-const KEY_ACTIONS = {
-  KeyJ: 'jab', KeyK: 'cross', Space: 'guard',
-  KeyA: 'dodgeLeft', ArrowLeft: 'dodgeLeft', KeyD: 'dodgeRight', ArrowRight: 'dodgeRight',
-};
 const MOVEMENT_LABELS = {
   idle: 'En garde, à votre rythme', guard: 'Garde haute', jab: 'Jab gauche',
   cross: 'Direct droit', hook: 'Crochet gauche', dodgeLeft: 'Esquive gauche', dodgeRight: 'Esquive droite',
@@ -23,11 +20,7 @@ export class ShadowUI {
     this.stage = document.getElementById('stage');
     this.phase = 'ready';
     this.commandsOpen = false;
-    this.keys = new Map();
-    this.pointers = new Map();
     this.menuPointers = new Map();
-    this.guardActive = false;
-    this.assistiveGuard = false;
     this.abort = new AbortController();
     this.portrait = matchMedia(TOUCH_PORTRAIT_QUERY);
     this.controlsQuery = matchMedia(TOUCH_CONTROLS_QUERY);
@@ -58,24 +51,20 @@ export class ShadowUI {
         <p class="commands-eyebrow">PRATIQUE LIBRE</p><h2 id="shadow-commands-title">Commandes du miroir</h2>
         <div class="commands-grid"><dl>
           <div><dt>Jab gauche</dt><dd>J</dd></div><div><dt>Direct droit</dt><dd>K</dd></div>
-          <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div><div><dt>Garde</dt><dd>Maintenir Espace</dd></div>
+          <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div><div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
         </dl><dl>
           <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
           <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div><div><dt>Son / muet</dt><dd>M</dd></div>
         </dl></div>
-        <p class="commands-tip">Une pression par frappe ou esquive. Pour le crochet : jab, retour en garde, direct, retour en garde, puis jab à nouveau. Enchaînez rapidement après chaque retour en garde. Une défense ou une pause interrompt le combo.</p>
+        <p class="commands-tip">Une pression par frappe ou esquive. Pour le crochet : jab, retour en garde, direct, retour en garde, puis jab à nouveau. Enchaînez rapidement après chaque retour en garde. La garde haute, une esquive ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps.</p>
         <p class="commands-tip">Le ralenti se choisit dans le menu. Terminez la séance depuis le menu pause pour voir les mouvements pratiqués.</p>
-        <p class="commands-touch-tip commands-tip">Au tactile : défenses dans la marge gauche, frappes dans la marge droite. Maintenez Garde pour la tenir. Le bouton Jab devient Crochet quand l’enchaînement est prêt.</p>
+        <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. A → B → A donne le crochet. Dans les menus, A valide et B revient.</p>
         <button type="button" class="commands-back-button">← Retour au menu</button>
       </section>
-      <div class="shadow-defense-dock" aria-label="Défenses">
-        <button type="button" class="control-button" data-action="dodgeLeft" aria-label="Esquive gauche"><span class="control-key">←</span><span class="control-label">Esquive</span></button>
-        <button type="button" class="control-button guard-control" data-action="guard" aria-label="Garde — maintenir" aria-pressed="false"><span class="control-key">▰</span><span class="control-label">Garde · tenir</span></button>
-        <button type="button" class="control-button" data-action="dodgeRight" aria-label="Esquive droite"><span class="control-key">→</span><span class="control-label">Esquive</span></button>
-      </div>
+      <div class="shadow-defense-dock"></div>
       <div class="shadow-attack-dock" aria-label="Frappes">
-        <button type="button" class="control-button attack-control" data-action="jab" aria-label="Jab gauche"><span class="control-key">Jab</span><span class="control-label">Gauche</span></button>
-        <button type="button" class="control-button attack-control" data-action="cross" aria-label="Direct droit"><span class="control-key">Direct</span><span class="control-label">Droite</span></button>
+        <button type="button" class="control-button attack-control" data-action="jab" aria-label="A — Jab gauche"><span class="control-key">A</span><span class="control-label">Jab</span></button>
+        <button type="button" class="control-button attack-control" data-action="cross" aria-label="B — Direct droit"><span class="control-key">B</span><span class="control-label">Direct</span></button>
       </div>
       <button type="button" class="shadow-pause-button" aria-label="Mettre la séance en pause">Ⅱ</button>
       <button type="button" class="shadow-audio-button" aria-label="Couper le son" aria-pressed="false">♪ Son</button>`;
@@ -85,6 +74,7 @@ export class ShadowUI {
     });
     this.buttons = new Map([...this.root.querySelectorAll('[data-action]')].map(button => [button.dataset.action, button]));
     this.bind();
+    this.controls = installConsoleControls(this, 'combat');
     this.stage.inert = this.portrait.matches;
     this.setAudioState({ available: true, muted: false });
     this.update(callbacks.getState?.() ?? { phase: 'ready', seconds: 0, speed: 1, player: { action: 'idle' }, combo: {}, stats: {} });
@@ -137,41 +127,6 @@ export class ShadowUI {
       this.clearInputs();
       this.callbacks.onSpeed(Number(speed.value));
     });
-    for (const [action, button] of this.buttons) {
-      this.on(button, 'pointerdown', event => {
-        if (!this.canPlay() || (event.pointerType === 'mouse' && event.button !== 0)) return;
-        event.preventDefault();
-        button.blur();
-        this.pointers.set(event.pointerId, { action, button });
-        try { button.setPointerCapture(event.pointerId); } catch { /* The pointer may have already ended. */ }
-        this.refreshHeld();
-        this.callbacks.onAudioGesture();
-        if (action === 'guard') this.refreshGuard();
-        else this.callbacks.onAction(action);
-      });
-      this.on(button, 'click', event => {
-        // Pointer gestures already fired on down. Native / assistive clicks did not.
-        if (event.detail !== 0 || !this.canPlay()) return;
-        this.callbacks.onAudioGesture();
-        if (action === 'guard') {
-          this.assistiveGuard = !this.assistiveGuard;
-          this.refreshGuard();
-          this.refreshHeld();
-        } else this.callbacks.onAction(action);
-      });
-      for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) this.on(button, type, event => this.releasePointer(event.pointerId));
-      this.on(button, 'contextmenu', event => event.preventDefault());
-    }
-    this.on(window, 'pointerup', event => this.releasePointer(event.pointerId));
-    this.on(window, 'pointercancel', event => this.releasePointer(event.pointerId));
-    this.on(window, 'keydown', event => this.keyDown(event));
-    this.on(window, 'keyup', event => {
-      if (!this.keys.has(event.code)) return;
-      event.preventDefault();
-      this.keys.delete(event.code);
-      this.refreshGuard();
-      this.refreshHeld();
-    });
     const blur = () => {
       this.clearInputs();
       this.callbacks.onBlur();
@@ -189,87 +144,7 @@ export class ShadowUI {
     return this.phase === 'running' && !this.portrait.matches && !document.hidden;
   }
 
-  keyDown(event) {
-    if (this.portrait.matches || document.hidden) return;
-    if (event.code === 'Tab' && this.phase !== 'running') {
-      const panel = this.root.querySelector(this.commandsOpen ? '.commands-panel' : '.shadow-panel');
-      const controls = [...panel.querySelectorAll('button:not(:disabled), select:not(:disabled)')].filter(element => element.getClientRects().length);
-      const index = controls.indexOf(document.activeElement);
-      if (controls.length && (index === -1 || (!event.shiftKey && index === controls.length - 1) || (event.shiftKey && index === 0))) {
-        event.preventDefault();
-        controls[event.shiftKey ? controls.length - 1 : 0].focus({ preventScroll: true });
-      }
-      return;
-    }
-    if (event.code === 'KeyP' || event.code === 'Escape') {
-      event.preventDefault();
-      if (event.repeat) return;
-      this.clearInputs();
-      this.callbacks.onAudioGesture();
-      if (this.commandsOpen) this.showCommands(false);
-      else if (this.phase === 'running') this.callbacks.onPause();
-      else if (this.phase === 'paused') this.callbacks.onResume();
-      return;
-    }
-    if (event.target instanceof Element && event.target.closest('input, select, textarea, [contenteditable="true"]')) return;
-    const nativeButton = event.target instanceof HTMLButtonElement && ['Enter', 'Space'].includes(event.code);
-    const nativeGuard = nativeButton && event.target.dataset.action === 'guard';
-    if (nativeButton && !nativeGuard) {
-      if (event.repeat) event.preventDefault();
-      return;
-    }
-    if (event.code === 'KeyM') {
-      event.preventDefault();
-      if (!event.repeat) { this.callbacks.onAudioGesture(); this.callbacks.onMute(); }
-      return;
-    }
-    const action = nativeGuard ? 'guard' : KEY_ACTIONS[event.code];
-    if (!action || !this.canPlay()) return;
-    event.preventDefault();
-    if (event.repeat || this.keys.has(event.code)) return;
-    this.keys.set(event.code, action);
-    this.refreshHeld();
-    this.callbacks.onAudioGesture();
-    if (action === 'guard') this.refreshGuard();
-    else this.callbacks.onAction(action);
-  }
-
-  releasePointer(id) {
-    const input = this.pointers.get(id);
-    if (!input) return;
-    this.pointers.delete(id);
-    try { if (input.button.hasPointerCapture(id)) input.button.releasePointerCapture(id); } catch { /* Canceled pointer. */ }
-    this.refreshGuard();
-    this.refreshHeld();
-  }
-
-  refreshGuard() {
-    const held = this.assistiveGuard || [...this.keys.values()].includes('guard')
-      || [...this.pointers.values()].some(input => input.action === 'guard');
-    if (held === this.guardActive) return;
-    this.guardActive = held;
-    this.buttons.get('guard').setAttribute('aria-pressed', String(held));
-    this.callbacks.onGuard(held);
-  }
-
-  refreshHeld() {
-    const held = new Set([...this.keys.values(), ...[...this.pointers.values()].map(input => input.action)]);
-    if (this.assistiveGuard) held.add('guard');
-    for (const [action, button] of this.buttons) button.classList.toggle('is-held', held.has(action));
-  }
-
-  clearInputs() {
-    this.keys.clear();
-    this.menuPointers.clear();
-    this.assistiveGuard = false;
-    const oldPointers = [...this.pointers.entries()];
-    this.pointers.clear();
-    for (const [id, input] of oldPointers) {
-      try { if (input.button.hasPointerCapture(id)) input.button.releasePointerCapture(id); } catch { /* Detached / canceled pointer. */ }
-    }
-    this.refreshGuard();
-    this.refreshHeld();
-  }
+  clearInputs() { this.controls?.clear(); this.menuPointers.clear(); }
 
   showCommands(open) {
     if (this.phase === 'running') return;
@@ -318,8 +193,8 @@ export class ShadowUI {
     const jabButton = this.buttons.get('jab');
     jabButton.classList.toggle('is-combo-ready', ready);
     jabButton.setAttribute('aria-label', ready ? 'Crochet gauche en combo' : 'Jab gauche');
-    this.text('[data-action="jab"] .control-key', ready ? 'Crochet' : 'Jab');
-    this.text('.shadow-movement', ready && state.player.action === 'idle' ? 'Crochet prêt' : MOVEMENT_LABELS[state.player.action] ?? 'En garde, à votre rythme');
+    this.controls?.refresh();
+    this.text('.shadow-movement', ready && state.player.action === 'idle' ? 'Crochet prêt' : state.player.action === 'guard' ? (state.player.guardLevel === 'body' ? 'Garde basse' : 'Garde haute') : `${MOVEMENT_LABELS[state.player.action] ?? 'En garde, à votre rythme'}${['jab', 'cross', 'hook'].includes(state.player.action) && state.player.target === 'body' ? ' au corps' : ''}`);
     if (state.phase === 'finished') {
       const stats = state.stats;
       const seconds = Math.floor(state.seconds);
@@ -334,6 +209,7 @@ export class ShadowUI {
   }
 
   destroy() {
+    this.controls?.destroy();
     this.clearInputs();
     this.abort.abort();
     this.root.replaceChildren();

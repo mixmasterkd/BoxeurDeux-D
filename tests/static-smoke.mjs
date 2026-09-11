@@ -7,6 +7,7 @@ import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import os from 'node:os';
 import path from 'node:path';
+import { joyPoint } from './control-helpers.mjs';
 
 const require = createRequire(import.meta.url);
 let modulePath = process.env.PLAYWRIGHT_MODULE_PATH;
@@ -27,6 +28,7 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
 try {
   for (const entry of ['', 'index.html']) {
     const mobile = entry === 'index.html';
+    console.log(`Production UI: ${mobile ? 'touch' : 'desktop'} entry ${entry || '/'}`);
     const page = await browser.newPage({
       viewport: mobile ? { width: 844, height: 390 } : { width: 1280, height: 900 },
       hasTouch: mobile,
@@ -69,13 +71,14 @@ try {
     assert.equal(await page.evaluate(() => window.__gym), undefined, 'production does not expose gym development hooks');
     const press = async selector => mobile ? page.locator(selector).tap() : page.locator(selector).click();
     const touch = mobile ? await page.context().newCDPSession(page) : null;
+    const punchBoxes = {};
     const punch = async action => {
       if (!mobile) return page.keyboard.press(action === 'jab' ? 'j' : 'k');
-      const r = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+      const r = punchBoxes[action];
       await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ id: 1, x: r.x + r.width / 2, y: r.y + r.height / 2 }] });
       await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
     };
-    assert.equal(await page.locator('[data-direction="up"]').isVisible(), mobile, 'movement buttons are reserved for touch devices');
+    assert.equal(await page.locator('#gym-ui .joypad').isVisible(), mobile, 'the joypad is reserved for touch devices');
     if (mobile) await press('.gym-pause-button');
     else await page.keyboard.press('p');
     await press('#gym-ui .commands-open-button');
@@ -87,9 +90,9 @@ try {
     await page.waitForFunction(() => document.querySelector('#gym-ui').dataset.mode === 'walking');
     if (mobile) {
       const cdp = await page.context().newCDPSession(page);
-      for (const [direction, duration] of [['right', 1390], ['up', 420]]) {
-        const b = await page.locator(`[data-direction="${direction}"]`).boundingBox();
-        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: b.x + b.width / 2, y: b.y + b.height / 2, id: 1 }] });
+      for (const [direction, duration] of [['right', 1470], ['up', 445]]) {
+        const point = await joyPoint(page, '#gym-ui', direction);
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
         await page.waitForTimeout(duration);
         await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
       }
@@ -100,7 +103,13 @@ try {
     if (mobile) await press('.gym-interact-button');
     else await page.keyboard.press('e');
     await press('.gym-session-button[data-lesson="free"]');
-    await press('.primary-button');
+    await page.locator('#sparring-ui').waitFor({ state: 'visible' });
+    // Measure controls before starting: geometry protocol round trips and the
+    // emulated compatibility click must not consume the first opening.
+    if (mobile) {
+      for (const action of ['jab', 'cross']) punchBoxes[action] = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+      await punch('jab'); // A confirms the ready menu.
+    } else await press('.primary-button');
     if (!mobile) assert.equal(await page.locator('.input-rail button:visible').count(), 0);
     await punch('jab');
     await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '1');
@@ -109,7 +118,8 @@ try {
     await page.waitForFunction(() => document.querySelector('#sparring-ui [data-action="jab"]')?.classList.contains('is-combo-ready'));
     await punch('jab');
     await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '3', null, { timeout: 4000 }).catch(async error => {
-      error.message += ` (${mobile ? 'touch' : 'desktop'}: ${await page.locator('.fight-feedback').textContent()}, clock ${await page.locator('.round-time').textContent()})`;
+      console.error({ mobile, feedback: await page.locator('.fight-feedback').textContent(), time: await page.locator('.round-time').textContent(), landed: await page.locator('[data-value=landed]').textContent() });
+      await page.screenshot({ path: '/tmp/boxeur-static-failure.png' });
       throw error;
     });
     assert.match(await page.locator('.fight-feedback').textContent(), /Combo réussi/);
@@ -134,11 +144,11 @@ try {
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-value="training-progress"]')?.textContent === '1 / 3');
+    if (mobile) await press('.pause-button');
+    else await page.keyboard.press('p');
     if (mobile) await press('.audio-button');
     else await page.keyboard.press('m');
     assert.equal(await page.locator('.audio-button').getAttribute('aria-pressed'), 'true', 'mute works in the compiled game');
-    if (mobile) await press('.pause-button');
-    else await page.keyboard.press('p');
     await press('.return-gym-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     await page.goto(`${base}?scene=bag`);
@@ -193,9 +203,7 @@ try {
     await press('.shadow-start-button');
     await page.waitForFunction(() => document.querySelector('#shadow-ui').dataset.phase === 'running');
     assert.equal(await page.locator('.shadow-speed-label').isVisible(), true);
-    if (mobile) await press('.shadow-pause-button');
-    else await page.keyboard.press('p');
-    await press('.shadow-return-button');
+    await press('#shadow-ui .activity-exit-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
@@ -207,6 +215,9 @@ try {
   }
   {
     assert.ok(loaded.has('assets/backgrounds/gym.png'));
+    for (const file of ['gym-block-body.png', 'gym-jab-body.png', 'player-block-body.png', 'player-jab-body.png', 'remi-block-body.png', 'remi-jab-body.png']) {
+      assert.ok(loaded.has(`assets/sprites/body-training/${file}`), `body pose ${file} loads from the site directory`);
+    }
     assert.ok(loaded.has('assets/backgrounds/bag-training.png'));
     assert.ok(loaded.has('assets/sprites/bag-orthodox/player-hook.png'));
     assert.ok(loaded.has('assets/backgrounds/gym-exploration.png'));

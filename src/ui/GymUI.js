@@ -1,12 +1,6 @@
+import { installConsoleControls } from './GameControls.js';
 import './gym.css';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
-
-const DIRECTIONS = {
-  ArrowUp: 'up', KeyW: 'up', KeyZ: 'up',
-  ArrowDown: 'down', KeyS: 'down',
-  ArrowLeft: 'left', KeyA: 'left', KeyQ: 'left',
-  ArrowRight: 'right', KeyD: 'right',
-};
 
 const noop = () => {};
 
@@ -19,11 +13,7 @@ export class GymUI {
     this.root = document.getElementById('gym-ui');
     if (!this.root) throw new Error('GymUI requires #gym-ui inside the game stage.');
     this.stage = document.getElementById('stage');
-    this.keys = new Map();
-    this.activationKeys = new Set();
-    this.pointers = new Map();
     this.menuPointers = new Map();
-    this.vector = { x: 0, y: 0 };
     this.paused = false;
     this.commandsOpen = false;
     this.dialog = null;
@@ -40,15 +30,8 @@ export class GymUI {
         <button type="button" class="gym-pause-button" aria-label="Mettre la visite en pause" title="Pause — P ou Échap"><span aria-hidden="true">Ⅱ</span><span>Pause</span></button>
       </header>
       <div class="gym-nearby" role="status" aria-live="polite" aria-atomic="true"><span class="gym-nearby-label">Bienvenue au gym</span><span class="gym-nearby-hint">Approchez-vous de Rémi ou d’un atelier.</span></div>
-      <div class="gym-movement" role="group" aria-label="Déplacements : flèches, WASD ou ZQSD">
-        <span class="gym-dock-caption">SE DÉPLACER</span>
-        <button type="button" class="gym-direction" data-direction="up" aria-label="Aller vers le haut" tabindex="-1">↑</button>
-        <button type="button" class="gym-direction" data-direction="left" aria-label="Aller à gauche" tabindex="-1">←</button>
-        <span class="gym-pad-center" aria-hidden="true">·</span>
-        <button type="button" class="gym-direction" data-direction="right" aria-label="Aller à droite" tabindex="-1">→</button>
-        <button type="button" class="gym-direction" data-direction="down" aria-label="Aller vers le bas" tabindex="-1">↓</button>
-      </div>
-      <button type="button" class="gym-interact-button" disabled><span class="gym-interact-key" aria-hidden="true">E</span><span class="gym-interact-label">Interagir</span></button>
+      <div class="gym-movement"></div>
+      <button type="button" class="gym-interact-button" disabled><span class="gym-interact-key" aria-hidden="true">A</span><span class="gym-interact-label">Interagir</span></button>
       <div class="gym-modal-shade" hidden></div>
       <section class="gym-dialog" role="dialog" aria-modal="true" aria-labelledby="gym-dialog-title" aria-describedby="gym-dialog-text" hidden>
         <div class="gym-dialog-copy"><p class="gym-dialog-speaker gym-eyebrow"></p><h2 id="gym-dialog-title"></h2><p id="gym-dialog-text"></p></div>
@@ -63,7 +46,7 @@ export class GymUI {
           <div><dt>Marcher</dt><dd>Flèches · WASD · ZQSD</dd></div>
           <div><dt>Interagir</dt><dd>E ou Entrée</dd></div>
           <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
-        </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p>Échap ferme aussi une conversation.</p><p class="commands-touch-tip">Au tactile : pavé à gauche, Interagir à droite et Pause en haut.</p></div></div>
+        </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p>Échap ferme aussi une conversation.</p><p class="commands-touch-tip">Au tactile : joypad à gauche, A pour interagir, ☰ pour le menu. Dans les menus, le joypad choisit, A valide et B revient.</p></div></div>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
     `;
@@ -74,9 +57,8 @@ export class GymUI {
       'gym-modal-shade', 'gym-dialog', 'gym-dialog-speaker', 'gym-dialog-actions',
       'gym-pause-panel', 'gym-resume-button', 'commands-panel', 'commands-open-button', 'commands-back-button',
     ].map((name) => [name, this.root.querySelector(`.${name}`)]));
-    this.directionButtons = new Map([...this.root.querySelectorAll('[data-direction]')]
-      .map((button) => [button.dataset.direction, button]));
     this.bindEvents();
+    this.controls = installConsoleControls(this, 'gym');
     this.stage.inert = this.portraitQuery.matches;
     if (this.portraitQuery.matches || document.hidden) this.loseFocus();
   }
@@ -109,8 +91,6 @@ export class GymUI {
   }
 
   bindEvents() {
-    this.listen(window, 'keydown', (event) => this.keyDown(event));
-    this.listen(window, 'keyup', (event) => this.keyUp(event));
     this.listen(window, 'blur', () => this.loseFocus());
     this.listen(this.controlsQuery, 'change', () => this.loseFocus());
     this.listen(document, 'visibilitychange', () => {
@@ -154,86 +134,10 @@ export class GymUI {
       else if (button.dataset.gymAction === 'shadow') this.callbacks.onShadow();
       else this.callbacks.onCloseDialog();
     });
-    for (const [direction, button] of this.directionButtons) {
-      this.listen(button, 'pointerdown', (event) => {
-        if (!this.canMove() || (event.pointerType === 'mouse' && event.button !== 0)) return;
-        event.preventDefault();
-        button.blur();
-        this.pointers.set(event.pointerId, { direction, button });
-        try { button.setPointerCapture(event.pointerId); } catch { /* Ended pointer. */ }
-        this.refreshMovement();
-      });
-      for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) {
-        this.listen(button, event, (input) => this.releasePointer(input.pointerId));
-      }
-      this.listen(button, 'contextmenu', (event) => event.preventDefault());
-    }
-    this.listen(window, 'pointerup', (event) => this.releasePointer(event.pointerId));
-    this.listen(window, 'pointercancel', (event) => this.releasePointer(event.pointerId));
   }
 
   canMove() {
     return !this.destroyed && !this.paused && !this.dialog && !this.portraitQuery.matches && !document.hidden;
-  }
-
-  keyDown(event) {
-    if (this.destroyed || this.portraitQuery.matches || document.hidden) return;
-    if (this.activationKeys.has(event.code)) {
-      event.preventDefault();
-      return;
-    }
-    const target = event.target;
-    if (target instanceof Element && target.closest('input, select, textarea, [contenteditable="true"]')) return;
-    const modal = this.commandsOpen ? this.elements['commands-panel'] : this.paused ? this.elements['gym-pause-panel'] : this.dialog ? this.elements['gym-dialog'] : null;
-    if (event.code === 'Tab' && modal) {
-      const buttons = [...modal.querySelectorAll('button:not(:disabled)')];
-      if (!buttons.length) return;
-      const index = buttons.indexOf(document.activeElement);
-      if (index === -1 || (!event.shiftKey && index === buttons.length - 1) || (event.shiftKey && index === 0)) {
-        event.preventDefault();
-        buttons[event.shiftKey ? buttons.length - 1 : 0].focus({ preventScroll: true });
-      }
-      return;
-    }
-    if (event.code === 'KeyP' || event.code === 'Escape') {
-      event.preventDefault();
-      if (event.repeat) return;
-      this.clearInputs();
-      if (this.commandsOpen) this.showCommands(false);
-      else if (this.paused) this.callbacks.onResume();
-      else if (this.dialog) this.callbacks.onCloseDialog();
-      else this.requestPause();
-      return;
-    }
-    // Enter and Space retain native activation for focused dialog buttons.
-    if (target instanceof HTMLButtonElement && (event.code === 'Enter' || event.code === 'Space')) {
-      if (event.repeat) event.preventDefault();
-      return;
-    }
-    if (event.code === 'KeyE' || event.code === 'Enter') {
-      event.preventDefault();
-      if (!event.repeat) {
-        // The Enter that opens a conversation must not repeat on its newly
-        // focused first choice and immediately send the player into the ring.
-        this.activationKeys.add(event.code);
-        this.interact();
-      }
-      return;
-    }
-    const direction = DIRECTIONS[event.code];
-    if (!direction) return;
-    event.preventDefault();
-    if (!this.canMove() || event.repeat || this.keys.has(event.code)) return;
-    this.keys.set(event.code, direction);
-    this.refreshMovement();
-  }
-
-  keyUp(event) {
-    if (this.activationKeys.delete(event.code)) event.preventDefault();
-    if (!this.keys.has(event.code)) return;
-    event.preventDefault();
-    this.keys.delete(event.code);
-    this.refreshMovement();
   }
 
   interact() {
@@ -248,48 +152,11 @@ export class GymUI {
     this.callbacks.onPause();
   }
 
-  refreshMovement() {
-    const held = new Set([...this.keys.values(), ...[...this.pointers.values()].map((pointer) => pointer.direction)]);
-    let x = Number(held.has('right')) - Number(held.has('left'));
-    let y = Number(held.has('down')) - Number(held.has('up'));
-    const length = Math.hypot(x, y);
-    if (length > 1) { x /= length; y /= length; }
-    if (x !== this.vector.x || y !== this.vector.y) {
-      this.vector = { x, y };
-      this.callbacks.onMove({ x, y });
-    }
-    for (const [direction, button] of this.directionButtons) {
-      button.classList.toggle('is-held', held.has(direction));
-    }
-  }
-
-  releasePointer(pointerId) {
-    const pointer = this.pointers.get(pointerId);
-    if (!pointer) return;
-    this.pointers.delete(pointerId);
-    try {
-      if (pointer.button.hasPointerCapture(pointerId)) pointer.button.releasePointerCapture(pointerId);
-    } catch { /* A canceled or detached pointer has no capture to release. */ }
-    this.refreshMovement();
-  }
-
-  clearInputs() {
-    this.keys.clear();
-    this.menuPointers.clear();
-    const pointers = [...this.pointers.entries()];
-    this.pointers.clear();
-    for (const [id, pointer] of pointers) {
-      try {
-        if (pointer.button.hasPointerCapture(id)) pointer.button.releasePointerCapture(id);
-      } catch { /* Safe after a pointer cancellation. */ }
-    }
-    this.refreshMovement();
-  }
+  clearInputs() { this.controls?.clear(); this.menuPointers.clear(); }
 
   loseFocus() {
     if (this.destroyed) return;
     this.clearInputs();
-    this.activationKeys.clear();
     this.callbacks.onBlur();
   }
 
@@ -307,11 +174,11 @@ export class GymUI {
     this.renderMode();
     this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? 'Bienvenue au gym');
     this.setText(this.elements['gym-nearby-hint'], this.nearby
-      ? document.documentElement.dataset.touch === 'true' ? 'Touchez Interagir pour participer.' : 'Un atelier ou un partenaire vous attend.'
+      ? document.documentElement.dataset.touch === 'true' ? 'Appuyez sur A pour participer.' : 'Un atelier ou un partenaire vous attend.'
       : 'Approchez-vous de Rémi ou d’un atelier.');
     this.elements['gym-nearby'].classList.toggle('is-available', Boolean(this.nearby));
     this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby;
-    this.setText(this.elements['gym-interact-label'], this.nearby?.kind === 'sparring' ? 'Parler à Rémi' : 'Interagir');
+    this.controls?.refresh();
     if (this.paused && !wasPaused && !this.portraitQuery.matches) {
       this.elements['gym-resume-button'].focus({ preventScroll: true });
     } else if (wasPaused && !this.paused && this.dialog && !this.portraitQuery.matches) {
@@ -330,7 +197,7 @@ export class GymUI {
     this.elements['gym-dialog'].hidden = !this.dialog || this.paused;
     this.elements['gym-pause-button'].disabled = blocked;
     this.elements['gym-interact-button'].disabled = blocked || !this.nearby;
-    for (const button of this.directionButtons.values()) button.disabled = blocked;
+    this.controls?.refresh();
   }
 
   showCommands(open) {
@@ -373,9 +240,9 @@ export class GymUI {
   }
 
   destroy() {
+    this.controls?.destroy();
     if (this.destroyed) return;
     this.clearInputs();
-    this.activationKeys.clear();
     this.destroyed = true;
     this.abort.abort();
     this.root.replaceChildren();

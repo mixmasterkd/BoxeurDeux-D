@@ -4,8 +4,8 @@ import { GymUI } from '../ui/GymUI.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 
 const ACTIVITIES = {
-  sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, puis jab–direct–crochet. Une pression par coup, et on relâche les épaules entre les séries.' },
-  miroir: { title: 'Le miroir', text: 'Pratique libre : jab, direct, crochet en combo, garde et esquives. Observe ton reflet à ton rythme, sans adversaire ni limite de temps. Le ralenti permet de regarder chaque mouvement.' },
+  sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, jab–direct–crochet et frappes au corps. Une pression par coup, et on relâche les épaules entre les séries.' },
+  miroir: { title: 'Le miroir', text: 'Pratique libre : frappes à la tête et au corps, crochet en combo, gardes haute et basse, esquives. Observe ton reflet à ton rythme, sans adversaire ni limite de temps. Le ralenti permet de regarder chaque mouvement.' },
   speedball: { title: 'La speed ball', text: 'Un futur exercice de coordination et de régularité. Le matériel est en place; le mini-jeu sera ajouté après la visite du gym.' },
   corde: { title: 'La corde à danser', text: 'Ce tapis accueillera un exercice de rythme et de jeu de jambes. L’atelier ouvrira plus tard; le sparring avec Rémi est déjà accessible.' },
   porte: { title: 'Le quartier attendra', text: 'La première visite se déroule à l’intérieur du gym. Plus tard, vous passerez cette porte en survêtement noir à bandes blanches, toujours avec votre tuque rouge.' },
@@ -59,7 +59,11 @@ export class GymScene extends Phaser.Scene {
     });
     this.renderWorld();
     this.ui.update(this.world.state);
-    this.resizeObserver = new ResizeObserver(() => this.scale.refresh());
+    this.resizeObserver = new ResizeObserver(() => {
+      // Phaser refresh computes display size before its final bounds read.
+      // Read the resized parent first, including a change of primary pointer.
+      this.scale.getParentBounds(); this.scale.refresh();
+    });
     this.resizeObserver.observe(document.getElementById('game'));
     let disposed = false;
     const cleanup = () => {

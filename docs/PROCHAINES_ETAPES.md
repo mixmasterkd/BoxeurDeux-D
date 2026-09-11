@@ -42,13 +42,17 @@ Les poses clés sont en place; davantage d’intermédiaires pourront améliorer
 
 ## Suite à travailler
 
-Le nouveau GO autorise le combo **jab–direct–crochet en sparring libre**. Il est intégré avec trois poses supplémentaires du joueur vu de dos, une fenêtre de 0,5 s après la récupération de chaque coup, un coût total de 48 points d’endurance et des ouvertures de Rémi allongées. Les défenses, les coups reçus, la pause et l’expiration interrompent la chaîne. Le bilan distingue crochets touchés et combos de trois touches. Les leçons restent ciblées sur leurs mouvements initiaux. Voir `VERIFICATIONS.md` pour les essais terminés. Les frappes au corps restent une évolution ultérieure.
+Le nouveau GO autorise le combo **jab–direct–crochet en sparring libre**. Il est intégré avec trois poses supplémentaires du joueur vu de dos, une fenêtre de 0,5 s après la récupération de chaque coup, un coût total de 48 points d’endurance et des ouvertures de Rémi allongées. Les défenses, les coups reçus, la pause et l’expiration interrompent la chaîne. Le bilan distingue crochets touchés et combos de trois touches. Les leçons restent ciblées sur leurs mouvements initiaux. Voir `VERIFICATIONS.md` pour les essais terminés. Les frappes au corps sont ajoutées par le GO des commandes communes décrit ci-dessous.
 
 ## Miroir — réalisé après le nouveau GO
 
 Le **shadow boxing** permet maintenant de pratiquer librement les mouvements seulement, sans adversaire ni endurance limitante. Accès par la visite ou `?scene=shadow`; tenue du gym à tuque rouge, reflet synchronisé dans un nouveau décor, jab/direct/crochet en combo, garde haute et deux esquives. Vitesse normale ou ralentie à 65 %, pause/Commandes, fin volontaire, bilan des gestes, nouvel essai et retour à la même position dans le gym. Commandes clavier et marges tactiles communes au reste du jeu. Les essais réellement terminés sont décrits dans `VERIFICATIONS.md`.
 
-La **speed ball**, puis la **corde à danser**, sont les prochains ateliers envisagés. La visite, le sac, le miroir et le sparring restent la base jouable. Les frappes au corps et la progression quotidienne ne sont pas encore intégrées.
+La **speed ball**, puis la **corde à danser**, sont les prochains ateliers envisagés. La visite, le sac, le miroir et le sparring restent la base jouable. Les coups au corps et gardes haute/basse font maintenant partie de la convention commune. La progression quotidienne reste ultérieure.
+
+## Convention commune — GO avant la speed ball
+
+Joypad gauche, A/B et ☰ à droite sur mobile; directions flèches/WASD, J/K, E, P/Échap sur ordinateur. Même navigation des menus, mêmes hauteurs de garde et d’attaque au miroir, sac et sparring. Les sorties «← Gym» sont directes. Cette convention doit aussi servir aux prochains lieux : une activité adapte les gestes, elle ne réinvente pas ses boutons. Les gardes haute/basse protègent réellement tête/corps; Rémi annonce sa cible. Les nouvelles ressources complètent les anciennes sans les écraser. Voir `VERIFICATIONS.md` pour les tests effectivement terminés.
 
 ## Ateliers prévus
 
@@ -56,7 +60,7 @@ Chaque atelier devra d’abord être agréable à jouer et compréhensible par l
 
 | Activité | Intention du mini-jeu |
 | --- | --- |
-| Sac de frappe | Première séance intégrée : rythme, précision et quatre enchaînements. |
+| Sac de frappe | Première séance intégrée : rythme, précision et cinq enchaînements, dont un au corps. |
 | Shadow boxing devant le miroir | Intégré : pratique libre, reflet, défenses, combo et ralenti, sans adversaire. |
 | Speed ball | Coordination et régularité. |
 | Corde à danser | Rythme, endurance et jeu de jambes. |

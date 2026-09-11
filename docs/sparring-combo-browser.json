@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-09-11T12:31:24.174Z",
+  "checkedAt": "2026-09-11T15:32:38.616Z",
   "reports": [
     "Desktop primary mouse + maxTouchPoints 10: no visible controls; real J–K–J gives three aligned contact poses, one left hook, one combination and about 48 stamina spent. Held keys do not repeat.",
     "Wrong order K–J and an expired follow-up window both give an ordinary jab, never a free hook.",
     "Pause/Commands and focus loss clear pending combinations and held inputs; resume needs a fresh jab.",
     "Simulated mobile 844×390 / 667×375: native CDP J–K–J contacts, contextual Crochet button, hold/cancel, side margins, portrait clearing and explicit resume passed. This is not a physical-phone test.",
     "Waiting for the real default 60-second round to finish, with a successful combination in its report…",
-    "Real 59.9s round: hook/combination report and clean restart passed.",
+    "Real 60.0s round: hook/combination report and clean restart passed.",
     "No browser errors or failed resources."
   ],
   "contacts": [
@@ -14,8 +14,9 @@
       "screenshot": "docs/sparring-combo-crochet.png",
       "impact": {
         "type": "player-hit",
-        "time": 1.6013199999999974,
+        "time": 1.6846333333333332,
         "attack": "hook",
+        "target": "head",
         "impact": 0.47058823529411764,
         "combo": true,
         "x": 640.1328125,
@@ -28,8 +29,8 @@
           "x": 640,
           "y": 267.5078125
         },
-        "playerProgress": 0.48929411764705955,
-        "remiProgress": 0.048923076923078845,
+        "playerProgress": 0.489544117647058,
+        "remiProgress": 0.049576923076921076,
         "playerTexture": "player-hook",
         "remiTexture": "remi-hit"
       },
@@ -39,8 +40,9 @@
       "screenshot": "docs/sparring-combo-mobile.png",
       "impact": {
         "type": "player-hit",
-        "time": 1.801280000000002,
+        "time": 1.7676666666666663,
         "attack": "hook",
+        "target": "head",
         "impact": 0.47058823529411764,
         "combo": true,
         "x": 640.1328125,
@@ -53,8 +55,8 @@
           "x": 640,
           "y": 267.5078125
         },
-        "playerProgress": 0.4896078431372551,
-        "remiProgress": 0.04974358974359028,
+        "playerProgress": 0.48975980392156954,
+        "remiProgress": 0.05014102564102807,
         "playerTexture": "player-hook",
         "remiTexture": "remi-hit"
       },

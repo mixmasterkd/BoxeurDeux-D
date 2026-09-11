@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-09-11T15:01:05.277Z",
+  "reports": [
+    "Desktop gym: real fine/hover pointer with maxTouchPoints=10, no rails/guide, full frame, narrow portrait play and pause/Commands passed.",
+    "Desktop sparring: real fine/hover pointer with maxTouchPoints=10, no rails/guide, full frame, narrow portrait play and pause/Commands passed.",
+    "Desktop shadow: real fine/hover pointer with maxTouchPoints=10, no rails/guide, full frame, narrow portrait play and pause/Commands passed.",
+    "Desktop bag: real fine/hover pointer with maxTouchPoints=10, no rails/guide, full frame, narrow portrait play and pause/Commands passed.",
+    "Phone 844×390 gym: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 844×390 sparring: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 844×390 shadow: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 844×390 bag: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 667×375 gym: outside rails, portrait freeze/release, explicit landscape resume passed.",
+    "Phone 667×375 sparring: outside rails, portrait freeze/release, explicit landscape resume passed.",
+    "Phone 667×375 shadow: outside rails, portrait freeze/release, explicit landscape resume passed.",
+    "Phone 667×375 bag: outside rails, portrait freeze/release, explicit landscape resume passed."
+  ],
+  "errors": []
+}

@@ -1,3 +1,4 @@
+import { joyPoint } from './control-helpers.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -22,8 +23,8 @@ const wait = (page, predicate, arg) => page.waitForFunction(predicate, arg, { ti
 const gymState = page => page.evaluate(() => structuredClone(window.__gym.world.state));
 const roundState = page => page.evaluate(() => structuredClone(window.__sparring.session.state));
 const settle = page => page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-const gymButtons = '.gym-direction, .gym-interact-button, .gym-pause-button';
-const ringButtons = '.control-button, .pause-button, .audio-button';
+const gymButtons = '#gym-ui .joypad, #gym-ui .input-rail button';
+const ringButtons = '#sparring-ui .joypad, #sparring-ui .input-rail button';
 const watch = page => {
   activePage = page;
   page.on('pageerror', error => errors.push(error.message));
@@ -84,10 +85,10 @@ async function checkMenu(page, selector) {
     const buttons = [...panel.querySelectorAll('button, select, input')].filter(node => node.getClientRects().length && getComputedStyle(node).visibility !== 'hidden');
     return {
       fits: p.left >= 0 && p.top >= 0 && p.right <= innerWidth + 1 && p.bottom <= innerHeight + 1,
-      noScroll: panel.scrollHeight <= panel.clientHeight + 1 && panel.scrollWidth <= panel.clientWidth + 1,
+      noHorizontalScroll: panel.scrollWidth <= panel.clientWidth + 1,
       controlsFit: buttons.every(node => {
         const r = node.getBoundingClientRect();
-        return r.left >= p.left && r.right <= p.right + 1 && r.top >= p.top && r.bottom <= p.bottom + 1;
+        return r.left >= p.left && r.right <= p.right + 1;
       }),
       pageFits: document.documentElement.scrollWidth <= innerWidth + 1 && document.documentElement.scrollHeight <= innerHeight + 1,
     };
@@ -106,7 +107,7 @@ async function touchMoveTo(page, cdp, axis, target, tolerance = 3) {
   if (Math.abs(current - target) < tolerance) return;
   const sign = target > current ? 1 : -1;
   const direction = axis === 'x' ? sign > 0 ? 'right' : 'left' : sign > 0 ? 'down' : 'up';
-  const point = await contact(page, `[data-direction="${direction}"]`, 21);
+  const point = await joyPoint(page, '#gym-ui', direction, 21);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
   try { await wait(page, ({ axis, target, sign }) => (window.__gym.world.state[axis] - target) * sign >= 0, { axis, target, sign }); }
   finally { await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); }
@@ -134,21 +135,19 @@ try {
     const cdp = await context.newCDPSession(page);
     await page.goto(base);
     await wait(page, () => window.__gym?.world && !window.__gym.world.state.paused);
-    await checkRails(page, 'gym', 6);
+    await checkRails(page, 'gym', 4);
     const before = await gymState(page);
-    const right = await contact(page, '[data-direction="right"]', 1);
-    const up = await contact(page, '[data-direction="up"]', 2);
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [right] });
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [right, up] });
+    const right = await joyPoint(page, '#gym-ui', 'right', 1);
+    const diagonalPoint = await joyPoint(page, '#gym-ui', 'upRight', 1);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [diagonalPoint] });
     await page.waitForTimeout(200);
     const diagonal = await gymState(page);
-    assert.ok(diagonal.x > before.x + 10 && diagonal.y < before.y - 10, 'two fingers move diagonally');
-    // CDP ends the contact listed here; the other contact remains held.
-    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [up] });
+    assert.ok(diagonal.x > before.x + 10 && diagonal.y < before.y - 10, 'one thumb moves diagonally on the joypad');
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [right] });
     const horizontal = await gymState(page);
     await page.waitForTimeout(200);
     const moved = await gymState(page);
-    assert.ok(moved.x > horizontal.x + 10 && Math.abs(moved.y - horizontal.y) < 5, 'lifting one finger preserves the other direction');
+    assert.ok(moved.x > horizontal.x + 10 && Math.abs(moved.y - horizontal.y) < 5, 'dragging the same thumb changes direction without lifting');
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
     const canceled = await gymState(page);
     await page.waitForTimeout(150);
@@ -179,22 +178,19 @@ try {
     await page.locator('[name="tempo"]').selectOption('calm');
     await page.locator('.primary-button').tap();
     await wait(page, () => window.__sparring.session.state.phase === 'running');
-    await checkRails(page, 'sparring', 7);
-    const guard = await contact(page, '[data-action="guard"]', 3);
+    await checkRails(page, 'sparring', 4);
+    const guard = await joyPoint(page, '#sparring-ui', 'up', 3);
     const jab = await contact(page, '[data-action="jab"]', 4);
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [guard] });
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [guard, jab] });
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [jab] });
     await wait(page, () => window.__sparring.session.state.stats.thrown === 1 && window.__sparring.session.state.player.action === 'guard');
-    assert.equal(await page.evaluate(() => window.__sparring.ui.guardActive), true, 'lifting jab preserves held guard');
+    assert.equal(await page.evaluate(() => Boolean(window.__sparring.ui.controls.guard)), true, 'lifting jab preserves held guard');
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
     await wait(page, () => window.__sparring.session.state.player.action === 'idle');
-    assert.equal(await page.evaluate(() => window.__sparring.ui.guardActive), false, 'cancel releases guard');
+    assert.equal(await page.evaluate(() => Boolean(window.__sparring.ui.controls.guard)), false, 'cancel releases guard');
     await page.locator('[data-action="cross"]').tap();
     await wait(page, () => window.__sparring.session.state.stats.thrown === 2);
-    const muted = await page.locator('.audio-button').getAttribute('aria-pressed');
-    await page.locator('.audio-button').tap();
-    assert.notEqual(await page.locator('.audio-button').getAttribute('aria-pressed'), muted, 'side sound button works');
     await page.screenshot({ path: path.join(captureDir, `sparring-${viewport.width}.png`) });
     await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [guard] });
     await page.evaluate(() => window.dispatchEvent(new Event('blur')));
@@ -204,11 +200,14 @@ try {
     await page.waitForTimeout(150);
     assert.equal((await roundState(page)).phase, 'paused', 'old guard finger cannot resume the menu');
     await checkMenu(page, '.round-panel');
+    const muted = await page.locator('.audio-button').getAttribute('aria-pressed');
+    await page.locator('.audio-button').tap();
+    assert.notEqual(await page.locator('.audio-button').getAttribute('aria-pressed'), muted, 'pause sound control works');
     await commands(page, 'sparring');
     assert.equal((await roundState(page)).remaining, stopped.remaining, 'round clock stays frozen through commands');
     await page.locator('.primary-button').tap();
     await wait(page, () => window.__sparring.session.state.phase === 'running');
-    assert.equal(await page.evaluate(() => window.__sparring.ui.guardActive), false);
+    assert.equal(await page.evaluate(() => Boolean(window.__sparring.ui.controls.guard)), false);
 
     await page.setViewportSize({ width: 390, height: 844 });
     await wait(page, () => window.__sparring.session.state.phase === 'paused');
@@ -223,20 +222,20 @@ try {
     assert.equal((await roundState(page)).phase, 'paused', 'landscape requires explicit resume');
     await page.locator('.primary-button').tap();
     await wait(page, () => window.__sparring.session.state.phase === 'running');
-    await checkRails(page, 'sparring', 7);
+    await checkRails(page, 'sparring', 4);
     await page.locator('.pause-button').tap();
     await page.locator('.return-gym-button').tap();
     await wait(page, () => window.__gym?.world);
     const returned = await gymState(page);
     assert.equal(returned.x, entry.x);
     assert.equal(returned.y, entry.y);
-    await checkRails(page, 'gym', 6);
+    await checkRails(page, 'gym', 4);
     await page.setViewportSize({ width: 390, height: 844 });
     await wait(page, () => window.__gym.world.state.paused);
     assert.equal(await page.locator('#rotate-prompt').isVisible(), true);
     await page.setViewportSize(viewport);
     await page.locator('.gym-resume-button').tap();
-    await checkRails(page, 'gym', 6);
+    await checkRails(page, 'gym', 4);
     const report = `Touch ${viewport.width}×${viewport.height}: side buttons outside canvas, no overlaps, multi-touch, cancel/focus, Rémi transition, menus/commands and portrait return passed.`;
     reports.push(report); console.log(report);
     await context.close();

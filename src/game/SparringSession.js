@@ -61,6 +61,8 @@ function actionState(action, duration = 0, elapsed = 0, extra = {}) {
     impact: null,
     hurt: 0,
     reactionProgress: 1,
+    target: 'head',
+    guardLevel: 'head',
     ...extra,
   };
 }
@@ -76,12 +78,18 @@ export class SparringSession {
     this.settings = normalizeSettings(settings, this.settings);
     this._events = [];
     this._guardHeld = false;
+    this._guardRequested = false;
+    this._guardLevel = 'head';
     this._playerAction = null;
     this._combo = null;
     this._playerHurt = 0;
     this._remiHurt = 0;
+    this._playerHurtTarget = 'head';
+    this._remiHurtTarget = 'head';
     this._recoverAt = 0;
     this._nextSide = 'left';
+    this._nextTarget = 'head';
+    this._nextGuardLevel = 'head';
     this._remiAction = null;
     this._remiStage = 0;
     this._coach = this.settings.lesson === 'free' ? null : new TrainingCoach(this.settings.lesson);
@@ -92,7 +100,7 @@ export class SparringSession {
       stamina: 100,
       player: actionState('idle'),
       remi: actionState('idle', 0, 0, { safeDodge: null, side: null }),
-      stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0, hooks: 0, combos: 0 },
+      stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0, hooks: 0, combos: 0, landedHead: 0, landedBody: 0, receivedHead: 0, receivedBody: 0, blockedHead: 0, blockedBody: 0 },
       combo: { step: 0, ready: false, remaining: 0 },
       settings: { ...this.settings },
       training: null,
@@ -143,7 +151,7 @@ export class SparringSession {
     if (!['jab', 'cross', 'dodgeLeft', 'dodgeRight'].includes(action)
       || this.state.phase !== 'running' || this._playerAction || this._coach?.state.completed) return false;
     this._expireCombo();
-    if (this._guardHeld || action.startsWith('dodge')) this._clearCombo();
+    if ((this._guardHeld && this._guardLevel === 'head') || action.startsWith('dodge')) this._clearCombo();
     if (!this._coach && action === 'jab' && this._combo?.step === 2) action = 'hook';
     const timing = TIMINGS.player[action];
     if (this.state.stamina + EPSILON < timing.cost) {
@@ -153,7 +161,7 @@ export class SparringSession {
       return false;
     }
     let sequence = null;
-    if (!this._coach && !this._guardHeld) {
+    if (!this._coach && (!this._guardHeld || this._guardLevel === 'body')) {
       if (action === 'jab') {
         this._clearCombo();
         sequence = { step: 1, hits: 0, valid: true };
@@ -173,19 +181,29 @@ export class SparringSession {
       }
     }
     this.state.stamina = Math.max(0, this.state.stamina - timing.cost);
-    this._playerAction = { action, elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence };
+    this._playerAction = { action, target: this._guardRequested && this._guardLevel === 'body' ? 'body' : 'head', elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence };
     this._recoverAt = this.state.elapsed + timing.duration + RECOVERY_DELAY;
     if (timing.impact !== undefined) this.state.stats.thrown += 1;
     this._syncState();
     return true;
   }
 
-  setGuard(held) {
-    if (held && this.state.phase === 'running') this._clearCombo();
-    const next = Boolean(held) && this.state.phase === 'running' && this.state.stamina > EPSILON;
+  setGuard(held, level = 'head') {
+    const guardLevel = level === 'body' ? 'body' : 'head';
+    // Down also selects body punches, so holding it between punches must keep
+    // their combo window intact. A high guard remains a defensive interruption.
+    if (held && guardLevel === 'head' && this.state.phase === 'running') this._clearCombo();
+    const requested = Boolean(held) && this.state.phase === 'running';
+    // Exhaustion drops the effective defense, not the held direction. Down
+    // keeps selecting body punches while resting; the exhausted guard needs
+    // a deliberate release before it can be raised again.
+    const next = requested && this.state.stamina > EPSILON
+      && (!this._guardRequested || this._guardHeld);
     const wasHeld = this._guardHeld;
     if (this._guardHeld && !next) this._recoverAt = Math.max(this._recoverAt, this.state.elapsed + RECOVERY_DELAY);
     this._guardHeld = next;
+    this._guardRequested = requested;
+    this._guardLevel = requested ? guardLevel : 'head';
     this._coach?.onGuardChange(next, wasHeld, this._trainingContext());
     this._syncState();
     return this._guardHeld;
@@ -234,7 +252,7 @@ export class SparringSession {
 
     const guarding = this._guardHeld && !this._playerAction;
     if (guarding) {
-      this._clearCombo();
+      if (this._guardLevel === 'head') this._clearCombo();
       this.state.stamina = Math.max(0, this.state.stamina - GUARD_DRAIN_PER_SECOND * dt);
       this._recoverAt = this.state.elapsed + RECOVERY_DELAY;
       if (this.state.stamina <= EPSILON) {
@@ -280,12 +298,14 @@ export class SparringSession {
 
   _resolvePlayerPunch() {
     const attack = this._playerAction.action;
+    const target = this._playerAction.target;
     const sequence = this._playerAction.sequence;
-    if (this._remiAction?.action === 'guard') {
+    if (this._remiAction?.action === 'guard' && this._remiAction.guardLevel === target) {
       this.state.stats.opponentBlocked += 1;
-      this._emit('player-blocked', { attack, impact: this._playerAction.impact });
+      this._emit('player-blocked', { attack, target, impact: this._playerAction.impact });
     } else {
       this.state.stats.landed += 1;
+      this.state.stats[target === 'body' ? 'landedBody' : 'landedHead'] += 1;
       const combo = attack === 'hook' && sequence?.valid === true && sequence.hits === 2;
       if (attack === 'hook') {
         this.state.stats.hooks += 1;
@@ -294,12 +314,14 @@ export class SparringSession {
         sequence.hits += 1;
       }
       this._remiHurt = HURT_DURATION;
-      this._emit('player-hit', { attack, impact: this._playerAction.impact, ...(attack === 'hook' ? { combo } : {}) });
+      this._remiHurtTarget = target;
+      this._emit('player-hit', { attack, target, impact: this._playerAction.impact, ...(attack === 'hook' ? { combo } : {}) });
     }
   }
 
   _resolveRemiPunch() {
     const attack = this._remiAction.action;
+    const target = this._remiAction.target;
     const safeDodge = this._remiAction.safeDodge;
     const player = this._playerAction;
     const dodgeTiming = player && TIMINGS.player[player.action];
@@ -308,27 +330,30 @@ export class SparringSession {
       && player.elapsed <= dodgeTiming.activeUntil + EPSILON;
     if (dodged) {
       this.state.stats.dodged += 1;
-      this._emit('remi-dodged', { attack, direction: safeDodge, impact: this._remiAction.impact });
+      this._emit('remi-dodged', { attack, target, direction: safeDodge, impact: this._remiAction.impact });
       return;
     }
-    if (this._guardHeld && !player && this.state.stamina + EPSILON >= BLOCK_COST) {
+    if (this._guardHeld && this._guardLevel === target && !player && this.state.stamina + EPSILON >= BLOCK_COST) {
       this.state.stamina = Math.max(0, this.state.stamina - BLOCK_COST);
       this._recoverAt = this.state.elapsed + RECOVERY_DELAY;
       this.state.stats.blocked += 1;
-      this._emit('remi-blocked', { attack, impact: this._remiAction.impact });
+      this.state.stats[target === 'body' ? 'blockedBody' : 'blockedHead'] += 1;
+      this._emit('remi-blocked', { attack, target, impact: this._remiAction.impact });
       return;
     }
     this.state.stats.received += 1;
+    this.state.stats[target === 'body' ? 'receivedBody' : 'receivedHead'] += 1;
     this._clearCombo();
     this.state.stamina = Math.max(0, this.state.stamina - 4);
     this._playerHurt = HURT_DURATION;
+    this._playerHurtTarget = target;
     this._recoverAt = Math.max(this._recoverAt, this.state.elapsed + RECOVERY_DELAY);
-    if (!player) this._playerAction = { action: 'hit', elapsed: 0, duration: TIMINGS.player.hit.duration, impact: null, impacted: false };
-    this._emit('remi-hit', { attack, impact: this._remiAction.impact, guardBroken: this._guardHeld });
+    if (!player) this._playerAction = { action: 'hit', target, elapsed: 0, duration: TIMINGS.player.hit.duration, impact: null, impacted: false };
+    this._emit('remi-hit', { attack, target, impact: this._remiAction.impact, guardBroken: this._guardHeld && this._guardLevel === target && !player, wrongGuard: this._guardHeld && !player && this._guardLevel !== target });
   }
 
   _setRemiAction(action, duration, extra = {}) {
-    this._remiAction = { action, duration, elapsed: 0, impact: null, impacted: false, side: null, safeDodge: null, ...extra };
+    this._remiAction = { action, duration, elapsed: 0, impact: null, impacted: false, side: null, safeDodge: null, target: 'head', guardLevel: 'head', ...extra };
     this._remiStage += 1;
     this._coach?.onStage(this._trainingContext());
   }
@@ -340,22 +365,27 @@ export class SparringSession {
       this._setRemiAction('open', 1);
     } else if (current.action === 'open') {
       const sample = clamp(Number(this.random()) || 0, 0, 1);
-      this._setRemiAction('guard', tempo.guard + (sample - 0.5) * 0.26);
+      const guardLevel = this._coach ? 'head' : this._nextGuardLevel;
+      this._nextGuardLevel = guardLevel === 'head' ? 'body' : 'head';
+      this._setRemiAction('guard', tempo.guard + (sample - 0.5) * 0.26, { guardLevel });
     } else if (current.action === 'guard') {
       if (this.settings.lesson === 'jab') {
         this._setRemiAction('open', tempo.opening);
         return;
       }
+      const target = this._coach ? 'head' : this._nextTarget;
+      this._nextTarget = target === 'head' ? 'body' : 'head';
       const side = this._nextSide;
       this._nextSide = side === 'left' ? 'right' : 'left';
       const safeDodge = side === 'left' ? 'dodgeRight' : 'dodgeLeft';
-      this._setRemiAction(side === 'left' ? 'tellLeft' : 'tellRight', tempo.tell, { side, safeDodge });
-      this._emit('tell', { side, safeDodge, duration: tempo.tell });
+      this._setRemiAction(side === 'left' ? 'tellLeft' : 'tellRight', tempo.tell, { side, safeDodge, target });
+      this._emit('tell', { side, safeDodge, target, duration: tempo.tell });
     } else if (current.action === 'tellLeft' || current.action === 'tellRight') {
       const action = current.side === 'left' ? 'jab' : 'cross';
       this._setRemiAction(action, TIMINGS.remi[action].duration, {
         impact: TIMINGS.remi[action].impact,
         side: current.side,
+        target: current.target,
         safeDodge: current.safeDodge,
       });
     } else {
@@ -369,17 +399,23 @@ export class SparringSession {
     const remi = this._remiAction;
     this.state.combo = {
       step: this._combo?.step ?? 0,
-      ready: this.state.phase === 'running' && !player && !this._guardHeld
+      ready: this.state.phase === 'running' && !player && (!this._guardHeld || this._guardLevel === 'body')
         && this._combo?.step === 2 && this.state.stamina + EPSILON >= TIMINGS.player.hook.cost,
       remaining: this._combo && !player ? Math.max(0, this._combo.expiresAt - this.state.elapsed) : 0,
     };
     this.state.player = player
       ? actionState(player.action, player.duration, player.elapsed, {
         impact: player.impact,
+        target: player.target,
+        guardLevel: this._guardLevel,
+        hurtTarget: this._playerHurtTarget,
         hurt: this._playerHurt / HURT_DURATION,
         reactionProgress: 1 - this._playerHurt / HURT_DURATION,
       })
       : actionState(this._guardHeld ? 'guard' : 'idle', 0, 0, {
+        target: this._guardRequested ? this._guardLevel : 'head',
+        guardLevel: this._guardLevel,
+        hurtTarget: this._playerHurtTarget,
         hurt: this._playerHurt / HURT_DURATION,
         reactionProgress: 1 - this._playerHurt / HURT_DURATION,
       });
@@ -388,6 +424,9 @@ export class SparringSession {
     this.state.remi = remi
       ? actionState(remiAction, remi.duration, remi.elapsed, {
         impact: remi.impact,
+        target: remiAction === 'hit' ? this._remiHurtTarget : remi.target,
+        guardLevel: remi.guardLevel,
+        hurtTarget: this._remiHurtTarget,
         hurt: this._remiHurt / HURT_DURATION,
         reactionProgress: 1 - this._remiHurt / HURT_DURATION,
         safeDodge: remi.safeDodge,
@@ -419,6 +458,7 @@ export class SparringSession {
     this.state.phase = 'finished';
     this._clearCombo();
     this._guardHeld = false;
+    this._guardRequested = false;
     // Freeze the final combat frame behind the report. Clearing an action here
     // would hide a glove whose contact was just scored in this same frame.
     // Finished rounds accept no input or time; reset clears both actions.

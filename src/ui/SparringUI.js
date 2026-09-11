@@ -1,15 +1,6 @@
+import { installConsoleControls } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { LESSONS } from '../game/TrainingCoach.js';
-
-const KEY_ACTIONS = {
-  KeyJ: 'jab',
-  KeyK: 'cross',
-  KeyA: 'dodgeLeft',
-  ArrowLeft: 'dodgeLeft',
-  KeyD: 'dodgeRight',
-  ArrowRight: 'dodgeRight',
-  Space: 'guard',
-};
 
 const REMI_LABELS = {
   idle: 'Il vous observe',
@@ -47,10 +38,7 @@ export class SparringUI {
     this.settings = { tempo: 'normal', recovery: 1, lesson: 'free' };
     this.audio = { muted: false, volume: 0.35, available: true };
     this.freeTempo = 'normal';
-    this.keys = new Map();
-    this.pointers = new Map();
     this.menuPointers = new Map();
-    this.guardActive = false;
     this.abort = new AbortController();
     this.root = document.getElementById('sparring-ui');
     this.portraitQuery = window.matchMedia(TOUCH_PORTRAIT_QUERY);
@@ -130,27 +118,22 @@ export class SparringUI {
           <div><dt>Jab gauche</dt><dd>J</dd></div>
           <div><dt>Direct droit</dt><dd>K</dd></div>
           <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div>
-          <div><dt>Garde</dt><dd>Maintenir Espace</dd></div>
+          <div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
         </dl><dl>
           <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
           <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
           <div><dt>Son / muet</dt><dd>M</dd></div>
         </dl></div>
         <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
-        <p class="commands-tip">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. Une défense, un coup reçu ou une pause interrompt le combo. Les leçons gardent jab et direct.</p>
-        <p class="commands-touch-tip commands-tip">Au tactile : défenses à gauche, frappes à droite; maintenez Garde pour vous protéger.</p>
+        <p class="commands-tip">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
+        <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. Dans les menus, A valide et B revient; le joypad choisit.</p>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
-      <div class="action-dock defense-dock" aria-label="Défenses">
-        <span class="dock-caption">ESQUIVER & PROTÉGER</span>
-        <button type="button" class="control-button" data-action="dodgeLeft" aria-label="Esquive gauche — A ou flèche gauche" disabled><span class="control-key">←</span><span class="control-label">Esquive</span></button>
-        <button type="button" class="control-button guard-control" data-action="guard" aria-label="Garde — maintenir Espace ou ce bouton" aria-pressed="false" disabled><span class="control-key">▰</span><span class="control-label">Garde · tenir</span></button>
-        <button type="button" class="control-button" data-action="dodgeRight" aria-label="Esquive droite — D ou flèche droite" disabled><span class="control-key">→</span><span class="control-label">Esquive</span></button>
-      </div>
+      <div class="action-dock defense-dock"></div>
       <div class="action-dock attack-dock" aria-label="Attaques">
         <span class="dock-caption">À VOUS DE JOUER</span>
-        <button type="button" class="control-button attack-control" data-action="jab" aria-label="Jab — J" disabled><span class="control-key">J</span><span class="control-label">Jab</span></button>
-        <button type="button" class="control-button attack-control" data-action="cross" aria-label="Direct — K" disabled><span class="control-key">K</span><span class="control-label">Direct</span></button>
+        <button type="button" class="control-button attack-control" data-action="jab" aria-label="A — Jab" disabled><span class="control-key">A</span><span class="control-label">Jab</span></button>
+        <button type="button" class="control-button attack-control" data-action="cross" aria-label="B — Direct" disabled><span class="control-key">B</span><span class="control-label">Direct</span></button>
       </div>
     `;
     mountSideControls(this.root, { left: ['.defense-dock'], right: ['.pause-button', '.audio-button', '.attack-dock'] });
@@ -169,6 +152,7 @@ export class SparringUI {
     this.buttons = new Map([...this.root.querySelectorAll('[data-action]')]
       .map((button) => [button.dataset.action, button]));
     this.bindEvents();
+    this.controls = installConsoleControls(this, 'combat');
     this.setAudioState(this.audio);
     document.getElementById('stage').inert = this.portraitQuery.matches;
   }
@@ -201,8 +185,6 @@ export class SparringUI {
       this.clearInputs();
       this.callbacks.onReturnGym();
     });
-    this.listen(window, 'keydown', (event) => this.keyDown(event));
-    this.listen(window, 'keyup', (event) => this.keyUp(event));
     this.listen(window, 'blur', () => this.loseFocus());
     this.listen(this.controlsQuery, 'change', () => this.loseFocus());
     this.listen(document, 'visibilitychange', () => {
@@ -268,133 +250,13 @@ export class SparringUI {
         this.callbacks.onSettings({ ...this.settings });
       });
     });
-    for (const [action, button] of this.buttons) {
-      this.listen(button, 'pointerdown', (event) => {
-        if (!this.canPlay() || (event.pointerType === 'mouse' && event.button !== 0)) return;
-        this.callbacks.onAudioGesture();
-        event.preventDefault();
-        button.blur();
-        this.pointers.set(event.pointerId, { action, button });
-        try { button.setPointerCapture(event.pointerId); } catch { /* Pointer may already have ended. */ }
-        this.refreshHeldButtons();
-        if (action === 'guard') this.refreshGuard();
-        else this.callbacks.onAction(action);
-      });
-      this.listen(button, 'pointerup', (event) => this.releasePointer(event.pointerId));
-      this.listen(button, 'pointercancel', (event) => this.releasePointer(event.pointerId));
-      this.listen(button, 'lostpointercapture', (event) => this.releasePointer(event.pointerId));
-      this.listen(button, 'contextmenu', (event) => event.preventDefault());
-      // Enter/Space remain usable by keyboard and assistive technology without
-      // causing a duplicate action after a real PointerEvent.
-      this.listen(button, 'click', (event) => {
-        if (event.detail !== 0 || !this.canPlay()) return;
-        if (action === 'guard') return;
-        this.callbacks.onAudioGesture();
-        this.callbacks.onAction(action);
-      });
-    }
-    // The global fallback also releases a touch if capture is unavailable.
-    this.listen(window, 'pointerup', (event) => this.releasePointer(event.pointerId));
-    this.listen(window, 'pointercancel', (event) => this.releasePointer(event.pointerId));
   }
 
   canPlay() {
     return this.phase === 'running' && !this.portraitQuery.matches && !document.hidden;
   }
 
-  keyDown(event) {
-    if (this.portraitQuery.matches || document.hidden) return;
-    const target = event.target;
-    const modal = this.commandsOpen ? this.elements['commands-panel'] : this.phase === 'paused' ? this.elements['round-panel'] : null;
-    if (event.code === 'Tab' && modal) {
-      const controls = [...modal.querySelectorAll('button:not(:disabled), select:not(:disabled), input:not(:disabled)')].filter(element => element.getClientRects().length);
-      const index = controls.indexOf(document.activeElement);
-      if (controls.length && (index === -1 || (!event.shiftKey && index === controls.length - 1) || (event.shiftKey && index === 0))) {
-        event.preventDefault();
-        controls[event.shiftKey ? controls.length - 1 : 0].focus({ preventScroll: true });
-      }
-      return;
-    }
-    if (event.code === 'KeyP' || event.code === 'Escape') {
-      if (event.repeat || (this.phase !== 'running' && this.phase !== 'paused')) return;
-      event.preventDefault();
-      this.callbacks.onAudioGesture();
-      this.clearInputs();
-      if (this.commandsOpen) this.showCommands(false);
-      else if (this.phase === 'running') this.callbacks.onPause();
-      else this.callbacks.onResume();
-      return;
-    }
-    if (target instanceof Element && target.closest('input, select, textarea, [contenteditable="true"]')) return;
-    if (target instanceof HTMLButtonElement && (event.code === 'Space' || event.code === 'Enter')
-      && !(event.code === 'Space' && target.dataset.action === 'guard')) {
-      if (event.repeat) event.preventDefault();
-      return;
-    }
-    if (event.code === 'KeyM') {
-      if (event.repeat || this.portraitQuery.matches) return;
-      event.preventDefault();
-      this.callbacks.onAudioGesture();
-      this.changeAudio({ muted: !this.audio.muted });
-      return;
-    }
-    const action = KEY_ACTIONS[event.code];
-    if (!action || !this.canPlay()) return;
-    event.preventDefault();
-    if (event.repeat || this.keys.has(event.code)) return;
-    this.callbacks.onAudioGesture();
-    this.keys.set(event.code, action);
-    this.refreshHeldButtons();
-    if (action === 'guard') this.refreshGuard();
-    else this.callbacks.onAction(action);
-  }
-
-  keyUp(event) {
-    if (!this.keys.has(event.code)) return;
-    event.preventDefault();
-    this.keys.delete(event.code);
-    this.refreshGuard();
-    this.refreshHeldButtons();
-  }
-
-  releasePointer(pointerId) {
-    const input = this.pointers.get(pointerId);
-    if (!input) return;
-    this.pointers.delete(pointerId);
-    try {
-      if (input.button.hasPointerCapture(pointerId)) input.button.releasePointerCapture(pointerId);
-    } catch { /* Safe after a detached button or canceled touch. */ }
-    this.refreshGuard();
-    this.refreshHeldButtons();
-  }
-
-  refreshGuard() {
-    const active = [...this.keys.values()].includes('guard')
-      || [...this.pointers.values()].some((input) => input.action === 'guard');
-    if (active === this.guardActive) return;
-    this.guardActive = active;
-    this.buttons.get('guard').setAttribute('aria-pressed', String(active));
-    this.callbacks.onGuard(active);
-  }
-
-  refreshHeldButtons() {
-    const held = new Set([...this.keys.values(), ...[...this.pointers.values()].map((input) => input.action)]);
-    for (const [action, button] of this.buttons) button.classList.toggle('is-held', held.has(action));
-  }
-
-  clearInputs() {
-    this.keys.clear();
-    this.menuPointers.clear();
-    const pointers = [...this.pointers.entries()];
-    this.pointers.clear();
-    for (const [id, input] of pointers) {
-      try {
-        if (input.button.hasPointerCapture(id)) input.button.releasePointerCapture(id);
-      } catch { /* A canceled pointer has no capture left to release. */ }
-    }
-    this.refreshGuard();
-    this.refreshHeldButtons();
-  }
+  clearInputs() { this.controls?.clear(); this.menuPointers.clear(); }
 
   loseFocus() {
     this.callbacks.onBlur();
@@ -402,7 +264,7 @@ export class SparringUI {
   }
 
   showCommands(open) {
-    if (this.phase !== 'paused') return;
+    if (this.phase === 'running') return;
     this.clearInputs();
     this.commandsOpen = open;
     this.elements['round-panel'].hidden = open;
@@ -467,7 +329,7 @@ export class SparringUI {
       this.elements['round-results'].hidden = phase !== 'finished';
       this.elements['round-settings'].hidden = phase === 'finished';
       this.elements['secondary-button'].hidden = phase !== 'paused';
-      this.elements['commands-open-button'].hidden = phase !== 'paused';
+      this.elements['commands-open-button'].hidden = false;
       this.elements['choose-session-button'].hidden = !['paused', 'finished'].includes(phase);
       this.elements['lesson-choice'].hidden = phase !== 'ready';
       this.root.querySelector('[name="lesson"]').value = lesson.id;
@@ -526,10 +388,12 @@ export class SparringUI {
     if (this.hookReady !== hookReady || this.hookSelected !== hookSelected) {
       this.hookReady = hookReady;
       this.hookSelected = hookSelected;
+      jabButton.dataset.moveLabel = hookSelected ? 'Crochet' : 'Jab';
       this.setText(jabButton.querySelector('.control-label'), hookSelected ? 'Crochet' : 'Jab');
       jabButton.setAttribute('aria-label', hookSelected ? 'Crochet gauche — 21 endurance — J' : 'Jab gauche — J');
       jabButton.classList.toggle('is-combo-ready', hookReady);
     }
+    this.controls?.refresh();
     const displayedStamina = Math.round(stamina);
     this.setText(this.values.stamina, displayedStamina);
     if (this.lastStamina !== displayedStamina) {
@@ -542,7 +406,9 @@ export class SparringUI {
     this.setText(this.elements['round-time'], `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`);
     this.elements['round-time'].classList.toggle('is-ending', seconds <= 10);
     const action = typeof state.remi?.action === 'string' ? state.remi.action : state.remi?.action?.type;
-    const status = phase === 'ready' ? 'Prêt à vous entraîner' : phase === 'paused' ? 'On reprend à votre rythme' : phase === 'finished' ? 'À la prochaine reprise' : REMI_LABELS[action] ?? 'Il vous observe';
+    const announcesAttack = ['telegraph', 'windup', 'tellLeft', 'tellRight', 'attack', 'attacking', 'jab', 'direct', 'cross'].includes(action);
+    const activeStatus = announcesAttack ? `${state.remi?.target === 'body' ? 'Au corps' : 'À la tête'} · ${REMI_LABELS[action]}` : REMI_LABELS[action] ?? 'Il vous observe';
+    const status = phase === 'ready' ? 'Prêt à vous entraîner' : phase === 'paused' ? 'On reprend à votre rythme' : phase === 'finished' ? 'À la prochaine reprise' : activeStatus;
     this.setText(this.values['remi-status'], status);
     this.elements['remi-status'].classList.toggle('is-warning', phase === 'running' && ['telegraph', 'windup', 'tellLeft', 'tellRight', 'attack', 'attacking', 'jab', 'direct', 'cross'].includes(action));
     const stats = state.stats ?? {};
@@ -565,6 +431,7 @@ export class SparringUI {
   }
 
   destroy() {
+    this.controls?.destroy();
     this.clearInputs();
     this.abort.abort();
     clearTimeout(this.feedbackTimer);

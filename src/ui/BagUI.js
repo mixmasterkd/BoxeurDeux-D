@@ -1,3 +1,4 @@
+import { installConsoleControls } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { BAG_RHYTHM } from '../game/BagSession.js';
 import './bag.css';
@@ -8,7 +9,7 @@ export class BagUI {
     this.root = document.getElementById('bag-ui');
     this.stage = document.getElementById('stage');
     this.phase = 'ready'; this.commandsOpen = false; this.sequenceIndex = -1;
-    this.keys = new Set(); this.pointers = new Map(); this.menuPointers = new Map();
+    this.menuPointers = new Map();
     this.abort = new AbortController();
     this.portrait = matchMedia(TOUCH_PORTRAIT_QUERY);
     this.controlsQuery = matchMedia(TOUCH_CONTROLS_QUERY);
@@ -23,12 +24,19 @@ export class BagUI {
         <div class="bag-panel-actions"><button class="bag-start-button primary-button">Commencer · 45 s →</button><button class="bag-restart-button choose-session-button" hidden>Recommencer la séance</button><button class="commands-open-button">Commandes</button><button class="bag-return-button choose-session-button">← Retour au gym</button></div>
       </section>
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="bag-commands-title" hidden><p class="commands-eyebrow">SÉANCE ARRÊTÉE</p><h2 id="bag-commands-title">Commandes du sac</h2>
-        <div class="commands-grid"><dl><div><dt>Jab</dt><dd>J</dd></div><div><dt>Direct</dt><dd>K</dd></div><div><dt>Pause · son</dt><dd>P / Échap · M</dd></div></dl><div class="commands-notes"><p><strong>J → K → J : jab, direct, crochet.</strong> Le troisième J devient un crochet si les deux premiers coups de cet enchaînement sont réussis et si tu suis le rythme.</p><p>Une pression par coup. Au tactile, utilise les boutons dans la marge droite. Le bouton Jab indique Crochet quand il est prêt.</p></div></div><button class="commands-back-button">← Retour au menu</button></section>
-      <div class="bag-action-dock"><button class="control-button attack-control" data-action="jab"><span class="control-key">Jab</span><span class="control-label">Gauche</span></button><button class="control-button attack-control" data-action="cross"><span class="control-key">Direct</span><span class="control-label">Droite</span></button></div>
+        <div class="commands-grid"><dl>
+          <div><dt>Jab / direct</dt><dd>J / K</dd></div>
+          <div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div>
+          <div><dt>Esquive gauche / droite</dt><dd>← / → ou A / D</dd></div>
+          <div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
+          <div><dt>Pause · son</dt><dd>P / Échap · M</dd></div>
+        </dl><div class="commands-notes"><p><strong>J → K → J : jab, direct, crochet.</strong> Le troisième J devient un crochet si les deux premiers coups de cet enchaînement sont réussis et si tu suis le rythme.</p><p>Une pression par frappe ou esquive. Au tactile : joypad à gauche — haut pour la garde haute, bas pour la garde basse, côtés pour les esquives. À droite : A pour le jab, B pour le direct; A → B → A donne le crochet. Bas + A / B frappe au corps.</p><p>Dans les menus, le joypad choisit, A valide et B revient.</p></div></div><button class="commands-back-button">← Retour au menu</button></section>
+      <div class="bag-action-dock"><button class="control-button attack-control" data-action="jab"><span class="control-key">A</span><span class="control-label">Jab</span></button><button class="control-button attack-control" data-action="cross"><span class="control-key">B</span><span class="control-label">Direct</span></button></div>
       <button class="bag-pause-button" aria-label="Mettre la séance en pause">Ⅱ</button><button class="bag-audio-button audio-button" aria-label="Activer ou couper le son">♪ Son</button>`;
     mountSideControls(this.root, { right: ['.bag-pause-button', '.bag-audio-button', '.bag-action-dock'] });
     this.buttons = [...this.root.querySelectorAll('[data-action]')];
     this.bind();
+    this.controls = installConsoleControls(this, 'bag');
     this.stage.inert = this.portrait.matches;
     this.update(callbacks.getState());
   }
@@ -55,64 +63,13 @@ export class BagUI {
     this.activate('.bag-audio-button', () => this.callbacks.onMute());
     this.activate('.commands-open-button', () => this.showCommands(true));
     this.activate('.commands-back-button', () => this.showCommands(false));
-    for (const button of this.buttons) {
-      this.on(button, 'pointerdown', event => {
-        if (this.phase !== 'running' || this.portrait.matches || document.hidden || (event.pointerType === 'mouse' && event.button !== 0)) return;
-        event.preventDefault(); button.blur();
-        this.pointers.set(event.pointerId, button);
-        try { button.setPointerCapture(event.pointerId); } catch { /* Ended pointer. */ }
-        button.classList.add('is-held');
-        this.callbacks.onAudioGesture(); this.callbacks.onAction(button.dataset.action);
-      });
-      this.on(button, 'click', event => {
-        // Native keyboard activation has no pointerdown; real touches already fired.
-        if (event.detail !== 0 || this.phase !== 'running' || this.portrait.matches || document.hidden) return;
-        this.callbacks.onAudioGesture(); this.callbacks.onAction(button.dataset.action);
-      });
-      for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) this.on(button, type, e => this.release(e.pointerId));
-      this.on(button, 'contextmenu', e => e.preventDefault());
-    }
-    this.on(window, 'pointerup', e => this.release(e.pointerId));
-    this.on(window, 'pointercancel', e => this.release(e.pointerId));
-    this.on(window, 'keydown', event => {
-      if (this.portrait.matches || document.hidden) return;
-      if (event.code === 'Tab' && this.phase !== 'running') {
-        const panel = this.root.querySelector(this.commandsOpen ? '.commands-panel' : '.bag-panel');
-        const buttons = [...panel.querySelectorAll('button')].filter(e => e.getClientRects().length);
-        const index = buttons.indexOf(document.activeElement);
-        if (index === -1 || (!event.shiftKey && index === buttons.length - 1) || (event.shiftKey && index === 0)) { event.preventDefault(); buttons[event.shiftKey ? buttons.length - 1 : 0].focus(); }
-        return;
-      }
-      if (event.code === 'KeyP' || event.code === 'Escape') {
-        event.preventDefault(); if (event.repeat) return;
-        this.clear(); this.callbacks.onAudioGesture();
-        if (this.commandsOpen) this.showCommands(false);
-        else if (this.phase === 'running') this.callbacks.onPause();
-        else if (this.phase === 'paused') this.callbacks.onResume();
-        return;
-      }
-      if (event.target instanceof HTMLButtonElement && ['Enter', 'Space'].includes(event.code)) { if (event.repeat) event.preventDefault(); return; }
-      if (event.code === 'KeyM') { if (!event.repeat) { event.preventDefault(); this.callbacks.onMute(); } return; }
-      const action = { KeyJ: 'jab', KeyK: 'cross' }[event.code];
-      if (!action) return;
-      event.preventDefault();
-      if (event.repeat || this.keys.has(event.code) || this.phase !== 'running') return;
-      this.keys.add(event.code); this.callbacks.onAudioGesture(); this.callbacks.onAction(action);
-    });
-    this.on(window, 'keyup', e => this.keys.delete(e.code));
     const blur = () => { this.clear(); this.callbacks.onPause(); };
     this.on(this.controlsQuery, 'change', blur);
     this.on(window, 'blur', blur);
     this.on(document, 'visibilitychange', () => { if (document.hidden) blur(); });
     this.on(this.portrait, 'change', event => { this.stage.inert = event.matches; if (event.matches) blur(); });
   }
-  release(id) {
-    const button = this.pointers.get(id); if (!button) return;
-    this.pointers.delete(id);
-    if (![...this.pointers.values()].includes(button)) button.classList.remove('is-held');
-    try { if (button.hasPointerCapture(id)) button.releasePointerCapture(id); } catch { /* Canceled pointer. */ }
-  }
-  clear() { this.keys.clear(); this.menuPointers.clear(); for (const id of [...this.pointers.keys()]) this.release(id); }
+  clear() { this.controls?.clear(); this.menuPointers.clear(); }
   showCommands(open) {
     if (this.phase === 'running') return;
     this.clear(); this.commandsOpen = open;
@@ -160,10 +117,11 @@ export class BagUI {
       e.classList.toggle('is-now', step.status === 'waiting' && Math.abs(state.elapsed - step.inputAt) <= BAG_RHYTHM.tolerance);
       e.querySelector('i').style.transform = `scaleX(${Math.max(0, Math.min(1, 1 - (step.inputAt - state.elapsed) / BAG_RHYTHM.preparation))})`;
     });
-    this.text('[data-action="jab"] .control-key', sequence.comboReady ? 'Crochet' : 'Jab');
+    this.root.querySelector('[data-action="jab"]').classList.toggle('is-combo-ready', sequence.comboReady);
     this.text('.bag-feedback', state.feedback.text);
     this.root.querySelector('.bag-feedback').dataset.tone = state.feedback.tone;
+    this.controls?.refresh();
     if (state.summary) { this.text('.bag-precision', `${state.summary.precision} %`); this.text('.bag-advice', `${state.summary.positive} ${state.summary.improve}`); }
   }
-  destroy() { this.clear(); this.abort.abort(); this.root.replaceChildren(); }
+  destroy() { this.controls?.destroy(); this.clear(); this.abort.abort(); this.root.replaceChildren(); }
 }

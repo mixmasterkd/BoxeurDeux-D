@@ -2,6 +2,7 @@ import { fighterMotion, transformFighterPoint } from '../game/FighterMotion.js';
 
 const BASE_POSES = ['guard', 'windup', 'jab', 'cross', 'hook-windup', 'hook'];
 const DEFENSE_POSES = { block: 'player-block', dodgeLeft: 'player-dodge-left', dodgeRight: 'player-dodge-right' };
+const BODY_POSES = ['windup-body', 'jab-body', 'cross-body', 'hook-windup-body', 'hook-body', 'block-body'];
 
 // The reflected figure samples the exact same pose and clock as the boxer.
 // Its smaller size represents distance behind the mirror, never another actor.
@@ -15,8 +16,8 @@ export function shadowMotion(player, elapsed) {
   const motion = fighterMotion(player, elapsed, 'player');
   const action = player.action;
   const pose = motion.pose === 'dodge' ? action
-    : /^(jab|cross)-(windup|recover)$/.test(motion.pose) ? 'windup'
-      : motion.pose === 'hook-recover' ? 'hook-windup' : motion.pose;
+    : /^(jab|cross)-(windup|recover)(-body)?$/.test(motion.pose) ? `windup${player.target === 'body' ? '-body' : ''}`
+      : /^hook-recover(-body)?$/.test(motion.pose) ? `hook-windup${player.target === 'body' ? '-body' : ''}` : motion.pose;
   return {
     ...motion, pose,
     // Shadow boxing stops in the air; no target tracking or contact lunge.
@@ -30,13 +31,15 @@ export class ShadowFighterView {
     scene.load.image('mirror-room', `${base}assets/backgrounds/mirror-training.png`);
     scene.load.json('shadow-base-data', `${base}assets/sprites/bag-orthodox/fighters.json`);
     scene.load.json('shadow-defense-data', `${base}assets/sprites/mirror/fighters.json`);
+    scene.load.json('shadow-body-data', `${base}assets/sprites/body-training/gym.json`);
     for (const pose of BASE_POSES) scene.load.image(`shadow-${pose}`, `${base}assets/sprites/bag-orthodox/player-${pose}.png`);
     for (const [pose, file] of Object.entries(DEFENSE_POSES)) scene.load.image(`shadow-${pose}`, `${base}assets/sprites/mirror/${file}.png`);
+    for (const pose of BODY_POSES) scene.load.image(`shadow-${pose}`, `${base}assets/sprites/body-training/gym-${pose}.png`);
   }
 
   constructor(scene) {
     const base = scene.cache.json.get('shadow-base-data');
-    this.metadata = { ...base, poses: { ...base.poses, ...scene.cache.json.get('shadow-defense-data').poses } };
+    this.metadata = { ...base, poses: { ...base.poses, ...scene.cache.json.get('shadow-defense-data').poses, ...scene.cache.json.get('shadow-body-data').poses } };
     this.anchor = this.metadata.anchor;
     this.layout = MIRROR_LAYOUT;
     scene.add.image(640, 360, 'mirror-room').setDisplaySize(1280, 720);

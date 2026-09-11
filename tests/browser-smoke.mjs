@@ -1,6 +1,7 @@
 // Optional browser integration checks. Uses an existing local Playwright install.
 // npm run test:browser; override PLAYWRIGHT_MODULE_PATH if needed.
 import assert from 'node:assert/strict';
+import { joyPoint, buttonPoint, dispatch, tapContact } from './control-helpers.mjs';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
@@ -27,12 +28,22 @@ const state = (page) => page.evaluate(() => structuredClone(window.__sparring.se
 const wait = (page, expression, arg) => page.waitForFunction(expression, arg, { timeout: 7000 });
 const log = (text) => { reports.push(text); console.log(text); };
 async function geometry(page) {
+  // The menu can scroll internally on a short landscape viewport. The page
+  // cannot scroll, and the chosen action must become visible and clickable.
+  await page.locator('.primary-button').scrollIntoViewIfNeeded();
   return page.evaluate(() => {
     const rect = (selector) => {
       const r = document.querySelector(selector).getBoundingClientRect();
       return { x:r.x, y:r.y, width:r.width, height:r.height, right:r.right, bottom:r.bottom };
     };
-    return { width:innerWidth, height:innerHeight, scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight, stage:rect('#stage'), canvas:rect('canvas'), start:rect('.primary-button'), defense:rect('.defense-dock'), attack:rect('.attack-dock') };
+    const panel = document.querySelector('.round-panel');
+    const button = document.querySelector('.primary-button');
+    const start = rect('.primary-button');
+    const hit = document.elementFromPoint(start.x + start.width / 2, start.y + start.height / 2);
+    return { width:innerWidth, height:innerHeight, scrollWidth:document.documentElement.scrollWidth, scrollHeight:document.documentElement.scrollHeight,
+      stage:rect('#stage'), canvas:rect('canvas'), panel:rect('.round-panel'), start,
+      noMenuHorizontalScroll:panel.scrollWidth <= panel.clientWidth + 1,
+      startActionable:!button.disabled && (hit === button || button.contains(hit)) };
   });
 }
 function checkFit(g) {
@@ -40,7 +51,11 @@ function checkFit(g) {
   assert.ok(Math.abs(g.canvas.width / g.canvas.height - 16 / 9) < .005, 'canvas keeps 16:9');
   assert.ok(g.stage.bottom <= g.height + 1 && g.stage.right <= g.width + 1, 'stage fits viewport');
   assert.ok(g.scrollHeight <= g.height + 1 && g.scrollWidth <= g.width + 1, 'no page scroll');
-  assert.ok(g.start.bottom <= g.stage.bottom + 1, 'start button visible in stage');
+  assert.ok(g.panel.x >= -1 && g.panel.y >= -1 && g.panel.right <= g.width + 1 && g.panel.bottom <= g.height + 1, 'menu fits viewport');
+  assert.ok(g.noMenuHorizontalScroll, 'menu has no horizontal scroll');
+  assert.ok(g.start.bottom <= g.panel.bottom + 1 && g.start.y >= g.panel.y - 1 && g.start.x >= g.panel.x - 1 && g.start.right <= g.panel.right + 1,
+    'start button is visible inside its menu after scrolling');
+  assert.ok(g.startActionable, 'start button is enabled and its hit area is uncovered');
 }
 try {
   const page = await browser.newPage({ viewport:{width:1440,height:1000} });
@@ -73,32 +88,32 @@ try {
   await page.keyboard.up('j');
   await page.keyboard.press('k');
   await wait(page, () => window.__sparring.session.state.stats.thrown === 2 && window.__sparring.session.state.player.action === 'idle');
-  await page.keyboard.down('Space');
+  await page.keyboard.down('ArrowUp');
   await wait(page, () => window.__sparring.session.state.stats.blocked >= 1);
   const drained = (await state(page)).stamina;
-  await page.keyboard.up('Space');
+  await page.keyboard.up('ArrowUp');
   await page.waitForTimeout(850);
   assert.ok((await state(page)).stamina > drained, 'rest recovers stamina');
-  await page.keyboard.down('Space');
+  await page.keyboard.down('ArrowUp');
   await page.keyboard.press('p');
   const paused = await state(page);
   assert.equal(paused.phase, 'paused');
   assert.notEqual(paused.player.action, 'guard');
   await page.waitForTimeout(300);
   assert.equal((await state(page)).remaining, paused.remaining);
-  await page.keyboard.up('Space');
+  await page.keyboard.up('ArrowUp');
   await page.keyboard.press('Escape');
   await wait(page, () => window.__sparring.session.state.phase === 'running');
   await wait(page, () => ['jab','cross'].includes(window.__sparring.session.state.remi.action) && window.__sparring.session.state.remi.progress < .10);
   const safe = (await state(page)).remi.safeDodge;
   await page.keyboard.press(safe === 'dodgeLeft' ? 'ArrowLeft' : 'ArrowRight');
   await wait(page, () => window.__sparring.session.state.stats.dodged >= 1);
-  await page.keyboard.down('Space');
+  await page.keyboard.down('ArrowUp');
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
   await wait(page, () => window.__sparring.session.state.phase === 'paused');
-  assert.equal(await page.evaluate(() => window.__sparring.ui.guardActive), false);
-  assert.equal(await page.evaluate(() => window.__sparring.ui.keys.size), 0);
-  await page.keyboard.up('Space');
+  assert.equal(await page.evaluate(() => window.__sparring.ui.controls.guard !== null), false);
+  assert.equal(await page.evaluate(() => window.__sparring.ui.controls.keys.size), 0);
+  await page.keyboard.up('ArrowUp');
   await page.locator('[name="tempo"]').selectOption('fast');
   await page.locator('[name="recovery"]').selectOption('1.5');
   await page.locator('.secondary-button').click();
@@ -118,44 +133,40 @@ try {
   await phone.locator('.primary-button').tap();
   await wait(phone, () => window.__sparring.session.state.phase === 'running');
   const cdp = await mobile.newCDPSession(phone);
-  const center = async (selector) => {
-    const b = await phone.locator(selector).boundingBox();
-    return {x:b.x+b.width/2,y:b.y+b.height/2};
-  };
-  const guard = {...await center('[data-action="guard"]'),id:1};
-  const jab = {...await center('[data-action="jab"]'),id:2};
+  const guard = await joyPoint(phone, '#sparring-ui', 'up', 1);
+  const jab = await buttonPoint(phone, '[data-action="jab"]', 2);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[guard]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[guard,jab]});
   // Chromium CDP ends the listed contact here; end the jab finger only.
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[jab]});
   await wait(phone, () => window.__sparring.session.state.stats.thrown === 1 && window.__sparring.session.state.player.action === 'guard');
-  assert.equal(await phone.evaluate(() => window.__sparring.ui.guardActive),true);
+  assert.equal(await phone.evaluate(() => window.__sparring.ui.controls.guard !== null),true);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await wait(phone, () => window.__sparring.session.state.player.action === 'idle');
-  const cross = {...await center('[data-action="cross"]'),id:3};
+  const cross = await buttonPoint(phone, '[data-action="cross"]', 3);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[cross]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await wait(phone, () => window.__sparring.session.state.stats.thrown === 2);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[guard]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
-  assert.equal(await phone.evaluate(() => window.__sparring.ui.guardActive),false);
+  assert.equal(await phone.evaluate(() => window.__sparring.ui.controls.guard !== null),false);
   await wait(phone, () => ['jab','cross'].includes(window.__sparring.session.state.remi.action) && window.__sparring.session.state.remi.progress < .10);
   const safeTouch = (await state(phone)).remi.safeDodge;
-  const dodge = {...await center(`[data-action="${safeTouch}"]`),id:4};
+  const dodge = await joyPoint(phone, '#sparring-ui', safeTouch === 'dodgeLeft' ? 'left' : 'right', 4);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[dodge]});
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await wait(phone, () => window.__sparring.session.state.stats.dodged >= 1);
   // A finger still held when focus is lost must never activate the menu
   // which appears beneath it, even on the smallest supported landscape.
   await phone.setViewportSize({width:568,height:320});
-  const heldGuard = {...await center('[data-action="guard"]'),id:5};
+  const heldGuard = await joyPoint(phone, '#sparring-ui', 'up', 5);
   await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[heldGuard]});
   await phone.evaluate(() => window.dispatchEvent(new Event('blur')));
   await wait(phone, () => window.__sparring.session.state.phase === 'paused');
   await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
   await phone.waitForTimeout(150);
   assert.equal((await state(phone)).phase,'paused','release of an old touch cannot resume the round');
-  await phone.locator('.primary-button').tap();
+  await tapContact(phone, cdp, '#sparring-ui [data-pad-button="a"]');
   await phone.setViewportSize({width:844,height:390});
   await phone.screenshot({path:'docs/sparring-mobile-paysage.png'});
   await phone.setViewportSize({width:390,height:844});
@@ -166,7 +177,7 @@ try {
   await phone.setViewportSize({width:844,height:390});
   await phone.locator('.primary-button').tap();
   await wait(phone, () => window.__sparring.session.state.phase === 'running');
-  log('Mobile viewports 844×390 and 568×320: simultaneous guard+jab, direct, dodge, release/cancel, no accidental resume after focus loss, portrait and explicit resume passed (no physical phone test).');
+  log('Mobile viewports 844×390 and 568×320: joypad guard + A simultaneously, B direct, joypad dodge, release/cancel, no accidental resume after focus loss, portrait and explicit resume passed (no physical phone test).');
   await mobile.close();
 
   const roundPage=await browser.newPage({viewport:{width:1280,height:900}}); watch(roundPage);

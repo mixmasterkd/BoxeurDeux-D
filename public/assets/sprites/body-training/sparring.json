@@ -1,0 +1,638 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 384,
+    "height": 640
+  },
+  "anchor": {
+    "x": 192,
+    "y": 624
+  },
+  "artHeight": 512,
+  "sources": [
+    "references/characters/body-training/player-alpha.png",
+    "references/characters/body-training/remi-alpha.png"
+  ],
+  "poses": {
+    "player-jab-windup-body": {
+      "file": "body-training/player-jab-windup-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 15,
+        "y": 115,
+        "width": 361,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 33,
+        "y": 15,
+        "w": 349,
+        "h": 492
+      },
+      "head": {
+        "x": 188,
+        "y": 174
+      },
+      "body": {
+        "x": 199,
+        "y": 310
+      },
+      "target": "body"
+    },
+    "player-jab-body": {
+      "file": "body-training/player-jab-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 20,
+        "y": 116,
+        "width": 349,
+        "height": 508
+      },
+      "sourceBounds": {
+        "x": 424,
+        "y": 16,
+        "w": 337,
+        "h": 491
+      },
+      "head": {
+        "x": 193,
+        "y": 175
+      },
+      "body": {
+        "x": 192,
+        "y": 314
+      },
+      "glove": {
+        "x": 128,
+        "y": 202
+      },
+      "contact": {
+        "x": 128,
+        "y": 202
+      },
+      "punchingHand": "left",
+      "target": "body"
+    },
+    "player-cross-windup-body": {
+      "file": "body-training/player-cross-windup-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 16,
+        "y": 118,
+        "width": 337,
+        "height": 506
+      },
+      "sourceBounds": {
+        "x": 795,
+        "y": 18,
+        "w": 326,
+        "h": 489
+      },
+      "head": {
+        "x": 197,
+        "y": 177
+      },
+      "body": {
+        "x": 195,
+        "y": 312
+      },
+      "target": "body"
+    },
+    "player-cross-body": {
+      "file": "body-training/player-cross-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 14,
+        "y": 116,
+        "width": 345,
+        "height": 508
+      },
+      "sourceBounds": {
+        "x": 1166,
+        "y": 16,
+        "w": 333,
+        "h": 491
+      },
+      "head": {
+        "x": 204,
+        "y": 174
+      },
+      "body": {
+        "x": 204,
+        "y": 309
+      },
+      "glove": {
+        "x": 261,
+        "y": 199
+      },
+      "contact": {
+        "x": 261,
+        "y": 199
+      },
+      "punchingHand": "right",
+      "target": "body"
+    },
+    "player-hook-windup-body": {
+      "file": "body-training/player-hook-windup-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 15,
+        "y": 130,
+        "width": 361,
+        "height": 494
+      },
+      "sourceBounds": {
+        "x": 33,
+        "y": 521,
+        "w": 349,
+        "h": 477
+      },
+      "head": {
+        "x": 186,
+        "y": 188
+      },
+      "body": {
+        "x": 196,
+        "y": 328
+      },
+      "target": "body"
+    },
+    "player-hook-body": {
+      "file": "body-training/player-hook-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 20,
+        "y": 130,
+        "width": 364,
+        "height": 494
+      },
+      "sourceBounds": {
+        "x": 424,
+        "y": 523,
+        "w": 352,
+        "h": 477
+      },
+      "head": {
+        "x": 193,
+        "y": 187
+      },
+      "body": {
+        "x": 189,
+        "y": 324
+      },
+      "glove": {
+        "x": 78,
+        "y": 281
+      },
+      "contact": {
+        "x": 78,
+        "y": 281
+      },
+      "punchingHand": "left",
+      "target": "body"
+    },
+    "player-block-body": {
+      "file": "body-training/player-block-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 25,
+        "y": 138,
+        "width": 341,
+        "height": 486
+      },
+      "sourceBounds": {
+        "x": 810,
+        "y": 529,
+        "w": 329,
+        "h": 470
+      },
+      "head": {
+        "x": 197,
+        "y": 198
+      },
+      "body": {
+        "x": 194,
+        "y": 324
+      },
+      "target": "body"
+    },
+    "player-hit-body": {
+      "file": "body-training/player-hit-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 25,
+        "y": 201,
+        "width": 332,
+        "height": 423
+      },
+      "sourceBounds": {
+        "x": 1183,
+        "y": 590,
+        "w": 321,
+        "h": 409
+      },
+      "head": {
+        "x": 198,
+        "y": 232
+      },
+      "body": {
+        "x": 189,
+        "y": 313
+      },
+      "target": "body"
+    },
+    "player-jab-recover-body": {
+      "file": "body-training/player-jab-recover-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 15,
+        "y": 115,
+        "width": 361,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 33,
+        "y": 15,
+        "w": 349,
+        "h": 492
+      },
+      "head": {
+        "x": 188,
+        "y": 174
+      },
+      "body": {
+        "x": 199,
+        "y": 310
+      },
+      "target": "body",
+      "reusedFrom": "player-jab-windup-body"
+    },
+    "player-cross-recover-body": {
+      "file": "body-training/player-cross-recover-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 16,
+        "y": 118,
+        "width": 337,
+        "height": 506
+      },
+      "sourceBounds": {
+        "x": 795,
+        "y": 18,
+        "w": 326,
+        "h": 489
+      },
+      "head": {
+        "x": 197,
+        "y": 177
+      },
+      "body": {
+        "x": 195,
+        "y": 312
+      },
+      "target": "body",
+      "reusedFrom": "player-cross-windup-body"
+    },
+    "player-hook-recover-body": {
+      "file": "body-training/player-hook-recover-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 15,
+        "y": 130,
+        "width": 361,
+        "height": 494
+      },
+      "sourceBounds": {
+        "x": 33,
+        "y": 521,
+        "w": 349,
+        "h": 477
+      },
+      "head": {
+        "x": 186,
+        "y": 188
+      },
+      "body": {
+        "x": 196,
+        "y": 328
+      },
+      "target": "body",
+      "reusedFrom": "player-hook-windup-body"
+    },
+    "remi-jab-windup-body": {
+      "file": "body-training/remi-jab-windup-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 44,
+        "y": 111,
+        "width": 299,
+        "height": 513
+      },
+      "sourceBounds": {
+        "x": 46,
+        "y": 29,
+        "w": 352,
+        "h": 603
+      },
+      "head": {
+        "x": 190,
+        "y": 199
+      },
+      "body": {
+        "x": 192,
+        "y": 323
+      },
+      "target": "body"
+    },
+    "remi-jab-body": {
+      "file": "body-training/remi-jab-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 45,
+        "y": 111,
+        "width": 297,
+        "height": 513
+      },
+      "sourceBounds": {
+        "x": 448,
+        "y": 28,
+        "w": 349,
+        "h": 604
+      },
+      "head": {
+        "x": 179,
+        "y": 202
+      },
+      "body": {
+        "x": 172,
+        "y": 325
+      },
+      "glove": {
+        "x": 220,
+        "y": 317
+      },
+      "contact": {
+        "x": 220,
+        "y": 317
+      },
+      "punchingHand": "left",
+      "target": "body"
+    },
+    "remi-cross-windup-body": {
+      "file": "body-training/remi-cross-windup-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 36,
+        "y": 113,
+        "width": 306,
+        "height": 511
+      },
+      "sourceBounds": {
+        "x": 839,
+        "y": 29,
+        "w": 360,
+        "h": 601
+      },
+      "head": {
+        "x": 193,
+        "y": 201
+      },
+      "body": {
+        "x": 193,
+        "y": 336
+      },
+      "target": "body"
+    },
+    "remi-cross-body": {
+      "file": "body-training/remi-cross-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 31,
+        "y": 124,
+        "width": 315,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 18,
+        "y": 652,
+        "w": 370,
+        "h": 588
+      },
+      "head": {
+        "x": 201,
+        "y": 211
+      },
+      "body": {
+        "x": 209,
+        "y": 331
+      },
+      "glove": {
+        "x": 156,
+        "y": 308
+      },
+      "contact": {
+        "x": 156,
+        "y": 308
+      },
+      "punchingHand": "right",
+      "target": "body"
+    },
+    "remi-block-body": {
+      "file": "body-training/remi-block-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 32,
+        "y": 129,
+        "width": 315,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 430,
+        "y": 656,
+        "w": 371,
+        "h": 582
+      },
+      "head": {
+        "x": 190,
+        "y": 213
+      },
+      "body": {
+        "x": 186,
+        "y": 340
+      },
+      "target": "body"
+    },
+    "remi-hit-body": {
+      "file": "body-training/remi-hit-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 33,
+        "y": 164,
+        "width": 309,
+        "height": 460
+      },
+      "sourceBounds": {
+        "x": 843,
+        "y": 701,
+        "w": 363,
+        "h": 541
+      },
+      "head": {
+        "x": 200,
+        "y": 256
+      },
+      "body": {
+        "x": 197,
+        "y": 355
+      },
+      "target": "body"
+    },
+    "remi-jab-recover-body": {
+      "file": "body-training/remi-jab-recover-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 44,
+        "y": 111,
+        "width": 299,
+        "height": 513
+      },
+      "sourceBounds": {
+        "x": 46,
+        "y": 29,
+        "w": 352,
+        "h": 603
+      },
+      "head": {
+        "x": 190,
+        "y": 199
+      },
+      "body": {
+        "x": 192,
+        "y": 323
+      },
+      "target": "body",
+      "reusedFrom": "remi-jab-windup-body"
+    },
+    "remi-cross-recover-body": {
+      "file": "body-training/remi-cross-recover-body.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 36,
+        "y": 113,
+        "width": 306,
+        "height": 511
+      },
+      "sourceBounds": {
+        "x": 839,
+        "y": 29,
+        "w": 360,
+        "h": 601
+      },
+      "head": {
+        "x": 193,
+        "y": 201
+      },
+      "body": {
+        "x": 193,
+        "y": 336
+      },
+      "target": "body",
+      "reusedFrom": "remi-cross-windup-body"
+    }
+  }
+}

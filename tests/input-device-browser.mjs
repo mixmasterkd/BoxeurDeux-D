@@ -19,15 +19,16 @@ await fs.mkdir(output, { recursive: true });
 const errors = [], reports = [];
 let activePage, failure;
 const scenes = [
-  { id: 'gym', entry: '', start: null, pause: '.gym-pause-button', resume: '.gym-resume-button', held: '[data-direction="right"]', buttonCount: 6 },
-  { id: 'sparring', entry: '?scene=sparring', start: '.primary-button', pause: '.pause-button', resume: '.primary-button', held: '[data-action="guard"]', buttonCount: 7 },
+  { id: 'gym', entry: '', start: null, pause: '.gym-pause-button', resume: '.gym-resume-button', held: '.joypad', buttonCount: 4 },
+  { id: 'sparring', entry: '?scene=sparring', start: '.primary-button', pause: '.pause-button', resume: '.primary-button', held: '.joypad', buttonCount: 4 },
+  { id: 'shadow', entry: '?scene=shadow', start: '.shadow-start-button', pause: '.shadow-pause-button', resume: '.shadow-start-button', held: '.joypad', buttonCount: 4 },
   { id: 'bag', entry: '?scene=bag', start: '.bag-start-button', pause: '.bag-pause-button', resume: '.bag-start-button', held: '[data-action="jab"]', buttonCount: 4 },
 ];
 const wait = (page, fn, arg) => page.waitForFunction(fn, arg, { timeout: 15000 });
 const settle = page => page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
 const state = (page, scene) => page.evaluate(id => {
   if (id === 'gym') return structuredClone(window.__gym.world.state);
-  return structuredClone(window[id === 'bag' ? '__bag' : '__sparring'].session.state);
+  return structuredClone(window[{ bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]].session.state);
 }, scene.id);
 const watch = page => {
   activePage = page;
@@ -46,11 +47,11 @@ const device = page => page.evaluate(() => ({
 
 async function enter(page, scene, touch) {
   await page.goto(new URL(scene.entry, base).href);
-  await wait(page, id => Boolean(window[id === 'gym' ? '__gym' : id === 'bag' ? '__bag' : '__sparring']), scene.id);
+  await wait(page, id => Boolean(window[{ gym: '__gym', bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]]), scene.id);
   if (scene.start) {
     if (touch) await page.locator(scene.start).tap();
     else await page.locator(scene.start).click();
-    await wait(page, id => window[id === 'bag' ? '__bag' : '__sparring'].session.state.phase === 'running', scene.id);
+    await wait(page, id => window[{ bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]].session.state.phase === 'running', scene.id);
   }
   await settle(page);
 }
@@ -67,7 +68,7 @@ async function checkLayout(page, scene, touch) {
     const visible = element => element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden';
     return {
       canvas: rectangle(canvas), logical: [canvas.width, canvas.height], area: rectangle(document.getElementById('play-area')),
-      controls: [...root.querySelectorAll('.input-rail button')].filter(visible).map(element => ({ name: element.dataset.action ?? element.dataset.direction ?? element.className, ...rectangle(element) })),
+      controls: [...root.querySelectorAll('.input-rail button, .joypad')].filter(visible).map(element => ({ name: element.dataset.action ?? element.dataset.direction ?? element.className, ...rectangle(element) })),
       guideVisible: Boolean(visible(document.querySelector('.keyboard-guide'))),
       width: innerWidth, height: innerHeight,
       pageFits: document.documentElement.scrollWidth <= innerWidth + 1 && document.documentElement.scrollHeight <= innerHeight + 1,
@@ -92,15 +93,15 @@ async function checkLayout(page, scene, touch) {
 
 async function heldPoint(page, scene) {
   const r = await page.locator(`#${scene.id}-ui ${scene.held}`).boundingBox();
-  return { id: 1, x: r.x + r.width / 2, y: r.y + r.height / 2 };
+  return { id: 1, x: r.x + r.width * (scene.id === 'gym' ? .85 : .5), y: r.y + r.height * (scene.held === '.joypad' && scene.id !== 'gym' ? .15 : .5) };
 }
 
 async function assertReleased(page, scene) {
   const value = await page.evaluate(id => {
-    const ui = window[id === 'gym' ? '__gym' : id === 'bag' ? '__bag' : '__sparring'].ui;
-    return { keys: ui.keys.size, pointers: ui.pointers.size, guard: ui.guardActive ?? false };
+    const ui = window[{ gym: '__gym', bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]].ui;
+    return { keys: ui.controls.keys.size, pointers: ui.controls.pointers.size, guard: Boolean(ui.controls.guard), pad: ui.controls.padId };
   }, scene.id);
-  assert.deepEqual(value, { keys: 0, pointers: 0, guard: false }, `${scene.id}: no input stays held`);
+  assert.deepEqual(value, { keys: 0, pointers: 0, guard: false, pad: null }, `${scene.id}: no input stays held`);
 }
 
 try {
@@ -136,7 +137,7 @@ try {
       } else {
         assert.equal(before.phase, 'running');
         await page.keyboard.press('j');
-        await wait(page, id => window[id === 'bag' ? '__bag' : '__sparring'].session.state.stats[id === 'bag' ? 'contacts' : 'thrown'] > 0, scene.id);
+        await wait(page, id => window[{ bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]].session.state.stats[id === 'bag' ? 'contacts' : id === 'shadow' ? 'jab' : 'thrown'] > 0, scene.id);
       }
       await checkLayout(page, scene, false);
       await page.keyboard.press('p');
@@ -167,7 +168,7 @@ try {
         await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
         await page.waitForTimeout(120);
         await page.setViewportSize({ width: 390, height: 844 });
-        await wait(page, id => id === 'gym' ? window.__gym.world.state.paused : window[id === 'bag' ? '__bag' : '__sparring'].session.state.phase === 'paused', scene.id);
+        await wait(page, id => id === 'gym' ? window.__gym.world.state.paused : window[{ bag: '__bag', sparring: '__sparring', shadow: '__shadow' }[id]].session.state.phase === 'paused', scene.id);
         await assertReleased(page, scene);
         await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
         assert.equal(await page.locator('#rotate-prompt').isVisible(), true);

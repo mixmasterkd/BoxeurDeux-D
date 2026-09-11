@@ -20,7 +20,7 @@
 .shadow-pause-button, .shadow-audio-button { width: 64px; height: 44px; padding: 3px; border: 1px solid #a1b6a66b; border-radius: 3px; background: #172c35; color: #ead6a9; font-size: 12px; touch-action: manipulation; }
 .shadow-pause-button { font-size: 18px; }
 .shadow-audio-button[aria-pressed="true"] { color: #a6b5b5; }
-#shadow-ui:not([data-phase="running"]) :is(.input-rail, .shadow-movement) { visibility: hidden; }
+#shadow-ui:not([data-phase="running"]) .shadow-movement { visibility: hidden; }
 #shadow-ui[data-phase="running"] .shadow-hud { pointer-events: none; }
 @container (max-width: 750px) {
   .shadow-hud { padding: 8px 12px; font-size: 8px; letter-spacing: .5px; }

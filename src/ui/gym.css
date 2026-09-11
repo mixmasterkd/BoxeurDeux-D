@@ -25,10 +25,7 @@
 .gym-interact-button:disabled { opacity: .55; color: #b0bfb8; border-color: #718c8060; }
 .gym-interact-key { font-size: 22px; line-height: 1; font-weight: 800; }
 .gym-interact-label { font-size: 10px; line-height: 1.25; font-weight: 700; }
-#gym-ui:not([data-mode="walking"]) .gym-movement,
-#gym-ui:not([data-mode="walking"]) .gym-interact-button,
-#gym-ui:not([data-mode="walking"]) .gym-nearby,
-#gym-ui:not([data-mode="walking"]) .gym-pause-button { visibility: hidden; }
+#gym-ui:not([data-mode="walking"]) .gym-nearby { visibility: hidden; }
 .gym-modal-shade { position: absolute; inset: 0; background: #07182091; pointer-events: auto; }
 .gym-dialog, .gym-pause-panel { position: absolute; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 1px solid #dec38c60; border-left: 3px solid var(--amber); border-radius: 2px; background: #10252df7; box-shadow: 0 16px 50px #07101960; }
 .gym-dialog { width: min(720px, 86%); max-height: calc(100% - 32px); display: grid; grid-template-columns: 1fr 1.08fr; gap: 29px; padding: 27px; }

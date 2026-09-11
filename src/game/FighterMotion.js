@@ -106,6 +106,14 @@ export function fighterMotion(fighter, elapsed, who) {
   if (hurt > 0 && action !== 'hit' && motion.phase !== 'contact') {
     motion.dx += Math.sin(hurt * Math.PI * 2) * hurt * 3;
   }
+
+  // Body work uses newly drawn bent-knee punches and compact low defenses.
+  // Retain the same contact clock; lowering a whole high-punch sprite would
+  // disconnect the feet and never actually change the boxer's anatomy.
+  const bodyAttack = fighter.target === 'body'
+    && ['jab', 'cross', 'hook', 'tellLeft', 'tellRight', 'hit'].includes(action);
+  if (bodyAttack && motion.pose !== 'guard') motion.pose += '-body';
+  else if (action === 'guard' && fighter.guardLevel === 'body') motion.pose = 'block-body';
   return motion;
 }
 

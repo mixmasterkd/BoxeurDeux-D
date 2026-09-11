@@ -59,7 +59,7 @@ async function frameFits(page, { touch = false, root = '#bag-ui' } = {}) {
   const geometry = await page.evaluate(({ touch, root }) => {
     const canvas = document.querySelector('canvas');
     const rect = canvas.getBoundingClientRect();
-    const controls = [...document.querySelectorAll(`${root} [data-action], ${root} [data-direction], ${root} .gym-interact-button, ${root} .bag-pause-button, ${root} .audio-button`)]
+    const controls = [...document.querySelectorAll(`${root} .input-rail button, ${root} .joypad`)]
       .filter(element => element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden')
       .map(element => {
         const r = element.getBoundingClientRect();
@@ -80,10 +80,10 @@ async function frameFits(page, { touch = false, root = '#bag-ui' } = {}) {
   assert.deepEqual(geometry.logical, [1280, 720]);
   assert.ok(Math.abs(geometry.ratio - 16 / 9) < .003 && geometry.fits && geometry.noScroll, JSON.stringify(geometry));
   if (touch) {
-    assert.ok(geometry.controls.length >= 2, 'landscape touch controls are available');
+    assert.equal(geometry.controls.length, 4, 'joypad, A, B and menu are available in the side margins');
     for (const control of geometry.controls) {
       assert.ok(control.outside && control.fits, `control must occupy a side margin, outside the action: ${JSON.stringify(control)}`);
-      assert.ok(control.width >= 35 && control.height >= 35, 'touch targets remain usable at small landscape sizes');
+      assert.ok(control.width >= 44 && control.height >= 44, 'touch targets remain usable at small landscape sizes');
     }
   } else {
     assert.equal(geometry.controls.length, 0, 'desktop controls do not cover the game');
@@ -113,15 +113,16 @@ async function playStep(page, sequenceIndex, stepIndex, { wrong = false } = {}) 
 }
 
 async function menuFits(page, selector) {
-  const value = await page.locator(selector).evaluate(panel => {
-    const bounds = panel.getBoundingClientRect();
-    const buttons = [...panel.querySelectorAll('button')].filter(button => button.getClientRects().length).map(button => {
-      const r = button.getBoundingClientRect();
-      return { text: button.textContent, visible: r.x >= 0 && r.y >= 0 && r.right <= innerWidth + 1 && r.bottom <= innerHeight + 1 };
-    });
-    return { fits: bounds.x >= 0 && bounds.y >= 0 && bounds.right <= innerWidth + 1 && bounds.bottom <= innerHeight + 1, buttons };
-  });
-  assert.ok(value.fits && value.buttons.length > 0 && value.buttons.every(button => button.visible), JSON.stringify(value));
+  const panel = page.locator(selector);
+  const r = await panel.boundingBox(), viewport = page.viewportSize();
+  assert.ok(r && r.x >= -1 && r.y >= -1 && r.x + r.width <= viewport.width + 1 && r.y + r.height <= viewport.height + 1);
+  const buttons = await panel.locator('button:visible').all();
+  assert.ok(buttons.length);
+  for (const button of buttons) {
+    await button.scrollIntoViewIfNeeded();
+    const b = await button.boundingBox();
+    assert.ok(b.y >= r.y - 1 && b.y + b.height <= r.y + r.height + 1 && b.x >= r.x - 1 && b.x + b.width <= r.x + r.width + 1, 'every menu action is reachable inside its scroll panel');
+  }
 }
 
 try {
@@ -190,7 +191,7 @@ try {
     const frozen = await state(page);
     await page.locator('#bag-ui .commands-open-button').click();
     assert.equal(await page.locator('#bag-ui .commands-panel').isVisible(), true);
-    await page.keyboard.press('j');
+    await page.keyboard.press('ArrowUp');
     await page.waitForTimeout(250);
     assert.deepEqual(await state(page), frozen);
     const pausedStarts = await page.evaluate(() => window.__bagAudioProbe.starts);
@@ -280,14 +281,14 @@ try {
   const otherFinger = { ...finger, id: 2, x: finger.x + 12 };
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [finger] });
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [finger, otherFinger] });
-  assert.equal(await phone.evaluate(() => window.__bag.ui.pointers.size), 2);
+  assert.equal(await phone.evaluate(() => window.__bag.ui.controls.pointers.size), 2);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [finger] });
-  assert.equal(await phone.evaluate(() => window.__bag.ui.pointers.size), 1);
+  assert.equal(await phone.evaluate(() => window.__bag.ui.controls.pointers.size), 1);
   assert.equal(await phone.locator('#bag-ui [data-action="jab"]').evaluate(button => button.classList.contains('is-held')), true);
   await phone.waitForTimeout(750);
   assert.equal((await state(phone)).stats.contacts, 3);
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-  assert.equal(await phone.evaluate(() => window.__bag.ui.pointers.size), 0);
+  assert.equal(await phone.evaluate(() => window.__bag.ui.controls.pointers.size), 0);
   assert.equal(await phone.locator('#bag-ui [data-action="jab"]').evaluate(button => button.classList.contains('is-held')), false);
   // A keyboard user can activate the native touch buttons too: Enter on Jab,
   // then Space on Direct, each generating the browser's ordinary detail=0 click.

@@ -61,22 +61,22 @@ try {
         await wait(page, () => ['jab', 'cross'].includes(window.__sparring.session.state.remi.action) && window.__sparring.session.state.remi.progress < .1);
         const before = await state(page);
         if (lesson === 'guard') {
-          await page.keyboard.down('Space');
+          await page.keyboard.down('ArrowUp');
           await wait(page, count => window.__sparring.session.state.stats.blocked > count, before.stats.blocked);
           assert.equal((await state(page)).training.progress, repetition, 'blocking alone does not complete a recovery cycle');
           if (repetition === 0) {
             await page.evaluate(() => window.dispatchEvent(new Event('blur')));
             await wait(page, () => window.__sparring.session.state.phase === 'paused');
-            await page.keyboard.up('Space');
+            await page.keyboard.up('ArrowUp');
             await page.keyboard.press('p');
             await page.waitForTimeout(900);
             assert.equal((await state(page)).training.progress, 0, 'automatic release on focus loss is not a successful recovery exercise');
             await wait(page, () => ['jab', 'cross'].includes(window.__sparring.session.state.remi.action) && window.__sparring.session.state.remi.progress < .1);
             const blocked = (await state(page)).stats.blocked;
-            await page.keyboard.down('Space');
+            await page.keyboard.down('ArrowUp');
             await wait(page, count => window.__sparring.session.state.stats.blocked > count, blocked);
           }
-          await page.keyboard.up('Space');
+          await page.keyboard.up('ArrowUp');
         } else {
           await page.keyboard.press(before.remi.safeDodge === 'dodgeRight' ? 'ArrowRight' : 'ArrowLeft');
           await wait(page, count => window.__sparring.session.state.stats.dodged > count, before.stats.dodged);
@@ -117,8 +117,10 @@ try {
   await wait(page, () => window.__sparring.session.state.phase === 'running');
   assert.equal((await state(page)).training, null, 'return to free sparring');
   report('Retry and return to free sparring passed; audio starts on gesture and stops on pause.');
-  await page.keyboard.press('m');
+  await page.keyboard.press('p');
+  await page.locator('.audio-button').click();
   assert.equal(await page.locator('.audio-button').getAttribute('aria-pressed'), 'true');
+  await page.keyboard.press('p');
   assert.equal(await page.evaluate(() => window.__sparring.audio.sources.size), 0, 'mute cancels current sound sources');
   const mutedStarts = await page.evaluate(() => window.__audioProbe.starts);
   await page.keyboard.press('j');
@@ -135,7 +137,9 @@ try {
   assert.equal(await page.locator('[name="volume"]').inputValue(), '20');
   await page.locator('.primary-button').click();
   assert.equal(await page.evaluate(() => window.__audioProbe.contexts.length), 0, 'muted start does not need an audio device');
-  await page.keyboard.press('m');
+  await page.keyboard.press('p');
+  await page.locator('.audio-button').click();
+  await page.keyboard.press('p');
   await wait(page, () => window.__audioProbe.contexts.some(c => c.state === 'running'));
   report('Mute, volume persistence, silent reload and gesture-based reactivation passed.');
 

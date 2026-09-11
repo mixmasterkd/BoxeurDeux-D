@@ -14,6 +14,7 @@ function completeSequence(session, { hz = 60, offset = 0 } = {}) {
   const sequence = session.state.sequence;
   for (const step of sequence.steps) {
     advanceTo(session, step.inputAt + offset, hz);
+    session.setGuard(step.target === 'body', step.target);
     assert.equal(session.attack(step.input), true);
   }
   advanceTo(session, sequence.steps.at(-1).targetAt + offset, hz);
@@ -25,11 +26,12 @@ function reachHookSequence(session) {
   assert.equal(session.state.sequence.id, 'jab-direct-crochet');
 }
 
-test('the bag offers four simple patterns, 45 seconds and explicit full animation timings', () => {
+test('the bag offers four head patterns followed by a body pattern, 45 seconds and explicit full animation timings', () => {
   const session = new BagSession();
   assert.equal(session.state.remaining, 45);
   assert.equal(session.state.phase, 'ready');
-  assert.deepEqual(BAG_SEQUENCES.map(sequence => sequence.actions), [['jab'], ['jab', 'jab'], ['jab', 'cross'], ['jab', 'cross', 'hook']]);
+  assert.deepEqual(BAG_SEQUENCES.map(sequence => sequence.actions), [['jab'], ['jab', 'jab'], ['jab', 'cross'], ['jab', 'cross', 'hook'], ['jab', 'cross', 'hook']]);
+  assert.equal(BAG_SEQUENCES.at(-1).target, 'body');
   for (const timing of Object.values(BAG_TIMINGS)) {
     assert.ok(Math.abs(timing.anticipation + timing.hold + timing.recovery - timing.duration) < 1e-9);
     assert.equal(timing.impact, timing.anticipation / timing.duration);

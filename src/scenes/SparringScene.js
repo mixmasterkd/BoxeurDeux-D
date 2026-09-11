@@ -46,15 +46,14 @@ export class SparringScene extends Phaser.Scene {
     }).setOrigin(.5).setDepth(13);
     this.ui = new SparringUI({
       onAction: (action) => this.session.act(action),
-      onGuard: (held) => this.session.setGuard(held),
+      onGuard: (held, level) => this.session.setGuard(held, level),
       onStart: (settings) => this.beginSession(settings),
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onRestart: (settings) => this.beginSession(settings),
       onChooseLesson: () => { this.session.reset(); this.audio.setActive(false); },
       onReturnGym: () => {
-        if (this.session.state.phase === 'running') return;
-        this.session.releaseControls();
+        this.session.pause(); this.session.releaseControls();
         this.audio.setActive(false);
         this.scene.start('GymScene');
       },
@@ -75,7 +74,11 @@ export class SparringScene extends Phaser.Scene {
     this.remi.render(this.session.state.remi, 0);
     this.player.render(this.session.state.player, 0);
     this.ui.update(this.session.state);
-    this.resizeObserver = new ResizeObserver(() => this.scale.refresh());
+    this.resizeObserver = new ResizeObserver(() => {
+      // Phaser refresh computes display size before its final bounds read.
+      // Read the resized parent first, including a change of primary pointer.
+      this.scale.getParentBounds(); this.scale.refresh();
+    });
     this.resizeObserver.observe(document.getElementById('game'));
     let disposed = false;
     const cleanup = () => {
@@ -107,11 +110,14 @@ export class SparringScene extends Phaser.Scene {
     if (!this.session) return;
     this.session.update(Math.min(delta / 1000, .05));
     const state = this.session.state;
+    // Rémi commits to the promised height; moving out of that aim is a dodge.
+    this.remi.target = this.player.point('guard', state.remi.target ?? 'head');
     this.remi.render(state.remi, state.elapsed);
+    const target = state.player.target ?? 'head';
     this.player.target = state.remi.action === 'hit'
-      ? this.remi.point('guard', 'head')
-      : this.remi.point(this.remi.pose, 'head', true);
-    if (state.remi.action === 'guard') this.player.target.y += 20;
+      ? this.remi.point('guard', target)
+      : this.remi.point(this.remi.pose, target, true);
+    if (state.remi.action === 'guard' && target === 'head' && state.remi.guardLevel !== 'body') this.player.target.y += 20;
     this.player.render(state.player, state.elapsed);
     this.renderCue(state);
     for (const event of this.session.drainEvents()) {
@@ -120,7 +126,11 @@ export class SparringScene extends Phaser.Scene {
       if (event.type !== 'round-start') this.audio.play(event.type);
       const message = FEEDBACK[event.type];
       if (event.type === 'player-hit' && event.attack === 'hook') {
-        this.ui.showFeedback(event.combo ? 'Combo réussi !' : 'Crochet gauche !', 'success');
+        this.ui.showFeedback(event.combo ? 'Combo réussi !' : `Crochet gauche${event.target === 'body' ? ' au corps' : ''} !`, 'success');
+      } else if (event.type === 'player-hit' && event.target === 'body') {
+        this.ui.showFeedback('Touché au corps !', 'success');
+      } else if (event.type === 'remi-hit' && event.target === 'body') {
+        this.ui.showFeedback('Coup au corps reçu', 'danger');
       } else if (message) this.ui.showFeedback(...message);
       if (event.type.startsWith('player-') || event.type.startsWith('remi-')) {
         const striker = event.type.startsWith('player-') ? this.player : this.remi;
@@ -151,13 +161,14 @@ export class SparringScene extends Phaser.Scene {
         ? state.remi.duration * (1 - progress) + timing.duration * timing.impact
         : state.remi.duration * (timing.impact - progress);
       const instruction = untilContact > .4 ? 'PRÉPAREZ' : 'ESQUIVEZ';
-      const label = state.training?.id === 'guard'
-        ? 'GARDE · MAINTENEZ ESPACE OU ▰'
-        : right ? `${instruction} À DROITE  →` : `←  ${instruction} À GAUCHE`;
+      const height = state.remi.target === 'body' ? 'CORPS · GARDE BASSE' : 'TÊTE · GARDE HAUTE';
+      const label = state.training?.id === 'counter'
+        ? right ? `${instruction} À DROITE  →` : `←  ${instruction} À GAUCHE`
+        : height;
       this.coach.setText(label).setColor('#ffdf96');
       if (untilContact < 0) { this.coach.setVisible(false); return; }
       const x = right ? 500 : 780;
-      const y = 300;
+      const y = state.remi.target === 'body' ? 390 : 300;
       this.cue.lineStyle(5, 0xffd18a, .65 + progress * .35);
       this.cue.strokeCircle(x, y, 22 + (1 - progress) * 12);
       this.cue.fillStyle(0xffdc8a, 1).fillTriangle(x - 5, y - 8, x + 5, y - 8, x, y + 6);

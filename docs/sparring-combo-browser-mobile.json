@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-09-11T15:30:14.438Z",
+  "reports": [
+    "Simulated mobile 844×390 / 667×375: native CDP J–K–J contacts, contextual Crochet button, hold/cancel, side margins, portrait clearing and explicit resume passed. This is not a physical-phone test.",
+    "No browser errors or failed resources."
+  ],
+  "contacts": [
+    {
+      "screenshot": "docs/sparring-combo-mobile.png",
+      "impact": {
+        "type": "player-hit",
+        "time": 1.767759999999998,
+        "attack": "hook",
+        "target": "head",
+        "impact": 0.47058823529411764,
+        "combo": true,
+        "x": 640.1328125,
+        "y": 267.28515625,
+        "contactPoint": {
+          "x": 640.1328125,
+          "y": 267.28515625
+        },
+        "targetPoint": {
+          "x": 640,
+          "y": 267.5078125
+        },
+        "playerProgress": 0.4897794117647067,
+        "remiProgress": 0.05019230769230987,
+        "playerTexture": "player-hook",
+        "remiTexture": "remi-hit"
+      },
+      "stamina": 52
+    }
+  ],
+  "errors": []
+}

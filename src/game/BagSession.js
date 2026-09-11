@@ -1,3 +1,5 @@
+import { TIMINGS } from './SparringSession.js';
+
 /** A deterministic choreography lesson. All times, including cue times, are seconds. */
 export const BAG_TIMINGS = Object.freeze({
   jab: Object.freeze({ duration: .48, anticipation: .20, impact: .20 / .48, hold: .10, recovery: .18 }),
@@ -12,9 +14,10 @@ export const BAG_SEQUENCES = Object.freeze([
   Object.freeze({ id: 'double-jab', title: 'Double jab', actions: Object.freeze(['jab', 'jab']) }),
   Object.freeze({ id: 'jab-direct', title: 'Jab · direct', actions: Object.freeze(['jab', 'cross']) }),
   Object.freeze({ id: 'jab-direct-crochet', title: 'Jab · direct · crochet', actions: Object.freeze(['jab', 'cross', 'hook']) }),
+  Object.freeze({ id: 'corps', title: 'Au corps · jab · direct · crochet', actions: Object.freeze(['jab', 'cross', 'hook']), target: 'body' }),
 ]);
 
-const ORDER = [0, 1, 2, 3, 2, 1, 3];
+const ORDER = [0, 1, 2, 3, 4, 2, 4, 3];
 const LABELS = { jab: 'Jab', cross: 'Direct', hook: 'Crochet' };
 const EPSILON = 1e-9;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -29,7 +32,8 @@ function sequenceFor(index, startsAt) {
   const steps = descriptor.actions.map((action, step) => {
     const inputAt = startsAt + BAG_RHYTHM.preparation + step * BAG_RHYTHM.spacing;
     return {
-      action, input: action === 'cross' ? 'cross' : 'jab', label: LABELS[action],
+      action, input: action === 'cross' ? 'cross' : 'jab', target: descriptor.target ?? 'head',
+      label: `${LABELS[action]}${descriptor.target === 'body' ? ' au corps' : ''}`,
       inputAt, targetAt: inputAt + BAG_TIMINGS[action].anticipation,
       status: 'waiting', offset: null, quality: null,
     };
@@ -58,12 +62,14 @@ export class BagSession {
     this.settings = settingsFor(settings, this.settings);
     this._events = [];
     this._action = null;
+    this._guardHeld = false;
+    this._guardLevel = 'head';
     this._coasting = false;
     this.state = {
       phase: 'ready', elapsed: 0, remaining: this.settings.duration,
       settings: { ...this.settings }, player: this._playerSnapshot(),
       sequence: sequenceFor(0, 0),
-      stats: { contacts: 0, accurate: 0, perfect: 0, combosCompleted: 0, combosMissed: 0, missedSteps: 0, wrong: 0, early: 0, late: 0 },
+      stats: { contacts: 0, accurate: 0, perfect: 0, combosCompleted: 0, combosMissed: 0, missedSteps: 0, wrong: 0, early: 0, late: 0, contactsHead: 0, contactsBody: 0, accurateHead: 0, accurateBody: 0 },
       feedback: { text: 'Observe l’enchaînement, puis suis le rythme.', tone: 'neutral', until: 0 },
       summary: null,
     };
@@ -81,7 +87,7 @@ export class BagSession {
   pause() {
     if (this.state.phase !== 'running') return false;
     this.state.phase = 'paused';
-    this._syncState();
+    this.releaseControls();
     return true;
   }
 
@@ -92,15 +98,41 @@ export class BagSession {
     return true;
   }
 
+  // Legacy callers can keep using attack; all activities also expose act.
   attack(input) {
+    return this.act(input);
+  }
+
+  act(input) {
+    if (['dodgeLeft', 'dodgeRight'].includes(input)) {
+      if (this.state.phase !== 'running' || this._action) return false;
+      const timing = TIMINGS.player[input];
+      if (timing.duration > this.state.remaining + EPSILON) return false;
+      this._action = { action: input, target: this._guardHeld ? this._guardLevel : 'head', elapsed: 0, impacted: false, duration: timing.duration, impact: null, anticipation: timing.activeFrom, hold: 0 };
+      this._syncState();
+      return true;
+    }
     if (this.state.phase !== 'running' || !['jab', 'cross'].includes(input) || this._action) return false;
     const action = input === 'jab' && this._canHook() ? 'hook' : input;
     const timing = BAG_TIMINGS[action];
     // Finish every accepted animation before the bell: no invisible last hit.
     if (timing.duration > this.state.remaining + EPSILON) return false;
-    this._action = { action, elapsed: 0, impacted: false, ...timing };
+    this._action = { action, target: this._guardHeld && this._guardLevel === 'body' ? 'body' : 'head', elapsed: 0, impacted: false, ...timing };
     this._syncState();
     return true;
+  }
+
+  setGuard(held, level = 'head') {
+    this._guardHeld = Boolean(held) && this.state.phase === 'running';
+    this._guardLevel = this._guardHeld && level === 'body' ? 'body' : 'head';
+    this._syncState();
+    return this._guardHeld;
+  }
+
+  releaseControls() {
+    this._guardHeld = false;
+    this._guardLevel = 'head';
+    this._syncState();
   }
 
   drainEvents() {
@@ -135,7 +167,8 @@ export class BagSession {
       this._action.elapsed += dt;
       if (!this._action.impacted && this._action.elapsed + EPSILON >= this._action.anticipation) {
         this._action.impacted = true;
-        this._contact();
+        if (this._action.impact !== null) this._contact();
+        else this._emit('motion', { action: this._action.action, target: this._action.target });
       }
       if (this._action.elapsed + EPSILON >= this._action.duration) this._action = null;
     }
@@ -144,7 +177,7 @@ export class BagSession {
         step.status = 'missed';
         this.state.stats.missedSteps += 1;
         this._feedback('Continue avec le prochain temps.', 'neutral');
-        this._emit('step-missed', { step: this.state.sequence.steps.indexOf(step), action: step.action });
+        this._emit('step-missed', { step: this.state.sequence.steps.indexOf(step), action: step.action, target: step.target });
       }
     }
     this._resolveSequence();
@@ -170,7 +203,7 @@ export class BagSession {
 
   _canHook() {
     const sequence = this.state.sequence;
-    if (sequence.id !== 'jab-direct-crochet' || sequence.steps[2].status !== 'waiting'
+    if (sequence.steps[2]?.action !== 'hook' || sequence.steps[2].status !== 'waiting'
       || sequence.steps[0].status !== 'hit' || sequence.steps[1].status !== 'hit') return false;
     const projectedContact = this.state.elapsed + BAG_TIMINGS.hook.anticipation;
     return Math.abs(projectedContact - sequence.steps[2].targetAt) <= BAG_RHYTHM.tolerance + EPSILON;
@@ -180,21 +213,24 @@ export class BagSession {
     const sequence = this.state.sequence;
     const stats = this.state.stats;
     const action = this._action.action;
+    const target = this._action.target;
     const index = sequence.steps.findIndex(step => step.status === 'waiting');
     const step = sequence.steps[index];
     const time = this.state.elapsed;
     let result = 'free';
     let offset = null;
     stats.contacts += 1;
+    stats[target === 'body' ? 'contactsBody' : 'contactsHead'] += 1;
 
     if (step && Math.abs(time - step.targetAt) <= BAG_RHYTHM.tolerance + EPSILON) {
       offset = time - step.targetAt;
       step.offset = offset;
-      if (action === step.action) {
+      if (action === step.action && target === step.target) {
         result = Math.abs(offset) <= BAG_RHYTHM.perfect + EPSILON ? 'perfect' : 'good';
         step.status = 'hit';
         step.quality = result;
         stats.accurate += 1;
+        stats[target === 'body' ? 'accurateBody' : 'accurateHead'] += 1;
         if (result === 'perfect') stats.perfect += 1;
         this._feedback(result === 'perfect' ? 'Dans le rythme !' : offset < 0 ? 'Bien ! Un peu plus tard.' : 'Bien ! Un peu plus tôt.', 'good');
       } else {
@@ -203,7 +239,7 @@ export class BagSession {
         step.quality = result;
         stats.wrong += 1;
         stats.missedSteps += 1;
-        this._feedback(step.action === 'hook' ? 'Le crochet vient après un jab et un direct réussis.' : `Ici, c’était ${step.action === 'jab' ? 'un jab' : 'un direct'}.`, 'retry');
+        this._feedback(target !== step.target ? `Vise ${step.target === 'body' ? 'le corps : maintiens bas' : 'la tête : relâche bas'}.` : step.action === 'hook' ? 'Le crochet vient après un jab et un direct réussis.' : `Ici, c’était ${step.action === 'jab' ? 'un jab' : 'un direct'}.`, 'retry');
       }
     } else if (step) {
       const previous = sequence.steps[index - 1];
@@ -222,7 +258,7 @@ export class BagSession {
     } else {
       this._feedback('Respire et prépare le prochain enchaînement.', 'neutral');
     }
-    this._emit('bag-hit', { attack: action, result, step: index, offset, sequenceIndex: sequence.index });
+    this._emit('bag-hit', { attack: action, target, result, step: index, offset, sequenceIndex: sequence.index });
   }
 
   _resolveSequence() {
@@ -238,10 +274,10 @@ export class BagSession {
   _playerSnapshot() {
     const action = this._action;
     return action ? {
-      action: action.action, elapsed: action.elapsed, duration: action.duration,
+      action: action.action, target: action.target, guardLevel: this._guardLevel, elapsed: action.elapsed, duration: action.duration,
       progress: clamp(action.elapsed / action.duration, 0, 1), impact: action.impact,
       contact: action.anticipation, hold: action.hold, impacted: action.impacted,
-    } : { action: 'idle', elapsed: 0, duration: 0, progress: 0, impact: null, contact: 0, hold: 0, impacted: false };
+    } : { action: this._guardHeld ? 'guard' : 'idle', target: this._guardHeld ? this._guardLevel : 'head', guardLevel: this._guardLevel, elapsed: 0, duration: 0, progress: 0, impact: null, contact: 0, hold: 0, impacted: false };
   }
 
   _syncState() {
@@ -267,6 +303,8 @@ export class BagSession {
     this.state.remaining = 0;
     this.state.phase = 'finished';
     this._action = null;
+    this._guardHeld = false;
+    this._guardLevel = 'head';
     const stats = this.state.stats;
     this.state.summary = {
       ...stats,

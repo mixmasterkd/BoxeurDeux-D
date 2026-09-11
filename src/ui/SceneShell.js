@@ -1,8 +1,8 @@
 const GUIDES = {
   gym: '<span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> Marcher</span><span><kbd>WASD</kbd> / <kbd>ZQSD</kbd> Marcher</span><span><kbd>E</kbd> / <kbd>Entrée</kbd> Interagir</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
-  sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>Espace</kbd> Garde maintenue</span><span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd> Esquiver</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span><span><kbd>M</kbd> Son</span>',
-  bag: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Combo avec crochet</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span><span><kbd>M</kbd> Son</span>',
-  shadow: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>Espace</kbd> Garde <kbd>A</kbd><kbd>D</kbd> Esquives</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause et commandes</span>',
+  sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>↑</kbd> Garde haute <kbd>↓</kbd> Garde basse et coups au corps</span><span><kbd>←</kbd><kbd>→</kbd> Esquiver · flèches ou WASD</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span><span><kbd>M</kbd> Son</span>',
+  bag: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Combo avec crochet</span><span><kbd>↑</kbd><kbd>↓</kbd> Gardes <kbd>←</kbd><kbd>→</kbd> Esquives · flèches ou WASD</span><span><kbd>↓</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
+  shadow: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>↑</kbd><kbd>↓</kbd> Gardes <kbd>←</kbd><kbd>→</kbd> Esquives · flèches ou WASD</span><span><kbd>↓</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause et commandes</span>',
 };
 
 export function setSceneShell(mode) {

@@ -15,14 +15,19 @@ export class BagScene extends Phaser.Scene {
     this.audio = new SparringAudio();
     this.ui = new BagUI({
       getState: () => this.session.state,
-      onAction: input => this.session.attack(input),
+      onAction: input => this.session.act(input),
+      onGuard: (held, level) => this.session.setGuard(held, level),
       onStart: () => {
         this.audio.setActive(false); this.session.reset(); this.fighter.reset(); this.session.start();
         this.audio.setActive(true); this.audio.play('round-start');
       },
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
-      onReturnGym: () => { if (this.session.state.phase !== 'running') this.scene.start('GymScene'); },
+      onReturnGym: () => {
+        this.session.pause(); this.session.releaseControls();
+        this.audio.setActive(false); this.scene.start('GymScene');
+      },
+      onBlur: () => { this.session.pause(); this.session.releaseControls(); this.audio.setActive(false); },
       onAudioGesture: () => this.audio.unlock(),
       onMute: () => {
         this.audio.setMuted(!this.audio.muted); this.audio.unlock(); this.ui.setAudioState(this.audio.getState());
@@ -30,7 +35,11 @@ export class BagScene extends Phaser.Scene {
     });
     this.ui.setAudioState(this.audio.getState());
     this.fighter.render(this.session.state.player, 0);
-    this.resizeObserver = new ResizeObserver(() => this.scale.refresh());
+    this.resizeObserver = new ResizeObserver(() => {
+      // Phaser refresh computes display size before its final bounds read.
+      // Read the resized parent first, including a change of primary pointer.
+      this.scale.getParentBounds(); this.scale.refresh();
+    });
     this.resizeObserver.observe(document.getElementById('game'));
     let disposed = false;
     const cleanup = () => {
@@ -57,7 +66,7 @@ export class BagScene extends Phaser.Scene {
         this.audio.play('player-hit');
         if (import.meta.env.DEV) {
           const impacts = window.__bag.impacts;
-          impacts.push({ ...event, player: { ...state.player }, contactPoint: { ...this.fighter.contactPoint }, targetPoint: this.fighter.targetPoint(), pose: this.fighter.pose });
+          impacts.push({ ...event, player: { ...state.player }, contactPoint: { ...this.fighter.contactPoint }, targetPoint: this.fighter.targetPoint(event.target), pose: this.fighter.pose });
           if (impacts.length > 100) impacts.shift();
         }
       } else if (event.type === 'sequence-end' && event.success) this.audio.play('lesson-progress');

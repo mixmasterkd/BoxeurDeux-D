@@ -29,7 +29,7 @@
 #bag-ui .bag-action-dock, #bag-ui .bag-pause-button { display: none; }
 html[data-touch="true"] #bag-ui .bag-action-dock { display: flex; }
 html[data-touch="true"] #bag-ui .bag-pause-button { display: block; }
-#bag-ui:not([data-phase="running"]) :is(.input-rail, .bag-choreography, .bag-feedback) { visibility: hidden; }
+#bag-ui:not([data-phase="running"]) :is(.bag-choreography, .bag-feedback) { visibility: hidden; }
 html[data-touch="true"] .bag-choreography { top: 50%; left: auto; right: calc(100% + 6px); transform: translateY(-50%); width: 94px; }
 html[data-touch="true"] .bag-steps { flex-direction: column; gap: 6px; }
 html[data-touch="true"] .bag-step { font-size: 12px; }

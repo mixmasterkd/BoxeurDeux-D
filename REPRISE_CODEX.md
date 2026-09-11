@@ -1,5 +1,11 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Dernier GO — commandes communes avant la prochaine activité
+
+L’utilisateur a validé **joypad + A/B**, gardes directionnelles et coups tête/corps dans tout le jeu, avant la speed ball. La convention remplace les boutons de direction/guard et la touche Espace des étapes historiques ci-dessous. Ordinateur : flèches/WASD (ZQSD aussi), J/K frappes, E interaction, Entrée validation, P/Échap pause/retour. Mobile paysage : joypad à gauche, A/B à droite, ☰ pause; dans les menus joypad sélectionne, A valide, B revient. Haut garde tête; bas garde corps et sélectionne les frappes au corps, gauche/droite esquivent. Attaquer suspend la garde; le combo peut se faire bas maintenu. Les lettres A/B restent fixes. La sortie «← Gym» est directement accessible dans la bordure des trois activités et conserve la position du gym.
+
+`GameControls.js` mutualise entrées, capture tactile, navigation et relâchements. `act`, `setGuard(held, level)` et `releaseControls` sont communs aux trois modèles. Rémi annonce tête/corps avec cible stable; son calendrier de garde est indépendant des boutons. Les leçons gardent leurs objectifs à la tête mais ne changent pas silencieusement les gestes au corps. Le sac inclut une cinquième séquence au corps. Nouveaux PNG dans `body-training`, anciens décors et sprites conservés. Les résultats des tests, de compilation et de publication doivent être lus dans `docs/VERIFICATIONS.md`; ce relais décrit l’implémentation, pas une preuve de déploiement.
+
 ## Dernier GO — shadow boxing au miroir
 
 Après le combo de sparring publié dans `25500d5`, l’utilisateur a autorisé l’atelier suivant : **pratiquer les mouvements devant le miroir**. Le miroir est désormais raccordé au gym par une conversation et le bouton Pratiquer, ou directement par `?scene=shadow`. Le retour conserve la position de la visite. Speed ball, corde et énergie quotidienne restent ultérieurs.

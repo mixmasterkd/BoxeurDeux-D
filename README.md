@@ -18,7 +18,7 @@ La speed ball et la corde présentent encore leur futur mini-jeu. Leurs exercice
 
 Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recouvre l’action; les raccourcis du pied de page sont également masqués. **P ou Échap → Commandes** ouvre l’aide depuis la pause, dans le gym, le sparring, le sac et au miroir. Revenir de l’aide au menu ne reprend pas la partie.
 
-Sur téléphone en paysage, les boutons occupent **deux bandes latérales hors de l’image du jeu**. La scène centrale garde exactement le même cadrage 1280 × 720 et les mêmes proportions 16:9 que sur ordinateur. Elle s’adapte à la largeur et à la hauteur restantes, sans être étirée ni coupée. Les bandes sont réservées aux pouces, y compris pour Pause et Son. En portrait, une invitation demande de tourner le téléphone et le jeu se met en pause.
+Sur téléphone en paysage, les boutons occupent **deux bandes latérales hors de l’image du jeu**. La scène centrale garde exactement le même cadrage 1280 × 720 et les mêmes proportions 16:9 que sur ordinateur. Elle s’adapte à la largeur et à la hauteur restantes, sans être étirée ni coupée. Le joypad occupe la marge gauche; A/B et le bouton ☰ sont à droite. Les menus gardent ces repères : joypad pour sélectionner, A pour valider, B pour revenir. Le son se règle dans la pause. En portrait, une invitation demande de tourner le téléphone et le jeu se met en pause.
 
 La détection utilise le périphérique de pointage principal : un ordinateur à la souris reste sans boutons même si son navigateur annonce une capacité tactile. Une fenêtre verticale sur ordinateur reste jouable; l’invitation à tourner est réservée au tactile. Un changement de périphérique libère les commandes et met la partie en pause.
 
@@ -26,14 +26,14 @@ La détection utilise le périphérique de pointage principal : un ordinateur à
 
 La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et téléphone en paysage. Sa taille d’affichage s’adapte aux deux dimensions de la fenêtre; le mobile ne révèle pas une autre portion de la salle.
 
-- Marcher : **flèches**, **WASD** ou **ZQSD**; pavé directionnel tactile à gauche.
-- Interagir : **E**, **Entrée**, ou bouton à droite quand vous êtes près de Rémi ou d’un atelier.
-- Pause : **P**, **Échap**, ou bouton Pause. Échap ferme aussi une conversation.
-- Sur ordinateur, ouvrir **Commandes** dans la pause pour consulter les raccourcis. Sur téléphone, le pavé directionnel et le bouton d’interaction se trouvent dans les bandes latérales.
+- Marcher : **flèches**, **WASD** ou **ZQSD**; joypad tactile à gauche, avec déplacements diagonaux au pouce.
+- Interagir : **E**, **Entrée**, ou **A** à droite quand vous êtes près de Rémi ou d’un atelier.
+- Pause : **P**, **Échap**, ou bouton **☰**. Échap ferme aussi une conversation.
+- Sur ordinateur, ouvrir **Commandes** dans la pause pour consulter les raccourcis. Sur téléphone, le joypad et les boutons A/B se trouvent dans les bandes latérales.
 - Rémi, près des marches à droite du ring, propose le sparring libre et ses trois leçons. La séance choisie s’ouvre sur son menu avant démarrage.
 - Le sac ouvre une séance guidée de 45 secondes; son accueil explique l’exercice avant démarrage.
 - Le miroir ouvre une pratique libre des mouvements, sans adversaire ni limite de temps.
-- **Retour au gym**, sur l’accueil d’une séance, en pause ou au bilan, permet de retrouver votre position. Le clavier et les contacts sont libérés à chaque changement de scène.
+- **← Gym**, toujours accessible dans la bordure d’une activité, ramène directement à votre position; cette sortie reste aussi dans les menus. Le clavier et les contacts sont libérés à chaque changement de scène.
 
 Les collisions empêchent de traverser le ring, le sac et les meubles. La speed ball et la corde présentent encore leurs futures activités. La porte présente la future sortie vers le quartier. Ni énergie quotidienne, ni progression sauvegardée, ni carte extérieure à cette étape.
 
@@ -41,12 +41,12 @@ Le personnage d’exploration porte une tuque rouge courte avec un petit motif n
 
 ## Le sac chorégraphié — 11 septembre 2026
 
-Approchez-vous du sac dans le gym et interagissez pour ouvrir l’atelier. La séance dure **45 secondes** : observez les coups annoncés, puis frappez lorsque leur repère s’allume. Quatre enchaînements reviennent au fil de l’exercice : jab, double jab, jab–direct et jab–direct–crochet. Une pression déclenche un coup; maintenir une touche ne répète pas les frappes.
+Approchez-vous du sac dans le gym et interagissez pour ouvrir l’atelier. La séance dure **45 secondes** : observez les coups annoncés, puis frappez lorsque leur repère s’allume. Cinq enchaînements reviennent au fil de l’exercice : jab, double jab, jab–direct, jab–direct–crochet et jab–direct–crochet au corps. Une pression déclenche un coup; maintenir une touche ne répète pas les frappes.
 
 - **J** : jab gauche (main avant); **K** : direct droit (main arrière).
-- Dans l’enchaînement annoncé **jab → direct → crochet**, les deux premiers coups réussis ouvrent une courte fenêtre : le troisième **J** déclenche alors le crochet. Hors de cette fenêtre, J reste un jab. Au tactile, le bouton Jab indique **Crochet** quand il est disponible.
+- Dans l’enchaînement annoncé **jab → direct → crochet**, les deux premiers coups réussis ouvrent une courte fenêtre : le troisième **J** déclenche alors le crochet. Hors de cette fenêtre, J reste un jab. Au tactile, **A** reste A et son sous-titre indique **Crochet** quand il est disponible.
 - **P / Échap** : pause ou reprise; **Commandes** explique les mouvements depuis le menu.
-- **M** : couper ou rétablir le son; le bouton tactile Son se trouve dans la marge.
+- **M** : couper ou rétablir le son; le bouton tactile Son se trouve dans le menu pause.
 - Le bilan donne les contacts, la précision et les enchaînements réussis, avec un conseil. Il permet de recommencer ou de revenir au même endroit dans le gym.
 
 Le boxeur est en **garde de droitier : pied gauche devant, pied droit derrière**. Les nouvelles poses montrent le jab gauche, le direct droit avec pivot du pied droit arrière et le crochet gauche. Le gant, l’impact sonore et le balancement du sac correspondent au contact compté. Le boxeur garde sa tuque rouge et sa tenue bleue/blanche; six poses dessinées représentent la garde, les préparations et les trois frappes. Le sac et ses chaînes sont une ressource transparente séparée du nouveau décor. Ces images viennent de la génération intégrée; les sources et prompts du personnage corrigé sont conservés dans `references/characters/bag-orthodox/PROMPTS.md` (décor et sac dans le dossier `bag`). La fluidité pourra encore gagner des poses intermédiaires.
@@ -57,7 +57,7 @@ Le même enchaînement est maintenant disponible en **sparring libre**, avec les
 
 **J → K → J : jab gauche, direct droit, crochet gauche.** Attendez le retour en garde après chaque coup, puis pressez le suivant dans la demi-seconde. Aucun coup n’est mis en attente et maintenir une touche ne répète pas l’attaque. Hors enchaînement, J reste un jab; le crochet n’a pas de troisième touche dédiée.
 
-Les deux premières frappes peuvent être bloquées : le crochet reste lançable, mais le bilan compte un **combo complet** seulement si les trois coups ont touché. Une défense, un coup reçu, une pause, un manque d’endurance ou une attente trop longue interrompt la chaîne. Une frappe déjà engagée finit son mouvement. Au tactile, le bouton Jab devient Crochet; il prend une teinte verte lorsque les 21 points d’endurance nécessaires sont disponibles.
+Les deux premières frappes peuvent être bloquées : le crochet reste lançable, mais le bilan compte un **combo complet** seulement si les trois coups ont touché. Une garde haute, une esquive, un coup reçu, une pause, un manque d’endurance ou une attente trop longue interrompt la chaîne. Bas peut rester tenu entre les frappes pour enchaîner au corps. Une frappe déjà engagée finit son mouvement. Au tactile, le sous-titre du bouton A devient Crochet; il prend une teinte verte lorsque les 21 points d’endurance nécessaires sont disponibles.
 
 Le coût des trois coups est de **48 points d’endurance** (10 + 17 + 21), hors récupération entre les coups. Rémi laisse des ouvertures fixes un peu plus longues en libre, sans réagir à la lecture de vos boutons. Les trois leçons conservent jab/direct et leur rythme initial. Le crochet dispose de trois nouvelles poses vues de dos, avec casque et tenue de sparring; le contact, le son et les compteurs utilisent la même horloge.
 
@@ -66,14 +66,14 @@ Le coût des trois coups est de **48 points d’endurance** (10 + 17 + 21), hors
 Rejoignez le miroir en haut à gauche du gym puis **E / Entrée → Pratiquer devant le miroir**. Cet atelier permet de répéter librement les mouvements, sans adversaire, sans limite de temps et sans coût d’endurance.
 
 - **J** : jab gauche; **K** : direct droit; **J → K → J** : crochet gauche après les deux premiers gestes, avec la même cadence que le sparring. Une pression par geste, après le retour en garde.
-- **Espace maintenu** : garde haute. **A / D ou ← / →** : esquives gauche et droite. Une défense interrompt l’enchaînement en cours.
+- **Haut / W** maintenu : garde haute; **Bas / S** maintenu : garde basse. **Bas + J/K** vise le corps. **A / D ou ← / →** : esquives. La garde haute et les esquives interrompent le combo; bas maintenu permet de l’enchaîner au corps.
 - **P / Échap** : pause; **Commandes** : aide; **M** : son/muet. Le menu propose une vitesse normale ou un **ralenti à 65 %** pour observer le geste.
 - **Terminer la séance**, dans la pause, présente les mouvements pratiqués : frappes, enchaînements, esquives et temps en garde. Ce bilan ne note ni précision ni coups portés à un adversaire. Recommencez ou revenez au même endroit dans le gym.
 - Le reflet reproduit instantanément la pose, l’inclinaison et les déplacements du personnage. Pause et ralenti s’appliquent ensemble au boxeur et à son reflet.
 
 Le personnage conserve sa tuque rouge, sa tenue bleue/blanche et sa garde de droitier. Les six poses du sac sont réutilisées; une garde haute et deux esquives dessinées les complètent. Un nouveau décor du même gym encadre le reflet. Les sons sont de courts souffles de mouvement, sans bruit de frappe sur un adversaire. Les ressources viennent de la génération d’images intégrée; sources et prompts : `references/characters/mirror/PROMPTS.md`.
 
-Sur mobile, jouez en paysage : défenses dans la marge gauche, frappes dans la marge droite. Les appuis sont libérés en cas de perte de focus, de changement de périphérique ou de passage en portrait. La reprise reste explicite. Aucun compte ni service distant n’est nécessaire pour pratiquer.
+Sur mobile, jouez en paysage : joypad à gauche pour gardes/esquives, A/B à droite pour frappes. **← Gym** quitte directement la pratique, sans passer par la pause. Les appuis sont libérés en cas de perte de focus, de changement de périphérique ou de passage en portrait. La reprise reste explicite. Aucun compte ni service distant n’est nécessaire pour pratiquer.
 
 ## Leçons de Rémi et son
 
@@ -81,13 +81,13 @@ Le menu **Votre séance** propose le sparring libre et trois exercices guidés. 
 
 | Exercice | Réussite attendue |
 | --- | --- |
-| Placer son jab | Un jab dans chacune de trois ouvertures différentes. Rémi laisse travailler sans attaquer. |
-| Bloquer et souffler | Bloquer un coup, relâcher la garde, puis récupérer 8 points d’endurance. |
-| Esquiver et répondre | Esquiver du côté indiqué, puis toucher Rémi dans l’ouverture qui suit. |
+| Placer son jab | Un jab à la tête dans chacune de trois ouvertures différentes. Rémi laisse travailler sans attaquer. |
+| Bloquer et souffler | Bloquer un coup à la tête avec la garde haute, relâcher, puis récupérer 8 points d’endurance. |
+| Esquiver et répondre | Esquiver du côté indiqué, puis placer un jab à la tête dans l’ouverture qui suit. |
 
 Les conseils et la progression apparaissent à gauche pendant l’exercice. Le bilan propose une piste pour progresser, un nouvel essai ou la leçon suivante. **Choisir une séance**, en pause ou au bilan, ramène au menu et remet les compteurs à zéro. Les compétences et l’énergie quotidienne ne sont pas encore enregistrées.
 
-La cloche, les impacts, les blocages, le souffle et les réussites ont des sons distincts, synthétisés localement avec Web Audio. Le son commence après une interaction et s’arrête en pause, en portrait ou lors d’une perte de focus. La touche **M** coupe le son sur ordinateur; le bouton tactile **Son / Muet** est dans la bande latérale. Le volume du sparring se règle au menu et en pause. Ces préférences sont mémorisées dans le navigateur lorsque son stockage est disponible. Le jeu reste utilisable sans audio. Aucune boucle d’ambiance n’est ajoutée à cette étape.
+La cloche, les impacts, les blocages, le souffle et les réussites ont des sons distincts, synthétisés localement avec Web Audio. Le son commence après une interaction et s’arrête en pause, en portrait ou lors d’une perte de focus. La touche **M** coupe le son sur ordinateur; le bouton tactile **Son / Muet** est dans le menu pause. Le volume du sparring se règle au menu et en pause. Ces préférences sont mémorisées dans le navigateur lorsque son stockage est disponible. Le jeu reste utilisable sans audio. Aucune boucle d’ambiance n’est ajoutée à cette étape.
 
 ## Lancer
 
@@ -111,6 +111,7 @@ Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve 
 ```sh
 npm test         # Règles du sparring, du sac, déplacements et autres modèles
 npm run build    # Compilation vers dist/
+npm run test:controls # Convention commune, gardes tête/corps, joypad A/B et transitions
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:combo # Combo sparring réel au clavier/tactile, contacts et interruptions
 npm run test:shadow # Miroir, mouvements/reflet, ralenti, tactile et retours au gym
@@ -142,23 +143,24 @@ Les tests navigateur facultatifs utilisent Playwright déjà disponible dans cet
 
 | Action | Clavier | Tactile |
 | --- | --- | --- |
-| Jab gauche | J | Jab |
-| Direct droit | K | Direct |
-| Crochet gauche en combo (libre) | J → K → J | Jab → Direct → Crochet |
-| Garde | Espace maintenu | Maintenir Garde |
-| Esquive gauche | A ou ← | ← |
-| Esquive droite | D ou → | → |
-| Pause / reprendre | P ou Échap | Bouton Pause / Reprendre |
-| Son / sourdine | M | Bouton Son / Muet |
+| Jab / direct à la tête | J / K | A / B |
+| Jab / direct au corps | Bas ou S + J / K | Joypad bas + A / B |
+| Crochet en combo (libre) | J → K → J | A → B → A |
+| Garde haute / basse | Haut/W / Bas/S maintenu | Joypad haut / bas maintenu |
+| Esquives gauche / droite | Gauche/A / Droite/D | Impulsion joypad gauche / droite |
+| Pause | P ou Échap | ☰ |
+| Valider / retour dans un menu | Entrée / Échap (J/K aussi) | A / B |
+| Son / sourdine | M | Son / Muet dans la pause |
+| Quitter une activité | ← Gym dans la bordure | ← Gym dans la marge |
 
-Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nouveau pour la suivante. Une attaque engagée prend la priorité sur la garde. La garde revient ensuite si elle est encore maintenue. Le changement d'onglet, la perte de focus et le passage en portrait libèrent les commandes et mettent le round en pause.
+Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nouveau pour la suivante. Les directions acceptent flèches, WASD et ZQSD. Espace n’est plus une commande de garde. Une attaque engagée prend la priorité sur la garde. La garde revient ensuite si elle est encore maintenue. Le changement d'onglet, la perte de focus et le passage en portrait libèrent les commandes et mettent le round en pause.
 
 **Téléphone : utilisez le paysage.** En portrait, une invitation demande de tourner l'appareil. La scène conserve ses proportions et s'adapte à la largeur et à la hauteur disponibles; les boutons restent dans les bandes latérales, hors de l’image, près des pouces. Aucune API de verrouillage d'orientation n'est nécessaire.
 
 ## Apprendre avec Rémi
 
 - Rémi commence par laisser une ouverture. Sa garde et ses attaques suivent un calendrier indépendant de vos boutons.
-- L'annonce ambrée indique le côté sûr. Attendez **« Esquivez »** après « Préparez » pour déclencher le mouvement. La fenêtre de protection dure 0,36 s, après 0,08 s de mouvement.
+- L’annonce ambrée distingue **TÊTE · GARDE HAUTE** et **CORPS · GARDE BASSE**. Rémi garde une hauteur annoncée jusqu’au contact. La garde ne protège que la bonne hauteur; frapper l’ouvre temporairement. Dans la leçon de riposte, « Préparez / Esquivez » indique le côté sûr. La fenêtre de protection dure 0,36 s, après 0,08 s de mouvement.
 - Les marques dorées indiquent une touche, le bouclier bleu un blocage, et les traits verts une esquive. Le bilan distingue touches données/reçues, blocages et esquives réussies.
 - Jab : 10 points d'endurance; direct : 17; crochet : 21; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de 20 points/s après un court délai. Une garde épuisée ne protège plus : relâchez pour souffler.
 - En sparring libre, les réglages proposent trois rythmes de Rémi et deux vitesses de récupération. Les leçons conservent le rythme tranquille; la récupération reste réglable. Une annonce déjà commencée conserve sa durée pour rester prévisible.
@@ -193,3 +195,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.
 
 La ville, la maison, l'emploi, la carrière et les compétitions restent des étapes ultérieures. Aucun outil de dessin n'est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Un commit doit marquer chaque étape fonctionnelle vérifiée; son envoi sur GitHub reste distinct de l’enregistrement local.
+
+## Convention commune et extension des lieux
+
+`src/ui/GameControls.js` centralise le joypad, A/B, les directions clavier et la navigation des menus. Une nouvelle activité ou un futur lieu réutilise cet adaptateur : E/A interagit, Entrée/A valide, Échap/B revient. Les interfaces propres aux ateliers conservent leurs réglages et leurs bilans. `npm run test:controls` vérifie la convention dans les quatre scènes avec de vraies entrées clavier et tactiles simulées. Les poses corps/basse garde sont conservées dans `public/assets/sprites/body-training/`, avec leurs sources et prompts dans `references/characters/body-training/`.

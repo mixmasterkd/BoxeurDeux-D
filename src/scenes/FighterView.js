@@ -4,6 +4,9 @@ const POSES = ['guard', 'jab', 'cross', 'block', 'hit', 'dodge',
   'jab-windup', 'cross-windup', 'jab-recover', 'cross-recover'];
 const ASSETS = 'assets/sprites/sparring-v2/';
 const HOOK_ASSETS = 'assets/sprites/sparring-hook/';
+const BODY_ASSETS = 'assets/sprites/body-training/';
+const BODY_POSES = ['jab-body', 'cross-body', 'jab-windup-body', 'cross-windup-body',
+  'jab-recover-body', 'cross-recover-body', 'block-body', 'hit-body'];
 
 /** Rendering only. The session owns every timer and every scored contact. */
 export class FighterView {
@@ -18,6 +21,11 @@ export class FighterView {
     for (const pose of ['hook-windup', 'hook-recover', 'hook']) {
       scene.load.image(`player-${pose}`, `${import.meta.env.BASE_URL}${HOOK_ASSETS}player-${pose}.png`);
     }
+    scene.load.json('fighters-body', `${import.meta.env.BASE_URL}${BODY_ASSETS}sparring.json`);
+    for (const who of ['player', 'remi']) {
+      const poses = who === 'player' ? [...BODY_POSES, 'hook-body', 'hook-windup-body', 'hook-recover-body'] : BODY_POSES;
+      for (const pose of poses) scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${BODY_ASSETS}${who}-${pose}.png`);
+    }
   }
 
   constructor(scene, who, x, feet, height) {
@@ -26,7 +34,7 @@ export class FighterView {
     this.feet = feet;
     this.height = height;
     const original = scene.cache.json.get('fighters');
-    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses } };
+    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses, ...scene.cache.json.get('fighters-body')?.poses } };
     this.anchor = this.metadata.anchor;
     this.shadow = scene.add.ellipse(x, feet - 3, who === 'remi' ? 228 : 250, 30, 0x0b1523, .3);
     this.sprite = scene.add.image(x, feet, `${who}-guard`).setOrigin(
@@ -44,7 +52,12 @@ export class FighterView {
 
   point(pose, name, actual = false) {
     const spec = this.metadata.poses[`${this.who}-${pose}`] ?? this.metadata.poses[`${this.who}-guard`];
-    const point = spec[name] ?? spec.glove ?? spec.head;
+    // The original head-only atlas remains untouched. Its torso landmark is
+    // measured between the head and the fixed foot anchor; new art is explicit.
+    const point = name === 'body' ? spec.body ?? {
+      x: (spec.head.x + this.anchor.x) / 2,
+      y: spec.head.y + (this.anchor.y - spec.head.y) * .32,
+    } : spec[name] ?? spec.glove ?? spec.head;
     return transformFighterPoint(point, this.anchor, {
       x: actual ? this.sprite.x : this.x,
       y: actual ? this.sprite.y : this.feet,
@@ -55,7 +68,7 @@ export class FighterView {
   }
 
   contact() {
-    if (!['jab', 'cross', 'hook'].includes(this.pose)) return this.target;
+    if (!/^(jab|cross|hook)(-body)?$/.test(this.pose)) return this.target;
     return this.point(this.pose, 'contact', true);
   }
 
@@ -69,13 +82,14 @@ export class FighterView {
       const target = { ...this.target };
       if (!player) {
         target.x += action === 'jab' ? -36 : 36;
-        target.y += 18;
+        if (fighter.target !== 'body') target.y += 18;
       }
       // Track the visible target during preparation, then freeze the aim while
       // the defender recoils. A reaction must not drag an extended arm around.
       if (motion.phase === 'contact' && !this.attackAim) this.attackAim = target;
       const aim = this.attackAim ?? target;
-      const contact = this.point(action, 'contact');
+      const contactPose = `${action}${fighter.target === 'body' ? '-body' : ''}`;
+      const contact = this.point(contactPose, 'contact');
       dx += (aim.x - contact.x) * motion.reach;
       dy += (aim.y - contact.y) * motion.reach;
     } else {

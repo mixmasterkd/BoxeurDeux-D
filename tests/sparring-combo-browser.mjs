@@ -58,7 +58,7 @@ async function geometry(page, touch) {
   const fit = await page.evaluate(() => {
     const canvas = document.querySelector('canvas');
     const r = canvas.getBoundingClientRect();
-    const buttons = [...document.querySelectorAll('#sparring-ui .input-rail button')]
+    const buttons = [...document.querySelectorAll('#sparring-ui .input-rail button, #sparring-ui .joypad')]
       .filter(button => button.getClientRects().length && getComputedStyle(button).visibility !== 'hidden')
       .map(button => {
         const b = button.getBoundingClientRect();
@@ -79,7 +79,7 @@ async function geometry(page, touch) {
   assert.equal(fit.mode, String(touch));
   if (!touch) assert.equal(fit.buttons.length, 0, 'a desktop reporting touch capacity still has no live controls');
   else {
-    assert.ok(fit.buttons.length >= 5, 'both attacks and three defenses remain available');
+    assert.ok(fit.buttons.length === 4, 'two attacks, directional joypad and menu remain available');
     for (const button of fit.buttons) {
       assert.ok(button.outside && button.fits, `touch control remains in a side margin: ${JSON.stringify(button)}`);
       assert.ok(button.width >= 35 && button.height >= 35, 'usable touch targets');
@@ -207,7 +207,7 @@ try {
     await page.locator('#sparring-ui .commands-open-button').click();
     assert.match(await page.locator('#sparring-ui .commands-panel').textContent(), /crochet/i);
     const paused = await state(page);
-    await page.keyboard.press('j');
+    await page.keyboard.press('ArrowUp');
     await page.waitForTimeout(200);
     assert.deepEqual(await state(page), paused, 'commands menu freezes combat');
     await page.locator('#sparring-ui .commands-back-button').click();
@@ -220,7 +220,7 @@ try {
     await page.evaluate(() => window.dispatchEvent(new Event('blur')));
     await wait(page, () => window.__sparring.session.state.phase === 'paused');
     const blur = await page.evaluate(() => ({ state: structuredClone(window.__sparring.session.state),
-      keys: window.__sparring.ui.keys.size, pointers: window.__sparring.ui.pointers.size, guard: window.__sparring.ui.guardActive }));
+      keys: window.__sparring.ui.controls.keys.size, pointers: window.__sparring.ui.controls.pointers.size, guard: Boolean(window.__sparring.ui.controls.guard) }));
     assert.equal(blur.state.combo.step, 0);
     assert.equal(blur.keys, 0); assert.equal(blur.pointers, 0); assert.equal(blur.guard, false);
     await page.keyboard.up('j');
@@ -235,12 +235,18 @@ try {
   if (!selected || selected === 'mobile') {
     const mobile = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true, deviceScaleFactor: 1 });
     const page = await mobile.newPage(); watch(page);
-    await enter(page, true);
+    await page.goto(url);
+    await wait(page, () => window.__sparring?.session.state.phase === 'ready');
     await geometry(page, true);
     const cdp = await mobile.newCDPSession(page);
     let nextTouchId = 1;
+    const touchBoxes = {};
+    const measureButtons = async () => {
+      for (const action of ['jab', 'cross']) touchBoxes[action] = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+    };
+    await measureButtons();
     const down = async action => {
-      const box = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+      const box = touchBoxes[action];
       assert.ok(box, `visible ${action} touch button`);
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ id: nextTouchId++, x: box.x + box.width / 2, y: box.y + box.height / 2 }] });
     };
@@ -255,6 +261,10 @@ try {
       assert.equal(accepted.stats.landed, before.stats.landed, 'touchstart does not score contact');
       if (!hold) await up();
     };
+    // Prepare geometry and the touch driver before the round. A starts the
+    // menu directly, without Playwright's delayed compatibility-click wait.
+    await down('jab'); await up();
+    await wait(page, () => window.__sparring.session.state.phase === 'running');
     const startIndex = await page.evaluate(() => window.__sparring.impacts.length);
     await touchPunch('jab', 'jab');
     await touchPunch('cross', 'cross');
@@ -267,10 +277,11 @@ try {
     await page.waitForTimeout(180);
     assert.equal((await state(page)).stats.thrown, 3, 'holding a touch cannot repeat the combination');
     await up(true);
-    assert.equal(await page.evaluate(() => window.__sparring.ui.pointers.size), 0);
+    assert.equal(await page.evaluate(() => window.__sparring.ui.controls.pointers.size), 0);
     await checkAllPlayerContacts(page, startIndex);
     await page.setViewportSize({ width: 667, height: 375 });
     await geometry(page, true);
+    await measureButtons();
     await restart(page, true);
     await touchPunch('jab', 'jab');
     await touchPunch('cross', 'cross', true);
@@ -279,7 +290,7 @@ try {
     await page.setViewportSize({ width: 390, height: 844 });
     await wait(page, () => window.__sparring.session.state.phase === 'paused');
     assert.equal((await state(page)).combo.step, 0);
-    assert.equal(await page.evaluate(() => window.__sparring.ui.pointers.size), 0);
+    assert.equal(await page.evaluate(() => window.__sparring.ui.controls.pointers.size), 0);
     assert.equal(await page.locator('#rotate-prompt').isVisible(), true);
     assert.equal(await page.evaluate(() => document.getElementById('stage').inert), true);
     await up();

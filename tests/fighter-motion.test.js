@@ -9,6 +9,7 @@ import { FighterView } from '../src/scenes/FighterView.js';
 // dependency. Visual quality and the artwork itself are checked in-browser.
 const metadata = JSON.parse(readFileSync(new URL('../public/assets/sprites/sparring-v2/fighters.json', import.meta.url)));
 Object.assign(metadata.poses, JSON.parse(readFileSync(new URL('../public/assets/sprites/sparring-hook/fighters.json', import.meta.url))).poses);
+Object.assign(metadata.poses, JSON.parse(readFileSync(new URL('../public/assets/sprites/body-training/sparring.json', import.meta.url))).poses);
 function displayObject(x, y) {
   return {
     x, y, rotation: 0, flipX: false,
@@ -78,15 +79,15 @@ test('Rémi keeps a readable windup and meets his contact on both committed atta
     boxer.render(session.state.remi, session.state.elapsed);
     const fighter = session.state.remi;
     if (fighter.action.startsWith('tell') && fighter.progress > .25) {
-      assert.ok(boxer.pose.endsWith('-windup'));
+      assert.match(boxer.pose, /-windup(-body)?$/);
     }
     for (const event of session.drainEvents()) {
       if (event.type !== 'remi-hit') continue;
       attacks.add(event.attack);
-      assert.equal(boxer.pose, event.attack);
+      assert.equal(boxer.pose, `${event.attack}${event.target === 'body' ? '-body' : ''}`);
       const contact = boxer.contact();
       const expectedX = boxer.target.x + (event.attack === 'jab' ? -36 : 36);
-      assert.ok(Math.hypot(contact.x - expectedX, contact.y - boxer.target.y - 18) < 1);
+      assert.ok(Math.hypot(contact.x - expectedX, contact.y - boxer.target.y - (event.target === 'body' ? 0 : 18)) < 1);
     }
   }
   assert.deepEqual([...attacks], ['jab', 'cross']);

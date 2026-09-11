@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { joyPoint, dispatch, tapContact } from './control-helpers.mjs';
 import fs from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
@@ -64,12 +65,12 @@ try {
   await moveTo(page, 'x', 915);
   await wait(page, () => window.__gym.world.state.nearby?.id === 'remi');
   const beforeRound = await state(page);
-  await page.keyboard.down('Enter');
-  await page.keyboard.down('Enter');
+  await page.keyboard.down('e');
+  await page.keyboard.down('e');
   await page.waitForTimeout(250);
-  assert.equal(await page.locator('.gym-dialog').isVisible(), true, 'held Enter does not immediately choose a lesson');
+  assert.equal(await page.locator('.gym-dialog').isVisible(), true, 'held E does not immediately choose a lesson');
   assert.equal(await page.evaluate(() => Boolean(window.__sparring)), false);
-  await page.keyboard.up('Enter');
+  await page.keyboard.up('e');
   await page.screenshot({ path: 'docs/gym-dialogue-remi.png' });
   await page.locator('.gym-session-button[data-lesson="jab"]').click();
   await wait(page, () => window.__sparring?.session.state.phase === 'ready');
@@ -90,7 +91,7 @@ try {
   assert.equal(afterRound.y, beforeRound.y);
   assert.equal(afterRound.moving, false);
   assert.equal(await page.evaluate(() => Boolean(window.__sparring)), false);
-  log('Desktop: walking poses, ring collision, held Enter, Rémi conversation, complete jab lesson and return at the same position passed.');
+  log('Desktop: walking poses, ring collision, held E, Rémi conversation, complete jab lesson and return at the same position passed.');
 
   // Each atelier is reached by movement, not by teleporting the model.
   await moveTo(page, 'y', 540);
@@ -126,21 +127,20 @@ try {
   await wait(phone, () => window.__gym?.world);
   await fit(phone);
   const cdp = await context.newCDPSession(phone);
-  const contact = async (direction, id) => {
-    const b = await phone.locator(`[data-direction="${direction}"]`).boundingBox();
-    return { x: b.x + b.width / 2, y: b.y + b.height / 2, id };
-  };
-  const right = await contact('right', 1), up = await contact('up', 2);
+  const right = await joyPoint(phone, '#gym-ui', 'right', 1);
+  const up = await joyPoint(phone, '#gym-ui', 'up', 1);
+  const diagonalPoint = await joyPoint(phone, '#gym-ui', 'upRight', 1);
+  const center = await joyPoint(phone, '#gym-ui', 'center', 1);
   const initial = await state(phone);
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [right] });
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [right, up] });
+  await dispatch(cdp, 'touchStart', [center]);
+  await dispatch(cdp, 'touchMove', [diagonalPoint]);
   await phone.waitForTimeout(240);
-  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [up] });
+  await dispatch(cdp, 'touchMove', [right]);
   const diagonal = await state(phone);
   assert.ok(diagonal.x > initial.x + 10 && diagonal.y < initial.y - 10);
   await phone.waitForTimeout(200);
   assert.ok((await state(phone)).x > diagonal.x + 10);
-  assert.ok(Math.abs((await state(phone)).y - diagonal.y) < 5, 'lifting up finger keeps only horizontal movement');
+  assert.ok(Math.abs((await state(phone)).y - diagonal.y) < 5, 'one thumb can change from diagonal to horizontal without releasing the joypad');
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
   const canceled = await state(phone);
   await phone.waitForTimeout(200);
@@ -152,10 +152,10 @@ try {
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [up] });
   await wait(phone, () => window.__gym.world.state.nearby?.id === 'remi');
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
-  await phone.locator('.gym-interact-button').tap();
+  await tapContact(phone, cdp, '#gym-ui [data-pad-button="a"]');
   await phone.locator('.gym-session-button[data-lesson="free"]').tap();
   await phone.locator('.primary-button').tap();
-  await phone.locator('[data-action="jab"]').tap();
+  await tapContact(phone, cdp, '#sparring-ui [data-pad-button="a"]');
   await wait(phone, () => window.__sparring.session.state.stats.landed === 1);
   await phone.locator('.pause-button').tap();
   await phone.locator('.return-gym-button').tap();
@@ -163,10 +163,10 @@ try {
   await phone.screenshot({ path: 'docs/gym-mobile-paysage.png' });
   for (const viewport of [{ width: 667, height: 375 }, { width: 568, height: 320 }]) {
     await phone.setViewportSize(viewport); await fit(phone);
-    await phone.locator('.gym-interact-button').tap();
+    await tapContact(phone, cdp, '#gym-ui [data-pad-button="a"]');
     const r = await phone.locator('.gym-dialog').boundingBox();
     assert.ok(r.y >= 0 && r.y + r.height <= viewport.height && r.x >= 0 && r.x + r.width <= viewport.width);
-    await phone.locator('.gym-close-button').tap();
+    await tapContact(phone, cdp, '#gym-ui [data-pad-button="b"]');
   }
   await phone.setViewportSize({ width: 390, height: 844 });
   await wait(phone, () => window.__gym.world.state.paused);
@@ -176,7 +176,7 @@ try {
   await phone.setViewportSize({ width: 844, height: 390 });
   await phone.locator('.gym-resume-button').tap();
   assert.equal((await state(phone)).paused, false);
-  log('Touch: simultaneous directions, independent release/cancel, walk to Rémi, sparring jab, pause/return, three landscape sizes and portrait passed (simulated viewports).');
+  log('Touch: one-thumb joypad diagonal and direction change, release/cancel, walk to Rémi, A interaction, A sparring jab, pause/return, three landscape sizes and portrait passed (simulated viewports).');
   assert.deepEqual(errors, []);
   log('No console, page or asset errors; logical canvas stays 1280×720.');
 } finally {

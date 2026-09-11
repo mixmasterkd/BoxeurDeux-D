@@ -21,14 +21,14 @@ export class ShadowScene extends Phaser.Scene {
     this.ui = new ShadowUI({
       getState: () => this.session.state,
       onAction: action => this.session.act(action),
-      onGuard: held => this.session.setGuard(held),
+      onGuard: (held, level) => this.session.setGuard(held, level),
       onStart: start, onReset: start,
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onFinish: () => { this.session.finish(); this.audio.setActive(false); },
       onReturnGym: () => {
-        if (this.session.state.phase === 'running') return;
-        this.session.releaseControls(); this.scene.start('GymScene');
+        this.session.finish(); this.session.releaseControls();
+        this.audio.setActive(false); this.scene.start('GymScene');
       },
       onSpeed: speed => this.session.setSpeed(speed),
       onBlur: () => { this.session.pause(); this.session.releaseControls(); this.audio.setActive(false); },
@@ -40,7 +40,11 @@ export class ShadowScene extends Phaser.Scene {
     this.ui.setAudioState(this.audio.getState());
     this.fighter.render(this.session.state.player, 0);
     this.ui.update(this.session.state);
-    this.resizeObserver = new ResizeObserver(() => this.scale.refresh());
+    this.resizeObserver = new ResizeObserver(() => {
+      // Phaser refresh computes display size before its final bounds read.
+      // Read the resized parent first, including a change of primary pointer.
+      this.scale.getParentBounds(); this.scale.refresh();
+    });
     this.resizeObserver.observe(document.getElementById('game'));
     let disposed = false;
     const cleanup = () => {
