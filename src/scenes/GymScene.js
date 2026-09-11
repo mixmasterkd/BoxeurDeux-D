@@ -110,8 +110,8 @@ export class GymScene extends Phaser.Scene {
         { id: 'shadow', label: 'Pratiquer devant le miroir →' }, { id: 'close', label: 'Continuer la visite →' },
       ] });
     } else if (station.id === 'combat') {
-      this.ui.showDialog({ speaker: 'RENCONTRE DE CLUB · PREMIER COMBAT', title: 'Béton vous attend.',
-        text: 'Calme, précis, difficile à déborder. Béton ferme sa garde à la tête et prépare un direct au corps qui le laisse exposé. Mettez en pratique les leçons de Rémi. Trois rounds de 60 secondes; revanche gratuite, à votre rythme.',
+      this.ui.showDialog({ speaker: 'SOIRÉE DE BOXE · PREMIER COMBAT', title: 'Béton vous attend.',
+        text: 'Rendez-vous à la salle de boxe du quartier, sous les projecteurs et devant le public. Béton ferme sa garde à la tête et prépare un direct au corps qui le laisse exposé. Mettez en pratique les leçons de Rémi. Trois rounds de 60 secondes; revanche gratuite, à votre rythme.',
         actions: [{ id: 'fight', label: 'Rencontrer Béton →' }, { id: 'close', label: 'Continuer la visite →' }],
       });
     } else {

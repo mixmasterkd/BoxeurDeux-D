@@ -1,0 +1,176 @@
+{
+  "checkedAt": "2026-09-11T19:54:58.946Z",
+  "checks": [
+    "Clavier : salle dédiée, vrai jab à 88, retour gym et marche vers Rémi. Sparring dans gym.png malgré URL ?scene=fight.",
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "texture": "fight-hall"
+    },
+    {
+      "viewport": {
+        "width": 667,
+        "height": 375
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 13,
+            "y": 150,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 578,
+            "y": 106.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 547,
+            "y": 236.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 596,
+            "y": 175.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "texture": "fight-hall"
+    },
+    {
+      "viewport": {
+        "width": 568,
+        "height": 320
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "texture": "fight-hall"
+    }
+  ],
+  "errors": [],
+  "scope": "Vraies commandes et lecture seule de la scène. Simulations de viewports Chromium, aucun téléphone physique."
+}

@@ -1,5 +1,9 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Dernière demande — les combats dans une salle
+
+Après avoir validé Béton et le coach, l’utilisateur demande que **les combats aient lieu dans une salle plutôt que dans le gym**. Béton reçoit donc un décor dédié de salle de boxe de quartier avec public et projecteurs (`public/assets/backgrounds/fight-hall.png`). Le sparring de Rémi conserve `gym.png`; les ateliers et le gym explorable sont préservés. Le cadrage, les personnages, règles, commandes, repos avec Rémi et retour au même endroit restent communs. L’affiche du gym conduit directement à la salle, sans ajouter une carte extérieure. Sources et prompt dans `references/direction-artistique/fight-hall/`; lire `docs/VERIFICATIONS.md` pour les contrôles effectivement terminés.
+
 ## Étape 2 terminée — Béton et le coach entre les rounds
 
 Après l’étape 1, l’utilisateur a autorisé le **premier adversaire**, nommé **Béton**, un boxeur noir; l’apparence restante et son comportement sont laissés au choix de l’agent. Il a ensuite demandé de conserver la continuité avec les leçons de Rémi et d’ajouter **un petit visuel entre les rounds avec le coach**, dans l’esprit Punch-Out. Ces précisions complètent le GO de l’étape 2, elles ne l’annulent pas.

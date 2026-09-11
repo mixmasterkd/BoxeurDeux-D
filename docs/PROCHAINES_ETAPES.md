@@ -8,6 +8,8 @@ La discussion après le commit `74f87df` précise la progression à long terme. 
 
 ### Étape 2 — GO Béton
 
+Précision après la livraison : le combat contre Béton se déroule dans une salle de quartier avec public et projecteurs; le sparring reste au gym. L’affiche conserve l’accès direct, sans nouvelle carte. Le coach intervient toujours entre les rounds dans la salle.
+
 Premier adversaire noir original, tenue graphite/ocre, garde haute programmée, jab tête et direct corps suivi d’une grande ouverture. Les compétences enseignées par Rémi restent suffisantes : aucun nouveau bouton. Combat de trois rounds de 60 secondes au maximum, règles de chute/relevé communes, décision aux points explicite (1 par touche nette, 3 par chute adverse), victoire/défaite/égalité, revanche gratuite et retour au gym. Vignette originale du boxeur au tabouret avec Rémi coach, conseil fondé sur le dernier round et reprise volontaire avec les récupérations déjà annoncées. Détails dans le README; validations effectivement terminées dans `VERIFICATIONS.md`.
 
 Les nouveaux combos et l’uppercut chargé discutés avant ce GO restent des possibilités futures. Leur cadence et la distinction appui court/maintenu devront être testées sans ralentir le direct. Les déblocages dépendront d’une progression sauvegardée; ils ne sont pas implémentés dans cette rencontre.

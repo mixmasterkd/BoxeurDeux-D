@@ -6,6 +6,8 @@ const GUIDES = {
 };
 
 export function setSceneShell(mode, { opponent = 'remi' } = {}) {
+  const fight = mode === 'sparring' && opponent === 'beton';
+  document.querySelector('.gym-location').innerHTML = `MONTRÉAL <span aria-hidden="true">/</span> ${fight ? 'SALLE DE BOXE' : 'AU GYM'}`;
   document.getElementById('stage').dataset.scene = mode;
   document.getElementById('stage').setAttribute('aria-label', { gym: 'Visite du gym', sparring: 'Sparring avec Rémi le Tank', bag: 'Entraînement au sac de frappe', shadow: 'Shadow boxing devant le miroir' }[mode]);
   document.getElementById('game').setAttribute('aria-label', mode === 'gym'
@@ -15,9 +17,9 @@ export function setSceneShell(mode, { opponent = 'remi' } = {}) {
   for (const scene of ['gym', 'sparring', 'bag', 'shadow']) document.getElementById(`${scene}-ui`).hidden = mode !== scene;
   document.getElementById('game-commands').innerHTML = GUIDES[mode];
   document.querySelector('.prototype-label').textContent = { gym: 'LE GYM', sparring: 'SPARRING AVEC RÉMI', bag: 'SAC · ENCHAÎNEMENTS', shadow: 'MIROIR · SHADOW BOXING' }[mode];
-  if (mode === 'sparring' && opponent === 'beton') {
-    document.getElementById('stage').setAttribute('aria-label', 'Premier combat contre Béton');
-    document.getElementById('game').setAttribute('aria-label', 'Ring de boxe en pixel art. Vous êtes de dos face à Béton.');
-    document.querySelector('.prototype-label').textContent = 'PREMIER COMBAT · BÉTON';
+  if (fight) {
+    document.getElementById('stage').setAttribute('aria-label', 'Combat contre Béton dans une salle de boxe');
+    document.getElementById('game').setAttribute('aria-label', 'Salle de boxe en pixel art, public autour du ring et projecteurs de soirée. Vous êtes de dos face à Béton.');
+    document.querySelector('.prototype-label').textContent = 'COMBAT EN SALLE · BÉTON';
   }
 }

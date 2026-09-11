@@ -1,0 +1,32 @@
+{
+  "source": "references/direction-artistique/fight-hall/fight-hall-source.png",
+  "destination": "public/assets/backgrounds/fight-hall.png",
+  "sourceSize": {
+    "width": 1672,
+    "height": 941
+  },
+  "outputSize": {
+    "width": 1280,
+    "height": 720
+  },
+  "method": "Uniform cover scale, centered fractional crop, nearest-neighbor sampling; no stretching, recoloring or drawn overlays.",
+  "scale": 0.7655502392344498,
+  "crop": {
+    "x": 0,
+    "y": 0.25,
+    "width": 1672,
+    "height": 940.5
+  },
+  "visualLandmarks": {
+    "farRopesY": [
+      230,
+      286,
+      346
+    ],
+    "blueCanvasBeginsY": 394,
+    "postsX": [
+      130,
+      1140
+    ]
+  }
+}

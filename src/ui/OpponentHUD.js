@@ -43,7 +43,7 @@ export class OpponentHUD {
     put(this.score, `VOUS ${scores.player} · ${scores.remi} BÉTON`);
     put(ui.root.querySelector('.opponent-info .fighter-name'), 'Béton');
     put(ui.root.querySelector('.opponent-info .fighter-eyebrow'), 'VOTRE ADVERSAIRE');
-    put(ui.root.querySelector('.round-footnote'), 'Rencontre de club · Revanche gratuite');
+    put(ui.root.querySelector('.round-footnote'), 'Soirée de boxe · Revanche gratuite');
     put(ui.root.querySelector('#sparring-commands-title'), 'Commandes du combat');
     put(ui.root.querySelector('.combo-help'), 'Comme avec Rémi : J → K → J donne jab, direct, crochet. Attendez le retour en garde puis enchaînez sous une demi-seconde. Le combo coûte 48 d’endurance. Une garde haute, une esquive, un coup reçu ou une pause l’interrompt. Maintenez bas pour les coups au corps.');
     put(ui.root.querySelector('.recovery-help'), 'Au tapis : six pressions alternées J/K ou A/B, en commençant par J/A, avant dix. Relâchez et suivez le repère. Pause avec P / Échap / ☰. Au terme des trois rounds : 1 point par touche nette et 3 par chute adverse; le plus haut total gagne.');

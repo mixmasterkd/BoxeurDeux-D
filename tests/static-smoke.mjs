@@ -295,6 +295,8 @@ try {
     assert.equal(await page.evaluate(() => window.__sparring), undefined, 'Béton is exercised without a development hook');
     assert.match(await page.locator('.panel-heading').textContent(), /Béton/);
     assert.equal(await page.locator('.opponent-info .fighter-name').textContent(), 'Béton');
+    assert.match(await page.locator('#game').getAttribute('aria-label'), /Salle de boxe/);
+    assert.match(await page.locator('.gym-location').textContent(), /SALLE DE BOXE/);
     assert.match(await page.locator('.combat-rules').textContent(), /3 rounds de 60 s/);
     assert.match(await page.locator('.combat-rules').textContent(), /touche nette vaut 1 point.*chute adverse ajoute 3 points/);
     assert.equal(await page.locator('.round-eyebrow').textContent(), 'ROUND 1 / 3');
@@ -378,6 +380,7 @@ try {
     await press('#sparring-ui .activity-exit-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     console.log(`Production Béton: ${mobile ? 'touch' : 'desktop'} real jab, pause, restart, gym poster entry and return passed`);
+    assert.match(await page.locator('.gym-location').textContent(), /AU GYM/, 'returning from the venue restores the gym location');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -388,6 +391,7 @@ try {
   }
   {
     assert.ok(loaded.has('assets/backgrounds/gym.png'));
+    assert.ok(loaded.has('assets/backgrounds/fight-hall.png'), 'the combat venue loads from the production site directory');
     for (const file of ['gym-block-body.png', 'gym-jab-body.png', 'player-block-body.png', 'player-jab-body.png', 'remi-block-body.png', 'remi-jab-body.png']) {
       assert.ok(loaded.has(`assets/sprites/body-training/${file}`), `body pose ${file} loads from the site directory`);
     }

@@ -25,10 +25,11 @@ export class SparringScene extends Phaser.Scene {
     const requested = data.opponent ?? query.get('opponent') ?? (query.get('scene') === 'fight' ? 'beton' : 'remi');
     this.opponentId = requested === 'beton' ? 'beton' : 'remi';
     this.initialLesson = this.opponentId === 'beton' ? 'resistance' : data.lesson ?? query.get('lesson') ?? 'free';
+    this.backgroundKey = this.opponentId === 'beton' ? 'fight-hall' : 'gym';
   }
 
   preload() {
-    this.load.image('gym', `${import.meta.env.BASE_URL}assets/backgrounds/gym.png`);
+    this.load.image(this.backgroundKey, `${import.meta.env.BASE_URL}assets/backgrounds/${this.backgroundKey}.png`);
     FighterView.preload(this, { opponent: this.opponentId });
   }
 
@@ -36,7 +37,7 @@ export class SparringScene extends Phaser.Scene {
     setSceneShell('sparring', { opponent: this.opponentId });
     this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId });
     this.audio = new SparringAudio();
-    const background = this.add.image(640, 360, 'gym');
+    const background = this.add.image(640, 360, this.backgroundKey);
     background.setScale(Math.min(1280 / background.width, 720 / background.height));
     // Fixed framing also contains the forward footwork of close exchanges.
     // Keep combat coordinates local so contact landmarks and marks stay aligned.

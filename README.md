@@ -8,7 +8,7 @@ Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez
 
 ## Béton, premier adversaire — étape 2
 
-L’affiche **Prochain combat · Béton** se trouve sur le présentoir à droite de l’entrée, devant Rémi. Marchez jusqu’à elle puis utilisez **E / A → Rencontrer Béton**. Accès direct : `?scene=fight`. Les décors validés restent conservés; cette rencontre de club utilise le ring du gym, sans carte extérieure supplémentaire.
+L’affiche **Prochain combat · Béton** se trouve sur le présentoir à droite de l’entrée, devant Rémi. Marchez jusqu’à elle puis utilisez **E / A → Rencontrer Béton**. Accès direct : `?scene=fight`. Le combat se déroule dans une **salle de boxe de quartier**, devant le public et sous les projecteurs. Le sparring de Rémi reste dans le gym validé. Même cadrage fixe 1280 × 720 et mêmes commandes; le retour au gym conserve la position, sans carte de trajet supplémentaire.
 
 Béton est un boxeur noir original, calme et précis, en tenue graphite et ocre. Sa garde haute est programmée, indépendante des boutons du joueur. Son jab vise la tête; son direct vise le corps et laisse une ouverture plus longue pour répondre. Les gestes appris avec Rémi restent les mêmes : gardes haute/basse, esquives, coups tête/corps et combo J/K/J ou A/B/A. Aucun uppercut chargé ni nouveau combo à débloquer à cette étape.
 
@@ -225,6 +225,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `public/assets/sprites/knockdown/` : six poses de chute, tapis et relevé à échelle fixe. Génération d’images intégrée, sources RGBA et prompts dans `references/characters/knockdown/PROMPTS.md`; extraction reproductible par `node scripts/prepare-knockdown-sprites.mjs`.
 - `public/assets/sprites/beton/` : poses originales du premier adversaire; sources et prompts dans `references/characters/beton/PROMPTS.md`.
 - `public/assets/sprites/corner/remi-coach.png` : vignette du repos avec Rémi, issue de la génération intégrée; sources et prompts décrits dans `references/characters/corner/README.md`.
+- `public/assets/backgrounds/fight-hall.png` : salle des combats avec public, 1280 × 720; génération intégrée, source et prompt dans `references/direction-artistique/fight-hall/PROMPT.md`, préparation reproductible par `node scripts/prepare-fight-hall.mjs`. Le décor du gym est conservé pour Rémi.
 - `references/characters/sparring-v2/` : sources, prompts et préparation des nouvelles tenues et poses; les premières sources restent dans le dossier parent.
 - `tests/*.test.js` : règles, concordance des animations, objectifs des leçons et cycle de vie audio.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.

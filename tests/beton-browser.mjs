@@ -83,6 +83,7 @@ async function ready(page, { fromGym = false, cdp = null } = {}) {
   await wait(page, () => window.__sparring?.session.state.phase === 'ready');
   const current = await state(page);
   assert.equal(current.settings.opponent, 'beton');
+  assert.equal(await page.evaluate(() => window.__sparring.scene.children.list.find(item => item.type === 'Image')?.texture.key), 'fight-hall', 'the official fight renders its dedicated venue');
   assert.equal(current.settings.lesson, 'resistance');
   assert.equal(current.remaining, 60);
   assert.equal(current.bout.rounds, 3);
@@ -90,6 +91,7 @@ async function ready(page, { fromGym = false, cdp = null } = {}) {
   assert.deepEqual(current.bout.score, { player: 0, remi: 0 });
   assert.equal(await page.locator('[name="tempo"]').isVisible(), false, 'Béton has an authored rhythm');
   assert.match(await page.locator('.combat-rules').textContent(), /3 rounds de 60 s/);
+  assert.match(await page.locator('.gym-location').textContent(), /SALLE DE BOXE/);
   await layout(page, Boolean(cdp)); await menuGeometry(page, Boolean(cdp));
   return origin;
 }

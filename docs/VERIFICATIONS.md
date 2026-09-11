@@ -1,5 +1,15 @@
 # Vérification du prototype — 11 septembre 2026
 
+## Combats dans une salle dédiée
+
+- Nouveau décor original **1280 × 720** créé avec la génération d’images intégrée : public en gradins, charpente et éclairage de soirée. Source et prompt exact dans `references/direction-artistique/fight-hall/PROMPT.md`; ressource finale `public/assets/backgrounds/fight-hall.png`. Préparation par échelle uniforme, sans étirement. Image seule et composition avec les deux boxeurs examinées personnellement.
+- **139 tests autonomes réussis**, règles et personnages conservés. Le nouveau fond est sélectionné uniquement pour Béton. Les labels de lieu et la description de l’affiche annoncent la salle; Rémi, le gym explorable et les ateliers gardent leurs décors.
+- Parcours Chromium réellement joué : entrée dans la salle, jab retirant 12 points, retour au gym, marche jusqu’à Rémi et lancement du sparring. La texture affichée revient bien à `gym.png`, même lorsque l’URL conserve `?scene=fight`. Aucun changement forcé d’état ou de position.
+- Affichage inspecté sur ordinateur **1440 × 1000** et aux tailles tactiles simulées **844 × 390, 667 × 375, 568 × 320**. Démarrage par A, salle chargée, cadrage 16:9 conservé, boxeurs entiers, quatre commandes dans les marges et aucune page défilante. Aucun téléphone physique utilisé. Rapport `fight-hall-browser-results.json`; captures `fight-hall-desktop.png`, `fight-hall-mobile-*.png` et `fight-hall-remi-gym.png`.
+- **`BETON_CASE=corner npm run test:beton` réussi** : un vrai round de 60 secondes dans la salle atteint le repos avec Rémi, conserve le conseil adapté et rend les 20 points de résistance à la reprise. Rapport conservé dans `fight-hall-corner-results.json`, capture `fight-hall-corner.png` inspectée personnellement. Les anciennes preuves du coin au gym ont été conservées.
+- Compilation Vite réussie; avertissement habituel sur la taille du bloc Phaser (**405 ko gzip**). Le serveur existant PID 9375 est réutilisé sur 5173, sans installation ni second serveur. Le public reste illustré dans le décor : aucune nouvelle animation ni ambiance sonore de foule n’est ajoutée.
+- **`test:static` réussi sur le bundle local** sous `/BoxeurDeux-D/` et son `index.html` : parcours clavier/tactile des ateliers, contact, pause, reprise, chute/relevé et passage par l’affiche de Béton. Le nouveau fond se charge depuis le sous-dossier du site; le lieu redevient « AU GYM » au retour. Zéro erreur navigateur ou ressource. Ce contrôle local est distinct du déploiement public.
+
 ## Étape 2 — Béton et le coin avec Rémi
 
 - **139 tests autonomes réussis** (`npm test`) : 126 contrôles précédents, neuf tests du premier adversaire et quatre contrôles de ses ressources et de son rendu. Les scénarios vérifient le calendrier indépendant des boutons, les cibles tête/corps, les points, la victoire par une stratégie jouée et la défaite par inaction. Trois rounds complets simulés dans le modèle couvrent décision aux points, égalité et remise à zéro. Les contacts et poses de Béton sont contrôlés à 20 et 60 Hz; ces simulations du modèle sont distinctes des parcours navigateur en temps réel.
