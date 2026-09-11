@@ -1,0 +1,240 @@
+{
+  "checkedAt": "2026-09-11T18:50:42.455Z",
+  "selectedCase": "desktop",
+  "base": "http://127.0.0.1:5173/",
+  "reports": [
+    "Desktop: walking from the gym, then reading tells and countering with real J–K–J.",
+    "Desktop: actual walk to the fight display and E interaction (1013.3, 585.0).",
+    "Desktop: genuine victory, both guard heights, complete combos, score, revenge reset and exact return position verified.",
+    "Béton browser checks passed without page, console or HTTP errors."
+  ],
+  "measurements": [
+    {
+      "case": "layout",
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "ready",
+      "panel": {
+        "x": 131.1875,
+        "y": 260.640625,
+        "right": 441.1875,
+        "bottom": 783.359375,
+        "width": 310,
+        "height": 522.71875
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "finished",
+      "panel": {
+        "x": 131.1875,
+        "y": 252.6875,
+        "right": 441.1875,
+        "bottom": 791.3125,
+        "width": 310,
+        "height": 538.625
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "desktop-victory",
+      "wallSeconds": 61.09,
+      "state": {
+        "phase": "finished",
+        "pausedPhase": null,
+        "remaining": 16.940946666668495,
+        "elapsed": 43.059053333331505,
+        "stamina": 36.88351999999975,
+        "player": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head"
+        },
+        "remi": {
+          "action": "fall",
+          "progress": 0,
+          "duration": 0.6,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head"
+        },
+        "stats": {
+          "landed": 13,
+          "received": 0,
+          "blocked": 12,
+          "dodged": 0,
+          "thrown": 13,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 4,
+          "combos": 4,
+          "landedHead": 13,
+          "landedBody": 0,
+          "receivedHead": 0,
+          "receivedBody": 0,
+          "blockedHead": 6,
+          "blockedBody": 6
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 100,
+            "remi": 0
+          },
+          "downs": {
+            "player": {
+              "round": 0,
+              "total": 0
+            },
+            "remi": {
+              "round": 3,
+              "total": 3
+            }
+          },
+          "count": {
+            "stage": "fall",
+            "elapsed": 0,
+            "number": 0,
+            "downed": {
+              "player": false,
+              "remi": true
+            },
+            "eliminated": {
+              "player": null,
+              "remi": "round-limit"
+            },
+            "recovered": {
+              "player": false,
+              "remi": false
+            },
+            "hold": 0,
+            "progress": 0,
+            "needed": 6,
+            "accepted": 0,
+            "next": null,
+            "ready": false,
+            "readyIn": 0
+          },
+          "result": {
+            "reason": "round-limit",
+            "winner": "player",
+            "loser": "remi"
+          },
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 43.059053333331505,
+              "stats": {
+                "landed": 13,
+                "received": 0,
+                "blocked": 12,
+                "dodged": 0,
+                "thrown": 13,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 4,
+                "combos": 4,
+                "landedHead": 13,
+                "landedBody": 0,
+                "receivedHead": 0,
+                "receivedBody": 0,
+                "blockedHead": 6,
+                "blockedBody": 6
+              },
+              "downs": {
+                "player": 0,
+                "remi": 3
+              },
+              "resistance": {
+                "player": 100,
+                "remi": 0
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 22,
+                "remi": 0
+              }
+            }
+          ],
+          "score": {
+            "player": 22,
+            "remi": 0
+          },
+          "coach": "Ton enchaînement passe dans sa grande ouverture. Continue à protéger la bonne hauteur entre les ripostes."
+        }
+      }
+    },
+    {
+      "case": "return-gym",
+      "origin": {
+        "x": 1013.3200000000004,
+        "y": 585
+      },
+      "returned": {
+        "x": 1013.3200000000004,
+        "y": 585
+      }
+    }
+  ],
+  "errors": []
+}

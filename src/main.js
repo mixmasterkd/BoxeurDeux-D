@@ -9,7 +9,7 @@ import './ui/layout.css';
 
 const disposeLayout = installGameLayout();
 const entry = new URLSearchParams(location.search).get('scene');
-const initialScene = { bag: BagScene, sparring: SparringScene, shadow: ShadowScene }[entry] ?? GymScene;
+const initialScene = { bag: BagScene, sparring: SparringScene, fight: SparringScene, shadow: ShadowScene }[entry] ?? GymScene;
 const scenes = [initialScene, ...[GymScene, SparringScene, BagScene, ShadowScene].filter(scene => scene !== initialScene)];
 
 export const game = new Phaser.Game({

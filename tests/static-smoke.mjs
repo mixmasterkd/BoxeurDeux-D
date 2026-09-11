@@ -285,6 +285,99 @@ try {
     await press('#sparring-ui .activity-exit-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     console.log(`Production resistance: ${mobile ? 'touch' : 'desktop'} return to gym passed`);
+
+    console.log(`Production Béton: ${mobile ? 'touch' : 'desktop'} direct entry, points and three-round rules`);
+    await page.goto(`${base}?scene=fight`);
+    await page.waitForFunction(() => {
+      const ui = document.querySelector('#sparring-ui');
+      return ui?.dataset.opponent === 'beton' && ui.dataset.phase === 'ready';
+    });
+    assert.equal(await page.evaluate(() => window.__sparring), undefined, 'Béton is exercised without a development hook');
+    assert.match(await page.locator('.panel-heading').textContent(), /Béton/);
+    assert.equal(await page.locator('.opponent-info .fighter-name').textContent(), 'Béton');
+    assert.match(await page.locator('.combat-rules').textContent(), /3 rounds de 60 s/);
+    assert.match(await page.locator('.combat-rules').textContent(), /touche nette vaut 1 point.*chute adverse ajoute 3 points/);
+    assert.equal(await page.locator('.round-eyebrow').textContent(), 'ROUND 1 / 3');
+    assert.equal(await page.locator('.combat-score').textContent(), 'VOUS 0 · 0 BÉTON');
+    for (const who of ['player', 'remi']) {
+      assert.equal(await page.locator(`[data-resistance="${who}"]`).getAttribute('aria-valuenow'), '100');
+    }
+    // Measure both phone buttons BEFORE starting. The first real jab must
+    // reach the initial opening rather than spend it on protocol geometry.
+    if (mobile) {
+      for (const action of ['jab', 'cross']) {
+        punchBoxes[action] = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+        assert.ok(punchBoxes[action], `Béton ${action} button is present`);
+      }
+      await punch('jab'); // A validates the ready screen; this is not a punch.
+    } else await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'running');
+    if (!mobile) assert.equal(await page.locator('#sparring-ui .input-rail button:visible').count(), 0);
+    await punch('jab');
+    await page.waitForFunction(() => document.querySelector('.combat-score')?.textContent === 'VOUS 1 · 0 BÉTON');
+    assert.equal(await page.locator('[data-value="landed"]').textContent(), '1', 'one real scored jab gives one combat point');
+    assert.equal(await page.locator('[data-resistance="remi"]').getAttribute('aria-valuenow'), '88', 'the same jab contact removes twelve Béton resistance');
+    assert.equal(await page.locator('[data-resistance="player"]').getAttribute('aria-valuenow'), '100');
+    if (mobile) await press('.pause-button');
+    else await page.keyboard.press('p');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'paused');
+    const readCombat = () => page.evaluate(() => ({
+      phase: document.querySelector('#sparring-ui').dataset.phase,
+      clock: document.querySelector('.round-time').textContent,
+      round: document.querySelector('.round-eyebrow').textContent,
+      score: document.querySelector('.combat-score').textContent,
+      landed: document.querySelector('[data-value="landed"]').textContent,
+      received: document.querySelector('[data-value="received"]').textContent,
+      player: document.querySelector('[data-resistance="player"]').getAttribute('aria-valuenow'),
+      opponent: document.querySelector('[data-resistance="remi"]').getAttribute('aria-valuenow'),
+    }));
+    const pausedCombat = await readCombat();
+    await page.waitForTimeout(1100);
+    assert.deepEqual(await readCombat(), pausedCombat, 'pause freezes public combat points, resistance and timer');
+    await press('.secondary-button');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'running'
+      && document.querySelector('.combat-score')?.textContent === 'VOUS 0 · 0 BÉTON');
+    assert.deepEqual(await readCombat(), {
+      phase: 'running', clock: '1:00', round: 'ROUND 1 / 3', score: 'VOUS 0 · 0 BÉTON',
+      landed: '0', received: '0', player: '100', opponent: '100',
+    }, 'restarting clears the previous contact and combat score');
+    for (const who of ['player', 'remi']) {
+      assert.match(await page.locator(`.resistance-${who} .bout-downs`).textContent(), /0\/3 ROUND.*0\/4 COMBAT/);
+    }
+    await press('#sparring-ui .activity-exit-button');
+    await page.locator('#gym-ui').waitFor({ state: 'visible' });
+
+    // The fresh direct-entry session returns to the normal gym spawn. Walk
+    // towards the new poster until its PUBLIC proximity prompt appears; this
+    // tests the station route without teleporting or reading world coordinates.
+    if (mobile) {
+      const point = await joyPoint(page, '#gym-ui', 'right');
+      await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+      try {
+        await page.waitForFunction(() => document.querySelector('.gym-nearby-label')?.textContent === 'Prochain combat · Béton', null, { timeout: 4500 });
+      } finally {
+        await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      }
+      await press('.gym-interact-button');
+    } else {
+      await page.keyboard.down('ArrowRight');
+      try {
+        await page.waitForFunction(() => document.querySelector('.gym-nearby-label')?.textContent === 'Prochain combat · Béton', null, { timeout: 4500 });
+      } finally {
+        await page.keyboard.up('ArrowRight');
+      }
+      await page.keyboard.press('e');
+    }
+    await page.locator('.gym-dialog [data-gym-action="fight"]').waitFor({ state: 'visible' });
+    assert.match(await page.locator('#gym-dialog-title').textContent(), /Béton/);
+    if (mobile) await press('#gym-ui [data-pad-button="a"]');
+    else await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.opponent === 'beton'
+      && document.querySelector('#sparring-ui')?.dataset.phase === 'ready');
+    assert.equal(await page.locator('.combat-score').textContent(), 'VOUS 0 · 0 BÉTON', 'the poster enters a clean new combat');
+    await press('#sparring-ui .activity-exit-button');
+    await page.locator('#gym-ui').waitFor({ state: 'visible' });
+    console.log(`Production Béton: ${mobile ? 'touch' : 'desktop'} real jab, pause, restart, gym poster entry and return passed`);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -314,9 +407,14 @@ try {
         assert.ok(loaded.has(`assets/sprites/knockdown/${who}-${pose}.png`), `knockdown pose ${who}-${pose} loads from the site directory`);
       }
     }
+    assert.ok(loaded.has('assets/sprites/beton/fighters.json'), 'the Béton atlas loads from the production site directory');
+    for (const pose of ['guard', 'jab', 'cross-body', 'fall', 'down', 'rise']) {
+      assert.ok(loaded.has(`assets/sprites/beton/beton-${pose}.png`), `Béton ${pose} pose loads from the site directory`);
+    }
+    assert.ok(loaded.has('assets/sprites/corner/remi-coach.png'), 'the original between-round coach vignette loads from the site directory');
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, resistance contact/pause plus a real touchscreen knockdown/recovery, all returns to gym, landscape/portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, resistance contact/pause plus a real touchscreen knockdown/recovery, Béton direct/poster entry with real contact/score/pause/restart and art loading, all returns to gym, landscape/portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }

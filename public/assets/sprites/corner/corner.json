@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "source": "references/characters/corner/source-alpha.png",
+  "canvas": {
+    "width": 800,
+    "height": 650
+  },
+  "purpose": "Between-round coaching vignette: seated blue/gold player and Rémi in teal tracksuit.",
+  "preparation": "Generated alpha preserved; proportional nearest-neighbor normalization only.",
+  "transparentFraction": 0.4617049988526723,
+  "scale": 0.589041095890411,
+  "file": "corner/remi-coach.png",
+  "width": 800,
+  "height": 650,
+  "anchor": {
+    "x": 400,
+    "y": 626
+  },
+  "bounds": {
+    "x": 28,
+    "y": 24,
+    "width": 745,
+    "height": 602
+  },
+  "sourceBounds": {
+    "x": 59,
+    "y": 54,
+    "w": 1265,
+    "h": 1022
+  }
+}

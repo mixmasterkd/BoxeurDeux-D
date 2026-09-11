@@ -4,7 +4,13 @@ Direction confirmée par l’utilisateur, actualisée après le GO du 11 septemb
 
 ## Nouvelle direction — décisions validées et ordre proposé
 
-La discussion après le commit `74f87df` précise la progression à long terme. L’utilisateur a ensuite autorisé **l’étape 1** et retenu l’accès au premier adversaire par une affiche « Prochain combat » dans le gym existant pour l’étape 2. Ce GO ne lance pas toutes les phases suivantes; leurs détails restent à concevoir ensemble.
+La discussion après le commit `74f87df` précise la progression à long terme. Les étapes 1 puis 2 ont été autorisées. Le premier adversaire est **Béton**, accessible par l’affiche « Prochain combat » dans le gym existant. Le GO de l’étape 2 inclut ensuite une scène de repos avec Rémi comme coach entre les rounds. Les phases suivantes restent à concevoir ensemble.
+
+### Étape 2 — GO Béton
+
+Premier adversaire noir original, tenue graphite/ocre, garde haute programmée, jab tête et direct corps suivi d’une grande ouverture. Les compétences enseignées par Rémi restent suffisantes : aucun nouveau bouton. Combat de trois rounds de 60 secondes au maximum, règles de chute/relevé communes, décision aux points explicite (1 par touche nette, 3 par chute adverse), victoire/défaite/égalité, revanche gratuite et retour au gym. Vignette originale du boxeur au tabouret avec Rémi coach, conseil fondé sur le dernier round et reprise volontaire avec les récupérations déjà annoncées. Détails dans le README; validations effectivement terminées dans `VERIFICATIONS.md`.
+
+Les nouveaux combos et l’uppercut chargé discutés avant ce GO restent des possibilités futures. Leur cadence et la distinction appui court/maintenu devront être testées sans ralentir le direct. Les déblocages dépendront d’une progression sauvegardée; ils ne sont pas implémentés dans cette rencontre.
 
 ### Étape 1 intégrée après le GO
 
@@ -40,7 +46,7 @@ Rémi propose **Résistance et relevés**, trois rounds de 60 secondes. Résista
 - Par défaut, tomber à zéro résistance déclenche un knock-down avec une chance de se relever avant dix; un relevé ne restaure qu’une partie de la résistance.
 - L’échec du relevé avant dix donne un KO. Les seuils de trois chutes dans le round ou quatre dans le combat entraînent l’arrêt sans nouveau relevé.
 - Un KO immédiat éventuel doit également arriver à zéro résistance, avec une condition déterministe et annoncée. Candidat pour plus tard : un coup spécial clairement préparé, reçu en épuisement complet, qui vide la résistance restante. Pas de probabilité cachée.
-- La première livraison intègre chute, relevé et arrêt : six pressions alternées, résistance rendue 55/45/35 et trois rounds de 60 secondes. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. Le départage aux points reste à définir à l’étape 2; Rémi donne ici un bilan d’entraînement.
+- La première livraison intègre chute, relevé et arrêt : six pressions alternées, résistance rendue 55/45/35 et trois rounds de 60 secondes. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. L’étape 2 ajoute pour Béton le départage aux points décrit plus haut; Rémi conserve son bilan d’entraînement.
 
 ### Sauvegarde de la partie — à intégrer dès l’étape 3
 

@@ -2,6 +2,7 @@ import { installConsoleControls } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { LESSONS } from '../game/TrainingCoach.js';
 import { BoutHUD } from './BoutHUD.js';
+import { OpponentHUD } from './OpponentHUD.js';
 
 const openSparring = id => id === 'free' || id === 'resistance';
 const activePhase = phase => phase === 'running' || phase === 'knockdown';
@@ -132,9 +133,9 @@ export class SparringUI {
           <div><dt>Son / muet</dt><dd>M</dd></div>
         </dl></div>
         <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
-        <p class="commands-tip">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
+        <p class="commands-tip combo-help">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
         <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. Dans les menus, A valide et B revient; le joypad choisit.</p>
-        <p class="commands-tip">Séance Résistance et relevés : au tapis, alternez J et K, ou A et B, six fois avant dix. Relâchez entre chaque pression et suivez le repère, sans marteler. Le décompte se met aussi en pause avec P / Échap ou ☰.</p>
+        <p class="commands-tip recovery-help">Séance Résistance et relevés : au tapis, alternez J et K, ou A et B, six fois avant dix. Relâchez entre chaque pression et suivez le repère, sans marteler. Le décompte se met aussi en pause avec P / Échap ou ☰.</p>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
       <div class="action-dock defense-dock"></div>
@@ -162,6 +163,7 @@ export class SparringUI {
     this.bindEvents();
     this.controls = installConsoleControls(this, 'combat');
     this.boutHUD = new BoutHUD(this);
+    this.opponentHUD = new OpponentHUD(this);
     this.setAudioState(this.audio);
     document.getElementById('stage').inert = this.portraitQuery.matches;
   }
@@ -275,6 +277,9 @@ export class SparringUI {
 
   showCommands(open) {
     if (activePhase(this.phase)) return;
+    const atCorner = this.phase === 'between';
+    this.setText(this.root.querySelector('.commands-eyebrow'), atCorner ? 'ENTRE LES ROUNDS' : this.phase === 'paused' ? 'ROUND EN PAUSE' : 'LES COMMANDES');
+    this.setText(this.elements['commands-back-button'], atCorner ? '← Retour au coin' : this.phase === 'paused' ? '← Retour au menu pause' : '← Retour au menu');
     this.clearInputs();
     this.commandsOpen = open;
     this.elements['round-panel'].hidden = open;
@@ -429,6 +434,7 @@ export class SparringUI {
       this.setText(this.elements['round-detail'], `${stats.blocked ?? 0} coups bloqués · ${stats.dodged ?? 0} esquivés\n${stats.thrown ?? 0} coups tentés${lesson.id === 'free' ? ` · ${stats.hooks ?? 0} crochets touchés\n${stats.combos ?? 0} combos complets (3 touches)` : ''}`);
     }
     this.boutHUD.update(state);
+    this.opponentHUD.update(state);
     this.controls?.refresh();
   }
 

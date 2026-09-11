@@ -1,0 +1,244 @@
+{
+  "checkedAt": "2026-09-11T18:47:19.670Z",
+  "selectedCase": "corner",
+  "base": "http://127.0.0.1:5173/",
+  "reports": [
+    "Corner: playing a complete sixty-second round, leaving two body hits open to verify real recovery and specific advice.",
+    "Corner desktop: genuine round history, loaded coach artwork, advice from body hits, score and +20 resistance/endurance reset verified.",
+    "Béton browser checks passed without page, console or HTTP errors."
+  ],
+  "measurements": [
+    {
+      "case": "layout",
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "ready",
+      "panel": {
+        "x": 131.1875,
+        "y": 260.640625,
+        "right": 441.1875,
+        "bottom": 783.359375,
+        "width": 310,
+        "height": 522.71875
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "layout",
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "between",
+      "panel": {
+        "x": 131.1875,
+        "y": 265.5,
+        "right": 1308.78125,
+        "bottom": 778.5,
+        "width": 1177.59375,
+        "height": 513
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "corner-art",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "source": "/assets/sprites/corner/remi-coach.png",
+      "natural": [
+        800,
+        650
+      ],
+      "width": 612,
+      "height": 400,
+      "x": 673.78125,
+      "y": 288.5,
+      "right": 1285.78125,
+      "bottom": 688.5
+    },
+    {
+      "case": "corner-state",
+      "mobile": false,
+      "state": {
+        "phase": "between",
+        "pausedPhase": null,
+        "remaining": 0,
+        "elapsed": 60,
+        "stamina": 100,
+        "player": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "body"
+        },
+        "remi": {
+          "action": "guard",
+          "progress": 0.8125000000035096,
+          "duration": 0.8,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head",
+          "safeDodge": null,
+          "side": null
+        },
+        "stats": {
+          "landed": 1,
+          "received": 2,
+          "blocked": 15,
+          "dodged": 0,
+          "thrown": 1,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 0,
+          "combos": 0,
+          "landedHead": 1,
+          "landedBody": 0,
+          "receivedHead": 0,
+          "receivedBody": 2,
+          "blockedHead": 9,
+          "blockedBody": 6
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 64,
+            "remi": 88
+          },
+          "downs": {
+            "player": {
+              "round": 0,
+              "total": 0
+            },
+            "remi": {
+              "round": 0,
+              "total": 0
+            }
+          },
+          "count": null,
+          "result": null,
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 60,
+              "stats": {
+                "landed": 1,
+                "received": 2,
+                "blocked": 15,
+                "dodged": 0,
+                "thrown": 1,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 0,
+                "combos": 0,
+                "landedHead": 1,
+                "landedBody": 0,
+                "receivedHead": 0,
+                "receivedBody": 2,
+                "blockedHead": 9,
+                "blockedBody": 6
+              },
+              "downs": {
+                "player": 0,
+                "remi": 0
+              },
+              "resistance": {
+                "player": 64,
+                "remi": 88
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 1,
+                "remi": 2
+              }
+            }
+          ],
+          "score": {
+            "player": 1,
+            "remi": 2
+          },
+          "coach": "Son direct vise le corps : maintiens bas jusqu’au contact, puis réponds pendant sa grande ouverture."
+        }
+      }
+    },
+    {
+      "case": "return-gym",
+      "origin": null,
+      "returned": {
+        "x": 640,
+        "y": 585
+      }
+    }
+  ],
+  "errors": []
+}

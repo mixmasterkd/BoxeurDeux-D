@@ -37,6 +37,8 @@ export class BoutHUD {
   update(state) {
     const { ui } = this;
     const bout = state.bout;
+    const opponent = state.settings?.opponent === 'beton' ? 'Béton' : 'Rémi';
+    const encounter = state.settings?.opponent === 'beton' ? 'COMBAT' : 'SÉANCE';
     const enabled = Boolean(bout);
     const active = state.phase === 'running' || state.phase === 'knockdown';
     ui.root.dataset.bout = String(enabled);
@@ -50,9 +52,10 @@ export class BoutHUD {
       text(meter.value, Math.ceil(value));
       meter.track.setAttribute('aria-valuemax', bout.maxResistance);
       meter.track.setAttribute('aria-valuenow', Math.ceil(value));
+      if (who === 'remi') meter.track.setAttribute('aria-label', `Résistance de ${opponent}`);
       meter.fill.style.transform = `scaleX(${value / bout.maxResistance})`;
       meter.track.classList.toggle('is-low', value <= bout.maxResistance * .25);
-      text(meter.downs, `${bout.downs[who].round}/3 ROUND · ${bout.downs[who].total}/4 SÉANCE`);
+      text(meter.downs, `${bout.downs[who].round}/3 ROUND · ${bout.downs[who].total}/4 ${encounter}`);
     }
     text(ui.root.querySelector('.round-eyebrow'), enabled ? `ROUND ${bout.round} / ${bout.rounds}` : 'ROUND 01');
     this.panel.hidden = state.phase !== 'knockdown' || !bout?.count;
@@ -68,12 +71,12 @@ export class BoutHUD {
     if (!enabled) return;
     if (!this.panel.hidden) {
       const playerDown = count.downed.player;
-      text(this.title, count.downed.player && count.downed.remi ? 'LES DEUX AU TAPIS' : playerDown ? 'REPRENEZ APPUI' : 'RÉMI AU TAPIS');
+      text(this.title, count.downed.player && count.downed.remi ? 'LES DEUX AU TAPIS' : playerDown ? 'REPRENEZ APPUI' : `${opponent.toUpperCase()} AU TAPIS`);
       text(this.number, count.stage === 'fall' ? '↓' : count.stage === 'rise' ? '↑' : count.number || '…');
       const complete = count.accepted >= count.needed;
       const message = count.stage === 'fall' ? 'Le décompte va commencer'
-        : count.stage === 'rise' ? playerDown ? 'Relevez-vous, puis reprenez votre garde' : 'Rémi se relève et reprend sa garde'
-          : !playerDown ? 'Rémi reprend ses appuis'
+        : count.stage === 'rise' ? playerDown ? 'Relevez-vous, puis reprenez votre garde' : `${opponent} se relève et reprend sa garde`
+          : !playerDown ? `${opponent} reprend ses appuis`
             : complete ? 'Appuis retrouvés · relevez-vous' : 'Alternez les deux frappes';
       text(this.message, message);
       this.progress.hidden = !playerDown || count.stage === 'fall';

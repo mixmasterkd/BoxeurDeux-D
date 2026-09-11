@@ -1,4 +1,5 @@
 import { LESSONS, TrainingCoach } from './TrainingCoach.js';
+import { getOpponentProfile, betonCornerAdvice } from './OpponentProfiles.js';
 
 /**
  * Deterministic, renderer-independent sparring model. All times are seconds.
@@ -57,13 +58,14 @@ function normalizeSettings(settings = {}, previous = {}) {
   const duration = Number(settings.duration ?? previous.duration ?? 60);
   const recovery = Number(settings.recovery ?? previous.recovery ?? 1);
   const tempo = settings.tempo ?? previous.tempo ?? 'normal';
+  const opponent = getOpponentProfile(settings.opponent ?? previous.opponent).id;
   const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
-  const lesson = Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
+  const lesson = opponent === 'beton' ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
     duration: unguided(lesson) && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
-    tempo: !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
+    tempo: opponent === 'beton' ? 'normal' : !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
-    lesson,
+    lesson, opponent,
   };
 }
 
@@ -90,6 +92,8 @@ export class SparringSession {
 
   reset(settings = {}) {
     this.settings = normalizeSettings(settings, this.settings);
+    this.profile = getOpponentProfile(this.settings.opponent);
+    this._roundFatigue = 0;
     this._events = [];
     this._guardHeld = false;
     this._guardRequested = false;
@@ -125,16 +129,18 @@ export class SparringSession {
         resistance: { player: 100, remi: 100 },
         downs: { player: { round: 0, total: 0 }, remi: { round: 0, total: 0 } },
         count: null, result: null, roundHistory: [],
+        ...(this.profile.official ? { score: { player: 0, remi: 0 }, coach: betonCornerAdvice() } : {}),
       } : null,
     };
     this._roundStartStats = { ...this.state.stats };
+    this._roundStartScore = this.state.bout?.score ? { ...this.state.bout.score } : null;
     this.state.training = this._coach?.snapshot(this.state.stats) ?? null;
     return this.state;
   }
 
   setSettings(settings = {}) {
     const next = normalizeSettings(settings, this.settings);
-    if (next.lesson !== this.settings.lesson) {
+    if (next.lesson !== this.settings.lesson || next.opponent !== this.settings.opponent) {
       this.reset(next);
       return { ...this.settings };
     }
@@ -151,7 +157,7 @@ export class SparringSession {
     if (this.state.phase !== 'ready') return false;
     this.state.phase = 'running';
     // A generous first opening lets the player try their first punch.
-    this._setRemiAction('open', this._coach ? 1.30 : 1.85);
+    this._setRemiAction('open', this.profile.rhythm?.initialOpening ?? (this._coach ? 1.30 : 1.85));
     this._syncState();
     return true;
   }
@@ -344,6 +350,7 @@ export class SparringSession {
       this._emit('player-blocked', { attack, target, impact: this._playerAction.impact });
     } else {
       this._damage('remi', attack);
+      if (this.state.bout?.score) this.state.bout.score.player += 1;
       this.state.stats.landed += 1;
       this.state.stats[target === 'body' ? 'landedBody' : 'landedHead'] += 1;
       const combo = attack === 'hook' && sequence?.valid === true && sequence.hits === 2;
@@ -382,6 +389,7 @@ export class SparringSession {
       return;
     }
     this._damage('player', attack);
+    if (this.state.bout?.score) this.state.bout.score.remi += 1;
     this.state.stats.received += 1;
     this.state.stats[target === 'body' ? 'receivedBody' : 'receivedHead'] += 1;
     this._clearCombo();
@@ -400,6 +408,7 @@ export class SparringSession {
   }
 
   _nextRemiAction() {
+    if (this.profile.id === 'beton') { this._nextBetonAction(); return; }
     const current = this._remiAction;
     const tempo = TEMPOS[this.settings.tempo];
     if (this._coach?.state.completed) {
@@ -431,6 +440,32 @@ export class SparringSession {
       });
     } else {
       this._setRemiAction('open', this._coach ? tempo.opening : tempo.openingFree);
+    }
+  }
+
+  _nextBetonAction() {
+    const current = this._remiAction;
+    const rhythm = this.profile.rhythm;
+    if (current.action === 'open') {
+      // The high guard is scheduled before the next tell. Body punches may
+      // pass it; no player input participates in this decision.
+      this._setRemiAction('guard', rhythm.guard, { guardLevel: 'head' });
+    } else if (current.action === 'guard') {
+      const side = this._nextSide;
+      this._nextSide = side === 'left' ? 'right' : 'left';
+      const target = side === 'left' ? 'head' : 'body';
+      const safeDodge = side === 'left' ? 'dodgeRight' : 'dodgeLeft';
+      const duration = side === 'left' ? rhythm.jabTell : rhythm.crossTell;
+      this._setRemiAction(side === 'left' ? 'tellLeft' : 'tellRight', duration, { side, target, safeDodge });
+      this._emit('tell', { side, target, safeDodge, duration });
+    } else if (current.action === 'tellLeft' || current.action === 'tellRight') {
+      const action = current.side === 'left' ? 'jab' : 'cross';
+      this._setRemiAction(action, TIMINGS.remi[action].duration, {
+        impact: TIMINGS.remi[action].impact, side: current.side,
+        target: current.target, safeDodge: current.safeDodge,
+      });
+    } else {
+      this._setRemiAction('open', current.action === 'jab' ? rhythm.afterJab : rhythm.afterCross);
     }
   }
 
@@ -494,11 +529,13 @@ export class SparringSession {
     this.state.remaining = this.settings.duration;
     this.state.stamina = 100;
     this._roundStartStats = { ...this.state.stats };
+    this._roundStartScore = bout.score ? { ...bout.score } : null;
+    this._roundFatigue = 0;
     this._clearCombatActions();
     this._nextSide = 'left'; this._nextTarget = 'head'; this._nextGuardLevel = 'head';
     this.state.phase = 'running';
     this.state.pausedPhase = null;
-    this._setRemiAction('open', 1.85);
+    this._setRemiAction('open', this.profile.rhythm?.initialOpening ?? 1.85);
     this._syncState();
     this._emit('round-start', { round: bout.round });
     return true;
@@ -530,6 +567,7 @@ export class SparringSession {
     for (const actor of ACTORS) if (downed[actor]) {
       bout.downs[actor].round += 1;
       bout.downs[actor].total += 1;
+      if (bout.score) bout.score[actor === 'player' ? 'remi' : 'player'] += 3;
       if (bout.downs[actor].total >= 4) eliminated[actor] = 'total-limit';
       else if (bout.downs[actor].round >= 3) eliminated[actor] = 'round-limit';
     }
@@ -640,7 +678,7 @@ export class SparringSession {
     this._clearCombatActions();
     if (this.state.remaining <= EPSILON) { this._finishResistanceRound(); return; }
     this.state.phase = 'running';
-    this._setRemiAction('open', 1.85);
+    this._setRemiAction('open', this.profile.rhythm?.afterRecovery ?? 1.85);
     this._emit('sparring-resumed', { round: this.state.bout.round });
   }
 
@@ -683,7 +721,12 @@ export class SparringSession {
       stats: Object.fromEntries(Object.entries(this.state.stats).map(([key, value]) => [key, value - this._roundStartStats[key]])),
       downs: { player: bout.downs.player.round, remi: bout.downs.remi.round },
       resistance: { ...bout.resistance },
+      ...(bout.score ? { fatigue: this._roundFatigue, score: {
+        player: bout.score.player - this._roundStartScore.player,
+        remi: bout.score.remi - this._roundStartScore.remi,
+      } } : {}),
     });
+    if (bout.score) bout.coach = betonCornerAdvice(bout.roundHistory.at(-1));
   }
 
   _finishResistanceRound() {
@@ -693,7 +736,9 @@ export class SparringSession {
     this._clearCombo();
     this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
     if (this.state.bout.round >= this.state.bout.rounds) {
-      this._finishBout({ reason: 'time', winner: null, loser: null });
+      const score = this.state.bout.score;
+      const winner = score ? score.player === score.remi ? 'draw' : score.player > score.remi ? 'player' : 'remi' : null;
+      this._finishBout({ reason: score ? 'points' : 'time', winner, loser: !score || winner === 'draw' ? null : winner === 'player' ? 'remi' : 'player' });
       return;
     }
     this.state.phase = 'between';
@@ -739,6 +784,7 @@ export class SparringSession {
   }
 
   _emit(type, extra = {}) {
+    if (type === 'exhausted' && this.profile.official) this._roundFatigue += 1;
     const event = { type, time: this.state.elapsed, ...extra };
     this._events.push(event);
     this._trainingEvents(this._coach?.onEvent(event, this._trainingContext()));

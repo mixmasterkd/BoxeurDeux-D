@@ -1,0 +1,760 @@
+{
+  "checkedAt": "2026-09-11T18:49:16.752Z",
+  "selectedCase": "mobile",
+  "base": "http://127.0.0.1:5173/",
+  "reports": [
+    "Mobile: actual touch A/B attacks, an unassisted fall, pause/portrait, six alternating get-up presses and joypad defense.",
+    "Mobile viewport simulation: A/B contact and get-up, joypad high/low guard, frozen portrait/count, a real round and coach corner at 844×390, 667×375 and 568×320 verified; this is not a physical-phone test.",
+    "Béton browser checks passed without page, console or HTTP errors."
+  ],
+  "measurements": [
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        844,
+        390
+      ],
+      "phase": "ready",
+      "panel": {
+        "x": 132,
+        "y": 93,
+        "right": 712,
+        "bottom": 326,
+        "width": 580,
+        "height": 233
+      },
+      "area": {
+        "x": 10,
+        "y": 38,
+        "right": 834,
+        "bottom": 381,
+        "width": 824,
+        "height": 343
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        844,
+        390
+      ],
+      "phase": "between",
+      "panel": {
+        "x": 149.671875,
+        "y": 54,
+        "right": 694.296875,
+        "bottom": 365,
+        "width": 544.625,
+        "height": 311
+      },
+      "area": {
+        "x": 10,
+        "y": 38,
+        "right": 834,
+        "bottom": 381,
+        "width": 824,
+        "height": 343
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "corner-art",
+      "viewport": [
+        844,
+        390
+      ],
+      "source": "/assets/sprites/corner/remi-coach.png",
+      "natural": [
+        800,
+        650
+      ],
+      "width": 283.6875,
+      "height": 220,
+      "x": 399.609375,
+      "y": 60.90625,
+      "right": 683.296875,
+      "bottom": 280.90625
+    },
+    {
+      "case": "corner-state",
+      "mobile": true,
+      "state": {
+        "phase": "between",
+        "pausedPhase": null,
+        "remaining": 0,
+        "elapsed": 60,
+        "stamina": 98.42241333338656,
+        "player": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head"
+        },
+        "remi": {
+          "action": "guard",
+          "progress": 0.4975000000033199,
+          "duration": 0.8,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head",
+          "safeDodge": null,
+          "side": null
+        },
+        "stats": {
+          "landed": 2,
+          "received": 7,
+          "blocked": 10,
+          "dodged": 0,
+          "thrown": 2,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 0,
+          "combos": 0,
+          "landedHead": 2,
+          "landedBody": 0,
+          "receivedHead": 4,
+          "receivedBody": 3,
+          "blockedHead": 5,
+          "blockedBody": 5
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 55,
+            "remi": 70
+          },
+          "downs": {
+            "player": {
+              "round": 1,
+              "total": 1
+            },
+            "remi": {
+              "round": 0,
+              "total": 0
+            }
+          },
+          "count": null,
+          "result": null,
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 60,
+              "stats": {
+                "landed": 2,
+                "received": 7,
+                "blocked": 10,
+                "dodged": 0,
+                "thrown": 2,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 0,
+                "combos": 0,
+                "landedHead": 2,
+                "landedBody": 0,
+                "receivedHead": 4,
+                "receivedBody": 3,
+                "blockedHead": 5,
+                "blockedBody": 5
+              },
+              "downs": {
+                "player": 1,
+                "remi": 0
+              },
+              "resistance": {
+                "player": 55,
+                "remi": 70
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 2,
+                "remi": 10
+              }
+            }
+          ],
+          "score": {
+            "player": 2,
+            "remi": 10
+          },
+          "coach": "Son jab vise la tête. Monte la garde avant le contact; garde le grand enchaînement pour après son direct au corps."
+        }
+      }
+    },
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 150,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 578,
+          "y": 106.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 547,
+          "y": 236.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 596,
+          "y": 175.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        667,
+        375
+      ],
+      "phase": "between",
+      "panel": {
+        "x": 142.59375,
+        "y": 96.28125,
+        "right": 524.390625,
+        "bottom": 307.71875,
+        "width": 381.796875,
+        "height": 211.4375
+      },
+      "area": {
+        "x": 10,
+        "y": 38,
+        "right": 657,
+        "bottom": 366,
+        "width": 647,
+        "height": 328
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "corner-art",
+      "viewport": [
+        667,
+        375
+      ],
+      "source": "/assets/sprites/corner/remi-coach.png",
+      "natural": [
+        800,
+        650
+      ],
+      "width": 176.90625,
+      "height": 143.734375,
+      "x": 338.484375,
+      "y": 109.28125,
+      "right": 515.390625,
+      "bottom": 253.015625
+    },
+    {
+      "case": "corner-state",
+      "mobile": true,
+      "state": {
+        "phase": "between",
+        "pausedPhase": null,
+        "remaining": 0,
+        "elapsed": 60,
+        "stamina": 98.42241333338656,
+        "player": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head"
+        },
+        "remi": {
+          "action": "guard",
+          "progress": 0.4975000000033199,
+          "duration": 0.8,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head",
+          "safeDodge": null,
+          "side": null
+        },
+        "stats": {
+          "landed": 2,
+          "received": 7,
+          "blocked": 10,
+          "dodged": 0,
+          "thrown": 2,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 0,
+          "combos": 0,
+          "landedHead": 2,
+          "landedBody": 0,
+          "receivedHead": 4,
+          "receivedBody": 3,
+          "blockedHead": 5,
+          "blockedBody": 5
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 55,
+            "remi": 70
+          },
+          "downs": {
+            "player": {
+              "round": 1,
+              "total": 1
+            },
+            "remi": {
+              "round": 0,
+              "total": 0
+            }
+          },
+          "count": null,
+          "result": null,
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 60,
+              "stats": {
+                "landed": 2,
+                "received": 7,
+                "blocked": 10,
+                "dodged": 0,
+                "thrown": 2,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 0,
+                "combos": 0,
+                "landedHead": 2,
+                "landedBody": 0,
+                "receivedHead": 4,
+                "receivedBody": 3,
+                "blockedHead": 5,
+                "blockedBody": 5
+              },
+              "downs": {
+                "player": 1,
+                "remi": 0
+              },
+              "resistance": {
+                "player": 55,
+                "remi": 70
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 2,
+                "remi": 10
+              }
+            }
+          ],
+          "score": {
+            "player": 2,
+            "remi": 10
+          },
+          "coach": "Son jab vise la tête. Monte la garde avant le contact; garde le grand enchaînement pour après son direct au corps."
+        }
+      }
+    },
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 15.080001831054688,
+          "y": 124.58000183105469,
+          "width": 99.83999633789062,
+          "height": 99.83999633789062,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 479,
+          "y": 83.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 448,
+          "y": 204.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 497,
+          "y": 143.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        568,
+        320
+      ],
+      "phase": "between",
+      "panel": {
+        "x": 138.625,
+        "y": 96.625,
+        "right": 429.34375,
+        "bottom": 252.375,
+        "width": 290.71875,
+        "height": 155.75
+      },
+      "area": {
+        "x": 10,
+        "y": 38,
+        "right": 558,
+        "bottom": 311,
+        "width": 548,
+        "height": 273
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "corner-art",
+      "viewport": [
+        568,
+        320
+      ],
+      "source": "/assets/sprites/corner/remi-coach.png",
+      "natural": [
+        800,
+        650
+      ],
+      "width": 131.359375,
+      "height": 106.71875,
+      "x": 288.984375,
+      "y": 109.625,
+      "right": 420.34375,
+      "bottom": 216.34375
+    },
+    {
+      "case": "corner-state",
+      "mobile": true,
+      "state": {
+        "phase": "between",
+        "pausedPhase": null,
+        "remaining": 0,
+        "elapsed": 60,
+        "stamina": 98.42241333338656,
+        "player": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head"
+        },
+        "remi": {
+          "action": "guard",
+          "progress": 0.4975000000033199,
+          "duration": 0.8,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head",
+          "safeDodge": null,
+          "side": null
+        },
+        "stats": {
+          "landed": 2,
+          "received": 7,
+          "blocked": 10,
+          "dodged": 0,
+          "thrown": 2,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 0,
+          "combos": 0,
+          "landedHead": 2,
+          "landedBody": 0,
+          "receivedHead": 4,
+          "receivedBody": 3,
+          "blockedHead": 5,
+          "blockedBody": 5
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 55,
+            "remi": 70
+          },
+          "downs": {
+            "player": {
+              "round": 1,
+              "total": 1
+            },
+            "remi": {
+              "round": 0,
+              "total": 0
+            }
+          },
+          "count": null,
+          "result": null,
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 60,
+              "stats": {
+                "landed": 2,
+                "received": 7,
+                "blocked": 10,
+                "dodged": 0,
+                "thrown": 2,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 0,
+                "combos": 0,
+                "landedHead": 2,
+                "landedBody": 0,
+                "receivedHead": 4,
+                "receivedBody": 3,
+                "blockedHead": 5,
+                "blockedBody": 5
+              },
+              "downs": {
+                "player": 1,
+                "remi": 0
+              },
+              "resistance": {
+                "player": 55,
+                "remi": 70
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 2,
+                "remi": 10
+              }
+            }
+          ],
+          "score": {
+            "player": 2,
+            "remi": 10
+          },
+          "coach": "Son jab vise la tête. Monte la garde avant le contact; garde le grand enchaînement pour après son direct au corps."
+        }
+      }
+    },
+    {
+      "case": "return-gym",
+      "origin": null,
+      "returned": {
+        "x": 640,
+        "y": 585
+      }
+    }
+  ],
+  "errors": []
+}

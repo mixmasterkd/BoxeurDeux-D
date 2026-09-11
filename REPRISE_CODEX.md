@@ -1,14 +1,24 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## GO actuel — étape 1 : résistance, chute et relevé
+## GO actuel — étape 2 : Béton et le coach entre les rounds
+
+Après l’étape 1, l’utilisateur a autorisé le **premier adversaire**, nommé **Béton**, un boxeur noir; l’apparence restante et son comportement sont laissés au choix de l’agent. Il a ensuite demandé de conserver la continuité avec les leçons de Rémi et d’ajouter **un petit visuel entre les rounds avec le coach**, dans l’esprit Punch-Out. Ces précisions complètent le GO de l’étape 2, elles ne l’annulent pas.
+
+Intégration : affiche Prochain combat sur un présentoir à droite de l’entrée (station combat 1010,575, accessible depuis y585), interaction E/A, rencontre contre Béton dans le ring existant et retour au même endroit. Accès direct `?scene=fight`; données de scène `opponent: 'beton'`. Béton est indépendant de Rémi : garde haute programmée, jab tête et direct corps qui laisse une ouverture plus longue. Trois rounds de 60 s; règles de résistance/chutes/relevés de l’étape 1. Décision à la fin : 1 point par touche nette, +3 par chute adverse, total supérieur vainqueur, égalité possible. Victoire, défaite, revanche et retour au gym sont présentés séparément du sparring. Les tests et la preuve de publication doivent être lus dans `docs/VERIFICATIONS.md`.
+
+Entre les rounds, une nouvelle vignette montre le joueur au tabouret et Rémi en survêtement de coach avec serviette. Le conseil utilise les statistiques du round terminé. Le prochain round démarre uniquement sur action du joueur; endurance pleine, résistance +20/max100, chutes du round remises à zéro et totaux conservés. Paysage mobile et contrôles communs restent applicables. L’illustration n’ajoute pas de nouvelle commande ni de mini-jeu de soin.
+
+Les idées discutées de J/J/K, de K maintenu pour un uppercut, de crochets au corps par doubles pressions et de déblocages futurs ne sont pas dans ce GO. Les gestes actuels suffisent pour tester ce premier adversaire. Ni carte extérieure, ni progression de carrière sauvegardée, ni gains de capacités permanents ne sont ajoutés maintenant.
+
+## Étape 1 terminée — résistance, chute et relevé
 
 L’utilisateur a dit **« ok j’aime ton idée go pour l’étape 1 »**. Cette autorisation remplace l’attente de GO du plan ci-dessous pour cette seule étape. La séance **Résistance et relevés** est intégrée au choix de Rémi : trois rounds de 60 secondes, deux jauges de résistance distinctes de l’endurance, chutes, compte de dix, relevé avec six pressions alternées J/K ou A/B, récupération partielle et arrêts à trois chutes dans un round ou quatre dans la séance. Les exercices pédagogiques et le sparring libre de 60 secondes restent disponibles. Lire `docs/VERIFICATIONS.md` pour les validations effectivement terminées et la publication; l’implémentation seule ne prouve pas leur réussite.
 
-**Étape 1 terminée et publiée dans `703e5aa`** : 126 tests autonomes, parcours de résistance complet, régression des trois leçons, compilation et parcours de production local réussis. Le workflow GitHub Pages a réussi et le même parcours a passé sur le site public, y compris une chute et un relevé par six A/B tactiles simulés. L’étape 2 reste une prochaine conception à autoriser, pas une tâche inachevée de ce GO.
+**Étape 1 terminée et publiée dans `703e5aa`** : 126 tests autonomes, parcours de résistance complet, régression des trois leçons, compilation et parcours de production local réussis. Le workflow GitHub Pages a réussi et le même parcours a passé sur le site public, y compris une chute et un relevé par six A/B tactiles simulés. L’étape 2 a reçu depuis son propre GO, décrit en tête de ce document.
 
 Les coups nets retirent 12/18/22 points pour jab/direct/crochet; blocage et esquive ne retirent pas de résistance. Le contact reste visible 100 ms avant la chute. Pour se relever, commencer par J/A, puis alterner six pressions au total espacées d’au moins 0,35 s avant dix; aucun avantage au maintien ou au martèlement. Rémi se relève au compte de 6, 8 puis 9 selon ses chutes totales. Résistance rendue 55/45/35 et endurance 60 après relevé; entre les rounds, endurance pleine et +20 de résistance. Pause, perte de focus et portrait figent aussi le décompte. Les nouvelles poses, sources et prompts sont dans les dossiers `knockdown`; les anciens personnages et décors sont conservés.
 
-L’étape 2 reste à lancer séparément : premier adversaire original via une affiche **« Prochain combat »** dans le gym existant. La discussion a retenu cette entrée sans construire la ville maintenant. Rémi garde son rôle de partenaire. Ni adversaire officiel, ni décision aux points, ni KO spécial, ni sauvegarde de carrière, ni gains permanents/dépenses quotidiennes ne sont ajoutés à l’étape 1.
+L’étape 2 était alors prévue séparément : premier adversaire original via une affiche **« Prochain combat »** dans le gym existant. La discussion a retenu cette entrée sans construire la ville maintenant. Rémi garde son rôle de partenaire. Ni adversaire officiel, ni décision aux points, ni KO spécial, ni sauvegarde de carrière, ni gains permanents/dépenses quotidiennes n’avaient été ajoutés à l’étape 1.
 
 ## Plan après les commandes communes — historique de la discussion
 

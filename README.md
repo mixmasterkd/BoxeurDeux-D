@@ -1,10 +1,24 @@
 # BoxeurDeux-D
 
-Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rejoint le **sac chorégraphié**, pratique le **shadow boxing au miroir** ou rencontre Rémi pour le sparring libre, ses trois leçons et la séance **Résistance et relevés**. Le retour au gym conserve sa position pendant la partie.
+Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge rejoint le sac, pratique au miroir, s’entraîne avec Rémi ou consulte l’affiche **Prochain combat** pour rencontrer **Béton**, son premier adversaire. Le retour au gym conserve sa position pendant la partie.
 
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
 Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez les annonces de Rémi, défendez-vous et laissez revenir l'endurance. Rémi reste un partenaire d’entraînement. La séance **Résistance et relevés** ajoute les chutes et le compte de dix; le sparring classique et les trois leçons restent disponibles séparément.
+
+## Béton, premier adversaire — étape 2
+
+L’affiche **Prochain combat · Béton** se trouve sur le présentoir à droite de l’entrée, devant Rémi. Marchez jusqu’à elle puis utilisez **E / A → Rencontrer Béton**. Accès direct : `?scene=fight`. Les décors validés restent conservés; cette rencontre de club utilise le ring du gym, sans carte extérieure supplémentaire.
+
+Béton est un boxeur noir original, calme et précis, en tenue graphite et ocre. Sa garde haute est programmée, indépendante des boutons du joueur. Son jab vise la tête; son direct vise le corps et laisse une ouverture plus longue pour répondre. Les gestes appris avec Rémi restent les mêmes : gardes haute/basse, esquives, coups tête/corps et combo J/K/J ou A/B/A. Aucun uppercut chargé ni nouveau combo à débloquer à cette étape.
+
+- **Trois rounds de 60 secondes maximum**. Les règles de chute et de relevé décrites ci-dessous s’appliquent : compte de dix, arrêt à trois chutes dans le round ou quatre dans le combat. Une revanche ne coûte rien.
+- **Décision aux points** au terme des trois rounds : 1 point par touche nette, plus 3 points par chute adverse. Les coups bloqués ou esquivés ne donnent aucun point. Le plus haut total gagne; un total identique donne un match nul. C’est le barème simple de ce prototype, affiché avant le combat.
+- **Entre les rounds**, le joueur rejoint son tabouret et Rémi intervient comme coach avec sa serviette. Son conseil dépend des coups reçus, des blocages et des ripostes du round qui vient de finir. Bilan du round, total des points et récupération annoncée restent visibles. Le joueur choisit quand lancer la reprise.
+- **À la reprise** : endurance pleine et +20 de résistance, sans dépasser 100. Seul le compteur des chutes du round repart à zéro; points et chutes du combat restent conservés. Les menus, A/B, pause, portrait et sorties suivent la convention commune.
+- **Fin** : victoire, défaite ou match nul clairement indiqué; revanche, commandes et retour au gym. Rémi garde ses séances d’entraînement séparées. Les résultats ne sont pas encore sauvegardés en carrière; cela appartient à l’étape 3.
+
+Les valeurs du rythme et les conseils sont dans `src/game/OpponentProfiles.js`. Les ressources originales sont dans `public/assets/sprites/beton/` et `public/assets/sprites/corner/`, avec sources et prompts dans les dossiers correspondants de `references/characters/`. Voir `docs/VERIFICATIONS.md` pour les essais réellement terminés.
 
 ## Résistance et relevés — étape 1
 
@@ -19,7 +33,7 @@ Approchez Rémi puis **E / A → Résistance et relevés · 3 rounds**. La séan
 - **Après un relevé** : résistance rendue de 55, puis 45, puis 35 selon le nombre total de chutes; endurance du joueur ramenée à 60. Rémi laisse ensuite une ouverture. Au round suivant : endurance pleine, +20 de résistance dans la limite de 100; les chutes du round repartent à zéro, le total est conservé.
 - **Pause et sortie** : **P / Échap / ☰** arrête aussi le décompte; portrait, perte de focus et changement de périphérique libèrent les appuis et demandent une reprise explicite. **← Gym** reste direct. La pause permet d’ouvrir Commandes ou de recommencer toute la séance.
 
-Au terme des trois rounds, le bilan indique les touches, défenses, combos et chutes. Ce mode reste une séance avec Rémi, sans classement officiel. Le KO immédiat spécial, le premier adversaire, la progression sauvegardée et les journées appartiennent aux étapes suivantes.
+Au terme des trois rounds, le bilan indique les touches, défenses, combos et chutes. Ce mode reste une séance avec Rémi, sans classement officiel. Le premier adversaire Béton est disponible séparément. Le KO immédiat spécial, la progression sauvegardée et les journées appartiennent aux étapes suivantes.
 
 ## Phase tenues et fluidité — 10 septembre 2026
 
@@ -117,6 +131,7 @@ Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle l
 - Sur cet ordinateur : **http://127.0.0.1:5173/**
 - Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même gym).
 - Accès direct au sparring : **http://127.0.0.1:5173/?scene=sparring**. Ce raccourci fonctionne aussi sur le site publié.
+- Premier combat contre Béton : **http://127.0.0.1:5173/?scene=fight**. Accessible aussi par l’affiche dans le gym et sur GitHub Pages.
 - Accès direct au sac : **http://127.0.0.1:5173/?scene=bag**.
 - Accès direct au miroir : **http://127.0.0.1:5173/?scene=shadow**. Fonctionne aussi sur GitHub Pages.
 - Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 11 septembre 2026; elle peut changer).
@@ -127,6 +142,7 @@ Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve 
 npm test         # Règles du sparring, du sac, déplacements et autres modèles
 npm run build    # Compilation vers dist/
 npm run test:knockdown # Résistance, chutes, relevés clavier/tactile et transitions de rounds
+npm run test:beton # Affiche, victoire/défaite, coach au coin et commandes tactiles
 npm run test:controls # Convention commune, gardes tête/corps, joypad A/B et transitions
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:combo # Combo sparring réel au clavier/tactile, contacts et interruptions
@@ -207,6 +223,8 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `public/assets/sprites/sparring-v2/` : 20 PNG transparents et leurs coordonnées utilisés localement. Les premières ressources sont conservées dans le dossier parent.
 - `public/assets/sprites/sparring-hook/` : trois poses supplémentaires de crochet gauche; sources et prompts de génération intégrée dans `references/characters/sparring-hook/PROMPTS.md`.
 - `public/assets/sprites/knockdown/` : six poses de chute, tapis et relevé à échelle fixe. Génération d’images intégrée, sources RGBA et prompts dans `references/characters/knockdown/PROMPTS.md`; extraction reproductible par `node scripts/prepare-knockdown-sprites.mjs`.
+- `public/assets/sprites/beton/` : poses originales du premier adversaire; sources et prompts dans `references/characters/beton/PROMPTS.md`.
+- `public/assets/sprites/corner/remi-coach.png` : vignette du repos avec Rémi, issue de la génération intégrée; sources et prompts décrits dans `references/characters/corner/README.md`.
 - `references/characters/sparring-v2/` : sources, prompts et préparation des nouvelles tenues et poses; les premières sources restent dans le dossier parent.
 - `tests/*.test.js` : règles, concordance des animations, objectifs des leçons et cycle de vie audio.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.

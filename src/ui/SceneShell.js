@@ -5,7 +5,7 @@ const GUIDES = {
   shadow: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>↑</kbd><kbd>↓</kbd> Gardes <kbd>←</kbd><kbd>→</kbd> Esquives · flèches ou WASD</span><span><kbd>↓</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause et commandes</span>',
 };
 
-export function setSceneShell(mode) {
+export function setSceneShell(mode, { opponent = 'remi' } = {}) {
   document.getElementById('stage').dataset.scene = mode;
   document.getElementById('stage').setAttribute('aria-label', { gym: 'Visite du gym', sparring: 'Sparring avec Rémi le Tank', bag: 'Entraînement au sac de frappe', shadow: 'Shadow boxing devant le miroir' }[mode]);
   document.getElementById('game').setAttribute('aria-label', mode === 'gym'
@@ -15,4 +15,9 @@ export function setSceneShell(mode) {
   for (const scene of ['gym', 'sparring', 'bag', 'shadow']) document.getElementById(`${scene}-ui`).hidden = mode !== scene;
   document.getElementById('game-commands').innerHTML = GUIDES[mode];
   document.querySelector('.prototype-label').textContent = { gym: 'LE GYM', sparring: 'SPARRING AVEC RÉMI', bag: 'SAC · ENCHAÎNEMENTS', shadow: 'MIROIR · SHADOW BOXING' }[mode];
+  if (mode === 'sparring' && opponent === 'beton') {
+    document.getElementById('stage').setAttribute('aria-label', 'Premier combat contre Béton');
+    document.getElementById('game').setAttribute('aria-label', 'Ring de boxe en pixel art. Vous êtes de dos face à Béton.');
+    document.querySelector('.prototype-label').textContent = 'PREMIER COMBAT · BÉTON';
+  }
 }

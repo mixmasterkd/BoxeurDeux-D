@@ -1,0 +1,235 @@
+{
+  "checkedAt": "2026-09-11T18:48:03.048Z",
+  "selectedCase": "defeat",
+  "base": "http://127.0.0.1:5173/",
+  "reports": [
+    "Defeat: allowing real hits and observing the full ten-count without a recovery input.",
+    "Defeat: actual KO at ten, opponent points, defeat text and a clean revenge verified.",
+    "Béton browser checks passed without page, console or HTTP errors."
+  ],
+  "measurements": [
+    {
+      "case": "layout",
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "ready",
+      "panel": {
+        "x": 131.1875,
+        "y": 260.640625,
+        "right": 441.1875,
+        "bottom": 783.359375,
+        "width": 310,
+        "height": 522.71875
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "menu-geometry",
+      "viewport": [
+        1440,
+        1000
+      ],
+      "phase": "finished",
+      "panel": {
+        "x": 131.1875,
+        "y": 252.6875,
+        "right": 441.1875,
+        "bottom": 791.3125,
+        "width": 310,
+        "height": 538.625
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "noHorizontalScroll": true,
+      "actionable": true
+    },
+    {
+      "case": "defeat",
+      "state": {
+        "phase": "finished",
+        "pausedPhase": null,
+        "remaining": 36.34800000000089,
+        "elapsed": 23.651999999999113,
+        "stamina": 96,
+        "player": {
+          "action": "down",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head"
+        },
+        "remi": {
+          "action": "idle",
+          "progress": 0,
+          "duration": 0,
+          "impact": null,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head"
+        },
+        "stats": {
+          "landed": 0,
+          "received": 7,
+          "blocked": 0,
+          "dodged": 0,
+          "thrown": 0,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 0,
+          "combos": 0,
+          "landedHead": 0,
+          "landedBody": 0,
+          "receivedHead": 4,
+          "receivedBody": 3,
+          "blockedHead": 0,
+          "blockedBody": 0
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance",
+          "opponent": "beton"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 0,
+            "remi": 100
+          },
+          "downs": {
+            "player": {
+              "round": 1,
+              "total": 1
+            },
+            "remi": {
+              "round": 0,
+              "total": 0
+            }
+          },
+          "count": {
+            "stage": "count",
+            "elapsed": 10,
+            "number": 10,
+            "downed": {
+              "player": true,
+              "remi": false
+            },
+            "eliminated": {
+              "player": "ko",
+              "remi": null
+            },
+            "recovered": {
+              "player": false,
+              "remi": false
+            },
+            "hold": 0,
+            "progress": 0,
+            "needed": 6,
+            "accepted": 0,
+            "next": null,
+            "ready": false,
+            "readyIn": 0
+          },
+          "result": {
+            "reason": "ko",
+            "winner": "remi",
+            "loser": "player"
+          },
+          "roundHistory": [
+            {
+              "round": 1,
+              "duration": 23.651999999999113,
+              "stats": {
+                "landed": 0,
+                "received": 7,
+                "blocked": 0,
+                "dodged": 0,
+                "thrown": 0,
+                "opponentBlocked": 0,
+                "missed": 0,
+                "hooks": 0,
+                "combos": 0,
+                "landedHead": 0,
+                "landedBody": 0,
+                "receivedHead": 4,
+                "receivedBody": 3,
+                "blockedHead": 0,
+                "blockedBody": 0
+              },
+              "downs": {
+                "player": 1,
+                "remi": 0
+              },
+              "resistance": {
+                "player": 0,
+                "remi": 100
+              },
+              "fatigue": 0,
+              "score": {
+                "player": 0,
+                "remi": 10
+              }
+            }
+          ],
+          "score": {
+            "player": 0,
+            "remi": 10
+          },
+          "coach": "Son jab vise la tête. Monte la garde avant le contact; garde le grand enchaînement pour après son direct au corps."
+        }
+      }
+    },
+    {
+      "case": "return-gym",
+      "origin": null,
+      "returned": {
+        "x": 640,
+        "y": 585
+      }
+    }
+  ],
+  "errors": []
+}

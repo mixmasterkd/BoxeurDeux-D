@@ -30,6 +30,7 @@ export class GymScene extends Phaser.Scene {
     this.registry.set('gym-world', this.world);
     this.world.resume();
     this.add.image(640, 360, 'gym-exploration').setDisplaySize(1280, 720);
+    this.addFightPoster();
     // Foreground slices use the original room pixels. Feet determine draw order,
     // so passing beside tall equipment doesn't paint the boxer over its front.
     this.addForeground([[465,145],[841,145],[873,297],[875,439],[426,439],[426,296]], 439);
@@ -55,6 +56,7 @@ export class GymScene extends Phaser.Scene {
       onSparring: lesson => this.enterSparring(lesson),
       onBag: () => this.enterBag(),
       onShadow: () => this.enterShadow(),
+      onFight: () => this.enterFight(),
       onBlur: () => this.world.pause(),
     });
     this.renderWorld();
@@ -107,6 +109,11 @@ export class GymScene extends Phaser.Scene {
       this.ui.showDialog({ speaker: 'SHADOW BOXING', ...ACTIVITIES.miroir, actions: [
         { id: 'shadow', label: 'Pratiquer devant le miroir →' }, { id: 'close', label: 'Continuer la visite →' },
       ] });
+    } else if (station.id === 'combat') {
+      this.ui.showDialog({ speaker: 'RENCONTRE DE CLUB · PREMIER COMBAT', title: 'Béton vous attend.',
+        text: 'Calme, précis, difficile à déborder. Béton ferme sa garde à la tête et prépare un direct au corps qui le laisse exposé. Mettez en pratique les leçons de Rémi. Trois rounds de 60 secondes; revanche gratuite, à votre rythme.',
+        actions: [{ id: 'fight', label: 'Rencontrer Béton →' }, { id: 'close', label: 'Continuer la visite →' }],
+      });
     } else {
       this.ui.showDialog({ speaker: station.kind === 'exit' ? 'LA PORTE DU GYM' : 'DÉCOUVRIR LES ATELIERS', ...ACTIVITIES[station.id] });
     }
@@ -134,7 +141,28 @@ export class GymScene extends Phaser.Scene {
   enterSparring(lesson = 'free') {
     if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'remi') return;
     this.world.releaseControls();
-    this.scene.start('SparringScene', { lesson, fromGym: true });
+    this.scene.start('SparringScene', { lesson, opponent: 'remi', fromGym: true });
+  }
+
+  enterFight() {
+    if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'combat') return;
+    this.world.releaseControls();
+    this.scene.start('SparringScene', { opponent: 'beton', lesson: 'resistance', fromGym: true });
+  }
+
+  addFightPoster() {
+    // An illustrated notice on a small wooden stand, without altering the room.
+    const x = 1010, y = 575;
+    const board = this.add.container(x, y).setDepth(y - 10);
+    const frame = this.add.graphics();
+    frame.fillStyle(0x07161e, .22).fillEllipse(0, 1, 100, 21);
+    frame.fillStyle(0x513923).fillRect(-39, -83, 8, 81).fillRect(30, -83, 8, 81);
+    frame.fillStyle(0x957044).fillRect(-49, -101, 99, 88);
+    frame.fillStyle(0xe4cda0).fillRect(-43, -95, 87, 76);
+    frame.fillStyle(0x263c43).fillRect(-38, -67, 77, 29);
+    board.add(frame);
+    const label = (message, dy, size, color) => this.add.text(0, dy, message, { fontFamily: 'monospace', fontStyle: 'bold', fontSize: `${size}px`, color, align: 'center' }).setOrigin(.5, 0);
+    board.add([label('PROCHAIN', -91, 10, '#553d29'), label('COMBAT', -80, 10, '#553d29'), label('BÉTON', -64, 21, '#f7d18d'), label('3 × 60 s', -33, 10, '#553d29')]);
   }
 
   enterBag() {

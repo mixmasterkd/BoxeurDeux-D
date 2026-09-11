@@ -6,43 +6,71 @@ const ASSETS = 'assets/sprites/sparring-v2/';
 const HOOK_ASSETS = 'assets/sprites/sparring-hook/';
 const BODY_ASSETS = 'assets/sprites/body-training/';
 const KNOCKDOWN_ASSETS = 'assets/sprites/knockdown/';
+const BETON_ASSETS = 'assets/sprites/beton/';
+const BETON_POSES = ['guard', 'block', 'jab-windup', 'jab-recover', 'jab',
+  'cross-windup-body', 'cross-recover-body', 'cross-body', 'block-body',
+  'hit', 'hit-body', 'fall', 'down', 'rise'];
+// Béton's first repertoire is a head jab and a body cross. Generic renderer
+// states still resolve to his own art; none can accidentally display Rémi.
+const BETON_FALLBACKS = {
+  cross: 'cross-body', 'cross-windup': 'cross-windup-body', 'cross-recover': 'cross-recover-body',
+  'jab-body': 'jab', 'jab-windup-body': 'jab-windup', 'jab-recover-body': 'jab-recover',
+  dodge: 'guard', hook: 'jab', 'hook-windup': 'jab-windup', 'hook-recover': 'jab-recover',
+  'hook-body': 'cross-body', 'hook-windup-body': 'cross-windup-body', 'hook-recover-body': 'cross-recover-body',
+};
 const BODY_POSES = ['jab-body', 'cross-body', 'jab-windup-body', 'cross-windup-body',
   'jab-recover-body', 'cross-recover-body', 'block-body', 'hit-body'];
 
 /** Rendering only. The session owns every timer and every scored contact. */
 export class FighterView {
-  static preload(scene) {
-    scene.load.json('fighters', `${import.meta.env.BASE_URL}${ASSETS}fighters.json`);
+  static preload(scene, { opponent = 'remi' } = {}) {
+    const base = import.meta.env?.BASE_URL ?? '/';
+    scene.load.json('fighters', `${base}${ASSETS}fighters.json`);
     for (const who of ['remi', 'player']) {
       for (const pose of POSES) {
-        scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${ASSETS}${who}-${pose}.png`);
+        scene.load.image(`${who}-${pose}`, `${base}${ASSETS}${who}-${pose}.png`);
       }
     }
-    scene.load.json('fighters-hook', `${import.meta.env.BASE_URL}${HOOK_ASSETS}fighters.json`);
+    scene.load.json('fighters-hook', `${base}${HOOK_ASSETS}fighters.json`);
     for (const pose of ['hook-windup', 'hook-recover', 'hook']) {
-      scene.load.image(`player-${pose}`, `${import.meta.env.BASE_URL}${HOOK_ASSETS}player-${pose}.png`);
+      scene.load.image(`player-${pose}`, `${base}${HOOK_ASSETS}player-${pose}.png`);
     }
-    scene.load.json('fighters-body', `${import.meta.env.BASE_URL}${BODY_ASSETS}sparring.json`);
+    scene.load.json('fighters-body', `${base}${BODY_ASSETS}sparring.json`);
     for (const who of ['player', 'remi']) {
       const poses = who === 'player' ? [...BODY_POSES, 'hook-body', 'hook-windup-body', 'hook-recover-body'] : BODY_POSES;
-      for (const pose of poses) scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${BODY_ASSETS}${who}-${pose}.png`);
+      for (const pose of poses) scene.load.image(`${who}-${pose}`, `${base}${BODY_ASSETS}${who}-${pose}.png`);
     }
-    scene.load.json('fighters-knockdown', `${import.meta.env.BASE_URL}${KNOCKDOWN_ASSETS}fighters.json`);
+    scene.load.json('fighters-knockdown', `${base}${KNOCKDOWN_ASSETS}fighters.json`);
     for (const who of ['player', 'remi']) {
-      for (const pose of ['fall', 'down', 'rise']) scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${KNOCKDOWN_ASSETS}${who}-${pose}.png`);
+      for (const pose of ['fall', 'down', 'rise']) scene.load.image(`${who}-${pose}`, `${base}${KNOCKDOWN_ASSETS}${who}-${pose}.png`);
+    }
+    if (opponent === 'beton') {
+      scene.load.json('fighters-beton', `${base}${BETON_ASSETS}fighters.json`);
+      for (const pose of BETON_POSES) scene.load.image(`beton-${pose}`, `${base}${BETON_ASSETS}beton-${pose}.png`);
     }
   }
 
-  constructor(scene, who, x, feet, height) {
+  constructor(scene, who, x, feet, height, { opponent = 'remi' } = {}) {
     this.who = who;
+    this.texturePrefix = who === 'remi' && opponent === 'beton' ? 'beton' : who;
     this.x = x;
     this.feet = feet;
     this.height = height;
     const original = scene.cache.json.get('fighters');
     this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses, ...scene.cache.json.get('fighters-body')?.poses, ...scene.cache.json.get('fighters-knockdown')?.poses } };
+    if (this.texturePrefix === 'beton') {
+      const beton = scene.cache.json.get('fighters-beton');
+      if (!beton) throw new Error('Béton sprites must be preloaded before constructing his view.');
+      // Keep the model-facing remi-* keys while replacing the complete visual
+      // identity, including every fallback and target landmark, atomically.
+      const poses = {};
+      for (const pose of BETON_POSES) poses[`remi-${pose}`] = { ...beton.poses[`beton-${pose}`], texturePose: pose };
+      for (const [pose, fallback] of Object.entries(BETON_FALLBACKS)) poses[`remi-${pose}`] = { ...poses[`remi-${fallback}`], fallbackFrom: pose };
+      this.metadata = { ...beton, poses };
+    }
     this.anchor = this.metadata.anchor;
     this.shadow = scene.add.ellipse(x, feet - 3, who === 'remi' ? 228 : 250, 30, 0x0b1523, .3);
-    this.sprite = scene.add.image(x, feet, `${who}-guard`).setOrigin(
+    this.sprite = scene.add.image(x, feet, `${this.texturePrefix}-guard`).setOrigin(
       this.anchor.x / this.metadata.canvas.width,
       this.anchor.y / this.metadata.canvas.height,
     );
@@ -105,7 +133,7 @@ export class FighterView {
     // Some symmetric uniforms reuse an authored pose in mirror. Combine this
     // asset correction with the directional dodge, rather than applying twice.
     const flip = Boolean(poseSpec.mirror) !== motion.flip;
-    this.sprite.setTexture(`${this.who}-${motion.pose}`)
+    this.sprite.setTexture(`${this.texturePrefix}-${poseSpec.texturePose ?? motion.pose}`)
       .setScale(this.baseScale)
       .setPosition(Math.round(this.x + dx + spacing), Math.round(this.feet + dy))
       .setRotation(motion.rotation).setFlipX(flip).setAlpha(motion.alpha);

@@ -16,6 +16,7 @@ export const GYM_LAYOUT = {
     { id: 'banc-gauche', x: 64, y: 320, width: 70, height: 111 },
     { id: 'banc-droit', x: 1162, y: 399, width: 55, height: 180 },
     { id: 'casiers', x: 1172, y: 213, width: 44, height: 115 },
+    { id: 'affiche-combat', x: 975, y: 561, width: 70, height: 17 },
   ],
   stations: [
     { id: 'remi', label: 'Rémi le Tank', x: 915, y: 470, radius: 85, kind: 'sparring' },
@@ -24,6 +25,7 @@ export const GYM_LAYOUT = {
     { id: 'speedball', label: 'Speed ball', x: 1070, y: 237, radius: 80, kind: 'preview' },
     { id: 'corde', label: 'Corde à danser', x: 210, y: 537, radius: 85, kind: 'preview' },
     { id: 'porte', label: 'Sortie du gym', x: 640, y: 659, radius: 50, kind: 'exit' },
+    { id: 'combat', label: 'Prochain combat · Béton', x: 1010, y: 575, radius: 75, kind: 'fight' },
   ],
 };
 

@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-09-11T18:51:41.727Z",
+  "selectedCase": "all",
+  "executionMode": "four separate completed browser processes",
+  "status": "passed",
+  "initialCombinedAttempt": {
+    "status": "interrupted",
+    "exitCode": 143,
+    "observed": "Desktop case completed; defeat case had reached the real player knockdown. The process then received SIGTERM without a test assertion or final report.",
+    "cause": "Unknown external termination; not counted as a passing complete suite.",
+    "resolution": "All four cases were subsequently run separately to completion. Desktop was replayed to create its final JSON report."
+  },
+  "cases": [
+    {
+      "name": "desktop",
+      "status": "passed",
+      "report": "docs/beton-desktop-browser-results.json",
+      "checkedAt": "2026-09-11T18:50:42.455Z",
+      "reports": [
+        "Desktop: walking from the gym, then reading tells and countering with real J–K–J.",
+        "Desktop: actual walk to the fight display and E interaction (1013.3, 585.0).",
+        "Desktop: genuine victory, both guard heights, complete combos, score, revenge reset and exact return position verified.",
+        "Béton browser checks passed without page, console or HTTP errors."
+      ],
+      "errors": []
+    },
+    {
+      "name": "defeat",
+      "status": "passed",
+      "report": "docs/beton-defeat-browser-results.json",
+      "checkedAt": "2026-09-11T18:48:03.048Z",
+      "reports": [
+        "Defeat: allowing real hits and observing the full ten-count without a recovery input.",
+        "Defeat: actual KO at ten, opponent points, defeat text and a clean revenge verified.",
+        "Béton browser checks passed without page, console or HTTP errors."
+      ],
+      "errors": []
+    },
+    {
+      "name": "corner",
+      "status": "passed",
+      "report": "docs/beton-corner-browser-results.json",
+      "checkedAt": "2026-09-11T18:47:19.670Z",
+      "reports": [
+        "Corner: playing a complete sixty-second round, leaving two body hits open to verify real recovery and specific advice.",
+        "Corner desktop: genuine round history, loaded coach artwork, advice from body hits, score and +20 resistance/endurance reset verified.",
+        "Béton browser checks passed without page, console or HTTP errors."
+      ],
+      "errors": []
+    },
+    {
+      "name": "mobile",
+      "status": "passed",
+      "report": "docs/beton-mobile-browser-results.json",
+      "checkedAt": "2026-09-11T18:49:16.752Z",
+      "reports": [
+        "Mobile: actual touch A/B attacks, an unassisted fall, pause/portrait, six alternating get-up presses and joypad defense.",
+        "Mobile viewport simulation: A/B contact and get-up, joypad high/low guard, frozen portrait/count, a real round and coach corner at 844×390, 667×375 and 568×320 verified; this is not a physical-phone test.",
+        "Béton browser checks passed without page, console or HTTP errors."
+      ],
+      "errors": []
+    }
+  ],
+  "limitations": [
+    "Chromium viewport and touch-event simulation; no physical phone was used.",
+    "No model, clock, score or resistance mutation; outcomes came from actual controls and elapsed time."
+  ]
+}
