@@ -42,6 +42,7 @@ export class SparringUI {
       'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.phase = 'ready';
+    this.commandsOpen = false;
     this.settings = { tempo: 'normal', recovery: 1, lesson: 'free' };
     this.audio = { muted: false, volume: 0.35, available: true };
     this.freeTempo = 'normal';
@@ -51,6 +52,7 @@ export class SparringUI {
     this.guardActive = false;
     this.abort = new AbortController();
     this.root = document.getElementById('sparring-ui');
+    this.root.dataset.touch = String(navigator.maxTouchPoints > 0);
     this.portraitQuery = window.matchMedia('(max-width: 900px) and (orientation: portrait)');
     this.root.innerHTML = `
       <div class="menu-shade is-visible" aria-hidden="true"></div>
@@ -103,6 +105,7 @@ export class SparringUI {
           <p><strong>Bien joué</strong><span data-value="training-positive"></span></p>
           <p><strong>À travailler</strong><span data-value="training-improve"></span></p>
         </div>
+        <button type="button" class="commands-open-button" hidden>Commandes</button>
         </div>
         <div class="panel-options">
         <div class="round-settings">
@@ -119,6 +122,21 @@ export class SparringUI {
         <button type="button" class="next-lesson-button" hidden>Leçon suivante →</button>
         <p class="round-footnote">Sparring au gym · Aucun combat officiel</p>
         </div>
+      </section>
+      <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="sparring-commands-title" hidden>
+        <p class="commands-eyebrow">ROUND EN PAUSE</p><h2 id="sparring-commands-title">Commandes du sparring</h2>
+        <div class="commands-grid"><dl>
+          <div><dt>Jab</dt><dd>J</dd></div>
+          <div><dt>Direct</dt><dd>K</dd></div>
+          <div><dt>Garde</dt><dd>Maintenir Espace</dd></div>
+        </dl><dl>
+          <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
+          <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
+          <div><dt>Son / muet</dt><dd>M</dd></div>
+        </dl></div>
+        <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
+        <p class="commands-touch-tip commands-tip">Au tactile : défenses à gauche, frappes à droite; maintenez Garde pour vous protéger.</p>
+        <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
       <div class="action-dock defense-dock" aria-label="Défenses">
         <span class="dock-caption">ESQUIVER & PROTÉGER</span>
@@ -139,6 +157,7 @@ export class SparringUI {
       'audio-button', 'audio-label', 'audio-icon', 'audio-volume', 'lesson-choice', 'lesson-description',
       'lesson-objective', 'lesson-tempo', 'choose-session-button', 'next-lesson-button',
       'training-coach', 'coach-objective', 'coach-cue', 'training-summary', 'return-gym-button',
+      'commands-panel', 'commands-open-button', 'commands-back-button',
     ].map((className) => [className, this.root.querySelector(`.${className}`)]));
     this.values = Object.fromEntries([...this.root.querySelectorAll('[data-value]')]
       .map((element) => [element.dataset.value, element]));
@@ -179,6 +198,9 @@ export class SparringUI {
     });
     this.listen(window, 'keydown', (event) => this.keyDown(event));
     this.listen(window, 'keyup', (event) => this.keyUp(event));
+    this.listen(window, 'pointerdown', (event) => {
+      if (event.pointerType === 'touch') this.root.dataset.touch = 'true';
+    });
     this.listen(window, 'blur', () => this.loseFocus());
     this.listen(document, 'visibilitychange', () => {
       if (document.hidden) this.loseFocus();
@@ -192,6 +214,8 @@ export class SparringUI {
       if (this.phase === 'running') this.callbacks.onPause();
       this.clearInputs();
     });
+    this.listenActivation(this.elements['commands-open-button'], () => this.showCommands(true));
+    this.listenActivation(this.elements['commands-back-button'], () => this.showCommands(false));
     this.listenActivation(this.elements['primary-button'], (event) => {
       event.currentTarget.blur();
       if (this.portraitQuery.matches) return;
@@ -276,25 +300,39 @@ export class SparringUI {
   }
 
   keyDown(event) {
+    if (this.portraitQuery.matches || document.hidden) return;
     const target = event.target;
+    const modal = this.commandsOpen ? this.elements['commands-panel'] : this.phase === 'paused' ? this.elements['round-panel'] : null;
+    if (event.code === 'Tab' && modal) {
+      const controls = [...modal.querySelectorAll('button:not(:disabled), select:not(:disabled), input:not(:disabled)')].filter(element => element.getClientRects().length);
+      const index = controls.indexOf(document.activeElement);
+      if (controls.length && (index === -1 || (!event.shiftKey && index === controls.length - 1) || (event.shiftKey && index === 0))) {
+        event.preventDefault();
+        controls[event.shiftKey ? controls.length - 1 : 0].focus({ preventScroll: true });
+      }
+      return;
+    }
+    if (event.code === 'KeyP' || event.code === 'Escape') {
+      if (event.repeat || (this.phase !== 'running' && this.phase !== 'paused')) return;
+      event.preventDefault();
+      this.callbacks.onAudioGesture();
+      this.clearInputs();
+      if (this.commandsOpen) this.showCommands(false);
+      else if (this.phase === 'running') this.callbacks.onPause();
+      else this.callbacks.onResume();
+      return;
+    }
     if (target instanceof Element && target.closest('input, select, textarea, [contenteditable="true"]')) return;
     if (target instanceof HTMLButtonElement && (event.code === 'Space' || event.code === 'Enter')
-      && !(event.code === 'Space' && target.dataset.action === 'guard')) return;
+      && !(event.code === 'Space' && target.dataset.action === 'guard')) {
+      if (event.repeat) event.preventDefault();
+      return;
+    }
     if (event.code === 'KeyM') {
       if (event.repeat || this.portraitQuery.matches) return;
       event.preventDefault();
       this.callbacks.onAudioGesture();
       this.changeAudio({ muted: !this.audio.muted });
-      return;
-    }
-    if (event.code === 'KeyP' || event.code === 'Escape') {
-      if (event.repeat || this.portraitQuery.matches) return;
-      if (this.phase !== 'running' && this.phase !== 'paused') return;
-      event.preventDefault();
-      this.callbacks.onAudioGesture();
-      if (this.phase === 'running') this.callbacks.onPause();
-      else this.callbacks.onResume();
-      this.clearInputs();
       return;
     }
     const action = KEY_ACTIONS[event.code];
@@ -360,6 +398,17 @@ export class SparringUI {
     this.clearInputs();
   }
 
+  showCommands(open) {
+    if (this.phase !== 'paused') return;
+    this.clearInputs();
+    this.commandsOpen = open;
+    this.elements['round-panel'].hidden = open;
+    this.elements['commands-panel'].hidden = !open;
+    this.root.classList.toggle('is-showing-commands', open);
+    this.root.querySelector('.fight-hud').inert = open;
+    if (!this.portraitQuery.matches) this.elements[open ? 'commands-back-button' : 'commands-open-button'].focus({ preventScroll: true });
+  }
+
   setText(element, value) {
     const text = String(value);
     if (element.textContent !== text) element.textContent = text;
@@ -397,6 +446,10 @@ export class SparringUI {
     if (this.phase !== phase || !this.initialized || this.renderedLesson !== lesson.id
       || this.renderedCompleted !== Boolean(training?.completed)) {
       this.phase = phase;
+      this.commandsOpen = false;
+      this.elements['commands-panel'].hidden = true;
+      this.root.classList.remove('is-showing-commands');
+      this.root.querySelector('.fight-hud').inert = false;
       this.initialized = true;
       this.renderedLesson = lesson.id;
       this.renderedCompleted = Boolean(training?.completed);
@@ -411,6 +464,7 @@ export class SparringUI {
       this.elements['round-results'].hidden = phase !== 'finished';
       this.elements['round-settings'].hidden = phase === 'finished';
       this.elements['secondary-button'].hidden = phase !== 'paused';
+      this.elements['commands-open-button'].hidden = phase !== 'paused';
       this.elements['choose-session-button'].hidden = !['paused', 'finished'].includes(phase);
       this.elements['lesson-choice'].hidden = phase !== 'ready';
       this.root.querySelector('[name="lesson"]').value = lesson.id;
@@ -448,6 +502,8 @@ export class SparringUI {
         this.setText(this.elements['primary-button'], training ? 'Refaire l’exercice →' : 'Un autre round →');
       }
       if (!running) this.elements['fight-feedback'].classList.remove('is-visible');
+      if (phase === 'paused' && !this.portraitQuery.matches) this.elements['primary-button'].focus({ preventScroll: true });
+      else if (running && this.root.contains(document.activeElement)) document.activeElement.blur();
     }
     this.elements['training-coach'].hidden = phase !== 'running' || !training;
     if (training) {

@@ -21,6 +21,7 @@ La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et t�
 - Marcher : **flèches**, **WASD** ou **ZQSD**; pavé directionnel tactile à gauche.
 - Interagir : **E**, **Entrée**, ou bouton à droite quand vous êtes près de Rémi ou d’un atelier.
 - Pause : **P**, **Échap**, ou bouton Pause. Échap ferme aussi une conversation.
+- Sur ordinateur sans écran tactile, les boutons superposés sont masqués : les raccourcis restent indiqués en bas. Dans la pause, **Commandes** présente l’aide; revenir à la pause ne relance pas la partie. Les appareils tactiles conservent leurs boutons.
 - Rémi, près des marches à droite du ring, propose le sparring libre et ses trois leçons. La séance choisie s’ouvre sur son menu avant démarrage.
 - **Retour au gym**, sur l’accueil du sparring, en pause ou au bilan, permet de retrouver votre position. Le clavier et les contacts sont libérés à chaque changement de scène.
 
@@ -65,6 +66,9 @@ npm run build    # Compilation vers dist/
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:training # Trois leçons complètes, bilans et audio
 npm run test:gym # Marche, collisions, ateliers, aller/retour sparring et tactile
+npm run test:visibility # Pixels réellement visibles près des ateliers (WebGL)
+GYM_RENDERER=canvas npm run test:visibility # Même contrôle avec le rendu Canvas
+npm run test:commands # Aide dans la pause, clavier, tactile et petites fenêtres
 npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```

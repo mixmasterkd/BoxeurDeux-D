@@ -2,11 +2,14 @@
 
 ## Correction de visibilité et commandes — retour utilisateur
 
+- Menu **Commandes** disponible dans la pause de chaque scène. P/Échap depuis l’aide ramène au menu pause sans reprendre; les commandes de jeu ne sont pas actives dans l’aide. Les boutons de déplacement, de frappe et de pause sont masqués sur ordinateur sans tactile, tandis que le guide inférieur reste visible. Les appareils tactiles et hybrides conservent leurs contrôles.
+- `tests/commands-browser.mjs` : ordinateur **1440 × 1000** et **568 × 320**, trois paysages tactiles **844 × 390, 667 × 375, 568 × 320**, appareil hybride simulé **1024 × 768**. Menus entièrement visibles sans défilement, focus clavier, maintien d’Entrée, perte de focus, gel du chronomètre, absence de frappe pendant l’aide, retour à la pause puis reprise sans ancienne garde ni déplacement. Captures inspectées; aucune erreur navigateur. Capture conservée : `menu-commandes.png`. Il s’agit d’émulation Chromium, pas d’essais physiques.
 - Bug reproduit dans WebGL : au sac, la capture rendue était identique avec le sprite affiché ou caché (**0 pixel visible du boxeur**), malgré une position et une interaction valides. Les anciens tests des ateliers vérifiaient la marche et les dialogues, sans mesurer la visibilité du sprite.
 - Cause confirmée dans la version installée de Phaser 4.2.1 : `setMask` / `GeometryMask` ne s’appliquent qu’au rendu Canvas. En WebGL, les deux copies de décor censées être découpées recouvraient toute la salle lorsque le joueur passait derrière leur profondeur.
 - Correction : filtre de masque WebGL pour ne dessiner que l’équipement concerné; GeometryMask conservé pour le moteur Canvas. Le décor et les sprites sources ne sont pas modifiés.
 - `npm run test:visibility` et `GYM_RENDERER=canvas npm run test:visibility` : parcours au clavier jusqu’au sac, au miroir et à la speed ball, captures effectivement rendues comparées avec/sans le sprite, puis interaction. **Plus de 2 000 pixels visibles du boxeur à chaque poste**, dans les deux moteurs. Les captures ont aussi été inspectées visuellement. Le test interdit les avertissements de masque non pris en charge.
 - `npm test` : les **44 contrôles** de déplacement, règles de combat, animation, leçons et audio restent réussis.
+- Validation intégrée finale : compilation réussie; `test:static` vérifie l’aide dans les deux pauses sur le bundle, puis le sparring et le retour au gym au clavier et au tactile. `test:gym` rejoue marche, ateliers, leçon jab complète, retour, contacts simultanés et orientation. `test:visibility` recontrôle les trois postes avec l’interface finale. `test:browser` conserve frappes, défenses, focus, tactile et round complet terminé après **60,0 secondes réelles**. Aucune erreur navigateur ni ressource manquante. Seul avertissement de compilation : taille habituelle du bundle Phaser.
 
 ## Première visite du gym — 10 septembre 2026
 

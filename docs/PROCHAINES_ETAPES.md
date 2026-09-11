@@ -21,9 +21,15 @@ Le sparring dispose de tenues d’entraînement (débardeur, short, casque et ga
 - Sac, miroir, speed ball et corde accessibles à pied, avec description de leur future activité.
 - Collisions, pause, clavier, tactile simultané, relâchements et orientation.
 
-## Prochaine étape à discuter
+## Prochaine étape retenue — le sac chorégraphié
 
-Choisir le premier mini-jeu à construire et préciser ses règles. Le miroir servira à pratiquer les mouvements seulement, sans adversaire; le sac pourra travailler le rythme et les enchaînements. La visite et le sparring restent la base jouable pendant cette suite.
+L’utilisateur aime l’idée de suivre des enchaînements au sac. La priorité immédiate est de corriger la disparition du personnage près des ateliers et de libérer l’écran ordinateur des boutons tactiles, avec une rubrique « Commandes » dans la pause.
+
+Ensuite : séance courte au sac, impacts et balancement synchronisés, enchaînements à reproduire, bilan de précision et de rythme, retour au gym.
+
+Idée retenue pour le sac **et le sparring** : **J → K → J = jab → direct → crochet**, le troisième J devenant un crochet uniquement dans la fenêtre de combo. Hors combo, J reste un jab. Ce comportement n’est pas encore implémenté : il faut créer l’animation du crochet, définir un timing lisible et vérifier le contact avant de le rendre jouable. Le sac permettra de mettre ce mouvement au point, puis de le reprendre en sparring. Des frappes au corps pourront ensuite enrichir le jeu sans multiplier d’emblée les commandes.
+
+Le miroir servira à pratiquer les mouvements seulement, sans adversaire. La visite et le sparring restent la base jouable pendant cette suite.
 
 ## Ateliers prévus
 

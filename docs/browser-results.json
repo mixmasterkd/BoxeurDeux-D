@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-11T03:00:09.823Z",
+  "checkedAt": "2026-09-11T03:55:17.800Z",
   "reports": [
     "Desktop: start, jab/contact alignment, no hold repeat, direct, block, recovery, directional dodge, pause, focus release, settings and restart passed.",
     "Mobile viewports 844×390 and 568×320: simultaneous guard+jab, direct, dodge, release/cancel, no accidental resume after focus loss, portrait and explicit resume passed (no physical phone test).",

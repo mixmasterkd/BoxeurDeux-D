@@ -24,12 +24,14 @@ export class GymUI {
     this.menuPointers = new Map();
     this.vector = { x: 0, y: 0 };
     this.paused = false;
+    this.commandsOpen = false;
     this.dialog = null;
     this.nearby = null;
     this.destroyed = false;
     this.abort = new AbortController();
     this.portraitQuery = window.matchMedia('(max-width: 900px) and (orientation: portrait)');
     this.root.hidden = false;
+    this.root.dataset.touch = String(navigator.maxTouchPoints > 0);
     this.root.dataset.mode = 'walking';
     this.root.innerHTML = `
       <header class="gym-hud">
@@ -52,14 +54,23 @@ export class GymUI {
         <div class="gym-dialog-actions"></div>
       </section>
       <section class="gym-pause-panel" role="dialog" aria-modal="true" aria-labelledby="gym-pause-title" hidden>
-        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Visite en pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><button type="button" class="gym-resume-button">Continuer la visite →</button>
+        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Visite en pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><button type="button" class="gym-resume-button">Continuer la visite →</button><button type="button" class="commands-open-button">Commandes</button>
+      </section>
+      <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="gym-commands-title" hidden>
+        <p class="commands-eyebrow">VISITE EN PAUSE</p><h2 id="gym-commands-title">Commandes du gym</h2>
+        <div class="commands-grid"><dl>
+          <div><dt>Marcher</dt><dd>Flèches · WASD · ZQSD</dd></div>
+          <div><dt>Interagir</dt><dd>E ou Entrée</dd></div>
+          <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
+        </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p>Échap ferme aussi une conversation.</p><p class="commands-touch-tip">Au tactile : pavé à gauche, Interagir à droite et Pause en haut.</p></div></div>
+        <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
     `;
     this.elements = Object.fromEntries([
       'gym-pause-button', 'gym-nearby', 'gym-nearby-label', 'gym-nearby-hint',
       'gym-movement', 'gym-interact-button', 'gym-interact-label',
       'gym-modal-shade', 'gym-dialog', 'gym-dialog-speaker', 'gym-dialog-actions',
-      'gym-pause-panel', 'gym-resume-button',
+      'gym-pause-panel', 'gym-resume-button', 'commands-panel', 'commands-open-button', 'commands-back-button',
     ].map((name) => [name, this.root.querySelector(`.${name}`)]));
     this.directionButtons = new Map([...this.root.querySelectorAll('[data-direction]')]
       .map((button) => [button.dataset.direction, button]));
@@ -113,6 +124,11 @@ export class GymUI {
       this.callbacks.onResume();
     });
     this.listenActivation(this.elements['gym-interact-button'], () => this.interact());
+    this.listenActivation(this.elements['commands-open-button'], () => this.showCommands(true));
+    this.listenActivation(this.elements['commands-back-button'], () => this.showCommands(false));
+    this.listen(window, 'pointerdown', (event) => {
+      if (event.pointerType === 'touch') this.root.dataset.touch = 'true';
+    });
     // Delegate the changing choices: revisiting a station does not retain old
     // buttons or register new listeners on the UI's long-lived abort signal.
     const actionRoot = this.elements['gym-dialog-actions'];
@@ -166,7 +182,7 @@ export class GymUI {
     }
     const target = event.target;
     if (target instanceof Element && target.closest('input, select, textarea, [contenteditable="true"]')) return;
-    const modal = this.paused ? this.elements['gym-pause-panel'] : this.dialog ? this.elements['gym-dialog'] : null;
+    const modal = this.commandsOpen ? this.elements['commands-panel'] : this.paused ? this.elements['gym-pause-panel'] : this.dialog ? this.elements['gym-dialog'] : null;
     if (event.code === 'Tab' && modal) {
       const buttons = [...modal.querySelectorAll('button:not(:disabled)')];
       if (!buttons.length) return;
@@ -181,13 +197,17 @@ export class GymUI {
       event.preventDefault();
       if (event.repeat) return;
       this.clearInputs();
-      if (this.paused) this.callbacks.onResume();
+      if (this.commandsOpen) this.showCommands(false);
+      else if (this.paused) this.callbacks.onResume();
       else if (this.dialog) this.callbacks.onCloseDialog();
       else this.requestPause();
       return;
     }
     // Enter and Space retain native activation for focused dialog buttons.
-    if (target instanceof HTMLButtonElement && (event.code === 'Enter' || event.code === 'Space')) return;
+    if (target instanceof HTMLButtonElement && (event.code === 'Enter' || event.code === 'Space')) {
+      if (event.repeat) event.preventDefault();
+      return;
+    }
     if (event.code === 'KeyE' || event.code === 'Enter') {
       event.preventDefault();
       if (!event.repeat) {
@@ -279,12 +299,13 @@ export class GymUI {
     if (this.destroyed) return;
     const wasPaused = this.paused;
     this.paused = Boolean(state.paused);
+    if (!this.paused) this.commandsOpen = false;
     this.nearby = state.nearby ?? null;
     if (wasPaused !== this.paused) this.clearInputs();
     this.renderMode();
     this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? 'Bienvenue au gym');
     this.setText(this.elements['gym-nearby-hint'], this.nearby
-      ? 'E / Entrée ou le bouton pour interagir.'
+      ? this.root.dataset.touch === 'true' ? 'Touchez Interagir pour participer.' : 'Un atelier ou un partenaire vous attend.'
       : 'Approchez-vous de Rémi ou d’un atelier.');
     this.elements['gym-nearby'].classList.toggle('is-available', Boolean(this.nearby));
     this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby;
@@ -302,11 +323,20 @@ export class GymUI {
     const blocked = this.paused || Boolean(this.dialog);
     this.root.dataset.mode = this.paused ? 'paused' : this.dialog ? 'dialog' : 'walking';
     this.elements['gym-modal-shade'].hidden = !blocked;
-    this.elements['gym-pause-panel'].hidden = !this.paused;
+    this.elements['gym-pause-panel'].hidden = !this.paused || this.commandsOpen;
+    this.elements['commands-panel'].hidden = !this.paused || !this.commandsOpen;
     this.elements['gym-dialog'].hidden = !this.dialog || this.paused;
     this.elements['gym-pause-button'].disabled = blocked;
     this.elements['gym-interact-button'].disabled = blocked || !this.nearby;
     for (const button of this.directionButtons.values()) button.disabled = blocked;
+  }
+
+  showCommands(open) {
+    if (!this.paused || this.destroyed) return;
+    this.clearInputs();
+    this.commandsOpen = open;
+    this.renderMode();
+    if (!this.portraitQuery.matches) this.elements[open ? 'commands-back-button' : 'commands-open-button'].focus({ preventScroll: true });
   }
 
   showDialog({ speaker = '', title = '', text = '', actions = [] } = {}) {

@@ -96,3 +96,17 @@
   .gym-pause-button { min-width: 44px; min-height: 44px; }
   .gym-interact-button { min-height: 66px; }
 }
+
+/* Keyboard players keep the room clear; touch and hybrid devices retain pads. */
+#gym-ui .gym-movement, #gym-ui .gym-interact-button, #gym-ui .gym-pause-button { display: none; }
+#gym-ui[data-touch="true"] .gym-movement { display: grid; }
+#gym-ui[data-touch="true"] .gym-interact-button, #gym-ui[data-touch="true"] .gym-pause-button { display: flex; }
+@media (any-pointer: coarse) {
+  #gym-ui .gym-movement { display: grid; }
+  #gym-ui .gym-interact-button, #gym-ui .gym-pause-button { display: flex; }
+}
+@container (max-width: 550px) {
+  .gym-pause-panel { padding: 17px 21px; }
+  .gym-pause-panel h2 { font-size: 23px; }
+  .gym-resume-button { margin-top: 13px; }
+}
