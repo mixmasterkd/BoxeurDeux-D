@@ -1,0 +1,98 @@
+#gym-ui { position: absolute; inset: 0; z-index: 2; pointer-events: none; color: var(--cream); }
+.gym-hud { position: absolute; inset: 0 0 auto; display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 28px 28px; background: linear-gradient(#101b23d9, #101b2360 65%, transparent); }
+.gym-eyebrow { margin: 0; color: var(--amber); font-size: 9px; font-weight: 800; letter-spacing: 1.6px; line-height: 1.3; }
+.gym-heading h2 { margin: 5px 0 0; color: #f6e6c5; font-size: 23px; line-height: 1.1; letter-spacing: -.5px; text-shadow: 0 2px 2px #07141d; }
+.gym-pause-button { pointer-events: auto; display: flex; align-items: center; gap: 7px; min-height: 38px; padding: 8px 12px; border: 1px solid #d9d4af60; border-radius: 3px; background: #10222be6; color: var(--cream); font-size: 10px; }
+.gym-pause-button span:first-child { font-size: 17px; }
+.gym-pause-button:hover:enabled { background: #30474b; }
+.gym-nearby { position: absolute; left: 50%; top: 22px; transform: translateX(-50%); width: max-content; max-width: 44%; padding: 10px 18px; border-top: 1px solid #d5c29a40; background: #10222be8; text-align: center; box-shadow: 0 4px 16px #06101925; }
+.gym-nearby-label, .gym-nearby-hint { display: block; }
+.gym-nearby-label { font-size: 13px; line-height: 1.3; font-weight: 800; color: #c9d6ce; }
+.gym-nearby-hint { margin-top: 4px; font-size: 10px; line-height: 1.35; color: #b4c4bf; }
+.gym-nearby.is-available { border-top-color: var(--amber); }
+.gym-nearby.is-available .gym-nearby-label { color: #f4d497; }
+.gym-movement { --gym-key-size: 43px; position: absolute; left: 27px; bottom: 21px; display: grid; grid-template-columns: repeat(3, var(--gym-key-size)); grid-template-rows: repeat(3, var(--gym-key-size)); gap: 3px; pointer-events: auto; }
+.gym-dock-caption { position: absolute; bottom: calc(100% + 7px); left: 0; width: 100%; text-align: center; color: #f4e3bf; font-size: 8px; letter-spacing: 1px; text-shadow: 0 1px 3px #07141d; }
+.gym-direction { display: flex; align-items: center; justify-content: center; width: var(--gym-key-size); height: var(--gym-key-size); padding: 0; border: 1px solid #a7bdb284; border-bottom: 3px solid #587371; border-radius: 5px; background: #142b32dd; color: #f2e3bd; font-size: 23px; line-height: 1; box-shadow: 0 3px 9px #06101825; touch-action: none; user-select: none; -webkit-user-select: none; }
+.gym-direction[data-direction="up"] { grid-area: 1 / 2; }
+.gym-direction[data-direction="left"] { grid-area: 2 / 1; }
+.gym-direction[data-direction="right"] { grid-area: 2 / 3; }
+.gym-direction[data-direction="down"] { grid-area: 3 / 2; }
+.gym-pad-center { grid-area: 2 / 2; display: grid; place-items: center; color: #e9ba7090; background: #10252aa6; border-radius: 50%; font-size: 26px; pointer-events: none; }
+.gym-direction.is-held { background: #556c66; border-bottom-width: 1px; color: #fff4c8; transform: translateY(2px); }
+.gym-interact-button { position: absolute; pointer-events: auto; right: 28px; bottom: 27px; width: 112px; min-height: 72px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; padding: 10px 8px; border: 1px solid #dcbc787f; border-bottom: 3px solid #8e744a; border-radius: 5px; background: #172a30ed; color: #f3d397; touch-action: manipulation; user-select: none; -webkit-user-select: none; box-shadow: 0 3px 10px #06101933; }
+.gym-interact-button:enabled:hover, .gym-interact-button:enabled:active { background: #3f5148; }
+.gym-interact-button:disabled { opacity: .55; color: #b0bfb8; border-color: #718c8060; }
+.gym-interact-key { font-size: 22px; line-height: 1; font-weight: 800; }
+.gym-interact-label { font-size: 10px; line-height: 1.25; font-weight: 700; }
+#gym-ui:not([data-mode="walking"]) .gym-movement,
+#gym-ui:not([data-mode="walking"]) .gym-interact-button,
+#gym-ui:not([data-mode="walking"]) .gym-nearby,
+#gym-ui:not([data-mode="walking"]) .gym-pause-button { visibility: hidden; }
+.gym-modal-shade { position: absolute; inset: 0; background: #07182091; pointer-events: auto; }
+.gym-dialog, .gym-pause-panel { position: absolute; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); border: 1px solid #dec38c60; border-left: 3px solid var(--amber); border-radius: 2px; background: #10252df7; box-shadow: 0 16px 50px #07101960; }
+.gym-dialog { width: min(720px, 86%); max-height: calc(100% - 32px); display: grid; grid-template-columns: 1fr 1.08fr; gap: 29px; padding: 27px; }
+.gym-dialog-copy { align-self: center; min-width: 0; }
+.gym-dialog h2, .gym-pause-panel h2 { margin: 8px 0 11px; font-size: 29px; line-height: 1.08; letter-spacing: -.6px; color: #f7e7c6; }
+#gym-dialog-text, .gym-pause-panel > p:not(.gym-eyebrow) { margin: 0; font-size: 13px; line-height: 1.6; color: #bccdc7; white-space: pre-line; }
+.gym-dialog-actions { display: grid; gap: 8px; align-content: center; }
+.gym-dialog-button, .gym-resume-button { width: 100%; min-height: 43px; padding: 9px 11px; border: 1px solid #a8bfb065; border-bottom: 2px solid #687e70; border-radius: 3px; background: #233b3f; color: #e0e5d4; font-size: 12px; line-height: 1.3; text-align: left; }
+.gym-dialog-button:hover { background: #3d5553; }
+.gym-session-button[data-lesson="free"], .gym-resume-button { border-color: #f2cd8b; border-bottom-color: #997a49; background: #e9ba70; color: #18262a; font-weight: 800; }
+.gym-session-button[data-lesson="free"]:hover, .gym-resume-button:hover { background: #f4d198; }
+.gym-close-button { color: #b9c9c1; border-color: #72938c40; background: #132b33; }
+.gym-pause-panel { width: min(355px, 84%); padding: 28px; }
+.gym-resume-button { margin-top: 20px; text-align: center; }
+@container (max-width: 1000px) {
+  .gym-hud { padding: 17px 21px; }
+  .gym-heading h2 { font-size: 20px; }
+  .gym-movement { --gym-key-size: 39px; left: 20px; bottom: 15px; }
+  .gym-interact-button { right: 21px; bottom: 21px; min-height: 66px; width: 103px; }
+  .gym-nearby { top: 17px; padding: 9px 14px; }
+  .gym-dialog { padding: 22px; gap: 22px; }
+  .gym-dialog h2 { font-size: 25px; }
+  #gym-dialog-text { font-size: 12px; }
+}
+@container (max-width: 750px) {
+  .gym-hud { padding: 12px 16px; }
+  .gym-eyebrow { font-size: 8px; letter-spacing: 1px; }
+  .gym-heading h2 { margin-top: 4px; font-size: 17px; }
+  .gym-pause-button { min-height: 36px; padding: 6px 9px; }
+  .gym-pause-button span:last-child { display: none; }
+  .gym-movement { --gym-key-size: 36px; left: 13px; bottom: 12px; gap: 2px; }
+  .gym-direction { font-size: 21px; }
+  .gym-dock-caption { display: none; }
+  .gym-interact-button { width: 88px; min-height: 62px; right: 16px; bottom: 16px; padding: 7px; }
+  .gym-interact-key { font-size: 19px; }
+  .gym-interact-label { font-size: 9px; }
+  .gym-nearby { top: 12px; padding: 7px 11px; max-width: 44%; }
+  .gym-nearby-label { font-size: 11px; }
+  .gym-nearby-hint { font-size: 9px; margin-top: 3px; }
+  .gym-dialog { width: 88%; padding: 18px; gap: 20px; grid-template-columns: .9fr 1.1fr; }
+  .gym-dialog h2 { margin: 7px 0 9px; font-size: 23px; }
+  #gym-dialog-text { font-size: 11px; line-height: 1.5; }
+  .gym-dialog-actions { gap: 6px; }
+  .gym-dialog-button { min-height: 35px; font-size: 11px; padding: 7px 9px; }
+  .gym-pause-panel { padding: 23px; }
+  .gym-pause-panel h2 { font-size: 25px; }
+  .gym-pause-panel > p:not(.gym-eyebrow) { font-size: 12px; }
+}
+@container (max-width: 550px) {
+  .gym-hud { padding: 9px 12px; }
+  .gym-heading h2 { font-size: 15px; }
+  .gym-eyebrow { font-size: 7px; }
+  .gym-movement { --gym-key-size: 34px; left: 10px; bottom: 9px; }
+  .gym-nearby { top: 9px; max-width: 44%; padding: 6px 8px; }
+  .gym-nearby-hint { font-size: 8px; }
+  .gym-interact-button { width: 75px; min-height: 57px; right: 11px; bottom: 12px; }
+  .gym-dialog { width: 91%; padding: 14px; gap: 16px; max-height: calc(100% - 20px); }
+  .gym-dialog h2 { font-size: 21px; margin-top: 6px; }
+  #gym-dialog-text { font-size: 10px; line-height: 1.45; }
+  .gym-dialog-button { min-height: 33px; padding: 6px 8px; font-size: 10px; }
+  .gym-dialog-actions { gap: 5px; }
+}
+@media (pointer: coarse) {
+  .gym-movement { --gym-key-size: 43px; }
+  .gym-pause-button { min-width: 44px; min-height: 44px; }
+  .gym-interact-button { min-height: 66px; }
+}

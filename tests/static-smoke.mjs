@@ -57,9 +57,24 @@ try {
       });
     }
     await page.goto(`${base}${entry}`);
-    await page.locator('.primary-button').waitFor({ state: 'visible' });
+    await page.locator('.gym-interact-button').waitFor({ state: 'visible' });
     assert.equal(await page.evaluate(() => window.__sparring), undefined, 'production does not expose development hooks');
+    assert.equal(await page.evaluate(() => window.__gym), undefined, 'production does not expose gym development hooks');
     const press = async selector => mobile ? page.locator(selector).tap() : page.locator(selector).click();
+    if (mobile) {
+      const cdp = await page.context().newCDPSession(page);
+      for (const [direction, duration] of [['right', 1390], ['up', 420]]) {
+        const b = await page.locator(`[data-direction="${direction}"]`).boundingBox();
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: b.x + b.width / 2, y: b.y + b.height / 2, id: 1 }] });
+        await page.waitForTimeout(duration);
+        await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      }
+    } else {
+      await page.keyboard.down('ArrowRight'); await page.waitForTimeout(1390); await page.keyboard.up('ArrowRight');
+      await page.keyboard.down('ArrowUp'); await page.waitForTimeout(420); await page.keyboard.up('ArrowUp');
+    }
+    await press('.gym-interact-button');
+    await press('.gym-session-button[data-lesson="free"]');
     await press('.primary-button');
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
@@ -80,6 +95,9 @@ try {
     await page.waitForFunction(() => document.querySelector('[data-value="training-progress"]')?.textContent === '1 / 3');
     await press('.audio-button');
     assert.equal(await page.locator('.audio-button').getAttribute('aria-pressed'), 'true', 'mute works in the compiled game');
+    await press('.pause-button');
+    await press('.return-gym-button');
+    await page.locator('.gym-interact-button').waitFor({ state: 'visible' });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -90,10 +108,12 @@ try {
   }
   if (!remote) {
     assert.ok(loaded.has('assets/backgrounds/gym.png'));
+    assert.ok(loaded.has('assets/backgrounds/gym-exploration.png'));
+    assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/exploration/player-') && name.endsWith('.png')).length, 12);
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/sparring-v2/') && name.endsWith('.png')).length, 20);
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: directory index + index.html, keyboard + touch jab, pause, restart, guided jab, mute, landscape and portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym at directory index + index.html, keyboard + touch walk to Rémi, sparring jab, pause, restart, guided jab, mute, return to gym, landscape and portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }

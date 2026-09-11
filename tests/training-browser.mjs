@@ -37,7 +37,7 @@ try {
       Type.prototype.start = function (...args) { window.__audioProbe.starts++; return start.apply(this, args); };
     }
   });
-  await page.goto('http://127.0.0.1:5173/');
+  await page.goto('http://127.0.0.1:5173/?scene=sparring');
   await wait(page, () => window.__sparring?.session.state.phase === 'ready');
   assert.equal(await page.evaluate(() => window.__audioProbe.contexts.length), 0, 'no audio context before any user gesture');
   await page.locator('[name="lesson"]').selectOption('jab');
@@ -142,7 +142,7 @@ try {
   const silent = await browser.newPage();
   silent.on('pageerror', e => errors.push(e.message));
   await silent.addInitScript(() => { window.AudioContext = undefined; window.webkitAudioContext = undefined; });
-  await silent.goto('http://127.0.0.1:5173/');
+  await silent.goto('http://127.0.0.1:5173/?scene=sparring');
   await wait(silent, () => window.__sparring?.session.state.phase === 'ready');
   assert.equal(await silent.locator('.audio-button').isDisabled(), true);
   await silent.locator('.primary-button').click();

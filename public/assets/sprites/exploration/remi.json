@@ -1,0 +1,21 @@
+{
+  "file": "exploration/remi.png",
+  "width": 96,
+  "height": 112,
+  "anchor": {
+    "x": 48,
+    "y": 104
+  },
+  "bounds": {
+    "x": 21,
+    "y": 10,
+    "width": 55,
+    "height": 94
+  },
+  "sourceBounds": {
+    "x": 268,
+    "y": 193,
+    "w": 591,
+    "h": 1018
+  }
+}

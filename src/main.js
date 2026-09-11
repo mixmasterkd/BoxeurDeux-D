@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { SparringScene } from './scenes/SparringScene.js';
+import { GymScene } from './scenes/GymScene.js';
 import './style.css';
 
 export const game = new Phaser.Game({
@@ -16,7 +17,8 @@ export const game = new Phaser.Game({
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [SparringScene],
+  scene: new URLSearchParams(location.search).get('scene') === 'sparring'
+    ? [SparringScene, GymScene] : [GymScene, SparringScene],
 });
 
 // Évite de conserver un ancien jeu lors du rechargement par Vite.

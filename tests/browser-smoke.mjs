@@ -16,7 +16,7 @@ const { chromium } = await import(pathToFileURL(modulePath));
 const browser = await chromium.launch({ headless: true });
 const errors = [];
 const reports = [];
-const base = 'http://127.0.0.1:5173/';
+const base = 'http://127.0.0.1:5173/?scene=sparring';
 await fs.mkdir('docs', { recursive: true });
 const watch = (page) => {
   page.on('pageerror', (e) => errors.push(e.message));

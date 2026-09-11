@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-09-11T03:01:32.079Z",
+  "reports": [
+    "Desktop: walking poses, ring collision, held Enter, Rémi conversation, complete jab lesson and return at the same position passed.",
+    "All four atelier descriptions reached on foot; focus loss freezes movement and releases held keys.",
+    "Touch: simultaneous directions, independent release/cancel, walk to Rémi, sparring jab, pause/return, three landscape sizes and portrait passed (simulated viewports).",
+    "No console, page or asset errors; logical canvas stays 1280×720."
+  ],
+  "errors": []
+}

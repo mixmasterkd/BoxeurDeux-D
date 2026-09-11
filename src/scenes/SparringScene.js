@@ -3,6 +3,7 @@ import { SparringSession, TIMINGS } from '../game/SparringSession.js';
 import { SparringUI } from '../ui/SparringUI.js';
 import { FighterView, drawImpact } from './FighterView.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
+import { setSceneShell } from '../ui/SceneShell.js';
 
 const FEEDBACK = {
   'player-hit': ['Touché !', 'success'],
@@ -24,8 +25,9 @@ export class SparringScene extends Phaser.Scene {
     FighterView.preload(this);
   }
 
-  create() {
-    this.session = new SparringSession();
+  create(data = {}) {
+    setSceneShell('sparring');
+    this.session = new SparringSession({ lesson: data.lesson ?? 'free' });
     this.audio = new SparringAudio();
     const background = this.add.image(640, 360, 'gym');
     background.setScale(Math.min(1280 / background.width, 720 / background.height));
@@ -50,6 +52,12 @@ export class SparringScene extends Phaser.Scene {
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onRestart: (settings) => this.beginSession(settings),
       onChooseLesson: () => { this.session.reset(); this.audio.setActive(false); },
+      onReturnGym: () => {
+        if (this.session.state.phase === 'running') return;
+        this.session.releaseControls();
+        this.audio.setActive(false);
+        this.scene.start('GymScene');
+      },
       onSettings: (settings) => {
         this.session.setSettings(settings);
         if (this.session.state.phase === 'ready') this.audio.setActive(false);
@@ -76,6 +84,7 @@ export class SparringScene extends Phaser.Scene {
       this.ui.destroy();
       this.audio.dispose();
       this.resizeObserver.disconnect();
+      if (import.meta.env.DEV && window.__sparring?.scene === this) delete window.__sparring;
     };
     this.events.once('shutdown', cleanup);
     this.events.once('destroy', cleanup);

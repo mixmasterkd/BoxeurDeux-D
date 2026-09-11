@@ -39,7 +39,7 @@ export class SparringUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
       'onAction', 'onGuard', 'onStart', 'onPause', 'onResume', 'onRestart', 'onSettings', 'onBlur',
-      'onChooseLesson', 'onAudioGesture', 'onAudioSettings',
+      'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.phase = 'ready';
     this.settings = { tempo: 'normal', recovery: 1, lesson: 'free' };
@@ -56,6 +56,7 @@ export class SparringUI {
       <div class="menu-shade is-visible" aria-hidden="true"></div>
       <div class="fight-hud">
         <div class="fighter-info">
+          <button type="button" class="return-gym-button">← Retour au gym</button>
           <div class="fighter-eyebrow">DANS LE COIN BLEU</div>
           <div class="fighter-name">Vous</div>
           <div class="stamina-track" role="progressbar" aria-label="Votre endurance" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><div class="stamina-fill"></div></div>
@@ -137,7 +138,7 @@ export class SparringUI {
       'round-results', 'round-detail', 'round-settings', 'primary-button', 'secondary-button',
       'audio-button', 'audio-label', 'audio-icon', 'audio-volume', 'lesson-choice', 'lesson-description',
       'lesson-objective', 'lesson-tempo', 'choose-session-button', 'next-lesson-button',
-      'training-coach', 'coach-objective', 'coach-cue', 'training-summary',
+      'training-coach', 'coach-objective', 'coach-cue', 'training-summary', 'return-gym-button',
     ].map((className) => [className, this.root.querySelector(`.${className}`)]));
     this.values = Object.fromEntries([...this.root.querySelectorAll('[data-value]')]
       .map((element) => [element.dataset.value, element]));
@@ -172,6 +173,10 @@ export class SparringUI {
   }
 
   bindEvents() {
+    this.listenActivation(this.elements['return-gym-button'], () => {
+      this.clearInputs();
+      this.callbacks.onReturnGym();
+    });
     this.listen(window, 'keydown', (event) => this.keyDown(event));
     this.listen(window, 'keyup', (event) => this.keyUp(event));
     this.listen(window, 'blur', () => this.loseFocus());
@@ -401,6 +406,7 @@ export class SparringUI {
       this.elements['round-panel'].hidden = running;
       this.elements['menu-shade'].classList.toggle('is-visible', !running);
       this.elements['pause-button'].disabled = !running;
+      this.elements['return-gym-button'].hidden = running;
       for (const button of this.buttons.values()) button.disabled = !running;
       this.elements['round-results'].hidden = phase !== 'finished';
       this.elements['round-settings'].hidden = phase === 'finished';

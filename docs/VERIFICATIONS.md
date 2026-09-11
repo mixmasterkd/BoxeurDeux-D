@@ -1,5 +1,20 @@
 # Vérification du prototype — 10 septembre 2026
 
+## Première visite du gym — 10 septembre 2026
+
+- `npm run test:gym` : marche animée et collision avec le ring, conversation sans activation involontaire par Entrée maintenue, leçon jab terminée et retour exactement à la même position. Les quatre ateliers sont rejoints à pied, sans téléportation. Contacts diagonaux, relâchement indépendant, annulation, perte de focus et reprise explicite vérifiés. Même canvas 1280 × 720, menus accessibles aux trois tailles paysage et invitation portrait. Aucune erreur console, page ou ressource. Rapport : `gym-browser-results.json`; captures : `gym-premiere-visite.png`, `gym-dialogue-remi.png`, `gym-mobile-paysage.png`, `gym-mobile-portrait.png`.
+- `npm run test:training` : les trois leçons complètes repassent après intégration, ainsi que pause/reprise, bilans, nouvel essai, retour au libre, volume et sourdine persistants, activation par geste et jeu sans Web Audio.
+- `npm test` : **44 tests réussis**. Huit nouveaux contrôles couvrent vitesse et diagonales, collisions et glissement, limites de la salle, ateliers accessibles sans interaction à travers le ring, approche de Rémi, pause, reprise et entrées invalides. Les 36 contrôles de sparring, animations, leçons et audio restent réussis.
+- `npm run build` : compilation réussie. Avertissement habituel sur la taille du bundle Phaser : environ 1,45 Mo minifié / 380 ko gzip.
+- `npm run test:static` : parcours du bundle de production sous `/BoxeurDeux-D/` et `/BoxeurDeux-D/index.html`, sans objets de débogage. Marche au clavier puis au tactile jusqu’à Rémi, sparring, jab, pause, nouvel essai, première réussite de la leçon jab, sourdine et retour au gym. Les deux décors, les douze poses de marche et les vingt poses de sparring se chargent sans erreur. Le délai de déplacement utilise le temps de frame réel pour éviter le ralentissement dû au lissage de démarrage de Phaser.
+- `npm run test:browser` : régression du sparring libre via `?scene=sparring`, clavier et contacts simultanés, défenses, relâchements, focus, orientation et réglages. Le round complet termine après **60,0 secondes réelles** puis recommence correctement. Aucune erreur navigateur ni ressource manquante.
+- Vérification indépendante de l’interface : marche tactile jusqu’à Rémi, conversation, pause et reprise en **844 × 390, 667 × 375 et 568 × 320**, portrait **390 × 844**. Aucune conversation tronquée, aucun défilement. Le cartouche a été placé en haut pour laisser visibles les pieds. Cent ouvertures et fermetures de conversation ne font pas croître les éléments ou écouteurs DOM après nettoyage.
+- Ressources créées par l’imagegen intégré puis contrôlées : transparence RGBA réelle, pas de damier peint dans les sprites finaux, douze poses alignées à une échelle commune et nouvelle pose d’accueil de Rémi. Inspection aux dimensions natives et agrandies. Prompts exacts et script reproductible dans `references/characters/exploration/PROMPTS.md`.
+- Décor et personnages du sparring conservés. Salle d’exploration distincte, même résolution logique **1280 × 720** et même cadrage proportionnel sur ordinateur et mobile. Les photos personnelles ne sont pas publiées.
+- Vite existant réutilisé sur le port 5173. Adresse Wi-Fi revérifiée : **192.168.50.123**. Aucun serveur supplémentaire, logiciel installé ou service payant ajouté.
+
+**Limites de cette phase :** quatre ateliers présentés mais mini-jeux encore à construire; ni énergie quotidienne, ni ville, ni progression sauvegardée. La marche reste un cycle simple de poses clés. Les essais mobiles sont des fenêtres et événements tactiles simulés dans Chromium, **pas un test sur le téléphone physique ni sur Safari/iOS**.
+
 ## Phase leçons de Rémi et son — 10 septembre 2026
 
 - `npm test` : **36 tests réussis** (19 règles et animations conservés, 12 leçons, 5 audio). Les objectifs sont vérifiés sur les échanges résolus : une réussite par ouverture, blocage puis relâchement volontaire et récupération, esquive puis riposte dans la bonne ouverture. Les tests couvrent aussi l’inaction, les erreurs, la pause, les remises à zéro et une troisième réussite juste avant 60 secondes.
@@ -50,6 +65,7 @@ npm test
 npm run build
 npm run test:browser
 npm run test:training
+npm run test:gym
 npm run test:static # Après npm run build : compilation servie localement par interception HTTP
 ```
 

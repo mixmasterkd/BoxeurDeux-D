@@ -1,5 +1,7 @@
 # BoxeurDeux-D
 
+Le jeu ouvre maintenant sur **une première visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rencontre Rémi et accède au sparring libre ou aux trois leçons. Le retour au gym conserve sa position pendant la partie.
+
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
 Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez les annonces de Rémi, défendez-vous et laissez revenir l'endurance. Il s'agit d'un entraînement : pas de KO ni de compétition officielle.
@@ -10,7 +12,21 @@ Dix poses par boxeur : garde, jab/direct, préparations et demi-extensions, prot
 
 Le paysage mobile est conservé. Un ancien doigt resté sur Garde pendant une perte de focus ne peut plus activer accidentellement « Reprendre » au relâchement.
 
-Les ateliers du futur gym et l’énergie quotidienne sont consignés dans `docs/PROCHAINES_ETAPES.md`; ils ne font pas partie du jeu actuel. L’endurance du round reste indépendante de ce futur système.
+Les autres ateliers sont repérables pendant la visite et présentent leur futur mini-jeu. Leurs exercices et l’énergie quotidienne restent à développer; voir `docs/PROCHAINES_ETAPES.md`. L’endurance du round reste indépendante de ce futur système.
+
+## Explorer le gym
+
+La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et téléphone en paysage. Sa taille d’affichage s’adapte aux deux dimensions de la fenêtre; le mobile ne révèle pas une autre portion de la salle.
+
+- Marcher : **flèches**, **WASD** ou **ZQSD**; pavé directionnel tactile à gauche.
+- Interagir : **E**, **Entrée**, ou bouton à droite quand vous êtes près de Rémi ou d’un atelier.
+- Pause : **P**, **Échap**, ou bouton Pause. Échap ferme aussi une conversation.
+- Rémi, près des marches à droite du ring, propose le sparring libre et ses trois leçons. La séance choisie s’ouvre sur son menu avant démarrage.
+- **Retour au gym**, sur l’accueil du sparring, en pause ou au bilan, permet de retrouver votre position. Le clavier et les contacts sont libérés à chaque changement de scène.
+
+Les collisions empêchent de traverser le ring, le sac et les meubles. Les descriptions du sac, du miroir, de la speed ball et de la corde sont accessibles; leurs mini-jeux ne sont pas encore jouables. La porte présente la future sortie vers le quartier. Ni énergie quotidienne, ni progression sauvegardée, ni carte extérieure à cette étape.
+
+Le personnage d’exploration porte une tuque rouge courte avec un petit motif noir, un débardeur bleu et blanc, un short noir et des chaussures bleues. Douze poses partagent une échelle et un point de contact au sol. Rémi a une pose d’accueil adaptée à la même vue; le sparring garde ses personnages et son décor validés. Le survêtement Adidas noir à bandes blanches est prévu pour l’extérieur.
 
 ## Leçons de Rémi et son
 
@@ -37,7 +53,8 @@ npm run dev
 Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle les versions verrouillées. **Si le serveur tourne déjà, réutilisez-le.** Vite écoute sur le port strict 5173 : ne lancez pas de serveur concurrent et ne changez pas de port pour contourner le serveur existant.
 
 - Sur cet ordinateur : **http://127.0.0.1:5173/**
-- Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même sparring).
+- Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même gym).
+- Accès direct au sparring : **http://127.0.0.1:5173/?scene=sparring**. Ce raccourci fonctionne aussi sur le site publié.
 - Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 10 septembre 2026; elle peut changer).
 
 Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun compte joueur, clé API ni service d'IA n'est nécessaire pendant une partie.
@@ -47,6 +64,7 @@ npm test         # Vérifications déterministes des règles de sparring
 npm run build    # Compilation vers dist/
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:training # Trois leçons complètes, bilans et audio
+npm run test:gym # Marche, collisions, ateliers, aller/retour sparring et tactile
 npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```
@@ -63,7 +81,7 @@ La source **GitHub Actions** est configurée dans **Settings → Pages → Build
 
 Les tests navigateur facultatifs utilisent Playwright déjà disponible dans cet environnement; ils ne sont pas exécutés dans le workflow, qui ne l’installe pas. Vérifier le site réellement publié avec `SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:static`. Sans cette variable, le test sert `dist/` par interception HTTP locale, sans nouveau serveur.
 
-## Commandes
+## Commandes du sparring
 
 | Action | Clavier | Tactile |
 | --- | --- | --- |
@@ -91,6 +109,10 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 ## Fichiers utiles
 
 - `src/main.js` : démarrage et mise à l'échelle Phaser.
+- `src/scenes/GymScene.js`, `src/game/GymWorld.js`, `src/ui/GymUI.js` et `src/ui/gym.css` : visite, collisions, interactions et commandes.
+- `public/assets/backgrounds/gym-exploration.png` et `public/assets/sprites/exploration/` : ressources finales de la visite.
+- `references/characters/exploration/PROMPTS.md` : références, prompts exacts et préparation par imagegen intégré.
+- `scripts/prepare-gym-sprites.mjs` : extraction technique reproductible des sprites depuis leurs sources alpha.
 - `src/scenes/SparringScene.js` : scène et synchronisation des effets avec les touches.
 - `src/scenes/FighterView.js` et `src/game/FighterMotion.js` : affichage, poses et mouvements synchronisés avec le combat.
 - `src/game/SparringSession.js` : chronomètre, états, règles et rythme de Rémi, sans dépendance au rendu.
