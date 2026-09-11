@@ -168,4 +168,3 @@ fs.mkdirSync(output, { recursive: true });
 for (const frame of prepared) writePng(path.join(output, frame.file), width, height, frame.pixels);
 fs.writeFileSync(path.join(output, 'player.json'), `${JSON.stringify(metadata, null, 2)}\n`);
 console.log(JSON.stringify({ source: metadata.source, scale, anchor, poses: metadata.sourceBounds }, null, 2));
-

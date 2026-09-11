@@ -35,9 +35,9 @@ html[data-touch="true"] .gym-nearby { max-width: 85%; }
 html[data-touch="true"] :is(.gym-dialog, .commands-panel, .gym-import-confirm, .round-panel, .bag-panel, .shadow-panel) { width: min(720px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); top: 50%; left: 50%; transform: translate(-50%, -50%); }
 html[data-touch="true"] .gym-pause-panel { width: min(355px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); }
 .panel-actions .return-gym-button { position: static; width: 100%; min-height: 30px; margin-top: 5px; padding: 5px; font-size: 10px; grid-column: 1 / -1; }
-@container (max-width: 750px) {
-  html[data-touch="false"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 12px); overflow: auto; }
-}
+/* A desktop can be wide but short. Keep the complete menu inside the camera
+   and let keyboard focus scroll its own panel to the selected action. */
+html[data-touch="false"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 24px); overflow: auto; overscroll-behavior: contain; }
 @media (pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait) { #play-area { visibility: hidden; } }
 
 /* A console lives in the margins. The camera never changes with the controls. */

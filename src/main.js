@@ -11,6 +11,7 @@ import './style.css';
 import { installGameLayout } from './ui/GameLayout.js';
 import './ui/layout.css';
 import { installCareerMenu } from './ui/CareerMenu.js';
+import { installSceneLoading } from './ui/SceneLoading.js';
 
 const disposeLayout = installGameLayout();
 const disposeCareer = installCareerMenu();
@@ -35,6 +36,7 @@ export const game = new Phaser.Game({
   },
   scene: scenes,
 });
+const disposeLoading = installSceneLoading(game);
 
 const routing = new AbortController();
 function resumeSavedPlace() {
@@ -60,6 +62,6 @@ game.events.on('poststep', resumeSavedPlace);
 if (import.meta.hot) {
   import.meta.hot.dispose(() => {
     routing.abort(); game.events.off('poststep', resumeSavedPlace); clearResume();
-    disposeLayout(); disposeCareer(); game.destroy(true);
+    disposeLoading(); disposeLayout(); disposeCareer(); game.destroy(true);
   });
 }

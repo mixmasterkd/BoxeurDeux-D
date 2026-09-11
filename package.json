@@ -27,7 +27,8 @@
     "test:progression": "node tests/progression-browser.mjs",
     "test:exploration": "node tests/exploration-browser.mjs",
     "test:days": "node tests/daily-activity-browser.mjs && node tests/daily-gym-browser.mjs",
-    "test:lifecycle": "node tests/world-lifecycle-browser.mjs"
+    "test:lifecycle": "node tests/world-lifecycle-browser.mjs",
+    "test:compact-menus": "node tests/compact-menus-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

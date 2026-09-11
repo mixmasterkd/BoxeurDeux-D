@@ -1,0 +1,847 @@
+{
+  "cases": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "sparring",
+      "ready": {
+        "panel": {
+          "x": 147.6875,
+          "y": 92.9921875,
+          "right": 457.6875,
+          "bottom": 670.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 147.6875,
+          "y": 103.171875,
+          "right": 457.6875,
+          "bottom": 660.796875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 110.1171875,
+          "right": 965,
+          "bottom": 653.8515625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "sparring&lesson=resistance",
+      "ready": {
+        "panel": {
+          "x": 147.6875,
+          "y": 92.9921875,
+          "right": 457.6875,
+          "bottom": 670.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 147.6875,
+          "y": 103.171875,
+          "right": 457.6875,
+          "bottom": 660.796875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 110.1171875,
+          "right": 965,
+          "bottom": 653.8515625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "fight",
+      "ready": {
+        "panel": {
+          "x": 147.6875,
+          "y": 108.375,
+          "right": 457.6875,
+          "bottom": 655.59375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 147.6875,
+          "y": 160.921875,
+          "right": 457.6875,
+          "bottom": 603.046875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 110.1171875,
+          "right": 965,
+          "bottom": 653.8515625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "bag",
+      "ready": {
+        "panel": {
+          "x": 330,
+          "y": 237.734375,
+          "right": 950,
+          "bottom": 526.234375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 330,
+          "y": 206.984375,
+          "right": 950,
+          "bottom": 556.984375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 168.4296875,
+          "right": 965,
+          "bottom": 595.5390625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "shadow",
+      "ready": {
+        "panel": {
+          "x": 310,
+          "y": 200.734375,
+          "right": 970,
+          "bottom": 563.234375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 310,
+          "y": 149.484375,
+          "right": 970,
+          "bottom": 614.484375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 129.5546875,
+          "right": 965,
+          "bottom": 634.4140625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "rope",
+      "ready": {
+        "panel": {
+          "x": 153.046875,
+          "y": 189.2578125,
+          "right": 503.046875,
+          "bottom": 598.8046875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 153.046875,
+          "y": 180.5078125,
+          "right": 503.046875,
+          "bottom": 607.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 320,
+          "y": 219.9140625,
+          "right": 960,
+          "bottom": 544.0546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "speedball",
+      "ready": {
+        "panel": {
+          "x": 153.046875,
+          "y": 172.828125,
+          "right": 503.046875,
+          "bottom": 615.234375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 153.046875,
+          "y": 172.2578125,
+          "right": 503.046875,
+          "bottom": 615.8046875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 320,
+          "y": 219.9140625,
+          "right": 960,
+          "bottom": 544.0546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "home",
+      "paused": {
+        "panel": {
+          "x": 462.5,
+          "y": 186.6875,
+          "right": 817.5,
+          "bottom": 577.28125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 219.9140625,
+          "right": 965,
+          "bottom": 544.0546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "gym",
+      "paused": {
+        "panel": {
+          "x": 462.5,
+          "y": 186.6875,
+          "right": 817.5,
+          "bottom": 577.28125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 219.9140625,
+          "right": 965,
+          "bottom": 544.0546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "query": "neighborhood",
+      "paused": {
+        "panel": {
+          "x": 462.5,
+          "y": 186.6875,
+          "right": 817.5,
+          "bottom": 577.28125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 315,
+          "y": 219.9140625,
+          "right": 965,
+          "bottom": 544.0546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "sparring",
+      "ready": {
+        "panel": {
+          "x": 82.65625,
+          "y": 63.9921875,
+          "right": 362.65625,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 82.65625,
+          "y": 63.9921875,
+          "right": 362.65625,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 63.9921875,
+          "right": 836.984375,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "sparring&lesson=resistance",
+      "ready": {
+        "panel": {
+          "x": 82.65625,
+          "y": 63.9921875,
+          "right": 362.65625,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 82.65625,
+          "y": 63.9921875,
+          "right": 362.65625,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 63.9921875,
+          "right": 836.984375,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "fight",
+      "ready": {
+        "panel": {
+          "x": 82.65625,
+          "y": 63.9921875,
+          "right": 362.65625,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 82.65625,
+          "y": 96.796875,
+          "right": 362.65625,
+          "bottom": 532.171875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 63.9921875,
+          "right": 836.984375,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "bag",
+      "ready": {
+        "panel": {
+          "x": 201.984375,
+          "y": 170.234375,
+          "right": 821.984375,
+          "bottom": 458.734375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 201.984375,
+          "y": 139.484375,
+          "right": 821.984375,
+          "bottom": 489.484375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 100.9296875,
+          "right": 836.984375,
+          "bottom": 528.0390625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "shadow",
+      "ready": {
+        "panel": {
+          "x": 181.984375,
+          "y": 133.234375,
+          "right": 841.984375,
+          "bottom": 495.734375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 181.984375,
+          "y": 81.984375,
+          "right": 841.984375,
+          "bottom": 546.984375
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 63.9921875,
+          "right": 836.984375,
+          "bottom": 564.9765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "rope",
+      "ready": {
+        "panel": {
+          "x": 87.3125,
+          "y": 120.2109375,
+          "right": 437.3125,
+          "bottom": 529.7578125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "paused": {
+        "panel": {
+          "x": 87.3125,
+          "y": 111.4609375,
+          "right": 437.3125,
+          "bottom": 538.5078125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 191.984375,
+          "y": 152.4140625,
+          "right": 831.984375,
+          "bottom": 476.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "speedball",
+      "ready": {
+        "panel": {
+          "x": 87.3125,
+          "y": 107.4921875,
+          "right": 437.3125,
+          "bottom": 542.4765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "paused": {
+        "panel": {
+          "x": 87.3125,
+          "y": 107.4921875,
+          "right": 437.3125,
+          "bottom": 542.4765625
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": true
+      },
+      "commands": {
+        "panel": {
+          "x": 191.984375,
+          "y": 152.4140625,
+          "right": 831.984375,
+          "bottom": 476.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "home",
+      "paused": {
+        "panel": {
+          "x": 334.484375,
+          "y": 119.1875,
+          "right": 689.484375,
+          "bottom": 509.78125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 152.4140625,
+          "right": 836.984375,
+          "bottom": 476.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "gym",
+      "paused": {
+        "panel": {
+          "x": 334.484375,
+          "y": 119.1875,
+          "right": 689.484375,
+          "bottom": 509.78125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 152.4140625,
+          "right": 836.984375,
+          "bottom": 476.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 600
+      },
+      "query": "neighborhood",
+      "paused": {
+        "panel": {
+          "x": 334.484375,
+          "y": 119.1875,
+          "right": 689.484375,
+          "bottom": 509.78125
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      },
+      "commands": {
+        "panel": {
+          "x": 186.984375,
+          "y": 152.4140625,
+          "right": 836.984375,
+          "bottom": 476.5546875
+        },
+        "insideCamera": true,
+        "insideViewport": true,
+        "noPageScroll": true,
+        "noHorizontalOverflow": true,
+        "hasInternalScroll": false
+      }
+    }
+  ],
+  "errors": []
+}

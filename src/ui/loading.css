@@ -1,0 +1,10 @@
+#scene-loading { position: absolute; inset: 0; z-index: 15; display: grid; place-items: center; pointer-events: none; background: #12232bf5; color: #f3dfb8; }
+#scene-loading[hidden] { display: none; }
+#scene-loading > div { width: min(320px, 78%); text-align: center; }
+.loading-eyebrow { font-size: 9px; letter-spacing: 2px; color: #e9ba70; }
+.loading-title { font-size: clamp(14px, 2.2cqw, 23px); margin: 14px 0; }
+#scene-loading progress { display: block; appearance: none; width: 100%; height: 3px; margin: 18px 0; border: 0; background: #415252; accent-color: #e9ba70; }
+#scene-loading progress::-webkit-progress-bar { background: #415252; }
+#scene-loading progress::-webkit-progress-value { background: #e9ba70; }
+#scene-loading progress::-moz-progress-bar { background: #e9ba70; }
+.loading-detail { display: block; font-size: 10px; line-height: 1.6; color: #becbc4; }

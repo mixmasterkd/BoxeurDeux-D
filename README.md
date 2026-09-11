@@ -233,6 +233,7 @@ npm run test:progression # Ateliers de rythme, gains, sauvegarde/reprise et cadr
 npm run test:exploration # Maison/quartier/gym, énergie, lit, import/reprise, clavier et tactile
 npm run test:days # Coûts, refus, reprise et énergie du gym sur ordinateur/mobile
 npm run test:lifecycle # Reprise avant chargement et interruptions pendant la nuit
+npm run test:compact-menus # Menus et boutons accessibles sur petit écran ordinateur
 npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```

@@ -36,6 +36,9 @@ try {
       isMobile: mobile,
     });
     currentPage = page;
+    // Public image loading can outlast a local 30-second UI wait. Explicit
+    // punch/combo/recovery timing limits below remain unchanged.
+    if (remote) page.setDefaultTimeout(90000);
     // A mouse computer can report touch capacity; that must not enable phone rails.
     if (!mobile) await page.addInitScript(() => Object.defineProperty(Navigator.prototype, 'maxTouchPoints', { get: () => 10, configurable: true }));
     page.on('pageerror', error => errors.push(error.message));
@@ -69,6 +72,7 @@ try {
     }
     await page.goto(`${base}${entry}`);
     await page.waitForFunction(() => document.getElementById('stage')?.dataset.scene === 'home');
+    if (remote) await page.screenshot({ path: `docs/home-public-${mobile ? 'mobile' : 'desktop'}.png` });
     assert.equal(await page.evaluate(() => window.__exploration), undefined, 'production does not expose world development hooks');
     assert.equal(await page.evaluate(() => window.__sparring), undefined, 'production does not expose development hooks');
     assert.equal(await page.evaluate(() => window.__gym), undefined, 'production does not expose gym development hooks');
@@ -104,6 +108,7 @@ try {
     await interact();
     await page.waitForFunction(() => document.getElementById('stage')?.dataset.scene === 'neighborhood');
     await walkUntil('right', 'Le gym du quartier');
+    if (remote) await page.screenshot({ path: `docs/neighborhood-public-${mobile ? 'mobile' : 'desktop'}.png` });
     await interact();
     await page.waitForFunction(() => document.getElementById('stage')?.dataset.scene === 'gym');
     assert.equal(await page.locator('.gym-energy').textContent(), 'Énergie 100/100', 'walking between home, neighborhood and gym is free');

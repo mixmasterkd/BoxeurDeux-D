@@ -58,8 +58,12 @@ async function delayedCareerChoice(action) {
     assert.equal(await page.locator('#career-menu').isHidden(), true, 'the menu closes without waiting for assets');
     assert.equal(await page.evaluate(() => Boolean(window.__gym || window.__exploration)), false, 'the choice was made before the initial scene finished loading');
     assert.deepEqual((await saved(page)).location, expected.location);
+    await page.locator('#scene-loading').waitFor({ state: 'visible' });
+    assert.ok(await page.locator('#scene-loading progress').evaluate(element => element.value >= 0 && element.value < 1), 'a pending image produces honest loading progress');
+    if (action === 'new') await page.screenshot({ path: 'docs/loading-desktop.png' });
     release();
     await sceneReady(page, expected.location.scene);
+    await page.locator('#scene-loading').waitFor({ state: 'hidden' });
     await page.waitForTimeout(120);
     const result = await saved(page);
     assert.deepEqual(result.location, expected.location, 'the old loading scene cannot overwrite the selected resume point');
