@@ -1,6 +1,6 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## GO actuel — étape 2 : Béton et le coach entre les rounds
+## Étape 2 terminée — Béton et le coach entre les rounds
 
 Après l’étape 1, l’utilisateur a autorisé le **premier adversaire**, nommé **Béton**, un boxeur noir; l’apparence restante et son comportement sont laissés au choix de l’agent. Il a ensuite demandé de conserver la continuité avec les leçons de Rémi et d’ajouter **un petit visuel entre les rounds avec le coach**, dans l’esprit Punch-Out. Ces précisions complètent le GO de l’étape 2, elles ne l’annulent pas.
 
@@ -9,6 +9,8 @@ Intégration : affiche Prochain combat sur un présentoir à droite de l’entr�
 Entre les rounds, une nouvelle vignette montre le joueur au tabouret et Rémi en survêtement de coach avec serviette. Le conseil utilise les statistiques du round terminé. Le prochain round démarre uniquement sur action du joueur; endurance pleine, résistance +20/max100, chutes du round remises à zéro et totaux conservés. Paysage mobile et contrôles communs restent applicables. L’illustration n’ajoute pas de nouvelle commande ni de mini-jeu de soin.
 
 Les idées discutées de J/J/K, de K maintenu pour un uppercut, de crochets au corps par doubles pressions et de déblocages futurs ne sont pas dans ce GO. Les gestes actuels suffisent pour tester ce premier adversaire. Ni carte extérieure, ni progression de carrière sauvegardée, ni gains de capacités permanents ne sont ajoutés maintenant.
+
+**Terminée et publiée dans `c4505ac`** : 139 tests autonomes, quatre parcours Béton réellement joués (victoire, KO, coin après 60 s, tactile), régression des trois leçons, compilation et parcours du bundle local réussis. Le workflow GitHub Pages a réussi et le parcours public complet a ensuite passé, sans erreur au dernier essai. Sources, prompts, rapports et captures sont conservés; détails et incidents résolus dans `docs/VERIFICATIONS.md`. La prochaine étape proposée est celle des gains réels des entraînements et de la sauvegarde; elle reste à discuter et à autoriser.
 
 ## Étape 1 terminée — résistance, chute et relevé
 
