@@ -1,0 +1,200 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 420,
+    "height": 360
+  },
+  "anchor": {
+    "x": 170,
+    "y": 340
+  },
+  "artHeight": 340,
+  "scale": 0.7674943566591422,
+  "sources": {
+    "player": "references/characters/bag/player-alpha.png",
+    "bag": "references/characters/bag/bag-alpha.png"
+  },
+  "alphaThreshold": 16,
+  "note": "One common scale, head reference and ground baseline. Painted poses; transparent samples preserved. Hook steps inward to match its shorter reach.",
+  "poses": {
+    "guard": {
+      "file": "bag/player-guard.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 67,
+        "y": 0,
+        "width": 187,
+        "height": 340
+      },
+      "sourceBounds": {
+        "x": 195,
+        "y": 43,
+        "w": 243,
+        "h": 443
+      }
+    },
+    "windup": {
+      "file": "bag/player-windup.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 64,
+        "y": 0,
+        "width": 193,
+        "height": 340
+      },
+      "sourceBounds": {
+        "x": 617,
+        "y": 43,
+        "w": 251,
+        "h": 443
+      }
+    },
+    "jab": {
+      "file": "bag/player-jab.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 42,
+        "y": 0,
+        "width": 305,
+        "height": 340
+      },
+      "sourceBounds": {
+        "x": 1042,
+        "y": 43,
+        "w": 397,
+        "h": 443
+      },
+      "glove": {
+        "x": 341,
+        "y": 94
+      },
+      "contact": {
+        "x": 341,
+        "y": 94
+      }
+    },
+    "cross": {
+      "file": "bag/player-cross.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 40,
+        "y": 0,
+        "width": 313,
+        "height": 340
+      },
+      "sourceBounds": {
+        "x": 145,
+        "y": 525,
+        "w": 408,
+        "h": 443
+      },
+      "glove": {
+        "x": 349,
+        "y": 93
+      },
+      "contact": {
+        "x": 349,
+        "y": 93
+      }
+    },
+    "hook-windup": {
+      "file": "bag/player-hook-windup.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 69,
+        "y": 2,
+        "width": 206,
+        "height": 338
+      },
+      "sourceBounds": {
+        "x": 624,
+        "y": 527,
+        "w": 269,
+        "h": 441
+      }
+    },
+    "hook": {
+      "file": "bag/player-hook.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 59,
+        "y": 2,
+        "width": 233,
+        "height": 338
+      },
+      "sourceBounds": {
+        "x": 1097,
+        "y": 527,
+        "w": 304,
+        "h": 440
+      },
+      "glove": {
+        "x": 285,
+        "y": 81
+      },
+      "contact": {
+        "x": 285,
+        "y": 81
+      }
+    }
+  },
+  "bag": {
+    "file": "bag/heavy-bag.png",
+    "width": 160,
+    "height": 530,
+    "anchor": {
+      "x": 80,
+      "y": 520
+    },
+    "bounds": {
+      "x": 19,
+      "y": 10,
+      "width": 123,
+      "height": 510
+    },
+    "sourceBounds": {
+      "x": 333,
+      "y": 16,
+      "w": 358,
+      "h": 1485
+    },
+    "pivot": {
+      "x": 80,
+      "y": 11
+    },
+    "target": {
+      "x": 20,
+      "y": 296
+    }
+  }
+}

@@ -1,0 +1,43 @@
+#play-area { position: relative; display: grid; place-items: center; flex: 0 0 auto; width: min(1280px, 100%, calc(var(--available-height) * 16 / 9)); aspect-ratio: 16 / 9; }
+#stage { width: 100%; overflow: visible; }
+.input-rail { position: absolute; top: 50%; width: 94px; height: var(--play-height, 100%); transform: translateY(-50%); pointer-events: none; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; }
+.rail-left { right: calc(100% + 6px); }
+.rail-right { left: calc(100% + 6px); }
+.input-rail > * { flex: 0 0 auto; }
+.input-rail button { pointer-events: auto; }
+html[data-touch="true"] #play-area { width: min(1480px, 100%); height: var(--available-height); aspect-ratio: auto; }
+html[data-touch="true"] #stage { width: min(1280px, calc(100% - 200px), calc(var(--available-height) * 16 / 9)); }
+html[data-touch="true"] .shell-width { width: min(1480px, 100%); }
+
+/* The same rails serve the gym, sparring and bag. No live input covers art. */
+.input-rail .action-dock { position: static; flex-direction: column; gap: 9px; align-items: center; margin: 0; }
+.input-rail .dock-caption, .input-rail .gym-dock-caption { display: none; }
+.input-rail .control-button, .input-rail .control-button.guard-control, .input-rail .control-button.attack-control { width: 78px; min-width: 0; height: 49px; min-height: 44px; }
+.input-rail .control-label { font-size: 9px; }
+.input-rail .gym-movement { position: static; --gym-key-size: 44px; grid-template-columns: repeat(4, 22px); grid-template-rows: repeat(3, 44px); gap: 0; }
+.input-rail .gym-direction { border-radius: 7px; width: 44px; height: 44px; }
+.input-rail .gym-direction[data-direction="up"] { grid-area: 1 / 2 / 2 / 4; }
+.input-rail .gym-direction[data-direction="left"] { grid-area: 2 / 1 / 3 / 3; }
+.input-rail .gym-direction[data-direction="right"] { grid-area: 2 / 3 / 3 / 5; }
+.input-rail .gym-direction[data-direction="down"] { grid-area: 3 / 2 / 4 / 4; }
+.input-rail .gym-pad-center { display: none; }
+.input-rail .gym-interact-button { position: static; width: 86px; min-height: 66px; }
+.input-rail .gym-pause-button, #sparring-ui .input-rail .pause-button, #sparring-ui .input-rail .audio-button { position: static; width: 64px; min-width: 0; height: 44px; min-height: 44px; }
+.input-rail .gym-pause-button { justify-content: center; }
+#sparring-ui .opponent-info { padding-right: 0; }
+/* Desktop uses the keyboard; the paused Commandes page is its reference. */
+html[data-touch="false"] .input-rail, html[data-touch="false"] .keyboard-guide { display: none; }
+html[data-touch="true"] .gym-heading { display: none; }
+html[data-touch="true"] .gym-nearby { max-width: 85%; }
+
+/* Paused menus can use the whole play area; the underlying scene keeps its
+   exact size. Inactive rails cannot intercept a menu or an old held finger. */
+html[data-touch="true"] :is(.gym-dialog, .commands-panel, .round-panel, .bag-panel) { width: min(720px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+html[data-touch="true"] .gym-pause-panel { width: min(355px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); }
+#sparring-ui:not([data-phase="running"]) .input-rail { visibility: hidden; }
+.panel-actions .return-gym-button { position: static; width: 100%; min-height: 30px; margin-top: 5px; padding: 5px; font-size: 10px; grid-column: 1 / -1; }
+#gym-ui:not([data-mode="walking"]) .input-rail { visibility: hidden; }
+@container (max-width: 750px) {
+  html[data-touch="false"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 12px); overflow: auto; }
+}
+@media (max-width: 900px) and (orientation: portrait) { #play-area { visibility: hidden; } }

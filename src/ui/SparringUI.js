@@ -1,3 +1,4 @@
+import { mountSideControls } from './GameLayout.js';
 import { LESSONS } from '../game/TrainingCoach.js';
 
 const KEY_ACTIONS = {
@@ -150,6 +151,8 @@ export class SparringUI {
         <button type="button" class="control-button attack-control" data-action="cross" aria-label="Direct — K" disabled><span class="control-key">K</span><span class="control-label">Direct</span></button>
       </div>
     `;
+    mountSideControls(this.root, { left: ['.defense-dock'], right: ['.pause-button', '.audio-button', '.attack-dock'] });
+    this.root.querySelector('.panel-actions').append(this.root.querySelector('.return-gym-button'));
     this.elements = Object.fromEntries([
       'menu-shade', 'stamina-track', 'stamina-fill', 'round-time', 'remi-status', 'pause-button',
       'fight-feedback', 'round-panel', 'panel-eyebrow', 'panel-heading', 'panel-copy',

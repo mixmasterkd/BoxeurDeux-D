@@ -1,4 +1,5 @@
 import './gym.css';
+import { mountSideControls } from './GameLayout.js';
 
 const DIRECTIONS = {
   ArrowUp: 'up', KeyW: 'up', KeyZ: 'up',
@@ -13,7 +14,7 @@ const noop = () => {};
 export class GymUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
-      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBlur',
+      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onBlur',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.root = document.getElementById('gym-ui');
     if (!this.root) throw new Error('GymUI requires #gym-ui inside the game stage.');
@@ -66,6 +67,7 @@ export class GymUI {
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
     `;
+    mountSideControls(this.root, { left: ['.gym-movement'], right: ['.gym-pause-button', '.gym-interact-button'] });
     this.elements = Object.fromEntries([
       'gym-pause-button', 'gym-nearby', 'gym-nearby-label', 'gym-nearby-hint',
       'gym-movement', 'gym-interact-button', 'gym-interact-label',
@@ -150,6 +152,7 @@ export class GymUI {
       if (!button || !this.consumeActivation(button, event) || this.paused || !this.dialog) return;
       this.clearInputs();
       if (button.dataset.gymAction === 'sparring') this.callbacks.onSparring(button.dataset.lesson ?? 'free');
+      else if (button.dataset.gymAction === 'bag') this.callbacks.onBag();
       else this.callbacks.onCloseDialog();
     });
     for (const [direction, button] of this.directionButtons) {
@@ -352,7 +355,7 @@ export class GymUI {
     for (const action of choices) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : ' gym-close-button'}`;
+      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : ' gym-close-button'}`;
       button.dataset.gymAction = action.id;
       if (action.lesson) button.dataset.lesson = action.lesson;
       button.textContent = action.label;

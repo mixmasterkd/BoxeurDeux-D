@@ -1,0 +1,60 @@
+#bag-ui { position: absolute; inset: 0; z-index: 2; pointer-events: none; color: var(--cream); }
+.bag-hud { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 17px 24px; background: linear-gradient(#0c1c25ed, #0c1c2566, transparent); font-size: 10px; letter-spacing: .8px; }
+.bag-clock { font-size: 30px; font-variant-numeric: tabular-nums; color: #f6d492; }
+.bag-choreography { position: absolute; top: 16%; left: 50%; transform: translateX(-50%); width: min(540px, 84%); text-align: center; }
+.bag-sequence-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #f5d99c; margin-bottom: 7px; text-shadow: 0 2px 2px #10212a; }
+.bag-steps { display: flex; justify-content: center; gap: 10px; }
+.bag-step { position: relative; min-width: 80px; padding: 10px 14px 14px; border: 1px solid #91acaa60; border-radius: 3px; background: #10232dee; font-size: 15px; color: #c3d0ca; overflow: hidden; }
+.bag-step i { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; transform-origin: left; background: #a4c5bd; }
+.bag-step.is-now { border-color: #ffe1a0; background: #e9ba70; color: #162932; box-shadow: 0 0 12px #edc26e50; }
+.bag-step[data-status="hit"] { background: #234f45; color: #e8f2d1; }
+.bag-step[data-status="hit"]::before { content: '✓ '; }
+.bag-step[data-status="missed"] { opacity: .55; }
+.bag-instruction { margin-top: 7px; font-size: 12px; color: #f4e3c4; text-shadow: 0 2px 3px #10212a; }
+.bag-feedback { position: absolute; bottom: 5%; left: 50%; transform: translateX(-50%); padding: 6px 12px; font-size: 12px; color: #f5dea7; background: #10222bd9; text-align: center; max-width: 90%; }
+.bag-feedback:empty { display: none; }
+.bag-feedback[data-tone="good"] { color: #d0edc1; }
+.bag-menu-shade { position: absolute; inset: 0; background: #09192491; }
+.bag-panel { position: absolute; pointer-events: auto; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(620px, 90%); display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; padding: 25px; border: 1px solid #bead8070; border-left: 3px solid var(--amber); background: #11252df5; }
+.bag-panel h2 { margin: 5px 0 10px; font-size: 29px; }
+.bag-panel-copy, .bag-advice { font-size: 12px; line-height: 1.5; color: #c1d0c9; }
+.bag-panel-actions { display: grid; gap: 7px; }
+.bag-panel-actions button { margin: 0; min-height: 38px; }
+.bag-results dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0; }
+.bag-results dt { font-size: 10px; color: #b7c9c1; }
+.bag-results dd { margin: 4px 0; font-size: 23px; color: #f6d492; }
+.bag-action-dock { display: flex; flex-direction: column; gap: 9px; }
+.bag-pause-button, .bag-audio-button { width: 64px; height: 44px; padding: 3px; border: 1px solid #a1b6a66b; border-radius: 3px; background: #172c35; color: #ead6a9; font-size: 12px; }
+#bag-ui .input-rail .bag-audio-button { position: static; width: 64px; height: 44px; }
+#bag-ui .bag-action-dock, #bag-ui .bag-pause-button { display: none; }
+#bag-ui[data-touch="true"] .bag-action-dock { display: flex; }
+#bag-ui[data-touch="true"] .bag-pause-button { display: block; }
+#bag-ui:not([data-phase="running"]) :is(.input-rail, .bag-choreography, .bag-feedback) { visibility: hidden; }
+html[data-touch="true"] .bag-choreography { top: 50%; left: auto; right: calc(100% + 6px); transform: translateY(-50%); width: 94px; }
+html[data-touch="true"] .bag-steps { flex-direction: column; gap: 6px; }
+html[data-touch="true"] .bag-step { font-size: 12px; }
+@media (any-pointer: coarse) { #bag-ui .bag-action-dock { display: flex; } #bag-ui .bag-pause-button { display: block; } }
+@container (max-width: 750px) {
+  .bag-hud { padding: 8px 12px; font-size: 8px; letter-spacing: 0; }
+  .bag-clock { font-size: 23px; }
+  .bag-step { min-width: 64px; font-size: 12px; padding: 6px 10px 10px; }
+  .bag-sequence-title { font-size: 9px; margin-bottom: 4px; }
+  .bag-instruction { font-size: 10px; margin-top: 4px; }
+  .bag-feedback { font-size: 10px; padding: 4px 8px; }
+  .bag-panel { padding: 17px; gap: 18px; }
+  .bag-panel h2 { font-size: 23px; }
+  .bag-panel-copy, .bag-advice { font-size: 11px; line-height: 1.4; }
+}
+@container (max-width: 550px) {
+  .bag-hud > span:first-child { max-width: 105px; font-size: 7px; }
+  .bag-clock { font-size: 19px; }
+  .bag-choreography { top: 19%; }
+  .bag-steps { gap: 5px; }
+  .bag-step { min-width: 56px; font-size: 10px; padding: 4px 6px 7px; }
+  .bag-step i { height: 3px; }
+  .bag-sequence-title { font-size: 8px; }
+  .bag-instruction { font-size: 9px; }
+  .bag-panel { padding: 14px; gap: 14px; }
+  .bag-panel h2 { font-size: 21px; }
+  .bag-panel-copy, .bag-advice { font-size: 10px; }
+}

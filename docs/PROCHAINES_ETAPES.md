@@ -1,6 +1,6 @@
 # Suite du projet BoxeurDeux-D
 
-Direction confirmée par l’utilisateur le 10 septembre 2026.
+Direction confirmée par l’utilisateur, actualisée après le GO du 11 septembre 2026. Voir `VERIFICATIONS.md` pour les validations effectivement terminées; cette feuille de route ne confirme pas à elle seule une publication.
 
 ## Phase réalisée — 10 septembre 2026
 
@@ -18,18 +18,33 @@ Le sparring dispose de tenues d’entraînement (débardeur, short, casque et ga
 - Salle dans le même univers visuel, cadrage 1280 × 720 identique sur ordinateur et téléphone paysage.
 - Boxeur à tuque rouge courte et motif noir, débardeur bleu et blanc, short noir, chaussures bleues; marche en quatre directions.
 - Rémi près du ring : conversation, choix du sparring libre ou des trois leçons, retour à la position de départ après la séance.
-- Sac, miroir, speed ball et corde accessibles à pied, avec description de leur future activité.
+- Sac, miroir, speed ball et corde accessibles à pied. Le sac ouvre maintenant sa séance; les trois autres ateliers présentent leur future activité.
 - Collisions, pause, clavier, tactile simultané, relâchements et orientation.
 
-## Prochaine étape retenue — le sac chorégraphié
+## Commandes hors de l’image — GO du 11 septembre 2026
 
-L’utilisateur aime l’idée de suivre des enchaînements au sac. La priorité immédiate est de corriger la disparition du personnage près des ateliers et de libérer l’écran ordinateur des boutons tactiles, avec une rubrique « Commandes » dans la pause.
+La disparition du personnage près des ateliers est corrigée. La nouvelle présentation s’applique au **gym, au sparring et au sac** :
 
-Ensuite : séance courte au sac, impacts et balancement synchronisés, enchaînements à reproduire, bilan de précision et de rythme, retour au gym.
+- Sur ordinateur, aucun bouton de jeu ni rappel permanent des touches, y compris dans le pied de page. **P/Échap → Commandes** ouvre l’aide depuis la pause.
+- Sur téléphone en paysage, les boutons sont placés dans **deux bandes latérales hors de l’image**. Le centre conserve le cadrage complet 1280 × 720 en 16:9, sans étirement ni découpe.
+- M coupe le son des séances au clavier; Son/Muet se trouve dans la marge tactile. Portrait et perte de focus mettent le jeu en pause et libèrent les appuis.
 
-Idée retenue pour le sac **et le sparring** : **J → K → J = jab → direct → crochet**, le troisième J devenant un crochet uniquement dans la fenêtre de combo. Hors combo, J reste un jab. Ce comportement n’est pas encore implémenté : il faut créer l’animation du crochet, définir un timing lisible et vérifier le contact avant de le rendre jouable. Le sac permettra de mettre ce mouvement au point, puis de le reprendre en sparring. Des frappes au corps pourront ensuite enrichir le jeu sans multiplier d’emblée les commandes.
+## Sac chorégraphié — intégré après ce même GO
 
-Le miroir servira à pratiquer les mouvements seulement, sans adversaire. La visite et le sparring restent la base jouable pendant cette suite.
+- Accès par interaction près du sac, ou directement par `?scene=bag`.
+- Séance de **45 secondes** : jab, double jab, jab–direct, puis jab–direct–crochet, avec repères de rythme.
+- Gants, sons, contact compté et balancement du sac synchronisés; bilan de précision et d’enchaînements réussis.
+- Pause, Commandes, reprise, nouvel essai et retour au même endroit dans le gym.
+- **J → K → J = jab → direct → crochet**, actif au sac seulement. Le troisième J devient un crochet lorsque l’enchaînement annoncé a ses deux premières frappes réussies et que la fenêtre de rythme est ouverte. Hors combo, J reste un jab.
+- Nouveau décor du même gym, tuque rouge, tenue bleue/blanche, sac transparent séparé et six poses. Ressources issues de la génération intégrée; prompts et sources conservés dans `references/characters/bag/PROMPTS.md`.
+
+Les poses clés sont en place; davantage d’intermédiaires pourront améliorer la fluidité. Les scripts `test:bag` et `test:side-controls` couvrent la séance et la disposition des commandes; leurs résultats appartiennent au compte rendu de vérifications.
+
+## Suite à travailler
+
+Reprendre le combo **jab–direct–crochet en sparring**, comme demandé par l’utilisateur, avec une ouverture et un contact lisibles. Il n’est pas encore actif dans le ring. Les frappes au corps pourront ensuite enrichir le jeu sans multiplier d’emblée les commandes.
+
+Le prochain atelier envisagé est le **miroir**, pour pratiquer librement les mouvements seulement, sans adversaire. La speed ball et la corde suivront. La visite, le sac et le sparring restent la base jouable pendant cette suite.
 
 ## Ateliers prévus
 
@@ -37,7 +52,7 @@ Chaque atelier devra d’abord être agréable à jouer et compréhensible par l
 
 | Activité | Intention du mini-jeu |
 | --- | --- |
-| Sac de frappe | Rythme, précision et enchaînements. |
+| Sac de frappe | Première séance intégrée : rythme, précision et quatre enchaînements. |
 | Shadow boxing devant le miroir | Pratiquer librement les mouvements seulement, sans adversaire. |
 | Speed ball | Coordination et régularité. |
 | Corde à danser | Rythme, endurance et jeu de jambes. |
@@ -45,6 +60,6 @@ Chaque atelier devra d’abord être agréable à jouer et compréhensible par l
 
 Plus tard, les séances consommeront de l’**énergie du jour** et feront progresser les compétences correspondantes. Cette réserve quotidienne restera distincte de l’**endurance pendant un round**, qui sert aux actions et récupère entre les échanges. Les coûts, gains et règles de récupération quotidienne restent à définir après les premiers mini-jeux.
 
-Le gym est maintenant explorable. Les mini-jeux des ateliers et cette progression quotidienne restent des étapes futures. La ville, la maison, l’emploi, la carrière et les combats officiels viendront ensuite.
+Le gym est explorable et le sac possède sa première séance. Le miroir, la speed ball, la corde et la progression quotidienne restent des étapes futures. La ville, la maison, l’emploi, la carrière et les combats officiels viendront ensuite.
 
 Sur la future carte extérieure, le personnage portera un survêtement Adidas noir à bandes blanches avec sa tuque rouge. Les photos fournies ont servi de références graphiques; elles ne sont pas publiées avec le jeu.

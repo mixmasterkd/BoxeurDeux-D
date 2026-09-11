@@ -19,7 +19,7 @@ const wait = (page, predicate) => page.waitForFunction(predicate, undefined, { t
 async function checkPanel(page) {
   const result = await page.locator('.commands-panel:visible').evaluate(panel => {
     const p = panel.getBoundingClientRect();
-    const stage = document.getElementById('stage').getBoundingClientRect();
+    const stage = document.getElementById('play-area').getBoundingClientRect();
     const button = panel.querySelector('.commands-back-button').getBoundingClientRect();
     return { fits: p.top >= stage.top && p.bottom <= stage.bottom + 1 && p.left >= stage.left && p.right <= stage.right + 1,
       noScroll: panel.scrollHeight <= panel.clientHeight + 1,
@@ -50,7 +50,7 @@ try {
     assert.equal(await page.locator('.gym-movement').isVisible(), options.hasTouch);
     assert.equal(await page.locator('.gym-interact-button').isVisible(), options.hasTouch);
     assert.equal(await page.locator('.gym-pause-button').isVisible(), options.hasTouch);
-    if (!options.hasTouch) assert.equal(await page.locator('.keyboard-guide').isVisible(), true);
+    if (!options.hasTouch) assert.equal(await page.locator('.keyboard-guide').isVisible(), false);
     await page.keyboard.down('ArrowRight');
     await page.waitForTimeout(120);
     if (options.hasTouch) await activate('.gym-pause-button');

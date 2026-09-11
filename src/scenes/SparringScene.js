@@ -81,6 +81,8 @@ export class SparringScene extends Phaser.Scene {
     const cleanup = () => {
       if (disposed) return;
       disposed = true;
+      this.events.off('shutdown', cleanup);
+      this.events.off('destroy', cleanup);
       this.ui.destroy();
       this.audio.dispose();
       this.resizeObserver.disconnect();

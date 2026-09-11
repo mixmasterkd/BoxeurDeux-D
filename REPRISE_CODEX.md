@@ -1,6 +1,23 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-> **Retour utilisateur après la visite :** corriger la disparition près du sac et de la speed ball; masquer les commandes tactiles sur ordinateur et offrir « Commandes » dans la pause P/Échap. La cause visuelle est l’usage de GeometryMask, limité au rendu Canvas dans Phaser 4; le rendu WebGL doit utiliser le filtre de masque. Prochaine activité retenue : sac chorégraphié. Le combo J → K → J (jab, direct, crochet) est souhaité également en sparring, avec crochet uniquement en combo; son animation et ses règles restent à construire. Voir `docs/PROCHAINES_ETAPES.md`.
+## État actuel — GO du 11 septembre 2026
+
+L’utilisateur a autorisé **les deux étapes ensemble** : déplacer les commandes hors de l’image dans tout le jeu et réaliser le sac chorégraphié. Cette demande remplace les anciennes attentes de GO, de mini test visuel et de discussion préalable conservées dans les archives ci-dessous.
+
+- **Gym, sparring et sac :** même cadrage logique 1280 × 720, format 16:9, adaptation uniforme à la largeur et à la hauteur réellement disponibles.
+- **Ordinateur :** aucun bouton de jeu ni rappel permanent des touches sur l’action; le pied de page des raccourcis est également caché. P/Échap ouvre la pause; son menu **Commandes** donne l’aide. Les boutons des menus restent accessibles lorsque la séance est arrêtée.
+- **Téléphone en paysage :** boutons dans les deux bandes latérales noires, hors de l’image de jeu, pour les trois scènes. En portrait : invitation à tourner l’appareil et pause. Les bandes réservent l’espace nécessaire aux pouces; préserver le cadrage complet au centre.
+- **Sac intégré :** accès en marchant jusqu’au sac puis en interagissant, ou par `?scene=bag`. Séance de 45 secondes, quatre enchaînements (jab, double jab, jab–direct, jab–direct–crochet), repères de rythme, impacts, bilan, pause/reprise, nouvel essai et retour à la même position dans le gym.
+- **J / K / J au sac :** jab, direct, puis crochet uniquement dans la fenêtre de l’enchaînement annoncé et après les deux premières frappes réussies. Hors de cette fenêtre, J reste un jab. Le bouton tactile indique Crochet lorsqu’il est prêt. Le sparring conserve encore jab/direct : la reprise de ce combo en sparring, souhaitée par l’utilisateur, reste à développer. Les frappes au corps sont ultérieures.
+- **Son des séances :** M au clavier; Son/Muet dans la marge tactile. Audio synthétisé localement, sans service distant pendant une partie.
+- **Ressources du sac :** nouveau décor rapproché du même gym, boxeur adulte à tuque rouge et tenue bleue/blanche, sac séparé transparent et six poses dessinées. Génération imagegen intégrée, sources et prompts dans `references/characters/bag/PROMPTS.md`; extraction reproductible par `scripts/prepare-bag-sprites.mjs`. L’animation par poses clés pourra gagner en fluidité avec des intermédiaires.
+- **Portée restante :** miroir, speed ball et corde sont encore des présentations. Pas d’énergie quotidienne, de compétences persistantes ni de carte extérieure.
+
+Le README décrit les commandes et les scripts de vérification, notamment `npm run test:bag` et `npm run test:side-controls`. Consulter `docs/VERIFICATIONS.md` pour les résultats réellement obtenus; ce relais ne certifie pas une publication de cette nouvelle étape. L’envoi GitHub et le contrôle du déploiement restent distincts d’un commit local.
+
+## Relais historiques
+
+> **Retour utilisateur après la visite :** disparition près du sac et de la speed ball corrigée. La cause visuelle était l’usage de GeometryMask, limité au rendu Canvas dans Phaser 4; le rendu WebGL utilise le filtre de masque. La première correction masquait seulement les commandes sur ordinateur et gardait les raccourcis en bas. La demande du 11 septembre ci-dessus remplace cette présentation pour tout le jeu.
 
 > **Gym autorisé au nouveau GO, après discussion :** réaliser le personnage à tuque rouge à partir des références fournies, la première salle explorable, les déplacements et le lien avec Rémi. Le gym ouvre maintenant par défaut; le sparring reste accessible par Rémi ou `?scene=sparring`, avec retour au gym. Résolution logique fixe 1280 × 720, cadrage identique sur ordinateur et téléphone paysage. Les autres ateliers sont présentés, leurs mini-jeux viendront ensuite. Tenue extérieure future : survêtement Adidas noir à bandes blanches et tuque rouge. Cette décision remplace l’attente de discussion mentionnée dans les anciens relais.
 

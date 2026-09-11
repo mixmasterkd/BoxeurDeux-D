@@ -15,7 +15,9 @@
     "test:training": "node tests/training-browser.mjs",
     "test:gym": "node tests/gym-browser.mjs",
     "test:visibility": "node tests/gym-visibility.mjs",
-    "test:commands": "node tests/commands-browser.mjs"
+    "test:commands": "node tests/commands-browser.mjs",
+    "test:bag": "node tests/bag-browser.mjs",
+    "test:side-controls": "node tests/side-controls-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

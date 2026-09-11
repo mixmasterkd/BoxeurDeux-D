@@ -4,7 +4,7 @@ import { GymUI } from '../ui/GymUI.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 
 const ACTIVITIES = {
-  sac: { title: 'Le sac de frappe', text: 'Ici, on travaillera le rythme, la précision et les enchaînements. L’atelier ouvrira lors d’une prochaine étape. Pour pratiquer aujourd’hui, rejoignez Rémi près du ring.' },
+  sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, puis jab–direct–crochet. Une pression par coup, et on relâche les épaules entre les séries.' },
   miroir: { title: 'Le miroir', text: 'Ce coin sera réservé au shadow boxing : pratiquer les mouvements librement, sans adversaire. Pour cette première visite, Rémi vous attend pour ses leçons.' },
   speedball: { title: 'La speed ball', text: 'Un futur exercice de coordination et de régularité. Le matériel est en place; le mini-jeu sera ajouté après la visite du gym.' },
   corde: { title: 'La corde à danser', text: 'Ce tapis accueillera un exercice de rythme et de jeu de jambes. L’atelier ouvrira plus tard; le sparring avec Rémi est déjà accessible.' },
@@ -53,6 +53,7 @@ export class GymScene extends Phaser.Scene {
       onResume: () => this.world.resume(),
       onCloseDialog: () => { this.ui.closeDialog(); this.world.releaseControls(); },
       onSparring: lesson => this.enterSparring(lesson),
+      onBag: () => this.enterBag(),
       onBlur: () => this.world.pause(),
     });
     this.renderWorld();
@@ -63,6 +64,8 @@ export class GymScene extends Phaser.Scene {
     const cleanup = () => {
       if (disposed) return;
       disposed = true;
+      this.events.off('shutdown', cleanup);
+      this.events.off('destroy', cleanup);
       this.world.releaseControls();
       this.ui.destroy();
       this.resizeObserver.disconnect();
@@ -90,6 +93,10 @@ export class GymScene extends Phaser.Scene {
           { id: 'close', label: 'Continuer la visite →' },
         ],
       });
+    } else if (station.id === 'sac') {
+      this.ui.showDialog({ speaker: 'L’ATELIER DU SAC', ...ACTIVITIES.sac, actions: [
+        { id: 'bag', label: 'Commencer · 45 s' }, { id: 'close', label: 'Continuer la visite →' },
+      ] });
     } else {
       this.ui.showDialog({ speaker: station.kind === 'exit' ? 'LA PORTE DU GYM' : 'DÉCOUVRIR LES ATELIERS', ...ACTIVITIES[station.id] });
     }
@@ -118,6 +125,12 @@ export class GymScene extends Phaser.Scene {
     if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'remi') return;
     this.world.releaseControls();
     this.scene.start('SparringScene', { lesson, fromGym: true });
+  }
+
+  enterBag() {
+    if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'sac') return;
+    this.world.releaseControls();
+    this.scene.start('BagScene');
   }
 
   update(_time, delta) {

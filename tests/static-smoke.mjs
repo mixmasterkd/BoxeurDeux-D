@@ -110,11 +110,34 @@ try {
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-value="training-progress"]')?.textContent === '1 / 3');
-    await press('.audio-button');
+    if (mobile) await press('.audio-button');
+    else await page.keyboard.press('m');
     assert.equal(await page.locator('.audio-button').getAttribute('aria-pressed'), 'true', 'mute works in the compiled game');
     if (mobile) await press('.pause-button');
     else await page.keyboard.press('p');
     await press('.return-gym-button');
+    await page.locator('#gym-ui').waitFor({ state: 'visible' });
+    await page.goto(`${base}?scene=bag`);
+    await page.locator('#bag-ui').waitFor({ state: 'visible' });
+    assert.equal(await page.evaluate(() => window.__bag), undefined, 'production does not expose bag development hooks');
+    await press('.bag-start-button');
+    if (mobile) await press('#bag-ui [data-action="jab"]');
+    else await page.keyboard.press('j');
+    await page.waitForFunction(() => document.querySelector('[data-bag-stat="contacts"]')?.textContent === '1');
+    if (mobile) await press('.bag-pause-button');
+    else await page.keyboard.press('p');
+    await page.waitForFunction(() => document.querySelector('#bag-ui').dataset.phase === 'paused');
+    const bagTime = await page.locator('.bag-clock').textContent();
+    await press('#bag-ui .commands-open-button');
+    await page.locator('#bag-ui .commands-panel').waitFor({ state: 'visible' });
+    await page.waitForTimeout(500);
+    assert.equal(await page.locator('.bag-clock').textContent(), bagTime);
+    await press('#bag-ui .commands-back-button');
+    await press('.bag-restart-button');
+    await page.waitForFunction(() => document.querySelector('[data-bag-stat="contacts"]')?.textContent === '0');
+    if (mobile) await press('.bag-pause-button');
+    else await page.keyboard.press('p');
+    await press('.bag-return-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
@@ -126,12 +149,14 @@ try {
   }
   if (!remote) {
     assert.ok(loaded.has('assets/backgrounds/gym.png'));
+    assert.ok(loaded.has('assets/backgrounds/bag-training.png'));
+    assert.ok(loaded.has('assets/sprites/bag/player-hook.png'));
     assert.ok(loaded.has('assets/backgrounds/gym-exploration.png'));
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/exploration/player-') && name.endsWith('.png')).length, 12);
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/sparring-v2/') && name.endsWith('.png')).length, 20);
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym at directory index + index.html, keyboard + touch walk to Rémi, Commandes help in both pauses, sparring jab, restart, guided jab, mute, return to gym, landscape and portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym at directory index + index.html, keyboard + touch walk to Rémi, Commandes help in both pauses, sparring jab, restart, guided jab, mute, return to gym, bag contact/help/restart/return, landscape and portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }
