@@ -295,11 +295,11 @@ test('a third success near the clock limit finishes at 60 seconds without duplic
   assert.equal(session.state.training.progress, 3);
   assert.equal(session.state.phase, 'running');
   session.update(1);
-  assert.equal(session.state.phase, 'finished', 'the time limit takes priority over the final lesson pose');
+  assert.equal(session.state.phase, 'finished', 'the time limit ends the lesson without extending the round');
   assert.equal(session.state.elapsed, 60);
   assert.equal(session.state.remaining, 0);
   assert.equal(session.state.training.completed, true);
-  assert.equal(session.state.player.action, 'idle');
+  assert.equal(session.state.player.action, 'jab', 'The clock stops exactly while the last pose remains visible');
   const events = session.drainEvents();
   assert.equal(events.filter(event => event.type === 'lesson-complete').length, 1);
   assert.equal(events.filter(event => event.type === 'round-end').length, 1);

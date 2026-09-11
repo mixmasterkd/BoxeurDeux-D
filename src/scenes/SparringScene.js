@@ -119,14 +119,16 @@ export class SparringScene extends Phaser.Scene {
       // End cues finish naturally on the report; there is no ambient sound loop.
       if (event.type !== 'round-start') this.audio.play(event.type);
       const message = FEEDBACK[event.type];
-      if (message) this.ui.showFeedback(...message);
+      if (event.type === 'player-hit' && event.attack === 'hook') {
+        this.ui.showFeedback(event.combo ? 'Combo réussi !' : 'Crochet gauche !', 'success');
+      } else if (message) this.ui.showFeedback(...message);
       if (event.type.startsWith('player-') || event.type.startsWith('remi-')) {
         const striker = event.type.startsWith('player-') ? this.player : this.remi;
         const { x, y } = striker.contact();
         this.fighterLayer.add(drawImpact(this, event, x, y));
         if (import.meta.env.DEV) {
           const log = window.__sparring.impacts;
-          log.push({ ...event, x, y, playerProgress: state.player.progress, remiProgress: state.remi.progress, playerTexture: this.player.sprite.texture.key, remiTexture: this.remi.sprite.texture.key });
+          log.push({ ...event, x, y, contactPoint: { x, y }, targetPoint: { ...(striker.attackAim ?? striker.target) }, playerProgress: state.player.progress, remiProgress: state.remi.progress, playerTexture: this.player.sprite.texture.key, remiTexture: this.remi.sprite.texture.key });
           if (log.length > 100) log.shift();
         }
       }
@@ -140,7 +142,7 @@ export class SparringScene extends Phaser.Scene {
     const { action, progress, safeDodge } = state.remi;
     const telegraph = action === 'tellLeft' || action === 'tellRight';
     const punching = action === 'jab' || action === 'cross';
-    const opened = action === 'open';
+    const opened = action === 'open' || (action === 'hit' && state.combo?.ready);
     this.coach.setVisible(telegraph || punching || opened);
     if (telegraph || punching) {
       const right = safeDodge === 'dodgeRight';
@@ -161,7 +163,8 @@ export class SparringScene extends Phaser.Scene {
       this.cue.fillStyle(0xffdc8a, 1).fillTriangle(x - 5, y - 8, x + 5, y - 8, x, y + 6);
     } else if (opened) {
       const label = state.training?.id === 'guard' ? 'RELÂCHEZ · SOUFFLEZ'
-        : state.training?.id === 'jab' ? 'OUVERTURE · UN JAB !' : 'OUVERTURE · À VOUS !';
+        : state.training?.id === 'jab' ? 'OUVERTURE · UN JAB !'
+          : state.combo?.ready ? 'OUVERTURE · CROCHET PRÊT !' : 'OUVERTURE · À VOUS !';
       this.coach.setText(label).setColor('#b8dfbf');
     }
   }

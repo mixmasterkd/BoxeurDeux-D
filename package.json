@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "test": "node --test tests/*.test.js",
     "test:browser": "node tests/browser-smoke.mjs",
+    "test:combo": "node tests/sparring-combo-browser.mjs",
     "test:static": "node tests/static-smoke.mjs",
     "test:training": "node tests/training-browser.mjs",
     "test:gym": "node tests/gym-browser.mjs",

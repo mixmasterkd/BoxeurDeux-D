@@ -70,7 +70,8 @@ test('Rémi keeps the same tell and attack schedule when the player punches repe
   active.start();
   const quietSchedule = [];
   const activeSchedule = [];
-  for (let i = 0; i < 360; i += 1) {
+  // The free round leaves time for three punches in each opening.
+  for (let i = 0; i < 440; i += 1) {
     active.act(i % 2 ? 'jab' : 'cross');
     quiet.update(0.05);
     active.update(0.05);

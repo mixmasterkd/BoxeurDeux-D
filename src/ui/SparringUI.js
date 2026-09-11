@@ -127,8 +127,9 @@ export class SparringUI {
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="sparring-commands-title" hidden>
         <p class="commands-eyebrow">ROUND EN PAUSE</p><h2 id="sparring-commands-title">Commandes du sparring</h2>
         <div class="commands-grid"><dl>
-          <div><dt>Jab</dt><dd>J</dd></div>
-          <div><dt>Direct</dt><dd>K</dd></div>
+          <div><dt>Jab gauche</dt><dd>J</dd></div>
+          <div><dt>Direct droit</dt><dd>K</dd></div>
+          <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div>
           <div><dt>Garde</dt><dd>Maintenir Espace</dd></div>
         </dl><dl>
           <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
@@ -136,6 +137,7 @@ export class SparringUI {
           <div><dt>Son / muet</dt><dd>M</dd></div>
         </dl></div>
         <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
+        <p class="commands-tip">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. Une défense, un coup reçu ou une pause interrompt le combo. Les leçons gardent jab et direct.</p>
         <p class="commands-touch-tip commands-tip">Au tactile : défenses à gauche, frappes à droite; maintenez Garde pour vous protéger.</p>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
@@ -489,7 +491,7 @@ export class SparringUI {
       if (phase === 'ready') {
         this.setText(this.elements['panel-eyebrow'], lesson.id === 'free' ? '60 SECONDES POUR APPRENDRE' : 'UN EXERCICE AVEC RÉMI');
         this.setText(this.elements['panel-heading'], lesson.id === 'free' ? 'Un round.\nÀ votre rythme.' : lesson.title);
-        this.setText(this.elements['panel-copy'], 'Observez ses épaules, protégez-vous, puis profitez des ouvertures. Relâchez la garde pour reprendre votre souffle.');
+        this.setText(this.elements['panel-copy'], 'Observez ses épaules, protégez-vous, puis profitez des ouvertures. Enchaînez jab, direct, crochet avec J → K → J. Relâchez la garde pour reprendre votre souffle.');
         this.setText(this.elements['primary-button'], lesson.id === 'free' ? 'Entrer en sparring →' : 'Commencer l’exercice →');
       } else if (phase === 'paused') {
         this.setText(this.elements['panel-eyebrow'], 'LE GYM PEUT ATTENDRE');
@@ -518,6 +520,16 @@ export class SparringUI {
       }
     }
     const stamina = Math.max(0, Math.min(100, Number(state.stamina ?? 100)));
+    const hookReady = phase === 'running' && Boolean(state.combo?.ready);
+    const hookSelected = phase === 'running' && state.combo?.step === 2 && state.player?.action === 'idle';
+    const jabButton = this.buttons.get('jab');
+    if (this.hookReady !== hookReady || this.hookSelected !== hookSelected) {
+      this.hookReady = hookReady;
+      this.hookSelected = hookSelected;
+      this.setText(jabButton.querySelector('.control-label'), hookSelected ? 'Crochet' : 'Jab');
+      jabButton.setAttribute('aria-label', hookSelected ? 'Crochet gauche — 21 endurance — J' : 'Jab gauche — J');
+      jabButton.classList.toggle('is-combo-ready', hookReady);
+    }
     const displayedStamina = Math.round(stamina);
     this.setText(this.values.stamina, displayedStamina);
     if (this.lastStamina !== displayedStamina) {
@@ -539,7 +551,7 @@ export class SparringUI {
     if (phase === 'finished') {
       this.setText(this.values['result-landed'], stats.landed ?? 0);
       this.setText(this.values['result-received'], stats.received ?? 0);
-      this.setText(this.elements['round-detail'], `${stats.blocked ?? 0} coups bloqués · ${stats.dodged ?? 0} esquivés\n${stats.thrown ?? 0} coups tentés`);
+      this.setText(this.elements['round-detail'], `${stats.blocked ?? 0} coups bloqués · ${stats.dodged ?? 0} esquivés\n${stats.thrown ?? 0} coups tentés${lesson.id === 'free' ? ` · ${stats.hooks ?? 0} crochets touchés\n${stats.combos ?? 0} combos complets (3 touches)` : ''}`);
     }
   }
 

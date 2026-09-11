@@ -1,5 +1,13 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Nouveau GO après redémarrage — combo en sparring libre
+
+L’étape autorisée est le transfert **J → K → J** dans le sparring libre : jab gauche, direct droit, crochet gauche. Le miroir viendra ensuite. Pas de ville ni d’énergie quotidienne dans cette phase.
+
+Le modèle dispose d’une fenêtre de 0,5 s après la récupération de chaque coup, sans entrée mise en attente. Le crochet coûte 21 points, la séquence 48; les deux premières frappes bloquées n’empêchent pas de lancer le crochet, mais un combo complet au bilan demande trois touches. Défense, coup reçu, pause, expiration et épuisement invalident la chaîne. Les coups engagés finissent leur animation. Les ouvertures libres de Rémi sont allongées selon le rythme, indépendamment des touches; les trois leçons sont inchangées.
+
+Trois poses supplémentaires dans `public/assets/sprites/sparring-hook/` complètent les vingt poses existantes; génération intégrée, références et prompts dans `references/characters/sparring-hook/`. Le personnage conserve casque et tenue bleu/or du ring, vu de dos. Le bouton tactile Jab devient Crochet; aucun bouton permanent n’est réintroduit sur ordinateur. Aide dans P/Échap → Commandes. `npm run test:combo` couvre les entrées clavier/tactile et contacts. Les résultats réellement terminés et la publication sont consignés dans `docs/VERIFICATIONS.md`.
+
 ## Dernier retour utilisateur — contrôles ordinateur et garde au sac
 
 Le navigateur de l’ordinateur affichait encore les boutons : l’ancienne détection traitait `maxTouchPoints > 0` comme un téléphone. `GameLayout` utilise désormais `(pointer: coarse) and (hover: none)` pour le périphérique principal. Les trois interfaces suivent cette décision commune; une simple capacité tactile ou un événement touch ne force plus le mode mobile. Le portrait n’interrompt pas une fenêtre ordinateur. Changer de périphérique libère les entrées et met la scène en pause.
@@ -14,7 +22,7 @@ L’utilisateur a autorisé **les deux étapes ensemble** : déplacer les comman
 - **Ordinateur :** aucun bouton de jeu ni rappel permanent des touches sur l’action; le pied de page des raccourcis est également caché. P/Échap ouvre la pause; son menu **Commandes** donne l’aide. Les boutons des menus restent accessibles lorsque la séance est arrêtée.
 - **Téléphone en paysage :** boutons dans les deux bandes latérales noires, hors de l’image de jeu, pour les trois scènes. En portrait : invitation à tourner l’appareil et pause. Les bandes réservent l’espace nécessaire aux pouces; préserver le cadrage complet au centre.
 - **Sac intégré :** accès en marchant jusqu’au sac puis en interagissant, ou par `?scene=bag`. Séance de 45 secondes, quatre enchaînements (jab, double jab, jab–direct, jab–direct–crochet), repères de rythme, impacts, bilan, pause/reprise, nouvel essai et retour à la même position dans le gym.
-- **J / K / J au sac :** jab, direct, puis crochet uniquement dans la fenêtre de l’enchaînement annoncé et après les deux premières frappes réussies. Hors de cette fenêtre, J reste un jab. Le bouton tactile indique Crochet lorsqu’il est prêt. Le sparring conserve encore jab/direct : la reprise de ce combo en sparring, souhaitée par l’utilisateur, reste à développer. Les frappes au corps sont ultérieures.
+- **J / K / J au sac :** jab, direct, puis crochet uniquement dans la fenêtre de l’enchaînement annoncé et après les deux premières frappes réussies. Hors de cette fenêtre, J reste un jab. Le bouton tactile indique Crochet lorsqu’il est prêt. Le nouveau GO décrit plus haut ajoute maintenant ce combo au sparring libre. Les frappes au corps sont ultérieures.
 - **Son des séances :** M au clavier; Son/Muet dans la marge tactile. Audio synthétisé localement, sans service distant pendant une partie.
 - **Ressources du sac :** nouveau décor rapproché du même gym, boxeur adulte à tuque rouge et tenue bleue/blanche, sac séparé transparent et six poses dessinées. Génération imagegen intégrée, sources et prompts dans `references/characters/bag/PROMPTS.md`; extraction reproductible par `scripts/prepare-bag-sprites.mjs`. L’animation par poses clés pourra gagner en fluidité avec des intermédiaires.
 - **Portée restante :** miroir, speed ball et corde sont encore des présentations. Pas d’énergie quotidienne, de compétences persistantes ni de carte extérieure.

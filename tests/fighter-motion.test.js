@@ -8,6 +8,7 @@ import { FighterView } from '../src/scenes/FighterView.js';
 // Authored landmarks let these renderer checks run without Phaser's browser
 // dependency. Visual quality and the artwork itself are checked in-browser.
 const metadata = JSON.parse(readFileSync(new URL('../public/assets/sprites/sparring-v2/fighters.json', import.meta.url)));
+Object.assign(metadata.poses, JSON.parse(readFileSync(new URL('../public/assets/sprites/sparring-hook/fighters.json', import.meta.url))).poses);
 function displayObject(x, y) {
   return {
     x, y, rotation: 0, flipX: false,
@@ -28,14 +29,19 @@ function view(who, landmarks = metadata) {
   return new FighterView(scene, who, 640, who === 'player' ? 718 : 592, 390);
 }
 
-test('every player contact uses full extension on the same frame as the scored touch', () => {
-  for (const attack of ['jab', 'cross']) {
+test('every player contact uses its authored pose on the same frame as the scored touch', () => {
+  for (const attack of ['jab', 'cross', 'hook']) {
     for (const dt of [1 / 120, 1 / 30, .05]) {
       const session = new SparringSession({ random: () => .5 });
       const boxer = view('player');
       boxer.target = { x: 643.3, y: 240.2 };
       session.start();
-      session.act(attack);
+      if (attack === 'hook') {
+        session.act('jab'); session.update(TIMINGS.player.jab.duration);
+        session.act('cross'); session.update(TIMINGS.player.cross.duration);
+        session.drainEvents();
+      }
+      session.act(attack === 'hook' ? 'jab' : attack);
       let contactSeen = false;
       const observedPoses = new Set();
       while (session.state.player.action === attack) {
@@ -88,7 +94,7 @@ test('Rémi keeps a readable windup and meets his contact on both committed atta
 
 test('the contact hold lasts 100ms and the return is progressive without scale changes', () => {
   for (const who of ['player', 'remi']) {
-    for (const attack of ['jab', 'cross']) {
+    for (const attack of who === 'player' ? ['jab', 'cross', 'hook'] : ['jab', 'cross']) {
       const timing = TIMINGS[who][attack];
       const sample = (seconds) => fighterMotion({ action: attack, ...timing, progress: seconds / timing.duration }, seconds, who);
       const contactAt = timing.duration * timing.impact;

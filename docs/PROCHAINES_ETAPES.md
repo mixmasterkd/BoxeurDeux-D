@@ -35,14 +35,14 @@ La disparition du personnage près des ateliers est corrigée. La nouvelle prés
 - Séance de **45 secondes** : jab, double jab, jab–direct, puis jab–direct–crochet, avec repères de rythme.
 - Gants, sons, contact compté et balancement du sac synchronisés; bilan de précision et d’enchaînements réussis.
 - Pause, Commandes, reprise, nouvel essai et retour au même endroit dans le gym.
-- **J → K → J = jab → direct → crochet**, actif au sac seulement. Le troisième J devient un crochet lorsque l’enchaînement annoncé a ses deux premières frappes réussies et que la fenêtre de rythme est ouverte. Hors combo, J reste un jab.
+- **J → K → J = jab → direct → crochet**. Au sac, le troisième J devient un crochet lorsque l’enchaînement annoncé a ses deux premières frappes réussies et que la fenêtre de rythme est ouverte. Hors combo, J reste un jab.
 - Nouveau décor du même gym, tuque rouge, tenue bleue/blanche, sac transparent séparé et six poses. Garde de droitier corrigée après retour utilisateur : pied gauche devant, jab gauche, direct droit avec pivot arrière droit, crochet gauche. Ressources issues de la génération intégrée; poses corrigées et prompts dans `references/characters/bag-orthodox/PROMPTS.md`, décor/sac conservés dans le dossier `bag`.
 
 Les poses clés sont en place; davantage d’intermédiaires pourront améliorer la fluidité. Les scripts `test:bag` et `test:side-controls` couvrent la séance et la disposition des commandes; leurs résultats appartiennent au compte rendu de vérifications.
 
 ## Suite à travailler
 
-Reprendre le combo **jab–direct–crochet en sparring**, comme demandé par l’utilisateur, avec une ouverture et un contact lisibles. Il n’est pas encore actif dans le ring. Les frappes au corps pourront ensuite enrichir le jeu sans multiplier d’emblée les commandes.
+Le nouveau GO autorise le combo **jab–direct–crochet en sparring libre**. Il est intégré avec trois poses supplémentaires du joueur vu de dos, une fenêtre de 0,5 s après la récupération de chaque coup, un coût total de 48 points d’endurance et des ouvertures de Rémi allongées. Les défenses, les coups reçus, la pause et l’expiration interrompent la chaîne. Le bilan distingue crochets touchés et combos de trois touches. Les leçons restent ciblées sur leurs mouvements initiaux. Voir `VERIFICATIONS.md` pour les essais terminés. Les frappes au corps restent une évolution ultérieure.
 
 Le prochain atelier envisagé est le **miroir**, pour pratiquer librement les mouvements seulement, sans adversaire. La speed ball et la corde suivront. La visite, le sac et le sparring restent la base jouable pendant cette suite.
 

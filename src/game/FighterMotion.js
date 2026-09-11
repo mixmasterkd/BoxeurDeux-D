@@ -24,12 +24,13 @@ export function fighterMotion(fighter, elapsed, who) {
     flip: false, alpha: player ? .64 : 1,
   };
 
-  if (action === 'jab' || action === 'cross') {
+  if (action === 'jab' || action === 'cross' || action === 'hook') {
     const impact = fighter.impact ?? TIMINGS[who][action].impact;
     const age = p * duration;
     const contactAt = impact * duration;
     const releaseAt = contactAt + IMPACT_HOLD;
-    const side = action === 'jab' ? -1 : 1;
+    const side = action === 'cross' ? 1 : -1;
+    const hook = action === 'hook';
     if (age + 1e-9 < contactAt) {
       const t = clamp(age / contactAt);
       // Rémi has already wound up during his readable tell. The player first
@@ -40,12 +41,12 @@ export function fighterMotion(fighter, elapsed, who) {
       motion.reach = player
         ? t < .22 ? -.04 * smooth(t / .22) : 1.04 * smooth((t - .22) / .78) - .04
         : smooth(t);
-      motion.dx = player ? side * 3 * Math.sin(Math.PI * t) : side * 8 * (1 - t);
+      motion.dx = player ? side * (hook ? 10 : 3) * Math.sin(Math.PI * t) : side * 8 * (1 - t);
       motion.dy = player ? 3 * Math.sin(Math.PI * t) : 2 * (1 - t);
-      motion.rotation = player ? side * .013 * Math.sin(Math.PI * t) : side * .014 * (1 - t);
+      motion.rotation = player ? side * (hook ? .025 : .013) * Math.sin(Math.PI * t) : side * .014 * (1 - t);
       motion.alpha = player ? .64 + .20 * smooth(t / .7) : 1;
     } else if (age <= releaseAt) {
-      // Only this phase uses the fully extended glove. It begins at the same
+      // Only this phase uses the authored contact pose. It begins at the same
       // boundary where SparringSession scores a touch, and holds for 100 ms.
       motion.pose = action;
       motion.phase = 'contact';

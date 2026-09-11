@@ -8,7 +8,7 @@ Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez
 
 ## Phase tenues et fluidité — 10 septembre 2026
 
-Dix poses par boxeur : garde, jab/direct, préparations et demi-extensions, protection, réaction et esquive. Certaines variantes utilisent un miroir pour garder exactement la même identité. Les frappes passent par une préparation, une extension intermédiaire, le contact pendant 100 ms, puis un retour progressif. L’échelle des personnages reste constante; un cadrage fixe légèrement plus large garde les pieds visibles pendant les échanges rapprochés.
+La base comprend dix poses par boxeur : garde, jab/direct, préparations et demi-extensions, protection, réaction et esquive. Trois poses de crochet complètent maintenant celles du joueur. Certaines variantes de jab/direct utilisent un miroir pour garder exactement la même identité. Les frappes passent par une préparation, une pose intermédiaire, le contact pendant 100 ms, puis un retour progressif. L’échelle des personnages reste constante; un cadrage fixe légèrement plus large garde les pieds visibles pendant les échanges rapprochés.
 
 Le paysage mobile est conservé. Un ancien doigt resté sur Garde pendant une perte de focus ne peut plus activer accidentellement « Reprendre » au relâchement.
 
@@ -50,7 +50,15 @@ Approchez-vous du sac dans le gym et interagissez pour ouvrir l’atelier. La s�
 
 Le boxeur est en **garde de droitier : pied gauche devant, pied droit derrière**. Les nouvelles poses montrent le jab gauche, le direct droit avec pivot du pied droit arrière et le crochet gauche. Le gant, l’impact sonore et le balancement du sac correspondent au contact compté. Le boxeur garde sa tuque rouge et sa tenue bleue/blanche; six poses dessinées représentent la garde, les préparations et les trois frappes. Le sac et ses chaînes sont une ressource transparente séparée du nouveau décor. Ces images viennent de la génération intégrée; les sources et prompts du personnage corrigé sont conservés dans `references/characters/bag-orthodox/PROMPTS.md` (décor et sac dans le dossier `bag`). La fluidité pourra encore gagner des poses intermédiaires.
 
-**Le crochet est actif uniquement au sac pour cette étape.** Le sparring conserve jab et direct; y reprendre le combo, puis ajouter éventuellement des frappes au corps, reste une suite à travailler. L’atelier du sac ne consomme pas encore d’énergie quotidienne et n’attribue pas de compétences persistantes.
+Le même enchaînement est maintenant disponible en **sparring libre**, avec les règles ci-dessous. L’atelier du sac ne consomme pas encore d’énergie quotidienne et n’attribue pas de compétences persistantes.
+
+## Combo dans le sparring libre
+
+**J → K → J : jab gauche, direct droit, crochet gauche.** Attendez le retour en garde après chaque coup, puis pressez le suivant dans la demi-seconde. Aucun coup n’est mis en attente et maintenir une touche ne répète pas l’attaque. Hors enchaînement, J reste un jab; le crochet n’a pas de troisième touche dédiée.
+
+Les deux premières frappes peuvent être bloquées : le crochet reste lançable, mais le bilan compte un **combo complet** seulement si les trois coups ont touché. Une défense, un coup reçu, une pause, un manque d’endurance ou une attente trop longue interrompt la chaîne. Une frappe déjà engagée finit son mouvement. Au tactile, le bouton Jab devient Crochet; il prend une teinte verte lorsque les 21 points d’endurance nécessaires sont disponibles.
+
+Le coût des trois coups est de **48 points d’endurance** (10 + 17 + 21), hors récupération entre les coups. Rémi laisse des ouvertures fixes un peu plus longues en libre, sans réagir à la lecture de vos boutons. Les trois leçons conservent jab/direct et leur rythme initial. Le crochet dispose de trois nouvelles poses vues de dos, avec casque et tenue de sparring; le contact, le son et les compteurs utilisent la même horloge.
 
 ## Leçons de Rémi et son
 
@@ -88,6 +96,7 @@ Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve 
 npm test         # Règles du sparring, du sac, déplacements et autres modèles
 npm run build    # Compilation vers dist/
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
+npm run test:combo # Combo sparring réel au clavier/tactile, contacts et interruptions
 npm run test:training # Trois leçons complètes, bilans et audio
 npm run test:gym # Marche, collisions, ateliers, aller/retour sparring et tactile
 npm run test:visibility # Pixels réellement visibles près des ateliers (WebGL)
@@ -116,8 +125,9 @@ Les tests navigateur facultatifs utilisent Playwright déjà disponible dans cet
 
 | Action | Clavier | Tactile |
 | --- | --- | --- |
-| Jab | J | Jab |
-| Direct | K | Direct |
+| Jab gauche | J | Jab |
+| Direct droit | K | Direct |
+| Crochet gauche en combo (libre) | J → K → J | Jab → Direct → Crochet |
 | Garde | Espace maintenu | Maintenir Garde |
 | Esquive gauche | A ou ← | ← |
 | Esquive droite | D ou → | → |
@@ -133,7 +143,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - Rémi commence par laisser une ouverture. Sa garde et ses attaques suivent un calendrier indépendant de vos boutons.
 - L'annonce ambrée indique le côté sûr. Attendez **« Esquivez »** après « Préparez » pour déclencher le mouvement. La fenêtre de protection dure 0,36 s, après 0,08 s de mouvement.
 - Les marques dorées indiquent une touche, le bouclier bleu un blocage, et les traits verts une esquive. Le bilan distingue touches données/reçues, blocages et esquives réussies.
-- Jab : 10 points d'endurance; direct : 17; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de 20 points/s après un court délai. Une garde épuisée ne protège plus : relâchez pour souffler.
+- Jab : 10 points d'endurance; direct : 17; crochet : 21; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de 20 points/s après un court délai. Une garde épuisée ne protège plus : relâchez pour souffler.
 - En sparring libre, les réglages proposent trois rythmes de Rémi et deux vitesses de récupération. Les leçons conservent le rythme tranquille; la récupération reste réglable. Une annonce déjà commencée conserve sa durée pour rester prévisible.
 - Le bilan de fin permet de recommencer un round avec des statistiques remises à zéro.
 
@@ -157,6 +167,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `src/ui/SparringUI.js`, `src/style.css`, `index.html` : interface, clavier, tactile et orientation.
 - `public/assets/backgrounds/gym.png` : décor validé, inchangé.
 - `public/assets/sprites/sparring-v2/` : 20 PNG transparents et leurs coordonnées utilisés localement. Les premières ressources sont conservées dans le dossier parent.
+- `public/assets/sprites/sparring-hook/` : trois poses supplémentaires de crochet gauche; sources et prompts de génération intégrée dans `references/characters/sparring-hook/PROMPTS.md`.
 - `references/characters/sparring-v2/` : sources, prompts et préparation des nouvelles tenues et poses; les premières sources restent dans le dossier parent.
 - `tests/*.test.js` : règles, concordance des animations, objectifs des leçons et cycle de vie audio.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.

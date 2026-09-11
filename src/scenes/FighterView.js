@@ -3,6 +3,7 @@ import { fighterMotion, transformFighterPoint } from '../game/FighterMotion.js';
 const POSES = ['guard', 'jab', 'cross', 'block', 'hit', 'dodge',
   'jab-windup', 'cross-windup', 'jab-recover', 'cross-recover'];
 const ASSETS = 'assets/sprites/sparring-v2/';
+const HOOK_ASSETS = 'assets/sprites/sparring-hook/';
 
 /** Rendering only. The session owns every timer and every scored contact. */
 export class FighterView {
@@ -13,6 +14,10 @@ export class FighterView {
         scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${ASSETS}${who}-${pose}.png`);
       }
     }
+    scene.load.json('fighters-hook', `${import.meta.env.BASE_URL}${HOOK_ASSETS}fighters.json`);
+    for (const pose of ['hook-windup', 'hook-recover', 'hook']) {
+      scene.load.image(`player-${pose}`, `${import.meta.env.BASE_URL}${HOOK_ASSETS}player-${pose}.png`);
+    }
   }
 
   constructor(scene, who, x, feet, height) {
@@ -20,7 +25,8 @@ export class FighterView {
     this.x = x;
     this.feet = feet;
     this.height = height;
-    this.metadata = scene.cache.json.get('fighters');
+    const original = scene.cache.json.get('fighters');
+    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses } };
     this.anchor = this.metadata.anchor;
     this.shadow = scene.add.ellipse(x, feet - 3, who === 'remi' ? 228 : 250, 30, 0x0b1523, .3);
     this.sprite = scene.add.image(x, feet, `${who}-guard`).setOrigin(
@@ -49,7 +55,7 @@ export class FighterView {
   }
 
   contact() {
-    if (this.pose !== 'jab' && this.pose !== 'cross') return this.target;
+    if (!['jab', 'cross', 'hook'].includes(this.pose)) return this.target;
     return this.point(this.pose, 'contact', true);
   }
 
@@ -58,7 +64,7 @@ export class FighterView {
     const player = this.who === 'player';
     const motion = fighterMotion(fighter, elapsed, this.who);
     let { dx, dy } = motion;
-    if (action === 'jab' || action === 'cross') {
+    if (action === 'jab' || action === 'cross' || action === 'hook') {
       if (this.lastAction !== action || progress < this.lastProgress) this.attackAim = null;
       const target = { ...this.target };
       if (!player) {

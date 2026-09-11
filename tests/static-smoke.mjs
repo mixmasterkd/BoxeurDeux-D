@@ -98,6 +98,14 @@ try {
     if (mobile) await press('[data-action="jab"]');
     else await page.keyboard.press('j');
     await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '1');
+    await page.waitForTimeout(300); // Let the first jab return before the next deliberate press.
+    if (mobile) await press('[data-action="cross"]');
+    else await page.keyboard.press('k');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui [data-action="jab"]')?.classList.contains('is-combo-ready'));
+    if (mobile) await press('[data-action="jab"]');
+    else await page.keyboard.press('j');
+    await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '3');
+    assert.match(await page.locator('.fight-feedback').textContent(), /Combo réussi/);
     if (mobile) await press('.pause-button');
     else await page.keyboard.press('p');
     await page.waitForFunction(() => document.querySelector('.primary-button')?.textContent.includes('Reprendre'));
@@ -164,9 +172,12 @@ try {
     assert.ok(loaded.has('assets/backgrounds/gym-exploration.png'));
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/exploration/player-') && name.endsWith('.png')).length, 12);
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/sparring-v2/') && name.endsWith('.png')).length, 20);
+    for (const pose of ['hook', 'hook-windup', 'hook-recover']) {
+      assert.ok(loaded.has(`assets/sprites/sparring-hook/player-${pose}.png`), `new left hook pose ${pose} loads from the site directory`);
+    }
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym at directory index + index.html, keyboard + touch walk to Rémi, Commandes help in both pauses, sparring jab, restart, guided jab, mute, return to gym, bag contact/help/restart/return, landscape and portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym at directory index + index.html, keyboard + touch walk to Rémi, Commandes help in both pauses, sparring J–K–J combo, restart, guided jab, mute, return to gym, bag contact/help/restart/return, landscape and portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }
