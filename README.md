@@ -40,11 +40,11 @@ npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 
 ## Publication sur GitHub Pages
 
-Le dépôt est associé à `https://github.com/mixmasterkd/BoxeurDeux-D`. Adresse de jeu visée : **https://mixmasterkd.github.io/BoxeurDeux-D/**.
+Le dépôt est associé à `https://github.com/mixmasterkd/BoxeurDeux-D`. Adresse du jeu : **https://mixmasterkd.github.io/BoxeurDeux-D/**.
 
 La première page publiée servait l’ancien index source et affichait seulement « Prochain prototype ». Le workflow `.github/workflows/pages.yml` compile désormais le jeu avant publication : dépendances verrouillées, 19 tests, compilation Vite, puis déploiement du seul dossier `dist/`. Les chemins relatifs conservent le chargement du décor et des sprites dans le sous-dossier `/BoxeurDeux-D/`.
 
-Configuration initiale : dans **Settings → Pages → Build and deployment → Source**, choisir **GitHub Actions**. Envoyer les commits de `main` sur GitHub avec **Push / Envoyer** dans VS Code, ou `git push origin main` depuis un terminal authentifié. Chaque envoi sur `main` déclenche ensuite le workflow; il peut aussi être lancé dans **Actions → Publier le sparring sur GitHub Pages → Run workflow**. Attendre la réussite du job `deploy` avant de considérer la nouvelle version comme publiée.
+La source **GitHub Actions** est configurée dans **Settings → Pages → Build and deployment**. Envoyer les commits de `main` sur GitHub avec **Push / Envoyer** dans VS Code, ou `git push origin main` depuis un terminal authentifié. Chaque envoi sur `main` déclenche ensuite le workflow; il peut aussi être lancé dans **Actions → Publier le sparring sur GitHub Pages → Run workflow**. Attendre la réussite du job `deploy` avant de considérer la nouvelle version comme publiée.
 
 Les tests navigateur facultatifs utilisent Playwright déjà disponible dans cet environnement; ils ne sont pas exécutés dans le workflow, qui ne l’installe pas. Vérifier le site réellement publié avec `SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:static`. Sans cette variable, le test sert `dist/` par interception HTTP locale, sans nouveau serveur.
 
