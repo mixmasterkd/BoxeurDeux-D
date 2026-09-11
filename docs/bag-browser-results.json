@@ -1,10 +1,12 @@
 {
-  "checkedAt": "2026-09-11T04:45:40.047Z",
+  "checkedAt": "2026-09-11T05:23:34.644Z",
   "reports": [
     "Walked to the bag; wrong direct, double jab, jab–direct and JKJ hook scored only on real contacts.",
     "Full 45-second lesson, pause/Commands, focus loss, mute and final contact/precision/combo report passed.",
     "Retry, pause-menu restart, muted reload and return to the same gym position passed.",
+    "Two fingers on Jab retain held styling until the last release; native Enter/Space button activation produces one punch each.",
     "Touch holds/cancel/new presses, landscape side margins at 844×390, 667×375 and 568×320, portrait pause and gym return passed (simulated phone).",
+    "Ten gym/bag round trips through real touch buttons preserve position and stable destroy/shutdown listener counts.",
     "No browser, console or asset errors. Logical canvas remains 1280×720."
   ],
   "errors": []

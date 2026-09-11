@@ -37,7 +37,12 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     page.on('requestfailed', request => errors.push(`${request.url()}: ${request.failure()?.errorText}`));
-    page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
+    page.on('response', response => {
+      if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`);
+      else if (response.url().startsWith(base)) {
+        loaded.add(new URL(response.url()).pathname.slice(new URL(base).pathname.length) || 'index.html');
+      }
+    });
     if (!remote) {
       await page.route('**/*', async route => {
         const url = route.request().url();
@@ -152,10 +157,10 @@ try {
     }
     await page.close();
   }
-  if (!remote) {
+  {
     assert.ok(loaded.has('assets/backgrounds/gym.png'));
     assert.ok(loaded.has('assets/backgrounds/bag-training.png'));
-    assert.ok(loaded.has('assets/sprites/bag/player-hook.png'));
+    assert.ok(loaded.has('assets/sprites/bag-orthodox/player-hook.png'));
     assert.ok(loaded.has('assets/backgrounds/gym-exploration.png'));
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/exploration/player-') && name.endsWith('.png')).length, 12);
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/sparring-v2/') && name.endsWith('.png')).length, 20);

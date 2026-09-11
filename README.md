@@ -20,6 +20,8 @@ Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recou
 
 Sur téléphone en paysage, les boutons occupent **deux bandes latérales hors de l’image du jeu**. La scène centrale garde exactement le même cadrage 1280 × 720 et les mêmes proportions 16:9 que sur ordinateur. Elle s’adapte à la largeur et à la hauteur restantes, sans être étirée ni coupée. Les bandes sont réservées aux pouces, y compris pour Pause et Son. En portrait, une invitation demande de tourner le téléphone et le jeu se met en pause.
 
+La détection utilise le périphérique de pointage principal : un ordinateur à la souris reste sans boutons même si son navigateur annonce une capacité tactile. Une fenêtre verticale sur ordinateur reste jouable; l’invitation à tourner est réservée au tactile. Un changement de périphérique libère les commandes et met la partie en pause.
+
 ## Explorer le gym
 
 La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et téléphone en paysage. Sa taille d’affichage s’adapte aux deux dimensions de la fenêtre; le mobile ne révèle pas une autre portion de la salle.
@@ -40,13 +42,13 @@ Le personnage d’exploration porte une tuque rouge courte avec un petit motif n
 
 Approchez-vous du sac dans le gym et interagissez pour ouvrir l’atelier. La séance dure **45 secondes** : observez les coups annoncés, puis frappez lorsque leur repère s’allume. Quatre enchaînements reviennent au fil de l’exercice : jab, double jab, jab–direct et jab–direct–crochet. Une pression déclenche un coup; maintenir une touche ne répète pas les frappes.
 
-- **J** : jab; **K** : direct.
+- **J** : jab gauche (main avant); **K** : direct droit (main arrière).
 - Dans l’enchaînement annoncé **jab → direct → crochet**, les deux premiers coups réussis ouvrent une courte fenêtre : le troisième **J** déclenche alors le crochet. Hors de cette fenêtre, J reste un jab. Au tactile, le bouton Jab indique **Crochet** quand il est disponible.
 - **P / Échap** : pause ou reprise; **Commandes** explique les mouvements depuis le menu.
 - **M** : couper ou rétablir le son; le bouton tactile Son se trouve dans la marge.
 - Le bilan donne les contacts, la précision et les enchaînements réussis, avec un conseil. Il permet de recommencer ou de revenir au même endroit dans le gym.
 
-Le gant, l’impact sonore et le balancement du sac correspondent au contact compté. Le boxeur garde sa tuque rouge et sa tenue bleue/blanche; six poses dessinées représentent la garde, les préparations et les trois frappes. Le sac et ses chaînes sont une ressource transparente séparée du nouveau décor. Ces images viennent de la génération intégrée; les sources et prompts sont conservés dans `references/characters/bag/PROMPTS.md`. La fluidité pourra encore gagner des poses intermédiaires.
+Le boxeur est en **garde de droitier : pied gauche devant, pied droit derrière**. Les nouvelles poses montrent le jab gauche, le direct droit avec pivot du pied droit arrière et le crochet gauche. Le gant, l’impact sonore et le balancement du sac correspondent au contact compté. Le boxeur garde sa tuque rouge et sa tenue bleue/blanche; six poses dessinées représentent la garde, les préparations et les trois frappes. Le sac et ses chaînes sont une ressource transparente séparée du nouveau décor. Ces images viennent de la génération intégrée; les sources et prompts du personnage corrigé sont conservés dans `references/characters/bag-orthodox/PROMPTS.md` (décor et sac dans le dossier `bag`). La fluidité pourra encore gagner des poses intermédiaires.
 
 **Le crochet est actif uniquement au sac pour cette étape.** Le sparring conserve jab et direct; y reprendre le combo, puis ajouter éventuellement des frappes au corps, reste une suite à travailler. L’atelier du sac ne consomme pas encore d’énergie quotidienne et n’attribue pas de compétences persistantes.
 
@@ -93,6 +95,7 @@ GYM_RENDERER=canvas npm run test:visibility # Même contrôle avec le rendu Canv
 npm run test:commands # Aide dans la pause, clavier, tactile et petites fenêtres
 npm run test:bag # Séance au sac, rythme, combo, contacts, bilan et retour
 npm run test:side-controls # Commandes hors image dans le gym et le ring
+npm run test:input-device # PC déclarant du tactile, mobile et changements de périphérique
 npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```
@@ -144,8 +147,8 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `src/scenes/BagScene.js`, `src/game/BagSession.js`, `src/ui/BagUI.js` et `src/ui/bag.css` : séance au sac, chorégraphies, précision et menus.
 - `src/scenes/BagFighterView.js` : poses du joueur, contact des gants et oscillation du sac.
 - `src/ui/GameLayout.js` : cadrage commun et commandes dans les bandes latérales.
-- `public/assets/backgrounds/bag-training.png`, `public/assets/sprites/bag/` : décor et ressources finales du sac.
-- `references/characters/bag/PROMPTS.md`, `scripts/prepare-bag-sprites.mjs` : sources, prompts exacts et extraction reproductible.
+- `public/assets/backgrounds/bag-training.png`, `public/assets/sprites/bag-orthodox/` et `public/assets/sprites/bag/heavy-bag.png` : décor et ressources finales du sac.
+- `references/characters/bag-orthodox/PROMPTS.md`, `scripts/prepare-bag-orthodox-sprites.mjs` : poses droitières, prompts exacts et extraction reproductible. Le dossier `bag` conserve le sac, le décor et la première version du personnage.
 - `src/scenes/SparringScene.js` : scène et synchronisation des effets avec les touches.
 - `src/scenes/FighterView.js` et `src/game/FighterMotion.js` : affichage, poses et mouvements synchronisés avec le combat.
 - `src/game/SparringSession.js` : chronomètre, états, règles et rythme de Rémi, sans dépendance au rendu.

@@ -36,7 +36,7 @@ La disparition du personnage près des ateliers est corrigée. La nouvelle prés
 - Gants, sons, contact compté et balancement du sac synchronisés; bilan de précision et d’enchaînements réussis.
 - Pause, Commandes, reprise, nouvel essai et retour au même endroit dans le gym.
 - **J → K → J = jab → direct → crochet**, actif au sac seulement. Le troisième J devient un crochet lorsque l’enchaînement annoncé a ses deux premières frappes réussies et que la fenêtre de rythme est ouverte. Hors combo, J reste un jab.
-- Nouveau décor du même gym, tuque rouge, tenue bleue/blanche, sac transparent séparé et six poses. Ressources issues de la génération intégrée; prompts et sources conservés dans `references/characters/bag/PROMPTS.md`.
+- Nouveau décor du même gym, tuque rouge, tenue bleue/blanche, sac transparent séparé et six poses. Garde de droitier corrigée après retour utilisateur : pied gauche devant, jab gauche, direct droit avec pivot arrière droit, crochet gauche. Ressources issues de la génération intégrée; poses corrigées et prompts dans `references/characters/bag-orthodox/PROMPTS.md`, décor/sac conservés dans le dossier `bag`.
 
 Les poses clés sont en place; davantage d’intermédiaires pourront améliorer la fluidité. Les scripts `test:bag` et `test:side-controls` couvrent la séance et la disposition des commandes; leurs résultats appartiennent au compte rendu de vérifications.
 

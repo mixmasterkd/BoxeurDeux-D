@@ -1,4 +1,4 @@
-const ASSETS = 'assets/sprites/bag/';
+const ASSETS = 'assets/sprites/bag-orthodox/';
 const POSES = ['guard', 'windup', 'jab', 'cross', 'hook-windup', 'hook'];
 const EPSILON = 1e-9; // Same contact boundary as BagSession.
 const clamp = (v, low = 0, high = 1) => Math.max(low, Math.min(high, v));
@@ -10,7 +10,7 @@ export class BagFighterView {
     const base = import.meta.env.BASE_URL;
     scene.load.image('bag-room', `${base}assets/backgrounds/bag-training.png`);
     scene.load.json('bag-fighters', `${base}${ASSETS}fighters.json`);
-    scene.load.image('heavy-bag', `${base}${ASSETS}heavy-bag.png`);
+    scene.load.image('heavy-bag', `${base}assets/sprites/bag/heavy-bag.png`);
     for (const pose of POSES) scene.load.image(`bag-player-${pose}`, `${base}${ASSETS}player-${pose}.png`);
   }
 

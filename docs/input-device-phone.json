@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-11T05:15:24.228Z",
+  "reports": [
+    "Phone 844×390 gym: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 844×390 sparring: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 844×390 bag: outside rails, portrait freeze/release, explicit landscape resume and actual primary-pointer changes passed.",
+    "Phone 667×375 gym: outside rails, portrait freeze/release, explicit landscape resume passed.",
+    "Phone 667×375 sparring: outside rails, portrait freeze/release, explicit landscape resume passed.",
+    "Phone 667×375 bag: outside rails, portrait freeze/release, explicit landscape resume passed."
+  ],
+  "errors": []
+}

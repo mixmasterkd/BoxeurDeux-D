@@ -1,5 +1,11 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Dernier retour utilisateur — contrôles ordinateur et garde au sac
+
+Le navigateur de l’ordinateur affichait encore les boutons : l’ancienne détection traitait `maxTouchPoints > 0` comme un téléphone. `GameLayout` utilise désormais `(pointer: coarse) and (hover: none)` pour le périphérique principal. Les trois interfaces suivent cette décision commune; une simple capacité tactile ou un événement touch ne force plus le mode mobile. Le portrait n’interrompt pas une fenêtre ordinateur. Changer de périphérique libère les entrées et met la scène en pause.
+
+Les poses initiales du sac dessinaient le pied droit devant et rendaient les mains ambiguës. Le personnage a été redessiné en **garde de droitier**, trois quarts avant : pied gauche devant, **J = jab gauche**, **K = direct droit avec pivot arrière droit**, crochet gauche en combo. Nouveau set `public/assets/sprites/bag-orthodox/`, sources/prompts dans `references/characters/bag-orthodox/`; anciens fichiers conservés. Le sac et le décor sont réutilisés à l’identique. Les noms de touches et les règles n’ont pas été échangés pour compenser les dessins.
+
 ## État actuel — GO du 11 septembre 2026
 
 L’utilisateur a autorisé **les deux étapes ensemble** : déplacer les commandes hors de l’image dans tout le jeu et réaliser le sac chorégraphié. Cette demande remplace les anciennes attentes de GO, de mini test visuel et de discussion préalable conservées dans les archives ci-dessous.
