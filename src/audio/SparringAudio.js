@@ -121,6 +121,9 @@ export class SparringAudio {
         case 'remi-dodged':
           this.noise(at, .23, 1100, .13, .055);
           break;
+        case 'shadow-motion':
+          this.noise(at, .12, 1150, .08, .02);
+          break;
         case 'exhausted':
           this.noise(at, .32, 550, .12, .07);
           this.noise(at + .23, .21, 470, .075, .05);

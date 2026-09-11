@@ -19,8 +19,8 @@ export const GYM_LAYOUT = {
   ],
   stations: [
     { id: 'remi', label: 'Rémi le Tank', x: 915, y: 470, radius: 85, kind: 'sparring' },
-    { id: 'sac', label: 'Sac de frappe', x: 226, y: 275, radius: 65, kind: 'preview' },
-    { id: 'miroir', label: 'Miroir', x: 125, y: 217, radius: 65, kind: 'preview' },
+    { id: 'sac', label: 'Sac de frappe', x: 226, y: 275, radius: 65, kind: 'bag' },
+    { id: 'miroir', label: 'Miroir', x: 125, y: 217, radius: 65, kind: 'shadow' },
     { id: 'speedball', label: 'Speed ball', x: 1070, y: 237, radius: 80, kind: 'preview' },
     { id: 'corde', label: 'Corde à danser', x: 210, y: 537, radius: 85, kind: 'preview' },
     { id: 'porte', label: 'Sortie du gym', x: 640, y: 659, radius: 50, kind: 'exit' },

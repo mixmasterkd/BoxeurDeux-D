@@ -14,7 +14,7 @@ const noop = () => {};
 export class GymUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
-      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onBlur',
+      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onShadow', 'onBlur',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.root = document.getElementById('gym-ui');
     if (!this.root) throw new Error('GymUI requires #gym-ui inside the game stage.');
@@ -151,6 +151,7 @@ export class GymUI {
       this.clearInputs();
       if (button.dataset.gymAction === 'sparring') this.callbacks.onSparring(button.dataset.lesson ?? 'free');
       else if (button.dataset.gymAction === 'bag') this.callbacks.onBag();
+      else if (button.dataset.gymAction === 'shadow') this.callbacks.onShadow();
       else this.callbacks.onCloseDialog();
     });
     for (const [direction, button] of this.directionButtons) {
@@ -353,7 +354,7 @@ export class GymUI {
     for (const action of choices) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : ' gym-close-button'}`;
+      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : action.id === 'shadow' ? ' gym-shadow-button' : ' gym-close-button'}`;
       button.dataset.gymAction = action.id;
       if (action.lesson) button.dataset.lesson = action.lesson;
       button.textContent = action.label;

@@ -5,7 +5,7 @@ import { setSceneShell } from '../ui/SceneShell.js';
 
 const ACTIVITIES = {
   sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, puis jab–direct–crochet. Une pression par coup, et on relâche les épaules entre les séries.' },
-  miroir: { title: 'Le miroir', text: 'Ce coin sera réservé au shadow boxing : pratiquer les mouvements librement, sans adversaire. Pour cette première visite, Rémi vous attend pour ses leçons.' },
+  miroir: { title: 'Le miroir', text: 'Pratique libre : jab, direct, crochet en combo, garde et esquives. Observe ton reflet à ton rythme, sans adversaire ni limite de temps. Le ralenti permet de regarder chaque mouvement.' },
   speedball: { title: 'La speed ball', text: 'Un futur exercice de coordination et de régularité. Le matériel est en place; le mini-jeu sera ajouté après la visite du gym.' },
   corde: { title: 'La corde à danser', text: 'Ce tapis accueillera un exercice de rythme et de jeu de jambes. L’atelier ouvrira plus tard; le sparring avec Rémi est déjà accessible.' },
   porte: { title: 'Le quartier attendra', text: 'La première visite se déroule à l’intérieur du gym. Plus tard, vous passerez cette porte en survêtement noir à bandes blanches, toujours avec votre tuque rouge.' },
@@ -54,6 +54,7 @@ export class GymScene extends Phaser.Scene {
       onCloseDialog: () => { this.ui.closeDialog(); this.world.releaseControls(); },
       onSparring: lesson => this.enterSparring(lesson),
       onBag: () => this.enterBag(),
+      onShadow: () => this.enterShadow(),
       onBlur: () => this.world.pause(),
     });
     this.renderWorld();
@@ -97,6 +98,10 @@ export class GymScene extends Phaser.Scene {
       this.ui.showDialog({ speaker: 'L’ATELIER DU SAC', ...ACTIVITIES.sac, actions: [
         { id: 'bag', label: 'Commencer · 45 s' }, { id: 'close', label: 'Continuer la visite →' },
       ] });
+    } else if (station.id === 'miroir') {
+      this.ui.showDialog({ speaker: 'SHADOW BOXING', ...ACTIVITIES.miroir, actions: [
+        { id: 'shadow', label: 'Pratiquer devant le miroir →' }, { id: 'close', label: 'Continuer la visite →' },
+      ] });
     } else {
       this.ui.showDialog({ speaker: station.kind === 'exit' ? 'LA PORTE DU GYM' : 'DÉCOUVRIR LES ATELIERS', ...ACTIVITIES[station.id] });
     }
@@ -131,6 +136,12 @@ export class GymScene extends Phaser.Scene {
     if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'sac') return;
     this.world.releaseControls();
     this.scene.start('BagScene');
+  }
+
+  enterShadow() {
+    if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'miroir') return;
+    this.world.releaseControls();
+    this.scene.start('ShadowScene');
   }
 
   update(_time, delta) {

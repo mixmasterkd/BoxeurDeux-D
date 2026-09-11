@@ -18,7 +18,7 @@ Le sparring dispose de tenues d’entraînement (débardeur, short, casque et ga
 - Salle dans le même univers visuel, cadrage 1280 × 720 identique sur ordinateur et téléphone paysage.
 - Boxeur à tuque rouge courte et motif noir, débardeur bleu et blanc, short noir, chaussures bleues; marche en quatre directions.
 - Rémi près du ring : conversation, choix du sparring libre ou des trois leçons, retour à la position de départ après la séance.
-- Sac, miroir, speed ball et corde accessibles à pied. Le sac ouvre maintenant sa séance; les trois autres ateliers présentent leur future activité.
+- Sac, miroir, speed ball et corde accessibles à pied. Le sac et le miroir ouvrent maintenant leurs séances; speed ball et corde présentent leur future activité.
 - Collisions, pause, clavier, tactile simultané, relâchements et orientation.
 
 ## Commandes hors de l’image — GO du 11 septembre 2026
@@ -44,7 +44,11 @@ Les poses clés sont en place; davantage d’intermédiaires pourront améliorer
 
 Le nouveau GO autorise le combo **jab–direct–crochet en sparring libre**. Il est intégré avec trois poses supplémentaires du joueur vu de dos, une fenêtre de 0,5 s après la récupération de chaque coup, un coût total de 48 points d’endurance et des ouvertures de Rémi allongées. Les défenses, les coups reçus, la pause et l’expiration interrompent la chaîne. Le bilan distingue crochets touchés et combos de trois touches. Les leçons restent ciblées sur leurs mouvements initiaux. Voir `VERIFICATIONS.md` pour les essais terminés. Les frappes au corps restent une évolution ultérieure.
 
-Le prochain atelier envisagé est le **miroir**, pour pratiquer librement les mouvements seulement, sans adversaire. La speed ball et la corde suivront. La visite, le sac et le sparring restent la base jouable pendant cette suite.
+## Miroir — réalisé après le nouveau GO
+
+Le **shadow boxing** permet maintenant de pratiquer librement les mouvements seulement, sans adversaire ni endurance limitante. Accès par la visite ou `?scene=shadow`; tenue du gym à tuque rouge, reflet synchronisé dans un nouveau décor, jab/direct/crochet en combo, garde haute et deux esquives. Vitesse normale ou ralentie à 65 %, pause/Commandes, fin volontaire, bilan des gestes, nouvel essai et retour à la même position dans le gym. Commandes clavier et marges tactiles communes au reste du jeu. Les essais réellement terminés sont décrits dans `VERIFICATIONS.md`.
+
+La **speed ball**, puis la **corde à danser**, sont les prochains ateliers envisagés. La visite, le sac, le miroir et le sparring restent la base jouable. Les frappes au corps et la progression quotidienne ne sont pas encore intégrées.
 
 ## Ateliers prévus
 
@@ -53,13 +57,13 @@ Chaque atelier devra d’abord être agréable à jouer et compréhensible par l
 | Activité | Intention du mini-jeu |
 | --- | --- |
 | Sac de frappe | Première séance intégrée : rythme, précision et quatre enchaînements. |
-| Shadow boxing devant le miroir | Pratiquer librement les mouvements seulement, sans adversaire. |
+| Shadow boxing devant le miroir | Intégré : pratique libre, reflet, défenses, combo et ralenti, sans adversaire. |
 | Speed ball | Coordination et régularité. |
 | Corde à danser | Rythme, endurance et jeu de jambes. |
 | Sparring avec Rémi le Tank | Mettre en pratique le timing, la précision, les blocages, les esquives et les réponses. |
 
 Plus tard, les séances consommeront de l’**énergie du jour** et feront progresser les compétences correspondantes. Cette réserve quotidienne restera distincte de l’**endurance pendant un round**, qui sert aux actions et récupère entre les échanges. Les coûts, gains et règles de récupération quotidienne restent à définir après les premiers mini-jeux.
 
-Le gym est explorable et le sac possède sa première séance. Le miroir, la speed ball, la corde et la progression quotidienne restent des étapes futures. La ville, la maison, l’emploi, la carrière et les combats officiels viendront ensuite.
+Le gym est explorable; le sac, le miroir et le sparring sont jouables. La speed ball, la corde et la progression quotidienne restent des étapes futures. La ville, la maison, l’emploi, la carrière et les combats officiels viendront ensuite.
 
 Sur la future carte extérieure, le personnage portera un survêtement Adidas noir à bandes blanches avec sa tuque rouge. Les photos fournies ont servi de références graphiques; elles ne sont pas publiées avec le jeu.

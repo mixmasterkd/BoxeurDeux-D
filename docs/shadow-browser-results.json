@@ -1,0 +1,511 @@
+{
+  "checkedAt": "2026-09-11T13:05:57.862Z",
+  "passed": true,
+  "case": "all",
+  "reports": [
+    "Walked from the gym entrance to the mirror; real J–K–J produced jab, right cross and left hook at extension. High guard and both dodges used matching reflected poses inside the glass.",
+    "Desktop with primary fine pointer and maxTouchPoints=10 shows no commands. Pause/help, true 0.65 playback, held-key protection, focus release, mute, summary, both restart paths and exact gym return passed.",
+    "Simulated touch: held attacks do not repeat; guard and attack work together, separate fingers release independently, cancellation clears, native Enter/Space buttons work, and J–K–J is a real touch combo.",
+    "Simulated 844×390, 667×375 and 568×320: full fixed frame, seven outside-margin controls, accessible pause/help menus. Focus, portrait and primary-pointer changes clear inputs and require explicit resume; touch summary/restart passed.",
+    "Nine gym/mirror visits through real keyboard walking and touch menus preserve the exact position, stable lifecycle listeners and one punch per press after each re-entry.",
+    "No browser, console or asset errors. Mobile checks are Chromium viewport/touch simulation, not a physical-phone test."
+  ],
+  "measurements": {
+    "desktopLayout": {
+      "logical": [
+        1280,
+        720
+      ],
+      "canvas": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "area": {
+        "x": 80,
+        "y": 162,
+        "right": 1360,
+        "bottom": 882,
+        "width": 1280,
+        "height": 720
+      },
+      "controls": [],
+      "guideVisible": false,
+      "width": 1440,
+      "height": 1000,
+      "noScroll": true,
+      "primaryFine": true,
+      "touchPoints": 10,
+      "touchLayout": "false"
+    },
+    "desktopMotions": {
+      "motions": [
+        {
+          "type": "motion",
+          "action": "jab",
+          "time": 1.164600000000001,
+          "pose": "jab",
+          "phase": "contact",
+          "texture": "shadow-jab",
+          "reflectedTexture": "shadow-jab",
+          "bounds": {
+            "left": 314.59999999999997,
+            "right": 651.2,
+            "top": 268.2,
+            "bottom": 640
+          },
+          "reflectedBounds": {
+            "left": 792.1999999999999,
+            "right": 1067.6,
+            "top": 194.8,
+            "bottom": 499
+          }
+        },
+        {
+          "type": "motion",
+          "action": "cross",
+          "time": 1.7332000000000016,
+          "pose": "cross",
+          "phase": "contact",
+          "texture": "shadow-cross",
+          "reflectedTexture": "shadow-cross",
+          "bounds": {
+            "left": 306.9,
+            "right": 661.1,
+            "top": 267.09999999999997,
+            "bottom": 640
+          },
+          "reflectedBounds": {
+            "left": 784.1,
+            "right": 1073.9,
+            "top": 193.89999999999998,
+            "bottom": 499
+          }
+        },
+        {
+          "type": "motion",
+          "action": "hook",
+          "time": 2.436500000000001,
+          "combo": true,
+          "pose": "hook",
+          "phase": "contact",
+          "texture": "shadow-hook",
+          "reflectedTexture": "shadow-hook",
+          "bounds": {
+            "left": 305.79999999999995,
+            "right": 599.5,
+            "top": 269.29999999999995,
+            "bottom": 640
+          },
+          "reflectedBounds": {
+            "left": 834.5,
+            "right": 1074.8,
+            "top": 195.7,
+            "bottom": 499
+          }
+        },
+        {
+          "type": "motion",
+          "action": "dodgeLeft",
+          "time": 3.2798999999999987,
+          "pose": "dodgeLeft",
+          "phase": "dodge",
+          "texture": "shadow-dodgeLeft",
+          "reflectedTexture": "shadow-dodgeLeft",
+          "bounds": {
+            "left": 267.2391541032854,
+            "right": 542.2787947725504,
+            "top": 327.49417827593857,
+            "bottom": 642.4946652829825
+          },
+          "reflectedBounds": {
+            "left": 881.3173497315496,
+            "right": 1106.3497830064027,
+            "top": 243.31341858940425,
+            "bottom": 501.0410897769857
+          }
+        },
+        {
+          "type": "motion",
+          "action": "dodgeRight",
+          "time": 3.8964999999999956,
+          "pose": "dodgeRight",
+          "phase": "dodge",
+          "texture": "shadow-dodgeRight",
+          "reflectedTexture": "shadow-dodgeRight",
+          "bounds": {
+            "left": 332.2220962033929,
+            "right": 605.1808868479392,
+            "top": 320.7962527929839,
+            "bottom": 642.3560727672613
+          },
+          "reflectedBounds": {
+            "left": 829.8520016698681,
+            "right": 1053.1819212881333,
+            "top": 237.8332977397141,
+            "bottom": 500.9276959004865
+          }
+        }
+      ],
+      "glass": {
+        "x": 688,
+        "y": 58,
+        "width": 510,
+        "height": 458
+      },
+      "facing": [
+        1.1,
+        -0.9
+      ]
+    },
+    "slowMotion": {
+      "realDelta": 0.8666000000000089,
+      "motionDelta": 0.563289999999995,
+      "ratio": 0.6499999999999875
+    },
+    "finished": {
+      "phase": "finished",
+      "elapsed": 6.757169999999993,
+      "seconds": 8.949600000000036,
+      "speed": 0.65,
+      "player": {
+        "action": "idle",
+        "elapsed": 0,
+        "progress": 0,
+        "duration": 0,
+        "impact": null,
+        "hurt": 0,
+        "reactionProgress": 1
+      },
+      "combo": {
+        "step": 0,
+        "ready": false,
+        "remaining": 0
+      },
+      "stats": {
+        "jab": 3,
+        "cross": 1,
+        "hook": 1,
+        "combos": 1,
+        "dodgeLeft": 1,
+        "dodgeRight": 1,
+        "guardSeconds": 0.7501000000000008
+      }
+    },
+    "mobileLayouts": [
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 117.109375,
+          "y": 38,
+          "right": 726.859375,
+          "bottom": 380.984375,
+          "width": 609.75,
+          "height": 342.984375
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 834,
+          "bottom": 381,
+          "width": 824,
+          "height": 343
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 25.109375,
+            "y": 126.984375,
+            "right": 103.109375,
+            "bottom": 175.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 25.109375,
+            "y": 184.984375,
+            "right": 103.109375,
+            "bottom": 233.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 25.109375,
+            "y": 242.984375,
+            "right": 103.109375,
+            "bottom": 291.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 747.875,
+            "y": 99.984375,
+            "right": 811.875,
+            "bottom": 143.984375,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 747.875,
+            "y": 155.984375,
+            "right": 811.875,
+            "bottom": 199.984375,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 740.875,
+            "y": 211.984375,
+            "right": 818.875,
+            "bottom": 260.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 740.875,
+            "y": 269.984375,
+            "right": 818.875,
+            "bottom": 318.984375,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 844,
+        "height": 390,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      },
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 110,
+          "y": 76.28125,
+          "right": 557,
+          "bottom": 327.71875,
+          "width": 447,
+          "height": 251.4375
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 657,
+          "bottom": 366,
+          "width": 647,
+          "height": 328
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 18,
+            "y": 119.5,
+            "right": 96,
+            "bottom": 168.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 18,
+            "y": 177.5,
+            "right": 96,
+            "bottom": 226.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 18,
+            "y": 235.5,
+            "right": 96,
+            "bottom": 284.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 578,
+            "y": 92.5,
+            "right": 642,
+            "bottom": 136.5,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 578,
+            "y": 148.5,
+            "right": 642,
+            "bottom": 192.5,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 571,
+            "y": 204.5,
+            "right": 649,
+            "bottom": 253.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 571,
+            "y": 262.5,
+            "right": 649,
+            "bottom": 311.5,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 667,
+        "height": 375,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      },
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 110,
+          "y": 76.625,
+          "right": 458,
+          "bottom": 272.375,
+          "width": 348,
+          "height": 195.75
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 558,
+          "bottom": 311,
+          "width": 548,
+          "height": 273
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 18,
+            "y": 92,
+            "right": 96,
+            "bottom": 141,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 18,
+            "y": 150,
+            "right": 96,
+            "bottom": 199,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 18,
+            "y": 208,
+            "right": 96,
+            "bottom": 257,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 479,
+            "y": 65,
+            "right": 543,
+            "bottom": 109,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 479,
+            "y": 121,
+            "right": 543,
+            "bottom": 165,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 472,
+            "y": 177,
+            "right": 550,
+            "bottom": 226,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 472,
+            "y": 235,
+            "right": 550,
+            "bottom": 284,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 568,
+        "height": 320,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      }
+    ],
+    "transitions": {
+      "trips": 9,
+      "gymCounts": {
+        "GymScene": {
+          "shutdown": 15,
+          "destroy": 13
+        },
+        "ShadowScene": {
+          "shutdown": 1,
+          "destroy": 12
+        }
+      },
+      "shadowCounts": {
+        "GymScene": {
+          "shutdown": 1,
+          "destroy": 12
+        },
+        "ShadowScene": {
+          "shutdown": 13,
+          "destroy": 13
+        }
+      },
+      "position": {
+        "x": 150.01999999999975,
+        "y": 238.36000000000078
+      }
+    }
+  },
+  "errors": []
+}

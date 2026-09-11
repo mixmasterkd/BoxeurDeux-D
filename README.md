@@ -1,6 +1,6 @@
 # BoxeurDeux-D
 
-Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rejoint le **sac chorégraphié** ou rencontre Rémi pour le sparring libre et ses trois leçons. Le retour au gym conserve sa position pendant la partie.
+Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rejoint le **sac chorégraphié**, pratique le **shadow boxing au miroir** ou rencontre Rémi pour le sparring libre et ses trois leçons. Le retour au gym conserve sa position pendant la partie.
 
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
@@ -12,11 +12,11 @@ La base comprend dix poses par boxeur : garde, jab/direct, préparations et demi
 
 Le paysage mobile est conservé. Un ancien doigt resté sur Garde pendant une perte de focus ne peut plus activer accidentellement « Reprendre » au relâchement.
 
-Le miroir, la speed ball et la corde sont repérables pendant la visite et présentent leur futur mini-jeu. Leurs exercices et l’énergie quotidienne restent à développer; voir `docs/PROCHAINES_ETAPES.md`. L’endurance du round reste indépendante de ce futur système.
+La speed ball et la corde présentent encore leur futur mini-jeu. Leurs exercices et l’énergie quotidienne restent à développer; voir `docs/PROCHAINES_ETAPES.md`. L’endurance du round reste indépendante de ce futur système.
 
 ## Commandes et cadrage dans tout le jeu
 
-Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recouvre l’action; les raccourcis du pied de page sont également masqués. **P ou Échap → Commandes** ouvre l’aide depuis la pause, dans le gym, le sparring et le sac. Revenir de l’aide au menu ne reprend pas la partie.
+Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recouvre l’action; les raccourcis du pied de page sont également masqués. **P ou Échap → Commandes** ouvre l’aide depuis la pause, dans le gym, le sparring, le sac et au miroir. Revenir de l’aide au menu ne reprend pas la partie.
 
 Sur téléphone en paysage, les boutons occupent **deux bandes latérales hors de l’image du jeu**. La scène centrale garde exactement le même cadrage 1280 × 720 et les mêmes proportions 16:9 que sur ordinateur. Elle s’adapte à la largeur et à la hauteur restantes, sans être étirée ni coupée. Les bandes sont réservées aux pouces, y compris pour Pause et Son. En portrait, une invitation demande de tourner le téléphone et le jeu se met en pause.
 
@@ -32,9 +32,10 @@ La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et t�
 - Sur ordinateur, ouvrir **Commandes** dans la pause pour consulter les raccourcis. Sur téléphone, le pavé directionnel et le bouton d’interaction se trouvent dans les bandes latérales.
 - Rémi, près des marches à droite du ring, propose le sparring libre et ses trois leçons. La séance choisie s’ouvre sur son menu avant démarrage.
 - Le sac ouvre une séance guidée de 45 secondes; son accueil explique l’exercice avant démarrage.
+- Le miroir ouvre une pratique libre des mouvements, sans adversaire ni limite de temps.
 - **Retour au gym**, sur l’accueil d’une séance, en pause ou au bilan, permet de retrouver votre position. Le clavier et les contacts sont libérés à chaque changement de scène.
 
-Les collisions empêchent de traverser le ring, le sac et les meubles. Le miroir, la speed ball et la corde présentent encore leurs futures activités. La porte présente la future sortie vers le quartier. Ni énergie quotidienne, ni progression sauvegardée, ni carte extérieure à cette étape.
+Les collisions empêchent de traverser le ring, le sac et les meubles. La speed ball et la corde présentent encore leurs futures activités. La porte présente la future sortie vers le quartier. Ni énergie quotidienne, ni progression sauvegardée, ni carte extérieure à cette étape.
 
 Le personnage d’exploration porte une tuque rouge courte avec un petit motif noir, un débardeur bleu et blanc, un short noir et des chaussures bleues. Douze poses partagent une échelle et un point de contact au sol. Rémi a une pose d’accueil adaptée à la même vue; le sparring garde ses personnages et son décor validés. Le survêtement Adidas noir à bandes blanches est prévu pour l’extérieur.
 
@@ -59,6 +60,20 @@ Le même enchaînement est maintenant disponible en **sparring libre**, avec les
 Les deux premières frappes peuvent être bloquées : le crochet reste lançable, mais le bilan compte un **combo complet** seulement si les trois coups ont touché. Une défense, un coup reçu, une pause, un manque d’endurance ou une attente trop longue interrompt la chaîne. Une frappe déjà engagée finit son mouvement. Au tactile, le bouton Jab devient Crochet; il prend une teinte verte lorsque les 21 points d’endurance nécessaires sont disponibles.
 
 Le coût des trois coups est de **48 points d’endurance** (10 + 17 + 21), hors récupération entre les coups. Rémi laisse des ouvertures fixes un peu plus longues en libre, sans réagir à la lecture de vos boutons. Les trois leçons conservent jab/direct et leur rythme initial. Le crochet dispose de trois nouvelles poses vues de dos, avec casque et tenue de sparring; le contact, le son et les compteurs utilisent la même horloge.
+
+## Shadow boxing devant le miroir
+
+Rejoignez le miroir en haut à gauche du gym puis **E / Entrée → Pratiquer devant le miroir**. Cet atelier permet de répéter librement les mouvements, sans adversaire, sans limite de temps et sans coût d’endurance.
+
+- **J** : jab gauche; **K** : direct droit; **J → K → J** : crochet gauche après les deux premiers gestes, avec la même cadence que le sparring. Une pression par geste, après le retour en garde.
+- **Espace maintenu** : garde haute. **A / D ou ← / →** : esquives gauche et droite. Une défense interrompt l’enchaînement en cours.
+- **P / Échap** : pause; **Commandes** : aide; **M** : son/muet. Le menu propose une vitesse normale ou un **ralenti à 65 %** pour observer le geste.
+- **Terminer la séance**, dans la pause, présente les mouvements pratiqués : frappes, enchaînements, esquives et temps en garde. Ce bilan ne note ni précision ni coups portés à un adversaire. Recommencez ou revenez au même endroit dans le gym.
+- Le reflet reproduit instantanément la pose, l’inclinaison et les déplacements du personnage. Pause et ralenti s’appliquent ensemble au boxeur et à son reflet.
+
+Le personnage conserve sa tuque rouge, sa tenue bleue/blanche et sa garde de droitier. Les six poses du sac sont réutilisées; une garde haute et deux esquives dessinées les complètent. Un nouveau décor du même gym encadre le reflet. Les sons sont de courts souffles de mouvement, sans bruit de frappe sur un adversaire. Les ressources viennent de la génération d’images intégrée; sources et prompts : `references/characters/mirror/PROMPTS.md`.
+
+Sur mobile, jouez en paysage : défenses dans la marge gauche, frappes dans la marge droite. Les appuis sont libérés en cas de perte de focus, de changement de périphérique ou de passage en portrait. La reprise reste explicite. Aucun compte ni service distant n’est nécessaire pour pratiquer.
 
 ## Leçons de Rémi et son
 
@@ -88,6 +103,7 @@ Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle l
 - Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même gym).
 - Accès direct au sparring : **http://127.0.0.1:5173/?scene=sparring**. Ce raccourci fonctionne aussi sur le site publié.
 - Accès direct au sac : **http://127.0.0.1:5173/?scene=bag**.
+- Accès direct au miroir : **http://127.0.0.1:5173/?scene=shadow**. Fonctionne aussi sur GitHub Pages.
 - Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 11 septembre 2026; elle peut changer).
 
 Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun compte joueur, clé API ni service d'IA n'est nécessaire pendant une partie.
@@ -97,6 +113,7 @@ npm test         # Règles du sparring, du sac, déplacements et autres modèles
 npm run build    # Compilation vers dist/
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:combo # Combo sparring réel au clavier/tactile, contacts et interruptions
+npm run test:shadow # Miroir, mouvements/reflet, ralenti, tactile et retours au gym
 npm run test:training # Trois leçons complètes, bilans et audio
 npm run test:gym # Marche, collisions, ateliers, aller/retour sparring et tactile
 npm run test:visibility # Pixels réellement visibles près des ateliers (WebGL)
@@ -157,6 +174,9 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `src/scenes/BagScene.js`, `src/game/BagSession.js`, `src/ui/BagUI.js` et `src/ui/bag.css` : séance au sac, chorégraphies, précision et menus.
 - `src/scenes/BagFighterView.js` : poses du joueur, contact des gants et oscillation du sac.
 - `src/ui/GameLayout.js` : cadrage commun et commandes dans les bandes latérales.
+- `src/game/ShadowSession.js`, `src/scenes/ShadowScene.js`, `src/scenes/ShadowFighterView.js`, `src/ui/ShadowUI.js` et `src/ui/shadow.css` : pratique libre au miroir, commandes et reflet synchronisé.
+- `public/assets/backgrounds/mirror-training.png` et `public/assets/sprites/mirror/` : décor du miroir et trois poses défensives; les frappes utilisent les ressources `bag-orthodox`.
+- `references/characters/mirror/PROMPTS.md`, `scripts/prepare-mirror-sprites.mjs` : sources, prompts intégrés et préparation reproductible.
 - `public/assets/backgrounds/bag-training.png`, `public/assets/sprites/bag-orthodox/` et `public/assets/sprites/bag/heavy-bag.png` : décor et ressources finales du sac.
 - `references/characters/bag-orthodox/PROMPTS.md`, `scripts/prepare-bag-orthodox-sprites.mjs` : poses droitières, prompts exacts et extraction reproductible. Le dossier `bag` conserve le sac, le décor et la première version du personnage.
 - `src/scenes/SparringScene.js` : scène et synchronisation des effets avec les touches.

@@ -1,0 +1,297 @@
+{
+  "checkedAt": "2026-09-11T13:03:37.165Z",
+  "passed": true,
+  "case": "mobile",
+  "reports": [
+    "Simulated touch: held attacks do not repeat; guard and attack work together, separate fingers release independently, cancellation clears, native Enter/Space buttons work, and J–K–J is a real touch combo.",
+    "Simulated 844×390, 667×375 and 568×320: full fixed frame, seven outside-margin controls, accessible pause/help menus. Focus, portrait and primary-pointer changes clear inputs and require explicit resume; touch summary/restart passed.",
+    "No browser, console or asset errors. Mobile checks are Chromium viewport/touch simulation, not a physical-phone test."
+  ],
+  "measurements": {
+    "mobileLayouts": [
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 117.109375,
+          "y": 38,
+          "right": 726.859375,
+          "bottom": 380.984375,
+          "width": 609.75,
+          "height": 342.984375
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 834,
+          "bottom": 381,
+          "width": 824,
+          "height": 343
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 25.109375,
+            "y": 126.984375,
+            "right": 103.109375,
+            "bottom": 175.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 25.109375,
+            "y": 184.984375,
+            "right": 103.109375,
+            "bottom": 233.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 25.109375,
+            "y": 242.984375,
+            "right": 103.109375,
+            "bottom": 291.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 747.875,
+            "y": 99.984375,
+            "right": 811.875,
+            "bottom": 143.984375,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 747.875,
+            "y": 155.984375,
+            "right": 811.875,
+            "bottom": 199.984375,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 740.875,
+            "y": 211.984375,
+            "right": 818.875,
+            "bottom": 260.984375,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 740.875,
+            "y": 269.984375,
+            "right": 818.875,
+            "bottom": 318.984375,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 844,
+        "height": 390,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      },
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 110,
+          "y": 76.28125,
+          "right": 557,
+          "bottom": 327.71875,
+          "width": 447,
+          "height": 251.4375
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 657,
+          "bottom": 366,
+          "width": 647,
+          "height": 328
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 18,
+            "y": 119.5,
+            "right": 96,
+            "bottom": 168.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 18,
+            "y": 177.5,
+            "right": 96,
+            "bottom": 226.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 18,
+            "y": 235.5,
+            "right": 96,
+            "bottom": 284.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 578,
+            "y": 92.5,
+            "right": 642,
+            "bottom": 136.5,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 578,
+            "y": 148.5,
+            "right": 642,
+            "bottom": 192.5,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 571,
+            "y": 204.5,
+            "right": 649,
+            "bottom": 253.5,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 571,
+            "y": 262.5,
+            "right": 649,
+            "bottom": 311.5,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 667,
+        "height": 375,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      },
+      {
+        "logical": [
+          1280,
+          720
+        ],
+        "canvas": {
+          "x": 110,
+          "y": 76.625,
+          "right": 458,
+          "bottom": 272.375,
+          "width": 348,
+          "height": 195.75
+        },
+        "area": {
+          "x": 10,
+          "y": 38,
+          "right": 558,
+          "bottom": 311,
+          "width": 548,
+          "height": 273
+        },
+        "controls": [
+          {
+            "name": "dodgeLeft",
+            "x": 18,
+            "y": 92,
+            "right": 96,
+            "bottom": 141,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "guard",
+            "x": 18,
+            "y": 150,
+            "right": 96,
+            "bottom": 199,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "dodgeRight",
+            "x": 18,
+            "y": 208,
+            "right": 96,
+            "bottom": 257,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "shadow-pause-button",
+            "x": 479,
+            "y": 65,
+            "right": 543,
+            "bottom": 109,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "shadow-audio-button",
+            "x": 479,
+            "y": 121,
+            "right": 543,
+            "bottom": 165,
+            "width": 64,
+            "height": 44
+          },
+          {
+            "name": "jab",
+            "x": 472,
+            "y": 177,
+            "right": 550,
+            "bottom": 226,
+            "width": 78,
+            "height": 49
+          },
+          {
+            "name": "cross",
+            "x": 472,
+            "y": 235,
+            "right": 550,
+            "bottom": 284,
+            "width": 78,
+            "height": 49
+          }
+        ],
+        "guideVisible": false,
+        "width": 568,
+        "height": 320,
+        "noScroll": true,
+        "primaryFine": false,
+        "touchPoints": 1,
+        "touchLayout": "true"
+      }
+    ]
+  },
+  "errors": []
+}

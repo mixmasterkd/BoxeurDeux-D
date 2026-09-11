@@ -1,8 +1,18 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Dernier GO — shadow boxing au miroir
+
+Après le combo de sparring publié dans `25500d5`, l’utilisateur a autorisé l’atelier suivant : **pratiquer les mouvements devant le miroir**. Le miroir est désormais raccordé au gym par une conversation et le bouton Pratiquer, ou directement par `?scene=shadow`. Le retour conserve la position de la visite. Speed ball, corde et énergie quotidienne restent ultérieurs.
+
+Séance libre sans adversaire, sans limite de durée et sans coût d’endurance. J jab gauche, K direct droit, J/K/J crochet selon la même fenêtre que le sparring; Espace garde, A/D ou flèches esquives. Deux vitesses dans les menus : normale et ralentie à 65 %. P/Échap ouvre pause/Commandes; Terminer présente un bilan simple des mouvements, puis nouvel essai ou retour au gym. Aucun bouton permanent sur ordinateur; les sept boutons tactiles sont dans les marges, portrait/focus/périphérique libèrent les entrées et mettent en pause.
+
+`ShadowSession` sépare temps réel actif et horloge d’animation, compte les gestes à leur extension, sans coups reçus ni score de précision. `ShadowFighterView` anime ensemble le boxeur et son reflet inversé horizontalement, sans second acteur ni second minuteur. Nouveau décor `public/assets/backgrounds/mirror-training.png`, trois poses défensives `public/assets/sprites/mirror/`, six poses de frappe/garde reprises de `bag-orthodox`. Tenue du gym et tuque rouge conservées. Les pixels et le cadre de verre ont été inspectés dans le navigateur; sources, prompts intégrés et préparation dans `references/characters/mirror/` et `scripts/prepare-mirror-sprites.mjs`.
+
+Consulter `docs/VERIFICATIONS.md` pour les vérifications terminées et leurs limites. `npm run test:shadow` couvre la vraie marche jusqu’au miroir, clavier, tactile, reflet, pause/ralenti, bilans et transitions répétées. La compilation et le contrôle réel de GitHub Pages restent à distinguer d’un commit local.
+
 ## Nouveau GO après redémarrage — combo en sparring libre
 
-L’étape autorisée est le transfert **J → K → J** dans le sparring libre : jab gauche, direct droit, crochet gauche. Le miroir viendra ensuite. Pas de ville ni d’énergie quotidienne dans cette phase.
+L’étape précédente autorisée était le transfert **J → K → J** dans le sparring libre : jab gauche, direct droit, crochet gauche. Le miroir est maintenant décrit plus haut. Pas de ville ni d’énergie quotidienne dans cette phase.
 
 Le modèle dispose d’une fenêtre de 0,5 s après la récupération de chaque coup, sans entrée mise en attente. Le crochet coûte 21 points, la séquence 48; les deux premières frappes bloquées n’empêchent pas de lancer le crochet, mais un combo complet au bilan demande trois touches. Défense, coup reçu, pause, expiration et épuisement invalident la chaîne. Les coups engagés finissent leur animation. Les ouvertures libres de Rémi sont allongées selon le rythme, indépendamment des touches; les trois leçons sont inchangées.
 
@@ -25,7 +35,7 @@ L’utilisateur a autorisé **les deux étapes ensemble** : déplacer les comman
 - **J / K / J au sac :** jab, direct, puis crochet uniquement dans la fenêtre de l’enchaînement annoncé et après les deux premières frappes réussies. Hors de cette fenêtre, J reste un jab. Le bouton tactile indique Crochet lorsqu’il est prêt. Le nouveau GO décrit plus haut ajoute maintenant ce combo au sparring libre. Les frappes au corps sont ultérieures.
 - **Son des séances :** M au clavier; Son/Muet dans la marge tactile. Audio synthétisé localement, sans service distant pendant une partie.
 - **Ressources du sac :** nouveau décor rapproché du même gym, boxeur adulte à tuque rouge et tenue bleue/blanche, sac séparé transparent et six poses dessinées. Génération imagegen intégrée, sources et prompts dans `references/characters/bag/PROMPTS.md`; extraction reproductible par `scripts/prepare-bag-sprites.mjs`. L’animation par poses clés pourra gagner en fluidité avec des intermédiaires.
-- **Portée restante :** miroir, speed ball et corde sont encore des présentations. Pas d’énergie quotidienne, de compétences persistantes ni de carte extérieure.
+- **Portée restante :** speed ball et corde sont encore des présentations. Le miroir est ajouté par le dernier GO décrit en tête. Pas d’énergie quotidienne, de compétences persistantes ni de carte extérieure.
 
 Le README décrit les commandes et les scripts de vérification, notamment `npm run test:bag` et `npm run test:side-controls`. Consulter `docs/VERIFICATIONS.md` pour les résultats réellement obtenus; ce relais ne certifie pas une publication de cette nouvelle étape. L’envoi GitHub et le contrôle du déploiement restent distincts d’un commit local.
 

@@ -2,14 +2,15 @@ import Phaser from 'phaser';
 import { SparringScene } from './scenes/SparringScene.js';
 import { GymScene } from './scenes/GymScene.js';
 import { BagScene } from './scenes/BagScene.js';
+import { ShadowScene } from './scenes/ShadowScene.js';
 import './style.css';
 import { installGameLayout } from './ui/GameLayout.js';
 import './ui/layout.css';
 
 const disposeLayout = installGameLayout();
 const entry = new URLSearchParams(location.search).get('scene');
-const scenes = entry === 'bag' ? [BagScene, GymScene, SparringScene]
-  : entry === 'sparring' ? [SparringScene, GymScene, BagScene] : [GymScene, SparringScene, BagScene];
+const initialScene = { bag: BagScene, sparring: SparringScene, shadow: ShadowScene }[entry] ?? GymScene;
+const scenes = [initialScene, ...[GymScene, SparringScene, BagScene, ShadowScene].filter(scene => scene !== initialScene)];
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,

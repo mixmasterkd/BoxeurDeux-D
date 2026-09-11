@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 420,
+    "height": 360
+  },
+  "anchor": {
+    "x": 170,
+    "y": 340
+  },
+  "artHeight": 338,
+  "stance": {
+    "kind": "orthodox",
+    "leadFoot": "left",
+    "rearFoot": "right",
+    "view": "front-left",
+    "facing": "right"
+  },
+  "note": "Three original defensive poses; same foot landmarks as bag-orthodox. High guard, rear-weighted screen-left slip, forward crouching screen-right slip. No anatomical mirroring. A scene may flip the entire boxer only when drawing his simultaneous mirror reflection.",
+  "poses": {
+    "block": {
+      "file": "mirror/player-block.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 47,
+        "y": 5,
+        "width": 242,
+        "height": 335
+      },
+      "sourceBounds": {
+        "x": 151,
+        "y": 14,
+        "w": 773,
+        "h": 1071
+      },
+      "source": "references/characters/mirror/player-block-alpha.png",
+      "sourceScale": 0.3128834355828221,
+      "floor": 340
+    },
+    "dodgeLeft": {
+      "file": "mirror/player-dodge-left.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 44,
+        "y": 58,
+        "width": 245,
+        "height": 282
+      },
+      "sourceBounds": {
+        "x": 216,
+        "y": 95,
+        "w": 889,
+        "h": 1023
+      },
+      "source": "references/characters/mirror/player-dodge-left-alpha.png",
+      "sourceScale": 0.2756756756756757,
+      "floor": 340
+    },
+    "dodgeRight": {
+      "file": "mirror/player-dodge-right.png",
+      "width": 420,
+      "height": 360,
+      "anchor": {
+        "x": 170,
+        "y": 340
+      },
+      "bounds": {
+        "x": 46,
+        "y": 52,
+        "width": 243,
+        "height": 288
+      },
+      "sourceBounds": {
+        "x": 170,
+        "y": 101,
+        "w": 845,
+        "h": 998
+      },
+      "source": "references/characters/mirror/player-dodge-right-alpha.png",
+      "sourceScale": 0.288135593220339,
+      "floor": 340
+    }
+  },
+  "background": {
+    "file": "backgrounds/mirror-training.png",
+    "width": 1280,
+    "height": 720,
+    "source": "references/characters/mirror/background-final-source.png",
+    "glass": {
+      "x": 688,
+      "y": 58,
+      "width": 510,
+      "height": 458
+    },
+    "suggestedReflection": {
+      "x": 960,
+      "floor": 500,
+      "artHeight": 300
+    }
+  }
+}
