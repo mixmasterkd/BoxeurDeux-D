@@ -13,7 +13,8 @@
     "test:browser": "node tests/browser-smoke.mjs",
     "test:static": "node tests/static-smoke.mjs",
     "test:training": "node tests/training-browser.mjs",
-    "test:gym": "node tests/gym-browser.mjs"
+    "test:gym": "node tests/gym-browser.mjs",
+    "test:visibility": "node tests/gym-visibility.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

@@ -1,5 +1,13 @@
 # Vérification du prototype — 10 septembre 2026
 
+## Correction de visibilité et commandes — retour utilisateur
+
+- Bug reproduit dans WebGL : au sac, la capture rendue était identique avec le sprite affiché ou caché (**0 pixel visible du boxeur**), malgré une position et une interaction valides. Les anciens tests des ateliers vérifiaient la marche et les dialogues, sans mesurer la visibilité du sprite.
+- Cause confirmée dans la version installée de Phaser 4.2.1 : `setMask` / `GeometryMask` ne s’appliquent qu’au rendu Canvas. En WebGL, les deux copies de décor censées être découpées recouvraient toute la salle lorsque le joueur passait derrière leur profondeur.
+- Correction : filtre de masque WebGL pour ne dessiner que l’équipement concerné; GeometryMask conservé pour le moteur Canvas. Le décor et les sprites sources ne sont pas modifiés.
+- `npm run test:visibility` et `GYM_RENDERER=canvas npm run test:visibility` : parcours au clavier jusqu’au sac, au miroir et à la speed ball, captures effectivement rendues comparées avec/sans le sprite, puis interaction. **Plus de 2 000 pixels visibles du boxeur à chaque poste**, dans les deux moteurs. Les captures ont aussi été inspectées visuellement. Le test interdit les avertissements de masque non pris en charge.
+- `npm test` : les **44 contrôles** de déplacement, règles de combat, animation, leçons et audio restent réussis.
+
 ## Première visite du gym — 10 septembre 2026
 
 - `npm run test:gym` : marche animée et collision avec le ring, conversation sans activation involontaire par Entrée maintenue, leçon jab terminée et retour exactement à la même position. Les quatre ateliers sont rejoints à pied, sans téléportation. Contacts diagonaux, relâchement indépendant, annulation, perte de focus et reprise explicite vérifiés. Même canvas 1280 × 720, menus accessibles aux trois tailles paysage et invitation portrait. Aucune erreur console, page ou ressource. Rapport : `gym-browser-results.json`; captures : `gym-premiere-visite.png`, `gym-dialogue-remi.png`, `gym-mobile-paysage.png`, `gym-mobile-portrait.png`.

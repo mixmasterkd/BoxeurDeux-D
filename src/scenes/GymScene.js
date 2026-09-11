@@ -98,9 +98,20 @@ export class GymScene extends Phaser.Scene {
   addForeground(points, depth) {
     const shape = this.make.graphics({ x: 0, y: 0, add: false });
     shape.fillStyle(0xffffff).fillPoints(points.map(([x, y]) => ({ x, y })), true);
-    const mask = shape.createGeometryMask();
-    this.add.image(640, 360, 'gym-exploration').setDisplaySize(1280, 720).setDepth(depth).setMask(mask);
-    this.events.once('shutdown', () => { mask.destroy(); shape.destroy(); });
+    const foreground = this.add.image(640, 360, 'gym-exploration').setDisplaySize(1280, 720).setDepth(depth);
+    // Phaser 4's setMask / GeometryMask are Canvas-only. In WebGL they
+    // silently leave the whole room drawn over any boxer with a lower depth.
+    // The external mask uses room coordinates and clips just this equipment.
+    if (this.game.renderer.type === Phaser.WEBGL) {
+      foreground.enableFilters();
+      const mask = foreground.filters.external.addMask(shape, false, this.cameras.main);
+      mask.autoUpdate = false;
+      this.events.once('shutdown', () => shape.destroy());
+    } else {
+      const mask = shape.createGeometryMask();
+      foreground.setMask(mask);
+      this.events.once('shutdown', () => { mask.destroy(); shape.destroy(); });
+    }
   }
 
   enterSparring(lesson = 'free') {
