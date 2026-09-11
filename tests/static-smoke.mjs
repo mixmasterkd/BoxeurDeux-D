@@ -396,7 +396,7 @@ try {
         await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
       } else await page.keyboard.press('j');
       await page.waitForFunction(() => document.querySelector('.rhythm-streak')?.textContent === '1', null, { timeout: 2500 });
-      await page.screenshot({ path: `docs/${activity}-production-${mobile ? 'mobile' : 'desktop'}.png` });
+      await page.screenshot({ path: `docs/${activity}-${remote ? 'public' : 'production'}-${mobile ? 'mobile' : 'desktop'}.png` });
       if (mobile) await press('#rhythm-ui .console-menu-button'); else await page.keyboard.press('p');
       await page.locator('.rhythm-panel').waitFor({ state: 'visible' });
       const clock = await page.locator('.rhythm-time').textContent();

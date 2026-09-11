@@ -1,0 +1,22 @@
+
+> boxeur-deux-d@0.1.0 test:static
+> node tests/static-smoke.mjs
+
+Production UI: desktop entry /
+Production resistance: desktop direct entry, three-round rules and full resistance
+Production resistance: desktop contact at 88 and pause passed
+Production resistance: desktop return to gym passed
+Production Béton: desktop direct entry, points and three-round rules
+Production Béton: desktop real jab, pause, restart, gym poster entry and return passed
+Production rhythm: desktop rope and speed ball contact, device help, pause, restart and gym return passed.
+Production UI: touch entry index.html
+Production resistance: touch direct entry, three-round rules and full resistance
+Production resistance: touch contact at 88 and pause passed
+Production resistance: waiting for Rémi to cause a real player knockdown at the selected fast rhythm…
+Production resistance: player at zero; following the six highlighted A/B recovery gestures
+Production resistance: six real touchscreen gestures, return to play at 55, and no recovery punches passed
+Production resistance: touch return to gym passed
+Production Béton: touch direct entry, points and three-round rules
+Production Béton: touch real jab, pause, restart, gym poster entry and return passed
+Production rhythm: touch rope and speed ball contact, device help, pause, restart and gym return passed.
+Deployed site: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, resistance contact/pause plus a real touchscreen knockdown/recovery, Béton direct/poster entry with real contact/score/pause/restart and art loading, all returns to gym, landscape/portrait passed. No browser or resource errors.
