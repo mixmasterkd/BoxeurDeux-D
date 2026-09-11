@@ -33,11 +33,21 @@ Résultats horodatés de l'automatisation : `browser-results.json`. Les captures
 npm test
 npm run build
 npm run test:browser
+npm run test:static # Après npm run build : compilation servie localement par interception HTTP
 ```
 
 La vérification navigateur est facultative pour lancer le jeu. Elle utilise Playwright déjà présent dans l'environnement de développement. Sur une autre machine, fournir le chemin de son installation avec `PLAYWRIGHT_MODULE_PATH=/chemin/vers/playwright/index.mjs npm run test:browser`. Aucune dépendance de test ni navigateur supplémentaire n'a été installé pour cette mission. Le serveur Vite doit déjà tourner sur 5173.
 
 Pour essayer manuellement : frappez pendant les ouvertures; maintenez puis relâchez la garde; préparez l'esquive sur « Préparez » et déclenchez-la sur « Esquivez ». Une mauvaise direction ou un départ trop tôt reste punissable. Essayez aussi un changement d'onglet avec la garde tenue, puis un retour en paysage après rotation.
+
+## Préparation de GitHub Pages — 10 septembre 2026
+
+- La page publique a été récupérée : elle contient encore l’index du commit initial et son import `/src/main.js`. La capture utilisateur correspond bien à cette ancienne page non compilée.
+- Le prototype complet est enregistré dans Git, ainsi que ses ressources, sources graphiques et vérifications. Le workflow `pages.yml` installe les dépendances verrouillées, lance les tests autonomes, compile le jeu et déploie uniquement `dist/`.
+- Validation locale du YAML : déclenchement sur `main`, dépendance du déploiement envers la compilation, permissions Pages et répertoire d’artefact. Les références des cinq actions officielles sont épinglées à des commits vérifiés sur leurs dépôts. Aucun workflow distant n’a encore été exécuté par cette session.
+- `npm test`, `npm run build` et le nouveau `npm run test:static` réussissent. Ce dernier teste le vrai bundle de production sans accès aux objets de débogage : `/BoxeurDeux-D/` et `/BoxeurDeux-D/index.html`, 20 sprites v2, clavier et jab tactile, pause, recommencement, paysage 844 × 390 sans défilement et portrait 390 × 844. Aucune erreur de page, console ou ressource.
+- Blocage de l’envoi dans cette session : Git ne dispose pas d’une authentification HTTPS; `git push --dry-run origin main` échoue avec `could not read Username`. Aucun navigateur connecté n’est accessible à l’outil de contrôle. L’utilisateur doit envoyer les commits depuis son VS Code connecté et choisir **GitHub Actions** comme source Pages.
+- Après l’envoi et la réussite du workflow, vérifier l’adresse réelle avec `SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:static`. Un contrôle local de la compilation ne prouve pas que le site public a été actualisé.
 
 ## Limites restantes
 

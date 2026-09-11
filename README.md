@@ -26,16 +26,27 @@ Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle l
 - Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même sparring).
 - Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 10 septembre 2026; elle peut changer).
 
-Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun hébergement distant, compte, clé API ni service d'IA n'est utilisé pendant une partie.
+Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun compte joueur, clé API ni service d'IA n'est nécessaire pendant une partie.
 
 ```sh
 npm test         # Vérifications déterministes des règles de sparring
 npm run build    # Compilation vers dist/
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
+npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```
 
 `index.html` à la racine est l’entrée de développement Vite. Pour un hébergement web statique, `npm run build` produit l’index prêt à servir dans `dist/index.html`; il faut transférer tout le contenu de `dist/`, avec ses ressources. Ouvrir le fichier source directement depuis le disque ou afficher son code sur GitHub ne lance pas le jeu.
+
+## Publication sur GitHub Pages
+
+Le dépôt est associé à `https://github.com/mixmasterkd/BoxeurDeux-D`. Adresse de jeu visée : **https://mixmasterkd.github.io/BoxeurDeux-D/**.
+
+La première page publiée servait l’ancien index source et affichait seulement « Prochain prototype ». Le workflow `.github/workflows/pages.yml` compile désormais le jeu avant publication : dépendances verrouillées, 19 tests, compilation Vite, puis déploiement du seul dossier `dist/`. Les chemins relatifs conservent le chargement du décor et des sprites dans le sous-dossier `/BoxeurDeux-D/`.
+
+Configuration initiale : dans **Settings → Pages → Build and deployment → Source**, choisir **GitHub Actions**. Envoyer les commits de `main` sur GitHub avec **Push / Envoyer** dans VS Code, ou `git push origin main` depuis un terminal authentifié. Chaque envoi sur `main` déclenche ensuite le workflow; il peut aussi être lancé dans **Actions → Publier le sparring sur GitHub Pages → Run workflow**. Attendre la réussite du job `deploy` avant de considérer la nouvelle version comme publiée.
+
+Les tests navigateur facultatifs utilisent Playwright déjà disponible dans cet environnement; ils ne sont pas exécutés dans le workflow, qui ne l’installe pas. Vérifier le site réellement publié avec `SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:static`. Sans cette variable, le test sert `dist/` par interception HTTP locale, sans nouveau serveur.
 
 ## Commandes
 
@@ -74,4 +85,4 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `tests/sparring.test.js` et `tests/fighter-motion.test.js` : 19 tests des règles et de la concordance des animations.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.
 
-La ville, la maison, l'emploi, la carrière et les compétitions restent des étapes ultérieures. Aucun outil de dessin n'est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Le dépôt Git reste local.
+La ville, la maison, l'emploi, la carrière et les compétitions restent des étapes ultérieures. Aucun outil de dessin n'est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Un commit doit marquer chaque étape fonctionnelle vérifiée; son envoi sur GitHub reste distinct de l’enregistrement local.
