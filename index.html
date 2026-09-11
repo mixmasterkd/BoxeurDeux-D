@@ -2,17 +2,35 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111925" />
-    <meta name="description" content="BoxeurDeux-D : les débuts d'un jeu de vie de boxeur en 2D." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#101a20" />
+    <meta name="description" content="BoxeurDeux-D : un premier round de sparring avec Rémi le Tank, dans un gym de Montréal en pixel art." />
     <link rel="icon" href="data:," />
     <title>BoxeurDeux-D</title>
   </head>
   <body>
-    <main>
-      <h1 class="sr-only">BoxeurDeux-D</h1>
-      <div id="game" role="img" aria-label="BoxeurDeux-D : ring provisoire et message Projet prêt. Scène de démarrage sans combat." aria-describedby="next-step"></div>
-      <p id="next-step">Prochain prototype : sparring avec <strong>Rémi le Tank</strong>.</p>
+    <main class="game-shell">
+      <header class="game-header shell-width">
+        <h1>BoxeurDeux-D<span class="brand-square" aria-hidden="true"></span></h1>
+        <span class="gym-location">MONTRÉAL <span aria-hidden="true">/</span> AU GYM</span>
+        <span class="prototype-label">PREMIER SPARRING</span>
+      </header>
+      <section id="stage" aria-label="Sparring avec Rémi le Tank" aria-describedby="game-commands">
+        <div id="game" role="img" aria-label="Ring de boxe en pixel art. Vous êtes de dos au premier plan, face à Rémi le Tank."></div>
+        <div id="sparring-ui"></div>
+      </section>
+      <footer id="game-commands" class="keyboard-guide shell-width">
+        <span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span>
+        <span><kbd>Espace</kbd> Garde maintenue</span>
+        <span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd> Esquiver</span>
+        <span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>
+      </footer>
+      <aside id="rotate-prompt" class="rotate-prompt" aria-label="Orientation du téléphone">
+        <span class="rotate-phone" aria-hidden="true">↻</span>
+        <h2>Le ring se joue<br />en paysage.</h2>
+        <p>Tournez votre téléphone pour retrouver Rémi et les commandes près des pouces.</p>
+        <span>Votre round se met en pause.</span>
+      </aside>
     </main>
     <noscript>Activez JavaScript pour afficher BoxeurDeux-D.</noscript>
     <script type="module" src="/src/main.js"></script>

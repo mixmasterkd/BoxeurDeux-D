@@ -1,0 +1,616 @@
+{
+  "version": 2,
+  "canvas": {
+    "width": 384,
+    "height": 640
+  },
+  "anchor": {
+    "x": 192,
+    "y": 624
+  },
+  "artHeight": 512,
+  "poses": {
+    "remi-guard": {
+      "file": "remi-guard.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 71,
+        "y": 112,
+        "width": 259,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 22,
+        "y": 72,
+        "w": 345,
+        "h": 683
+      },
+      "head": {
+        "x": 192,
+        "y": 198
+      }
+    },
+    "remi-cross": {
+      "file": "remi-cross.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 80,
+        "y": 119,
+        "width": 244,
+        "height": 505
+      },
+      "sourceBounds": {
+        "x": 406,
+        "y": 77,
+        "w": 326,
+        "h": 673
+      },
+      "head": {
+        "x": 192,
+        "y": 203
+      },
+      "contact": {
+        "x": 255,
+        "y": 222
+      },
+      "glove": {
+        "x": 255,
+        "y": 222
+      }
+    },
+    "remi-block": {
+      "file": "remi-block.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 68,
+        "y": 146,
+        "width": 259,
+        "height": 478
+      },
+      "sourceBounds": {
+        "x": 17,
+        "y": 782,
+        "w": 346,
+        "h": 637
+      },
+      "head": {
+        "x": 190,
+        "y": 222
+      }
+    },
+    "remi-hit": {
+      "file": "remi-hit.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 53,
+        "y": 152,
+        "width": 289,
+        "height": 472
+      },
+      "sourceBounds": {
+        "x": 371,
+        "y": 787,
+        "w": 386,
+        "h": 630
+      },
+      "head": {
+        "x": 228,
+        "y": 236
+      }
+    },
+    "remi-dodge": {
+      "file": "remi-dodge.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 6,
+        "y": 151,
+        "width": 374,
+        "height": 473
+      },
+      "sourceBounds": {
+        "x": 1080,
+        "y": 560,
+        "w": 353,
+        "h": 446
+      },
+      "head": {
+        "x": 288,
+        "y": 232
+      }
+    },
+    "remi-jab-windup": {
+      "file": "remi-jab-windup.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 25,
+        "y": 109,
+        "width": 338,
+        "height": 515
+      },
+      "sourceBounds": {
+        "x": 129,
+        "y": 16,
+        "w": 319,
+        "h": 486
+      },
+      "head": {
+        "x": 214,
+        "y": 192
+      },
+      "contact": {
+        "x": 96,
+        "y": 211
+      },
+      "glove": {
+        "x": 96,
+        "y": 211
+      }
+    },
+    "remi-cross-windup": {
+      "file": "remi-cross-windup.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 22,
+        "y": 110,
+        "width": 337,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 608,
+        "y": 16,
+        "w": 318,
+        "h": 485
+      },
+      "head": {
+        "x": 189,
+        "y": 194
+      },
+      "contact": {
+        "x": 256,
+        "y": 217
+      },
+      "glove": {
+        "x": 256,
+        "y": 217
+      }
+    },
+    "remi-jab-recover": {
+      "file": "remi-jab-recover.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 16,
+        "y": 110,
+        "width": 336,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 1098,
+        "y": 16,
+        "w": 317,
+        "h": 485
+      },
+      "head": {
+        "x": 205,
+        "y": 195
+      },
+      "contact": {
+        "x": 86,
+        "y": 232
+      },
+      "glove": {
+        "x": 86,
+        "y": 232
+      }
+    },
+    "remi-cross-recover": {
+      "file": "remi-cross-recover.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 23,
+        "y": 114,
+        "width": 346,
+        "height": 510
+      },
+      "sourceBounds": {
+        "x": 130,
+        "y": 525,
+        "w": 326,
+        "h": 481
+      },
+      "head": {
+        "x": 188,
+        "y": 198
+      },
+      "contact": {
+        "x": 306,
+        "y": 230
+      },
+      "glove": {
+        "x": 306,
+        "y": 230
+      }
+    },
+    "player-guard": {
+      "file": "player-guard.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 56,
+        "y": 112,
+        "width": 269,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 18,
+        "y": 112,
+        "w": 337,
+        "h": 642
+      },
+      "head": {
+        "x": 191,
+        "y": 157
+      }
+    },
+    "player-jab": {
+      "file": "player-jab.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 60,
+        "y": 30,
+        "width": 266,
+        "height": 594
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 9,
+        "w": 334,
+        "h": 745
+      },
+      "head": {
+        "x": 200,
+        "y": 158
+      },
+      "contact": {
+        "x": 140,
+        "y": 56
+      },
+      "glove": {
+        "x": 140,
+        "y": 56
+      }
+    },
+    "player-block": {
+      "file": "player-block.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 56,
+        "y": 86,
+        "width": 270,
+        "height": 538
+      },
+      "sourceBounds": {
+        "x": 17,
+        "y": 773,
+        "w": 338,
+        "h": 674
+      },
+      "head": {
+        "x": 192,
+        "y": 164
+      }
+    },
+    "player-hit": {
+      "file": "player-hit.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 62,
+        "y": 135,
+        "width": 262,
+        "height": 489
+      },
+      "sourceBounds": {
+        "x": 391,
+        "y": 834,
+        "w": 328,
+        "h": 613
+      },
+      "head": {
+        "x": 138,
+        "y": 172
+      }
+    },
+    "player-dodge": {
+      "file": "player-dodge.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 22,
+        "y": 180,
+        "width": 346,
+        "height": 444
+      },
+      "sourceBounds": {
+        "x": 1153,
+        "y": 628,
+        "w": 289,
+        "h": 371
+      },
+      "head": {
+        "x": 101,
+        "y": 237
+      }
+    },
+    "player-jab-windup": {
+      "file": "player-jab-windup.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 39,
+        "y": 112,
+        "width": 301,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 146,
+        "y": 56,
+        "w": 252,
+        "h": 428
+      },
+      "head": {
+        "x": 197,
+        "y": 165
+      },
+      "contact": {
+        "x": 122,
+        "y": 171
+      },
+      "glove": {
+        "x": 122,
+        "y": 171
+      }
+    },
+    "player-cross-windup": {
+      "file": "player-cross-windup.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 41,
+        "y": 113,
+        "width": 300,
+        "height": 511
+      },
+      "sourceBounds": {
+        "x": 647,
+        "y": 57,
+        "w": 251,
+        "h": 427
+      },
+      "head": {
+        "x": 197,
+        "y": 164
+      },
+      "contact": {
+        "x": 259,
+        "y": 200
+      },
+      "glove": {
+        "x": 259,
+        "y": 200
+      }
+    },
+    "player-jab-recover": {
+      "file": "player-jab-recover.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 39,
+        "y": 74,
+        "width": 304,
+        "height": 550
+      },
+      "sourceBounds": {
+        "x": 1143,
+        "y": 24,
+        "w": 254,
+        "h": 460
+      },
+      "head": {
+        "x": 205,
+        "y": 167
+      },
+      "contact": {
+        "x": 162,
+        "y": 104
+      },
+      "glove": {
+        "x": 162,
+        "y": 104
+      }
+    },
+    "remi-jab": {
+      "file": "remi-jab.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 80,
+        "y": 119,
+        "width": 244,
+        "height": 505
+      },
+      "sourceBounds": {
+        "x": 406,
+        "y": 77,
+        "w": 326,
+        "h": 673
+      },
+      "head": {
+        "x": 192,
+        "y": 203
+      },
+      "contact": {
+        "x": 255,
+        "y": 222
+      },
+      "glove": {
+        "x": 255,
+        "y": 222
+      },
+      "mirror": true,
+      "mirroredFrom": "remi-cross"
+    },
+    "player-cross": {
+      "file": "player-cross.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 60,
+        "y": 30,
+        "width": 266,
+        "height": 594
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 9,
+        "w": 334,
+        "h": 745
+      },
+      "head": {
+        "x": 200,
+        "y": 158
+      },
+      "contact": {
+        "x": 140,
+        "y": 56
+      },
+      "glove": {
+        "x": 140,
+        "y": 56
+      },
+      "mirror": true,
+      "mirroredFrom": "player-jab"
+    },
+    "player-cross-recover": {
+      "file": "player-cross-recover.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 39,
+        "y": 74,
+        "width": 304,
+        "height": 550
+      },
+      "sourceBounds": {
+        "x": 1143,
+        "y": 24,
+        "w": 254,
+        "h": 460
+      },
+      "head": {
+        "x": 205,
+        "y": 167
+      },
+      "contact": {
+        "x": 162,
+        "y": 104
+      },
+      "glove": {
+        "x": 162,
+        "y": 104
+      },
+      "mirror": true,
+      "mirroredFrom": "player-jab-recover"
+    }
+  }
+}

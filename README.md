@@ -1,47 +1,77 @@
 # BoxeurDeux-D
 
-Un jeu de vie de boxeur en 2D, en pixel art inspiré des jeux Super Nintendo / 16 bits. Le nom joue avec « 2D » : **BoxeurDeux-D**.
+Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
-Cette base affiche un ring provisoire et « Projet prêt ». Elle sert à vérifier Phaser : aucune mécanique de combat ou de carrière n'est encore implémentée.
+Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez les annonces de Rémi, défendez-vous et laissez revenir l'endurance. Il s'agit d'un entraînement : pas de KO ni de compétition officielle.
 
-## Démarrer
+## Phase tenues et fluidité — 10 septembre 2026
 
-Node.js 24 est conseillé (`nvm use` si nvm est disponible). Dans le terminal de VS Code, ouvert sur ce dossier :
+Dix poses par boxeur : garde, jab/direct, préparations et demi-extensions, protection, réaction et esquive. Certaines variantes utilisent un miroir pour garder exactement la même identité. Les frappes passent par une préparation, une extension intermédiaire, le contact pendant 100 ms, puis un retour progressif. L’échelle des personnages reste constante; un cadrage fixe légèrement plus large garde les pieds visibles pendant les échanges rapprochés.
+
+Le paysage mobile est conservé. Un ancien doigt resté sur Garde pendant une perte de focus ne peut plus activer accidentellement « Reprendre » au relâchement.
+
+Les ateliers du futur gym et l’énergie quotidienne sont consignés dans `docs/PROCHAINES_ETAPES.md`; ils ne font pas partie du jeu actuel. L’endurance du round reste indépendante de ce futur système.
+
+## Lancer
+
+Node.js 24 conseillé (`nvm use` si disponible). Depuis ce dossier dans VS Code :
 
 ```sh
-npm install
 npm run dev
 ```
 
-Les dépendances sont déjà installées lors de la préparation initiale : `npm run dev` suffit pour reprendre. Ouvrir **http://127.0.0.1:5173/** dans le navigateur. Les modifications sont rechargées automatiquement. Pour arrêter le serveur : `Ctrl+C` dans son terminal.
+Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle les versions verrouillées. **Si le serveur tourne déjà, réutilisez-le.** Vite écoute sur le port strict 5173 : ne lancez pas de serveur concurrent et ne changez pas de port pour contourner le serveur existant.
 
-Si le port est déjà utilisé, ouvrir le serveur existant ou démarrer sur un autre port avec `npm run dev -- --port 5174`.
+- Sur cet ordinateur : **http://127.0.0.1:5173/**
+- Accès explicite par l’index : **http://127.0.0.1:5173/index.html** (même sparring).
+- Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 10 septembre 2026; elle peut changer).
+
+Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun hébergement distant, compte, clé API ni service d'IA n'est utilisé pendant une partie.
 
 ```sh
-npm run build    # Vérifie et produit la version compilée dans dist/
-npm run preview  # Affiche cette version sur http://127.0.0.1:4173/
+npm test         # Vérifications déterministes des règles de sparring
+npm run build    # Compilation vers dist/
+npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
+npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```
 
-Utiliser un serveur local plutôt que d'ouvrir directement `index.html`. Pour réinstaller exactement les dépendances enregistrées, utiliser `npm ci`.
+`index.html` à la racine est l’entrée de développement Vite. Pour un hébergement web statique, `npm run build` produit l’index prêt à servir dans `dist/index.html`; il faut transférer tout le contenu de `dist/`, avec ses ressources. Ouvrir le fichier source directement depuis le disque ou afficher son code sur GitHub ne lance pas le jeu.
 
-## Organisation
+## Commandes
 
-- `src/main.js` : configuration Phaser, résolution 384 × 288 et affichage adapté à la fenêtre.
-- `src/scenes/BootScene.js` : scène de démarrage et ring provisoire.
-- `src/style.css` : présentation de la page.
-- `public/assets/sprites/` : futurs personnages et animations.
-- `public/assets/tilemaps/` : futures cartes et tuiles.
-- `public/assets/audio/` : futurs sons et musiques.
-- `vite.config.js` : serveur local et compilation.
+| Action | Clavier | Tactile |
+| --- | --- | --- |
+| Jab | J | Jab |
+| Direct | K | Direct |
+| Garde | Espace maintenu | Maintenir Garde |
+| Esquive gauche | A ou ← | ← |
+| Esquive droite | D ou → | → |
+| Pause / reprendre | P ou Échap | Bouton Pause / Reprendre |
 
-Les fichiers de `public/` sont servis directement, par exemple `assets/sprites/boxeur.png`. Le dépôt Git reste local. `node_modules/`, `dist/` et les fichiers d'environnement sont exclus du suivi.
+Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nouveau pour la suivante. Une attaque engagée prend la priorité sur la garde. La garde revient ensuite si elle est encore maintenue. Le changement d'onglet, la perte de focus et le passage en portrait libèrent les commandes et mettent le round en pause.
 
-## Prochaines étapes
+**Téléphone : utilisez le paysage.** En portrait, une invitation demande de tourner l'appareil. La scène conserve ses proportions et s'adapte à la largeur et à la hauteur disponibles; les boutons restent sur les côtés, près des pouces. Aucune API de verrouillage d'orientation n'est nécessaire.
 
-1. Sparring dans le gym avec **Rémi le Tank**, partenaire d'entraînement : vue façon Punch-Out, joueur de dos et Rémi de face; frappes, garde, esquives et endurance.
-2. Gym explorable en vue du dessus légèrement inclinée, à la Zelda.
-3. Petit quartier inspiré de Montréal, avec maison et emploi.
-4. Boucle maison / emploi / entraînement / récupération.
-5. Premier combat officiel, puis autres lieux utiles.
+## Apprendre avec Rémi
 
-Outils prévus : VS Code, Git, JavaScript, [Phaser](https://docs.phaser.io/phaser/getting-started/installation) et [Vite](https://vite.dev/guide/). LibreSprite pour les animations et Tiled pour les cartes viendront plus tard; ils ne sont pas installés dans cette préparation.
+- Rémi commence par laisser une ouverture. Sa garde et ses attaques suivent un calendrier indépendant de vos boutons.
+- L'annonce ambrée indique le côté sûr. Attendez **« Esquivez »** après « Préparez » pour déclencher le mouvement. La fenêtre de protection dure 0,36 s, après 0,08 s de mouvement.
+- Les marques dorées indiquent une touche, le bouclier bleu un blocage, et les traits verts une esquive. Le bilan distingue touches données/reçues, blocages et esquives réussies.
+- Jab : 10 points d'endurance; direct : 17; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de 20 points/s après un court délai. Une garde épuisée ne protège plus : relâchez pour souffler.
+- Les réglages accessibles avant le round et en pause proposent trois rythmes de Rémi et deux vitesses de récupération. Une annonce déjà commencée conserve sa durée pour rester prévisible.
+- Le bilan de fin permet de recommencer un round avec des statistiques remises à zéro.
+
+## Fichiers utiles
+
+- `src/main.js` : démarrage et mise à l'échelle Phaser.
+- `src/scenes/SparringScene.js` : scène et synchronisation des effets avec les touches.
+- `src/scenes/FighterView.js` et `src/game/FighterMotion.js` : affichage, poses et mouvements synchronisés avec le combat.
+- `src/game/SparringSession.js` : chronomètre, états, règles et rythme de Rémi, sans dépendance au rendu.
+- `src/ui/SparringUI.js`, `src/style.css`, `index.html` : interface, clavier, tactile et orientation.
+- `public/assets/backgrounds/gym.png` : décor validé, inchangé.
+- `public/assets/sprites/sparring-v2/` : 20 PNG transparents et leurs coordonnées utilisés localement. Les premières ressources sont conservées dans le dossier parent.
+- `references/characters/sparring-v2/` : sources, prompts et préparation des nouvelles tenues et poses; les premières sources restent dans le dossier parent.
+- `tests/sparring.test.js` et `tests/fighter-motion.test.js` : 19 tests des règles et de la concordance des animations.
+- `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.
+
+La ville, la maison, l'emploi, la carrière et les compétitions restent des étapes ultérieures. Aucun outil de dessin n'est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Le dépôt Git reste local.

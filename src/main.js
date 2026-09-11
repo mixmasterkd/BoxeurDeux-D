@@ -1,12 +1,12 @@
 import Phaser from 'phaser';
-import { BootScene } from './scenes/BootScene.js';
+import { SparringScene } from './scenes/SparringScene.js';
 import './style.css';
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,
   parent: 'game',
-  width: 384,
-  height: 288,
+  width: 1280,
+  height: 720,
   backgroundColor: '#172432',
   pixelArt: true,
   roundPixels: true,
@@ -14,7 +14,7 @@ export const game = new Phaser.Game({
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [BootScene],
+  scene: [SparringScene],
 });
 
 // Évite de conserver un ancien jeu lors du rechargement par Vite.
