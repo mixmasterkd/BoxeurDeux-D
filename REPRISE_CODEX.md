@@ -1,5 +1,13 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Plan demandé après les commandes communes — pas encore un GO de réalisation
+
+Les commandes communes sont livrées dans `74f87df`; le parcours du site GitHub Pages a aussi réussi au clavier et au tactile simulé après déploiement. La discussion suivante valide gym gratuit, argent pour goodies/vêtements futurs, plafonds de capacités et d’épargne liés à l’avancement, énergie quotidienne dépensée au travail/gym et remise à plein uniquement en dormant, endurance et résistance séparées pendant les combats. Un adversaire original à la fois; après deux ou trois, tournoi de trois jours avec hôtel, restaurant et gym dédiés. Le sens de tournoi «payant» est interprété provisoirement comme une inscription en argent du jeu. Les conditions précises de chute/KO à zéro résistance restent à régler.
+
+L’utilisateur demande maintenant **un plan par étapes**, sans lancer les prochaines fonctionnalités. Décisions et ordre proposé dans `docs/PROCHAINES_ETAPES.md` : résistance/chutes/relevé → premier adversaire → gains réels des ateliers → speed ball et corde → journées → petit quartier/travail/argent → adversaires suivants → tournoi. Ne pas transformer cet ordre proposé en fonctionnalités déjà réalisées ou approuvées en détail.
+
+Il demande aussi comment sauvegarder la progression du joueur. Le plan inclut dès les premiers gains permanents une sauvegarde automatique locale versionnée, Continuer/Nouvelle partie, copie précédente de secours et export/import de fichier via le menu commun. Stockages séparés par navigateur/adresse; aucune synchronisation PC/téléphone implicite et aucune partie stockée par un simple push Git. Les coûts/récompenses et reprises d’activités devront rester cohérents après rechargement. Cette sauvegarde de carrière est proposée, pas encore implémentée.
+
 ## Dernier GO — commandes communes avant la prochaine activité
 
 L’utilisateur a validé **joypad + A/B**, gardes directionnelles et coups tête/corps dans tout le jeu, avant la speed ball. La convention remplace les boutons de direction/guard et la touche Espace des étapes historiques ci-dessous. Ordinateur : flèches/WASD (ZQSD aussi), J/K frappes, E interaction, Entrée validation, P/Échap pause/retour. Mobile paysage : joypad à gauche, A/B à droite, ☰ pause; dans les menus joypad sélectionne, A valide, B revient. Haut garde tête; bas garde corps et sélectionne les frappes au corps, gauche/droite esquivent. Attaquer suspend la garde; le combo peut se faire bas maintenu. Les lettres A/B restent fixes. La sortie «← Gym» est directement accessible dans la bordure des trois activités et conserve la position du gym.
