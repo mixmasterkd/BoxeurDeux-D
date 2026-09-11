@@ -246,7 +246,7 @@ export class GameControls {
     const menu = Boolean(this.menu()); this.root.dataset.controlMode = menu ? 'menu' : 'play';
     this.a.disabled = this.b.disabled = false;
     this.b.classList.toggle('is-inactive', this.mode === 'gym' && !menu);
-    const labels = menu ? ['Valider', 'Retour'] : this.mode === 'gym' ? ['Interagir', 'Retour'] : [this.a.dataset.moveLabel ?? (this.a.classList.contains('is-combo-ready') ? 'Crochet' : 'Jab'), 'Direct'];
+    const labels = menu ? ['Valider', 'Retour'] : this.mode === 'gym' ? ['Interagir', 'Retour'] : [this.a.dataset.moveLabel ?? (this.a.classList.contains('is-combo-ready') ? 'Crochet' : 'Jab'), this.b.dataset.moveLabel ?? 'Direct'];
     for (const [button, letter, label] of [[this.a, 'A', labels[0]], [this.b, 'B', labels[1]]]) {
       let key = button.querySelector('.control-key, .gym-interact-key');
       let text = button.querySelector('.control-label, .gym-interact-label');
@@ -278,7 +278,7 @@ export function installConsoleControls(ui, mode = 'combat') {
         else if (ui.dialog) ui.callbacks.onCloseDialog();
         else ui.requestPause();
       } else if (ui.phase === 'paused') ui.callbacks.onResume();
-      else if (ui.phase === 'running') ui.callbacks.onPause();
+      else if (ui.phase === 'running' || ui.phase === 'knockdown') ui.callbacks.onPause();
       // The ready screen and the results already are menus. Opening the menu
       // again leaves them in place; only B or the explicit exit returns outside.
     },

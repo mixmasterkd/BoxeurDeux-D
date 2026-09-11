@@ -2,6 +2,7 @@ const lesson = (id, title, description, objective, target = 3) => Object.freeze(
 
 export const LESSONS = Object.freeze({
   free: lesson('free', 'Sparring libre', 'Un round avec toutes les commandes, à votre rythme.', 'Échangez librement avec Rémi.', null),
+  resistance: lesson('resistance', 'Résistance et relevés', 'Trois rounds avec résistance, chutes et compte de dix.', 'Échangez avec Rémi et apprenez à vous relever.', null),
   jab: lesson('jab', 'Placer son jab', 'Rémi ouvre sa garde pour vous laisser travailler le jab.', 'Placez un jab dans 3 ouvertures différentes.'),
   guard: lesson('guard', 'Bloquer et souffler', 'Apprenez à protéger votre tête sans épuiser votre endurance.', 'Bloquez, puis relâchez et récupérez 8 points. Répétez 3 fois.'),
   counter: lesson('counter', 'Esquiver et répondre', 'Lisez le coup de Rémi, esquivez, puis profitez de son ouverture.', 'Réussissez 3 esquives suivies d’une frappe dans l’ouverture.'),
@@ -19,7 +20,7 @@ const CUES = {
 export class TrainingCoach {
   constructor(id) {
     const descriptor = LESSONS[id];
-    if (!descriptor || id === 'free') throw new Error(`Unknown training lesson: ${id}`);
+    if (!descriptor || ['free', 'resistance'].includes(id)) throw new Error(`Unknown training lesson: ${id}`);
     this.state = {
       id, title: descriptor.title, objective: descriptor.objective,
       progress: 0, target: descriptor.target, completed: false,

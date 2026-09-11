@@ -1,6 +1,10 @@
 import { installConsoleControls } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { LESSONS } from '../game/TrainingCoach.js';
+import { BoutHUD } from './BoutHUD.js';
+
+const openSparring = id => id === 'free' || id === 'resistance';
+const activePhase = phase => phase === 'running' || phase === 'knockdown';
 
 const REMI_LABELS = {
   idle: 'Il vous observe',
@@ -22,6 +26,9 @@ const REMI_LABELS = {
   hurt: 'Bien touché !',
   block: 'Coup bloqué',
   blocked: 'Coup bloqué',
+  fall: 'Rémi va au tapis',
+  down: 'Rémi reprend ses appuis',
+  rise: 'Rémi se relève',
 };
 
 const noop = () => {};
@@ -31,7 +38,7 @@ export class SparringUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
       'onAction', 'onGuard', 'onStart', 'onPause', 'onResume', 'onRestart', 'onSettings', 'onBlur',
-      'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym',
+      'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym', 'onNextRound',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.phase = 'ready';
     this.commandsOpen = false;
@@ -127,6 +134,7 @@ export class SparringUI {
         <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
         <p class="commands-tip">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
         <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. Dans les menus, A valide et B revient; le joypad choisit.</p>
+        <p class="commands-tip">Séance Résistance et relevés : au tapis, alternez J et K, ou A et B, six fois avant dix. Relâchez entre chaque pression et suivez le repère, sans marteler. Le décompte se met aussi en pause avec P / Échap ou ☰.</p>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
       <div class="action-dock defense-dock"></div>
@@ -153,6 +161,7 @@ export class SparringUI {
       .map((button) => [button.dataset.action, button]));
     this.bindEvents();
     this.controls = installConsoleControls(this, 'combat');
+    this.boutHUD = new BoutHUD(this);
     this.setAudioState(this.audio);
     document.getElementById('stage').inert = this.portraitQuery.matches;
   }
@@ -196,7 +205,7 @@ export class SparringUI {
     });
     this.listenActivation(this.elements['pause-button'], (event) => {
       event.currentTarget.blur();
-      if (this.phase === 'running') this.callbacks.onPause();
+      if (activePhase(this.phase)) this.callbacks.onPause();
       this.clearInputs();
     });
     this.listenActivation(this.elements['commands-open-button'], () => this.showCommands(true));
@@ -208,6 +217,7 @@ export class SparringUI {
       if (this.phase === 'ready') this.callbacks.onStart({ ...this.settings });
       else if (this.phase === 'paused') this.callbacks.onResume();
       else if (this.phase === 'finished') this.callbacks.onRestart({ ...this.settings });
+      else if (this.phase === 'between') this.callbacks.onNextRound();
     });
     this.listenActivation(this.elements['secondary-button'], (event) => {
       event.currentTarget.blur();
@@ -221,7 +231,7 @@ export class SparringUI {
     });
     this.listenActivation(this.elements['next-lesson-button'], (event) => {
       event.currentTarget.blur();
-      const lessons = Object.values(LESSONS).filter((lesson) => lesson.id !== 'free');
+      const lessons = Object.values(LESSONS).filter((lesson) => !openSparring(lesson.id));
       const next = lessons[lessons.findIndex((lesson) => lesson.id === this.settings.lesson) + 1];
       if (!next) return;
       this.clearInputs();
@@ -241,10 +251,10 @@ export class SparringUI {
       this.listen(select, 'keydown', () => this.callbacks.onAudioGesture());
       this.listen(select, 'change', () => {
         const lesson = this.root.querySelector('[name="lesson"]').value;
-        if (this.settings.lesson === 'free') this.freeTempo = this.root.querySelector('[name="tempo"]').value;
+        if (openSparring(this.settings.lesson)) this.freeTempo = this.root.querySelector('[name="tempo"]').value;
         this.settings = {
           lesson,
-          tempo: lesson === 'free' ? this.freeTempo : 'calm',
+          tempo: openSparring(lesson) ? this.freeTempo : 'calm',
           recovery: Number(this.root.querySelector('[name="recovery"]').value),
         };
         this.callbacks.onSettings({ ...this.settings });
@@ -253,7 +263,7 @@ export class SparringUI {
   }
 
   canPlay() {
-    return this.phase === 'running' && !this.portraitQuery.matches && !document.hidden;
+    return activePhase(this.phase) && !this.portraitQuery.matches && !document.hidden;
   }
 
   clearInputs() { this.controls?.clear(); this.menuPointers.clear(); }
@@ -264,7 +274,7 @@ export class SparringUI {
   }
 
   showCommands(open) {
-    if (this.phase === 'running') return;
+    if (activePhase(this.phase)) return;
     this.clearInputs();
     this.commandsOpen = open;
     this.elements['round-panel'].hidden = open;
@@ -306,7 +316,7 @@ export class SparringUI {
     const lesson = LESSONS[state.settings?.lesson ?? this.settings.lesson] ?? LESSONS.free;
     const training = state.training;
     this.settings = { ...this.settings, ...state.settings, lesson: lesson.id };
-    if (lesson.id === 'free') this.freeTempo = this.settings.tempo;
+    if (openSparring(lesson.id)) this.freeTempo = this.settings.tempo;
     this.root.dataset.lesson = lesson.id;
     if (this.phase !== phase || !this.initialized || this.renderedLesson !== lesson.id
       || this.renderedCompleted !== Boolean(training?.completed)) {
@@ -320,31 +330,31 @@ export class SparringUI {
       this.renderedCompleted = Boolean(training?.completed);
       this.clearInputs();
       this.root.dataset.phase = phase;
-      const running = phase === 'running';
+      const running = activePhase(phase);
       this.elements['round-panel'].hidden = running;
       this.elements['menu-shade'].classList.toggle('is-visible', !running);
       this.elements['pause-button'].disabled = !running;
       this.elements['return-gym-button'].hidden = running;
       for (const button of this.buttons.values()) button.disabled = !running;
       this.elements['round-results'].hidden = phase !== 'finished';
-      this.elements['round-settings'].hidden = phase === 'finished';
+      this.elements['round-settings'].hidden = phase === 'finished' || phase === 'between';
       this.elements['secondary-button'].hidden = phase !== 'paused';
       this.elements['commands-open-button'].hidden = false;
-      this.elements['choose-session-button'].hidden = !['paused', 'finished'].includes(phase);
+      this.elements['choose-session-button'].hidden = !['paused', 'finished', 'between'].includes(phase);
       this.elements['lesson-choice'].hidden = phase !== 'ready';
       this.root.querySelector('[name="lesson"]').value = lesson.id;
       this.root.querySelector('[name="lesson"]').disabled = phase !== 'ready';
       const tempo = this.root.querySelector('[name="tempo"]');
       tempo.value = this.settings.tempo;
-      tempo.disabled = lesson.id !== 'free';
-      tempo.closest('label').hidden = lesson.id !== 'free';
+      tempo.disabled = !openSparring(lesson.id);
+      tempo.closest('label').hidden = !openSparring(lesson.id);
       this.root.querySelector('[name="recovery"]').value = String(this.settings.recovery);
-      this.elements['lesson-tempo'].hidden = lesson.id === 'free' || phase === 'finished';
-      this.elements['lesson-objective'].hidden = lesson.id === 'free' || phase === 'finished';
+      this.elements['lesson-tempo'].hidden = openSparring(lesson.id) || phase === 'finished';
+      this.elements['lesson-objective'].hidden = openSparring(lesson.id) || phase === 'finished';
       this.setText(this.elements['lesson-description'], lesson.description);
       this.setText(this.elements['lesson-objective'], lesson.objective);
       this.elements['training-summary'].hidden = phase !== 'finished' || !training;
-      const lessons = Object.values(LESSONS).filter((item) => item.id !== 'free');
+      const lessons = Object.values(LESSONS).filter((item) => !openSparring(item.id));
       const next = lessons[lessons.findIndex((item) => item.id === lesson.id) + 1];
       this.elements['next-lesson-button'].hidden = phase !== 'finished' || !training || !next;
       if (next) this.setText(this.elements['next-lesson-button'], 'Leçon suivante →');
@@ -367,7 +377,7 @@ export class SparringUI {
         this.setText(this.elements['primary-button'], training ? 'Refaire l’exercice →' : 'Un autre round →');
       }
       if (!running) this.elements['fight-feedback'].classList.remove('is-visible');
-      if (phase === 'paused' && !this.portraitQuery.matches) this.elements['primary-button'].focus({ preventScroll: true });
+      if (['paused', 'between'].includes(phase) && !this.portraitQuery.matches) this.elements['primary-button'].focus({ preventScroll: true });
       else if (running && this.root.contains(document.activeElement)) document.activeElement.blur();
     }
     this.elements['training-coach'].hidden = phase !== 'running' || !training;
@@ -393,7 +403,6 @@ export class SparringUI {
       jabButton.setAttribute('aria-label', hookSelected ? 'Crochet gauche — 21 endurance — J' : 'Jab gauche — J');
       jabButton.classList.toggle('is-combo-ready', hookReady);
     }
-    this.controls?.refresh();
     const displayedStamina = Math.round(stamina);
     this.setText(this.values.stamina, displayedStamina);
     if (this.lastStamina !== displayedStamina) {
@@ -419,6 +428,8 @@ export class SparringUI {
       this.setText(this.values['result-received'], stats.received ?? 0);
       this.setText(this.elements['round-detail'], `${stats.blocked ?? 0} coups bloqués · ${stats.dodged ?? 0} esquivés\n${stats.thrown ?? 0} coups tentés${lesson.id === 'free' ? ` · ${stats.hooks ?? 0} crochets touchés\n${stats.combos ?? 0} combos complets (3 touches)` : ''}`);
     }
+    this.boutHUD.update(state);
+    this.controls?.refresh();
   }
 
   showFeedback(text, tone = 'neutral') {

@@ -241,7 +241,7 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
 .coach-steps i.is-complete { background: var(--amber); }
 .coach-objective { margin: 0 0 8px; color: #bdceca; font-size: 11px; line-height: 1.4; }
 .coach-cue { margin: 0; color: #f4ead3; font-size: 14px; font-weight: 700; line-height: 1.45; }
-#sparring-ui:not([data-lesson="free"]) .session-caption { display: none; }
+#sparring-ui:not([data-lesson="free"]):not([data-lesson="resistance"]) .session-caption { display: none; }
 @container (max-width: 1000px) {
   .round-panel { width: 280px; top: 18%; padding: 15px; }
   .panel-heading { font-size: 24px; }
@@ -302,7 +302,7 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
   .panel-actions .primary-button, .panel-actions .round-footnote { grid-column: 1 / -1; }
   .panel-actions .secondary-button, .panel-actions .choose-session-button, .panel-actions .next-lesson-button { min-height: 35px; margin: 0; font-size: 10px; line-height: 1.2; }
   #sparring-ui[data-phase="paused"] .lesson-tempo { display: none; }
-  #sparring-ui:not([data-lesson="free"]) .round-detail { display: none; }
+  #sparring-ui:not([data-lesson="free"]):not([data-lesson="resistance"]) .round-detail { display: none; }
 }
 @media (pointer: coarse) {
   .audio-button { width: 44px; height: 44px; top: 48px; }

@@ -1,0 +1,1130 @@
+{
+  "checkedAt": "2026-09-11T17:45:38.178Z",
+  "selectedCase": "all",
+  "reports": [
+    "Desktop: actual walk to Rémi and resistance bout; played JKJ combos cause a glove-aligned knockdown, automatic count and partial opponent recovery.",
+    "Desktop player: six paced alternating efforts get up; held input, repeated same hand, rapid spam and combat directions are rejected. Pause/focus freeze the count and release all controls.",
+    "Mobile: real A/B get-up input, no hold/same-button repetition; three landscape sizes preserve 16:9 and outside controls, portrait freezes and requires explicit resume.",
+    "An unassisted player knockdown reaches the real ten-count and final report; restarting clears resistance, knockdowns, result, history and touch counters.",
+    "One actual round lasted 60.9 s; zero endurance never caused a knockdown, matching guards kept the player up, the interval waited, and the explicit next-round action began round 2 of 3."
+  ],
+  "measurements": [
+    {
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "case": "opponent-knockdown",
+      "elapsedWallSeconds": 5.289,
+      "hit": {
+        "type": "player-hit",
+        "time": 5.401900000000057,
+        "attack": "hook",
+        "target": "head",
+        "impact": 0.47058823529411764,
+        "combo": true,
+        "x": 640.1328125,
+        "y": 267.28515625,
+        "contactPoint": {
+          "x": 640.1328125,
+          "y": 267.28515625
+        },
+        "targetPoint": {
+          "x": 640,
+          "y": 267.5078125
+        },
+        "playerProgress": 0.47058823529411764,
+        "remiProgress": 0,
+        "playerTexture": "player-hook",
+        "remiTexture": "remi-hit"
+      },
+      "state": {
+        "phase": "knockdown",
+        "pausedPhase": null,
+        "remaining": 54.598099999999945,
+        "elapsed": 5.401900000000057,
+        "stamina": 24.537933333333555,
+        "player": {
+          "action": "hook",
+          "progress": 0.47058823529411764,
+          "duration": 0.68,
+          "impact": 0.47058823529411764,
+          "hurt": 0,
+          "reactionProgress": 1,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head"
+        },
+        "remi": {
+          "action": "hit",
+          "progress": 0,
+          "duration": 0.26,
+          "impact": null,
+          "hurt": 1,
+          "reactionProgress": 0,
+          "target": "head",
+          "guardLevel": "head",
+          "hurtTarget": "head",
+          "safeDodge": null,
+          "side": null
+        },
+        "stats": {
+          "landed": 6,
+          "received": 1,
+          "blocked": 0,
+          "dodged": 0,
+          "thrown": 6,
+          "opponentBlocked": 0,
+          "missed": 0,
+          "hooks": 2,
+          "combos": 2,
+          "landedHead": 6,
+          "landedBody": 0,
+          "receivedHead": 1,
+          "receivedBody": 0,
+          "blockedHead": 0,
+          "blockedBody": 0
+        },
+        "combo": {
+          "step": 0,
+          "ready": false,
+          "remaining": 0
+        },
+        "settings": {
+          "duration": 60,
+          "tempo": "normal",
+          "recovery": 1,
+          "lesson": "resistance"
+        },
+        "training": null,
+        "bout": {
+          "round": 1,
+          "rounds": 3,
+          "maxResistance": 100,
+          "resistance": {
+            "player": 88,
+            "remi": 0
+          },
+          "downs": {
+            "player": {
+              "round": 0,
+              "total": 0
+            },
+            "remi": {
+              "round": 1,
+              "total": 1
+            }
+          },
+          "count": {
+            "stage": "fall",
+            "elapsed": 0,
+            "number": 0,
+            "downed": {
+              "player": false,
+              "remi": true
+            },
+            "eliminated": {
+              "player": null,
+              "remi": null
+            },
+            "recovered": {
+              "player": false,
+              "remi": false
+            },
+            "hold": 0.01999999999999937,
+            "progress": 0,
+            "needed": 6,
+            "accepted": 0,
+            "next": null,
+            "ready": false,
+            "readyIn": 0
+          },
+          "result": null,
+          "roundHistory": []
+        }
+      }
+    },
+    {
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Direct",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Jab",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 150,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 578,
+          "y": 106.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 547,
+          "y": 236.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 596,
+          "y": 175.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 15.080001831054688,
+          "y": 124.58000183105469,
+          "width": 99.83999633789062,
+          "height": 99.83999633789062,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 479,
+          "y": 83.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 448,
+          "y": 204.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 497,
+          "y": 143.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    },
+    {
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 10
+    }
+  ],
+  "errors": [],
+  "updatedAt": "2026-09-11T17:54:35.830Z",
+  "reruns": [
+    {
+      "checkedAt": "2026-09-11T17:54:35.830Z",
+      "selectedCase": "desktop,mobile,ko",
+      "reports": [
+        "Desktop: actual walk to Rémi and resistance bout; played JKJ combos cause a glove-aligned knockdown, automatic count and partial opponent recovery.",
+        "Desktop player: six paced alternating efforts get up; held input, repeated same hand, rapid spam and combat directions are rejected. Pause/focus freeze the count and release all controls.",
+        "Mobile: real A/B get-up input, no hold/same-button repetition; three landscape sizes preserve 16:9 and outside controls, portrait freezes and requires explicit resume.",
+        "An unassisted player knockdown reaches the real ten-count and final report; restarting clears resistance, knockdowns, result, history and touch counters."
+      ],
+      "measurements": [
+        {
+          "case": "bout-menu",
+          "mobile": false,
+          "phase": "ready",
+          "panel": {
+            "x": 131.1875,
+            "y": 174,
+            "right": 441.1875,
+            "bottom": 870
+          },
+          "container": {
+            "x": 80,
+            "y": 162,
+            "right": 1360,
+            "bottom": 882
+          },
+          "noHorizontalScroll": true,
+          "pageFits": true,
+          "actionable": true
+        },
+        {
+          "mobile": false,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [],
+          "primaryFine": true,
+          "touchPoints": 10
+        },
+        {
+          "case": "opponent-knockdown",
+          "elapsedWallSeconds": 5.294,
+          "hit": {
+            "type": "player-hit",
+            "time": 5.4185400000000525,
+            "attack": "hook",
+            "target": "head",
+            "impact": 0.47058823529411764,
+            "combo": true,
+            "x": 640.1328125,
+            "y": 267.28515625,
+            "contactPoint": {
+              "x": 640.1328125,
+              "y": 267.28515625
+            },
+            "targetPoint": {
+              "x": 640,
+              "y": 267.5078125
+            },
+            "playerProgress": 0.47058823529411764,
+            "remiProgress": 0,
+            "playerTexture": "player-hook",
+            "remiTexture": "remi-hit"
+          },
+          "state": {
+            "phase": "knockdown",
+            "pausedPhase": null,
+            "remaining": 54.58145999999995,
+            "elapsed": 5.4185400000000525,
+            "stamina": 24.833434835152985,
+            "player": {
+              "action": "hook",
+              "progress": 0.47058823529411764,
+              "duration": 0.68,
+              "impact": 0.47058823529411764,
+              "hurt": 0,
+              "reactionProgress": 1,
+              "target": "head",
+              "guardLevel": "head",
+              "hurtTarget": "head"
+            },
+            "remi": {
+              "action": "hit",
+              "progress": 0,
+              "duration": 0.26,
+              "impact": null,
+              "hurt": 1,
+              "reactionProgress": 0,
+              "target": "head",
+              "guardLevel": "head",
+              "hurtTarget": "head",
+              "safeDodge": null,
+              "side": null
+            },
+            "stats": {
+              "landed": 6,
+              "received": 1,
+              "blocked": 0,
+              "dodged": 0,
+              "thrown": 6,
+              "opponentBlocked": 0,
+              "missed": 0,
+              "hooks": 2,
+              "combos": 2,
+              "landedHead": 6,
+              "landedBody": 0,
+              "receivedHead": 1,
+              "receivedBody": 0,
+              "blockedHead": 0,
+              "blockedBody": 0
+            },
+            "combo": {
+              "step": 0,
+              "ready": false,
+              "remaining": 0
+            },
+            "settings": {
+              "duration": 60,
+              "tempo": "normal",
+              "recovery": 1,
+              "lesson": "resistance"
+            },
+            "training": null,
+            "bout": {
+              "round": 1,
+              "rounds": 3,
+              "maxResistance": 100,
+              "resistance": {
+                "player": 88,
+                "remi": 0
+              },
+              "downs": {
+                "player": {
+                  "round": 0,
+                  "total": 0
+                },
+                "remi": {
+                  "round": 1,
+                  "total": 1
+                }
+              },
+              "count": {
+                "stage": "fall",
+                "elapsed": 0,
+                "number": 0,
+                "downed": {
+                  "player": false,
+                  "remi": true
+                },
+                "eliminated": {
+                  "player": null,
+                  "remi": null
+                },
+                "recovered": {
+                  "player": false,
+                  "remi": false
+                },
+                "hold": 0.020059999999999512,
+                "progress": 0,
+                "needed": 6,
+                "accepted": 0,
+                "next": null,
+                "ready": false,
+                "readyIn": 0
+              },
+              "result": null,
+              "roundHistory": []
+            }
+          }
+        },
+        {
+          "case": "bout-menu",
+          "mobile": true,
+          "phase": "ready",
+          "panel": {
+            "x": 132,
+            "y": 50.46875,
+            "right": 712,
+            "bottom": 368.53125
+          },
+          "container": {
+            "x": 10,
+            "y": 38,
+            "right": 834,
+            "bottom": 381
+          },
+          "noHorizontalScroll": true,
+          "pageFits": true,
+          "actionable": true
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 13,
+              "y": 157.5,
+              "width": 104,
+              "height": 104,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 755,
+              "y": 114,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Direct",
+              "x": 724,
+              "y": 244,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Jab",
+              "x": 773,
+              "y": 183,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 13,
+              "y": 157.5,
+              "width": 104,
+              "height": 104,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 755,
+              "y": 114,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Retour",
+              "x": 724,
+              "y": 244,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Valider",
+              "x": 773,
+              "y": 183,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 13,
+              "y": 157.5,
+              "width": 104,
+              "height": 104,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 755,
+              "y": 114,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Relever",
+              "x": 724,
+              "y": 244,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Relever",
+              "x": 773,
+              "y": 183,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "case": "active-count-geometry",
+          "viewport": [
+            844,
+            390
+          ],
+          "canvas": {
+            "x": 126,
+            "y": 43,
+            "right": 718,
+            "bottom": 376,
+            "width": 592,
+            "height": 333
+          },
+          "card": {
+            "x": 143.75,
+            "y": 162.875,
+            "right": 327.265625,
+            "bottom": 231.875,
+            "width": 183.515625,
+            "height": 69
+          },
+          "noCardHorizontalScroll": true,
+          "hud": [
+            {
+              "name": "resistance-panel resistance-player",
+              "x": 141,
+              "y": 109,
+              "right": 266,
+              "bottom": 133,
+              "width": 125,
+              "height": 24
+            },
+            {
+              "name": "round-clock",
+              "x": 394.78125,
+              "y": 55,
+              "right": 449.21875,
+              "bottom": 134,
+              "width": 54.4375,
+              "height": 79
+            },
+            {
+              "name": "resistance-panel resistance-remi",
+              "x": 578,
+              "y": 110,
+              "right": 703,
+              "bottom": 134,
+              "width": 125,
+              "height": 24
+            }
+          ]
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 13,
+              "y": 150,
+              "width": 104,
+              "height": 104,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 578,
+              "y": 106.5,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Retour",
+              "x": 547,
+              "y": 236.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Valider",
+              "x": 596,
+              "y": 175.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 13,
+              "y": 150,
+              "width": 104,
+              "height": 104,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 578,
+              "y": 106.5,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Relever",
+              "x": 547,
+              "y": 236.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Relever",
+              "x": 596,
+              "y": 175.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "case": "active-count-geometry",
+          "viewport": [
+            667,
+            375
+          ],
+          "canvas": {
+            "x": 126,
+            "y": 85.28125,
+            "right": 541,
+            "bottom": 318.71875,
+            "width": 415,
+            "height": 233.4375
+          },
+          "card": {
+            "x": 138.4375,
+            "y": 185.65625,
+            "right": 267.078125,
+            "bottom": 269.796875,
+            "width": 128.640625,
+            "height": 84.140625
+          },
+          "noCardHorizontalScroll": true,
+          "hud": [
+            {
+              "name": "resistance-panel resistance-player",
+              "x": 134,
+              "y": 124.28125,
+              "right": 239,
+              "bottom": 147.28125,
+              "width": 105,
+              "height": 23
+            },
+            {
+              "name": "round-clock",
+              "x": 313.078125,
+              "y": 91.28125,
+              "right": 353.921875,
+              "bottom": 156.28125,
+              "width": 40.84375,
+              "height": 65
+            },
+            {
+              "name": "resistance-panel resistance-remi",
+              "x": 428,
+              "y": 106.28125,
+              "right": 533,
+              "bottom": 129.28125,
+              "width": 105,
+              "height": 23
+            }
+          ]
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 15.080001831054688,
+              "y": 124.58000183105469,
+              "width": 99.83999633789062,
+              "height": 99.83999633789062,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 479,
+              "y": 83.5,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Retour",
+              "x": 448,
+              "y": 204.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Valider",
+              "x": 497,
+              "y": 143.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "mobile": true,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [
+            {
+              "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+              "x": 15.080001831054688,
+              "y": 124.58000183105469,
+              "width": 99.83999633789062,
+              "height": 99.83999633789062,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "Menu pause",
+              "x": 479,
+              "y": 83.5,
+              "width": 48,
+              "height": 44,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "B — Relever",
+              "x": 448,
+              "y": 204.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            },
+            {
+              "name": "A — Relever",
+              "x": 497,
+              "y": 143.5,
+              "width": 61,
+              "height": 61,
+              "outside": true,
+              "fits": true
+            }
+          ],
+          "primaryFine": false,
+          "touchPoints": 1
+        },
+        {
+          "case": "active-count-geometry",
+          "viewport": [
+            568,
+            320
+          ],
+          "canvas": {
+            "x": 126,
+            "y": 85.625,
+            "right": 442,
+            "bottom": 263.375,
+            "width": 316,
+            "height": 177.75
+          },
+          "card": {
+            "x": 135.46875,
+            "y": 162.046875,
+            "right": 233.421875,
+            "bottom": 256.578125,
+            "width": 97.953125,
+            "height": 94.53125
+          },
+          "noCardHorizontalScroll": true,
+          "hud": [
+            {
+              "name": "resistance-panel resistance-player",
+              "x": 134,
+              "y": 124.625,
+              "right": 239,
+              "bottom": 147.625,
+              "width": 105,
+              "height": 23
+            },
+            {
+              "name": "round-clock",
+              "x": 263.578125,
+              "y": 91.625,
+              "right": 304.421875,
+              "bottom": 156.625,
+              "width": 40.84375,
+              "height": 65
+            },
+            {
+              "name": "resistance-panel resistance-remi",
+              "x": 329,
+              "y": 106.625,
+              "right": 434,
+              "bottom": 129.625,
+              "width": 105,
+              "height": 23
+            }
+          ]
+        },
+        {
+          "case": "bout-menu",
+          "mobile": false,
+          "phase": "ready",
+          "panel": {
+            "x": 131.1875,
+            "y": 174,
+            "right": 441.1875,
+            "bottom": 870
+          },
+          "container": {
+            "x": 80,
+            "y": 162,
+            "right": 1360,
+            "bottom": 882
+          },
+          "noHorizontalScroll": true,
+          "pageFits": true,
+          "actionable": true
+        },
+        {
+          "mobile": false,
+          "menu": false,
+          "width": 1280,
+          "height": 720,
+          "ratio": 1.7777777777777777,
+          "noScroll": true,
+          "fits": true,
+          "controls": [],
+          "primaryFine": true,
+          "touchPoints": 10
+        },
+        {
+          "case": "bout-menu",
+          "mobile": false,
+          "phase": "finished",
+          "panel": {
+            "x": 131.1875,
+            "y": 226.21875,
+            "right": 441.1875,
+            "bottom": 817.78125
+          },
+          "container": {
+            "x": 80,
+            "y": 162,
+            "right": 1360,
+            "bottom": 882
+          },
+          "noHorizontalScroll": true,
+          "pageFits": true,
+          "actionable": true
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

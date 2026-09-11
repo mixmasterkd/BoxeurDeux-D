@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 384,
+    "height": 640
+  },
+  "anchor": {
+    "x": 192,
+    "y": 624
+  },
+  "artHeight": 512,
+  "note": "Original knee fall, seated canvas and rising poses. Each sheet uses one standing-calibrated scale; floor anchors remain fixed. No stretched or rotated standing sprites.",
+  "sources": [
+    "references/characters/knockdown/player-alpha.png",
+    "references/characters/knockdown/remi-alpha.png"
+  ],
+  "calibration": {
+    "player": {
+      "sourceFile": "references/characters/knockdown/player-alpha.png",
+      "standingSourceBounds": {
+        "x": 67,
+        "y": 93,
+        "w": 369,
+        "h": 681
+      },
+      "standingArtHeight": 512,
+      "scale": 0.7518355359765051,
+      "transparentFraction": 0.7131034859883919
+    },
+    "remi": {
+      "sourceFile": "references/characters/knockdown/remi-alpha.png",
+      "standingSourceBounds": {
+        "x": 50,
+        "y": 48,
+        "w": 375,
+        "h": 660
+      },
+      "standingArtHeight": 512,
+      "scale": 0.7757575757575758,
+      "transparentFraction": 0.668796175409932
+    }
+  },
+  "poses": {
+    "player-fall": {
+      "file": "knockdown/player-fall.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 53,
+        "y": 290,
+        "width": 290,
+        "height": 334
+      },
+      "sourceBounds": {
+        "x": 534,
+        "y": 322,
+        "w": 386,
+        "h": 444
+      },
+      "head": {
+        "x": 250,
+        "y": 327
+      },
+      "body": {
+        "x": 208,
+        "y": 413
+      },
+      "sourceFile": "references/characters/knockdown/player-alpha.png",
+      "physicalScale": 0.7518355359765051
+    },
+    "player-down": {
+      "file": "knockdown/player-down.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 37,
+        "y": 398,
+        "width": 342,
+        "height": 226
+      },
+      "sourceBounds": {
+        "x": 1028,
+        "y": 452,
+        "w": 455,
+        "h": 301
+      },
+      "head": {
+        "x": 188,
+        "y": 424
+      },
+      "body": {
+        "x": 190,
+        "y": 515
+      },
+      "sourceFile": "references/characters/knockdown/player-alpha.png",
+      "physicalScale": 0.7518355359765051
+    },
+    "player-rise": {
+      "file": "knockdown/player-rise.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 58,
+        "y": 195,
+        "width": 262,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 1544,
+        "y": 202,
+        "w": 348,
+        "h": 571
+      },
+      "head": {
+        "x": 204,
+        "y": 243
+      },
+      "body": {
+        "x": 207,
+        "y": 351
+      },
+      "sourceFile": "references/characters/knockdown/player-alpha.png",
+      "physicalScale": 0.7518355359765051
+    },
+    "remi-fall": {
+      "file": "knockdown/remi-fall.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 44,
+        "y": 242,
+        "width": 299,
+        "height": 382
+      },
+      "sourceBounds": {
+        "x": 579,
+        "y": 214,
+        "w": 386,
+        "h": 493
+      },
+      "head": {
+        "x": 150,
+        "y": 310
+      },
+      "body": {
+        "x": 200,
+        "y": 424
+      },
+      "sourceFile": "references/characters/knockdown/remi-alpha.png",
+      "physicalScale": 0.7757575757575758
+    },
+    "remi-down": {
+      "file": "knockdown/remi-down.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 1,
+        "y": 323,
+        "width": 382,
+        "height": 301
+      },
+      "sourceBounds": {
+        "x": 1055,
+        "y": 321,
+        "w": 492,
+        "h": 388
+      },
+      "head": {
+        "x": 178,
+        "y": 398
+      },
+      "body": {
+        "x": 183,
+        "y": 486
+      },
+      "sourceFile": "references/characters/knockdown/remi-alpha.png",
+      "physicalScale": 0.7757575757575758
+    },
+    "remi-rise": {
+      "file": "knockdown/remi-rise.png",
+      "width": 384,
+      "height": 640,
+      "anchor": {
+        "x": 192,
+        "y": 624
+      },
+      "bounds": {
+        "x": 46,
+        "y": 202,
+        "width": 285,
+        "height": 422
+      },
+      "sourceBounds": {
+        "x": 1652,
+        "y": 163,
+        "w": 368,
+        "h": 544
+      },
+      "head": {
+        "x": 193,
+        "y": 283
+      },
+      "body": {
+        "x": 196,
+        "y": 390
+      },
+      "sourceFile": "references/characters/knockdown/remi-alpha.png",
+      "physicalScale": 0.7757575757575758
+    }
+  }
+}

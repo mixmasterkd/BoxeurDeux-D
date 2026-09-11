@@ -1,10 +1,18 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## Plan demandé après les commandes communes — pas encore un GO de réalisation
+## GO actuel — étape 1 : résistance, chute et relevé
+
+L’utilisateur a dit **« ok j’aime ton idée go pour l’étape 1 »**. Cette autorisation remplace l’attente de GO du plan ci-dessous pour cette seule étape. La séance **Résistance et relevés** est intégrée au choix de Rémi : trois rounds de 60 secondes, deux jauges de résistance distinctes de l’endurance, chutes, compte de dix, relevé avec six pressions alternées J/K ou A/B, récupération partielle et arrêts à trois chutes dans un round ou quatre dans la séance. Les exercices pédagogiques et le sparring libre de 60 secondes restent disponibles. Lire `docs/VERIFICATIONS.md` pour les validations effectivement terminées et la publication; l’implémentation seule ne prouve pas leur réussite.
+
+Les coups nets retirent 12/18/22 points pour jab/direct/crochet; blocage et esquive ne retirent pas de résistance. Le contact reste visible 100 ms avant la chute. Pour se relever, commencer par J/A, puis alterner six pressions au total espacées d’au moins 0,35 s avant dix; aucun avantage au maintien ou au martèlement. Rémi se relève au compte de 6, 8 puis 9 selon ses chutes totales. Résistance rendue 55/45/35 et endurance 60 après relevé; entre les rounds, endurance pleine et +20 de résistance. Pause, perte de focus et portrait figent aussi le décompte. Les nouvelles poses, sources et prompts sont dans les dossiers `knockdown`; les anciens personnages et décors sont conservés.
+
+L’étape 2 reste à lancer séparément : premier adversaire original via une affiche **« Prochain combat »** dans le gym existant. La discussion a retenu cette entrée sans construire la ville maintenant. Rémi garde son rôle de partenaire. Ni adversaire officiel, ni décision aux points, ni KO spécial, ni sauvegarde de carrière, ni gains permanents/dépenses quotidiennes ne sont ajoutés à l’étape 1.
+
+## Plan après les commandes communes — historique de la discussion
 
 Les commandes communes sont livrées dans `74f87df`; le parcours du site GitHub Pages a aussi réussi au clavier et au tactile simulé après déploiement. La discussion suivante valide gym gratuit, argent pour goodies/vêtements futurs, plafonds de capacités et d’épargne liés à l’avancement, énergie quotidienne dépensée au travail/gym et remise à plein uniquement en dormant, endurance et résistance séparées pendant les combats. Un adversaire original à la fois; après deux ou trois, tournoi de trois jours avec hôtel, restaurant et gym dédiés. Le sens de tournoi «payant» est interprété provisoirement comme une inscription en argent du jeu. Les conditions précises de chute/KO à zéro résistance restent à régler.
 
-L’utilisateur demande maintenant **un plan par étapes**, sans lancer les prochaines fonctionnalités. Décisions et ordre proposé dans `docs/PROCHAINES_ETAPES.md` : résistance/chutes/relevé → premier adversaire → gains réels des ateliers → speed ball et corde → journées → petit quartier/travail/argent → adversaires suivants → tournoi. Ne pas transformer cet ordre proposé en fonctionnalités déjà réalisées ou approuvées en détail.
+L’utilisateur avait demandé **un plan par étapes**, avant d’autoriser l’étape 1 ci-dessus. Décisions et ordre proposé dans `docs/PROCHAINES_ETAPES.md` : résistance/chutes/relevé → premier adversaire → gains réels des ateliers → speed ball et corde → journées → petit quartier/travail/argent → adversaires suivants → tournoi. Ne pas transformer cet ordre en fonctionnalités déjà réalisées ou approuvées en détail.
 
 Il demande aussi comment sauvegarder la progression du joueur. Le plan inclut dès les premiers gains permanents une sauvegarde automatique locale versionnée, Continuer/Nouvelle partie, copie précédente de secours et export/import de fichier via le menu commun. Stockages séparés par navigateur/adresse; aucune synchronisation PC/téléphone implicite et aucune partie stockée par un simple push Git. Les coûts/récompenses et reprises d’activités devront rester cohérents après rechargement. Cette sauvegarde de carrière est proposée, pas encore implémentée.
 

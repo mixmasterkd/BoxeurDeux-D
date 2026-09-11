@@ -27,7 +27,7 @@ export class SparringScene extends Phaser.Scene {
 
   create(data = {}) {
     setSceneShell('sparring');
-    this.session = new SparringSession({ lesson: data.lesson ?? 'free' });
+    this.session = new SparringSession({ lesson: data.lesson ?? new URLSearchParams(window.location.search).get('lesson') ?? 'free' });
     this.audio = new SparringAudio();
     const background = this.add.image(640, 360, 'gym');
     background.setScale(Math.min(1280 / background.width, 720 / background.height));
@@ -51,6 +51,10 @@ export class SparringScene extends Phaser.Scene {
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onRestart: (settings) => this.beginSession(settings),
+      onNextRound: () => {
+        this.session.releaseControls();
+        if (this.session.nextRound()) { this.audio.setActive(true); this.audio.play('round-start'); }
+      },
       onChooseLesson: () => { this.session.reset(); this.audio.setActive(false); },
       onReturnGym: () => {
         this.session.pause(); this.session.releaseControls();
@@ -108,17 +112,19 @@ export class SparringScene extends Phaser.Scene {
 
   update(_time, delta) {
     if (!this.session) return;
-    this.session.update(Math.min(delta / 1000, .05));
+    // The count must follow active real seconds, including a slow frame. The
+    // session subdivides its boundaries; blur/portrait explicitly pause it.
+    this.session.update(this.session.state.phase === 'knockdown' ? (this.game.loop.rawDelta ?? delta) / 1000 : Math.min(delta / 1000, .05));
     const state = this.session.state;
     // Rémi commits to the promised height; moving out of that aim is a dodge.
     this.remi.target = this.player.point('guard', state.remi.target ?? 'head');
-    this.remi.render(state.remi, state.elapsed);
+    this.remi.render(state.remi, state.elapsed, state.bout);
     const target = state.player.target ?? 'head';
     this.player.target = state.remi.action === 'hit'
       ? this.remi.point('guard', target)
       : this.remi.point(this.remi.pose, target, true);
     if (state.remi.action === 'guard' && target === 'head' && state.remi.guardLevel !== 'body') this.player.target.y += 20;
-    this.player.render(state.player, state.elapsed);
+    this.player.render(state.player, state.elapsed, state.bout);
     this.renderCue(state);
     for (const event of this.session.drainEvents()) {
       // The model emits impacts on the frame where the glove makes contact.

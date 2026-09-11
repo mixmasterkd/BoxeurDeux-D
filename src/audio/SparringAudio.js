@@ -103,6 +103,24 @@ export class SparringAudio {
           this.bell(at);
           break;
         case 'round-end':
+        case 'round-break':
+          this.bell(at);
+          this.bell(at + .25, .7);
+          break;
+        case 'knockdown':
+          this.tone(at, .24, 90, 38, .28);
+          this.noise(at, .19, 320, .14, .005);
+          break;
+        case 'count':
+          this.tone(at, .09, 320, 260, .13);
+          break;
+        case 'recovery-press':
+          this.tone(at, .07, 470, 560, .10);
+          break;
+        case 'stood-up':
+          this.tone(at, .16, 440, 660, .12);
+          break;
+        case 'bout-finish':
           this.bell(at);
           this.bell(at + .25, .7);
           break;

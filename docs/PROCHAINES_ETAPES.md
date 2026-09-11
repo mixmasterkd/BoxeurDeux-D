@@ -4,7 +4,11 @@ Direction confirmée par l’utilisateur, actualisée après le GO du 11 septemb
 
 ## Nouvelle direction — décisions validées et ordre proposé
 
-La discussion après le commit `74f87df` précise la progression à long terme. Les décisions ci-dessous sont validées; **l’ordre de réalisation et les détails de règles restent une proposition à discuter**. Cette demande porte sur le plan, pas sur le démarrage de toutes ces phases.
+La discussion après le commit `74f87df` précise la progression à long terme. L’utilisateur a ensuite autorisé **l’étape 1** et retenu l’accès au premier adversaire par une affiche « Prochain combat » dans le gym existant pour l’étape 2. Ce GO ne lance pas toutes les phases suivantes; leurs détails restent à concevoir ensemble.
+
+### Étape 1 intégrée après le GO
+
+Rémi propose **Résistance et relevés**, trois rounds de 60 secondes. Résistance séparée de l’endurance, chute à zéro, compte de dix, six pressions alternées J/K ou A/B pour se relever, récupération partielle, pause du décompte et bilan. Troisième chute du round ou quatrième de la séance : arrêt. Entre les rounds : endurance pleine, +20 de résistance et remise à zéro du compteur de chutes du round uniquement. Les trois leçons et le sparring libre restent disponibles. Règles précises dans le README; essais réellement terminés dans `VERIFICATIONS.md`.
 
 ### Décisions retenues
 
@@ -23,7 +27,7 @@ La discussion après le commit `74f87df` précise la progression à long terme. 
 | Étape | Contenu borné | Résultat à vérifier avant la suivante |
 | --- | --- | --- |
 | 1. Résistance, chute et relevé | Ajouter la résistance aux deux boxeurs, compte de dix, relevé, récupération partielle, compteurs de chutes par round/combat et états de fin. Préserver le sparring pédagogique de Rémi. | Un échange peut produire une chute, un relevé ou un KO compréhensible au clavier et avec A/B. Les transitions de rounds et les limites de chutes fonctionnent. |
-| 2. Premier adversaire | Créer un seul adversaire avec deux attaques principales, une particularité et une ouverture claire; boucle de plusieurs rounds courts, victoire/défaite, bilan et revanche. Définir aussi la décision si la limite de rounds est atteinte. | Le combat est gagnable par lecture du pattern avec les capacités de base, puis rejouable sans payer chaque tentative. |
+| 2. Premier adversaire | Affiche « Prochain combat » dans le gym existant, puis transition vers le ring. Créer un seul adversaire avec deux attaques principales, une particularité et une ouverture claire; plusieurs rounds courts, victoire/défaite, bilan et revanche. Définir la décision si la limite de rounds est atteinte. La carte extérieure attend l’étape 6. | Le combat est gagnable par lecture du pattern avec les capacités de base, puis rejouable sans payer chaque tentative. Retour au gym avec les mêmes interactions. |
 | 3. Bénéfices réels du gym | Relier d’abord les ateliers existants à des gains modestes de résistance et d’endurance; afficher capacités de base, gains possibles et plafonds; sauvegarde locale versionnée. Le miroir conserve son rôle d’apprentissage des gestes et n’accorde pas de points pour de simples appuis répétés. | Une séance utile produit une différence mesurable dans le même combat; le plafond est explicite et les acquis survivent au rechargement. Aucun bonus ne bloque/esquive à la place du joueur. |
 | 4. Compléter les ateliers | Speed ball, puis corde à danser, une activité vérifiée à la fois. Même joypad, A/B, menus, bilan et retour au gym. Leur bénéfice précis est choisi à partir du combat déjà testé. | Les cinq activités du gym ont un rôle lisible, sans commandes supplémentaires ni répétitions sans intérêt. |
 | 5. Boucle des journées | Énergie quotidienne, coût annoncé des séances, jour courant et action de dormir avant de construire la maison. Les coûts des entraînements sont appliqués ici; rien ne dépend encore d’une grande carte extérieure. | On peut organiser une journée, dormir même à zéro énergie et reprendre le lendemain à pleine énergie; aucun bonus nocturne ni blocage. |
@@ -36,7 +40,7 @@ La discussion après le commit `74f87df` précise la progression à long terme. 
 - Par défaut, tomber à zéro résistance déclenche un knock-down avec une chance de se relever avant dix; un relevé ne restaure qu’une partie de la résistance.
 - L’échec du relevé avant dix donne un KO. Les seuils de trois chutes dans le round ou quatre dans le combat entraînent l’arrêt sans nouveau relevé.
 - Un KO immédiat éventuel doit également arriver à zéro résistance, avec une condition déterministe et annoncée. Candidat pour plus tard : un coup spécial clairement préparé, reçu en épuisement complet, qui vide la résistance restante. Pas de probabilité cachée.
-- La première livraison vérifie chute, relevé et arrêt. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. Le geste de relevé, la résistance rendue, le format des rounds et le départage aux points restent à régler dans les étapes 1 et 2.
+- La première livraison intègre chute, relevé et arrêt : six pressions alternées, résistance rendue 55/45/35 et trois rounds de 60 secondes. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. Le départage aux points reste à définir à l’étape 2; Rémi donne ici un bilan d’entraînement.
 
 ### Sauvegarde de la partie — à intégrer dès l’étape 3
 

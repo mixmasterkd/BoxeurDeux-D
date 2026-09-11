@@ -1,10 +1,11 @@
-import { fighterMotion, transformFighterPoint } from '../game/FighterMotion.js';
+import { fighterMotion, knockdownSpacing, transformFighterPoint } from '../game/FighterMotion.js';
 
 const POSES = ['guard', 'jab', 'cross', 'block', 'hit', 'dodge',
   'jab-windup', 'cross-windup', 'jab-recover', 'cross-recover'];
 const ASSETS = 'assets/sprites/sparring-v2/';
 const HOOK_ASSETS = 'assets/sprites/sparring-hook/';
 const BODY_ASSETS = 'assets/sprites/body-training/';
+const KNOCKDOWN_ASSETS = 'assets/sprites/knockdown/';
 const BODY_POSES = ['jab-body', 'cross-body', 'jab-windup-body', 'cross-windup-body',
   'jab-recover-body', 'cross-recover-body', 'block-body', 'hit-body'];
 
@@ -26,6 +27,10 @@ export class FighterView {
       const poses = who === 'player' ? [...BODY_POSES, 'hook-body', 'hook-windup-body', 'hook-recover-body'] : BODY_POSES;
       for (const pose of poses) scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${BODY_ASSETS}${who}-${pose}.png`);
     }
+    scene.load.json('fighters-knockdown', `${import.meta.env.BASE_URL}${KNOCKDOWN_ASSETS}fighters.json`);
+    for (const who of ['player', 'remi']) {
+      for (const pose of ['fall', 'down', 'rise']) scene.load.image(`${who}-${pose}`, `${import.meta.env.BASE_URL}${KNOCKDOWN_ASSETS}${who}-${pose}.png`);
+    }
   }
 
   constructor(scene, who, x, feet, height) {
@@ -34,7 +39,7 @@ export class FighterView {
     this.feet = feet;
     this.height = height;
     const original = scene.cache.json.get('fighters');
-    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses, ...scene.cache.json.get('fighters-body')?.poses } };
+    this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses, ...scene.cache.json.get('fighters-body')?.poses, ...scene.cache.json.get('fighters-knockdown')?.poses } };
     this.anchor = this.metadata.anchor;
     this.shadow = scene.add.ellipse(x, feet - 3, who === 'remi' ? 228 : 250, 30, 0x0b1523, .3);
     this.sprite = scene.add.image(x, feet, `${who}-guard`).setOrigin(
@@ -72,7 +77,7 @@ export class FighterView {
     return this.point(this.pose, 'contact', true);
   }
 
-  render(fighter, elapsed) {
+  render(fighter, elapsed, bout = null) {
     const { action, progress = 0 } = fighter;
     const player = this.who === 'player';
     const motion = fighterMotion(fighter, elapsed, this.who);
@@ -96,17 +101,20 @@ export class FighterView {
       this.attackAim = null;
     }
     const poseSpec = this.metadata.poses[`${this.who}-${motion.pose}`] ?? this.metadata.poses[`${this.who}-guard`];
+    const spacing = knockdownSpacing(this.who, bout);
     // Some symmetric uniforms reuse an authored pose in mirror. Combine this
     // asset correction with the directional dodge, rather than applying twice.
     const flip = Boolean(poseSpec.mirror) !== motion.flip;
     this.sprite.setTexture(`${this.who}-${motion.pose}`)
       .setScale(this.baseScale)
-      .setPosition(Math.round(this.x + dx), Math.round(this.feet + dy))
+      .setPosition(Math.round(this.x + dx + spacing), Math.round(this.feet + dy))
       .setRotation(motion.rotation).setFlipX(flip).setAlpha(motion.alpha);
     this.pose = motion.pose;
+    this.phase = motion.phase;
     this.lastAction = action;
     this.lastProgress = progress;
-    this.shadow.setPosition(this.x + dx * .7, this.feet + dy * .8 - 3);
+    // Move the floor shadow by the same composition offset as its boxer.
+    this.shadow.setPosition(this.x + dx * .7 + spacing, this.feet + dy * .8 - 3);
     this.shadow.setAlpha(player ? .18 : .3);
   }
 }

@@ -1,10 +1,25 @@
 # BoxeurDeux-D
 
-Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rejoint le **sac chorégraphié**, pratique le **shadow boxing au miroir** ou rencontre Rémi pour le sparring libre et ses trois leçons. Le retour au gym conserve sa position pendant la partie.
+Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge se déplace dans une salle en pixel art, rejoint le **sac chorégraphié**, pratique le **shadow boxing au miroir** ou rencontre Rémi pour le sparring libre, ses trois leçons et la séance **Résistance et relevés**. Le retour au gym conserve sa position pendant la partie.
 
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
-Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez les annonces de Rémi, défendez-vous et laissez revenir l'endurance. Il s'agit d'un entraînement : pas de KO ni de compétition officielle.
+Un round dure **60 secondes**. Essayez les frappes pendant les ouvertures, lisez les annonces de Rémi, défendez-vous et laissez revenir l'endurance. Rémi reste un partenaire d’entraînement. La séance **Résistance et relevés** ajoute les chutes et le compte de dix; le sparring classique et les trois leçons restent disponibles séparément.
+
+## Résistance et relevés — étape 1
+
+Approchez Rémi puis **E / A → Résistance et relevés · 3 rounds**. La séance est aussi proposée dans **Votre séance** à l’accueil du ring, ou directement par `?scene=sparring&lesson=resistance`. Elle dure jusqu’à **trois rounds de 60 secondes**, avec un arrêt volontaire entre les rounds et la possibilité de recommencer toute la séance.
+
+- **Endurance** : la jauge existante paie les frappes, les gardes et les esquives; elle remonte pendant les moments de repos. La vider ne provoque pas une chute.
+- **Résistance** : une jauge de 100 pour chaque boxeur. Seules les touches nettes la font descendre : jab 12, direct 18, crochet 22. Une garde à la bonne hauteur ou une esquive réussie évite cette perte. Ces valeurs sont des réglages de prototype regroupés dans `KNOCKDOWN_RULES`.
+- **Au tapis** : à zéro résistance, le gant termine son véritable contact, puis le boxeur chute. Le temps du round s’arrête pendant le décompte et le relevé. Les deux touches d’attaque servent alors à se relever, pas à frapper un boxeur au sol.
+- **Se relever** : six pressions alternées **J → K → J → K → J → K**, ou **A → B → A → B → A → B** sur téléphone. Commencez par J/A et suivez le repère; au moins 0,35 s entre les efforts acceptés. Maintenir une touche ou marteler ne répète pas les efforts. Pas de pénalité cachée pour une pression trop tôt.
+- **Compte de dix** : le compteur suit les secondes actives; à dix sans relevé, la séance se termine par KO. Rémi reprend ses appuis au compte de 6, 8 ou 9 selon ses chutes dans la séance. Ses décisions ne lisent pas les boutons du joueur.
+- **Limites** : troisième chute dans un round ou quatrième dans l’ensemble de la séance = arrêt, sans nouvel essai de relevé. Les échanges simultanés sont résolus équitablement, y compris une double chute. Un coup arrivé à la cloche est compté avant la fin du round.
+- **Après un relevé** : résistance rendue de 55, puis 45, puis 35 selon le nombre total de chutes; endurance du joueur ramenée à 60. Rémi laisse ensuite une ouverture. Au round suivant : endurance pleine, +20 de résistance dans la limite de 100; les chutes du round repartent à zéro, le total est conservé.
+- **Pause et sortie** : **P / Échap / ☰** arrête aussi le décompte; portrait, perte de focus et changement de périphérique libèrent les appuis et demandent une reprise explicite. **← Gym** reste direct. La pause permet d’ouvrir Commandes ou de recommencer toute la séance.
+
+Au terme des trois rounds, le bilan indique les touches, défenses, combos et chutes. Ce mode reste une séance avec Rémi, sans classement officiel. Le KO immédiat spécial, le premier adversaire, la progression sauvegardée et les journées appartiennent aux étapes suivantes.
 
 ## Phase tenues et fluidité — 10 septembre 2026
 
@@ -30,7 +45,7 @@ La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et t�
 - Interagir : **E**, **Entrée**, ou **A** à droite quand vous êtes près de Rémi ou d’un atelier.
 - Pause : **P**, **Échap**, ou bouton **☰**. Échap ferme aussi une conversation.
 - Sur ordinateur, ouvrir **Commandes** dans la pause pour consulter les raccourcis. Sur téléphone, le joypad et les boutons A/B se trouvent dans les bandes latérales.
-- Rémi, près des marches à droite du ring, propose le sparring libre et ses trois leçons. La séance choisie s’ouvre sur son menu avant démarrage.
+- Rémi, près des marches à droite du ring, propose le sparring libre, ses trois leçons et Résistance et relevés. La séance choisie s’ouvre sur son menu avant démarrage.
 - Le sac ouvre une séance guidée de 45 secondes; son accueil explique l’exercice avant démarrage.
 - Le miroir ouvre une pratique libre des mouvements, sans adversaire ni limite de temps.
 - **← Gym**, toujours accessible dans la bordure d’une activité, ramène directement à votre position; cette sortie reste aussi dans les menus. Le clavier et les contacts sont libérés à chaque changement de scène.
@@ -111,6 +126,7 @@ Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve 
 ```sh
 npm test         # Règles du sparring, du sac, déplacements et autres modèles
 npm run build    # Compilation vers dist/
+npm run test:knockdown # Résistance, chutes, relevés clavier/tactile et transitions de rounds
 npm run test:controls # Convention commune, gardes tête/corps, joypad A/B et transitions
 npm run test:browser # Parcours navigateur (Playwright local déjà disponible ici)
 npm run test:combo # Combo sparring réel au clavier/tactile, contacts et interruptions
@@ -190,6 +206,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `public/assets/backgrounds/gym.png` : décor validé, inchangé.
 - `public/assets/sprites/sparring-v2/` : 20 PNG transparents et leurs coordonnées utilisés localement. Les premières ressources sont conservées dans le dossier parent.
 - `public/assets/sprites/sparring-hook/` : trois poses supplémentaires de crochet gauche; sources et prompts de génération intégrée dans `references/characters/sparring-hook/PROMPTS.md`.
+- `public/assets/sprites/knockdown/` : six poses de chute, tapis et relevé à échelle fixe. Génération d’images intégrée, sources RGBA et prompts dans `references/characters/knockdown/PROMPTS.md`; extraction reproductible par `node scripts/prepare-knockdown-sprites.mjs`.
 - `references/characters/sparring-v2/` : sources, prompts et préparation des nouvelles tenues et poses; les premières sources restent dans le dossier parent.
 - `tests/*.test.js` : règles, concordance des animations, objectifs des leçons et cycle de vie audio.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.

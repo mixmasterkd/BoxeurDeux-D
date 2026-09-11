@@ -1,0 +1,66 @@
+.resistance-panel { width: min(185px, 100%); margin-top: 10px; }
+.opponent-info .resistance-panel { margin-left: auto; }
+.resistance-label { display: flex; justify-content: space-between; gap: 6px; font-size: 9px; letter-spacing: 1px; margin-bottom: 4px; color: #c0d7d9; }
+.resistance-label strong { font-weight: normal; font-variant-numeric: tabular-nums; }
+.resistance-track { height: 8px; border: 1px solid #9ccece66; padding: 1px; background: #0b1922d9; }
+.resistance-fill { height: 100%; background: #77bac3; transform-origin: left; }
+.resistance-remi .resistance-fill { background: #d4a582; }
+.resistance-track.is-low .resistance-fill { background: #eb876b; }
+.bout-downs { margin-top: 5px; font-size: 8px; letter-spacing: .5px; color: #c6c4b7; font-variant-numeric: tabular-nums; }
+#sparring-ui[data-bout="true"] .session-caption { top: 165px; display: block; }
+#sparring-ui[data-bout="true"][data-phase="knockdown"] .fighter-info:not(.opponent-info) > :not(.return-gym-button) { visibility: visible; }
+#sparring-ui[data-phase="knockdown"] .fight-feedback { display: none; }
+.bout-rules { margin: 10px 0; padding: 10px 12px; border-left: 2px solid #77bac3; background: #77bac310; color: #caddd5; font-size: 12px; line-height: 1.5; }
+#sparring-ui[data-bout="true"] .panel-copy { display: block; }
+#sparring-ui[data-bout="true"] .round-detail { white-space: pre-line; }
+html[data-touch="false"] #sparring-ui[data-bout="true"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 24px); overflow: auto; overscroll-behavior: contain; }
+.knockdown-panel { position: absolute; top: 36%; left: 3%; width: min(300px, 31%); padding: 10px 14px; border: 1px solid #c7aa7180; border-radius: 3px; background: #10232cef; box-shadow: 0 4px 16px #0003; }
+.knockdown-title { margin: 0 0 6px; font-size: 10px; letter-spacing: 2px; color: #ecc78d; }
+.knockdown-reading { display: flex; gap: 15px; align-items: center; }
+.knockdown-count { font-size: 46px; line-height: 1; min-width: 54px; text-align: center; color: #f5db9e; font-variant-numeric: tabular-nums; }
+.knockdown-instructions { flex: 1; min-width: 0; }
+.knockdown-message { display: block; color: #e2e3d5; font-size: 12px; line-height: 1.3; }
+.knockdown-progress { display: flex; gap: 4px; margin: 8px 0 6px; }
+.knockdown-progress i { height: 7px; flex: 1; background: #546763; }
+.knockdown-progress i.is-complete { background: #a6d2a8; }
+.knockdown-next { display: block; font-size: 10px; color: #a8bdb5; line-height: 1.25; }
+.knockdown-panel.is-ready .knockdown-next { color: #b6e4aa; }
+#sparring-ui .console-actions .pad-action.is-recovery-next { border-color: #b6e4aa; box-shadow: 0 0 0 2px #b6e4aa55, 0 0 16px #a5d49e33; }
+#sparring-ui .console-actions .pad-action.is-recovery-wait { opacity: .65; }
+@container (max-width: 850px) {
+  .resistance-panel { margin-top: 5px; width: min(125px, 100%); }
+  .resistance-label { font-size: 7px; margin-bottom: 2px; letter-spacing: .3px; }
+  .resistance-track { height: 6px; }
+  .bout-downs { font-size: 6px; margin-top: 3px; letter-spacing: 0; }
+  #sparring-ui[data-bout="true"] .session-caption { top: 98px; }
+  .bout-rules { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
+  .knockdown-panel { padding: 7px 9px; }
+  .knockdown-title { font-size: 8px; letter-spacing: 1px; margin-bottom: 4px; }
+  .knockdown-count { font-size: 34px; min-width: 34px; }
+  .knockdown-reading { gap: 9px; }
+  .knockdown-message { font-size: 10px; }
+  .knockdown-next { font-size: 8px; }
+  .knockdown-progress { margin: 5px 0; gap: 3px; }
+}
+@container (max-width: 550px) {
+  #sparring-ui[data-bout="true"] .fight-hud { padding: 6px 8px; gap: 5px; }
+  #sparring-ui[data-bout="true"] .fighter-eyebrow, #sparring-ui[data-bout="true"] .remi-status { display: none; }
+  #sparring-ui[data-bout="true"] .fighter-name { font-size: 10px; margin: 0 0 4px; }
+  #sparring-ui[data-bout="true"] .stamina-track, #sparring-ui[data-bout="true"] .stamina-label { width: min(105px, 100%); }
+  #sparring-ui[data-bout="true"] .stamina-label { font-size: 6px; margin-top: 2px; letter-spacing: 0; }
+  #sparring-ui[data-bout="true"] .session-caption { top: 74px; left: 8px; font-size: 6px; }
+  #sparring-ui[data-bout="true"] .round-eyebrow { font-size: 6px; letter-spacing: .5px; }
+  #sparring-ui[data-bout="true"] .round-time { font-size: 22px; }
+  #sparring-ui[data-bout="true"] .round-rule { display: none; }
+  .resistance-panel { width: min(105px, 100%); }
+  .resistance-label { font-size: 6px; }
+  .knockdown-panel { top: 43%; padding: 5px 7px; }
+  .knockdown-title { font-size: 7px; margin-bottom: 2px; }
+  .knockdown-count { font-size: 27px; min-width: 28px; }
+  .knockdown-reading { gap: 4px; flex-direction: column; }
+  .knockdown-instructions { width: 100%; text-align: center; }
+  .knockdown-message { font-size: 8px; }
+  .knockdown-progress { margin: 4px 0; }
+  .knockdown-progress i { height: 5px; }
+  .knockdown-next { font-size: 7px; }
+}

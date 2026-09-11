@@ -31,6 +31,20 @@ export const TEMPOS = Object.freeze({
   fast: Object.freeze({ tell: 0.62, opening: 0.90, openingFree: 1.45, guard: 0.50 }),
 });
 
+export const KNOCKDOWN_RULES = Object.freeze({
+  rounds: 3, maxResistance: 100, damage: Object.freeze({ jab: 12, cross: 18, hook: 22 }),
+  contactHold: IMPACT_HOLD, fall: .60, count: 10, rise: .80, needed: 6, pressSpacing: .35,
+  remiCounts: Object.freeze([6, 8, 9]), restoredResistance: Object.freeze([55, 45, 35]),
+});
+// Resistance-mode events use `time` for the frozen round clock. `count` also
+// supplies countTime, so a renderer/audio layer never has to derive the count
+// from the round clock. knockdown: downed/eliminated/downs; recovery-press:
+// action/accepted/needed; stood-up: actor/resistance/totalDowns; round-break:
+// round/history; bout-finish: result/stats/round. sparring-resumed and round-start
+// tell input adapters to discard old held controls before the new opening.
+const ACTORS = ['player', 'remi'];
+const unguided = lesson => lesson === 'free' || lesson === 'resistance';
+
 const RECOVERY_PER_SECOND = 20;
 const GUARD_DRAIN_PER_SECOND = 7;
 const BLOCK_COST = 8;
@@ -46,8 +60,8 @@ function normalizeSettings(settings = {}, previous = {}) {
   const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
   const lesson = Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
-    duration: lesson === 'free' && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
-    tempo: lesson !== 'free' ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
+    duration: unguided(lesson) && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
+    tempo: !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
     lesson,
   };
@@ -92,9 +106,11 @@ export class SparringSession {
     this._nextGuardLevel = 'head';
     this._remiAction = null;
     this._remiStage = 0;
-    this._coach = this.settings.lesson === 'free' ? null : new TrainingCoach(this.settings.lesson);
+    this._knockdown = null;
+    this._coach = unguided(this.settings.lesson) ? null : new TrainingCoach(this.settings.lesson);
     this.state = {
       phase: 'ready',
+      pausedPhase: null,
       remaining: this.settings.duration,
       elapsed: 0,
       stamina: 100,
@@ -104,7 +120,14 @@ export class SparringSession {
       combo: { step: 0, ready: false, remaining: 0 },
       settings: { ...this.settings },
       training: null,
+      bout: this.settings.lesson === 'resistance' ? {
+        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: KNOCKDOWN_RULES.maxResistance,
+        resistance: { player: 100, remi: 100 },
+        downs: { player: { round: 0, total: 0 }, remi: { round: 0, total: 0 } },
+        count: null, result: null, roundHistory: [],
+      } : null,
     };
+    this._roundStartStats = { ...this.state.stats };
     this.state.training = this._coach?.snapshot(this.state.stats) ?? null;
     return this.state;
   }
@@ -134,7 +157,8 @@ export class SparringSession {
   }
 
   pause() {
-    if (this.state.phase !== 'running') return false;
+    if (!['running', 'knockdown'].includes(this.state.phase)) return false;
+    this.state.pausedPhase = this.state.phase;
     this.state.phase = 'paused';
     this.releaseControls();
     return true;
@@ -142,11 +166,14 @@ export class SparringSession {
 
   resume() {
     if (this.state.phase !== 'paused') return false;
-    this.state.phase = 'running';
+    this.state.phase = this.state.pausedPhase ?? 'running';
+    this.state.pausedPhase = null;
+    this._syncState();
     return true;
   }
 
   act(action) {
+    if (this.state.phase === 'knockdown') return this._recoveryPress(action);
     // The hook belongs to J → K → J, never to a third attack command.
     if (!['jab', 'cross', 'dodgeLeft', 'dodgeRight'].includes(action)
       || this.state.phase !== 'running' || this._playerAction || this._coach?.state.completed) return false;
@@ -221,12 +248,19 @@ export class SparringSession {
   }
 
   update(dtSeconds) {
-    if (this.state.phase !== 'running' || !Number.isFinite(dtSeconds) || dtSeconds <= 0) return;
-    let remaining = Math.min(dtSeconds, this.state.remaining);
+    if (!['running', 'knockdown'].includes(this.state.phase) || !Number.isFinite(dtSeconds) || dtSeconds <= 0) return;
+    let remaining = dtSeconds;
     // Bound integration and land exactly on action/impact boundaries. This keeps
     // large deterministic test steps and real rendering frames equivalent.
-    while (remaining > EPSILON && this.state.phase === 'running') {
+    while (remaining > EPSILON && ['running', 'knockdown'].includes(this.state.phase)) {
       let dt = Math.min(remaining, 1 / 120);
+      if (this.state.phase === 'knockdown') {
+        dt = Math.min(dt, this._knockdownBoundary());
+        this._stepKnockdown(dt);
+        remaining -= dt;
+        continue;
+      }
+      dt = Math.min(dt, this.state.remaining);
       for (const action of [this._playerAction, this._remiAction]) {
         if (!action) continue;
         const boundary = action.impact !== null && !action.impacted
@@ -273,6 +307,11 @@ export class SparringSession {
       this._resolveRemiPunch();
     }
 
+    if (this.state.bout && ACTORS.some(actor => this.state.bout.resistance[actor] <= EPSILON)) {
+      this._beginKnockdown();
+      return;
+    }
+
     if (this._playerAction && this._playerAction.elapsed + EPSILON >= this._playerAction.duration) {
       this._playerAction = null;
     }
@@ -304,6 +343,7 @@ export class SparringSession {
       this.state.stats.opponentBlocked += 1;
       this._emit('player-blocked', { attack, target, impact: this._playerAction.impact });
     } else {
+      this._damage('remi', attack);
       this.state.stats.landed += 1;
       this.state.stats[target === 'body' ? 'landedBody' : 'landedHead'] += 1;
       const combo = attack === 'hook' && sequence?.valid === true && sequence.hits === 2;
@@ -341,6 +381,7 @@ export class SparringSession {
       this._emit('remi-blocked', { attack, target, impact: this._remiAction.impact });
       return;
     }
+    this._damage('player', attack);
     this.state.stats.received += 1;
     this.state.stats[target === 'body' ? 'receivedBody' : 'receivedHead'] += 1;
     this._clearCombo();
@@ -438,6 +479,237 @@ export class SparringSession {
       this.state.remi.progress = this.state.remi.reactionProgress;
     }
     this.state.training = this._coach?.snapshot(this.state.stats) ?? null;
+    if (this.state.bout?.count) this._syncKnockdown();
+  }
+
+  nextRound() {
+    const bout = this.state.bout;
+    if (this.state.phase !== 'between' || !bout || bout.round >= bout.rounds) return false;
+    bout.round += 1;
+    for (const actor of ACTORS) {
+      bout.downs[actor].round = 0;
+      bout.resistance[actor] = Math.min(bout.maxResistance, bout.resistance[actor] + 20);
+    }
+    this.state.elapsed = 0;
+    this.state.remaining = this.settings.duration;
+    this.state.stamina = 100;
+    this._roundStartStats = { ...this.state.stats };
+    this._clearCombatActions();
+    this._nextSide = 'left'; this._nextTarget = 'head'; this._nextGuardLevel = 'head';
+    this.state.phase = 'running';
+    this.state.pausedPhase = null;
+    this._setRemiAction('open', 1.85);
+    this._syncState();
+    this._emit('round-start', { round: bout.round });
+    return true;
+  }
+
+  _damage(actor, attack) {
+    if (!this.state.bout) return;
+    const resistance = this.state.bout.resistance;
+    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack]);
+  }
+
+  _clearCombatActions() {
+    this._clearCombo();
+    this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
+    this._playerAction = null; this._remiAction = null;
+    this._playerHurt = 0; this._remiHurt = 0;
+    this._recoverAt = this.state.elapsed;
+  }
+
+  _beginKnockdown() {
+    if (this.state.remaining <= EPSILON) { this.state.remaining = 0; this.state.elapsed = this.settings.duration; }
+    const bout = this.state.bout;
+    // Snapshot only after resolving both contacts at this exact boundary. The
+    // contact stays on screen before either fighter begins the falling pose.
+    this._syncState();
+    const poses = { player: { ...this.state.player }, remi: { ...this.state.remi } };
+    const downed = Object.fromEntries(ACTORS.map(actor => [actor, bout.resistance[actor] <= EPSILON]));
+    const eliminated = { player: null, remi: null };
+    for (const actor of ACTORS) if (downed[actor]) {
+      bout.downs[actor].round += 1;
+      bout.downs[actor].total += 1;
+      if (bout.downs[actor].total >= 4) eliminated[actor] = 'total-limit';
+      else if (bout.downs[actor].round >= 3) eliminated[actor] = 'round-limit';
+    }
+    this._knockdown = { time: 0, poses, recoveredAt: {}, standing: {}, lastPress: -Infinity };
+    this.state.phase = 'knockdown';
+    bout.count = {
+      stage: 'fall', elapsed: 0, number: 0, downed, eliminated,
+      recovered: { player: false, remi: false }, hold: KNOCKDOWN_RULES.contactHold,
+      progress: 0, needed: KNOCKDOWN_RULES.needed, accepted: 0,
+      next: null, ready: false, readyIn: 0,
+    };
+    this._clearCombo();
+    this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
+    this._emit('knockdown', { round: bout.round, downed: { ...downed }, eliminated: { ...eliminated }, downs: structuredClone(bout.downs) });
+    this._syncState();
+  }
+
+  _knockdownBoundary() {
+    const count = this.state.bout.count;
+    if (count.hold > EPSILON) return count.hold;
+    if (count.stage === 'fall') return Math.max(EPSILON, KNOCKDOWN_RULES.fall - count.elapsed);
+    const boundaries = [];
+    if (count.stage === 'count') {
+      boundaries.push(KNOCKDOWN_RULES.count - count.elapsed, Math.floor(count.elapsed + EPSILON) + 1 - count.elapsed);
+      if (count.downed.remi && !count.recovered.remi && !count.eliminated.remi) boundaries.push(this._remiRecoveryCount() - count.elapsed);
+    }
+    for (const actor of ACTORS) if (count.recovered[actor] && !this._knockdown.standing[actor]) {
+      boundaries.push(this._knockdown.recoveredAt[actor] + KNOCKDOWN_RULES.rise - this._knockdown.time);
+    }
+    return Math.min(...boundaries.filter(value => value > EPSILON), 1 / 120);
+  }
+
+  _stepKnockdown(dt) {
+    const count = this.state.bout.count;
+    this._knockdown.time += dt;
+    if (count.hold > EPSILON) {
+      count.hold = Math.max(0, count.hold - dt);
+      return;
+    }
+    count.elapsed += dt;
+    if (count.stage === 'fall') {
+      if (count.elapsed + EPSILON < KNOCKDOWN_RULES.fall) return;
+      count.elapsed = 0;
+      const eligible = ACTORS.filter(actor => count.downed[actor] && !count.eliminated[actor]);
+      if (!eligible.length) { this._finishEliminations(); return; }
+      count.stage = 'count'; count.number = 0;
+      return;
+    }
+    if (count.stage === 'count') {
+      const number = Math.min(10, Math.floor(count.elapsed + EPSILON));
+      if (number !== count.number) {
+        count.number = number;
+        this._emit('count', { number, downed: { ...count.downed }, countTime: count.elapsed });
+      }
+      if (count.downed.remi && !count.eliminated.remi && !count.recovered.remi
+        && count.elapsed + EPSILON >= this._remiRecoveryCount()) this._markRecovered('remi');
+      if (count.elapsed + EPSILON >= KNOCKDOWN_RULES.count) {
+        for (const actor of ACTORS) if (count.downed[actor] && !count.recovered[actor] && !count.eliminated[actor]) count.eliminated[actor] = 'ko';
+      }
+    }
+    for (const actor of ACTORS) if (count.recovered[actor] && !this._knockdown.standing[actor]
+      && this._knockdown.time - this._knockdown.recoveredAt[actor] + EPSILON >= KNOCKDOWN_RULES.rise) this._standUp(actor);
+    this._advanceRecovery();
+  }
+
+  _remiRecoveryCount() {
+    return KNOCKDOWN_RULES.remiCounts[Math.min(2, this.state.bout.downs.remi.total - 1)];
+  }
+
+  _recoveryPress(action) {
+    const count = this.state.bout?.count;
+    if (!count || count.stage !== 'count' || !count.downed.player || count.eliminated.player
+      || count.recovered.player || action !== (count.accepted % 2 === 0 ? 'jab' : 'cross')
+      || this._knockdown.time - this._knockdown.lastPress + EPSILON < KNOCKDOWN_RULES.pressSpacing) return false;
+    count.accepted += 1;
+    this._knockdown.lastPress = this._knockdown.time;
+    this._emit('recovery-press', { action, accepted: count.accepted, needed: count.needed });
+    if (count.accepted === count.needed) this._markRecovered('player');
+    this._advanceRecovery();
+    this._syncState();
+    return true;
+  }
+
+  _markRecovered(actor) {
+    this.state.bout.count.recovered[actor] = true;
+    this._knockdown.recoveredAt[actor] = this._knockdown.time;
+  }
+
+  _standUp(actor) {
+    const bout = this.state.bout;
+    this._knockdown.standing[actor] = true;
+    bout.resistance[actor] = KNOCKDOWN_RULES.restoredResistance[Math.min(2, bout.downs[actor].total - 1)];
+    if (actor === 'player') this.state.stamina = 60;
+    this._emit('stood-up', { actor, resistance: bout.resistance[actor], round: bout.round, totalDowns: bout.downs[actor].total });
+  }
+
+  _advanceRecovery() {
+    const count = this.state.bout.count;
+    if (!count || count.stage === 'fall') return;
+    const eligible = ACTORS.filter(actor => count.downed[actor] && !count.eliminated[actor]);
+    if (!eligible.length) { this._finishEliminations(); return; }
+    if (!eligible.every(actor => count.recovered[actor])) return;
+    if (count.stage !== 'rise') { count.stage = 'rise'; count.elapsed = 0; }
+    if (!eligible.every(actor => this._knockdown.standing[actor])) return;
+    if (ACTORS.some(actor => count.eliminated[actor])) { this._finishEliminations(); return; }
+    this.state.bout.count = null;
+    this._knockdown = null;
+    this._clearCombatActions();
+    if (this.state.remaining <= EPSILON) { this._finishResistanceRound(); return; }
+    this.state.phase = 'running';
+    this._setRemiAction('open', 1.85);
+    this._emit('sparring-resumed', { round: this.state.bout.round });
+  }
+
+  _finishEliminations() {
+    const eliminated = this.state.bout.count.eliminated;
+    const losers = ACTORS.filter(actor => eliminated[actor]);
+    const loser = losers.length === 2 ? 'both' : losers[0];
+    this._finishBout({
+      reason: loser === 'both' ? 'double-ko' : eliminated[loser],
+      winner: loser === 'both' ? 'draw' : loser === 'player' ? 'remi' : 'player', loser,
+    });
+  }
+
+  _syncKnockdown() {
+    const count = this.state.bout.count;
+    const active = this.state.phase === 'knockdown';
+    count.readyIn = Math.max(0, KNOCKDOWN_RULES.pressSpacing - (this._knockdown.time - this._knockdown.lastPress));
+    count.next = count.stage === 'count' && count.downed.player && !count.eliminated.player && !count.recovered.player
+      ? count.accepted % 2 === 0 ? 'jab' : 'cross' : null;
+    count.ready = active && count.next !== null && count.readyIn <= EPSILON;
+    count.progress = count.downed.player ? count.accepted / count.needed
+      : count.recovered.remi ? 1 : count.stage === 'fall' ? 0 : clamp(count.elapsed / this._remiRecoveryCount(), 0, 1);
+    for (const actor of ACTORS) {
+      if (count.hold > EPSILON) { this.state[actor] = { ...this._knockdown.poses[actor] }; continue; }
+      let action = 'idle', duration = 0, elapsed = 0;
+      if (count.downed[actor]) {
+        if (count.stage === 'fall') { action = 'fall'; duration = KNOCKDOWN_RULES.fall; elapsed = count.elapsed; }
+        else if (count.recovered[actor]) { action = this._knockdown.standing[actor] ? 'idle' : 'rise'; duration = KNOCKDOWN_RULES.rise; elapsed = this._knockdown.time - this._knockdown.recoveredAt[actor]; }
+        else action = 'down';
+      }
+      this.state[actor] = actionState(action, duration, elapsed, { target: this._knockdown.poses[actor].hurtTarget ?? 'head' });
+    }
+  }
+
+  _recordResistanceRound() {
+    const bout = this.state.bout;
+    if (bout.roundHistory.some(round => round.round === bout.round)) return;
+    bout.roundHistory.push({
+      round: bout.round, duration: this.state.elapsed,
+      stats: Object.fromEntries(Object.entries(this.state.stats).map(([key, value]) => [key, value - this._roundStartStats[key]])),
+      downs: { player: bout.downs.player.round, remi: bout.downs.remi.round },
+      resistance: { ...bout.resistance },
+    });
+  }
+
+  _finishResistanceRound() {
+    this._recordResistanceRound();
+    // Freeze any contact that occurred on the bell behind the interval/report.
+    // nextRound, rather than the bell itself, discards the committed actions.
+    this._clearCombo();
+    this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
+    if (this.state.bout.round >= this.state.bout.rounds) {
+      this._finishBout({ reason: 'time', winner: null, loser: null });
+      return;
+    }
+    this.state.phase = 'between';
+    this.state.pausedPhase = null;
+    this._emit('round-break', { round: this.state.bout.round, history: structuredClone(this.state.bout.roundHistory.at(-1)) });
+  }
+
+  _finishBout(result) {
+    if (this.state.phase === 'finished') return;
+    this._recordResistanceRound();
+    this.state.bout.result = result;
+    this.state.phase = 'finished';
+    this.state.pausedPhase = null;
+    this._clearCombo();
+    this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
+    this._emit('bout-finish', { result: { ...result }, stats: { ...this.state.stats }, round: this.state.bout.round });
   }
 
   _trainingContext() {
@@ -455,6 +727,7 @@ export class SparringSession {
   }
 
   _finishRound() {
+    if (this.state.bout) { this._finishResistanceRound(); return; }
     this.state.phase = 'finished';
     this._clearCombo();
     this._guardHeld = false;

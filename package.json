@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "test": "node --test tests/*.test.js",
     "test:controls": "node tests/controls-browser.mjs",
+    "test:knockdown": "node tests/knockdown-browser.mjs",
     "test:browser": "node tests/browser-smoke.mjs",
     "test:combo": "node tests/sparring-combo-browser.mjs",
     "test:shadow": "node tests/shadow-browser.mjs",

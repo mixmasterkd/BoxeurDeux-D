@@ -92,6 +92,7 @@ export class GymScene extends Phaser.Scene {
         text: 'Salut, la tuque rouge ! Fais le tour du gym à ton rythme. Quand tu es prêt, on travaille ensemble : un round libre ou une leçon, à toi de choisir.',
         actions: [
           { id: 'sparring', lesson: 'free', label: 'Sparring libre · 60 s' },
+          { id: 'sparring', lesson: 'resistance', label: 'Résistance et relevés · 3 rounds' },
           { id: 'sparring', lesson: 'jab', label: 'Leçon · Placer son jab' },
           { id: 'sparring', lesson: 'guard', label: 'Leçon · Bloquer et souffler' },
           { id: 'sparring', lesson: 'counter', label: 'Leçon · Esquiver et répondre' },

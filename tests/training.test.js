@@ -33,7 +33,7 @@ function blockAndRest(session) {
 }
 
 test('lesson selection has stable descriptors, calm 60-second sessions, and clean reset semantics', () => {
-  assert.deepEqual(Object.keys(LESSONS), ['free', 'jab', 'guard', 'counter']);
+  assert.deepEqual(Object.keys(LESSONS), ['free', 'resistance', 'jab', 'guard', 'counter']);
   for (const id of ['jab', 'guard', 'counter']) {
     assert.equal(LESSONS[id].target, 3);
     assert.ok(LESSONS[id].title && LESSONS[id].description && LESSONS[id].objective);

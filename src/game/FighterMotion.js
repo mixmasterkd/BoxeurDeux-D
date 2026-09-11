@@ -1,10 +1,23 @@
-import { IMPACT_HOLD, TIMINGS } from './SparringSession.js';
+import { IMPACT_HOLD, KNOCKDOWN_RULES, TIMINGS } from './SparringSession.js';
 
 const clamp = (value) => Math.max(0, Math.min(1, value));
 const smooth = (value) => {
   const t = clamp(value);
   return t * t * (3 - 2 * t);
 };
+
+/** Give a seated Rémi clear room in the fixed camera during his count.
+ * This reads the model's frozen count clock, so pause cannot move the boxer.
+ * A double knockdown keeps both grounded bodies in their original positions.
+ */
+export function knockdownSpacing(who, bout = null) {
+  const count = bout?.count;
+  if (who !== 'player' || !count?.downed?.remi || count.downed.player || count.hold > 0) return 0;
+  const away = 260; // Full authored silhouettes retain a visible gap at rest.
+  if (count.stage === 'fall') return -away * smooth(count.elapsed / KNOCKDOWN_RULES.fall);
+  if (count.stage === 'rise') return -away * (1 - smooth(count.elapsed / KNOCKDOWN_RULES.rise));
+  return count.stage === 'count' ? -away : 0;
+}
 
 /**
  * Visual choreography sampled from the combat clock, never a second timer.
@@ -65,6 +78,25 @@ export function fighterMotion(fighter, elapsed, who) {
       motion.rotation = -side * .006 * Math.sin(Math.PI * t) + weight * .002 * smooth(t);
       motion.alpha = player ? .84 - .20 * smooth(t) : 1;
     }
+  } else if (action === 'fall' || action === 'down' || action === 'rise') {
+    // Newly drawn floor poses preserve actual bent limbs and body proportions.
+    // The model already preserves the scoring hit before starting this fall.
+    // Keep the ground anchor still: sitting is a pose change, never shrinking
+    // the fighter or rotating an upright sprite onto the canvas.
+    motion.phase = action;
+    motion.pose = action === 'fall' ? (p < .76 ? 'fall' : 'down')
+      : action === 'rise' ? (p < .12 ? 'down' : p < .34 ? 'fall' : p < .9 ? 'rise' : 'guard') : 'down';
+    motion.dx = 0;
+    motion.dy = 0;
+    motion.rotation = 0;
+    motion.alpha = player ? .80 : 1;
+    if (action === 'rise' && p >= .9) {
+      const settled = smooth((p - .9) / .1);
+      motion.dx = idle.dx * settled;
+      motion.dy = idle.dy * settled;
+      motion.rotation = weight * .002 * settled;
+      motion.alpha = player ? .8 - .16 * settled : 1;
+    }
   } else if (action === 'guard') {
     motion.pose = 'block';
     motion.phase = 'defense';
@@ -103,7 +135,7 @@ export function fighterMotion(fighter, elapsed, who) {
   }
 
   // Preserve a committed glove's contact even when both punches land together.
-  if (hurt > 0 && action !== 'hit' && motion.phase !== 'contact') {
+  if (hurt > 0 && !['hit', 'fall', 'down', 'rise'].includes(action) && motion.phase !== 'contact') {
     motion.dx += Math.sin(hurt * Math.PI * 2) * hurt * 3;
   }
 

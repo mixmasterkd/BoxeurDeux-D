@@ -205,6 +205,86 @@ try {
     assert.equal(await page.locator('.shadow-speed-label').isVisible(), true);
     await press('#shadow-ui .activity-exit-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
+
+    console.log(`Production resistance: ${mobile ? 'touch' : 'desktop'} direct entry, three-round rules and full resistance`);
+    await page.goto(`${base}?scene=sparring&lesson=resistance`);
+    await page.waitForFunction(() => {
+      const ui = document.querySelector('#sparring-ui');
+      return ui?.dataset.lesson === 'resistance' && ui.dataset.phase === 'ready';
+    });
+    assert.equal(await page.evaluate(() => window.__sparring), undefined, 'the resistance test also uses only the production UI');
+    assert.match(await page.locator('.panel-heading').textContent(), /Résistance/);
+    assert.match(await page.locator('.bout-rules').textContent(), /Trois rounds de 60 s/);
+    assert.equal(await page.locator('.round-eyebrow').textContent(), 'ROUND 1 / 3');
+    for (const who of ['player', 'remi']) {
+      assert.equal(await page.locator(`[data-resistance="${who}"]`).getAttribute('aria-valuenow'), '100');
+      assert.equal(await page.locator(`[data-resistance="${who}"]`).getAttribute('aria-valuemax'), '100');
+    }
+    if (mobile) {
+      // Geometry is read while the session is still stopped. These same A/B
+      // rectangles are used for actual punches and the six recovery gestures.
+      for (const action of ['jab', 'cross']) {
+        punchBoxes[action] = await page.locator(`#sparring-ui [data-action="${action}"]`).boundingBox();
+        assert.ok(punchBoxes[action], `Resistance ${action} button is present`);
+      }
+      await punch('jab'); // A confirms the ready screen.
+    } else await page.keyboard.press('Enter');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'running');
+    if (!mobile) assert.equal(await page.locator('#sparring-ui .input-rail button:visible').count(), 0);
+    await punch('jab');
+    await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '1');
+    assert.equal(await page.locator('[data-resistance="remi"]').getAttribute('aria-valuenow'), '88', 'the real jab removes twelve resistance at its scored contact');
+    assert.equal(await page.locator('[data-resistance="player"]').getAttribute('aria-valuenow'), '100');
+    if (mobile) await press('.pause-button');
+    else await page.keyboard.press('p');
+    await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'paused');
+    const stoppedResistance = await page.evaluate(() => ({
+      clock: document.querySelector('.round-time').textContent,
+      player: document.querySelector('[data-resistance="player"]').getAttribute('aria-valuenow'),
+      remi: document.querySelector('[data-resistance="remi"]').getAttribute('aria-valuenow'),
+      touches: document.querySelector('[data-value="landed"]').textContent,
+    }));
+    await page.waitForTimeout(1100);
+    assert.deepEqual(await page.evaluate(() => ({
+      clock: document.querySelector('.round-time').textContent,
+      player: document.querySelector('[data-resistance="player"]').getAttribute('aria-valuenow'),
+      remi: document.querySelector('[data-resistance="remi"]').getAttribute('aria-valuenow'),
+      touches: document.querySelector('[data-value="landed"]').textContent,
+    })), stoppedResistance, 'pause freezes the actual production resistance and round clock');
+    console.log(`Production resistance: ${mobile ? 'touch' : 'desktop'} contact at 88 and pause passed`);
+    if (mobile) {
+      await page.locator('[name="tempo"]').selectOption('fast');
+      await press('.secondary-button');
+      await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'running');
+      assert.equal(await page.locator('[data-resistance="player"]').getAttribute('aria-valuenow'), '100');
+      assert.equal(await page.locator('[data-resistance="remi"]').getAttribute('aria-valuenow'), '100');
+      console.log('Production resistance: waiting for Rémi to cause a real player knockdown at the selected fast rhythm…');
+      await page.waitForFunction(() => {
+        const ui = document.querySelector('#sparring-ui');
+        return ui?.dataset.phase === 'knockdown'
+          && ui.querySelector('[data-resistance="player"]')?.getAttribute('aria-valuenow') === '0';
+      }, null, { timeout: 45000 });
+      assert.match(await page.locator('.resistance-player .bout-downs').textContent(), /1\/3 ROUND.*1\/4 SÉANCE/);
+      const countClock = await page.locator('.round-time').textContent();
+      console.log('Production resistance: player at zero; following the six highlighted A/B recovery gestures');
+      for (let accepted = 1; accepted <= 6; accepted++) {
+        await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'knockdown'
+          && Boolean(document.querySelector('#sparring-ui .is-recovery-next[data-action]')), null, { timeout: 5000 });
+        const action = await page.locator('#sparring-ui .is-recovery-next[data-action]').getAttribute('data-action');
+        assert.equal(action, accepted % 2 ? 'jab' : 'cross', 'the production prompt alternates A and B');
+        await punch(action);
+        await page.waitForFunction(expected => document.querySelector('.knockdown-progress')?.getAttribute('aria-valuenow') === String(expected), accepted, { timeout: 1500 });
+      }
+      assert.equal(await page.locator('.round-time').textContent(), countClock, 'the recovery count does not consume round time');
+      await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.phase === 'running', null, { timeout: 5000 });
+      assert.equal(await page.locator('[data-resistance="player"]').getAttribute('aria-valuenow'), '55', 'the first real recovery restores partial resistance');
+      assert.equal(await page.locator('.knockdown-panel').isVisible(), false);
+      assert.equal(await page.locator('[data-value="landed"]').textContent(), '0', 'recovery presses are not extra punches');
+      console.log('Production resistance: six real touchscreen gestures, return to play at 55, and no recovery punches passed');
+    }
+    await press('#sparring-ui .activity-exit-button');
+    await page.locator('#gym-ui').waitFor({ state: 'visible' });
+    console.log(`Production resistance: ${mobile ? 'touch' : 'desktop'} return to gym passed`);
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -228,9 +308,15 @@ try {
     for (const pose of ['hook', 'hook-windup', 'hook-recover']) {
       assert.ok(loaded.has(`assets/sprites/sparring-hook/player-${pose}.png`), `new left hook pose ${pose} loads from the site directory`);
     }
+    assert.ok(loaded.has('assets/sprites/knockdown/fighters.json'), 'the knockdown atlas loads from the site directory');
+    for (const who of ['player', 'remi']) {
+      for (const pose of ['fall', 'down', 'rise']) {
+        assert.ok(loaded.has(`assets/sprites/knockdown/${who}-${pose}.png`), `knockdown pose ${who}-${pose} loads from the site directory`);
+      }
+    }
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, all returns to gym, landscape/portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, resistance contact/pause plus a real touchscreen knockdown/recovery, all returns to gym, landscape/portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }
