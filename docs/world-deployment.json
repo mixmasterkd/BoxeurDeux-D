@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-09-11T23:27:17.724Z",
+  "commit": "4f6fca11699a2b76d343838004f1ed97d1c6230c",
+  "workflow": {
+    "id": 34657851624,
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/34657851624"
+  },
+  "publicUrl": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "script": "./assets/index-BLy4v1Fx.js",
+  "localScript": "./assets/index-BLy4v1Fx.js",
+  "sameBundle": true
+}

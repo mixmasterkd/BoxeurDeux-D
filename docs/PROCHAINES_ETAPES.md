@@ -6,7 +6,7 @@ Direction confirmée par l’utilisateur, actualisée avec le **GO maison, quart
 
 Après la livraison des ateliers, gains et sauvegarde, l’utilisateur a précisé qu’il veut **une vraie carte plus grande que l’écran, à explorer comme dans Zelda**, et une maison explorable pour dormir puis accueillir de futures activités. Le GO regroupe la boucle des journées et la partie maison/quartier de l’ancienne étape 6. **La maison accompagne maintenant le sommeil**; l’ancien ordre « dormir avant de construire la maison » ne s’applique plus.
 
-Cette phase est **intégrée et vérifiée localement** : maison, quartier, journées et sauvegarde fonctionnent ensemble. Les résultats détaillés et l’état de publication se trouvent dans `VERIFICATIONS.md`.
+Cette phase est **terminée et publiée** : maison, quartier, journées et sauvegarde fonctionnent ensemble. Les parcours locaux et publics réussissent sur ordinateur et mobile simulé; preuves dans `VERIFICATIONS.md`. Les extensions ci-dessous attendent un prochain accord sur leur portée.
 
 | Travail autorisé | Portée actuelle |
 | --- | --- |

@@ -4,7 +4,7 @@
 
 L’utilisateur a confirmé puis donné **GO pour l’ensemble** : quartier plus grand que l’écran avec caméra suiveuse, maison explorable et lit, gym relié au quartier, salle communautaire accessible par une porte qui ouvre directement Béton, énergie quotidienne et sauvegarde du jour/énergie/lieu. Il a explicitement demandé de faire la maison avec le sommeil, puis confirmé que le quartier fait partie de ce GO. **Ne pas revenir à une carte réduite à un écran, ni attendre un nouveau GO pour terminer cette boucle.** Les anciennes portées et ordres conservés plus bas sont historiques.
 
-**Intégration terminée et vérifications locales réussies** : 207 tests autonomes, parcours complets du quartier et des journées, migration/reprise/import, interruptions pendant la nuit, ateliers de 45 secondes et bundle de production. Les preuves exactes et l’état de publication sont dans `docs/VERIFICATIONS.md`.
+**Phase terminée, commitée et publiée** : `5acc1ae` puis `4f6fca1` pour le chargement et les menus compacts. 207 tests autonomes, parcours complets du quartier et des journées, migration/reprise/import, interruptions pendant la nuit, ateliers de 45 secondes et bundle de production réussis. Le site public a passé le parcours complet PC/tactile sans erreur; workflow `34657851624`, bundle `index-BLy4v1Fx.js`. Preuves dans `docs/VERIFICATIONS.md`. Aucun nouveau développement n’est autorisé automatiquement après cette livraison; discuter la prochaine phase avec l’utilisateur.
 
 Portée concrète :
 

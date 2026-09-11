@@ -2,7 +2,7 @@
 
 Le jeu relie **une maison explorable, un quartier montréalais et le gym**. Votre boxeur à tuque rouge se promène en survêtement noir à bandes blanches dans la maison et les rues, puis retrouve sa tenue d’entraînement au gym. Les ateliers améliorent des capacités sauvegardées, jusqu’aux plafonds du premier adversaire. La porte de la salle communautaire ouvre directement le combat contre **Béton**, sans intérieur à explorer; elle remplace l’ancienne affiche du gym.
 
-Le GO actuel ajoute **maison, quartier, énergie de journée, sommeil et sauvegarde du lieu de reprise** à la précédente livraison des ateliers et des gains. **La boucle est jouable et vérifiée localement sur ordinateur et mobile simulé.** Les résultats réels et l’état de publication sont consignés dans [`docs/VERIFICATIONS.md`](docs/VERIFICATIONS.md).
+Le GO actuel ajoute **maison, quartier, énergie de journée, sommeil et sauvegarde du lieu de reprise** à la précédente livraison des ateliers et des gains. **La boucle est jouable, publiée et vérifiée sur ordinateur et mobile simulé, en local et sur le site public.** Les résultats détaillés sont consignés dans [`docs/VERIFICATIONS.md`](docs/VERIFICATIONS.md). Si votre sauvegarde reprend au gym, sortez par sa porte pour découvrir le quartier. Un indicateur accompagne le premier chargement des images, qui peut prendre un moment selon la connexion.
 
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
