@@ -1,3 +1,5 @@
+import { LESSONS } from '../game/TrainingCoach.js';
+
 const KEY_ACTIONS = {
   KeyJ: 'jab',
   KeyK: 'cross',
@@ -37,9 +39,12 @@ export class SparringUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
       'onAction', 'onGuard', 'onStart', 'onPause', 'onResume', 'onRestart', 'onSettings', 'onBlur',
+      'onChooseLesson', 'onAudioGesture', 'onAudioSettings',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.phase = 'ready';
-    this.settings = { tempo: 'normal', recovery: 1 };
+    this.settings = { tempo: 'normal', recovery: 1, lesson: 'free' };
+    this.audio = { muted: false, volume: 0.35, available: true };
+    this.freeTempo = 'normal';
     this.keys = new Map();
     this.pointers = new Map();
     this.menuPointers = new Map();
@@ -66,26 +71,53 @@ export class SparringUI {
           <div class="fighter-name">Rémi le Tank</div>
           <div class="remi-status"><span class="status-dot" aria-hidden="true"></span><span data-value="remi-status">Prêt à vous entraîner</span></div>
           <button type="button" class="pause-button" aria-label="Mettre en pause" title="Pause — P ou Échap" disabled>Ⅱ</button>
+          <button type="button" class="audio-button" aria-label="Couper le son — M" title="Son — M" aria-pressed="false"><span class="audio-icon" aria-hidden="true">♪</span><span class="audio-label">Son</span></button>
         </div>
       </div>
       <div class="session-caption"><span class="touches-count" data-value="landed">0</span> TOUCHES DONNÉES <span aria-hidden="true">·</span> <span class="touches-count" data-value="received">0</span> REÇUES</div>
       <div class="fight-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <aside class="training-coach" aria-label="Conseil de Rémi" hidden>
+        <div class="coach-heading"><span>RÉMI VOUS GUIDE</span><strong data-value="training-progress">0 / 3</strong></div>
+        <div class="coach-steps" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="coach-objective"></p>
+        <p class="coach-cue" role="status" aria-live="polite" aria-atomic="true"></p>
+      </aside>
       <section class="round-panel" aria-labelledby="round-panel-title">
+        <div class="panel-intro">
         <p class="panel-eyebrow">60 SECONDES POUR APPRENDRE</p>
         <h2 class="panel-heading" id="round-panel-title">Un round.\nÀ votre rythme.</h2>
         <p class="panel-copy">Observez ses épaules, protégez-vous, puis profitez des ouvertures. Relâchez la garde pour reprendre votre souffle.</p>
+        <div class="lesson-choice">
+          <label for="lesson-select">Votre séance</label>
+          <select id="lesson-select" name="lesson" aria-describedby="lesson-description">${Object.values(LESSONS).map((lesson) => `<option value="${lesson.id}">${lesson.title}</option>`).join('')}</select>
+          <p id="lesson-description" class="lesson-description"></p>
+        </div>
+        <p class="lesson-objective" hidden></p>
         <div class="round-results" hidden>
           <div class="result-cell"><strong data-value="result-landed">0</strong><span>touches données</span></div>
           <div class="result-cell"><strong data-value="result-received">0</strong><span>touches reçues</span></div>
           <p class="round-detail"></p>
         </div>
+        <div class="training-summary" hidden>
+          <p><strong>Bien joué</strong><span data-value="training-positive"></span></p>
+          <p><strong>À travailler</strong><span data-value="training-improve"></span></p>
+        </div>
+        </div>
+        <div class="panel-options">
         <div class="round-settings">
           <label>Rythme de Rémi<select name="tempo" aria-label="Rythme de Rémi"><option value="calm">Tranquille</option><option value="normal" selected>Normal</option><option value="fast">Vif</option></select></label>
           <label>Récupération<select name="recovery" aria-label="Récupération d’endurance"><option value="1" selected>Normale</option><option value="1.5">Rapide</option></select></label>
         </div>
+        <p class="lesson-tempo" hidden>Rémi prend son temps · 3 réussites · 60 s max.</p>
+        <label class="audio-volume" for="audio-volume"><span>Volume <output data-value="audio-volume">35 %</output></span><input id="audio-volume" name="volume" type="range" min="0" max="100" value="35" step="5" aria-label="Volume du gym"></label>
+        </div>
+        <div class="panel-actions">
         <button type="button" class="primary-button">Entrer en sparring →</button>
         <button type="button" class="secondary-button" hidden>Recommencer le round</button>
+        <button type="button" class="choose-session-button" hidden>Choisir une séance</button>
+        <button type="button" class="next-lesson-button" hidden>Leçon suivante →</button>
         <p class="round-footnote">Sparring au gym · Aucun combat officiel</p>
+        </div>
       </section>
       <div class="action-dock defense-dock" aria-label="Défenses">
         <span class="dock-caption">ESQUIVER & PROTÉGER</span>
@@ -103,12 +135,16 @@ export class SparringUI {
       'menu-shade', 'stamina-track', 'stamina-fill', 'round-time', 'remi-status', 'pause-button',
       'fight-feedback', 'round-panel', 'panel-eyebrow', 'panel-heading', 'panel-copy',
       'round-results', 'round-detail', 'round-settings', 'primary-button', 'secondary-button',
+      'audio-button', 'audio-label', 'audio-icon', 'audio-volume', 'lesson-choice', 'lesson-description',
+      'lesson-objective', 'lesson-tempo', 'choose-session-button', 'next-lesson-button',
+      'training-coach', 'coach-objective', 'coach-cue', 'training-summary',
     ].map((className) => [className, this.root.querySelector(`.${className}`)]));
     this.values = Object.fromEntries([...this.root.querySelectorAll('[data-value]')]
       .map((element) => [element.dataset.value, element]));
     this.buttons = new Map([...this.root.querySelectorAll('[data-action]')]
       .map((button) => [button.dataset.action, button]));
     this.bindEvents();
+    this.setAudioState(this.audio);
     document.getElementById('stage').inert = this.portraitQuery.matches;
   }
 
@@ -117,7 +153,10 @@ export class SparringUI {
   }
 
   listenActivation(button, callback) {
-    this.listen(button, 'pointerdown', (event) => this.menuPointers.set(button, event.pointerId));
+    this.listen(button, 'pointerdown', (event) => {
+      this.callbacks.onAudioGesture();
+      this.menuPointers.set(button, event.pointerId);
+    });
     this.listen(button, 'pointercancel', () => this.menuPointers.delete(button));
     this.listen(button, 'click', (event) => {
       const pointerId = this.menuPointers.get(button);
@@ -127,6 +166,7 @@ export class SparringUI {
       // Keyboard and assistive clicks have detail 0 and need no pointer.
       if (event.detail !== 0 && (pointerId === undefined
         || (typeof event.pointerId === 'number' && event.pointerId !== pointerId))) return;
+      this.callbacks.onAudioGesture();
       callback(event);
     });
   }
@@ -144,8 +184,8 @@ export class SparringUI {
     });
     this.listenActivation(this.elements['pause-button'], (event) => {
       event.currentTarget.blur();
-      this.clearInputs();
       if (this.phase === 'running') this.callbacks.onPause();
+      this.clearInputs();
     });
     this.listenActivation(this.elements['primary-button'], (event) => {
       event.currentTarget.blur();
@@ -160,10 +200,37 @@ export class SparringUI {
       this.clearInputs();
       this.callbacks.onRestart({ ...this.settings });
     });
+    this.listenActivation(this.elements['choose-session-button'], (event) => {
+      event.currentTarget.blur();
+      this.clearInputs();
+      this.callbacks.onChooseLesson();
+    });
+    this.listenActivation(this.elements['next-lesson-button'], (event) => {
+      event.currentTarget.blur();
+      const lessons = Object.values(LESSONS).filter((lesson) => lesson.id !== 'free');
+      const next = lessons[lessons.findIndex((lesson) => lesson.id === this.settings.lesson) + 1];
+      if (!next) return;
+      this.clearInputs();
+      this.settings = { ...this.settings, lesson: next.id, tempo: 'calm' };
+      this.callbacks.onRestart({ ...this.settings });
+    });
+    this.listenActivation(this.elements['audio-button'], (event) => {
+      event.currentTarget.blur();
+      this.changeAudio({ muted: !this.audio.muted });
+    });
+    const volume = this.root.querySelector('[name="volume"]');
+    this.listen(volume, 'pointerdown', () => this.callbacks.onAudioGesture());
+    this.listen(volume, 'keydown', () => this.callbacks.onAudioGesture());
+    this.listen(volume, 'input', () => this.changeAudio({ volume: Number(volume.value) / 100 }));
     this.root.querySelectorAll('select').forEach((select) => {
+      this.listen(select, 'pointerdown', () => this.callbacks.onAudioGesture());
+      this.listen(select, 'keydown', () => this.callbacks.onAudioGesture());
       this.listen(select, 'change', () => {
+        const lesson = this.root.querySelector('[name="lesson"]').value;
+        if (this.settings.lesson === 'free') this.freeTempo = this.root.querySelector('[name="tempo"]').value;
         this.settings = {
-          tempo: this.root.querySelector('[name="tempo"]').value,
+          lesson,
+          tempo: lesson === 'free' ? this.freeTempo : 'calm',
           recovery: Number(this.root.querySelector('[name="recovery"]').value),
         };
         this.callbacks.onSettings({ ...this.settings });
@@ -172,6 +239,7 @@ export class SparringUI {
     for (const [action, button] of this.buttons) {
       this.listen(button, 'pointerdown', (event) => {
         if (!this.canPlay() || (event.pointerType === 'mouse' && event.button !== 0)) return;
+        this.callbacks.onAudioGesture();
         event.preventDefault();
         button.blur();
         this.pointers.set(event.pointerId, { action, button });
@@ -189,6 +257,7 @@ export class SparringUI {
       this.listen(button, 'click', (event) => {
         if (event.detail !== 0 || !this.canPlay()) return;
         if (action === 'guard') return;
+        this.callbacks.onAudioGesture();
         this.callbacks.onAction(action);
       });
     }
@@ -206,19 +275,28 @@ export class SparringUI {
     if (target instanceof Element && target.closest('input, select, textarea, [contenteditable="true"]')) return;
     if (target instanceof HTMLButtonElement && (event.code === 'Space' || event.code === 'Enter')
       && !(event.code === 'Space' && target.dataset.action === 'guard')) return;
+    if (event.code === 'KeyM') {
+      if (event.repeat || this.portraitQuery.matches) return;
+      event.preventDefault();
+      this.callbacks.onAudioGesture();
+      this.changeAudio({ muted: !this.audio.muted });
+      return;
+    }
     if (event.code === 'KeyP' || event.code === 'Escape') {
       if (event.repeat || this.portraitQuery.matches) return;
       if (this.phase !== 'running' && this.phase !== 'paused') return;
       event.preventDefault();
-      this.clearInputs();
+      this.callbacks.onAudioGesture();
       if (this.phase === 'running') this.callbacks.onPause();
       else this.callbacks.onResume();
+      this.clearInputs();
       return;
     }
     const action = KEY_ACTIONS[event.code];
     if (!action || !this.canPlay()) return;
     event.preventDefault();
     if (event.repeat || this.keys.has(event.code)) return;
+    this.callbacks.onAudioGesture();
     this.keys.set(event.code, action);
     this.refreshHeldButtons();
     if (action === 'guard') this.refreshGuard();
@@ -273,8 +351,8 @@ export class SparringUI {
   }
 
   loseFocus() {
-    this.clearInputs();
     this.callbacks.onBlur();
+    this.clearInputs();
   }
 
   setText(element, value) {
@@ -282,11 +360,41 @@ export class SparringUI {
     if (element.textContent !== text) element.textContent = text;
   }
 
+  setAudioState({ muted = this.audio.muted, volume = this.audio.volume, available = this.audio.available } = {}) {
+    this.audio = { muted: Boolean(muted), volume: Math.max(0, Math.min(1, Number.isFinite(volume) ? volume : this.audio.volume)), available: available !== false };
+    const button = this.elements['audio-button'];
+    button.disabled = !this.audio.available;
+    button.setAttribute('aria-pressed', String(this.audio.muted));
+    const label = this.audio.available ? `${this.audio.muted ? 'Activer' : 'Couper'} le son — M` : 'Son indisponible';
+    button.setAttribute('aria-label', label);
+    button.title = label;
+    this.setText(this.elements['audio-label'], !this.audio.available ? 'Indispo.' : this.audio.muted ? 'Muet' : 'Son');
+    this.setText(this.elements['audio-icon'], !this.audio.available ? '—' : this.audio.muted ? '×' : '♪');
+    const range = this.root.querySelector('[name="volume"]');
+    range.value = String(Math.round(this.audio.volume * 100));
+    range.disabled = !this.audio.available;
+    this.setText(this.values['audio-volume'], `${Math.round(this.audio.volume * 100)} %`);
+  }
+
+  changeAudio(settings) {
+    if (!this.audio.available) return;
+    this.setAudioState({ ...this.audio, ...settings });
+    this.callbacks.onAudioSettings({ muted: this.audio.muted, volume: this.audio.volume });
+  }
+
   update(state) {
     const phase = state.phase ?? 'ready';
-    if (this.phase !== phase || !this.initialized) {
+    const lesson = LESSONS[state.settings?.lesson ?? this.settings.lesson] ?? LESSONS.free;
+    const training = state.training;
+    this.settings = { ...this.settings, ...state.settings, lesson: lesson.id };
+    if (lesson.id === 'free') this.freeTempo = this.settings.tempo;
+    this.root.dataset.lesson = lesson.id;
+    if (this.phase !== phase || !this.initialized || this.renderedLesson !== lesson.id
+      || this.renderedCompleted !== Boolean(training?.completed)) {
       this.phase = phase;
       this.initialized = true;
+      this.renderedLesson = lesson.id;
+      this.renderedCompleted = Boolean(training?.completed);
       this.clearInputs();
       this.root.dataset.phase = phase;
       const running = phase === 'running';
@@ -297,23 +405,54 @@ export class SparringUI {
       this.elements['round-results'].hidden = phase !== 'finished';
       this.elements['round-settings'].hidden = phase === 'finished';
       this.elements['secondary-button'].hidden = phase !== 'paused';
+      this.elements['choose-session-button'].hidden = !['paused', 'finished'].includes(phase);
+      this.elements['lesson-choice'].hidden = phase !== 'ready';
+      this.root.querySelector('[name="lesson"]').value = lesson.id;
+      this.root.querySelector('[name="lesson"]').disabled = phase !== 'ready';
+      const tempo = this.root.querySelector('[name="tempo"]');
+      tempo.value = this.settings.tempo;
+      tempo.disabled = lesson.id !== 'free';
+      tempo.closest('label').hidden = lesson.id !== 'free';
+      this.root.querySelector('[name="recovery"]').value = String(this.settings.recovery);
+      this.elements['lesson-tempo'].hidden = lesson.id === 'free' || phase === 'finished';
+      this.elements['lesson-objective'].hidden = lesson.id === 'free' || phase === 'finished';
+      this.setText(this.elements['lesson-description'], lesson.description);
+      this.setText(this.elements['lesson-objective'], lesson.objective);
+      this.elements['training-summary'].hidden = phase !== 'finished' || !training;
+      const lessons = Object.values(LESSONS).filter((item) => item.id !== 'free');
+      const next = lessons[lessons.findIndex((item) => item.id === lesson.id) + 1];
+      this.elements['next-lesson-button'].hidden = phase !== 'finished' || !training || !next;
+      if (next) this.setText(this.elements['next-lesson-button'], 'Leçon suivante →');
+      this.setText(this.elements['secondary-button'], training ? 'Recommencer l’exercice' : 'Recommencer le round');
+      this.elements['panel-copy'].hidden = lesson.id !== 'free';
       if (phase === 'ready') {
-        this.setText(this.elements['panel-eyebrow'], '60 SECONDES POUR APPRENDRE');
-        this.setText(this.elements['panel-heading'], 'Un round.\nÀ votre rythme.');
+        this.setText(this.elements['panel-eyebrow'], lesson.id === 'free' ? '60 SECONDES POUR APPRENDRE' : 'UN EXERCICE AVEC RÉMI');
+        this.setText(this.elements['panel-heading'], lesson.id === 'free' ? 'Un round.\nÀ votre rythme.' : lesson.title);
         this.setText(this.elements['panel-copy'], 'Observez ses épaules, protégez-vous, puis profitez des ouvertures. Relâchez la garde pour reprendre votre souffle.');
-        this.setText(this.elements['primary-button'], 'Entrer en sparring →');
+        this.setText(this.elements['primary-button'], lesson.id === 'free' ? 'Entrer en sparring →' : 'Commencer l’exercice →');
       } else if (phase === 'paused') {
         this.setText(this.elements['panel-eyebrow'], 'LE GYM PEUT ATTENDRE');
         this.setText(this.elements['panel-heading'], 'Soufflez.');
         this.setText(this.elements['panel-copy'], 'Le round est en pause. Ajustez le rythme si vous le souhaitez, puis retrouvez Rémi.');
-        this.setText(this.elements['primary-button'], 'Reprendre le round →');
+        this.setText(this.elements['primary-button'], training ? 'Reprendre l’exercice →' : 'Reprendre le round →');
       } else if (phase === 'finished') {
-        this.setText(this.elements['panel-eyebrow'], 'LE ROUND EST TERMINÉ');
-        this.setText(this.elements['panel-heading'], 'Beau travail.');
+        this.setText(this.elements['panel-eyebrow'], training ? `${training.progress} / ${training.target} RÉUSSITES` : 'LE ROUND EST TERMINÉ');
+        this.setText(this.elements['panel-heading'], training ? training.completed ? 'Exercice réussi !' : 'On continue ?' : 'Beau travail.');
         this.setText(this.elements['panel-copy'], 'Chaque échange compte. Retrouvez votre souffle et repartez pour une minute.');
-        this.setText(this.elements['primary-button'], 'Un autre round →');
+        this.setText(this.elements['primary-button'], training ? 'Refaire l’exercice →' : 'Un autre round →');
       }
       if (!running) this.elements['fight-feedback'].classList.remove('is-visible');
+    }
+    this.elements['training-coach'].hidden = phase !== 'running' || !training;
+    if (training) {
+      this.setText(this.values['training-progress'], `${training.progress} / ${training.target}`);
+      this.setText(this.elements['coach-objective'], training.objective);
+      this.setText(this.elements['coach-cue'], training.cue);
+      this.root.querySelectorAll('.coach-steps i').forEach((step, index) => step.classList.toggle('is-complete', index < training.progress));
+      if (phase === 'finished') {
+        this.setText(this.values['training-positive'], training.summary?.positive ?? 'Vous avez pris le temps de pratiquer.');
+        this.setText(this.values['training-improve'], training.summary?.improve ?? 'Recommencez à votre rythme.');
+      }
     }
     const stamina = Math.max(0, Math.min(100, Number(state.stamina ?? 100)));
     const displayedStamina = Math.round(stamina);

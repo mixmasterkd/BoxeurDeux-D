@@ -200,3 +200,109 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Training menus keep their detail outside the live boxing area. */
+.round-panel { width: 310px; top: 21%; padding: 19px; }
+.panel-intro, .panel-options, .panel-actions { min-width: 0; }
+.lesson-choice { margin: 13px 0 10px; }
+.lesson-choice label { display: block; margin-bottom: 5px; color: var(--amber); font-size: 10px; font-weight: 700; }
+.lesson-choice select { width: 100%; min-width: 0; min-height: 36px; padding: 6px 8px; color: var(--cream); background: #1a3039; border: 1px solid #617473; border-radius: 3px; font-size: 12px; }
+.lesson-description { margin: 7px 0 0; font-size: 11px; line-height: 1.45; color: #bdcdca; }
+.lesson-objective { margin: 10px 0 13px; font-size: 12px; line-height: 1.4; color: #f2d99f; }
+.lesson-tempo { margin: -6px 0 10px; font-size: 10px; line-height: 1.4; color: #a7bcba; }
+.audio-volume { display: block; margin: 8px 0 12px; color: #bbcbc7; font-size: 10px; }
+.audio-volume > span { display: flex; align-items: center; justify-content: space-between; }
+.audio-volume input { display: block; margin: 1px 0 0; width: 100%; height: 25px; accent-color: var(--amber); cursor: pointer; touch-action: pan-y; }
+.audio-volume output { color: var(--amber); font-variant-numeric: tabular-nums; }
+.audio-button { pointer-events: auto; position: absolute; right: 0; top: 44px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 1px; width: 38px; height: 35px; padding: 1px; border: 1px solid #e8ead050; border-radius: 3px; background: #102029d9; color: #efdfb6; }
+.audio-button:hover { background: #344245; }
+.audio-button[aria-pressed="true"] { color: #a6b5b5; }
+#sparring-ui:not([data-phase="running"]) .pause-button { visibility: hidden; }
+#sparring-ui:not([data-phase="running"]) .audio-button { top: 0; }
+.audio-icon { font: bold 16px/1 system-ui, sans-serif; }
+.audio-label { font-size: 8px; line-height: 1; }
+.choose-session-button, .next-lesson-button { display: block; width: 100%; min-height: 30px; margin-top: 6px; padding: 5px 2px; border: 1px solid #8da39948; border-radius: 2px; background: #142a32; color: #d2ded3; font-size: 10px; }
+.choose-session-button:hover, .next-lesson-button:hover { background: #294148; }
+.next-lesson-button { color: #f3d59b; border-color: #d5b27570; }
+.training-summary { margin: 10px 0 13px; }
+.training-summary p { margin: 8px 0; font-size: 11px; line-height: 1.45; color: #c9d6d1; }
+.training-summary strong { display: block; font-size: 10px; color: var(--amber); }
+.training-summary span { display: block; margin-top: 2px; }
+.training-coach { position: absolute; left: 33px; top: 26%; width: 230px; padding: 14px; background: #10232bea; border-left: 2px solid var(--amber); box-shadow: 0 4px 18px #06151e33; }
+.coach-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #f3d492; font-size: 9px; letter-spacing: 1px; }
+.coach-heading strong { white-space: nowrap; font-size: 13px; letter-spacing: 0; }
+.coach-steps { display: flex; gap: 5px; margin: 8px 0; }
+.coach-steps i { width: 21px; height: 3px; background: #6e837b70; }
+.coach-steps i.is-complete { background: var(--amber); }
+.coach-objective { margin: 0 0 8px; color: #bdceca; font-size: 11px; line-height: 1.4; }
+.coach-cue { margin: 0; color: #f4ead3; font-size: 14px; font-weight: 700; line-height: 1.45; }
+#sparring-ui:not([data-lesson="free"]) .session-caption { display: none; }
+@container (max-width: 1000px) {
+  .round-panel { width: 280px; top: 18%; padding: 15px; }
+  .panel-heading { font-size: 24px; }
+  .panel-copy { font-size: 11px; }
+  .training-coach { left: 22px; width: 180px; padding: 11px; }
+  .coach-cue { font-size: 12px; }
+}
+@container (max-width: 750px) {
+  .round-panel { left: 3%; top: 26%; width: 94%; padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 18px; align-items: start; background: #10242cef; }
+  .panel-intro { grid-column: 1; grid-row: 1 / 3; }
+  .panel-options { grid-column: 2; grid-row: 1; }
+  .panel-actions { grid-column: 2; grid-row: 2; }
+  .panel-eyebrow { font-size: 8px; letter-spacing: 1px; margin-bottom: 5px; }
+  .panel-heading { font-size: 22px; line-height: 1.05; }
+  .panel-copy { display: none; }
+  .lesson-choice { margin: 9px 0 0; }
+  .lesson-choice label { font-size: 10px; margin-bottom: 3px; }
+  .lesson-choice select { min-height: 34px; padding: 5px; font-size: 11px; }
+  .lesson-description { font-size: 10px; margin-top: 6px; line-height: 1.35; }
+  .lesson-objective { font-size: 10px; margin: 7px 0 0; line-height: 1.35; }
+  .round-settings { gap: 8px; padding-top: 0; margin: 0 0 6px; border: 0; }
+  .round-settings label { font-size: 10px; }
+  .round-settings select { min-height: 31px; font-size: 10px; padding: 4px; }
+  .lesson-tempo { font-size: 10px; margin: 0 0 5px; line-height: 1.3; }
+  .audio-volume { font-size: 10px; margin: 5px 0; }
+  .audio-volume input { height: 25px; }
+  .primary-button { min-height: 36px; font-size: 11px; padding: 6px; }
+  .secondary-button { font-size: 10px; min-height: 24px; margin-top: 3px; padding: 3px; }
+  .choose-session-button, .next-lesson-button { font-size: 10px; min-height: 29px; margin-top: 4px; padding: 4px; }
+  .round-footnote { display: none; }
+  .round-results { margin: 7px 0; padding: 6px 0; }
+  .result-cell strong { font-size: 20px; }
+  .result-cell span, .round-detail { font-size: 9px; }
+  .training-summary { margin: 7px 0 0; }
+  .training-summary p { font-size: 10px; margin: 5px 0 0; line-height: 1.35; }
+  .training-summary strong { font-size: 10px; }
+  .training-coach { left: 14px; top: 29%; width: 29%; padding: 9px 10px; }
+  .coach-heading { font-size: 7px; letter-spacing: .5px; gap: 4px; }
+  .coach-heading strong { font-size: 11px; }
+  .coach-steps { margin: 6px 0; }
+  .coach-objective { font-size: 10px; margin-bottom: 6px; }
+  .coach-cue { font-size: 11px; line-height: 1.35; }
+  .audio-button { top: 34px; width: 30px; height: 29px; }
+}
+@container (max-width: 550px) {
+  .round-panel { top: 24%; padding: 10px 11px; column-gap: 13px; }
+  .panel-heading { font-size: 20px; }
+  .panel-eyebrow { font-size: 7px; }
+  .lesson-choice { margin-top: 7px; }
+  .lesson-description { line-height: 1.25; }
+  .lesson-objective { line-height: 1.25; }
+  .lesson-choice select { min-height: 31px; font-size: 10px; }
+  .training-coach { top: 30%; width: 30%; padding: 8px; }
+  .coach-objective { display: none; }
+  .coach-cue { font-size: 11px; }
+  .training-summary p { font-size: 10px; line-height: 1.25; }
+  .panel-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .panel-actions .primary-button, .panel-actions .round-footnote { grid-column: 1 / -1; }
+  .panel-actions .secondary-button, .panel-actions .choose-session-button, .panel-actions .next-lesson-button { min-height: 35px; margin: 0; font-size: 10px; line-height: 1.2; }
+  #sparring-ui[data-phase="paused"] .lesson-tempo { display: none; }
+  #sparring-ui:not([data-lesson="free"]) .round-detail { display: none; }
+}
+@media (pointer: coarse) {
+  .audio-button { width: 44px; height: 44px; top: 48px; }
+  .audio-icon { font-size: 19px; }
+  .audio-label { font-size: 9px; }
+  .primary-button { min-height: 40px; }
+  .audio-volume input { min-height: 27px; }
+}

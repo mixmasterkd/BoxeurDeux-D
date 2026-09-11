@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-09-11T01:17:26.679Z",
+  "reports": [
+    "jab: three real repetitions, pause/resume, completion and coaching report passed.",
+    "guard: three real repetitions, pause/resume, completion and coaching report passed.",
+    "counter: three real repetitions, pause/resume, completion and coaching report passed.",
+    "Retry and return to free sparring passed; audio starts on gesture and stops on pause.",
+    "Mute, volume persistence, silent reload and gesture-based reactivation passed.",
+    "Without Web Audio, the unavailable sound control is disabled and sparring remains playable."
+  ],
+  "errors": []
+}

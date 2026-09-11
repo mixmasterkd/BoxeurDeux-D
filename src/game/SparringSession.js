@@ -1,3 +1,5 @@
+import { LESSONS, TrainingCoach } from './TrainingCoach.js';
+
 /**
  * Deterministic, renderer-independent sparring model. All times are seconds.
  * An impact is counted when action progress crosses its `impact` fraction.
@@ -38,10 +40,13 @@ function normalizeSettings(settings = {}, previous = {}) {
   const duration = Number(settings.duration ?? previous.duration ?? 60);
   const recovery = Number(settings.recovery ?? previous.recovery ?? 1);
   const tempo = settings.tempo ?? previous.tempo ?? 'normal';
+  const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
+  const lesson = Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
-    duration: Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
-    tempo: Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
+    duration: lesson === 'free' && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
+    tempo: lesson !== 'free' ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
+    lesson,
   };
 }
 
@@ -74,6 +79,8 @@ export class SparringSession {
     this._recoverAt = 0;
     this._nextSide = 'left';
     this._remiAction = null;
+    this._remiStage = 0;
+    this._coach = this.settings.lesson === 'free' ? null : new TrainingCoach(this.settings.lesson);
     this.state = {
       phase: 'ready',
       remaining: this.settings.duration,
@@ -83,12 +90,19 @@ export class SparringSession {
       remi: actionState('idle', 0, 0, { safeDodge: null, side: null }),
       stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0 },
       settings: { ...this.settings },
+      training: null,
     };
+    this.state.training = this._coach?.snapshot(this.state.stats) ?? null;
     return this.state;
   }
 
   setSettings(settings = {}) {
-    this.settings = normalizeSettings(settings, this.settings);
+    const next = normalizeSettings(settings, this.settings);
+    if (next.lesson !== this.settings.lesson) {
+      this.reset(next);
+      return { ...this.settings };
+    }
+    this.settings = next;
     this.state.settings = { ...this.settings };
     if (this.state.phase === 'ready') {
       this.state.remaining = this.settings.duration;
@@ -121,7 +135,7 @@ export class SparringSession {
 
   act(action) {
     const timing = TIMINGS.player[action];
-    if (this.state.phase !== 'running' || !timing || action === 'hit' || this._playerAction) return false;
+    if (this.state.phase !== 'running' || !timing || action === 'hit' || this._playerAction || this._coach?.state.completed) return false;
     if (this.state.stamina + EPSILON < timing.cost) {
       this._emit('exhausted', { action });
       return false;
@@ -136,8 +150,10 @@ export class SparringSession {
 
   setGuard(held) {
     const next = Boolean(held) && this.state.phase === 'running' && this.state.stamina > EPSILON;
+    const wasHeld = this._guardHeld;
     if (this._guardHeld && !next) this._recoverAt = Math.max(this._recoverAt, this.state.elapsed + RECOVERY_DELAY);
     this._guardHeld = next;
+    this._coach?.onGuardChange(next, wasHeld, this._trainingContext());
     this._syncState();
     return this._guardHeld;
   }
@@ -211,14 +227,15 @@ export class SparringSession {
       this._nextRemiAction();
     }
 
+    this._trainingEvents(this._coach?.update(this._trainingContext()));
+
     if (this.state.remaining <= EPSILON) {
       this.state.remaining = 0;
       this.state.elapsed = this.settings.duration;
-      this.state.phase = 'finished';
-      this._guardHeld = false;
-      this._playerAction = null;
-      this._remiAction = null;
-      this._emit('round-end', { stats: { ...this.state.stats } });
+      this._finishRound();
+    } else if (this._coach?.canFinish(this._trainingContext())) {
+      this.state.remaining = 0;
+      this._finishRound();
     }
   }
 
@@ -268,15 +285,23 @@ export class SparringSession {
 
   _setRemiAction(action, duration, extra = {}) {
     this._remiAction = { action, duration, elapsed: 0, impact: null, impacted: false, side: null, safeDodge: null, ...extra };
+    this._remiStage += 1;
+    this._coach?.onStage(this._trainingContext());
   }
 
   _nextRemiAction() {
     const current = this._remiAction;
     const tempo = TEMPOS[this.settings.tempo];
-    if (current.action === 'open') {
+    if (this._coach?.state.completed) {
+      this._setRemiAction('open', 1);
+    } else if (current.action === 'open') {
       const sample = clamp(Number(this.random()) || 0, 0, 1);
       this._setRemiAction('guard', tempo.guard + (sample - 0.5) * 0.26);
     } else if (current.action === 'guard') {
+      if (this.settings.lesson === 'jab') {
+        this._setRemiAction('open', tempo.opening);
+        return;
+      }
       const side = this._nextSide;
       this._nextSide = side === 'left' ? 'right' : 'left';
       const safeDodge = side === 'left' ? 'dodgeRight' : 'dodgeLeft';
@@ -322,9 +347,34 @@ export class SparringSession {
       this.state.remi.duration = HURT_DURATION;
       this.state.remi.progress = this.state.remi.reactionProgress;
     }
+    this.state.training = this._coach?.snapshot(this.state.stats) ?? null;
+  }
+
+  _trainingContext() {
+    return {
+      time: this.state.elapsed, phase: this.state.phase, stamina: this.state.stamina,
+      guardHeld: this._guardHeld, playerAction: this._playerAction?.action ?? null,
+      playerHurt: this._playerHurt, remiHurt: this._remiHurt,
+      remiAction: this._remiAction?.action ?? null, remiStage: this._remiStage,
+      remiRemaining: this._remiAction ? this._remiAction.duration - this._remiAction.elapsed : 0,
+    };
+  }
+
+  _trainingEvents(events = []) {
+    for (const event of events) this._events.push({ time: this.state.elapsed, ...event });
+  }
+
+  _finishRound() {
+    this.state.phase = 'finished';
+    this._guardHeld = false;
+    this._playerAction = null;
+    this._remiAction = null;
+    this._emit('round-end', { stats: { ...this.state.stats } });
   }
 
   _emit(type, extra = {}) {
-    this._events.push({ type, time: this.state.elapsed, ...extra });
+    const event = { type, time: this.state.elapsed, ...extra };
+    this._events.push(event);
+    this._trainingEvents(this._coach?.onEvent(event, this._trainingContext()));
   }
 }

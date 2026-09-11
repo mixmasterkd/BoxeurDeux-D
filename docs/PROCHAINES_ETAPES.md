@@ -6,11 +6,16 @@ Direction confirmée par l’utilisateur le 10 septembre 2026.
 
 Le sparring dispose de tenues d’entraînement (débardeur, short, casque et gants), de dix poses par boxeur et de transitions plus fluides. L’identité des personnages, le décor validé, le round jouable et les commandes sont conservés. Le cadrage garde les pieds visibles pendant les échanges. Le paysage mobile a été vérifié dans Chromium; le confort sur un téléphone physique reste à essayer. Voir `VERIFICATIONS.md` pour les contrôles effectués.
 
-## Prochaines améliorations du sparring
+## Phase leçons et son — réalisée le 10 septembre 2026
 
-- Conseils courts de Rémi et exercices simples : jab, blocage, esquive puis réponse.
-- Sons de cloche, impacts distincts, souffle et ambiance du gym, avec réglage du volume.
-- Entrée dans le ring depuis un gym explorable, après avoir parlé à Rémi.
+- Trois exercices de trois réussites : jab dans des ouvertures distinctes, blocage suivi de récupération, esquive puis riposte.
+- Conseils pendant le jeu, progression, bilan, nouvel essai et passage à la leçon suivante.
+- Cloche, impacts, blocages, souffle et sons de réussite, synthétisés localement. Volume et sourdine mémorisés; pas encore de boucle d’ambiance.
+- Sparring libre conservé, clavier et tactile en paysage.
+
+## Prochaine discussion
+
+L’utilisateur souhaite terminer cette phase **avant de discuter des aspects du gym explorable**. Ne pas démarrer la carte ou imposer une disposition des ateliers. Définir ensemble la visite, les déplacements, les interactions avec Rémi et les ateliers à ouvrir en premier, leur direction visuelle, puis la portée de la prochaine réalisation.
 
 ## Futur gym explorable
 

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { SparringSession, TIMINGS } from '../game/SparringSession.js';
 import { SparringUI } from '../ui/SparringUI.js';
 import { FighterView, drawImpact } from './FighterView.js';
+import { SparringAudio } from '../audio/SparringAudio.js';
 
 const FEEDBACK = {
   'player-hit': ['Touché !', 'success'],
@@ -25,6 +26,7 @@ export class SparringScene extends Phaser.Scene {
 
   create() {
     this.session = new SparringSession();
+    this.audio = new SparringAudio();
     const background = this.add.image(640, 360, 'gym');
     background.setScale(Math.min(1280 / background.width, 720 / background.height));
     // Fixed framing also contains the forward footwork of close exchanges.
@@ -43,23 +45,51 @@ export class SparringScene extends Phaser.Scene {
     this.ui = new SparringUI({
       onAction: (action) => this.session.act(action),
       onGuard: (held) => this.session.setGuard(held),
-      onStart: (settings) => { this.session.reset(settings); this.session.start(); },
-      onPause: () => this.session.pause(),
-      onResume: () => this.session.resume(),
-      onRestart: (settings) => { this.session.reset(settings); this.session.start(); },
-      onSettings: (settings) => this.session.setSettings(settings),
-      onBlur: () => { this.session.releaseControls(); this.session.pause(); },
+      onStart: (settings) => this.beginSession(settings),
+      onPause: () => { this.session.pause(); this.audio.setActive(false); },
+      onResume: () => { this.session.resume(); this.audio.setActive(true); },
+      onRestart: (settings) => this.beginSession(settings),
+      onChooseLesson: () => { this.session.reset(); this.audio.setActive(false); },
+      onSettings: (settings) => {
+        this.session.setSettings(settings);
+        if (this.session.state.phase === 'ready') this.audio.setActive(false);
+      },
+      onBlur: () => { this.session.pause(); this.session.releaseControls(); this.audio.setActive(false); },
+      onAudioGesture: () => this.audio.unlock(),
+      onAudioSettings: ({ muted, volume }) => {
+        this.audio.setMuted(muted);
+        this.audio.setVolume(volume);
+        this.audio.unlock();
+        this.ui.setAudioState(this.audio.getState());
+      },
     });
+    this.ui.setAudioState(this.audio.getState());
     this.remi.render(this.session.state.remi, 0);
     this.player.render(this.session.state.player, 0);
     this.ui.update(this.session.state);
     this.resizeObserver = new ResizeObserver(() => this.scale.refresh());
     this.resizeObserver.observe(document.getElementById('game'));
-    this.events.once('shutdown', () => { this.ui.destroy(); this.resizeObserver.disconnect(); });
-    this.events.once('destroy', () => { this.ui.destroy(); this.resizeObserver.disconnect(); });
+    let disposed = false;
+    const cleanup = () => {
+      if (disposed) return;
+      disposed = true;
+      this.ui.destroy();
+      this.audio.dispose();
+      this.resizeObserver.disconnect();
+    };
+    this.events.once('shutdown', cleanup);
+    this.events.once('destroy', cleanup);
     if (import.meta.env.DEV) {
-      window.__sparring = { session: this.session, scene: this, ui: this.ui, impacts: [] };
+      window.__sparring = { session: this.session, scene: this, ui: this.ui, audio: this.audio, impacts: [] };
     }
+  }
+
+  beginSession(settings) {
+    this.audio.setActive(false);
+    this.session.reset(settings);
+    this.session.start();
+    this.audio.setActive(true);
+    this.audio.play('round-start');
   }
 
   update(_time, delta) {
@@ -74,6 +104,9 @@ export class SparringScene extends Phaser.Scene {
     this.player.render(state.player, state.elapsed);
     this.renderCue(state);
     for (const event of this.session.drainEvents()) {
+      // The model emits impacts on the frame where the glove makes contact.
+      // End cues finish naturally on the report; there is no ambient sound loop.
+      if (event.type !== 'round-start') this.audio.play(event.type);
       const message = FEEDBACK[event.type];
       if (message) this.ui.showFeedback(...message);
       if (event.type.startsWith('player-') || event.type.startsWith('remi-')) {
@@ -105,7 +138,10 @@ export class SparringScene extends Phaser.Scene {
         ? state.remi.duration * (1 - progress) + timing.duration * timing.impact
         : state.remi.duration * (timing.impact - progress);
       const instruction = untilContact > .4 ? 'PRÉPAREZ' : 'ESQUIVEZ';
-      this.coach.setText(right ? `${instruction} À DROITE  →` : `←  ${instruction} À GAUCHE`).setColor('#ffdf96');
+      const label = state.training?.id === 'guard'
+        ? 'GARDE · MAINTENEZ ESPACE OU ▰'
+        : right ? `${instruction} À DROITE  →` : `←  ${instruction} À GAUCHE`;
+      this.coach.setText(label).setColor('#ffdf96');
       if (untilContact < 0) { this.coach.setVisible(false); return; }
       const x = right ? 500 : 780;
       const y = 300;
@@ -113,7 +149,9 @@ export class SparringScene extends Phaser.Scene {
       this.cue.strokeCircle(x, y, 22 + (1 - progress) * 12);
       this.cue.fillStyle(0xffdc8a, 1).fillTriangle(x - 5, y - 8, x + 5, y - 8, x, y + 6);
     } else if (opened) {
-      this.coach.setText('OUVERTURE · À VOUS !').setColor('#b8dfbf');
+      const label = state.training?.id === 'guard' ? 'RELÂCHEZ · SOUFFLEZ'
+        : state.training?.id === 'jab' ? 'OUVERTURE · UN JAB !' : 'OUVERTURE · À VOUS !';
+      this.coach.setText(label).setColor('#b8dfbf');
     }
   }
 }

@@ -10,6 +10,8 @@ export const game = new Phaser.Game({
   backgroundColor: '#172432',
   pixelArt: true,
   roundPixels: true,
+  // Sounds are synthesized by SparringAudio, unlocked by a user gesture.
+  audio: { noAudio: true },
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,

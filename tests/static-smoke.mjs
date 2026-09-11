@@ -71,6 +71,15 @@ try {
     assert.equal(await page.locator('.round-time').textContent(), time, 'pause freezes the timer');
     await press('.secondary-button');
     await page.waitForFunction(() => document.querySelector('[data-value="landed"]')?.textContent === '0');
+    await press('.pause-button');
+    await press('.choose-session-button');
+    await page.locator('[name="lesson"]').selectOption('jab');
+    await press('.primary-button');
+    if (mobile) await press('[data-action="jab"]');
+    else await page.keyboard.press('j');
+    await page.waitForFunction(() => document.querySelector('[data-value="training-progress"]')?.textContent === '1 / 3');
+    await press('.audio-button');
+    assert.equal(await page.locator('.audio-button').getAttribute('aria-pressed'), 'true', 'mute works in the compiled game');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
       await page.setViewportSize({ width: 390, height: 844 });
@@ -84,7 +93,7 @@ try {
     assert.equal([...loaded].filter(name => name.startsWith('assets/sprites/sparring-v2/') && name.endsWith('.png')).length, 20);
   }
   assert.deepEqual(errors, []);
-  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: directory index + index.html, keyboard + touch jab, pause, restart, landscape and portrait passed. No browser or resource errors.`);
+  console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: directory index + index.html, keyboard + touch jab, pause, restart, guided jab, mute, landscape and portrait passed. No browser or resource errors.`);
 } finally {
   await browser.close();
 }

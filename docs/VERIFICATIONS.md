@@ -1,5 +1,21 @@
 # Vérification du prototype — 10 septembre 2026
 
+## Phase leçons de Rémi et son — 10 septembre 2026
+
+- `npm test` : **36 tests réussis** (19 règles et animations conservés, 12 leçons, 5 audio). Les objectifs sont vérifiés sur les échanges résolus : une réussite par ouverture, blocage puis relâchement volontaire et récupération, esquive puis riposte dans la bonne ouverture. Les tests couvrent aussi l’inaction, les erreurs, la pause, les remises à zéro et une troisième réussite juste avant 60 secondes.
+- `npm run test:training` : les **trois exercices complets**, chacun avec trois réussites obtenues par de vraies commandes clavier dans Chromium. Pause/reprise, bilan, leçon suivante, nouvel essai et retour au sparring libre passent. Le temps en pause ne fait pas progresser les objectifs. Une perte de focus simulée après un blocage ne valide pas un repos volontaire.
+- `npm run test:browser` : parcours clavier et tactile du sparring libre conservé, dont garde et jab simultanés, annulation de contact, esquive, focus, orientation et réglages. Un round complet finit après **60,0 secondes réelles**, puis redémarre avec des statistiques vierges. Aucun échec de ressource ni erreur navigateur. Le premier lancement en parallèle des autres navigateurs a manqué la fenêtre d’une esquive tactile; le parcours isolé a ensuite passé tous ses contrôles sans modification du jeu. Exécuter ces parcours sensibles au temps séparément.
+- Audio : absence de contexte avant une interaction; cloche au démarrage; arrêt des sources en pause et sourdine; absence de sons retardés; volume et sourdine conservés au rechargement; réactivation par geste. Sans Web Audio, la commande de son est désactivée et un jab reste jouable.
+- L’agent audio a rendu numériquement les dix types de sons avec `OfflineAudioContext` dans Chromium : signaux non silencieux, échantillons finis, crêtes entre 0,0227 et 0,0949 au volume par défaut de 35 %, durée maximale 1,316 s. **Ce contrôle du signal ne remplace pas une écoute sur haut-parleurs ou casque.** Il n’y a pas de boucle d’ambiance.
+- `npm run build` et `npm run test:static` : compilation et parcours du vrai bundle réussis sous `/BoxeurDeux-D/` et `/BoxeurDeux-D/index.html`. Clavier et jab tactile, pause, remise à zéro, sélection de la leçon jab, première réussite et sourdine passent sans objet de débogage. Décor et 20 sprites chargés; aucune erreur de page, console ou ressource. Avertissement habituel de taille pour Phaser : environ 1,43 Mo minifié / 373 ko gzip.
+- Interface inspectée aux tailles **844 × 390, 667 × 375 et 568 × 320** : choix de séance, pause, bilans des quatre modes, conseils pendant le jeu, volume et boutons accessibles, sans défilement ni déformation. Les bilans utilisés par l’agent pour les contrôles de disposition étaient forcés; les bilans des captures `lecon-*-bilan.png` proviennent des exercices réellement terminés.
+- Parcours tactiles de navigation aux trois tailles : changement explicite de séance, leçon suivante, retour au libre, relâchement d’un ancien doigt après perte de focus, portrait **390 × 844** et reprise explicite. Ce sont des fenêtres mobiles simulées dans Chromium, **pas un essai sur le téléphone physique de l’utilisateur ni sur Safari/iOS**.
+- Serveur Vite existant réutilisé sur 5173, sans autre serveur. Adresse Wi-Fi revérifiée : `192.168.50.123`. Gym et ressources des personnages inchangés.
+
+Rapport : `training-browser-results.json`. Captures : `lecons-accueil.png`, `lecon-riposte.png` et `lecon-{jab,guard,counter}-bilan.png`. La prochaine étape est une discussion sur le gym explorable; aucune carte ni énergie quotidienne n’a été ajoutée.
+
+## Historique des vérifications précédentes
+
 Vérification après la phase tenues de sparring et fluidité, lancée au « GO » de l’utilisateur. Les contrôles ci-dessous portent sur les ressources `sparring-v2` et le cadrage final.
 
 ## Résultats exécutés
@@ -33,6 +49,7 @@ Résultats horodatés de l'automatisation : `browser-results.json`. Les captures
 npm test
 npm run build
 npm run test:browser
+npm run test:training
 npm run test:static # Après npm run build : compilation servie localement par interception HTTP
 ```
 
@@ -47,7 +64,7 @@ Pour essayer manuellement : frappez pendant les ouvertures; maintenez puis relâ
 - Validation locale du YAML : déclenchement sur `main`, dépendance du déploiement envers la compilation, permissions Pages et répertoire d’artefact. Les références des cinq actions officielles sont épinglées à des commits vérifiés sur leurs dépôts. Le premier workflow distant du commit `004b805` a ensuite réussi : installation, tests, compilation, transfert de `dist/` et déploiement.
 - `npm test`, `npm run build` et le nouveau `npm run test:static` réussissent. Ce dernier teste le vrai bundle de production sans accès aux objets de débogage : `/BoxeurDeux-D/` et `/BoxeurDeux-D/index.html`, 20 sprites v2, clavier et jab tactile, pause, recommencement, paysage 844 × 390 sans défilement et portrait 390 × 844. Aucune erreur de page, console ou ressource.
 - L’authentification du terminal était initialement absente. Blocage résolu en réutilisant le helper Git officiel de VS Code avec son socket IPC actif : test d’envoi puis `git push origin main` réussis. Aucun mot de passe ou jeton demandé à l’utilisateur ni affiché dans les sorties. La tentative séparée de connexion GitHub CLI a été annulée.
-- Pages utilisait encore `legacy` avec `main` à la racine : ce déploiement automatique a republié l’index source après le premier workflow Vite. La source a été changée en `workflow` via l’API GitHub, puis relue pour confirmer **GitHub Actions**. Une nouvelle publication du workflow Vite doit remplacer cet ancien index; les futurs envois n’utiliseront plus le déploiement de branche concurrent.
+- Pages utilisait encore `legacy` avec `main` à la racine : ce déploiement automatique a republié l’index source après le premier workflow Vite. La source a été changée en `workflow` via l’API GitHub, puis relue pour confirmer **GitHub Actions**. La publication Vite du commit `e131feb` a ensuite réussi et le site public a passé le parcours navigateur. Les futurs envois utilisent ce workflow, sans déploiement de branche concurrent.
 - Après l’envoi et la réussite du workflow, vérifier l’adresse réelle avec `SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:static`. Un contrôle local de la compilation ne prouve pas que le site public a été actualisé.
 
 ## Limites restantes
