@@ -1,0 +1,20 @@
+{
+  "source": "references/direction-artistique/speedball/speedball-source-v2.png",
+  "destination": "public/assets/backgrounds/speedball-training.png",
+  "sourceSize": {
+    "width": 1672,
+    "height": 941
+  },
+  "outputSize": {
+    "width": 1280,
+    "height": 720
+  },
+  "scale": 0.7655502392344498,
+  "crop": {
+    "x": 0,
+    "y": 0.25,
+    "width": 1672,
+    "height": 940.5
+  },
+  "method": "Uniform cover scale, centered fractional crop, nearest-neighbor sampling; no stretching or drawn overlays."
+}

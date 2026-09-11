@@ -4,6 +4,7 @@ const DIRECTIONS = {
 };
 const INPUT_KEYS = new Set([...Object.keys(DIRECTIONS), 'KeyJ', 'KeyK', 'KeyE', 'Enter', 'Space', 'KeyP', 'Escape', 'KeyM']);
 const noop = () => {};
+export const careerMenuOpen = () => Boolean(document.querySelector('#career-menu:not([hidden])'));
 
 /** One console convention for every place and activity. Inputs are sources,
  * never queued actions: changing a menu or losing focus releases all of them. */
@@ -71,11 +72,12 @@ export class GameControls {
     this.on(window, 'keyup', event => this.keyUp(event), { capture: true });
     this.on(window, 'blur', () => this.clear());
     this.on(window, 'focus', () => this.menuHeld.clear());
+    this.on(window, 'career-menu-change', () => { this.clear(); this.menuHeld.clear(); });
     this.on(document, 'visibilitychange', () => { if (document.hidden) this.clear(); });
     this.on(this.controlsQuery, 'change', () => this.clear());
     this.on(this.portrait, 'change', () => this.clear());
     this.on(window, 'keydown', event => {
-      if (event.code !== 'Tab' || !this.menu()) return;
+      if (careerMenuOpen() || event.code !== 'Tab' || !this.menu()) return;
       const controls = this.menuControls(); const index = controls.indexOf(document.activeElement);
       if (controls.length && (index === -1 || (!event.shiftKey && index === controls.length - 1) || (event.shiftKey && index === 0))) {
         event.preventDefault(); this.focusControl(controls[event.shiftKey ? controls.length - 1 : 0]);
@@ -85,7 +87,7 @@ export class GameControls {
   }
 
   on(target, type, callback, options = {}) { target.addEventListener(type, callback, { ...options, signal: this.abort.signal }); }
-  allowed() { return !this.portrait.matches && !document.hidden; }
+  allowed() { return !this.portrait.matches && !document.hidden && !careerMenuOpen(); }
   menu() { return this.getMenu?.() ?? null; }
   bindPress(button, callback) {
     this.on(button, 'pointerdown', event => {
@@ -105,6 +107,7 @@ export class GameControls {
   }
 
   pressAction(letter) {
+    if (!this.allowed()) return;
     if (this.menu()) {
       // A new press is required after every screen transition. A held old finger
       // only releases; it cannot click the newly focused menu item.
@@ -151,6 +154,7 @@ export class GameControls {
   }
 
   keyDown(event) {
+    if (careerMenuOpen()) { this.clear(); return; }
     if (!INPUT_KEYS.has(event.code)) return;
     // Fields outside this game's menu retain their ordinary typing behavior.
     if (event.target instanceof Element && event.target.closest('textarea, [contenteditable="true"]')) return;
@@ -183,6 +187,7 @@ export class GameControls {
     }
   }
   keyUp(event) {
+    if (careerMenuOpen()) { this.menuHeld.delete(event.code); this.keys.delete(event.code); return; }
     if (!INPUT_KEYS.has(event.code)) return;
     event.preventDefault(); event.stopImmediatePropagation();
     this.menuHeld.delete(event.code);
@@ -190,6 +195,7 @@ export class GameControls {
   }
 
   movePad(event) {
+    if (!this.allowed()) { this.releasePad(); return; }
     const rect = this.pad.getBoundingClientRect();
     let x = (event.clientX - rect.left - rect.width / 2) / (rect.width * .37);
     let y = (event.clientY - rect.top - rect.height / 2) / (rect.height * .37);
@@ -213,11 +219,11 @@ export class GameControls {
       let x = Number(held.has('right')) - Number(held.has('left')) + this.padVector.x;
       let y = Number(held.has('down')) - Number(held.has('up')) + this.padVector.y;
       const length = Math.hypot(x, y); if (length > 1) { x /= length; y /= length; }
-      if (!this.canPlay() || this.menu()) x = y = 0;
+      if (!this.allowed() || !this.canPlay() || this.menu()) x = y = 0;
       if (x !== this.vector.x || y !== this.vector.y) { this.vector = { x, y }; this.onMove(this.vector); }
     } else {
       if (this.padDirection) held.add(this.padDirection);
-      const guard = this.canPlay() && !this.menu() ? held.has('down') ? 'body' : held.has('up') ? 'head' : null : null;
+      const guard = this.allowed() && this.canPlay() && !this.menu() ? held.has('down') ? 'body' : held.has('up') ? 'head' : null : null;
       if (guard !== this.guard) { this.guard = guard; this.onGuard(Boolean(guard), guard ?? 'head'); }
     }
   }
@@ -265,14 +271,15 @@ export function installConsoleControls(ui, mode = 'combat') {
   return new GameControls({
     root: ui.root, mode,
     canPlay: () => mode === 'gym' ? ui.canMove() : ui.canPlay?.() ?? ui.phase === 'running',
-    getMenu: () => ui.root.querySelector('.commands-panel:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden])'),
+    getMenu: () => ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
     onMove: vector => ui.callbacks.onMove?.(vector),
     onAction: action => ui.callbacks.onAction?.(action),
     onGuard: (held, level) => ui.callbacks.onGuard?.(held, level),
     onInteract: () => ui.interact(),
     onPause: () => mode === 'gym' ? ui.requestPause() : ui.callbacks.onPause(),
     onMenu: () => {
-      if (ui.commandsOpen) ui.showCommands(false);
+      if (ui.pendingCareerImport) ui.cancelCareerImport();
+      else if (ui.commandsOpen) ui.showCommands(false);
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
         else if (ui.dialog) ui.callbacks.onCloseDialog();
@@ -283,7 +290,8 @@ export function installConsoleControls(ui, mode = 'combat') {
       // again leaves them in place; only B or the explicit exit returns outside.
     },
     onBack: () => {
-      if (ui.commandsOpen) ui.showCommands(false);
+      if (ui.pendingCareerImport) ui.cancelCareerImport();
+      else if (ui.commandsOpen) ui.showCommands(false);
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
         else if (ui.dialog) ui.callbacks.onCloseDialog();

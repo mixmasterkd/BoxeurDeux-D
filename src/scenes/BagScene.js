@@ -4,6 +4,7 @@ import { BagFighterView } from './BagFighterView.js';
 import { BagUI } from '../ui/BagUI.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
+import { careerProfile } from '../game/CareerProfile.js';
 
 export class BagScene extends Phaser.Scene {
   constructor() { super('BagScene'); }
@@ -11,6 +12,7 @@ export class BagScene extends Phaser.Scene {
   create() {
     setSceneShell('bag');
     this.session = new BagSession();
+    this.progressRecorded = false;
     this.fighter = new BagFighterView(this);
     this.audio = new SparringAudio();
     this.ui = new BagUI({
@@ -18,7 +20,7 @@ export class BagScene extends Phaser.Scene {
       onAction: input => this.session.act(input),
       onGuard: (held, level) => this.session.setGuard(held, level),
       onStart: () => {
-        this.audio.setActive(false); this.session.reset(); this.fighter.reset(); this.session.start();
+        this.audio.setActive(false); this.progressRecorded = false; this.session.reset(); this.fighter.reset(); this.session.start();
         this.audio.setActive(true); this.audio.play('round-start');
       },
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
@@ -70,7 +72,10 @@ export class BagScene extends Phaser.Scene {
           if (impacts.length > 100) impacts.shift();
         }
       } else if (event.type === 'sequence-end' && event.success) this.audio.play('lesson-progress');
-      else if (event.type === 'round-end') this.audio.play('round-end');
+      else if (event.type === 'round-end') {
+        this.audio.play('round-end');
+        if (!this.progressRecorded) { this.progressRecorded = true; this.ui.setReward(careerProfile.reward('bag', { ...event.summary, accuracy: event.summary.precision })); }
+      }
     }
     this.ui.update(state);
   }

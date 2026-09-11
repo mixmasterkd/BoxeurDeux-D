@@ -1,0 +1,186 @@
+{
+  "canvas": {
+    "width": 384,
+    "height": 416
+  },
+  "anchor": {
+    "x": 192,
+    "y": 390
+  },
+  "poses": {
+    "ready": {
+      "file": "rope/player-ready.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 69,
+        "y": 16,
+        "width": 244,
+        "height": 374
+      },
+      "sourceBounds": {
+        "x": 115,
+        "y": 11,
+        "w": 321,
+        "h": 492
+      },
+      "leftHandle": {
+        "x": 77,
+        "y": 213
+      },
+      "rightHandle": {
+        "x": 307,
+        "y": 212
+      }
+    },
+    "load": {
+      "file": "rope/player-load.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 66,
+        "y": 27,
+        "width": 237,
+        "height": 363
+      },
+      "sourceBounds": {
+        "x": 609,
+        "y": 19,
+        "w": 312,
+        "h": 478
+      },
+      "leftHandle": {
+        "x": 74,
+        "y": 225
+      },
+      "rightHandle": {
+        "x": 296,
+        "y": 217
+      }
+    },
+    "left": {
+      "file": "rope/player-left.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 68,
+        "y": 21,
+        "width": 233,
+        "height": 369
+      },
+      "sourceBounds": {
+        "x": 1097,
+        "y": 8,
+        "w": 306,
+        "h": 485
+      },
+      "leftHandle": {
+        "x": 76,
+        "y": 211
+      },
+      "rightHandle": {
+        "x": 294,
+        "y": 203
+      }
+    },
+    "right": {
+      "file": "rope/player-right.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 68,
+        "y": 17,
+        "width": 241,
+        "height": 373
+      },
+      "sourceBounds": {
+        "x": 114,
+        "y": 518,
+        "w": 317,
+        "h": 491
+      },
+      "leftHandle": {
+        "x": 76,
+        "y": 202
+      },
+      "rightHandle": {
+        "x": 303,
+        "y": 200
+      }
+    },
+    "land": {
+      "file": "rope/player-land.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 70,
+        "y": 24,
+        "width": 232,
+        "height": 366
+      },
+      "sourceBounds": {
+        "x": 616,
+        "y": 523,
+        "w": 305,
+        "h": 481
+      },
+      "leftHandle": {
+        "x": 78,
+        "y": 221
+      },
+      "rightHandle": {
+        "x": 295,
+        "y": 219
+      }
+    },
+    "stumble": {
+      "file": "rope/player-stumble.png",
+      "width": 384,
+      "height": 416,
+      "anchor": {
+        "x": 192,
+        "y": 390
+      },
+      "bounds": {
+        "x": 57,
+        "y": 18,
+        "width": 252,
+        "height": 372
+      },
+      "sourceBounds": {
+        "x": 1083,
+        "y": 519,
+        "w": 332,
+        "h": 490
+      },
+      "leftHandle": {
+        "x": 66,
+        "y": 211
+      },
+      "rightHandle": {
+        "x": 302,
+        "y": 191
+      }
+    }
+  }
+}

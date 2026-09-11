@@ -206,7 +206,10 @@ try{
   report('The same mobile joypad and A/B work in all three activities: lower attacks, guard height changes, independent fingers, no repeated held punch/dodge, direct return.');
 
   for(const scene of ['gym','shadow','bag','sparring']){
-    if(scene==='gym'){await phone.goto(base);await wait(phone,()=>window.__gym?.world);}
+    if(scene==='gym'){
+      await phone.goto(base);await wait(phone,()=>window.__gym?.world);
+      if(await phone.locator('.career-continue').isVisible()) await phone.locator('.career-continue').tap();
+    }
     else await begin(phone,scene,true);
     const root=`#${scene}-ui`;
     for(const viewport of [{width:844,height:390},{width:667,height:375},{width:568,height:320}]){

@@ -10,7 +10,7 @@
 #sparring-ui[data-bout="true"] .session-caption { top: 165px; display: block; }
 #sparring-ui[data-bout="true"][data-phase="knockdown"] .fighter-info:not(.opponent-info) > :not(.return-gym-button) { visibility: visible; }
 #sparring-ui[data-phase="knockdown"] .fight-feedback { display: none; }
-.bout-rules { margin: 10px 0; padding: 10px 12px; border-left: 2px solid #77bac3; background: #77bac310; color: #caddd5; font-size: 12px; line-height: 1.5; }
+:is(.bout-rules, .bout-benefit) { margin: 10px 0; padding: 10px 12px; border-left: 2px solid #77bac3; background: #77bac310; color: #caddd5; font-size: 12px; line-height: 1.5; }
 #sparring-ui[data-bout="true"] .panel-copy { display: block; }
 #sparring-ui[data-bout="true"] .round-detail { white-space: pre-line; }
 html[data-touch="false"] #sparring-ui[data-bout="true"] .round-panel { top: 50%; transform: translateY(-50%); max-height: calc(100% - 24px); overflow: auto; overscroll-behavior: contain; }
@@ -33,7 +33,7 @@ html[data-touch="false"] #sparring-ui[data-bout="true"] .round-panel { top: 50%;
   .resistance-track { height: 6px; }
   .bout-downs { font-size: 6px; margin-top: 3px; letter-spacing: 0; }
   #sparring-ui[data-bout="true"] .session-caption { top: 98px; }
-  .bout-rules { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
+  :is(.bout-rules, .bout-benefit) { font-size: 10px; padding: 6px 8px; line-height: 1.35; }
   .knockdown-panel { padding: 7px 9px; }
   .knockdown-title { font-size: 8px; letter-spacing: 1px; margin-bottom: 4px; }
   .knockdown-count { font-size: 34px; min-width: 34px; }

@@ -1,0 +1,14 @@
+{
+  "checkedAt": "2026-09-11T21:36:34.600Z",
+  "viewport": "568x320 tactile simulé",
+  "passed": [
+    "import aperçu sans mutation",
+    "B annule",
+    "joypad bas puis A confirme",
+    "bonus importés visibles",
+    "JSON invalide sans perte",
+    "rechargement et Continuer",
+    "aucun défilement de page"
+  ],
+  "errors": []
+}

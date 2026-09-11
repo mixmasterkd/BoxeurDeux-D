@@ -1,0 +1,153 @@
+{
+  "canvas": {
+    "width": 300,
+    "height": 408
+  },
+  "anchor": {
+    "x": 130,
+    "y": 384
+  },
+  "poses": {
+    "left-contact": {
+      "file": "speedball/player-left-contact.png",
+      "width": 300,
+      "height": 408,
+      "anchor": {
+        "x": 130,
+        "y": 384
+      },
+      "bounds": {
+        "x": 66,
+        "y": 17,
+        "width": 164,
+        "height": 367
+      },
+      "sourceBounds": {
+        "x": 86,
+        "y": 45,
+        "w": 349,
+        "h": 781
+      },
+      "glove": {
+        "x": 209,
+        "y": 64
+      },
+      "contact": {
+        "x": 209,
+        "y": 64
+      }
+    },
+    "left-return": {
+      "file": "speedball/player-left-return.png",
+      "width": 300,
+      "height": 408,
+      "anchor": {
+        "x": 130,
+        "y": 384
+      },
+      "bounds": {
+        "x": 64,
+        "y": 16,
+        "width": 147,
+        "height": 368
+      },
+      "sourceBounds": {
+        "x": 506,
+        "y": 46,
+        "w": 313,
+        "h": 784
+      },
+      "glove": {
+        "x": 176,
+        "y": 81
+      },
+      "contact": {
+        "x": 176,
+        "y": 81
+      }
+    },
+    "right-contact": {
+      "file": "speedball/player-right-contact.png",
+      "width": 300,
+      "height": 408,
+      "anchor": {
+        "x": 130,
+        "y": 384
+      },
+      "bounds": {
+        "x": 65,
+        "y": 16,
+        "width": 144,
+        "height": 368
+      },
+      "sourceBounds": {
+        "x": 936,
+        "y": 47,
+        "w": 306,
+        "h": 783
+      },
+      "glove": {
+        "x": 198,
+        "y": 63
+      },
+      "contact": {
+        "x": 198,
+        "y": 63
+      }
+    },
+    "right-return": {
+      "file": "speedball/player-right-return.png",
+      "width": 300,
+      "height": 408,
+      "anchor": {
+        "x": 130,
+        "y": 384
+      },
+      "bounds": {
+        "x": 65,
+        "y": 16,
+        "width": 153,
+        "height": 368
+      },
+      "sourceBounds": {
+        "x": 1365,
+        "y": 47,
+        "w": 326,
+        "h": 784
+      },
+      "glove": {
+        "x": 185,
+        "y": 84
+      },
+      "contact": {
+        "x": 185,
+        "y": 84
+      }
+    }
+  },
+  "ball": {
+    "file": "speedball/ball.png",
+    "width": 80,
+    "height": 116,
+    "anchor": {
+      "x": 40,
+      "y": 108
+    },
+    "bounds": {
+      "x": 15,
+      "y": 6,
+      "width": 51,
+      "height": 102
+    },
+    "sourceBounds": {
+      "x": 357,
+      "y": 91,
+      "w": 539,
+      "h": 1072
+    },
+    "pivot": {
+      "x": 41,
+      "y": 7
+    }
+  }
+}

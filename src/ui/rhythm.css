@@ -1,0 +1,114 @@
+#rhythm-ui { position: absolute; inset: 0; z-index: 3; pointer-events: none; color: var(--cream); }
+.rhythm-hud { position: absolute; inset: 0 0 auto; display: flex; align-items: flex-start; gap: 28px; min-height: 110px; padding: 23px 30px 35px; background: linear-gradient(#091b24dc, #091b2455 60%, transparent); }
+.rhythm-eyebrow { margin: 0 0 7px; color: #e9ba70; font-size: 9px; letter-spacing: 1.9px; font-weight: 800; }
+.rhythm-heading h2 { margin: 6px 0 0; font-size: 23px; line-height: 1; letter-spacing: -.5px; }
+.rhythm-score { display: flex; gap: 23px; margin-left: auto; padding-top: 3px; }
+.rhythm-score > div { display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 47px; }
+.rhythm-score strong { font-size: 25px; color: #ece3ca; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.rhythm-score b { font-weight: inherit; }
+.rhythm-score small { font-size: 11px; margin-left: 2px; }
+.rhythm-score span { font-size: 9px; color: #b8c6bd; }
+.rhythm-clock { text-align: right; min-width: 66px; }
+.rhythm-clock .rhythm-eyebrow { display: block; margin-bottom: 3px; }
+.rhythm-time { display: block; color: #f4d59b; font-size: 34px; line-height: 1; letter-spacing: -.9px; font-variant-numeric: tabular-nums; }
+.rhythm-conductor { position: absolute; left: 50%; bottom: 4.2%; transform: translateX(-50%); width: 25%; min-width: 165px; max-width: 270px; height: 14px; display: flex; align-items: center; gap: 12px; opacity: .8; }
+.rhythm-cue { flex: 0 0 49px; display: flex; align-items: center; }
+.rhythm-cue-name { font-size: 11px; font-weight: 700; color: #e5dac2; letter-spacing: .3px; text-shadow: 0 1px 3px #07161f, 0 0 3px #07161f; }
+.rhythm-track { --beat: 0; --window: 35%; position: relative; flex: 1; height: 1px; background: #d4d7c18c; box-shadow: 0 1px 2px #071720c0; }
+.rhythm-timing-window { position: absolute; left: 50%; top: 0; width: var(--window); height: 1px; transform: translateX(-50%); background: #f3d59b; }
+.rhythm-target { position: absolute; left: 50%; top: -4px; width: 2px; height: 9px; transform: translateX(-50%); background: #f2d295; box-shadow: 0 1px 2px #071720; }
+.rhythm-beat-dot { position: absolute; left: calc(var(--beat) * 100%); top: 50%; width: 6px; height: 6px; background: #e8e5d5; transform: translate(-50%, -50%) rotate(45deg); box-shadow: 0 1px 3px #071720; }
+.rhythm-conductor[data-now="true"] { opacity: 1; }
+.rhythm-conductor[data-now="true"] .rhythm-cue-name { color: #ffde93; }
+.rhythm-conductor[data-now="true"] .rhythm-beat-dot { background: #ffe3a4; }
+.rhythm-feedback { position: absolute; bottom: 8.5%; left: 50%; transform: translateX(-50%); max-width: 85%; font-size: 10px; font-weight: 800; line-height: 1.2; color: #f1dbab; text-align: center; text-shadow: 0 1px 3px #07161f, 0 0 4px #07161f, 0 0 4px #07161f; }
+.rhythm-feedback:empty { display: none; }
+.rhythm-feedback[data-tone="good"] { color: #d0edc1; }
+.rhythm-feedback[data-tone="retry"] { color: #f2b297; }
+.rhythm-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #07182080, #07182015 60%, transparent); }
+.rhythm-panel { pointer-events: auto; position: absolute; left: 4.5%; top: 52%; transform: translateY(-50%); width: min(350px, 40%); max-height: calc(100% - 90px); overflow: auto; overscroll-behavior: contain; padding: 23px; border: 1px solid #d4be8a65; border-left: 3px solid #e9ba70; background: #112831f5; box-shadow: 0 12px 28px #05152070; }
+.rhythm-panel h2 { margin: 7px 0 12px; font-size: 31px; line-height: 1.06; letter-spacing: -.7px; }
+.rhythm-panel-copy { margin: 0 0 14px; color: #c2cec9; font-size: 12px; line-height: 1.55; }
+.rhythm-goal { margin: 0 0 18px; padding-top: 11px; border-top: 1px solid #b0c3ad29; color: #eed499; font-size: 10px; line-height: 1.4; }
+.rhythm-actions { display: grid; gap: 7px; }
+.rhythm-actions button { width: 100%; margin: 0; min-height: 38px; padding: 8px 10px; border-radius: 3px; font-size: 12px; }
+.rhythm-audio-button { color: #bed0c5; border: 1px solid #91ad9959; background: #18333b; }
+.rhythm-audio-button:hover { background: #2c4548; }
+.rhythm-audio-button:disabled { opacity: .5; }
+.rhythm-results { margin: 11px 0 16px; }
+.rhythm-results dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; padding: 11px 0; margin: 0; border-block: 1px solid #bdcdae2e; }
+.rhythm-results dt { font-size: 9px; line-height: 1.3; color: #afc2b8; }
+.rhythm-results dd { margin: 5px 0 0; color: #f3d28d; font-size: 23px; line-height: 1; font-variant-numeric: tabular-nums; }
+.rhythm-reward { margin: 11px 0 0; color: #e8dfbd; font-size: 11px; font-weight: 700; line-height: 1.5; }
+.rhythm-save-status { margin: 5px 0 0; color: #9ab9ab; font-size: 9px; line-height: 1.4; }
+.rhythm-save-status:empty, .rhythm-reward:empty { display: none; }
+.rhythm-commands { max-width: 640px; }
+.rhythm-commands h2 { font-size: 26px; }
+#rhythm-ui .rhythm-attacks { display: none; }
+#rhythm-ui:not([data-phase="running"]) :is(.rhythm-conductor, .rhythm-feedback, .rhythm-score) { visibility: hidden; }
+html[data-touch="false"] #rhythm-ui .input-rail { display: none; }
+html[data-touch="true"] #rhythm-ui .rhythm-panel { left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(660px, calc(100% - 12px)); max-height: calc(var(--play-height) - 12px); display: grid; grid-template-columns: 1.05fr 1fr; gap: 18px; padding: 17px; }
+html[data-touch="true"] #rhythm-ui .rhythm-panel h2 { font-size: 25px; }
+html[data-touch="true"] #rhythm-ui .rhythm-panel-copy { font-size: 11px; margin-bottom: 10px; line-height: 1.45; }
+html[data-touch="true"] #rhythm-ui .rhythm-goal { margin-bottom: 0; font-size: 9px; }
+html[data-touch="true"] #rhythm-ui .rhythm-shade { background: #07182055; }
+html[data-touch="true"] #rhythm-ui .rhythm-actions { align-content: center; gap: 6px; }
+html[data-touch="true"] #rhythm-ui .rhythm-actions button { min-height: 38px; font-size: 11px; padding: 6px 9px; }
+html[data-touch="true"] #rhythm-ui .rhythm-results { margin: 9px 0 0; }
+html[data-touch="true"] #rhythm-ui .rhythm-commands { max-height: calc(var(--play-height) - 12px); }
+
+@container (max-width: 850px) {
+  .rhythm-hud { min-height: 80px; padding: 13px 18px 22px; gap: 18px; }
+  .rhythm-heading h2 { font-size: 19px; }
+  .rhythm-eyebrow { font-size: 8px; letter-spacing: 1.3px; }
+  .rhythm-score { gap: 17px; }
+  .rhythm-score strong { font-size: 22px; }
+  .rhythm-time { font-size: 29px; }
+  .rhythm-panel { padding: 18px; max-height: calc(100% - 55px); }
+  .rhythm-panel h2 { font-size: 25px; }
+  .rhythm-panel-copy { font-size: 11px; }
+  .rhythm-actions button { min-height: 34px; font-size: 11px; padding: 7px 8px; }
+  .rhythm-conductor { width: 30%; gap: 10px; bottom: 3.8%; }
+  .rhythm-cue { flex-basis: 45px; }
+  .rhythm-cue-name { font-size: 10px; }
+  .rhythm-feedback { font-size: 9px; bottom: 8.5%; }
+}
+@container (max-width: 600px) {
+  .rhythm-hud { min-height: 58px; padding: 8px 11px 17px; gap: 10px; }
+  .rhythm-heading h2 { font-size: 16px; margin-top: 3px; }
+  .rhythm-hud .rhythm-eyebrow { font-size: 6px; letter-spacing: .8px; }
+  .rhythm-score { gap: 10px; padding-top: 1px; }
+  .rhythm-score > div { min-width: 33px; }
+  .rhythm-score strong { font-size: 18px; }
+  .rhythm-score span { font-size: 7px; }
+  .rhythm-clock { min-width: 42px; }
+  .rhythm-time { font-size: 24px; }
+  .rhythm-panel { padding: 12px; width: 45%; max-height: calc(100% - 38px); }
+  .rhythm-panel h2 { font-size: 21px; margin: 4px 0 8px; }
+  .rhythm-panel-copy { font-size: 10px; line-height: 1.4; margin-bottom: 9px; }
+  .rhythm-goal { font-size: 9px; padding-top: 7px; margin-bottom: 10px; }
+  .rhythm-conductor { min-width: 155px; width: 32%; gap: 8px; bottom: 3%; }
+  .rhythm-cue { flex-basis: 42px; }
+  .rhythm-cue-name { font-size: 10px; }
+  .rhythm-target { top: -3px; height: 7px; }
+  .rhythm-beat-dot { width: 5px; height: 5px; }
+  .rhythm-feedback { bottom: 9.5%; font-size: 8px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-panel { gap: 12px; padding: 13px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-panel h2 { font-size: 22px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-panel-copy { font-size: 10px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-actions button { font-size: 10px; }
+  .rhythm-results dl { gap: 7px; padding: 8px 0; }
+  .rhythm-results dd { font-size: 19px; }
+  .rhythm-results dt, .rhythm-save-status { font-size: 8px; }
+  .rhythm-reward { font-size: 10px; margin-top: 7px; }
+}
+@container (max-width: 380px) {
+  html[data-touch="true"] #rhythm-ui .rhythm-panel { grid-template-columns: 1fr; gap: 9px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-panel h2 { font-size: 19px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-actions { grid-template-columns: 1fr 1fr; gap: 6px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-primary { grid-column: 1 / -1; }
+  html[data-touch="true"] #rhythm-ui .rhythm-actions button { padding: 5px; }
+  html[data-touch="true"] #rhythm-ui .rhythm-goal { padding-top: 5px; }
+  #rhythm-ui .rhythm-commands .commands-grid { grid-template-columns: 1fr; gap: 7px; }
+  #rhythm-ui .rhythm-commands h2 { font-size: 18px; }
+}

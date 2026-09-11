@@ -1,0 +1,184 @@
+{
+  "checkedAt": "2026-09-11T21:28:42.321Z",
+  "base": "http://127.0.0.1:5173/",
+  "reports": [
+    "rope: full 45 s, 54 scored contacts, complete animations and saved reward (Playwright J/K).",
+    "speedball: full 45 s, 63 scored contacts, complete animations and saved reward (Playwright J/K).",
+    "Gym: walking to both workshops, E interaction, exact return, pause/restart and no duplicate reward verified.",
+    "Progression: export, Continue/New cancellation, bonuses in an actual Béton bout and finished defeat persist after reload.",
+    "rope: full 45 s, 54 scored contacts, complete animations and saved reward (CDP touch A/B).",
+    "Mobile simulated: full A/B session, held/cancelled touch, joypad, portrait freeze, 844×390 and 568×320 with no scroll or action overlay. Not a physical-phone test.",
+    "Progression browser checks passed."
+  ],
+  "measurements": [
+    {
+      "case": "layout",
+      "mobile": false,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [],
+      "primaryFine": true,
+      "touchPoints": 0
+    },
+    {
+      "case": "rope-keyboard",
+      "seconds": 45.152,
+      "summary": {
+        "attempts": 54,
+        "hits": 54,
+        "perfect": 54,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 54,
+        "bestStreak": 54,
+        "accuracy": 100,
+        "qualified": true
+      },
+      "impactCount": 54
+    },
+    {
+      "case": "speedball-keyboard",
+      "seconds": 45.123,
+      "summary": {
+        "attempts": 63,
+        "hits": 63,
+        "perfect": 63,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 63,
+        "bestStreak": 63,
+        "accuracy": 100,
+        "qualified": true
+      },
+      "impactCount": 63
+    },
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "case": "rope-touch",
+      "seconds": 45.219,
+      "summary": {
+        "attempts": 54,
+        "hits": 54,
+        "perfect": 54,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 54,
+        "bestStreak": 54,
+        "accuracy": 100,
+        "qualified": true
+      },
+      "impactCount": 54
+    },
+    {
+      "case": "layout",
+      "mobile": true,
+      "menu": false,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : navigation des menus",
+          "x": 15.080001831054688,
+          "y": 124.58000183105469,
+          "width": 99.83999633789062,
+          "height": 99.83999633789062,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 479,
+          "y": 83.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Retour",
+          "x": 448,
+          "y": 204.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Valider",
+          "x": 497,
+          "y": 143.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

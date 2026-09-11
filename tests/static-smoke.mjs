@@ -83,7 +83,7 @@ try {
     else await page.keyboard.press('p');
     await press('#gym-ui .commands-open-button');
     await page.locator('#gym-ui .commands-panel').waitFor({ state: 'visible' });
-    if (mobile) await press('#gym-ui .commands-back-button');
+    if (mobile) await press('#gym-ui .commands-panel .commands-back-button');
     else await page.keyboard.press('Escape');
     await page.locator('.gym-pause-panel').waitFor({ state: 'visible' });
     await press('.gym-resume-button');
@@ -380,6 +380,34 @@ try {
     await press('#sparring-ui .activity-exit-button');
     await page.locator('#gym-ui').waitFor({ state: 'visible' });
     console.log(`Production Béton: ${mobile ? 'touch' : 'desktop'} real jab, pause, restart, gym poster entry and return passed`);
+    for (const activity of ['rope', 'speedball']) {
+      await page.goto(`${base}?scene=${activity}`);
+      await page.waitForFunction(() => document.querySelector('#rhythm-ui')?.dataset.phase === 'ready');
+      assert.equal(await page.evaluate(() => window.__rhythm), undefined, 'production keeps rhythm debug hooks private');
+      await press('#rhythm-ui .commands-open-button');
+      assert.equal(await page.locator('.rhythm-command-actions').textContent(), mobile ? 'A / B' : 'J / K');
+      await press('#rhythm-ui .commands-back-button');
+      const r = mobile ? await page.locator('#rhythm-ui [data-pad-button="a"]').boundingBox() : null;
+      await press('.rhythm-primary');
+      // Read only the visible timing guide; the production bundle exposes no model.
+      await page.waitForFunction(() => Number(document.querySelector('.rhythm-track').style.getPropertyValue('--beat')) >= .47);
+      if (mobile) {
+        await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ id: 1, x: r.x + r.width / 2, y: r.y + r.height / 2 }] });
+        await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      } else await page.keyboard.press('j');
+      await page.waitForFunction(() => document.querySelector('.rhythm-streak')?.textContent === '1', null, { timeout: 2500 });
+      await page.screenshot({ path: `docs/${activity}-production-${mobile ? 'mobile' : 'desktop'}.png` });
+      if (mobile) await press('#rhythm-ui .console-menu-button'); else await page.keyboard.press('p');
+      await page.locator('.rhythm-panel').waitFor({ state: 'visible' });
+      const clock = await page.locator('.rhythm-time').textContent();
+      await page.waitForTimeout(150);
+      assert.equal(await page.locator('.rhythm-time').textContent(), clock);
+      await press('.rhythm-restart');
+      await page.waitForFunction(() => document.querySelector('.rhythm-streak').textContent === '0');
+      await press('#rhythm-ui .activity-exit-button');
+      await page.locator('#gym-ui').waitFor({ state: 'visible' });
+    }
+    console.log(`Production rhythm: ${mobile ? 'touch' : 'desktop'} rope and speed ball contact, device help, pause, restart and gym return passed.`);
     assert.match(await page.locator('.gym-location').textContent(), /AU GYM/, 'returning from the venue restores the gym location');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight), 'no scrolling');
     if (mobile) {
@@ -416,6 +444,12 @@ try {
       assert.ok(loaded.has(`assets/sprites/beton/beton-${pose}.png`), `Béton ${pose} pose loads from the site directory`);
     }
     assert.ok(loaded.has('assets/sprites/corner/remi-coach.png'), 'the original between-round coach vignette loads from the site directory');
+    for (const [activity, poses] of Object.entries({ rope: ['ready', 'load', 'left', 'right', 'land', 'stumble'], speedball: ['left-contact', 'left-return', 'right-contact', 'right-return'] })) {
+      assert.ok(loaded.has(`assets/backgrounds/${activity}-training.png`));
+      assert.ok(loaded.has(`assets/sprites/${activity}/player.json`));
+      for (const pose of poses) assert.ok(loaded.has(`assets/sprites/${activity}/player-${pose}.png`));
+    }
+    assert.ok(loaded.has('assets/sprites/speedball/ball.png'));
   }
   assert.deepEqual(errors, []);
   console.log(`${remote ? 'Deployed site' : 'Local production build with intercepted HTTP'}: gym directory + index.html, keyboard/touch walk to Rémi, sparring combo/help/restart/lesson/mute, bag contact/help/restart, mirror combo/help/slow speed/report/restart, resistance contact/pause plus a real touchscreen knockdown/recovery, Béton direct/poster entry with real contact/score/pause/restart and art loading, all returns to gym, landscape/portrait passed. No browser or resource errors.`);

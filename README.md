@@ -1,6 +1,8 @@
 # BoxeurDeux-D
 
-Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge rejoint le sac, pratique au miroir, s’entraîne avec Rémi ou consulte l’affiche **Prochain combat** pour rencontrer **Béton**, son premier adversaire. Le retour au gym conserve sa position pendant la partie.
+Le jeu ouvre sur **une visite jouable du gym** : votre boxeur à tuque rouge rejoint le sac, le miroir, la speed ball, la corde à danser ou Rémi. L’affiche **Prochain combat** mène à **Béton**, son premier adversaire, dans la salle de quartier. Le retour au gym conserve sa position pendant la partie. Les entraînements utiles améliorent maintenant des capacités sauvegardées, jusqu’aux plafonds du premier adversaire.
+
+La livraison du GO « 1 à 4 » réunit les cinq ateliers, les gains de capacités, la sauvegarde et le parcours gym–combat–reprise. Les essais et l’état de publication sont consignés dans [`docs/VERIFICATIONS.md`](docs/VERIFICATIONS.md).
 
 Premier prototype jouable de sparring dans le gym validé, en JavaScript avec Phaser **4.2.1** et Vite **8.2.2**. Caméra fixe en 1280 × 720, Rémi le Tank de face et joueur de dos semi-transparent. Le décor original est conservé. Les deux boxeurs portent maintenant leur tenue de sparring : casque, débardeur, short et gants, dans leurs couleurs respectives.
 
@@ -15,8 +17,8 @@ Béton est un boxeur noir original, calme et précis, en tenue graphite et ocre.
 - **Trois rounds de 60 secondes maximum**. Les règles de chute et de relevé décrites ci-dessous s’appliquent : compte de dix, arrêt à trois chutes dans le round ou quatre dans le combat. Une revanche ne coûte rien.
 - **Décision aux points** au terme des trois rounds : 1 point par touche nette, plus 3 points par chute adverse. Les coups bloqués ou esquivés ne donnent aucun point. Le plus haut total gagne; un total identique donne un match nul. C’est le barème simple de ce prototype, affiché avant le combat.
 - **Entre les rounds**, le joueur rejoint son tabouret et Rémi intervient comme coach avec sa serviette. Son conseil dépend des coups reçus, des blocages et des ripostes du round qui vient de finir. Bilan du round, total des points et récupération annoncée restent visibles. Le joueur choisit quand lancer la reprise.
-- **À la reprise** : endurance pleine et +20 de résistance, sans dépasser 100. Seul le compteur des chutes du round repart à zéro; points et chutes du combat restent conservés. Les menus, A/B, pause, portrait et sorties suivent la convention commune.
-- **Fin** : victoire, défaite ou match nul clairement indiqué; revanche, commandes et retour au gym. Rémi garde ses séances d’entraînement séparées. Les résultats ne sont pas encore sauvegardés en carrière; cela appartient à l’étape 3.
+- **À la reprise** : endurance pleine à votre maximum entraîné, puis +20 de résistance dans la limite du maximum de chaque boxeur. Le joueur commence à 100 et peut atteindre 108; Béton reste à 100. Seul le compteur des chutes du round repart à zéro; points et chutes du combat restent conservés. Les menus, A/B, pause, portrait et sorties suivent la convention commune.
+- **Fin** : victoire, défaite ou match nul clairement indiqué; revanche, commandes et retour au gym. Le résultat final rejoint l’historique sauvegardé de Béton : tentatives, victoires, défaites, égalités et meilleur score. Rémi garde ses séances d’entraînement séparées.
 
 Les valeurs du rythme et les conseils sont dans `src/game/OpponentProfiles.js`. Les ressources originales sont dans `public/assets/sprites/beton/` et `public/assets/sprites/corner/`, avec sources et prompts dans les dossiers correspondants de `references/characters/`. Voir `docs/VERIFICATIONS.md` pour les essais réellement terminés.
 
@@ -25,15 +27,15 @@ Les valeurs du rythme et les conseils sont dans `src/game/OpponentProfiles.js`. 
 Approchez Rémi puis **E / A → Résistance et relevés · 3 rounds**. La séance est aussi proposée dans **Votre séance** à l’accueil du ring, ou directement par `?scene=sparring&lesson=resistance`. Elle dure jusqu’à **trois rounds de 60 secondes**, avec un arrêt volontaire entre les rounds et la possibilité de recommencer toute la séance.
 
 - **Endurance** : la jauge existante paie les frappes, les gardes et les esquives; elle remonte pendant les moments de repos. La vider ne provoque pas une chute.
-- **Résistance** : une jauge de 100 pour chaque boxeur. Seules les touches nettes la font descendre : jab 12, direct 18, crochet 22. Une garde à la bonne hauteur ou une esquive réussie évite cette perte. Ces valeurs sont des réglages de prototype regroupés dans `KNOCKDOWN_RULES`.
+- **Résistance** : une base de 100 pour chaque boxeur, jusqu’à 108 pour le joueur entraîné. Seules les touches nettes la font descendre : dégâts de base jab 12, direct 18, crochet 22, auxquels s’ajoute le bonus de puissance des coups du joueur. Une garde à la bonne hauteur ou une esquive réussie évite cette perte. Ces valeurs sont des réglages de prototype regroupés dans `KNOCKDOWN_RULES`.
 - **Au tapis** : à zéro résistance, le gant termine son véritable contact, puis le boxeur chute. Le temps du round s’arrête pendant le décompte et le relevé. Les deux touches d’attaque servent alors à se relever, pas à frapper un boxeur au sol.
 - **Se relever** : six pressions alternées **J → K → J → K → J → K**, ou **A → B → A → B → A → B** sur téléphone. Commencez par J/A et suivez le repère; au moins 0,35 s entre les efforts acceptés. Maintenir une touche ou marteler ne répète pas les efforts. Pas de pénalité cachée pour une pression trop tôt.
 - **Compte de dix** : le compteur suit les secondes actives; à dix sans relevé, la séance se termine par KO. Rémi reprend ses appuis au compte de 6, 8 ou 9 selon ses chutes dans la séance. Ses décisions ne lisent pas les boutons du joueur.
 - **Limites** : troisième chute dans un round ou quatrième dans l’ensemble de la séance = arrêt, sans nouvel essai de relevé. Les échanges simultanés sont résolus équitablement, y compris une double chute. Un coup arrivé à la cloche est compté avant la fin du round.
-- **Après un relevé** : résistance rendue de 55, puis 45, puis 35 selon le nombre total de chutes; endurance du joueur ramenée à 60. Rémi laisse ensuite une ouverture. Au round suivant : endurance pleine, +20 de résistance dans la limite de 100; les chutes du round repartent à zéro, le total est conservé.
+- **Après un relevé** : résistance rendue de 55, puis 45, puis 35 selon le nombre total de chutes; endurance du joueur ramenée à 60. Rémi laisse ensuite une ouverture. Au round suivant : endurance pleine à votre maximum et +20 de résistance sans dépasser le maximum de chacun (joueur jusqu’à 108, Rémi 100); les chutes du round repartent à zéro, le total est conservé.
 - **Pause et sortie** : **P / Échap / ☰** arrête aussi le décompte; portrait, perte de focus et changement de périphérique libèrent les appuis et demandent une reprise explicite. **← Gym** reste direct. La pause permet d’ouvrir Commandes ou de recommencer toute la séance.
 
-Au terme des trois rounds, le bilan indique les touches, défenses, combos et chutes. Ce mode reste une séance avec Rémi, sans classement officiel. Le premier adversaire Béton est disponible séparément. Le KO immédiat spécial, la progression sauvegardée et les journées appartiennent aux étapes suivantes.
+Au terme de la séance, le bilan indique les touches, défenses, combos et chutes. Terminer avec au moins **10 touches nettes, blocages ou esquives réussis** accorde **+2 de résistance**, jusqu’à 108. Ce mode reste une séance avec Rémi, sans classement officiel. Le premier adversaire Béton est disponible séparément. Le KO immédiat spécial et les journées restent des possibilités futures.
 
 ## Phase tenues et fluidité — 10 septembre 2026
 
@@ -41,11 +43,11 @@ La base comprend dix poses par boxeur : garde, jab/direct, préparations et demi
 
 Le paysage mobile est conservé. Un ancien doigt resté sur Garde pendant une perte de focus ne peut plus activer accidentellement « Reprendre » au relâchement.
 
-La speed ball et la corde présentent encore leur futur mini-jeu. Leurs exercices et l’énergie quotidienne restent à développer; voir `docs/PROCHAINES_ETAPES.md`. L’endurance du round reste indépendante de ce futur système.
+La speed ball et la corde disposent maintenant de leurs exercices, décrits ci-dessous. L’énergie quotidienne et le sommeil restent à développer; voir `docs/PROCHAINES_ETAPES.md`. L’endurance du round reste indépendante de ce futur système.
 
 ## Commandes et cadrage dans tout le jeu
 
-Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recouvre l’action; les raccourcis du pied de page sont également masqués. **P ou Échap → Commandes** ouvre l’aide depuis la pause, dans le gym, le sparring, le sac et au miroir. Revenir de l’aide au menu ne reprend pas la partie.
+Sur ordinateur, **aucun bouton de jeu ni rappel permanent des touches** ne recouvre l’action; les raccourcis du pied de page sont également masqués. **P ou Échap → Commandes** ouvre l’aide depuis la pause dans tout le jeu, y compris les deux ateliers de rythme. Revenir de l’aide au menu ne reprend pas la partie. Les petits repères de timing indiquent quand agir, sans afficher une manette sur l’image.
 
 Sur téléphone en paysage, les boutons occupent **deux bandes latérales hors de l’image du jeu**. La scène centrale garde exactement le même cadrage 1280 × 720 et les mêmes proportions 16:9 que sur ordinateur. Elle s’adapte à la largeur et à la hauteur restantes, sans être étirée ni coupée. Le joypad occupe la marge gauche; A/B et le bouton ☰ sont à droite. Les menus gardent ces repères : joypad pour sélectionner, A pour valider, B pour revenir. Le son se règle dans la pause. En portrait, une invitation demande de tourner le téléphone et le jeu se met en pause.
 
@@ -62,9 +64,10 @@ La scène conserve **1280 × 720 et le même cadrage 16:9** sur ordinateur et t�
 - Rémi, près des marches à droite du ring, propose le sparring libre, ses trois leçons et Résistance et relevés. La séance choisie s’ouvre sur son menu avant démarrage.
 - Le sac ouvre une séance guidée de 45 secondes; son accueil explique l’exercice avant démarrage.
 - Le miroir ouvre une pratique libre des mouvements, sans adversaire ni limite de temps.
+- La speed ball et la corde ouvrent chacune une séance de rythme de 45 secondes, avec préparation, bilan et nouvel essai. Chaque accueil annonce l’objectif, le gain possible et votre plafond.
 - **← Gym**, toujours accessible dans la bordure d’une activité, ramène directement à votre position; cette sortie reste aussi dans les menus. Le clavier et les contacts sont libérés à chaque changement de scène.
 
-Les collisions empêchent de traverser le ring, le sac et les meubles. La speed ball et la corde présentent encore leurs futures activités. La porte présente la future sortie vers le quartier. Ni énergie quotidienne, ni progression sauvegardée, ni carte extérieure à cette étape.
+Les collisions empêchent de traverser le ring, le sac et les meubles. Les cinq ateliers sont accessibles à pied. La porte présente la future sortie vers le quartier; l’énergie quotidienne, le sommeil et la carte extérieure ne font pas partie de cette livraison.
 
 Le personnage d’exploration porte une tuque rouge courte avec un petit motif noir, un débardeur bleu et blanc, un short noir et des chaussures bleues. Douze poses partagent une échelle et un point de contact au sol. Rémi a une pose d’accueil adaptée à la même vue; le sparring garde ses personnages et son décor validés. Le survêtement Adidas noir à bandes blanches est prévu pour l’extérieur.
 
@@ -80,7 +83,43 @@ Approchez-vous du sac dans le gym et interagissez pour ouvrir l’atelier. La s�
 
 Le boxeur est en **garde de droitier : pied gauche devant, pied droit derrière**. Les nouvelles poses montrent le jab gauche, le direct droit avec pivot du pied droit arrière et le crochet gauche. Le gant, l’impact sonore et le balancement du sac correspondent au contact compté. Le boxeur garde sa tuque rouge et sa tenue bleue/blanche; six poses dessinées représentent la garde, les préparations et les trois frappes. Le sac et ses chaînes sont une ressource transparente séparée du nouveau décor. Ces images viennent de la génération intégrée; les sources et prompts du personnage corrigé sont conservés dans `references/characters/bag-orthodox/PROMPTS.md` (décor et sac dans le dossier `bag`). La fluidité pourra encore gagner des poses intermédiaires.
 
-Le même enchaînement est maintenant disponible en **sparring libre**, avec les règles ci-dessous. L’atelier du sac ne consomme pas encore d’énergie quotidienne et n’attribue pas de compétences persistantes.
+Le même enchaînement est maintenant disponible en **sparring libre**, avec les règles ci-dessous. Une séance terminée avec **6 contacts et 50 % de précision** donne **puissance +1**, jusqu’à un bonus de 5. Le sac ne consomme pas encore d’énergie quotidienne.
+
+## Speed ball et corde à danser
+
+Rejoignez l’appareil ou le tapis dans le gym, puis interagissez avec **E** sur ordinateur ou **A** sur mobile. Accès directs : `?scene=speedball` et `?scene=rope`. Chaque séance dure **45 secondes**; il faut terminer avec **au moins 20 bons temps et 60 % de précision** pour obtenir son gain.
+
+- **Speed ball** : alternez les mains au rythme des retours de la balle. Le personnage adulte à tuque rouge prépare sa frappe, touche la balle puis ramène le bras; le point est compté au contact. Une balle indépendante accompagne le mouvement sous sa plateforme.
+- **Corde à danser** : alternez les appuis gauche/droit au passage de la corde. Des poses dédiées montrent la préparation, le saut, la réception et le faux pas; la corde passe autour du corps puis sous les pieds au moment du point compté.
+- **Ordinateur** : J pour la gauche, K pour la droite. **Mobile paysage** : A pour la gauche, B pour la droite dans la marge droite; le joypad sert aux menus. L’aide affiche les touches correspondant au périphérique utilisé.
+- Un **repère de rythme discret** guide l’appui sans cacher le personnage. Une pression lance un mouvement complet; maintenir une touche ne répète pas l’action. Pause **P/Échap** ou **☰**, aide **Commandes**, puis reprise explicite. **← Gym** quitte directement la séance.
+
+Les deux ateliers utilisent leurs propres sprites transparents, dans la même tenue bleue/blanche à tuque rouge que le gym. Les ressources finales se trouvent dans `public/assets/sprites/speedball/` et `public/assets/sprites/rope/`; les sources et prompts de génération intégrée sont conservés dans les dossiers correspondants de `references/characters/`.
+
+## Gains du gym et plafonds
+
+Les progrès s’appliquent au joueur lors de la prochaine séance de combat, y compris contre Béton. Les règles, les coûts des gestes et le rythme de l’adversaire restent lisibles; un bonus ne bloque ni n’esquive à votre place. Le premier palier reste plafonné même après de nombreuses répétitions.
+
+| Atelier | Séance utile | Gain | Plafond au palier Béton |
+| --- | --- | --- | --- |
+| Sac | 6 contacts et 50 % de précision | Puissance +1 aux dégâts des touches nettes | Bonus +5 |
+| Speed ball | 20 bons temps et 60 % de précision | Récupération +2 points de pourcentage | Bonus +10 % |
+| Corde | 20 bons temps et 60 % de précision | Endurance maximale +2 | 110, base 100 |
+| Résistance et relevés | Terminer la séance et réussir 10 touches nettes ou défenses | Résistance maximale +2 | 108, base 100 |
+| Miroir, leçons et sparring libre | Pratiquer les gestes et la lecture de Rémi | Aucun bonus permanent | Pratique libre |
+
+Les gains sont annoncés avant l’atelier et présentés au bilan, avec le plafond. Une séance sous l’objectif conserve son résultat sans attribuer de capacité. Au réglage de récupération standard, la speed ball fait passer la récupération de base de 20 points/s à un maximum de 22 points/s. Le gym reste gratuit; ni argent ni coût d’énergie quotidienne n’est appliqué pour le moment.
+
+## Sauvegarder et reprendre
+
+La progression est **sauvegardée automatiquement dans ce navigateur** après une activité résolue ou un combat contre Béton terminé. Le fichier versionné contient les capacités, les plafonds du palier, les séances/meilleurs résultats des ateliers et l’historique de Béton. Une copie précédente valide sert de secours si la sauvegarde active est endommagée.
+
+- Au retour à l’accueil, une progression existante propose **Continuer** ou **Nouvelle partie**. Recommencer demande une confirmation. Le menu possède sa propre navigation clavier; il bloque les commandes du gym derrière lui.
+- **P/Échap ou ☰ dans le gym** permet d’**Exporter la sauvegarde** en JSON et d’**Importer** une partie. L’accueil propose aussi ces actions. Un import valide affiche les capacités sélectionnées et demande confirmation avant remplacement; un JSON invalide ou une version future est refusé.
+- Un stockage bloqué ne casse pas la séance : les gains restent en mémoire et l’interface signale qu’ils ne sont pas enregistrés. Exportez alors la partie avant de fermer. Un fichier local de version future est protégé contre l’écrasement automatique par une ancienne version du jeu.
+- Une séance interrompue ne reçoit pas de gain. La sauvegarde reprend les acquis terminés; elle ne restaure ni une animation ni un round en cours. L’accueil revient au gym; les liens directs ouvrent leur activité au menu de départ.
+
+**Le navigateur et l’adresse déterminent la sauvegarde.** GitHub Pages, `127.0.0.1` et l’adresse Wi-Fi ont des stockages distincts; ordinateur et téléphone ne se synchronisent pas automatiquement. Exporter puis importer permet de transférer la partie. Git/GitHub conserve le projet, pas votre partie individuelle. Aucun compte joueur ni serveur de sauvegarde n’est requis.
 
 ## Combo dans le sparring libre
 
@@ -114,7 +153,7 @@ Le menu **Votre séance** propose le sparring libre et trois exercices guidés. 
 | Bloquer et souffler | Bloquer un coup à la tête avec la garde haute, relâcher, puis récupérer 8 points d’endurance. |
 | Esquiver et répondre | Esquiver du côté indiqué, puis placer un jab à la tête dans l’ouverture qui suit. |
 
-Les conseils et la progression apparaissent à gauche pendant l’exercice. Le bilan propose une piste pour progresser, un nouvel essai ou la leçon suivante. **Choisir une séance**, en pause ou au bilan, ramène au menu et remet les compteurs à zéro. Les compétences et l’énergie quotidienne ne sont pas encore enregistrées.
+Les conseils et la progression apparaissent à gauche pendant l’exercice. Le bilan propose une piste pour progresser, un nouvel essai ou la leçon suivante. **Choisir une séance**, en pause ou au bilan, ramène au menu et remet les compteurs à zéro. Ces trois leçons servent à apprendre; les gains permanents viennent des ateliers du tableau ci-dessus. L’énergie quotidienne reste une étape future.
 
 La cloche, les impacts, les blocages, le souffle et les réussites ont des sons distincts, synthétisés localement avec Web Audio. Le son commence après une interaction et s’arrête en pause, en portrait ou lors d’une perte de focus. La touche **M** coupe le son sur ordinateur; le bouton tactile **Son / Muet** est dans le menu pause. Le volume du sparring se règle au menu et en pause. Ces préférences sont mémorisées dans le navigateur lorsque son stockage est disponible. Le jeu reste utilisable sans audio. Aucune boucle d’ambiance n’est ajoutée à cette étape.
 
@@ -134,6 +173,7 @@ Les dépendances sont déjà installées. Si nécessaire, `npm ci` réinstalle l
 - Premier combat contre Béton : **http://127.0.0.1:5173/?scene=fight**. Accessible aussi par l’affiche dans le gym et sur GitHub Pages.
 - Accès direct au sac : **http://127.0.0.1:5173/?scene=bag**.
 - Accès direct au miroir : **http://127.0.0.1:5173/?scene=shadow**. Fonctionne aussi sur GitHub Pages.
+- Speed ball : **http://127.0.0.1:5173/?scene=speedball**; corde : **http://127.0.0.1:5173/?scene=rope**.
 - Sur le même Wi-Fi : **http://192.168.50.123:5173/** (adresse vérifiée le 11 septembre 2026; elle peut changer).
 
 Pour retrouver l'adresse Wi-Fi du PC : `ip -4 addr show wlp45s0`. Vite conserve `host: '0.0.0.0'` pour le réseau local. Aucun compte joueur, clé API ni service d'IA n'est nécessaire pendant une partie.
@@ -155,6 +195,7 @@ npm run test:commands # Aide dans la pause, clavier, tactile et petites fenêtre
 npm run test:bag # Séance au sac, rythme, combo, contacts, bilan et retour
 npm run test:side-controls # Commandes hors image dans le gym et le ring
 npm run test:input-device # PC déclarant du tactile, mobile et changements de périphérique
+npm run test:progression # Ateliers de rythme, gains, sauvegarde/reprise et cadrage mobile
 npm run test:static # Vérifie dist/ au clavier et au tactile, après compilation
 npm run preview  # Prévisualisation locale de dist/ sur le port strict 4173
 ```
@@ -194,7 +235,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - Rémi commence par laisser une ouverture. Sa garde et ses attaques suivent un calendrier indépendant de vos boutons.
 - L’annonce ambrée distingue **TÊTE · GARDE HAUTE** et **CORPS · GARDE BASSE**. Rémi garde une hauteur annoncée jusqu’au contact. La garde ne protège que la bonne hauteur; frapper l’ouvre temporairement. Dans la leçon de riposte, « Préparez / Esquivez » indique le côté sûr. La fenêtre de protection dure 0,36 s, après 0,08 s de mouvement.
 - Les marques dorées indiquent une touche, le bouclier bleu un blocage, et les traits verts une esquive. Le bilan distingue touches données/reçues, blocages et esquives réussies.
-- Jab : 10 points d'endurance; direct : 17; crochet : 21; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de 20 points/s après un court délai. Une garde épuisée ne protège plus : relâchez pour souffler.
+- Jab : 10 points d'endurance; direct : 17; crochet : 21; esquive : 12. La garde coûte 7 points/s et un blocage 8 points supplémentaires. Au repos, récupération de base de 20 points/s après un court délai, augmentée par le bonus de speed ball. Une garde épuisée ne protège plus : relâchez pour souffler.
 - En sparring libre, les réglages proposent trois rythmes de Rémi et deux vitesses de récupération. Les leçons conservent le rythme tranquille; la récupération reste réglable. Une annonce déjà commencée conserve sa durée pour rester prévisible.
 - Le bilan de fin permet de recommencer un round avec des statistiques remises à zéro.
 
@@ -207,6 +248,9 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `scripts/prepare-gym-sprites.mjs` : extraction technique reproductible des sprites depuis leurs sources alpha.
 - `src/scenes/BagScene.js`, `src/game/BagSession.js`, `src/ui/BagUI.js` et `src/ui/bag.css` : séance au sac, chorégraphies, précision et menus.
 - `src/scenes/BagFighterView.js` : poses du joueur, contact des gants et oscillation du sac.
+- `src/game/RhythmSession.js`, `src/scenes/RhythmScene.js`, `src/scenes/RhythmTrainingView.js`, `src/ui/RhythmUI.js` et `src/ui/rhythm.css` : speed ball/corde, contacts, poses, repères, bilans et commandes adaptées.
+- `src/game/CareerProfile.js`, `src/ui/CareerMenu.js` et `src/ui/career.css` : gains plafonnés, sauvegarde versionnée, secours, import/export et accueil de reprise.
+- `public/assets/backgrounds/speedball-training.png`, `public/assets/backgrounds/rope-training.png` et leurs dossiers de sprites : ressources des deux ateliers. Sources et prompts conservés dans `references/direction-artistique/` et `references/characters/`.
 - `src/ui/GameLayout.js` : cadrage commun et commandes dans les bandes latérales.
 - `src/game/ShadowSession.js`, `src/scenes/ShadowScene.js`, `src/scenes/ShadowFighterView.js`, `src/ui/ShadowUI.js` et `src/ui/shadow.css` : pratique libre au miroir, commandes et reflet synchronisé.
 - `public/assets/backgrounds/mirror-training.png` et `public/assets/sprites/mirror/` : décor du miroir et trois poses défensives; les frappes utilisent les ressources `bag-orthodox`.
@@ -230,7 +274,7 @@ Une pression déclenche une frappe ou une esquive; relâchez puis appuyez de nou
 - `tests/*.test.js` : règles, concordance des animations, objectifs des leçons et cycle de vie audio.
 - `docs/VERIFICATIONS.md` : vérifications réellement effectuées et limites.
 
-La ville, la maison, l'emploi, la carrière et les compétitions restent des étapes ultérieures. Aucun outil de dessin n'est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Un commit doit marquer chaque étape fonctionnelle vérifiée; son envoi sur GitHub reste distinct de l’enregistrement local.
+La prochaine étape proposée est la **boucle des journées et du sommeil**, suivie du petit quartier, de la maison, d’un emploi et de l’argent. Les adversaires suivants et le tournoi viennent ensuite. La progression sauvegardée et le premier combat contre Béton sont déjà intégrés; ces extensions ne font pas partie de la livraison actuelle. Aucun outil de dessin n’est requis pour jouer. LibreSprite pourra servir aux retouches et Tiled aux futures cartes. Un commit doit marquer chaque étape fonctionnelle vérifiée; son envoi sur GitHub reste distinct de l’enregistrement local.
 
 ## Convention commune et extension des lieux
 

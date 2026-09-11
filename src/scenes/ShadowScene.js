@@ -4,6 +4,7 @@ import { ShadowFighterView } from './ShadowFighterView.js';
 import { ShadowUI } from '../ui/ShadowUI.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
+import { careerProfile } from '../game/CareerProfile.js';
 
 export class ShadowScene extends Phaser.Scene {
   constructor() { super('ShadowScene'); }
@@ -12,11 +13,12 @@ export class ShadowScene extends Phaser.Scene {
   create() {
     setSceneShell('shadow');
     this.session = new ShadowSession();
+    this.progressRecorded = false;
     this.fighter = new ShadowFighterView(this);
     this.audio = new SparringAudio();
     const start = () => {
       this.audio.setActive(false);
-      this.session.reset(); this.session.start(); this.audio.setActive(true);
+      this.progressRecorded = false; this.session.reset(); this.session.start(); this.audio.setActive(true);
     };
     this.ui = new ShadowUI({
       getState: () => this.session.state,
@@ -25,9 +27,9 @@ export class ShadowScene extends Phaser.Scene {
       onStart: start, onReset: start,
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
-      onFinish: () => { this.session.finish(); this.audio.setActive(false); },
+      onFinish: () => { this.session.finish(); this.recordProgress(); this.audio.setActive(false); },
       onReturnGym: () => {
-        this.session.finish(); this.session.releaseControls();
+        this.session.finish(); this.recordProgress(); this.session.releaseControls();
         this.audio.setActive(false); this.scene.start('GymScene');
       },
       onSpeed: speed => this.session.setSpeed(speed),
@@ -55,6 +57,11 @@ export class ShadowScene extends Phaser.Scene {
     };
     this.events.once('shutdown', cleanup); this.events.once('destroy', cleanup);
     if (import.meta.env.DEV) window.__shadow = { session: this.session, scene: this, ui: this.ui, audio: this.audio, motions: [] };
+  }
+
+  recordProgress() {
+    if (this.progressRecorded || this.session.state.seconds < 1) return;
+    this.progressRecorded = true; careerProfile.reward('shadow', { seconds: this.session.state.seconds });
   }
 
   update(_time, delta) {

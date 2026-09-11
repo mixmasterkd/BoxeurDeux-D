@@ -2,12 +2,14 @@ import Phaser from 'phaser';
 import { GymWorld, GYM_LAYOUT } from '../game/GymWorld.js';
 import { GymUI } from '../ui/GymUI.js';
 import { setSceneShell } from '../ui/SceneShell.js';
+import { careerProfile } from '../game/CareerProfile.js';
+import { downloadCareer } from '../ui/CareerMenu.js';
 
 const ACTIVITIES = {
   sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, jab–direct–crochet et frappes au corps. Une pression par coup, et on relâche les épaules entre les séries.' },
   miroir: { title: 'Le miroir', text: 'Pratique libre : frappes à la tête et au corps, crochet en combo, gardes haute et basse, esquives. Observe ton reflet à ton rythme, sans adversaire ni limite de temps. Le ralenti permet de regarder chaque mouvement.' },
-  speedball: { title: 'La speed ball', text: 'Un futur exercice de coordination et de régularité. Le matériel est en place; le mini-jeu sera ajouté après la visite du gym.' },
-  corde: { title: 'La corde à danser', text: 'Ce tapis accueillera un exercice de rythme et de jeu de jambes. L’atelier ouvrira plus tard; le sparring avec Rémi est déjà accessible.' },
+  speedball: { title: 'La speed ball', text: 'Travaille la coordination et la récupération. Alterne les deux mains au retour de la balle : 20 bons temps et 60 % de précision font progresser ta récupération.' },
+  corde: { title: 'La corde à danser', text: 'Travaille le rythme et l’endurance. Alterne les appuis au passage de la corde : 20 bons temps et 60 % de précision augmentent ton endurance maximale.' },
   porte: { title: 'Le quartier attendra', text: 'La première visite se déroule à l’intérieur du gym. Plus tard, vous passerez cette porte en survêtement noir à bandes blanches, toujours avec votre tuque rouge.' },
 };
 
@@ -50,15 +52,21 @@ export class GymScene extends Phaser.Scene {
     this.ui = new GymUI({
       onMove: vector => this.world.setInput(vector),
       onInteract: () => this.interact(),
-      onPause: () => this.world.pause(),
+      onPause: () => { this.world.pause(); this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus()); },
       onResume: () => this.world.resume(),
       onCloseDialog: () => { this.ui.closeDialog(); this.world.releaseControls(); },
       onSparring: lesson => this.enterSparring(lesson),
       onBag: () => this.enterBag(),
       onShadow: () => this.enterShadow(),
+      onRhythm: activity => this.enterRhythm(activity),
       onFight: () => this.enterFight(),
+      onExportCareer: () => downloadCareer(),
+      onInspectCareer: text => careerProfile.inspectImport(text),
+      onImportCareer: text => { careerProfile.importText(text); this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus()); },
+      onRefreshCareer: () => this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus()),
       onBlur: () => this.world.pause(),
     });
+    this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus());
     this.renderWorld();
     this.ui.update(this.world.state);
     this.resizeObserver = new ResizeObserver(() => {
@@ -91,7 +99,7 @@ export class GymScene extends Phaser.Scene {
     if (station.id === 'remi') {
       this.ui.showDialog({
         speaker: 'RÉMI LE TANK', title: 'On fait un round ?',
-        text: 'Salut, la tuque rouge ! Fais le tour du gym à ton rythme. Quand tu es prêt, on travaille ensemble : un round libre ou une leçon, à toi de choisir.',
+        text: `Salut, la tuque rouge ! On travaille ensemble : un round libre ou une leçon, à toi de choisir.\n\n${this.trainingBenefit('sparring')}`,
         actions: [
           { id: 'sparring', lesson: 'free', label: 'Sparring libre · 60 s' },
           { id: 'sparring', lesson: 'resistance', label: 'Résistance et relevés · 3 rounds' },
@@ -102,11 +110,11 @@ export class GymScene extends Phaser.Scene {
         ],
       });
     } else if (station.id === 'sac') {
-      this.ui.showDialog({ speaker: 'L’ATELIER DU SAC', ...ACTIVITIES.sac, actions: [
+      this.ui.showDialog({ speaker: 'L’ATELIER DU SAC', ...ACTIVITIES.sac, text: `${ACTIVITIES.sac.text}\n\n${this.trainingBenefit('bag')}`, actions: [
         { id: 'bag', label: 'Commencer · 45 s' }, { id: 'close', label: 'Continuer la visite →' },
       ] });
     } else if (station.id === 'miroir') {
-      this.ui.showDialog({ speaker: 'SHADOW BOXING', ...ACTIVITIES.miroir, actions: [
+      this.ui.showDialog({ speaker: 'SHADOW BOXING', ...ACTIVITIES.miroir, text: `${ACTIVITIES.miroir.text}\n\nPratique libre : aucun gain de capacité.`, actions: [
         { id: 'shadow', label: 'Pratiquer devant le miroir →' }, { id: 'close', label: 'Continuer la visite →' },
       ] });
     } else if (station.id === 'combat') {
@@ -114,9 +122,21 @@ export class GymScene extends Phaser.Scene {
         text: 'Rendez-vous à la salle de boxe du quartier, sous les projecteurs et devant le public. Béton ferme sa garde à la tête et prépare un direct au corps qui le laisse exposé. Mettez en pratique les leçons de Rémi. Trois rounds de 60 secondes; revanche gratuite, à votre rythme.',
         actions: [{ id: 'fight', label: 'Rencontrer Béton →' }, { id: 'close', label: 'Continuer la visite →' }],
       });
+    } else if (station.id === 'speedball' || station.id === 'corde') {
+      this.ui.showDialog({ speaker: station.id === 'speedball' ? 'COORDINATION' : 'JEU DE JAMBES', ...ACTIVITIES[station.id], text: `${ACTIVITIES[station.id].text}\n\n${this.trainingBenefit(station.id === 'corde' ? 'rope' : 'speedball')}`, actions: [
+        { id: 'rhythm', activity: station.id === 'corde' ? 'rope' : 'speedball', label: `Commencer · 45 s` }, { id: 'close', label: 'Continuer la visite →' },
+      ] });
     } else {
       this.ui.showDialog({ speaker: station.kind === 'exit' ? 'LA PORTE DU GYM' : 'DÉCOUVRIR LES ATELIERS', ...ACTIVITIES[station.id] });
     }
+  }
+
+  trainingBenefit(activity) {
+    const { stats, caps } = careerProfile.snapshot();
+    if (activity === 'bag') return `Puissance : +${stats.power} / +${caps.power}. Termine avec 6 contacts et 50 % de précision : puissance +1, jusqu’au plafond.`;
+    if (activity === 'speedball') return `Récupération : +${Math.round((stats.recovery - 1) * 100)} % / +${Math.round((caps.recovery - 1) * 100)} %. Séance réussie : +2 %, jusqu’au plafond.`;
+    if (activity === 'rope') return `Endurance maximale : ${stats.endurance} / ${caps.endurance}. Séance réussie : +2, jusqu’au plafond.`;
+    return `Résistance : ${stats.resistance} / ${caps.resistance}. Termine « Résistance et relevés » et réussis 10 touches ou défenses : résistance +2, jusqu’au plafond. Les leçons et le sparring libre servent à pratiquer.`;
   }
 
   addForeground(points, depth) {
@@ -175,6 +195,12 @@ export class GymScene extends Phaser.Scene {
     if (this.world.state.paused || !this.ui.dialog || this.world.getNearby()?.id !== 'miroir') return;
     this.world.releaseControls();
     this.scene.start('ShadowScene');
+  }
+
+  enterRhythm(activity) {
+    const station = this.world.getNearby();
+    if (this.world.state.paused || !this.ui.dialog || !['speedball', 'corde'].includes(station?.id)) return;
+    this.world.releaseControls(); this.scene.start('RhythmScene', { activity });
   }
 
   update(_time, delta) {

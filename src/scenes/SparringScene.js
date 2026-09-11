@@ -4,6 +4,7 @@ import { SparringUI } from '../ui/SparringUI.js';
 import { FighterView, drawImpact } from './FighterView.js';
 import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
+import { careerProfile } from '../game/CareerProfile.js';
 
 const FEEDBACK = {
   'player-hit': ['Touché !', 'success'],
@@ -35,7 +36,8 @@ export class SparringScene extends Phaser.Scene {
 
   create(data = {}) {
     setSceneShell('sparring', { opponent: this.opponentId });
-    this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId });
+    this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId, ...careerProfile.bonuses() });
+    this.progressRecorded = false;
     this.audio = new SparringAudio();
     const background = this.add.image(640, 360, this.backgroundKey);
     background.setScale(Math.min(1280 / background.width, 720 / background.height));
@@ -112,7 +114,9 @@ export class SparringScene extends Phaser.Scene {
 
   beginSession(settings) {
     this.audio.setActive(false);
-    this.session.reset(settings);
+    this.progressRecorded = false;
+    this.ui.boutHUD.setReward(null);
+    this.session.reset({ ...settings, ...careerProfile.bonuses() });
     this.session.start();
     this.audio.setActive(true);
     this.audio.play('round-start');
@@ -136,6 +140,13 @@ export class SparringScene extends Phaser.Scene {
     this.player.render(state.player, state.elapsed, state.bout);
     this.renderCue(state);
     for (const event of this.session.drainEvents()) {
+      if (event.type === 'bout-finish' && !this.progressRecorded) {
+        this.progressRecorded = true;
+        if (this.opponentId === 'beton') careerProfile.recordFight({ ...event.result, score: state.bout?.score?.player });
+        else this.ui.boutHUD.setReward(careerProfile.reward('sparring', {
+          completed: true, rounds: event.round, actions: state.stats.landed + state.stats.blocked + state.stats.dodged,
+        }));
+      }
       // The model emits impacts on the frame where the glove makes contact.
       // End cues finish naturally on the report; there is no ambient sound loop.
       if (event.type !== 'round-start') this.audio.play(event.type);

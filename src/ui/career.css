@@ -1,0 +1,29 @@
+#career-menu { position:fixed; inset:0; z-index:50; display:grid; place-items:center; padding:20px; background:radial-gradient(circle at 50% 40%,#253b42f5,#09161dfc 75%); color:#f1e9d5; overflow:auto; }
+#career-menu[hidden] { display:none; }
+#career-menu section { box-sizing:border-box; width:min(480px,100%); max-height:100%; overflow:auto; overscroll-behavior:contain; padding:25px; border:1px solid #e4c98b66; border-left:4px solid #e9ba70; background:#102832; box-shadow:0 20px 70px #0009; }
+#career-menu section>p:first-child { margin:0; color:#e9ba70; font-size:10px; letter-spacing:2px; font-weight:800; }
+#career-menu h2 { font-size:31px; margin:6px 0 20px; }
+#career-menu dl { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:0 0 18px; }
+#career-menu dl div { display:flex; justify-content:space-between; padding:8px; background:#091a2255; font-size:12px; }
+#career-menu dt { color:#adbfba; }
+#career-menu dd { margin:0 0 0 5px; color:#f2d28e; font-weight:800; }
+.career-continue { width:100%; min-height:42px; }
+.career-tools { display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px; margin-top:11px; }
+.career-tools button,.career-confirm button { min-height:42px; padding:6px; border:1px solid #7a928b66; background:#172f38; color:#d9e4d9; border-radius:2px; font-size:11px; line-height:1.3; }
+.career-confirm { color:#f1bd96; font-size:12px; line-height:1.5; }
+.career-confirm>div { display:flex; gap:8px; }
+.career-confirm button { flex:1; border-color:#d38a7066; }
+#career-menu button:focus-visible { outline:3px solid #f2d28e; outline-offset:3px; }
+#career-menu small { display:block; margin-top:13px; color:#a7b9b5; font-size:10px; line-height:1.4; }
+#career-menu .career-status[data-state="unavailable"],#career-menu .career-status[data-state="invalid"] { color:#ffc7a3; }
+#career-menu .career-storage-note { color:#829795; }
+@media (max-height:450px) and (orientation:landscape) {
+  #career-menu { padding:10px; }
+  #career-menu section { width:min(610px,100%); padding:13px 19px; }
+  #career-menu h2 { font-size:23px; margin:4px 0 9px; }
+  #career-menu dl { grid-template-columns:repeat(4,1fr); gap:5px; margin-bottom:10px; }
+  #career-menu dl div { display:block; padding:6px; font-size:10px; }
+  #career-menu dd { margin:3px 0 0; }
+  #career-menu small { margin-top:8px; font-size:9px; }
+  .career-tools { margin-top:7px; }
+}

@@ -1,6 +1,7 @@
-import { installConsoleControls } from './GameControls.js';
+import { installConsoleControls, careerMenuOpen } from './GameControls.js';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 import { BAG_RHYTHM } from '../game/BagSession.js';
+import { careerProfile } from '../game/CareerProfile.js';
 import './bag.css';
 
 export class BagUI {
@@ -20,7 +21,7 @@ export class BagUI {
       <div class="bag-menu-shade"></div>
       <section class="bag-panel" role="dialog" aria-modal="true" aria-labelledby="bag-title">
         <div><p class="commands-eyebrow">L’ATELIER DU SAC</p><h2 id="bag-title">Trouve ton rythme</h2><p class="bag-panel-copy">Observe les coups annoncés. Frappe quand leur repère s’allume, puis laisse revenir les bras. Les enchaînements deviennent progressivement plus longs.</p>
-        <div class="bag-results" hidden><dl><div><dt>Contacts</dt><dd data-bag-stat="contacts">0</dd></div><div><dt>Enchaînements réussis</dt><dd data-bag-stat="combosCompleted">0</dd></div><div><dt>Précision</dt><dd class="bag-precision">0 %</dd></div></dl><p class="bag-advice"></p></div></div>
+        <p class="bag-benefit"></p><div class="bag-results" hidden><dl><div><dt>Contacts</dt><dd data-bag-stat="contacts">0</dd></div><div><dt>Enchaînements réussis</dt><dd data-bag-stat="combosCompleted">0</dd></div><div><dt>Précision</dt><dd class="bag-precision">0 %</dd></div></dl><p class="bag-reward"></p><small class="bag-save-status" role="status"></small><p class="bag-advice"></p></div></div>
         <div class="bag-panel-actions"><button class="bag-start-button primary-button">Commencer · 45 s →</button><button class="bag-restart-button choose-session-button" hidden>Recommencer la séance</button><button class="commands-open-button">Commandes</button><button class="bag-return-button choose-session-button">← Retour au gym</button></div>
       </section>
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="bag-commands-title" hidden><p class="commands-eyebrow">SÉANCE ARRÊTÉE</p><h2 id="bag-commands-title">Commandes du sac</h2>
@@ -37,7 +38,7 @@ export class BagUI {
     this.buttons = [...this.root.querySelectorAll('[data-action]')];
     this.bind();
     this.controls = installConsoleControls(this, 'bag');
-    this.stage.inert = this.portrait.matches;
+    this.stage.inert = this.portrait.matches || careerMenuOpen();
     this.update(callbacks.getState());
   }
   on(target, type, fn, options = {}) { target.addEventListener(type, fn, { ...options, signal: this.abort.signal }); }
@@ -67,7 +68,7 @@ export class BagUI {
     this.on(this.controlsQuery, 'change', blur);
     this.on(window, 'blur', blur);
     this.on(document, 'visibilitychange', () => { if (document.hidden) blur(); });
-    this.on(this.portrait, 'change', event => { this.stage.inert = event.matches; if (event.matches) blur(); });
+    this.on(this.portrait, 'change', event => { this.stage.inert = event.matches || careerMenuOpen(); if (event.matches) blur(); });
   }
   clear() { this.controls?.clear(); this.menuPointers.clear(); }
   showCommands(open) {
@@ -81,11 +82,21 @@ export class BagUI {
     const button = this.root.querySelector('.bag-audio-button'); button.disabled = !audio.available;
     button.textContent = audio.muted ? '♪ Muet' : '♪ Son'; button.setAttribute('aria-pressed', String(audio.muted));
   }
+  setReward(reward) {
+    this.reward = reward;
+    const text = reward.gained ? `${reward.label} +${reward.gained} · ${reward.value}/${reward.cap}`
+      : reward.capped && reward.qualified ? `${reward.label} : plafond atteint` : 'Aucun gain cette fois · vise 6 contacts et 50 % de précision.';
+    this.text('.bag-reward', text);
+    this.text('.bag-save-status', reward.saveMessage ?? careerProfile.saveStatus().message);
+  }
   update(state) {
     const changed = this.phase !== state.phase || !this.initialized;
     this.phase = state.phase; this.initialized = true; this.root.dataset.phase = state.phase;
     const running = state.phase === 'running';
     if (changed) {
+      const { stats, caps } = careerProfile.snapshot();
+      this.text('.bag-benefit', `Puissance : +${stats.power} / +${caps.power}. Termine avec 6 contacts et 50 % de précision : +1, jusqu’au plafond.`);
+      this.root.querySelector('.bag-benefit').hidden = state.phase === 'finished';
       this.clear(); this.commandsOpen = false;
       this.root.querySelector('.commands-panel').hidden = true;
       this.root.querySelector('.bag-panel').hidden = running;

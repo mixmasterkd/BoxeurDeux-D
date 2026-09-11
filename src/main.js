@@ -3,14 +3,17 @@ import { SparringScene } from './scenes/SparringScene.js';
 import { GymScene } from './scenes/GymScene.js';
 import { BagScene } from './scenes/BagScene.js';
 import { ShadowScene } from './scenes/ShadowScene.js';
+import { RhythmScene } from './scenes/RhythmScene.js';
 import './style.css';
 import { installGameLayout } from './ui/GameLayout.js';
 import './ui/layout.css';
+import { installCareerMenu } from './ui/CareerMenu.js';
 
 const disposeLayout = installGameLayout();
+const disposeCareer = installCareerMenu();
 const entry = new URLSearchParams(location.search).get('scene');
-const initialScene = { bag: BagScene, sparring: SparringScene, fight: SparringScene, shadow: ShadowScene }[entry] ?? GymScene;
-const scenes = [initialScene, ...[GymScene, SparringScene, BagScene, ShadowScene].filter(scene => scene !== initialScene)];
+const initialScene = { bag: BagScene, sparring: SparringScene, fight: SparringScene, shadow: ShadowScene, speedball: RhythmScene, rope: RhythmScene }[entry] ?? GymScene;
+const scenes = [initialScene, ...[GymScene, SparringScene, BagScene, ShadowScene, RhythmScene].filter(scene => scene !== initialScene)];
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -31,5 +34,5 @@ export const game = new Phaser.Game({
 
 // Évite de conserver un ancien jeu lors du rechargement par Vite.
 if (import.meta.hot) {
-  import.meta.hot.dispose(() => { disposeLayout(); game.destroy(true); });
+  import.meta.hot.dispose(() => { disposeLayout(); disposeCareer(); game.destroy(true); });
 }

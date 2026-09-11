@@ -57,3 +57,4 @@ html[data-touch="true"] .bag-step { font-size: 12px; }
   .bag-panel h2 { font-size: 21px; }
   .bag-panel-copy, .bag-advice { font-size: 10px; }
 }
+.bag-reward { color: #f2d18d; font-size: 11px; font-weight: 800; }

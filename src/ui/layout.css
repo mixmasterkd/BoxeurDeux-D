@@ -32,7 +32,7 @@ html[data-touch="true"] .gym-nearby { max-width: 85%; }
 
 /* Paused menus can use the whole play area; the underlying scene keeps its
    exact size. Inactive rails cannot intercept a menu or an old held finger. */
-html[data-touch="true"] :is(.gym-dialog, .commands-panel, .round-panel, .bag-panel, .shadow-panel) { width: min(720px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); top: 50%; left: 50%; transform: translate(-50%, -50%); }
+html[data-touch="true"] :is(.gym-dialog, .commands-panel, .gym-import-confirm, .round-panel, .bag-panel, .shadow-panel) { width: min(720px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); top: 50%; left: 50%; transform: translate(-50%, -50%); }
 html[data-touch="true"] .gym-pause-panel { width: min(355px, calc(var(--play-width) - 20px)); max-height: calc(var(--play-height) - 12px); }
 .panel-actions .return-gym-button { position: static; width: 100%; min-height: 30px; margin-top: 5px; padding: 5px; font-size: 10px; grid-column: 1 / -1; }
 @container (max-width: 750px) {
@@ -43,8 +43,8 @@ html[data-touch="true"] .gym-pause-panel { width: min(355px, calc(var(--play-wid
 /* A console lives in the margins. The camera never changes with the controls. */
 html[data-touch="true"] #stage { width: min(1280px, calc(100% - 232px), calc(var(--available-height) * 16 / 9)); }
 .input-rail { width: 110px; z-index: 8; gap: 17px; }
-html[data-touch="true"] :is(#gym-ui, #sparring-ui, #bag-ui, #shadow-ui) .input-rail,
-html[data-touch="true"] :is(#gym-ui, #sparring-ui, #bag-ui, #shadow-ui) .input-rail :is(.pad-action, .console-menu-button) { visibility: visible; }
+html[data-touch="true"] :is(#gym-ui, #sparring-ui, #bag-ui, #shadow-ui, #rhythm-ui) .input-rail,
+html[data-touch="true"] :is(#gym-ui, #sparring-ui, #bag-ui, #shadow-ui, #rhythm-ui) .input-rail :is(.pad-action, .console-menu-button) { visibility: visible; }
 .joypad { position: relative; flex: 0 0 auto; width: 104px; height: 104px; border-radius: 50%; background: radial-gradient(circle at 45% 40%, #2c4148, #13272f 70%); border: 1px solid #71868780; box-shadow: inset 0 0 0 7px #071a222b, 0 3px 8px #0005; touch-action: none; user-select: none; pointer-events: auto; }
 .joypad-axis { position: absolute; background: #6b858524; pointer-events: none; }
 .axis-horizontal { height: 27px; left: 10px; right: 10px; top: 38px; border-radius: 8px; }
@@ -69,12 +69,12 @@ html[data-touch="true"] .activity-exit-button { left: -116px; transform: none; t
   /* Leave the middle of a compact desktop header for the direct exit. */
   html[data-touch="false"] .game-shell:has(#stage[data-scene]:not([data-scene="gym"])) .gym-location { visibility: hidden; }
 }
-html[data-touch="true"] :is(.gym-dialog, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .gym-pause-panel) { width: min(720px, calc(100% - 12px)); max-height: calc(var(--play-height) - 12px); overflow: auto; overscroll-behavior: contain; }
+html[data-touch="true"] :is(.gym-dialog, .commands-panel, .gym-import-confirm, .round-panel, .bag-panel, .shadow-panel, .gym-pause-panel) { width: min(720px, calc(100% - 12px)); max-height: calc(var(--play-height) - 12px); overflow: auto; overscroll-behavior: contain; }
 html[data-touch="true"] :is(.round-panel, .bag-panel, .shadow-panel) { grid-template-columns: 1fr; gap: 12px; padding: 13px; }
 html[data-touch="true"] :is(.shadow-panel-copy, .bag-panel-copy) { margin: 5px 0; }
 html[data-touch="true"] :is(.shadow-panel, .bag-panel) h2 { font-size: 21px; }
 html[data-touch="true"] .shadow-panel-actions, html[data-touch="true"] .bag-panel-actions { gap: 6px; }
-html[data-touch="true"] :is(.shadow-panel, .bag-panel, .round-panel, .gym-dialog, .gym-pause-panel, .commands-panel) :is(button, select) { min-height: 38px; }
+html[data-touch="true"] :is(.shadow-panel, .bag-panel, .round-panel, .gym-dialog, .gym-pause-panel, .commands-panel, .gym-import-confirm) :is(button, select) { min-height: 38px; }
 [data-control-mode="menu"] :is(button, select, input):focus-visible { outline: 2px solid #f2ce8c; outline-offset: 2px; }
 html[data-touch="true"] [data-control-mode="menu"] :is(button, select, input):focus { outline: 2px solid #f2ce8c; outline-offset: 2px; }
 .panel-options > .audio-button, .shadow-panel-actions > .shadow-audio-button, .bag-panel-actions > .bag-audio-button { position: static; width: 100%; min-height: 36px; margin-top: 5px; padding: 6px 10px; }

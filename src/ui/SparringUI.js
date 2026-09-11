@@ -396,7 +396,8 @@ export class SparringUI {
         this.setText(this.values['training-improve'], training.summary?.improve ?? 'Recommencez à votre rythme.');
       }
     }
-    const stamina = Math.max(0, Math.min(100, Number(state.stamina ?? 100)));
+    const maxStamina = Number(state.settings?.maxStamina ?? 100);
+    const stamina = Math.max(0, Math.min(maxStamina, Number(state.stamina ?? maxStamina)));
     const hookReady = phase === 'running' && Boolean(state.combo?.ready);
     const hookSelected = phase === 'running' && state.combo?.step === 2 && state.player?.action === 'idle';
     const jabButton = this.buttons.get('jab');
@@ -410,11 +411,13 @@ export class SparringUI {
     }
     const displayedStamina = Math.round(stamina);
     this.setText(this.values.stamina, displayedStamina);
-    if (this.lastStamina !== displayedStamina) {
-      this.elements['stamina-fill'].style.transform = `scaleX(${stamina / 100})`;
+    if (this.lastStamina !== displayedStamina || this.lastMaxStamina !== maxStamina) {
+      this.elements['stamina-fill'].style.transform = `scaleX(${stamina / maxStamina})`;
+      this.elements['stamina-track'].setAttribute('aria-valuemax', String(maxStamina));
       this.elements['stamina-track'].setAttribute('aria-valuenow', String(displayedStamina));
       this.elements['stamina-track'].classList.toggle('is-low', stamina < 25);
       this.lastStamina = displayedStamina;
+      this.lastMaxStamina = maxStamina;
     }
     const seconds = Math.max(0, Math.ceil(Number(state.remaining ?? 60)));
     this.setText(this.elements['round-time'], `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`);

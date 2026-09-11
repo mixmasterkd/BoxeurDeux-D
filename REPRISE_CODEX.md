@@ -1,6 +1,38 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## Dernière demande livrée — les combats dans une salle
+## GO actuel « 1 à 4 » — gym complet, capacités et sauvegarde
+
+L’utilisateur a autorisé les quatre travaux ensemble : **terminer les ateliers du gym, relier leurs gains au combat, sauvegarder la progression et vérifier la boucle entraînement → Béton → reprise**. Il a ensuite interrompu la première proposition de corde/speed ball pour demander de meilleurs visuels et les bonnes touches selon ordinateur/mobile. Cette correction complète le GO; elle ne ramène pas la mission à une maquette. Les anciennes attentes de confirmation et portées visuelles conservées ci-dessous sont historiques.
+
+État de l’intégration : speed ball et corde à danser sont accessibles à pied dans le gym, ou par `?scene=speedball` / `?scene=rope`. Chaque séance dure 45 s, avec objectif de 20 bons temps et 60 % de précision. Les deux ateliers disposent de personnages adultes à tuque rouge, tenue bleue/blanche, poses transparentes dédiées et décors du gym. La speed ball anime la frappe et le retour des bras avec la balle indépendante; la corde accompagne préparation, saut, réception et faux pas. Les points se résolvent au contact ou au passage sous les pieds. Un petit repère de rythme laisse le personnage visible.
+
+Convention maintenue dans tout le jeu : **J/K sur ordinateur**, **A/B dans la marge droite sur téléphone paysage**, joypad gauche pour les menus et déplacements; l’aide des nouveaux ateliers s’adapte au périphérique. Pas de manette affichée sur l’action à l’ordinateur. **P/Échap** ou **☰** ouvre la pause et Commandes; **← Gym** reste direct. Le cadrage logique demeure 1280 × 720, 16:9, ajusté uniformément à la largeur et à la hauteur disponibles. Portrait et perte de focus libèrent les appuis et arrêtent la séance.
+
+Capacités plafonnées au palier Béton :
+
+- Sac terminé avec 6 contacts et 50 % de précision : puissance +1, bonus maximal +5 sur les dégâts des touches nettes.
+- Speed ball terminée avec 20 bons temps et 60 % : récupération +2 points de pourcentage, bonus maximal +10 %.
+- Corde terminée avec 20 bons temps et 60 % : endurance maximale +2, de 100 à 110.
+- Résistance et relevés terminée avec au moins 10 touches nettes/blocages/esquives réussis : résistance maximale +2, de 100 à 108.
+- Miroir, leçons et sparring libre : pratique, sans gain permanent. Les bonus n’agissent jamais comme défense automatique.
+
+Les valeurs actuelles, objectifs et plafonds sont annoncés avant les ateliers; les gains sont présentés au bilan. Le joueur commence les combats avec ses capacités entraînées. Au coin : endurance pleine à son maximum, +20 résistance jusqu’à son plafond personnel; Rémi et Béton restent à 100. Les récupérations après relevé et les coûts des gestes gardent leurs règles propres.
+
+`CareerProfile` enregistre automatiquement les activités résolues et les résultats finaux contre Béton. Format versionné v1, statistiques d’entraînement, capacités/plafonds, tentatives/victoires/défaites/égalités/meilleur score de Béton, copie précédente de secours et statut d’enregistrement réel. Une sauvegarde locale de version future est protégée de l’écriture automatique. Le stockage bloqué conserve la partie en mémoire et demande un export, sans casser le jeu. Pas de sauvegarde au milieu d’une animation : l’accueil reprend au gym avec les acquis terminés; les liens directs ouvrent une activité prête à démarrer.
+
+Au retour à l’accueil avec une progression : **Continuer / Nouvelle partie**, import/export, confirmations avant remplacement. Dans la pause du gym : export JSON et import validé/prévisualisé puis confirmé; joypad/A/B ou clavier naviguent les mêmes menus. Le menu de reprise bloque le gym derrière lui et libère les commandes à sa fermeture. Les stockages sont séparés par navigateur et adresse; transfert PC/mobile par export/import, sans compte ni synchronisation distante.
+
+Fichiers principaux : `src/game/RhythmSession.js`, `src/scenes/RhythmScene.js`, `src/scenes/RhythmTrainingView.js`, `src/ui/RhythmUI.js`, `src/game/CareerProfile.js`, `src/ui/CareerMenu.js`. Ressources finales dans `public/assets/sprites/speedball/` et `public/assets/sprites/rope/`, sources/prompts dans `references/characters/speedball/`, `references/characters/rope/` et les dossiers de décors correspondants.
+
+**Intégration et vérifications locales terminées** : 176 tests, parcours complet de progression, commandes communes, import tactile et bundle de production réussis. Lire `docs/VERIFICATIONS.md` pour les résultats et la preuve de déploiement; la publication est vérifiée séparément après l’envoi. Conserver le serveur Vite existant sur le port strict 5173 et préserver tous les fichiers déjà présents. La publication GitHub Pages de ce projet reste autorisée par le relais historique, après intégration et contrôles.
+
+La suite proposée est **journées/énergie/sommeil**, puis petit quartier, maison, travail et argent; les prochains adversaires et le tournoi viennent ensuite. Le gym reste gratuit. Dormir passera au jour suivant et remplira seulement l’énergie quotidienne. Aucune de ces extensions ne fait partie du GO actuel. L’ordre complet et la liste initiale restent dans `docs/PROCHAINES_ETAPES.md`.
+
+## Relais précédents — historique, remplacé par l’état ci-dessus
+
+Les sections qui suivent conservent les décisions et livraisons successives. Leurs mentions « futur », « prochain GO » ou « pas encore sauvegardé » décrivent leur date d’origine; elles ne limitent pas le GO actuel.
+
+## Historique — les combats dans une salle
 
 Après avoir validé Béton et le coach, l’utilisateur demande que **les combats aient lieu dans une salle plutôt que dans le gym**. Béton reçoit donc un décor dédié de salle de boxe de quartier avec public et projecteurs (`public/assets/backgrounds/fight-hall.png`). Le sparring de Rémi conserve `gym.png`; les ateliers et le gym explorable sont préservés. Le cadrage, les personnages, règles, commandes, repos avec Rémi et retour au même endroit restent communs. L’affiche du gym conduit directement à la salle, sans ajouter une carte extérieure. Sources et prompt dans `references/direction-artistique/fight-hall/`; lire `docs/VERIFICATIONS.md` pour les contrôles effectivement terminés.
 
@@ -66,7 +98,7 @@ Le navigateur de l’ordinateur affichait encore les boutons : l’ancienne dét
 
 Les poses initiales du sac dessinaient le pied droit devant et rendaient les mains ambiguës. Le personnage a été redessiné en **garde de droitier**, trois quarts avant : pied gauche devant, **J = jab gauche**, **K = direct droit avec pivot arrière droit**, crochet gauche en combo. Nouveau set `public/assets/sprites/bag-orthodox/`, sources/prompts dans `references/characters/bag-orthodox/`; anciens fichiers conservés. Le sac et le décor sont réutilisés à l’identique. Les noms de touches et les règles n’ont pas été échangés pour compenser les dessins.
 
-## État actuel — GO du 11 septembre 2026
+## Historique — GO du sac et des commandes du 11 septembre 2026
 
 L’utilisateur a autorisé **les deux étapes ensemble** : déplacer les commandes hors de l’image dans tout le jeu et réaliser le sac chorégraphié. Cette demande remplace les anciennes attentes de GO, de mini test visuel et de discussion préalable conservées dans les archives ci-dessous.
 

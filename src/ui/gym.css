@@ -40,6 +40,7 @@
 .gym-close-button { color: #b9c9c1; border-color: #72938c40; background: #132b33; }
 .gym-pause-panel { width: min(355px, 84%); padding: 28px; }
 .gym-resume-button { margin-top: 20px; text-align: center; }
+.gym-career{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0 0}.gym-career span{display:flex;justify-content:space-between;padding:6px;background:#0a1b2266;color:#9eb0ac;font-size:9px}.gym-career b{color:#f0d18d}.gym-save-tools{display:grid;grid-template-columns:1.6fr 1fr;gap:6px;margin-top:8px}.gym-save-tools button,.commands-open-button{width:100%;min-height:30px;border:1px solid #748b8166;background:#172e36;color:#cbd8ce;font-size:9px}.commands-open-button{margin-top:8px}.gym-save-status{display:block;margin-top:7px;color:#829896;font-size:8px}
 @container (max-width: 1000px) {
   .gym-hud { padding: 17px 21px; }
   .gym-heading h2 { font-size: 20px; }

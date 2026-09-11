@@ -313,18 +313,18 @@ kbd { font: inherit; font-size: 10px; display: inline-block; min-width: 18px; pa
 }
 
 /* Commands are consulted during pause, without resuming the game. */
-.commands-open-button, .commands-back-button { display: block; width: 100%; min-height: 38px; margin-top: 10px; padding: 8px 11px; color: #ead6a9; background: #203b42; border: 1px solid #a1b6a66b; border-radius: 3px; font-size: 12px; line-height: 1.3; }
-.commands-open-button:hover, .commands-back-button:hover { background: #36524e; }
-.commands-panel { position: absolute; z-index: 3; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(650px, 90%); max-height: calc(100% - 24px); overflow: auto; padding: 25px; border: 1px solid #dec38c60; border-left: 3px solid var(--amber); border-radius: 2px; background: #10252dfa; box-shadow: 0 16px 50px #07101960; }
+.commands-open-button, :is(.commands-back-button, .gym-import-cancel) { display: block; width: 100%; min-height: 38px; margin-top: 10px; padding: 8px 11px; color: #ead6a9; background: #203b42; border: 1px solid #a1b6a66b; border-radius: 3px; font-size: 12px; line-height: 1.3; }
+.commands-open-button:hover, :is(.commands-back-button, .gym-import-cancel):hover { background: #36524e; }
+:is(.commands-panel, .gym-import-confirm) { position: absolute; z-index: 3; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(650px, 90%); max-height: calc(100% - 24px); overflow: auto; padding: 25px; border: 1px solid #dec38c60; border-left: 3px solid var(--amber); border-radius: 2px; background: #10252dfa; box-shadow: 0 16px 50px #07101960; }
 .commands-eyebrow { margin: 0 0 6px; font-size: 9px; letter-spacing: 1.5px; font-weight: 700; color: var(--amber); }
-.commands-panel h2 { margin: 0 0 17px; font-size: 27px; line-height: 1.1; color: #f6e6c5; }
+:is(.commands-panel, .gym-import-confirm) h2 { margin: 0 0 17px; font-size: 27px; line-height: 1.1; color: #f6e6c5; }
 .commands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 .commands-grid dl { margin: 0; }
 .commands-grid dl > div { padding: 7px 0; border-bottom: 1px solid #aac0af2b; }
 .commands-grid dt { font-size: 11px; color: #baccbf; line-height: 1.3; }
 .commands-grid dd { margin: 4px 0 0; color: #f5dea7; font-size: 14px; font-weight: 700; line-height: 1.3; }
 .commands-notes p, .commands-tip { margin: 7px 0 0; color: #baccbf; font-size: 11px; line-height: 1.45; }
-.commands-back-button { margin-top: 17px; }
+:is(.commands-back-button, .gym-import-cancel) { margin-top: 17px; }
 .commands-touch-tip { display: none; }
 html[data-touch="true"] .commands-touch-tip { display: block; }
 #sparring-ui.is-showing-commands .menu-shade { background: #07182091; pointer-events: auto; }
@@ -334,20 +334,20 @@ html[data-touch="true"] #sparring-ui .action-dock { display: flex; }
 html[data-touch="true"] #sparring-ui .pause-button { display: block; }
 html[data-touch="true"] #sparring-ui[data-phase="running"] .audio-button { top: 48px; }
 @container (max-width: 750px) {
-  .commands-panel { padding: 15px 18px; max-height: calc(100% - 20px); }
-  .commands-panel h2 { font-size: 21px; margin-bottom: 9px; }
+  :is(.commands-panel, .gym-import-confirm) { padding: 15px 18px; max-height: calc(100% - 20px); }
+  :is(.commands-panel, .gym-import-confirm) h2 { font-size: 21px; margin-bottom: 9px; }
   .commands-eyebrow { font-size: 8px; margin-bottom: 4px; }
   .commands-grid { gap: 18px; }
   .commands-grid dl > div { padding: 4px 0; }
   .commands-grid dt { font-size: 10px; }
   .commands-grid dd { font-size: 11px; margin-top: 2px; }
   .commands-notes p, .commands-tip { font-size: 10px; line-height: 1.3; margin-top: 5px; }
-  .commands-open-button, .commands-back-button { min-height: 35px; font-size: 11px; margin-top: 9px; padding: 7px; }
+  .commands-open-button, :is(.commands-back-button, .gym-import-cancel) { min-height: 35px; font-size: 11px; margin-top: 9px; padding: 7px; }
 }
 @container (max-width: 550px) {
-  .commands-panel { padding: 11px 14px; }
+  :is(.commands-panel, .gym-import-confirm) { padding: 11px 14px; }
   .commands-eyebrow { display: none; }
-  .commands-panel h2 { font-size: 19px; margin-bottom: 6px; }
+  :is(.commands-panel, .gym-import-confirm) h2 { font-size: 19px; margin-bottom: 6px; }
   .commands-grid { gap: 13px; }
   .commands-grid dl > div { padding: 3px 0; }
 }

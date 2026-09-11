@@ -53,19 +53,24 @@ const RECOVERY_DELAY = 0.35;
 const HURT_DURATION = 0.26;
 const EPSILON = 1e-9;
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const boundedBonus = (value, min, max) => Number.isFinite(Number(value)) ? clamp(Number(value), min, max) : min;
 
 function normalizeSettings(settings = {}, previous = {}) {
   const duration = Number(settings.duration ?? previous.duration ?? 60);
   const recovery = Number(settings.recovery ?? previous.recovery ?? 1);
   const tempo = settings.tempo ?? previous.tempo ?? 'normal';
   const opponent = getOpponentProfile(settings.opponent ?? previous.opponent).id;
+  const maxStamina = boundedBonus(settings.maxStamina ?? previous.maxStamina ?? 100, 100, 110);
+  const maxResistance = boundedBonus(settings.maxResistance ?? previous.maxResistance ?? 100, 100, 108);
+  const recoveryBonus = boundedBonus(settings.recoveryBonus ?? previous.recoveryBonus ?? 0, 0, .10);
+  const powerBonus = boundedBonus(settings.powerBonus ?? previous.powerBonus ?? 0, 0, 5);
   const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
   const lesson = opponent === 'beton' ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
     duration: unguided(lesson) && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
     tempo: opponent === 'beton' ? 'normal' : !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
-    lesson, opponent,
+    lesson, opponent, maxStamina, maxResistance, recoveryBonus, powerBonus,
   };
 }
 
@@ -117,7 +122,7 @@ export class SparringSession {
       pausedPhase: null,
       remaining: this.settings.duration,
       elapsed: 0,
-      stamina: 100,
+      stamina: this.settings.maxStamina,
       player: actionState('idle'),
       remi: actionState('idle', 0, 0, { safeDodge: null, side: null }),
       stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0, hooks: 0, combos: 0, landedHead: 0, landedBody: 0, receivedHead: 0, receivedBody: 0, blockedHead: 0, blockedBody: 0 },
@@ -125,8 +130,8 @@ export class SparringSession {
       settings: { ...this.settings },
       training: null,
       bout: this.settings.lesson === 'resistance' ? {
-        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: KNOCKDOWN_RULES.maxResistance,
-        resistance: { player: 100, remi: 100 },
+        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: KNOCKDOWN_RULES.maxResistance, playerMaxResistance: this.settings.maxResistance,
+        resistance: { player: this.settings.maxResistance, remi: 100 },
         downs: { player: { round: 0, total: 0 }, remi: { round: 0, total: 0 } },
         count: null, result: null, roundHistory: [],
         ...(this.profile.official ? { score: { player: 0, remi: 0 }, coach: betonCornerAdvice() } : {}),
@@ -300,7 +305,7 @@ export class SparringSession {
         this._emit('exhausted', { action: 'guard' });
       }
     } else if (!this._playerAction && this.state.elapsed >= this._recoverAt) {
-      this.state.stamina = Math.min(100, this.state.stamina + RECOVERY_PER_SECOND * this.settings.recovery * dt);
+      this.state.stamina = Math.min(this.settings.maxStamina, this.state.stamina + RECOVERY_PER_SECOND * (this.settings.recovery + this.settings.recoveryBonus) * dt);
     }
 
     // Resolve both committed punches before changing stages, allowing a fair trade.
@@ -523,11 +528,12 @@ export class SparringSession {
     bout.round += 1;
     for (const actor of ACTORS) {
       bout.downs[actor].round = 0;
-      bout.resistance[actor] = Math.min(bout.maxResistance, bout.resistance[actor] + 20);
+      const maximum = actor === 'player' ? bout.playerMaxResistance : bout.maxResistance;
+      bout.resistance[actor] = Math.min(maximum, bout.resistance[actor] + 20);
     }
     this.state.elapsed = 0;
     this.state.remaining = this.settings.duration;
-    this.state.stamina = 100;
+    this.state.stamina = this.settings.maxStamina;
     this._roundStartStats = { ...this.state.stats };
     this._roundStartScore = bout.score ? { ...bout.score } : null;
     this._roundFatigue = 0;
@@ -544,7 +550,8 @@ export class SparringSession {
   _damage(actor, attack) {
     if (!this.state.bout) return;
     const resistance = this.state.bout.resistance;
-    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack]);
+    const power = actor === 'remi' ? this.settings.powerBonus : 0;
+    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack] - power);
   }
 
   _clearCombatActions() {

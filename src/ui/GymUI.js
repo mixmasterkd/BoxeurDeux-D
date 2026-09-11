@@ -1,4 +1,4 @@
-import { installConsoleControls } from './GameControls.js';
+import { installConsoleControls, careerMenuOpen } from './GameControls.js';
 import './gym.css';
 import { mountSideControls, TOUCH_PORTRAIT_QUERY, TOUCH_CONTROLS_QUERY } from './GameLayout.js';
 
@@ -8,7 +8,7 @@ const noop = () => {};
 export class GymUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
-      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onShadow', 'onFight', 'onBlur',
+      'onMove', 'onInteract', 'onPause', 'onResume', 'onCloseDialog', 'onSparring', 'onBag', 'onShadow', 'onRhythm', 'onFight', 'onExportCareer', 'onImportCareer', 'onInspectCareer', 'onRefreshCareer', 'onBlur',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.root = document.getElementById('gym-ui');
     if (!this.root) throw new Error('GymUI requires #gym-ui inside the game stage.');
@@ -16,6 +16,7 @@ export class GymUI {
     this.menuPointers = new Map();
     this.paused = false;
     this.commandsOpen = false;
+    this.pendingCareerImport = null;
     this.dialog = null;
     this.nearby = null;
     this.destroyed = false;
@@ -38,7 +39,7 @@ export class GymUI {
         <div class="gym-dialog-actions"></div>
       </section>
       <section class="gym-pause-panel" role="dialog" aria-modal="true" aria-labelledby="gym-pause-title" hidden>
-        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Visite en pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><button type="button" class="gym-resume-button">Continuer la visite →</button><button type="button" class="commands-open-button">Commandes</button>
+        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Visite en pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><div class="gym-career"><span>END <b data-career="endurance">100/110</b></span><span>RÉS <b data-career="resistance">100/108</b></span><span>PUI <b data-career="power">0/5</b></span><span>RÉC <b data-career="recovery">+0%</b></span></div><button type="button" class="gym-resume-button">Continuer la visite →</button><button type="button" class="commands-open-button">Commandes</button><div class="gym-save-tools"><button type="button" class="gym-export-button">Exporter la sauvegarde</button><button type="button" class="gym-import-button">Importer</button><input type="file" class="gym-import-file" accept="application/json,.json" hidden></div><small class="gym-save-status">Sauvegarde locale automatique</small>
       </section>
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="gym-commands-title" hidden>
         <p class="commands-eyebrow">VISITE EN PAUSE</p><h2 id="gym-commands-title">Commandes du gym</h2>
@@ -49,6 +50,12 @@ export class GymUI {
         </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p>Échap ferme aussi une conversation.</p><p class="commands-touch-tip">Au tactile : joypad à gauche, A pour interagir, ☰ pour le menu. Dans les menus, le joypad choisit, A valide et B revient.</p></div></div>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
+      <section class="gym-import-confirm" role="dialog" aria-modal="true" aria-labelledby="gym-import-title" hidden>
+        <p class="commands-eyebrow">SAUVEGARDE</p><h2 id="gym-import-title">Remplacer votre partie ?</h2>
+        <div class="commands-notes"><p class="gym-import-preview"></p><p>La progression actuelle sera remplacée. Une copie précédente est conservée si le stockage est disponible; exportez votre partie pour garder votre propre copie.</p></div>
+        <button type="button" class="gym-import-cancel">Annuler</button>
+        <button type="button" class="gym-import-replace gym-dialog-button">Remplacer ma partie</button>
+      </section>
     `;
     mountSideControls(this.root, { left: ['.gym-movement'], right: ['.gym-pause-button', '.gym-interact-button'] });
     this.elements = Object.fromEntries([
@@ -56,10 +63,12 @@ export class GymUI {
       'gym-movement', 'gym-interact-button', 'gym-interact-label',
       'gym-modal-shade', 'gym-dialog', 'gym-dialog-speaker', 'gym-dialog-actions',
       'gym-pause-panel', 'gym-resume-button', 'commands-panel', 'commands-open-button', 'commands-back-button',
+      'gym-export-button', 'gym-import-button', 'gym-import-file', 'gym-save-status',
+      'gym-import-confirm', 'gym-import-preview', 'gym-import-cancel', 'gym-import-replace',
     ].map((name) => [name, this.root.querySelector(`.${name}`)]));
     this.bindEvents();
     this.controls = installConsoleControls(this, 'gym');
-    this.stage.inert = this.portraitQuery.matches;
+    this.stage.inert = this.portraitQuery.matches || careerMenuOpen();
     if (this.portraitQuery.matches || document.hidden) this.loseFocus();
   }
 
@@ -85,7 +94,7 @@ export class GymUI {
     this.menuPointers.delete(button);
     if (event.detail !== 0 && (pointerId === undefined
       || (typeof event.pointerId === 'number' && event.pointerId !== pointerId))) return false;
-    if (this.destroyed || this.portraitQuery.matches || document.hidden) return false;
+    if (this.destroyed || this.portraitQuery.matches || document.hidden || careerMenuOpen()) return false;
     button.blur();
     return true;
   }
@@ -97,8 +106,12 @@ export class GymUI {
       if (document.hidden) this.loseFocus();
     });
     this.listen(this.portraitQuery, 'change', (event) => {
-      this.stage.inert = event.matches;
+      this.stage.inert = event.matches || careerMenuOpen();
       if (event.matches) this.loseFocus();
+    });
+    this.listen(window, 'career-menu-change', event => {
+      this.clearInputs(); this.stage.inert = this.portraitQuery.matches || event.detail.open;
+      if (!event.detail.open) this.callbacks.onRefreshCareer();
     });
     this.listenActivation(this.elements['gym-pause-button'], () => this.requestPause());
     this.listenActivation(this.elements['gym-resume-button'], () => {
@@ -109,6 +122,27 @@ export class GymUI {
     this.listenActivation(this.elements['gym-interact-button'], () => this.interact());
     this.listenActivation(this.elements['commands-open-button'], () => this.showCommands(true));
     this.listenActivation(this.elements['commands-back-button'], () => this.showCommands(false));
+    this.listenActivation(this.elements['gym-export-button'], () => this.callbacks.onExportCareer());
+    this.listenActivation(this.elements['gym-import-button'], () => { this.elements['gym-import-file'].value = ''; this.elements['gym-import-file'].click(); });
+    this.listen(this.elements['gym-import-file'], 'change', async event => {
+      const file = event.target.files?.[0]; if (!file) return;
+      try {
+        if (file.size > 1_000_000) throw new Error('Ce fichier est trop volumineux pour une sauvegarde.');
+        const text = await file.text(); if (this.destroyed) return;
+        const profile = this.callbacks.onInspectCareer(text);
+        if (!profile?.stats) throw new Error('Ce fichier n’est pas une sauvegarde compatible.');
+        this.clearInputs(); this.pendingCareerImport = text;
+        this.setText(this.elements['gym-import-preview'], `Partie sélectionnée : endurance ${profile.stats.endurance}, résistance ${profile.stats.resistance}, puissance +${profile.stats.power}, récupération +${Math.round((profile.stats.recovery - 1) * 100)} %. Béton : ${profile.fights.beton.wins} victoire(s).`);
+        this.renderMode(); this.elements['gym-import-cancel'].focus({ preventScroll: true });
+      } catch (error) { this.setText(this.elements['gym-save-status'], error.message); }
+    });
+    this.listenActivation(this.elements['gym-import-cancel'], () => this.cancelCareerImport());
+    this.listenActivation(this.elements['gym-import-replace'], () => {
+      if (!this.pendingCareerImport) return;
+      try { this.callbacks.onImportCareer(this.pendingCareerImport); }
+      catch (error) { this.setText(this.elements['gym-save-status'], error.message); }
+      this.cancelCareerImport();
+    });
     // Delegate the changing choices: revisiting a station does not retain old
     // buttons or register new listeners on the UI's long-lived abort signal.
     const actionRoot = this.elements['gym-dialog-actions'];
@@ -132,13 +166,14 @@ export class GymUI {
       if (button.dataset.gymAction === 'sparring') this.callbacks.onSparring(button.dataset.lesson ?? 'free');
       else if (button.dataset.gymAction === 'bag') this.callbacks.onBag();
       else if (button.dataset.gymAction === 'shadow') this.callbacks.onShadow();
+      else if (button.dataset.gymAction === 'rhythm') this.callbacks.onRhythm(button.dataset.activity);
       else if (button.dataset.gymAction === 'fight') this.callbacks.onFight();
       else this.callbacks.onCloseDialog();
     });
   }
 
   canMove() {
-    return !this.destroyed && !this.paused && !this.dialog && !this.portraitQuery.matches && !document.hidden;
+    return !this.destroyed && !this.paused && !this.dialog && !this.portraitQuery.matches && !document.hidden && !careerMenuOpen();
   }
 
   interact() {
@@ -163,6 +198,18 @@ export class GymUI {
 
   setText(element, text) {
     if (element.textContent !== text) element.textContent = text;
+  }
+
+  setCareer(profile, saveStatus) {
+    if (!profile) return;
+    for (const [key, value] of Object.entries({ endurance: `${profile.stats.endurance}/${profile.caps.endurance}`, resistance: `${profile.stats.resistance}/${profile.caps.resistance}`, power: `${profile.stats.power}/${profile.caps.power}`, recovery: `+${Math.round((profile.stats.recovery - 1) * 100)}%` })) this.setText(this.root.querySelector(`[data-career="${key}"]`), value);
+    if (saveStatus) this.setText(this.elements['gym-save-status'], saveStatus.message);
+  }
+
+  cancelCareerImport() {
+    if (!this.pendingCareerImport) return;
+    this.clearInputs(); this.pendingCareerImport = null; this.renderMode();
+    this.elements['gym-import-button'].focus({ preventScroll: true });
   }
 
   update(state = {}) {
@@ -193,8 +240,9 @@ export class GymUI {
     const blocked = this.paused || Boolean(this.dialog);
     this.root.dataset.mode = this.paused ? 'paused' : this.dialog ? 'dialog' : 'walking';
     this.elements['gym-modal-shade'].hidden = !blocked;
-    this.elements['gym-pause-panel'].hidden = !this.paused || this.commandsOpen;
+    this.elements['gym-pause-panel'].hidden = !this.paused || this.commandsOpen || Boolean(this.pendingCareerImport);
     this.elements['commands-panel'].hidden = !this.paused || !this.commandsOpen;
+    this.elements['gym-import-confirm'].hidden = !this.paused || !this.pendingCareerImport;
     this.elements['gym-dialog'].hidden = !this.dialog || this.paused;
     this.elements['gym-pause-button'].disabled = blocked;
     this.elements['gym-interact-button'].disabled = blocked || !this.nearby;
@@ -222,9 +270,10 @@ export class GymUI {
     for (const action of choices) {
       const button = document.createElement('button');
       button.type = 'button';
-      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : action.id === 'shadow' ? ' gym-shadow-button' : action.id === 'fight' ? ' gym-fight-button' : ' gym-close-button'}`;
+      button.className = `gym-dialog-button${action.id === 'sparring' ? ' gym-session-button' : action.id === 'bag' ? ' gym-bag-button' : action.id === 'shadow' ? ' gym-shadow-button' : action.id === 'rhythm' ? ' gym-rhythm-button' : action.id === 'fight' ? ' gym-fight-button' : ' gym-close-button'}`;
       button.dataset.gymAction = action.id;
       if (action.lesson) button.dataset.lesson = action.lesson;
+      if (action.activity) button.dataset.activity = action.activity;
       button.textContent = action.label;
       actionRoot.append(button);
     }
@@ -248,6 +297,6 @@ export class GymUI {
     this.abort.abort();
     this.root.replaceChildren();
     this.root.hidden = true;
-    this.stage.inert = false;
+    this.stage.inert = this.portraitQuery.matches || careerMenuOpen();
   }
 }

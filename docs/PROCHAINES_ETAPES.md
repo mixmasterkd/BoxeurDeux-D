@@ -2,9 +2,34 @@
 
 Direction confirmée par l’utilisateur, actualisée après le GO du 11 septembre 2026. Voir `VERIFICATIONS.md` pour les validations effectivement terminées; cette feuille de route ne confirme pas à elle seule une publication.
 
+## Livraison du GO « 1 à 4 »
+
+L’utilisateur a autorisé ensemble **la fin du gym, ses bénéfices de combat, la sauvegarde et la vérification de la boucle complète**. Il a ensuite demandé une reprise de la corde et de la speed ball avec de vrais personnages animés et les commandes adaptées au périphérique. Les travaux sont intégrés et vérifiés localement. Les résultats et la preuve de publication sont consignés séparément dans `VERIFICATIONS.md`.
+
+| Travail autorisé | Contenu de cette livraison |
+| --- | --- |
+| 1. Terminer le gym | Sac, miroir, sparring, speed ball et corde accessibles à pied. Les deux nouveaux ateliers durent 45 s, avec personnages adultes à tuque rouge, poses dédiées, balle/corde animées et petit repère de rythme qui laisse l’action visible. |
+| 2. Donner de vrais bénéfices | Gains modestes annoncés avant la séance et appliqués aux combats, plafonnés au palier Béton. Le miroir conserve son rôle de pratique. |
+| 3. Sauvegarder | Sauvegarde locale versionnée, copie précédente de secours, Continuer/Nouvelle partie, export/import validé puis confirmé et historique de Béton. |
+| 4. Vérifier la boucle | Entraînement terminé → gain → combat Béton → fermeture/reprise des acquis. Parcours clavier et mobile simulé, sans présenter ce dernier comme un essai sur le téléphone physique. |
+
+| Atelier | Condition d’une séance terminée | Gain | Plafond Béton |
+| --- | --- | --- | --- |
+| Sac | 6 contacts et 50 % de précision | Puissance +1 | Bonus +5 aux dégâts nets |
+| Speed ball | 20 bons temps et 60 % de précision | Récupération +2 points de pourcentage | Bonus +10 % |
+| Corde à danser | 20 bons temps et 60 % de précision | Endurance maximale +2 | 110, base 100 |
+| Résistance et relevés | 10 touches nettes ou défenses réussies, séance terminée | Résistance maximale +2 | 108, base 100 |
+| Miroir, leçons et sparring libre | Pratique des gestes et du rythme adverse | Aucun bonus permanent | Sans objet |
+
+J/K sur ordinateur et A/B à droite sur mobile conservent la même alternance gauche/droite dans les nouveaux ateliers. L’aide présente les touches du périphérique utilisé; le joypad sert à la navigation des menus. P/Échap ou ☰ ouvre pause/Commandes, et ← Gym reste direct. Les boutons tactiles restent dans les marges; le cadrage 1280 × 720 en 16:9 est conservé sur tous les écrans.
+
+Le premier adversaire reçoit les acquis d’entraînement du joueur sans devenir plus fort en miroir. Au coin, l’endurance revient à son maximum entraîné et la résistance remonte de 20 jusqu’au maximum propre à chacun : joueur jusqu’à 108, adversaire 100. Répéter les séances au-delà du plafond ne permet pas de dépasser ce palier.
+
+**Prochaine étape proposée : la boucle des journées et du sommeil**, puis le petit quartier avec maison, travail et argent. Le gym reste gratuit. Le sommeil fera avancer le jour et remplira uniquement l’énergie quotidienne. Ces systèmes, les adversaires suivants et le tournoi ne sont pas ajoutés à la livraison actuelle. La liste initiale complète ci-dessous reste la feuille de route.
+
 ## Nouvelle direction — décisions validées et ordre proposé
 
-La discussion après le commit `74f87df` précise la progression à long terme. Les étapes 1 puis 2 ont été autorisées. Le premier adversaire est **Béton**, accessible par l’affiche « Prochain combat » dans le gym existant. Le GO de l’étape 2 inclut ensuite une scène de repos avec Rémi comme coach entre les rounds. Les phases suivantes restent à concevoir ensemble.
+La discussion après le commit `74f87df` précise la progression à long terme. La résistance et le premier adversaire ont été livrés avant le GO actuel sur les ateliers, gains et sauvegarde. Le premier adversaire est **Béton**, accessible par l’affiche « Prochain combat » dans le gym existant, avec Rémi comme coach entre les rounds. Les journées, le quartier et les phases ultérieures restent à concevoir ensemble.
 
 ### Étape 2 — GO Béton
 
@@ -30,7 +55,9 @@ Rémi propose **Résistance et relevés**, trois rounds de 60 secondes. Résista
 - Après deux ou trois adversaires, premier tournoi sur trois jours avec sa propre petite carte : lieu des combats, chambre d’hôtel, restaurant et gym du tournoi.
 - Tournoi « payant » : hypothèse de planification = inscription en argent du jeu et récompense à gagner. Le sens précis et les tarifs seront confirmés lors de la conception de cette phase; aucun paiement réel ni service externe n’est prévu.
 
-### Proposition de réalisation par étapes
+### Liste initiale conservée — ordre de réalisation
+
+Les étapes 1 et 2 ci-dessous ont leurs livraisons historiques. Les étapes 3 et 4 constituent maintenant l’intégration du GO actuel, avec les vérifications de boucle décrites en tête. L’étape 5 est la prochaine proposition; les étapes 5 à 8 ne sont pas réalisées ici.
 
 | Étape | Contenu borné | Résultat à vérifier avant la suivante |
 | --- | --- | --- |
@@ -50,19 +77,23 @@ Rémi propose **Résistance et relevés**, trois rounds de 60 secondes. Résista
 - Un KO immédiat éventuel doit également arriver à zéro résistance, avec une condition déterministe et annoncée. Candidat pour plus tard : un coup spécial clairement préparé, reçu en épuisement complet, qui vide la résistance restante. Pas de probabilité cachée.
 - La première livraison intègre chute, relevé et arrêt : six pressions alternées, résistance rendue 55/45/35 et trois rounds de 60 secondes. Le KO spécial pourra venir avec un adversaire conçu pour l’enseigner. L’étape 2 ajoute pour Béton le départage aux points décrit plus haut; Rémi conserve son bilan d’entraînement.
 
-### Sauvegarde de la partie — à intégrer dès l’étape 3
+### Sauvegarde de la partie — intégrée avec les premiers gains
 
-La question de sauvegarde fait partie du plan avant la suite. Le prototype actuel mémorise des préférences comme le son; il n’a pas encore de carrière sauvegardée. Git/GitHub protègent le code et les ressources du projet, pas les parties individuelles.
+La sauvegarde locale versionnée contient maintenant les capacités/plafonds, les séances et meilleurs résultats des ateliers ainsi que les tentatives, victoires, défaites, égalités et meilleur score de Béton. Les préférences de son restent mémorisées séparément. Git/GitHub protègent le code et les ressources du projet, pas les parties individuelles.
 
-- Sauvegarde automatique locale aux moments stables : activité résolue, résultat d’un combat, achat, changement de jour et changement de lieu utile. Les capacités et plafonds, jour/énergie, argent, vêtements possédés/équipés, adversaires et victoires seront conservés. L’état du tournoi sera ajouté lorsque ce mode existera.
-- Une sauvegarde active et une copie précédente de secours suffisent au départ. Format versionné et migrations lors des mises à jour, validation des fichiers importés, erreurs de stockage signalées sans afficher une fausse réussite.
-- Les coûts et récompenses d’une même activité sont enregistrés ensemble. Une reprise ne doit ni débiter deux fois l’énergie/l’argent, ni attribuer deux fois une récompense. Le statut d’une activité interrompue est explicite.
-- Reprendre à un point sûr : avant un combat pour un round interrompu; au gym pour un atelier interrompu, avec ses coûts traités de façon cohérente. Sauvegarder un poing au milieu de son animation n’est pas nécessaire. Le tournoi aura un point de reprise après chaque rencontre et chaque journée.
-- Au lancement : **Continuer** ou **Nouvelle partie**; une nouvelle partie ne remplace pas silencieusement la sauvegarde existante. Dans P/Échap ou ☰ : rubrique **Sauvegarde**, avec **Exporter ma partie** et **Importer une partie**; mêmes commandes de navigation et confirmation A/B.
+- Sauvegarde automatique locale aux moments stables : activité résolue et résultat final d’un combat contre Béton. Les futurs achats, jours/énergie, argent, vêtements et états de tournoi étendront ce format lorsque ces systèmes existeront.
+- Une sauvegarde active et une copie précédente valide de secours. Format v1 et schéma validé à l’import; les versions futures sont refusées et protégées de l’écriture automatique. Une erreur de stockage laisse jouer en mémoire et indique de conserver un export, sans annoncer une fausse réussite. Des migrations seront nécessaires lors de futures évolutions de schéma.
+- Une séance interrompue ne donne aucun gain. Le résultat d’une séance terminée n’est enregistré qu’une fois. Les futurs coûts et récompenses d’une même activité devront être enregistrés ensemble, pour ne jamais débiter deux fois énergie/argent après reprise.
+- Reprise à un point sûr avec les acquis terminés : accueil au gym; un lien direct ouvre l’activité avant son départ. Ni round en cours ni animation ne sont restaurés. Le tournoi aura ses propres points de reprise après les rencontres et journées lorsqu’il existera.
+- Au lancement avec une progression : **Continuer** ou **Nouvelle partie**, avec confirmation avant remplacement. Dans **P/Échap ou ☰ au gym** : export JSON et import validé/prévisualisé puis confirmé; mêmes commandes de navigation et confirmation A/B. Le menu d’accueil propose également import/export.
 - La sauvegarde locale dépend du navigateur et de l’adresse du jeu. Le site GitHub Pages, `127.0.0.1` et l’adresse Wi-Fi ont des stockages séparés; ordinateur et téléphone ne se synchronisent pas automatiquement. Un fichier exporté permet de transférer la partie et d’en conserver une copie indépendante du navigateur. Importer une partie ne doit pas écraser l’ancienne sans confirmation.
 - Aucun compte joueur ni serveur de sauvegarde n’est requis pour cette première version. Une éventuelle synchronisation en ligne sera une phase séparée, avec ses coûts et contraintes discutés avant mise en place.
 
 L’ordre recommandé commence donc par la base de combat, puis un adversaire témoin, avant de compléter le gym. Il permet d’équilibrer les gains d’entraînement contre une rencontre réelle. Les sections suivantes conservent l’historique; cette direction remplace les anciennes propositions de cotisation au gym et de priorité immédiate à la speed ball.
+
+## Historique des livraisons précédentes
+
+Les sections suivantes conservent leur contexte d’origine. La mention d’un atelier alors « futur » est remplacée par l’état actuel décrit en tête.
 
 ## Phase réalisée — 10 septembre 2026
 
@@ -110,15 +141,15 @@ Le nouveau GO autorise le combo **jab–direct–crochet en sparring libre**. Il
 
 Le **shadow boxing** permet maintenant de pratiquer librement les mouvements seulement, sans adversaire ni endurance limitante. Accès par la visite ou `?scene=shadow`; tenue du gym à tuque rouge, reflet synchronisé dans un nouveau décor, jab/direct/crochet en combo, garde haute et deux esquives. Vitesse normale ou ralentie à 65 %, pause/Commandes, fin volontaire, bilan des gestes, nouvel essai et retour à la même position dans le gym. Commandes clavier et marges tactiles communes au reste du jeu. Les essais réellement terminés sont décrits dans `VERIFICATIONS.md`.
 
-La **speed ball**, puis la **corde à danser**, sont les prochains ateliers envisagés. La visite, le sac, le miroir et le sparring restent la base jouable. Les coups au corps et gardes haute/basse font maintenant partie de la convention commune. La progression quotidienne reste ultérieure.
+À cette étape, la **speed ball**, puis la **corde à danser**, étaient les prochains ateliers envisagés; le GO actuel les ajoute désormais à la visite, au sac, au miroir et au sparring. Les coups au corps et gardes haute/basse font partie de la convention commune. La progression quotidienne reste ultérieure.
 
 ## Convention commune — GO avant la speed ball
 
 Joypad gauche, A/B et ☰ à droite sur mobile; directions flèches/WASD, J/K, E, P/Échap sur ordinateur. Même navigation des menus, mêmes hauteurs de garde et d’attaque au miroir, sac et sparring. Les sorties «← Gym» sont directes. Cette convention doit aussi servir aux prochains lieux : une activité adapte les gestes, elle ne réinvente pas ses boutons. Les gardes haute/basse protègent réellement tête/corps; Rémi annonce sa cible. Les nouvelles ressources complètent les anciennes sans les écraser. Voir `VERIFICATIONS.md` pour les tests effectivement terminés.
 
-## Ateliers prévus
+## Rôles des ateliers — liste initiale conservée
 
-Chaque atelier devra d’abord être agréable à jouer et compréhensible par lui-même.
+Chaque atelier doit être agréable à jouer et compréhensible par lui-même. Les gains et objectifs retenus dans cette livraison sont détaillés en tête.
 
 | Activité | Intention du mini-jeu |
 | --- | --- |
@@ -128,8 +159,8 @@ Chaque atelier devra d’abord être agréable à jouer et compréhensible par l
 | Corde à danser | Rythme, endurance et jeu de jambes. |
 | Sparring avec Rémi le Tank | Mettre en pratique le timing, la précision, les blocages, les esquives et les réponses. |
 
-Plus tard, les séances consommeront de l’**énergie du jour** et feront progresser les compétences correspondantes. Cette réserve quotidienne restera distincte de l’**endurance pendant un round**, qui sert aux actions et récupère entre les échanges. Les coûts, gains et règles de récupération quotidienne restent à définir après les premiers mini-jeux.
+Plus tard, les séances consommeront de l’**énergie du jour**. Leurs gains de capacités sont déjà reliés au combat dans le GO actuel. Cette réserve quotidienne restera distincte de l’**endurance pendant un round**, qui sert aux actions et récupère entre les échanges. Les coûts et règles de récupération quotidienne restent à définir avec la boucle des journées et du sommeil.
 
-Le gym est explorable; le sac, le miroir et le sparring sont jouables. La speed ball, la corde et la progression quotidienne restent des étapes futures. La ville, la maison, l’emploi, la carrière et les combats officiels viendront ensuite.
+Le gym est explorable et ses cinq activités ont maintenant une boucle jouable. Le premier combat contre Béton et la progression sauvegardée sont intégrés. L’énergie quotidienne et le sommeil, puis la ville, la maison, l’emploi, l’argent et les rencontres suivantes restent à venir.
 
 Sur la future carte extérieure, le personnage portera un survêtement Adidas noir à bandes blanches avec sa tuque rouge. Les photos fournies ont servi de références graphiques; elles ne sont pas publiées avec le jeu.

@@ -22,6 +22,8 @@ export class BoutHUD {
     this.rules.className = 'bout-rules'; this.rules.hidden = true;
     this.rules.textContent = 'Trois rounds de 60 s. À zéro résistance, vous allez au tapis. Pour vous relever avant dix : faites six pressions alternées sur J et K, ou A et B, sans vous précipiter. Trois chutes dans un round ou quatre dans la séance entraînent l’arrêt.';
     ui.elements['lesson-description'].after(this.rules);
+    this.benefit = document.createElement('p'); this.benefit.className = 'bout-benefit'; this.benefit.hidden = true;
+    this.rules.after(this.benefit);
     this.panel = document.createElement('section');
     this.panel.className = 'knockdown-panel'; this.panel.hidden = true;
     this.panel.setAttribute('aria-label', 'Décompte et relevé');
@@ -34,6 +36,8 @@ export class BoutHUD {
     this.next = this.panel.querySelector('.knockdown-next');
   }
 
+  setReward(reward) { this.reward = reward; }
+
   update(state) {
     const { ui } = this;
     const bout = state.bout;
@@ -41,6 +45,13 @@ export class BoutHUD {
     const encounter = state.settings?.opponent === 'beton' ? 'COMBAT' : 'SÉANCE';
     const enabled = Boolean(bout);
     const active = state.phase === 'running' || state.phase === 'knockdown';
+    if (state.phase === 'ready') this.reward = null;
+    this.benefit.hidden = !enabled || opponent === 'Béton' || !['ready', 'finished'].includes(state.phase);
+    if (state.phase === 'ready') text(this.benefit, `Résistance : ${state.settings.maxResistance ?? 100} / 108. Termine la séance et réussis 10 touches ou défenses : résistance +2, jusqu’au plafond.`);
+    else if (state.phase === 'finished' && this.reward) {
+      const reward = this.reward;
+      text(this.benefit, `${reward.gained ? `Résistance +${reward.gained} · ${reward.value}/${reward.cap}` : reward.capped && reward.qualified ? 'Résistance : plafond atteint.' : 'Aucun gain cette fois : termine la séance avec 10 touches ou défenses.'} ${reward.saveMessage ?? ''}`);
+    } else this.benefit.hidden = true;
     ui.root.dataset.bout = String(enabled);
     ui.root.classList.toggle('is-counting', active && state.phase === 'knockdown');
     ui.elements['primary-button'].classList.toggle('next-round-button', state.phase === 'between');
@@ -48,13 +59,14 @@ export class BoutHUD {
     for (const who of ['player', 'remi']) {
       const meter = this.meters[who]; meter.root.hidden = !enabled;
       if (!enabled) continue;
-      const value = Math.max(0, Math.min(bout.maxResistance, bout.resistance[who]));
+      const maximum = who === 'player' ? (bout.playerMaxResistance ?? bout.maxResistance) : bout.maxResistance;
+      const value = Math.max(0, Math.min(maximum, bout.resistance[who]));
       text(meter.value, Math.ceil(value));
-      meter.track.setAttribute('aria-valuemax', bout.maxResistance);
+      meter.track.setAttribute('aria-valuemax', maximum);
       meter.track.setAttribute('aria-valuenow', Math.ceil(value));
       if (who === 'remi') meter.track.setAttribute('aria-label', `Résistance de ${opponent}`);
-      meter.fill.style.transform = `scaleX(${value / bout.maxResistance})`;
-      meter.track.classList.toggle('is-low', value <= bout.maxResistance * .25);
+      meter.fill.style.transform = `scaleX(${value / maximum})`;
+      meter.track.classList.toggle('is-low', value <= maximum * .25);
       text(meter.downs, `${bout.downs[who].round}/3 ROUND · ${bout.downs[who].total}/4 ${encounter}`);
     }
     text(ui.root.querySelector('.round-eyebrow'), enabled ? `ROUND ${bout.round} / ${bout.rounds}` : 'ROUND 01');
