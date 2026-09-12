@@ -23,7 +23,7 @@ test('new games start at home with a full first day, independently of combat sta
   const profile = create(new MemoryStorage());
   assert.deepEqual(profile.dailyStatus(), { day: 1, energy: 100, maxEnergy: 100 });
   assert.deepEqual(profile.snapshot().location, HOME_SPAWN);
-  assert.equal(profile.snapshot().version, 2);
+  assert.equal(profile.snapshot().version, CAREER_VERSION);
   const daily = profile.dailyStatus(); daily.energy = 0;
   assert.equal(profile.dailyStatus().energy, 100, 'status does not expose mutable profile state');
   profile.spendEnergy('sparring');
@@ -193,7 +193,7 @@ test('a failed migration never destroys the original v1 save or reports the migr
   storage.setItem(CAREER_STORAGE_KEY, old);
   storage.setItem = () => { throw new Error('quota'); };
   const profile = create(storage);
-  assert.equal(profile.snapshot().version, 2);
+  assert.equal(profile.snapshot().version, CAREER_VERSION);
   assert.equal(profile.saveStatus().persisted, false);
   assert.equal(storage.getItem(CAREER_STORAGE_KEY), old);
   assert.deepEqual(profile.snapshot().stats, JSON.parse(old).stats);
@@ -205,7 +205,7 @@ test('a damaged primary can recover and migrate a valid v1 backup', () => {
   storage.setItem(CAREER_STORAGE_KEY, '{broken'); storage.setItem(CAREER_BACKUP_KEY, JSON.stringify(old));
   const profile = create(storage);
   assert.equal(profile.saveStatus().state, 'recovered');
-  assert.equal(profile.snapshot().version, 2);
+  assert.equal(profile.snapshot().version, CAREER_VERSION);
   assert.deepEqual(profile.snapshot().stats, old.stats);
   assert.deepEqual(profile.snapshot().location, LEGACY_GYM_SPAWN);
   assert.deepEqual(create(storage).snapshot(), profile.snapshot());

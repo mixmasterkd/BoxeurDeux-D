@@ -9,11 +9,16 @@ export const ACTIVITY_COSTS = Object.freeze({
   sparring: 20,
   lesson: 10,
   fight: 0,
+  delivery: 30,
+  pads: 10,
+  pool: 10,
 });
 
 export const HOME_SPAWN = Object.freeze({ scene: 'home', x: 640, y: 540, facing: 'down' });
 export const LEGACY_GYM_SPAWN = Object.freeze({ scene: 'gym', x: 640, y: 585, facing: 'down' });
-export const WORLD_SCENES = Object.freeze(['home', 'gym', 'neighborhood']);
+export const WORLD_SCENES = Object.freeze(['home', 'gym', 'neighborhood', 'residential', 'commercial',
+  'clothing-shop', 'boxing-shop',
+  'hotel-room', 'hotel-corridor', 'hotel-lobby', 'hotel-gym', 'hotel-pool', 'hotel-venue']);
 export const WORLD_DIRECTIONS = Object.freeze(['up', 'down', 'left', 'right']);
 // Saved coordinates receive a final collision/spawn check when their scene opens.
 // This broad bound permits a scrolling neighborhood without trusting arbitrary JSON.
