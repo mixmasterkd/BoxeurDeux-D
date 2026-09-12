@@ -1,4 +1,5 @@
 import { fighterMotion, transformFighterPoint } from '../game/FighterMotion.js';
+import { boxingTexture, prepareBoxingOutfits } from './OutfitView.js';
 
 const BASE_POSES = ['guard', 'windup', 'jab', 'cross', 'hook-windup', 'hook'];
 const DEFENSE_POSES = { block: 'player-block', dodgeLeft: 'player-dodge-left', dodgeRight: 'player-dodge-right' };
@@ -38,6 +39,8 @@ export class ShadowFighterView {
   }
 
   constructor(scene) {
+    this.scene = scene;
+    prepareBoxingOutfits(scene, [...BASE_POSES, ...BODY_POSES, ...Object.keys(DEFENSE_POSES)].map(pose => `shadow-${pose}`));
     const base = scene.cache.json.get('shadow-base-data');
     this.metadata = { ...base, poses: { ...base.poses, ...scene.cache.json.get('shadow-defense-data').poses, ...scene.cache.json.get('shadow-body-data').poses } };
     this.anchor = this.metadata.anchor;
@@ -45,9 +48,9 @@ export class ShadowFighterView {
     scene.add.image(640, 360, 'mirror-room').setDisplaySize(1280, 720);
     const { player, reflection } = this.layout;
     this.reflectionShadow = scene.add.ellipse(reflection.x, reflection.feet - 2, 174, 16, 0x182b36, .17);
-    this.reflection = scene.add.image(reflection.x, reflection.feet, 'shadow-guard');
+    this.reflection = scene.add.image(reflection.x, reflection.feet, boxingTexture(scene, 'shadow-guard'));
     this.playerShadow = scene.add.ellipse(player.x, player.feet - 2, 254, 25, 0x0a1822, .24);
-    this.sprite = scene.add.image(player.x, player.feet, 'shadow-guard');
+    this.sprite = scene.add.image(player.x, player.feet, boxingTexture(scene, 'shadow-guard'));
     for (const sprite of [this.sprite, this.reflection]) sprite.setOrigin(
       this.anchor.x / this.metadata.canvas.width, this.anchor.y / this.metadata.canvas.height);
     this.reflection.setTint(0xc4d9dd).setAlpha(.83);
@@ -58,11 +61,12 @@ export class ShadowFighterView {
   render(player, elapsed) {
     const motion = shadowMotion(player, elapsed);
     const { player: actual, reflection: reflected } = this.layout;
-    this.sprite.setTexture(`shadow-${motion.pose}`).setScale(actual.scale)
+    const texture = boxingTexture(this.scene, `shadow-${motion.pose}`);
+    this.sprite.setTexture(texture).setScale(actual.scale)
       .setPosition(actual.x + motion.dx * actual.scale, actual.feet + motion.dy * actual.scale)
       .setRotation(motion.rotation);
     // A negative X scale reflects both the art and its asymmetric foot anchor.
-    this.reflection.setTexture(`shadow-${motion.pose}`).setScale(-reflected.scale, reflected.scale)
+    this.reflection.setTexture(texture).setScale(-reflected.scale, reflected.scale)
       .setPosition(reflected.x - motion.dx * reflected.scale, reflected.feet + motion.dy * reflected.scale)
       .setRotation(-motion.rotation);
     this.playerShadow.setPosition(this.sprite.x, actual.feet - 2 + motion.dy * .2);

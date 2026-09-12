@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import { chromium, wait, fit, tapContact, buttonPoint, dispatch, joyPoint } from './control-helpers.mjs';
+import { CAREER_VERSION } from '../src/game/CareerProfile.js';
 
 const base = process.env.GAME_URL || 'http://127.0.0.1:5173/';
 const browser = await chromium.launch({ headless: true });
@@ -111,7 +112,7 @@ try {
   await page.locator('.commands-back-button').click();
   await play(page, 'rope');
   assert.equal((await save(page)).stats.endurance, 102);
-  assert.equal((await save(page)).version, 2);
+  assert.equal((await save(page)).version, CAREER_VERSION);
   assert.equal((await save(page)).daily.energy, 85, 'one full rope session charges its 15 points once');
   assert.match(await page.locator('.rhythm-reward').textContent(), /Endurance max \+2/);
   await page.locator('.rhythm-primary').click();
@@ -154,7 +155,7 @@ try {
   await page.locator('.career-export').click();
   const backup = await download, text = await fs.readFile(await backup.path(), 'utf8');
   assert.equal(JSON.parse(text).stats.endurance, 102);
-  assert.equal(JSON.parse(text).version, 2);
+  assert.equal(JSON.parse(text).version, CAREER_VERSION);
   assert.deepEqual(JSON.parse(text).daily, { day: 1, energy: 55, maxEnergy: 100 });
   assert.equal(JSON.parse(text).location.scene, 'gym');
   await page.locator('.career-new').click(); await page.locator('.career-cancel').click();
@@ -191,7 +192,7 @@ try {
   assert.deepEqual((await save(page)).daily, { day: 1, energy: 55, maxEnergy: 100 });
   await page.locator('.career-continue').click(); await scene(page, 'neighborhood'); await page.waitForTimeout(150);
   assert.deepEqual((await save(page)).location, fightPlace, 'Continue returns to the saved neighborhood entrance');
-  report('Progression: v2 export, Continue/New cancellation, actual walk gym→neighborhood→Béton, trained bonuses, free bout and finished defeat persist with day/energy/location after reload.');
+  report(`Progression: v${CAREER_VERSION} export, Continue/New cancellation, actual walk gym→neighborhood→Béton, trained bonuses, free bout and finished defeat persist with day/energy/location after reload.`);
   await context.close();
 
   const mobile = await browser.newContext({ viewport: { width: 844, height: 390 }, hasTouch: true, isMobile: true });

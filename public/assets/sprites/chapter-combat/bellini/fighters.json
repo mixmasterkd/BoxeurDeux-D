@@ -1,0 +1,561 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "bellini",
+  "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+  "physicalScale": 1.620253164556962,
+  "poses": {
+    "bellini-guard": {
+      "file": "chapter-combat/bellini/bellini-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 165,
+        "y": 112,
+        "width": 311,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 70,
+        "y": 8,
+        "w": 192,
+        "h": 316
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 307
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-block": {
+      "file": "chapter-combat/bellini/bellini-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 164,
+        "y": 110,
+        "width": 314,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 363,
+        "y": 7,
+        "w": 194,
+        "h": 317
+      },
+      "head": {
+        "x": 321,
+        "y": 197
+      },
+      "body": {
+        "x": 321,
+        "y": 315
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-jab-windup": {
+      "file": "chapter-combat/bellini/bellini-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 143,
+        "y": 117,
+        "width": 355,
+        "height": 507
+      },
+      "sourceBounds": {
+        "x": 665,
+        "y": 10,
+        "w": 219,
+        "h": 313
+      },
+      "head": {
+        "x": 299,
+        "y": 198
+      },
+      "body": {
+        "x": 313,
+        "y": 320
+      },
+      "glove": {
+        "x": 452,
+        "y": 223
+      },
+      "contact": {
+        "x": 452,
+        "y": 223
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-jab": {
+      "file": "chapter-combat/bellini/bellini-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 150,
+        "y": 115,
+        "width": 381,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 983,
+        "y": 10,
+        "w": 235,
+        "h": 314
+      },
+      "head": {
+        "x": 314,
+        "y": 196
+      },
+      "body": {
+        "x": 329,
+        "y": 319
+      },
+      "glove": {
+        "x": 470,
+        "y": 237
+      },
+      "contact": {
+        "x": 470,
+        "y": 237
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-cross-windup": {
+      "file": "chapter-combat/bellini/bellini-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 134,
+        "y": 120,
+        "width": 373,
+        "height": 504
+      },
+      "sourceBounds": {
+        "x": 54,
+        "y": 322,
+        "w": 230,
+        "h": 311
+      },
+      "head": {
+        "x": 350,
+        "y": 211
+      },
+      "body": {
+        "x": 332,
+        "y": 332
+      },
+      "glove": {
+        "x": 227,
+        "y": 241
+      },
+      "contact": {
+        "x": 227,
+        "y": 241
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-cross": {
+      "file": "chapter-combat/bellini/bellini-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 109,
+        "y": 120,
+        "width": 390,
+        "height": 504
+      },
+      "sourceBounds": {
+        "x": 346,
+        "y": 322,
+        "w": 241,
+        "h": 311
+      },
+      "head": {
+        "x": 339,
+        "y": 206
+      },
+      "body": {
+        "x": 328,
+        "y": 327
+      },
+      "glove": {
+        "x": 160,
+        "y": 241
+      },
+      "contact": {
+        "x": 160,
+        "y": 241
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-cross-windup-body": {
+      "file": "chapter-combat/bellini/bellini-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 128,
+        "y": 182,
+        "width": 386,
+        "height": 442
+      },
+      "sourceBounds": {
+        "x": 666,
+        "y": 360,
+        "w": 238,
+        "h": 273
+      },
+      "head": {
+        "x": 375,
+        "y": 293
+      },
+      "body": {
+        "x": 332,
+        "y": 399
+      },
+      "glove": {
+        "x": 309,
+        "y": 416
+      },
+      "contact": {
+        "x": 309,
+        "y": 416
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-cross-body": {
+      "file": "chapter-combat/bellini/bellini-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 137,
+        "y": 167,
+        "width": 368,
+        "height": 457
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 350,
+        "w": 227,
+        "h": 282
+      },
+      "head": {
+        "x": 332,
+        "y": 272
+      },
+      "body": {
+        "x": 314,
+        "y": 373
+      },
+      "glove": {
+        "x": 380,
+        "y": 418
+      },
+      "contact": {
+        "x": 380,
+        "y": 418
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-block-body": {
+      "file": "chapter-combat/bellini/bellini-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 142,
+        "y": 167,
+        "width": 358,
+        "height": 457
+      },
+      "sourceBounds": {
+        "x": 63,
+        "y": 645,
+        "w": 221,
+        "h": 282
+      },
+      "head": {
+        "x": 317,
+        "y": 254
+      },
+      "body": {
+        "x": 321,
+        "y": 377
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-hit": {
+      "file": "chapter-combat/bellini/bellini-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 130,
+        "y": 153,
+        "width": 382,
+        "height": 471
+      },
+      "sourceBounds": {
+        "x": 373,
+        "y": 637,
+        "w": 236,
+        "h": 291
+      },
+      "head": {
+        "x": 271,
+        "y": 243
+      },
+      "body": {
+        "x": 314,
+        "y": 351
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-hit-body": {
+      "file": "chapter-combat/bellini/bellini-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 179,
+        "y": 193,
+        "width": 277,
+        "height": 431
+      },
+      "sourceBounds": {
+        "x": 703,
+        "y": 661,
+        "w": 171,
+        "h": 266
+      },
+      "head": {
+        "x": 345,
+        "y": 322
+      },
+      "body": {
+        "x": 318,
+        "y": 434
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-fall": {
+      "file": "chapter-combat/bellini/bellini-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 261,
+        "width": 358,
+        "height": 363
+      },
+      "sourceBounds": {
+        "x": 980,
+        "y": 703,
+        "w": 221,
+        "h": 224
+      },
+      "head": {
+        "x": 302,
+        "y": 341
+      },
+      "body": {
+        "x": 306,
+        "y": 439
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-down": {
+      "file": "chapter-combat/bellini/bellini-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 99,
+        "y": 284,
+        "width": 442,
+        "height": 340
+      },
+      "sourceBounds": {
+        "x": 39,
+        "y": 1029,
+        "w": 273,
+        "h": 210
+      },
+      "head": {
+        "x": 298,
+        "y": 372
+      },
+      "body": {
+        "x": 311,
+        "y": 475
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-rise": {
+      "file": "chapter-combat/bellini/bellini-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 201,
+        "width": 339,
+        "height": 423
+      },
+      "sourceBounds": {
+        "x": 385,
+        "y": 969,
+        "w": 209,
+        "h": 261
+      },
+      "head": {
+        "x": 314,
+        "y": 294
+      },
+      "body": {
+        "x": 317,
+        "y": 417
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-dodge": {
+      "file": "chapter-combat/bellini/bellini-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 164,
+        "width": 369,
+        "height": 460
+      },
+      "sourceBounds": {
+        "x": 684,
+        "y": 948,
+        "w": 228,
+        "h": 284
+      },
+      "head": {
+        "x": 247,
+        "y": 251
+      },
+      "body": {
+        "x": 310,
+        "y": 353
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "bellini-surrender": {
+      "file": "chapter-combat/bellini/bellini-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 118,
+        "width": 334,
+        "height": 506
+      },
+      "sourceBounds": {
+        "x": 992,
+        "y": 930,
+        "w": 206,
+        "h": 312
+      },
+      "head": {
+        "x": 318,
+        "y": 204
+      },
+      "body": {
+        "x": 318,
+        "y": 340
+      },
+      "sourceFile": "references/characters/chapter-combat/bellini-alpha.png",
+      "physicalScale": 1.620253164556962
+    }
+  }
+}

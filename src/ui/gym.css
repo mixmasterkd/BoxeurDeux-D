@@ -2,7 +2,9 @@
 .gym-hud { position: absolute; inset: 0 0 auto; display: flex; align-items: flex-start; justify-content: space-between; padding: 22px 28px 28px; background: linear-gradient(#101b23d9, #101b2360 65%, transparent); }
 .gym-eyebrow { margin: 0; color: var(--amber); font-size: 9px; font-weight: 800; letter-spacing: 1.6px; line-height: 1.3; }
 .gym-heading h2 { margin: 5px 0 0; color: #f6e6c5; font-size: 23px; line-height: 1.1; letter-spacing: -.5px; text-shadow: 0 2px 2px #07141d; }
-.gym-daily { position: absolute; top: 22px; right: 24px; display: grid; gap: 4px; padding: 7px 10px; color: #dae2ce; background: #10222bdb; font-size: 10px; line-height: 1.3; text-align: right; }
+.gym-daily { position: absolute; top: 22px; right: 24px; display: grid; grid-template-columns: max-content max-content; column-gap: 12px; row-gap: 4px; padding: 7px 10px; color: #dae2ce; background: #10222bdb; font-size: 10px; line-height: 1.3; text-align: right; }
+.gym-money { color: #f0d18d; font-weight: 700; }
+.gym-energy { grid-column: 1 / -1; }
 .gym-day { color: #e9ba70; font-weight: 800; }
 .gym-energy[data-low="true"] { color: #f3bc8b; }
 .gym-pause-button { pointer-events: auto; display: flex; align-items: center; gap: 7px; min-height: 38px; padding: 8px 12px; border: 1px solid #d9d4af60; border-radius: 3px; background: #10222be6; color: var(--cream); font-size: 10px; }
@@ -42,8 +44,9 @@
 .gym-session-button[data-lesson="free"], .gym-resume-button { border-color: #f2cd8b; border-bottom-color: #997a49; background: #e9ba70; color: #18262a; font-weight: 800; }
 .gym-session-button[data-lesson="free"]:hover, .gym-resume-button:hover { background: #f4d198; }
 .gym-close-button { color: #b9c9c1; border-color: #72938c40; background: #132b33; }
-.gym-pause-panel { width: min(355px, 84%); padding: 28px; }
-.gym-resume-button { margin-top: 20px; text-align: center; }
+.gym-pause-panel { width: min(355px, 84%); padding: 28px; max-height: calc(100% - 16px); overflow: auto; overscroll-behavior: contain; }
+.gym-pause-panel > p.gym-chapter { margin-top: 10px; color: #e9c484; font-size: 10px; line-height: 1.35; }
+.gym-resume-button { margin-top: 12px; text-align: center; }
 .gym-career{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0 0}.gym-career span{display:flex;justify-content:space-between;padding:6px;background:#0a1b2266;color:#9eb0ac;font-size:9px}.gym-career b{color:#f0d18d}.gym-save-tools{display:grid;grid-template-columns:1.6fr 1fr;gap:6px;margin-top:8px}.gym-save-tools button,.commands-open-button{width:100%;min-height:30px;border:1px solid #748b8166;background:#172e36;color:#cbd8ce;font-size:9px}.commands-open-button{margin-top:8px}.gym-save-status{display:block;margin-top:7px;color:#829896;font-size:8px}
 @container (max-width: 1000px) {
   .gym-hud { padding: 17px 21px; }

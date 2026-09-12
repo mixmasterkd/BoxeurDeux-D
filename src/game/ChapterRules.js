@@ -105,7 +105,13 @@ export function normalizeChapter(raw, fights) {
     requireValue(counter(active.id) && active.id > 0 && active.id < delivery.nextId && validDeliveryStops(active.stops)
       && Array.isArray(active.completed) && active.completed.length < 3 && active.completed.every((value, index) => value === active.stops[index])
       && counter(active.earned) && active.earned <= active.completed.length * (DELIVERY_PAY + DELIVERY_MAX_TIP), 'La tournée en cours est invalide.');
-    out.delivery.active = { id: active.id, stops: [...active.stops], completed: [...active.completed], earned: active.earned };
+    // Early v3 saves did not retain per-parcel timing. Missing fields are zero;
+    // present malformed fields still invalidate an import before any mutation.
+    const elapsed = active.elapsed === undefined ? 0 : active.elapsed;
+    const bumps = active.bumps === undefined ? 0 : active.bumps;
+    requireValue(typeof elapsed === 'number' && Number.isFinite(elapsed) && elapsed >= 0
+      && elapsed <= Number.MAX_SAFE_INTEGER && counter(bumps), 'Le suivi de la livraison est invalide.');
+    out.delivery.active = { id: active.id, stops: [...active.stops], completed: [...active.completed], earned: active.earned, elapsed, bumps };
   }
   out.delivery.nextId = delivery.nextId; out.delivery.completedTours = delivery.completedTours;
   const tournament = raw.tournament;

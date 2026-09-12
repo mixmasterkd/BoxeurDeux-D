@@ -28,7 +28,16 @@
     "test:exploration": "node tests/exploration-browser.mjs",
     "test:days": "node tests/daily-activity-browser.mjs && node tests/daily-gym-browser.mjs",
     "test:lifecycle": "node tests/world-lifecycle-browser.mjs",
-    "test:compact-menus": "node tests/compact-menus-browser.mjs"
+    "test:compact-menus": "node tests/compact-menus-browser.mjs",
+    "test:chapter-world": "node tests/chapter-world-browser.mjs",
+    "test:chapter-combat": "node tests/chapter-combat-browser.mjs",
+    "test:hotel": "node tests/hotel-browser.mjs",
+    "test:outfits": "node tests/outfit-activities-browser.mjs",
+    "test:chapter-static": "node tests/chapter-static-browser.mjs",
+    "test:delivery-resume": "node tests/chapter-delivery-resume-browser.mjs",
+    "test:hotel-sessions": "node tests/hotel-sessions-browser.mjs",
+    "test:hotel-stay": "node tests/hotel-stay-browser.mjs",
+    "test:chapter-menus": "node tests/chapter-menu-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

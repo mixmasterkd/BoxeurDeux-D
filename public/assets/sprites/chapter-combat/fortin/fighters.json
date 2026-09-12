@@ -1,0 +1,561 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "fortin",
+  "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+  "physicalScale": 1.5900621118012421,
+  "poses": {
+    "fortin-guard": {
+      "file": "chapter-combat/fortin/fortin-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 156,
+        "y": 112,
+        "width": 329,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 76,
+        "y": 11,
+        "w": 207,
+        "h": 322
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 307
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-block": {
+      "file": "chapter-combat/fortin/fortin-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 109,
+        "width": 339,
+        "height": 515
+      },
+      "sourceBounds": {
+        "x": 365,
+        "y": 9,
+        "w": 213,
+        "h": 324
+      },
+      "head": {
+        "x": 320,
+        "y": 197
+      },
+      "body": {
+        "x": 320,
+        "y": 315
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-jab-windup": {
+      "file": "chapter-combat/fortin/fortin-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 128,
+        "y": 110,
+        "width": 418,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 659,
+        "y": 11,
+        "w": 263,
+        "h": 323
+      },
+      "head": {
+        "x": 312,
+        "y": 192
+      },
+      "body": {
+        "x": 329,
+        "y": 315
+      },
+      "glove": {
+        "x": 504,
+        "y": 249
+      },
+      "contact": {
+        "x": 504,
+        "y": 249
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-jab": {
+      "file": "chapter-combat/fortin/fortin-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 109,
+        "width": 398,
+        "height": 515
+      },
+      "sourceBounds": {
+        "x": 962,
+        "y": 10,
+        "w": 250,
+        "h": 324
+      },
+      "head": {
+        "x": 311,
+        "y": 191
+      },
+      "body": {
+        "x": 327,
+        "y": 315
+      },
+      "glove": {
+        "x": 478,
+        "y": 233
+      },
+      "contact": {
+        "x": 478,
+        "y": 233
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-cross-windup": {
+      "file": "chapter-combat/fortin/fortin-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 120,
+        "y": 128,
+        "width": 396,
+        "height": 496
+      },
+      "sourceBounds": {
+        "x": 45,
+        "y": 329,
+        "w": 249,
+        "h": 312
+      },
+      "head": {
+        "x": 350,
+        "y": 217
+      },
+      "body": {
+        "x": 330,
+        "y": 336
+      },
+      "glove": {
+        "x": 219,
+        "y": 247
+      },
+      "contact": {
+        "x": 219,
+        "y": 247
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-cross": {
+      "file": "chapter-combat/fortin/fortin-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 90,
+        "y": 139,
+        "width": 418,
+        "height": 485
+      },
+      "sourceBounds": {
+        "x": 343,
+        "y": 335,
+        "w": 263,
+        "h": 305
+      },
+      "head": {
+        "x": 337,
+        "y": 221
+      },
+      "body": {
+        "x": 324,
+        "y": 338
+      },
+      "glove": {
+        "x": 144,
+        "y": 255
+      },
+      "contact": {
+        "x": 144,
+        "y": 255
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-cross-windup-body": {
+      "file": "chapter-combat/fortin/fortin-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 126,
+        "y": 180,
+        "width": 390,
+        "height": 444
+      },
+      "sourceBounds": {
+        "x": 660,
+        "y": 361,
+        "w": 245,
+        "h": 279
+      },
+      "head": {
+        "x": 375,
+        "y": 291
+      },
+      "body": {
+        "x": 332,
+        "y": 397
+      },
+      "glove": {
+        "x": 309,
+        "y": 415
+      },
+      "contact": {
+        "x": 309,
+        "y": 415
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-cross-body": {
+      "file": "chapter-combat/fortin/fortin-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 122,
+        "y": 161,
+        "width": 398,
+        "height": 463
+      },
+      "sourceBounds": {
+        "x": 958,
+        "y": 350,
+        "w": 250,
+        "h": 291
+      },
+      "head": {
+        "x": 333,
+        "y": 267
+      },
+      "body": {
+        "x": 313,
+        "y": 369
+      },
+      "glove": {
+        "x": 384,
+        "y": 415
+      },
+      "contact": {
+        "x": 384,
+        "y": 415
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-block-body": {
+      "file": "chapter-combat/fortin/fortin-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 163,
+        "width": 388,
+        "height": 461
+      },
+      "sourceBounds": {
+        "x": 46,
+        "y": 653,
+        "w": 244,
+        "h": 290
+      },
+      "head": {
+        "x": 317,
+        "y": 251
+      },
+      "body": {
+        "x": 321,
+        "y": 375
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-hit": {
+      "file": "chapter-combat/fortin/fortin-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 96,
+        "y": 150,
+        "width": 393,
+        "height": 474
+      },
+      "sourceBounds": {
+        "x": 362,
+        "y": 645,
+        "w": 247,
+        "h": 298
+      },
+      "head": {
+        "x": 241,
+        "y": 240
+      },
+      "body": {
+        "x": 285,
+        "y": 349
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-hit-body": {
+      "file": "chapter-combat/fortin/fortin-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 144,
+        "y": 223,
+        "width": 355,
+        "height": 401
+      },
+      "sourceBounds": {
+        "x": 668,
+        "y": 683,
+        "w": 223,
+        "h": 252
+      },
+      "head": {
+        "x": 357,
+        "y": 343
+      },
+      "body": {
+        "x": 321,
+        "y": 447
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-fall": {
+      "file": "chapter-combat/fortin/fortin-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 131,
+        "y": 266,
+        "width": 378,
+        "height": 358
+      },
+      "sourceBounds": {
+        "x": 958,
+        "y": 711,
+        "w": 238,
+        "h": 225
+      },
+      "head": {
+        "x": 301,
+        "y": 345
+      },
+      "body": {
+        "x": 305,
+        "y": 441
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-down": {
+      "file": "chapter-combat/fortin/fortin-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 73,
+        "y": 269,
+        "width": 495,
+        "height": 355
+      },
+      "sourceBounds": {
+        "x": 30,
+        "y": 1014,
+        "w": 311,
+        "h": 223
+      },
+      "head": {
+        "x": 296,
+        "y": 361
+      },
+      "body": {
+        "x": 310,
+        "y": 468
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-rise": {
+      "file": "chapter-combat/fortin/fortin-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 135,
+        "y": 195,
+        "width": 370,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 368,
+        "y": 964,
+        "w": 233,
+        "h": 270
+      },
+      "head": {
+        "x": 313,
+        "y": 289
+      },
+      "body": {
+        "x": 317,
+        "y": 414
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-dodge": {
+      "file": "chapter-combat/fortin/fortin-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 124,
+        "y": 166,
+        "width": 394,
+        "height": 458
+      },
+      "sourceBounds": {
+        "x": 672,
+        "y": 940,
+        "w": 248,
+        "h": 288
+      },
+      "head": {
+        "x": 242,
+        "y": 253
+      },
+      "body": {
+        "x": 309,
+        "y": 354
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    },
+    "fortin-surrender": {
+      "file": "chapter-combat/fortin/fortin-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 125,
+        "y": 142,
+        "width": 382,
+        "height": 482
+      },
+      "sourceBounds": {
+        "x": 957,
+        "y": 943,
+        "w": 240,
+        "h": 303
+      },
+      "head": {
+        "x": 316,
+        "y": 224
+      },
+      "body": {
+        "x": 316,
+        "y": 354
+      },
+      "sourceFile": "references/characters/chapter-combat/fortin-alpha.png",
+      "physicalScale": 1.5900621118012421
+    }
+  }
+}

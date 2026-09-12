@@ -1,4 +1,5 @@
 import './opponent.css';
+import { getOpponentProfile } from '../game/OpponentProfiles.js';
 
 const put = (element, value) => { if (element.textContent !== String(value)) element.textContent = String(value); };
 
@@ -28,22 +29,27 @@ export class OpponentHUD {
 
   update(state) {
     const { ui } = this;
-    const fight = state.settings?.opponent === 'beton';
+    const profile = getOpponentProfile(state.settings?.opponent);
+    const name = profile.shortName ?? profile.name;
+    const fight = profile.official;
+    const tournament = Boolean(state.settings?.tournament);
     const between = fight && state.phase === 'between';
-    ui.root.dataset.opponent = fight ? 'beton' : 'remi';
+    ui.root.dataset.opponent = profile.id;
+    ui.root.dataset.official = String(Boolean(fight));
+    ui.root.dataset.tournament = String(tournament);
     this.score.hidden = !fight;
     this.rules.hidden = !fight || state.phase !== 'ready';
     this.figure.hidden = this.advice.hidden = !between;
     if (!fight) return;
     if (!this.figure.querySelector('img').getAttribute('src')) {
-      this.figure.querySelector('img').src = `${import.meta.env.BASE_URL}assets/sprites/corner/remi-coach.png`;
+      this.figure.querySelector('img').src = `${import.meta.env.BASE_URL}assets/sprites/corner/${tournament ? 'competition-coach' : 'remi-coach'}.png`;
     }
     const bout = state.bout;
     const scores = bout?.score ?? { player: 0, remi: 0 };
-    put(this.score, `VOUS ${scores.player} · ${scores.remi} BÉTON`);
-    put(ui.root.querySelector('.opponent-info .fighter-name'), 'Béton');
+    put(this.score, `VOUS ${scores.player} · ${scores.remi} ${name.toUpperCase()}`);
+    put(ui.root.querySelector('.opponent-info .fighter-name'), name);
     put(ui.root.querySelector('.opponent-info .fighter-eyebrow'), 'VOTRE ADVERSAIRE');
-    put(ui.root.querySelector('.round-footnote'), 'Soirée de boxe · Revanche gratuite');
+    put(ui.root.querySelector('.round-footnote'), tournament ? 'Gants de bronze · Tenue de compétition' : 'Soirée de boxe · Revanche gratuite');
     put(ui.root.querySelector('#sparring-commands-title'), 'Commandes du combat');
     put(ui.root.querySelector('.combo-help'), 'Comme avec Rémi : J → K → J donne jab, direct, crochet. Attendez le retour en garde puis enchaînez sous une demi-seconde. Le combo coûte 48 d’endurance. Une garde haute, une esquive, un coup reçu ou une pause l’interrompt. Maintenez bas pour les coups au corps.');
     put(ui.root.querySelector('.recovery-help'), 'Au tapis : six pressions alternées J/K ou A/B, en commençant par J/A, avant dix. Relâchez et suivez le repère. Pause avec P / Échap / ☰. Au terme des trois rounds : 1 point par touche nette et 3 par chute adverse; le plus haut total gagne.');
@@ -52,13 +58,13 @@ export class OpponentHUD {
     ui.elements['choose-session-button'].hidden = true;
     ui.elements['next-lesson-button'].hidden = true;
     put(ui.elements['secondary-button'], 'Recommencer le combat');
-    const names = { fall: 'Béton va au tapis', down: 'Béton reprend ses appuis', rise: 'Béton se relève', guard: 'Garde haute solide' };
+    const names = { fall: `${name} va au tapis`, down: `${name} reprend ses appuis`, rise: `${name} se relève`, surrender: 'Il abandonne !', guard: state.remi.guardLevel === 'body' ? 'Garde basse' : 'Garde haute solide', feint: 'Un mouvement d’épaule…', dodge: 'Il bouge sur ses appuis' };
     if (['running', 'knockdown'].includes(state.phase) && names[state.remi.action]) put(ui.values['remi-status'], names[state.remi.action]);
     if (state.phase === 'ready') {
       put(ui.values['remi-status'], 'Calme. Précis. Prêt.');
-      put(ui.elements['panel-eyebrow'], 'VOTRE PREMIER ADVERSAIRE');
-      put(ui.elements['panel-heading'], 'Béton.');
-      put(ui.elements['panel-copy'], 'Il protège bien sa tête. Observez ses épaules : son direct au corps laisse une vraie ouverture. Rémi vous a préparé; à vous de choisir la bonne réponse.');
+      put(ui.elements['panel-eyebrow'], profile.eyebrow);
+      put(ui.elements['panel-heading'], `${profile.name}.`);
+      put(ui.elements['panel-copy'], profile.introduction);
       put(ui.elements['primary-button'], 'Commencer le combat →');
     } else if (state.phase === 'paused') {
       put(ui.elements['panel-eyebrow'], 'COMBAT EN PAUSE');
@@ -68,28 +74,35 @@ export class OpponentHUD {
       put(ui.values['remi-status'], 'Dans son coin');
       put(ui.elements['panel-eyebrow'], `ROUND ${bout.round} TERMINÉ · VOTRE COIN`);
       put(ui.elements['panel-heading'], 'Écoute Rémi.');
-      put(ui.elements['panel-copy'], `À la reprise : endurance 100 · résistance ${Math.ceil(bout.resistance.player)} → ${Math.min(100, Math.ceil(bout.resistance.player) + 20)}. Chutes du round remises à zéro; total conservé.`);
+      put(ui.elements['panel-copy'], `À la reprise : endurance ${state.settings.maxStamina} · résistance ${Math.ceil(bout.resistance.player)} → ${Math.min(state.settings.maxResistance, Math.ceil(bout.resistance.player) + 20)}. Chutes du round remises à zéro; total conservé.`);
       put(this.adviceText, bout.coach ?? 'Observe son direct au corps. Bloque bas, puis profite de son retour en garde pour répondre.');
       const last = bout.roundHistory.at(-1);
       if (last) {
         put(ui.values['result-landed'], last.stats.landed);
         put(ui.values['result-received'], last.stats.received);
-        put(ui.elements['round-detail'], `Ce round : ${last.stats.blocked} blocages · ${last.stats.dodged} esquives\nPoints du combat : vous ${scores.player} · Béton ${scores.remi}`);
+        put(ui.elements['round-detail'], `Ce round : ${last.stats.blocked} blocages · ${last.stats.dodged} esquives\nPoints du combat : vous ${scores.player} · ${name} ${scores.remi}`);
       }
     } else if (state.phase === 'finished') {
       put(ui.values['remi-status'], 'Combat terminé');
       const result = bout.result;
       const won = result?.winner === 'player';
       const draw = result?.winner === 'draw';
-      const reason = result?.reason === 'points' ? 'DÉCISION AUX POINTS'
+      const reason = result?.reason === 'abandon' ? 'VICTOIRE PAR ABANDON'
+        : result?.reason === 'points' ? 'DÉCISION AUX POINTS'
         : result?.reason === 'ko' ? 'KO · COMPTE DE DIX'
           : result?.reason === 'round-limit' ? 'ARRÊT · TROIS CHUTES DANS LE ROUND'
             : result?.reason === 'total-limit' ? 'ARRÊT · QUATRE CHUTES DANS LE COMBAT' : 'DOUBLE ARRÊT';
       put(ui.elements['panel-eyebrow'], reason);
-      put(ui.elements['panel-heading'], draw ? 'Match nul.' : won ? 'Victoire !' : 'Béton l’emporte.');
-      put(ui.elements['panel-copy'], draw ? 'Aucun vainqueur cette fois. Retrouvez Béton pour la revanche.' : won ? 'Vous avez trouvé son rythme et ses ouvertures. Rémi vous attend au gym.' : 'Rémi est toujours dans votre coin. Reprenez ses leçons ou tentez une revanche à votre rythme.');
-      put(ui.elements['primary-button'], 'Revanche contre Béton →');
-      put(ui.elements['round-detail'], `Points : vous ${scores.player} · Béton ${scores.remi}\n${state.stats.blocked} coups bloqués · ${state.stats.dodged} esquivés\nChutes : vous ${bout.downs.player.total} · Béton ${bout.downs.remi.total}\n${state.stats.combos} combos complets`);
+      put(ui.elements['panel-heading'], draw ? 'Match nul.' : result?.reason === 'abandon' ? '« J’arrête ! »' : won ? 'Victoire !' : `${name} l’emporte.`);
+      put(ui.elements['panel-copy'], draw ? tournament ? 'Égalité : rejouez ce combat sans frais, le même jour. Le tableau reste inchangé.' : `Aucun vainqueur cette fois. Retrouvez ${name} pour la revanche.`
+        : result?.reason === 'abandon' ? 'Deux fois au tapis, c’est assez pour Kramer ! Il fait signe à l’arbitre et quitte le combat. Rémi essaie de garder son sérieux.'
+          : tournament ? won ? profile.id === 'gagnon' ? 'La finale est gagnée ! Retrouvez le tableau et votre médaille dans la salle.' : 'Vous passez au tour suivant. Retrouvez votre chambre et dormez pour la prochaine journée.' : 'Votre résultat est inscrit au tableau. Vous pouvez profiter du séjour ou rentrer au quartier.'
+            : won ? 'Vous avez trouvé son rythme et ses ouvertures. Rémi vous attend au gym.' : 'Rémi est toujours dans votre coin. Reprenez ses leçons ou tentez une revanche à votre rythme.');
+      put(ui.elements['primary-button'], tournament && !draw ? 'Retour à la salle →' : `Revanche contre ${name} →`);
+      put(ui.elements['round-detail'], `Points : vous ${scores.player} · ${name} ${scores.remi}\n${state.stats.blocked} coups bloqués · ${state.stats.dodged} esquivés\nChutes : vous ${bout.downs.player.total} · ${name} ${bout.downs.remi.total}\n${state.stats.combos} combos complets`);
     }
+    // A decisive tournament result belongs to the bracket. Its next action is
+    // return, never a local reset that could replay an already recorded match.
+    ui.elements['secondary-button'].hidden = state.phase !== 'paused';
   }
 }

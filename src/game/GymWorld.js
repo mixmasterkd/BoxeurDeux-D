@@ -24,6 +24,7 @@ export const GYM_LAYOUT = {
     { id: 'speedball', label: 'Speed ball', x: 1070, y: 237, radius: 80, kind: 'rhythm' },
     { id: 'corde', label: 'Corde à danser', x: 210, y: 537, radius: 85, kind: 'rhythm' },
     { id: 'porte', label: 'Sortie du gym', x: 640, y: 659, radius: 50, kind: 'exit' },
+    { id: 'locker', label: 'Ton casier · Équipement', x: 1150, y: 306, radius: 64, kind: 'equipment' },
   ],
 };
 

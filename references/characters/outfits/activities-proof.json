@@ -1,0 +1,543 @@
+{
+  "checks": [
+    {
+      "activity": "bag",
+      "mobile": false,
+      "outfit": "boxing-emerald",
+      "ready": {
+        "texture": "outfit-boxing-emerald-bag-player-guard",
+        "cached": 15,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-emerald-bag-player-jab",
+        "phase": "contact",
+        "event": {
+          "type": "bag-hit",
+          "time": 0.41670000000000074,
+          "attack": "jab",
+          "target": "head",
+          "result": "early",
+          "step": 0,
+          "offset": -1.3832999999999993,
+          "sequenceIndex": 0,
+          "player": {
+            "action": "jab",
+            "target": "head",
+            "guardLevel": "head",
+            "elapsed": 0.2165999999999999,
+            "duration": 0.48,
+            "progress": 0.4512499999999998,
+            "impact": 0.4166666666666667,
+            "contact": 0.2,
+            "hold": 0.1,
+            "impacted": true
+          },
+          "contactPoint": {
+            "x": 775,
+            "y": 370
+          },
+          "targetPoint": {
+            "x": 775,
+            "y": 370
+          },
+          "pose": "jab"
+        }
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "shadow",
+      "mobile": false,
+      "outfit": "boxing-emerald",
+      "ready": {
+        "texture": "outfit-boxing-emerald-shadow-guard",
+        "cached": 15,
+        "reflected": "outfit-boxing-emerald-shadow-guard",
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-emerald-shadow-jab",
+        "phase": "contact",
+        "event": {
+          "type": "motion",
+          "action": "jab",
+          "target": "head",
+          "time": 0.448,
+          "pose": "jab",
+          "phase": "contact",
+          "texture": "outfit-boxing-emerald-shadow-jab",
+          "reflectedTexture": "outfit-boxing-emerald-shadow-jab",
+          "bounds": {
+            "left": 314.59999999999997,
+            "right": 651.2,
+            "top": 268.2,
+            "bottom": 640
+          },
+          "reflectedBounds": {
+            "left": 792.1999999999999,
+            "right": 1067.6,
+            "top": 194.8,
+            "bottom": 499
+          }
+        },
+        "reflected": "outfit-boxing-emerald-shadow-jab"
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "rope",
+      "mobile": false,
+      "outfit": "boxing-burgundy",
+      "ready": {
+        "texture": "outfit-boxing-burgundy-rope-athlete-ready",
+        "cached": 6,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-burgundy-rope-athlete-left",
+        "phase": "left",
+        "event": {
+          "type": "hit",
+          "time": 1.9532999999999998,
+          "input": "jab",
+          "index": 0,
+          "result": "perfect",
+          "offset": 0.033299999999999885,
+          "visual": {
+            "rope": {
+              "x": 709,
+              "y": 609
+            },
+            "feetY": 580,
+            "pose": "left",
+            "jump": 22
+          }
+        }
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "speedball",
+      "mobile": false,
+      "outfit": "boxing-burgundy",
+      "ready": {
+        "texture": "outfit-boxing-burgundy-speedball-athlete-right-return",
+        "cached": 4,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-burgundy-speedball-athlete-left-contact",
+        "phase": "left-contact",
+        "event": {
+          "type": "hit",
+          "time": 1.8199,
+          "input": "jab",
+          "index": 0,
+          "result": "perfect",
+          "offset": -0.00009999999999976694,
+          "visual": {
+            "hand": {
+              "x": 902,
+              "y": 300
+            },
+            "target": {
+              "x": 902,
+              "y": 300
+            },
+            "pose": "left-contact"
+          }
+        }
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "bag",
+      "mobile": true,
+      "outfit": "boxing-emerald",
+      "ready": {
+        "texture": "outfit-boxing-emerald-bag-player-guard",
+        "cached": 15,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-emerald-bag-player-jab",
+        "phase": "contact",
+        "event": {
+          "type": "bag-hit",
+          "time": 0.7665,
+          "attack": "jab",
+          "target": "head",
+          "result": "early",
+          "step": 0,
+          "offset": -1.0335,
+          "sequenceIndex": 0,
+          "player": {
+            "action": "jab",
+            "target": "head",
+            "guardLevel": "head",
+            "elapsed": 0.2000999999999999,
+            "duration": 0.48,
+            "progress": 0.4168749999999998,
+            "impact": 0.4166666666666667,
+            "contact": 0.2,
+            "hold": 0.1,
+            "impacted": true
+          },
+          "contactPoint": {
+            "x": 775,
+            "y": 370
+          },
+          "targetPoint": {
+            "x": 775,
+            "y": 370
+          },
+          "pose": "jab"
+        }
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "activity": "shadow",
+      "mobile": true,
+      "outfit": "boxing-emerald",
+      "ready": {
+        "texture": "outfit-boxing-emerald-shadow-guard",
+        "cached": 15,
+        "reflected": "outfit-boxing-emerald-shadow-guard",
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-emerald-shadow-jab",
+        "phase": "contact",
+        "event": {
+          "type": "motion",
+          "action": "jab",
+          "target": "head",
+          "time": 0.7811999999999997,
+          "pose": "jab",
+          "phase": "contact",
+          "texture": "outfit-boxing-emerald-shadow-jab",
+          "reflectedTexture": "outfit-boxing-emerald-shadow-jab",
+          "bounds": {
+            "left": 314.59999999999997,
+            "right": 651.2,
+            "top": 268.2,
+            "bottom": 640
+          },
+          "reflectedBounds": {
+            "left": 792.1999999999999,
+            "right": 1067.6,
+            "top": 194.8,
+            "bottom": 499
+          }
+        },
+        "reflected": "outfit-boxing-emerald-shadow-jab"
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "activity": "rope",
+      "mobile": true,
+      "outfit": "boxing-burgundy",
+      "ready": {
+        "texture": "outfit-boxing-burgundy-rope-athlete-ready",
+        "cached": 6,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-burgundy-rope-athlete-left",
+        "phase": "left",
+        "event": {
+          "type": "hit",
+          "time": 1.9865999999999997,
+          "input": "jab",
+          "index": 0,
+          "result": "perfect",
+          "offset": 0.06659999999999977,
+          "visual": {
+            "rope": {
+              "x": 709,
+              "y": 609
+            },
+            "feetY": 580,
+            "pose": "left",
+            "jump": 22
+          }
+        }
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Droite",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Gauche",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "activity": "speedball",
+      "mobile": true,
+      "outfit": "boxing-burgundy",
+      "ready": {
+        "texture": "outfit-boxing-burgundy-speedball-athlete-right-return",
+        "cached": 4,
+        "phase": "ready"
+      },
+      "moved": {
+        "texture": "outfit-boxing-burgundy-speedball-athlete-left-contact",
+        "phase": "left-contact",
+        "event": {
+          "type": "hit",
+          "time": 1.8534000000000006,
+          "input": "jab",
+          "index": 0,
+          "result": "perfect",
+          "offset": 0.03340000000000076,
+          "visual": {
+            "hand": {
+              "x": 902,
+              "y": 300
+            },
+            "target": {
+              "x": 902,
+              "y": 300
+            },
+            "pose": "left-contact"
+          }
+        }
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Droite",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Gauche",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": []
+}

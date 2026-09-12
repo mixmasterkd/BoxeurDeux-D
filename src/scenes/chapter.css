@@ -1,0 +1,5 @@
+.chapter-readout { position:absolute; left:12px; bottom:10px; max-width:calc(100% - 24px); padding:6px 10px; color:#f7deb0; background:#10252bea; font:500 13px/1.4 system-ui; border:1px solid #a58b5444; pointer-events:none; }
+#gym-ui:has(.gym-dialog:not([hidden])) .chapter-readout, #gym-ui:has(.gym-pause-panel:not([hidden])) .chapter-readout { visibility:hidden; }
+#stage:is([data-scene="residential"],[data-scene="commercial"],[data-scene="clothing-shop"],[data-scene="boxing-shop"]) .gym-heading {display:none;}
+#stage:is([data-scene="residential"],[data-scene="commercial"],[data-scene="clothing-shop"],[data-scene="boxing-shop"]) .gym-hud {background:none;}
+@media(pointer:coarse) and (hover:none) { .chapter-readout {left:6px;bottom:5px;max-width:calc(100% - 12px);padding:3px 6px;font-size:10px;} }

@@ -1,0 +1,764 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "competition",
+  "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+  "physicalScale": 1.620253164556962,
+  "poses": {
+    "competition-guard": {
+      "file": "chapter-combat/competition/competition-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 160,
+        "y": 112,
+        "width": 322,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 68,
+        "y": 8,
+        "w": 199,
+        "h": 316
+      },
+      "head": {
+        "x": 324,
+        "y": 184
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-block": {
+      "file": "chapter-combat/competition/competition-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 160,
+        "y": 112,
+        "width": 321,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 388,
+        "y": 8,
+        "w": 198,
+        "h": 316
+      },
+      "head": {
+        "x": 324,
+        "y": 184
+      },
+      "body": {
+        "x": 320,
+        "y": 301
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-jab-windup": {
+      "file": "chapter-combat/competition/competition-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 124,
+        "y": 112,
+        "width": 361,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 699,
+        "y": 8,
+        "w": 223,
+        "h": 316
+      },
+      "head": {
+        "x": 334,
+        "y": 184
+      },
+      "body": {
+        "x": 334,
+        "y": 301
+      },
+      "glove": {
+        "x": 167,
+        "y": 214
+      },
+      "contact": {
+        "x": 167,
+        "y": 214
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-jab": {
+      "file": "chapter-combat/competition/competition-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 85,
+        "y": 112,
+        "width": 402,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 988,
+        "y": 8,
+        "w": 248,
+        "h": 316
+      },
+      "head": {
+        "x": 338,
+        "y": 184
+      },
+      "body": {
+        "x": 338,
+        "y": 301
+      },
+      "glove": {
+        "x": 129,
+        "y": 153
+      },
+      "contact": {
+        "x": 129,
+        "y": 153
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-cross-windup": {
+      "file": "chapter-combat/competition/competition-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 142,
+        "y": 86,
+        "width": 358,
+        "height": 538
+      },
+      "sourceBounds": {
+        "x": 64,
+        "y": 323,
+        "w": 221,
+        "h": 332
+      },
+      "head": {
+        "x": 321,
+        "y": 167
+      },
+      "body": {
+        "x": 321,
+        "y": 285
+      },
+      "glove": {
+        "x": 249,
+        "y": 210
+      },
+      "contact": {
+        "x": 249,
+        "y": 210
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-cross": {
+      "file": "chapter-combat/competition/competition-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 99,
+        "width": 418,
+        "height": 525
+      },
+      "sourceBounds": {
+        "x": 371,
+        "y": 330,
+        "w": 258,
+        "h": 324
+      },
+      "head": {
+        "x": 324,
+        "y": 167
+      },
+      "body": {
+        "x": 332,
+        "y": 293
+      },
+      "glove": {
+        "x": 512,
+        "y": 167
+      },
+      "contact": {
+        "x": 512,
+        "y": 167
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hook-windup": {
+      "file": "chapter-combat/competition/competition-hook-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 117,
+        "y": 101,
+        "width": 390,
+        "height": 523
+      },
+      "sourceBounds": {
+        "x": 692,
+        "y": 332,
+        "w": 241,
+        "h": 323
+      },
+      "head": {
+        "x": 301,
+        "y": 180
+      },
+      "body": {
+        "x": 320,
+        "y": 310
+      },
+      "glove": {
+        "x": 164,
+        "y": 258
+      },
+      "contact": {
+        "x": 164,
+        "y": 258
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hook": {
+      "file": "chapter-combat/competition/competition-hook.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 194,
+        "y": 98,
+        "width": 283,
+        "height": 526
+      },
+      "sourceBounds": {
+        "x": 104,
+        "y": 243,
+        "w": 736,
+        "h": 1366
+      },
+      "head": {
+        "x": 350,
+        "y": 161
+      },
+      "body": {
+        "x": 344,
+        "y": 293
+      },
+      "glove": {
+        "x": 387,
+        "y": 124
+      },
+      "contact": {
+        "x": 387,
+        "y": 124
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-hook-alpha.png",
+      "physicalScale": 0.3850658857979502
+    },
+    "competition-jab-windup-body": {
+      "file": "chapter-combat/competition/competition-jab-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 126,
+        "y": 208,
+        "width": 389,
+        "height": 416
+      },
+      "sourceBounds": {
+        "x": 56,
+        "y": 678,
+        "w": 240,
+        "h": 257
+      },
+      "head": {
+        "x": 305,
+        "y": 275
+      },
+      "body": {
+        "x": 317,
+        "y": 391
+      },
+      "glove": {
+        "x": 153,
+        "y": 387
+      },
+      "contact": {
+        "x": 153,
+        "y": 387
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-jab-body": {
+      "file": "chapter-combat/competition/competition-jab-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 53,
+        "y": 208,
+        "width": 460,
+        "height": 416
+      },
+      "sourceBounds": {
+        "x": 335,
+        "y": 678,
+        "w": 284,
+        "h": 257
+      },
+      "head": {
+        "x": 274,
+        "y": 275
+      },
+      "body": {
+        "x": 283,
+        "y": 391
+      },
+      "glove": {
+        "x": 90,
+        "y": 379
+      },
+      "contact": {
+        "x": 90,
+        "y": 379
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-cross-windup-body": {
+      "file": "chapter-combat/competition/competition-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 134,
+        "y": 206,
+        "width": 373,
+        "height": 418
+      },
+      "sourceBounds": {
+        "x": 708,
+        "y": 677,
+        "w": 230,
+        "h": 258
+      },
+      "head": {
+        "x": 302,
+        "y": 273
+      },
+      "body": {
+        "x": 328,
+        "y": 390
+      },
+      "glove": {
+        "x": 231,
+        "y": 323
+      },
+      "contact": {
+        "x": 231,
+        "y": 323
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-cross-body": {
+      "file": "chapter-combat/competition/competition-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 208,
+        "width": 410,
+        "height": 416
+      },
+      "sourceBounds": {
+        "x": 984,
+        "y": 678,
+        "w": 253,
+        "h": 257
+      },
+      "head": {
+        "x": 354,
+        "y": 275
+      },
+      "body": {
+        "x": 338,
+        "y": 391
+      },
+      "glove": {
+        "x": 510,
+        "y": 379
+      },
+      "contact": {
+        "x": 510,
+        "y": 379
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hook-windup-body": {
+      "file": "chapter-combat/competition/competition-hook-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 117,
+        "y": 187,
+        "width": 407,
+        "height": 437
+      },
+      "sourceBounds": {
+        "x": 48,
+        "y": 966,
+        "w": 251,
+        "h": 270
+      },
+      "head": {
+        "x": 316,
+        "y": 248
+      },
+      "body": {
+        "x": 320,
+        "y": 393
+      },
+      "glove": {
+        "x": 202,
+        "y": 362
+      },
+      "contact": {
+        "x": 202,
+        "y": 362
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hook-body": {
+      "file": "chapter-combat/competition/competition-hook-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 132,
+        "width": 330,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 1,
+        "y": 155,
+        "w": 969,
+        "h": 1445
+      },
+      "head": {
+        "x": 319,
+        "y": 196
+      },
+      "body": {
+        "x": 323,
+        "y": 314
+      },
+      "glove": {
+        "x": 200,
+        "y": 275
+      },
+      "contact": {
+        "x": 200,
+        "y": 275
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-hook-body-alpha.png",
+      "physicalScale": 0.34048442906574394
+    },
+    "competition-block-body": {
+      "file": "chapter-combat/competition/competition-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 115,
+        "y": 182,
+        "width": 412,
+        "height": 442
+      },
+      "sourceBounds": {
+        "x": 684,
+        "y": 963,
+        "w": 254,
+        "h": 273
+      },
+      "head": {
+        "x": 325,
+        "y": 244
+      },
+      "body": {
+        "x": 325,
+        "y": 377
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hit-body": {
+      "file": "chapter-combat/competition/competition-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 149,
+        "y": 225,
+        "width": 343,
+        "height": 399
+      },
+      "sourceBounds": {
+        "x": 1012,
+        "y": 989,
+        "w": 212,
+        "h": 246
+      },
+      "head": {
+        "x": 283,
+        "y": 305
+      },
+      "body": {
+        "x": 328,
+        "y": 416
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-alpha.png",
+      "physicalScale": 1.620253164556962
+    },
+    "competition-hit": {
+      "file": "chapter-combat/competition/competition-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 161,
+        "y": 121,
+        "width": 318,
+        "height": 503
+      },
+      "sourceBounds": {
+        "x": 322,
+        "y": 253,
+        "w": 312,
+        "h": 494
+      },
+      "head": {
+        "x": 288,
+        "y": 186
+      },
+      "body": {
+        "x": 313,
+        "y": 327
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-recovery-alpha.png",
+      "physicalScale": 1.0178926441351888
+    },
+    "competition-dodge": {
+      "file": "chapter-combat/competition/competition-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 149,
+        "y": 196,
+        "width": 343,
+        "height": 428
+      },
+      "sourceBounds": {
+        "x": 637,
+        "y": 327,
+        "w": 337,
+        "h": 420
+      },
+      "head": {
+        "x": 286,
+        "y": 252
+      },
+      "body": {
+        "x": 314,
+        "y": 371
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-recovery-alpha.png",
+      "physicalScale": 1.0178926441351888
+    },
+    "competition-fall": {
+      "file": "chapter-combat/competition/competition-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 172,
+        "y": 289,
+        "width": 297,
+        "height": 335
+      },
+      "sourceBounds": {
+        "x": 994,
+        "y": 438,
+        "w": 292,
+        "h": 329
+      },
+      "head": {
+        "x": 291,
+        "y": 333
+      },
+      "body": {
+        "x": 315,
+        "y": 426
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-recovery-alpha.png",
+      "physicalScale": 1.0178926441351888
+    },
+    "competition-down": {
+      "file": "chapter-combat/competition/competition-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 365,
+        "width": 362,
+        "height": 259
+      },
+      "sourceBounds": {
+        "x": 1308,
+        "y": 508,
+        "w": 356,
+        "h": 254
+      },
+      "head": {
+        "x": 284,
+        "y": 399
+      },
+      "body": {
+        "x": 313,
+        "y": 471
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-recovery-alpha.png",
+      "physicalScale": 1.0178926441351888
+    },
+    "competition-rise": {
+      "file": "chapter-combat/competition/competition-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 189,
+        "y": 249,
+        "width": 262,
+        "height": 375
+      },
+      "sourceBounds": {
+        "x": 1676,
+        "y": 397,
+        "w": 257,
+        "h": 368
+      },
+      "head": {
+        "x": 294,
+        "y": 298
+      },
+      "body": {
+        "x": 315,
+        "y": 403
+      },
+      "sourceFile": "references/characters/chapter-combat/competition-recovery-alpha.png",
+      "physicalScale": 1.0178926441351888
+    }
+  }
+}

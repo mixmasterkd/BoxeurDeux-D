@@ -1,4 +1,5 @@
 import { fighterMotion } from '../game/FighterMotion.js';
+import { boxingTexture, prepareBoxingOutfits } from './OutfitView.js';
 
 const ASSETS = 'assets/sprites/bag-orthodox/';
 const POSES = ['guard', 'windup', 'jab', 'cross', 'hook-windup', 'hook'];
@@ -24,6 +25,7 @@ export class BagFighterView {
 
   constructor(scene) {
     this.scene = scene;
+    prepareBoxingOutfits(scene, [...POSES, ...BODY_POSES, ...Object.keys(DEFENSE_POSES)].map(pose => `bag-player-${pose}`));
     const original = scene.cache.json.get('bag-fighters');
     this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('bag-body-data').poses, ...scene.cache.json.get('bag-defense-data').poses } };
     this.anchor = this.metadata.anchor;
@@ -41,7 +43,7 @@ export class BagFighterView {
     const bag = this.metadata.bag;
     this.bag = scene.add.image(this.pivot.x, this.pivot.y, 'heavy-bag')
       .setOrigin(bag.pivot.x / bag.width, bag.pivot.y / bag.height).setDepth(3);
-    this.sprite = scene.add.image(this.x, this.feet, 'bag-player-guard')
+    this.sprite = scene.add.image(this.x, this.feet, boxingTexture(scene, 'bag-player-guard'))
       .setOrigin(this.anchor.x / this.metadata.canvas.width, this.anchor.y / this.metadata.canvas.height)
       .setDepth(4);
     this.spark = scene.add.graphics().setDepth(6);
@@ -141,7 +143,7 @@ export class BagFighterView {
         phase = defense.phase;
       }
     }
-    this.sprite.setTexture(`bag-player-${pose}`).setPosition(Math.round(this.x + dx), Math.round(this.feet + dy)).setRotation(rotation);
+    this.sprite.setTexture(boxingTexture(this.scene, `bag-player-${pose}`)).setPosition(Math.round(this.x + dx), Math.round(this.feet + dy)).setRotation(rotation);
     this.playerShadow.setPosition(this.x - 8 + dx, this.feet - 5 + dy * .2);
     this.pose = pose;
     this.phase = phase;

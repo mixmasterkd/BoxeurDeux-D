@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { chromium, wait, fit, dispatch, joyPoint, buttonPoint } from './control-helpers.mjs';
+import { chromium, wait, fit, dispatch, joyPoint, buttonPoint, suppressHotReload } from './control-helpers.mjs';
 import { CareerProfile } from '../src/game/CareerProfile.js';
 
 const url = process.env.SPARRING_URL ?? 'http://127.0.0.1:5173/';
@@ -71,6 +71,7 @@ async function checkFit(page, mobile) {
 try {
   for (const [mobile, viewport] of [[false,{width:1440,height:1000}],[true,{width:844,height:390}]]) {
     const context = await browser.newContext({ viewport, isMobile:mobile, hasTouch:mobile });
+    await suppressHotReload(context);
     const page = await context.newPage(), c = await controller(page,mobile), label=mobile?'mobile':'desktop';
     page.on('pageerror', e=>report.errors.push(e.message));
     page.on('response', response=>{if(response.status()>=400)report.errors.push(`${response.status()} ${response.url()}`);});
@@ -144,6 +145,7 @@ try {
   // A depleted, trained profile is imported through the actual UI; preview and
   // cancel must not mutate the active game. Confirmation changes the location.
   const context=await browser.newContext({viewport:{width:568,height:320},isMobile:true,hasTouch:true});
+    await suppressHotReload(context);
   const page=await context.newPage(), c=await controller(page,true); page.on('pageerror',e=>report.errors.push(e.message));
   await page.goto(url);await scene(page,'home');
   const fixture=new CareerProfile({storage:null});fixture.reward('rope',{hits:25,accuracy:90});

@@ -1,0 +1,561 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "gagnon",
+  "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+  "physicalScale": 1.7009966777408638,
+  "poses": {
+    "gagnon-guard": {
+      "file": "chapter-combat/gagnon/gagnon-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 164,
+        "y": 112,
+        "width": 313,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 78,
+        "y": 30,
+        "w": 184,
+        "h": 301
+      },
+      "head": {
+        "x": 320,
+        "y": 199
+      },
+      "body": {
+        "x": 320,
+        "y": 307
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-block": {
+      "file": "chapter-combat/gagnon/gagnon-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 158,
+        "y": 109,
+        "width": 325,
+        "height": 515
+      },
+      "sourceBounds": {
+        "x": 371,
+        "y": 26,
+        "w": 191,
+        "h": 303
+      },
+      "head": {
+        "x": 320,
+        "y": 197
+      },
+      "body": {
+        "x": 320,
+        "y": 315
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-jab-windup": {
+      "file": "chapter-combat/gagnon/gagnon-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 115,
+        "width": 364,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 666,
+        "y": 30,
+        "w": 214,
+        "h": 299
+      },
+      "head": {
+        "x": 299,
+        "y": 196
+      },
+      "body": {
+        "x": 314,
+        "y": 318
+      },
+      "glove": {
+        "x": 427,
+        "y": 252
+      },
+      "contact": {
+        "x": 427,
+        "y": 252
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-jab": {
+      "file": "chapter-combat/gagnon/gagnon-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 143,
+        "y": 112,
+        "width": 381,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 305,
+        "y": 182,
+        "w": 737,
+        "h": 990
+      },
+      "head": {
+        "x": 307,
+        "y": 199
+      },
+      "body": {
+        "x": 322,
+        "y": 317
+      },
+      "glove": {
+        "x": 478,
+        "y": 209
+      },
+      "contact": {
+        "x": 478,
+        "y": 209
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-jab-alpha.png",
+      "physicalScale": 0.5171717171717172
+    },
+    "gagnon-cross-windup": {
+      "file": "chapter-combat/gagnon/gagnon-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 124,
+        "y": 124,
+        "width": 393,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 53,
+        "y": 346,
+        "w": 231,
+        "h": 294
+      },
+      "head": {
+        "x": 352,
+        "y": 214
+      },
+      "body": {
+        "x": 332,
+        "y": 334
+      },
+      "glove": {
+        "x": 222,
+        "y": 244
+      },
+      "contact": {
+        "x": 222,
+        "y": 244
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-cross": {
+      "file": "chapter-combat/gagnon/gagnon-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 100,
+        "y": 124,
+        "width": 413,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 347,
+        "y": 346,
+        "w": 243,
+        "h": 294
+      },
+      "head": {
+        "x": 344,
+        "y": 209
+      },
+      "body": {
+        "x": 331,
+        "y": 329
+      },
+      "glove": {
+        "x": 154,
+        "y": 244
+      },
+      "contact": {
+        "x": 154,
+        "y": 244
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-cross-windup-body": {
+      "file": "chapter-combat/gagnon/gagnon-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 115,
+        "y": 175,
+        "width": 412,
+        "height": 449
+      },
+      "sourceBounds": {
+        "x": 653,
+        "y": 375,
+        "w": 242,
+        "h": 264
+      },
+      "head": {
+        "x": 378,
+        "y": 287
+      },
+      "body": {
+        "x": 333,
+        "y": 395
+      },
+      "glove": {
+        "x": 308,
+        "y": 413
+      },
+      "contact": {
+        "x": 308,
+        "y": 413
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-cross-body": {
+      "file": "chapter-combat/gagnon/gagnon-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 126,
+        "y": 166,
+        "width": 390,
+        "height": 458
+      },
+      "sourceBounds": {
+        "x": 967,
+        "y": 370,
+        "w": 229,
+        "h": 269
+      },
+      "head": {
+        "x": 332,
+        "y": 271
+      },
+      "body": {
+        "x": 313,
+        "y": 372
+      },
+      "glove": {
+        "x": 383,
+        "y": 418
+      },
+      "contact": {
+        "x": 383,
+        "y": 418
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-block-body": {
+      "file": "chapter-combat/gagnon/gagnon-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 129,
+        "y": 144,
+        "width": 383,
+        "height": 480
+      },
+      "sourceBounds": {
+        "x": 58,
+        "y": 660,
+        "w": 225,
+        "h": 282
+      },
+      "head": {
+        "x": 317,
+        "y": 235
+      },
+      "body": {
+        "x": 320,
+        "y": 365
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-hit": {
+      "file": "chapter-combat/gagnon/gagnon-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 137,
+        "y": 136,
+        "width": 367,
+        "height": 488
+      },
+      "sourceBounds": {
+        "x": 378,
+        "y": 652,
+        "w": 216,
+        "h": 287
+      },
+      "head": {
+        "x": 273,
+        "y": 229
+      },
+      "body": {
+        "x": 313,
+        "y": 341
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-hit-body": {
+      "file": "chapter-combat/gagnon/gagnon-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 219,
+        "width": 364,
+        "height": 405
+      },
+      "sourceBounds": {
+        "x": 667,
+        "y": 698,
+        "w": 214,
+        "h": 238
+      },
+      "head": {
+        "x": 357,
+        "y": 340
+      },
+      "body": {
+        "x": 321,
+        "y": 446
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-fall": {
+      "file": "chapter-combat/gagnon/gagnon-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 253,
+        "width": 367,
+        "height": 371
+      },
+      "sourceBounds": {
+        "x": 977,
+        "y": 716,
+        "w": 216,
+        "h": 218
+      },
+      "head": {
+        "x": 301,
+        "y": 335
+      },
+      "body": {
+        "x": 305,
+        "y": 435
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-down": {
+      "file": "chapter-combat/gagnon/gagnon-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 109,
+        "y": 282,
+        "width": 422,
+        "height": 342
+      },
+      "sourceBounds": {
+        "x": 47,
+        "y": 1028,
+        "w": 248,
+        "h": 201
+      },
+      "head": {
+        "x": 299,
+        "y": 371
+      },
+      "body": {
+        "x": 311,
+        "y": 473
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-rise": {
+      "file": "chapter-combat/gagnon/gagnon-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 172,
+        "y": 219,
+        "width": 296,
+        "height": 405
+      },
+      "sourceBounds": {
+        "x": 397,
+        "y": 987,
+        "w": 174,
+        "h": 238
+      },
+      "head": {
+        "x": 314,
+        "y": 308
+      },
+      "body": {
+        "x": 317,
+        "y": 425
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-dodge": {
+      "file": "chapter-combat/gagnon/gagnon-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 114,
+        "y": 166,
+        "width": 413,
+        "height": 458
+      },
+      "sourceBounds": {
+        "x": 667,
+        "y": 959,
+        "w": 243,
+        "h": 269
+      },
+      "head": {
+        "x": 238,
+        "y": 253
+      },
+      "body": {
+        "x": 308,
+        "y": 354
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "gagnon-surrender": {
+      "file": "chapter-combat/gagnon/gagnon-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 138,
+        "width": 349,
+        "height": 486
+      },
+      "sourceBounds": {
+        "x": 985,
+        "y": 947,
+        "w": 205,
+        "h": 286
+      },
+      "head": {
+        "x": 321,
+        "y": 221
+      },
+      "body": {
+        "x": 321,
+        "y": 352
+      },
+      "sourceFile": "references/characters/chapter-combat/gagnon-alpha.png",
+      "physicalScale": 1.7009966777408638
+    }
+  }
+}

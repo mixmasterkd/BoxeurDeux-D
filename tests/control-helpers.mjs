@@ -10,6 +10,17 @@ if (!modulePath) {
 }
 export const { chromium } = await import(pathToFileURL(modulePath));
 export const wait = (page, predicate, arg, timeout = 10000) => page.waitForFunction(predicate, arg, { timeout });
+// Parallel development can update an unrelated scene while a route is being
+// tested. Keep that browser's loaded version stable; production has no HMR.
+export async function suppressHotReload(context) {
+  await context.routeWebSocket('**', socket => {
+    const server = socket.connectToServer();
+    server.onMessage(message => {
+      if (typeof message === 'string' && /"type":"(?:update|full-reload)"/.test(message)) return;
+      socket.send(message);
+    });
+  });
+}
 export const directions = { up: [0,-1], down:[0,1], left:[-1,0], right:[1,0], upRight:[.707,-.707], downRight:[.707,.707], center:[0,0] };
 export async function joyPoint(page, root, direction, id=1) {
   const r = await page.locator(`${root} .joypad`).boundingBox();

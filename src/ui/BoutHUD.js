@@ -1,4 +1,6 @@
 import './bout.css';
+import { getOpponentProfile } from '../game/OpponentProfiles.js';
+import { careerProfile } from '../game/CareerProfile.js';
 
 const text = (element, value) => { const next = String(value); if (element.textContent !== next) element.textContent = next; };
 
@@ -41,13 +43,14 @@ export class BoutHUD {
   update(state) {
     const { ui } = this;
     const bout = state.bout;
-    const opponent = state.settings?.opponent === 'beton' ? 'Béton' : 'Rémi';
-    const encounter = state.settings?.opponent === 'beton' ? 'COMBAT' : 'SÉANCE';
+    const profile = getOpponentProfile(state.settings?.opponent);
+    const opponent = profile.official ? profile.shortName : 'Rémi';
+    const encounter = profile.official ? 'COMBAT' : 'SÉANCE';
     const enabled = Boolean(bout);
     const active = state.phase === 'running' || state.phase === 'knockdown';
     if (state.phase === 'ready') this.reward = null;
-    this.benefit.hidden = !enabled || opponent === 'Béton' || !['ready', 'finished'].includes(state.phase);
-    if (state.phase === 'ready') text(this.benefit, `Résistance : ${state.settings.maxResistance ?? 100} / 108. Termine la séance et réussis 10 touches ou défenses : résistance +2, jusqu’au plafond.`);
+    this.benefit.hidden = !enabled || profile.official || !['ready', 'finished'].includes(state.phase);
+    if (state.phase === 'ready') text(this.benefit, `Résistance : ${state.settings.maxResistance ?? 100} / ${careerProfile.snapshot().caps.resistance}. Termine la séance et réussis 10 touches ou défenses : résistance +2, jusqu’au plafond.`);
     else if (state.phase === 'finished' && this.reward) {
       const reward = this.reward;
       text(this.benefit, `${reward.gained ? `Résistance +${reward.gained} · ${reward.value}/${reward.cap}` : reward.capped && reward.qualified ? 'Résistance : plafond atteint.' : 'Aucun gain cette fois : termine la séance avec 10 touches ou défenses.'} ${reward.saveMessage ?? ''}`);
@@ -83,10 +86,10 @@ export class BoutHUD {
     if (!enabled) return;
     if (!this.panel.hidden) {
       const playerDown = count.downed.player;
-      text(this.title, count.downed.player && count.downed.remi ? 'LES DEUX AU TAPIS' : playerDown ? 'REPRENEZ APPUI' : `${opponent.toUpperCase()} AU TAPIS`);
-      text(this.number, count.stage === 'fall' ? '↓' : count.stage === 'rise' ? '↑' : count.number || '…');
+      text(this.title, count.stage === 'surrender' ? 'KRAMER FAIT SIGNE' : count.downed.player && count.downed.remi ? 'LES DEUX AU TAPIS' : playerDown ? 'REPRENEZ APPUI' : `${opponent.toUpperCase()} AU TAPIS`);
+      text(this.number, count.stage === 'surrender' ? '!' : count.stage === 'fall' ? '↓' : count.stage === 'rise' ? '↑' : count.number || '…');
       const complete = count.accepted >= count.needed;
-      const message = count.stage === 'fall' ? 'Le décompte va commencer'
+      const message = count.stage === 'surrender' ? '« Non, non… j’arrête ! »' : count.stage === 'fall' ? 'Le décompte va commencer'
         : count.stage === 'rise' ? playerDown ? 'Relevez-vous, puis reprenez votre garde' : `${opponent} se relève et reprend sa garde`
           : !playerDown ? `${opponent} reprend ses appuis`
             : complete ? 'Appuis retrouvés · relevez-vous' : 'Alternez les deux frappes';

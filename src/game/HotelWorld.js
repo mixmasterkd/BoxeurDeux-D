@@ -1,0 +1,43 @@
+import { GymWorld } from './GymWorld.js';
+const obstacle=(id,x,y,width,height)=>({id,x,y,width,height});
+const station=(id,label,x,y,radius=90)=>({id,label,x,y,radius});
+const room=(name,overrides)=>({name,width:1280,height:720,speed:220,actorScale:2,footprint:{halfWidth:25,halfHeight:12},bounds:{left:38,right:1242,top:234,bottom:658},spawn:{x:640,y:540,facing:'up'},obstacles:[],stations:[],...overrides});
+export const HOTEL_LAYOUTS = {
+  'hotel-room': room('Chambre 201',{
+    obstacles:[obstacle('wardrobe',96,180,178,83),obstacle('bed',950,190,275,165),obstacle('desk',30,370,143,221),obstacle('suitcase',870,220,64,52)],
+    stations:[station('bed','Ton lit · Le prochain jour',924,324,105),station('exit','Couloir · Chambre 201',640,650,80),station('notebook','Carnet du tournoi',186,453,92),station('wardrobe','Ta valise · Tenue de ville',208,287,90)],
+  }),
+  'hotel-corridor': room('Étage des chambres',{
+    width:1920,height:1080,speed:260,actorScale:2,bounds:{left:52,right:1868,top:330,bottom:1030},spawn:{x:500,y:440,facing:'down'},
+    obstacles:[obstacle('side-table',54,276,231,67),obstacle('plant',326,285,67,72)],
+    stations:[station('room','Chambre 201 · Ta chambre',496,352,90),station('room-202','Chambre 202 · Marco Bellini',714,350,90),station('room-203','Chambre 203 · Louis Fortin',1054,350,90),station('room-204','Chambre 204 · André Gagnon',1416,350,90),station('lift','Ascenseur',1710,350,100)],
+  }),
+  'hotel-lobby': room('Réception',{
+    bounds:{left:35,right:1245,top:232,bottom:664},
+    obstacles:[obstacle('reception',145,164,433,108),obstacle('couch-left',28,318,78,183),obstacle('couch-right',1170,318,79,183),obstacle('plant-left',384,568,76,89),obstacle('plant-right',818,569,77,87)],
+    stations:[station('reception','Réception · Ton séjour',382,302,110),station('lift','Ascenseur',876,239,93),station('exit','Rentrer au quartier',640,642,90)],
+  }),
+  'hotel-gym': room('Le mini-gym',{
+    bounds:{left:38,right:1242,top:284,bottom:658},
+    stations:[station('pads','Rémi · Travail aux pads',728,386,115),station('exit','Ascenseur',640,650,80),station('remi','Rémi · Un conseil',915,432,90)],
+    obstacles:[obstacle('weights',980,223,230,75),obstacle('bag',18,275,122,120)],
+  }),
+  'hotel-pool': room('La piscine',{
+    bounds:{left:35,right:1245,top:220,bottom:675},spawn:{x:640,y:610,facing:'up'},
+    obstacles:[obstacle('water-top',184,270,911,64),obstacle('water-upper',163,334,952,64),obstacle('water-middle',139,398,998,65),obstacle('water-bottom',111,463,1050,76)],
+    stations:[station('swim','Piscine · Quelques longueurs',112,430,95),station('exit','Ascenseur',640,652,80)],
+  }),
+  'hotel-venue': room('Les Gants de bronze',{
+    width:2304,height:1536,speed:265,actorScale:1.5,footprint:{halfWidth:20,halfHeight:10},bounds:{left:58,right:2246,top:255,bottom:1460},spawn:{x:1152,y:1415,facing:'up'},
+    obstacles:[obstacle('ring1',476,202,590,382),obstacle('ring2',1240,202,590,382),obstacle('ring3',436,616,630,435),obstacle('ring4',1258,616,592,435),obstacle('seats-left',35,245,319,989),obstacle('seats-right',1940,245,320,989),obstacle('entry-wall-left',35,1235,985,71),obstacle('entry-wall-right',1290,1235,970,71),obstacle('board',402,1250,216,110)],
+    stations:[station('exit','Ascenseur · Retour à l’hôtel',1152,1455,110),station('board','Tableau · Participants et résultats',510,1380,112),station('fight','Ring 1 · Ton combat',1108,480,95),station('ring2','Ring 2 · Les autres rencontres',1200,405,95),station('ring3','Ring 3 · Échauffement',1108,1000,90),station('ring4','Ring 4 · Les autres rencontres',1216,902,90),station('coach','Rémi · Dans ton coin',1150,672,68),station('bellini','Marco Bellini',770,1150,75),station('fortin','Louis « Le Roc » Fortin',1705,1150,75),station('gagnon','André « Le Patron » Gagnon',1150,275,75)],
+  }),
+};
+export const HOTEL_PLACES=Object.keys(HOTEL_LAYOUTS);
+export class HotelWorld extends GymWorld {
+  constructor({place='hotel-room',position}={}){
+    const selected=HOTEL_LAYOUTS[place]?place:'hotel-room';super({layout:structuredClone(HOTEL_LAYOUTS[selected])});this.place=selected;
+    if(position)this.restorePosition(position);this.getNearby();
+  }
+  location(){return {scene:this.place,x:Math.round(this.state.x),y:Math.round(this.state.y),facing:this.state.facing};}
+}

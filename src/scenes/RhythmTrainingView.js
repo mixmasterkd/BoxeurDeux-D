@@ -1,3 +1,5 @@
+import { boxingTexture, prepareBoxingOutfits } from './OutfitView.js';
+
 const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
 const TAU = Math.PI * 2;
 const POSES = {
@@ -19,6 +21,7 @@ export class RhythmTrainingView {
 
   constructor(scene, activity) {
     this.scene = scene; this.activity = activity;
+    prepareBoxingOutfits(scene, POSES[activity].map(pose => `${activity}-athlete-${pose}`));
     this.data = scene.cache.json.get(activity + '-athlete-data');
     this.anchor = this.data.anchor;
     scene.add.image(640, 360, activity + '-room').setDisplaySize(1280, 720);
@@ -26,7 +29,7 @@ export class RhythmTrainingView {
     this.baseX = activity === 'rope' ? 716 : 823;
     this.shadow = scene.add.ellipse(this.baseX, this.ground + 3, activity === 'rope' ? 144 : 155, 23, 0x04121e, .32).setDepth(2);
     this.ropeBack = scene.add.graphics().setDepth(3);
-    this.sprite = scene.add.image(this.baseX, this.ground, activity + '-athlete-' + POSES[activity][0])
+    this.sprite = scene.add.image(this.baseX, this.ground, boxingTexture(scene, activity + '-athlete-' + POSES[activity][0]))
       .setOrigin(this.anchor.x / this.data.canvas.width, this.anchor.y / this.data.canvas.height).setDepth(4);
     this.ropeFront = scene.add.graphics().setDepth(5);
     this.spark = scene.add.graphics().setDepth(7);
@@ -50,7 +53,7 @@ export class RhythmTrainingView {
 
   pose(name, x = this.baseX, y = this.ground) {
     this.poseName = name;
-    this.sprite.setTexture(this.activity + '-athlete-' + name).setPosition(x, y);
+    this.sprite.setTexture(boxingTexture(this.scene, this.activity + '-athlete-' + name)).setPosition(x, y);
   }
 
   point(name) {

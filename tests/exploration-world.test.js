@@ -122,8 +122,8 @@ test('a stalled frame cannot cross a building, the park fence, or the southern c
   }
 });
 
-test('the west and east construction barriers stop walking beyond the neighborhood', () => {
-  for (const [x, input, barrierX] of [[95, -1, 66], [1460, 1, 1504]]) {
+test('the east construction barrier remains closed while the west reaches the delivery street entrance', () => {
+  for (const [x, input, barrierX] of [[95, -1, 55], [1460, 1, 1504]]) {
     const model = new ExplorationWorld({ place: 'neighborhood', position: street(x, 477) });
     model.setInput({ x: input });
     for (let index = 0; index < 3; index++) model.update(30);
@@ -131,6 +131,7 @@ test('the west and east construction barriers stop walking beyond the neighborho
     if (input < 0) assert.ok(model.state.x >= barrierX * STREET_SCALE + 14);
     else assert.ok(model.state.x <= barrierX * STREET_SCALE - 14);
     assert.equal(model.state.moving, false);
+    if(input<0)assert.equal(model.getNearby()?.id,'to-residential');
   }
 });
 

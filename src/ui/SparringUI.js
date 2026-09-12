@@ -76,6 +76,7 @@ export class SparringUI {
       </div>
       <div class="session-caption"><span class="touches-count" data-value="landed">0</span> TOUCHES DONNÉES <span aria-hidden="true">·</span> <span class="touches-count" data-value="received">0</span> REÇUES</div>
       <div class="fight-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      <div class="fight-signal" aria-live="off" hidden></div>
       <aside class="training-coach" aria-label="Conseil de Rémi" hidden>
         <div class="coach-heading"><span>RÉMI VOUS GUIDE</span><strong data-value="training-progress">0 / 3</strong></div>
         <div class="coach-steps" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -83,6 +84,7 @@ export class SparringUI {
         <p class="coach-cue" role="status" aria-live="polite" aria-atomic="true"></p>
       </aside>
       <section class="round-panel" aria-labelledby="round-panel-title">
+        <div class="panel-scroll">
         <div class="panel-intro">
         <p class="panel-eyebrow">60 SECONDES POUR APPRENDRE</p>
         <h2 class="panel-heading" id="round-panel-title">Un round.\nÀ votre rythme.</h2>
@@ -111,6 +113,7 @@ export class SparringUI {
         </div>
         <p class="lesson-tempo" hidden>Rémi prend son temps · 3 réussites · 60 s max.</p>
         <label class="audio-volume" for="audio-volume"><span>Volume <output data-value="audio-volume">35 %</output></span><input id="audio-volume" name="volume" type="range" min="0" max="100" value="35" step="5" aria-label="Volume du gym"></label>
+        </div>
         </div>
         <div class="panel-actions">
         <button type="button" class="primary-button">Entrer en sparring →</button>

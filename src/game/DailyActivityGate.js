@@ -2,7 +2,7 @@
  * Keeping this boundary outside the combat models leaves their round clocks
  * and energy during a fight independent from the player's day. */
 export const sparringActivity = ({ opponent = 'remi', lesson = 'free' } = {}) =>
-  opponent === 'beton' ? 'fight' : ['free', 'resistance'].includes(lesson) ? 'sparring' : 'lesson';
+  ['beton', 'kramer', 'bellini', 'fortin', 'gagnon'].includes(opponent) ? 'fight' : ['free', 'resistance'].includes(lesson) ? 'sparring' : 'lesson';
 
 export class DailyActivityGate {
   constructor({ profile, getState, activity }) {

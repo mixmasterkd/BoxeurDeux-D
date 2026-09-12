@@ -5,6 +5,8 @@ import { BagScene } from './scenes/BagScene.js';
 import { ShadowScene } from './scenes/ShadowScene.js';
 import { RhythmScene } from './scenes/RhythmScene.js';
 import { ExplorationScene } from './scenes/ExplorationScene.js';
+import { HotelScene } from './scenes/HotelScene.js';
+import { HotelActivityScene } from './scenes/HotelActivityScene.js';
 import { careerProfile } from './game/CareerProfile.js';
 import { resumePending, requestResume, clearResume } from './game/ResumeRouting.js';
 import './style.css';
@@ -16,9 +18,11 @@ import { installSceneLoading } from './ui/SceneLoading.js';
 const disposeLayout = installGameLayout();
 const disposeCareer = installCareerMenu();
 const entry = new URLSearchParams(location.search).get('scene');
-const initialScene = { gym: GymScene, home: ExplorationScene, neighborhood: ExplorationScene, bag: BagScene, sparring: SparringScene, fight: SparringScene, shadow: ShadowScene, speedball: RhythmScene, rope: RhythmScene }[entry]
-  ?? (careerProfile.snapshot().location.scene === 'gym' ? GymScene : ExplorationScene);
-const scenes = [initialScene, ...[ExplorationScene, GymScene, SparringScene, BagScene, ShadowScene, RhythmScene].filter(scene => scene !== initialScene)];
+const savedPlace=careerProfile.snapshot().location.scene;
+const initialScene = entry?.startsWith('hotel-') ? HotelScene : ['pads','pool'].includes(entry) ? HotelActivityScene
+  : {gym:GymScene,home:ExplorationScene,neighborhood:ExplorationScene,residential:ExplorationScene,commercial:ExplorationScene,'clothing-shop':ExplorationScene,'boxing-shop':ExplorationScene,bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene}[entry]
+  ?? (savedPlace.startsWith('hotel-')?HotelScene:savedPlace==='gym'?GymScene:ExplorationScene);
+const scenes = [initialScene, ...[ExplorationScene, GymScene, SparringScene, BagScene, ShadowScene, RhythmScene,HotelScene,HotelActivityScene].filter(scene => scene !== initialScene)];
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -50,6 +54,7 @@ function resumeSavedPlace() {
   active.ui?.clearInputs();
   clearResume();
   if (saved.scene === 'gym') active.scene.start('GymScene', { location: saved });
+  else if(saved.scene.startsWith('hotel-')) active.scene.start('HotelScene',{place:saved.scene,location:saved});
   else active.scene.start('ExplorationScene', { place: saved.scene, location: saved });
 }
 window.addEventListener('career-menu-change', event => { if (!event.detail.open) requestResume(); }, { signal: routing.signal });

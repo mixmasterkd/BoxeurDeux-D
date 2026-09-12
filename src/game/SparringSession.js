@@ -1,5 +1,5 @@
 import { LESSONS, TrainingCoach } from './TrainingCoach.js';
-import { getOpponentProfile, betonCornerAdvice } from './OpponentProfiles.js';
+import { getOpponentProfile, opponentCornerAdvice } from './OpponentProfiles.js';
 
 /**
  * Deterministic, renderer-independent sparring model. All times are seconds.
@@ -60,17 +60,19 @@ function normalizeSettings(settings = {}, previous = {}) {
   const recovery = Number(settings.recovery ?? previous.recovery ?? 1);
   const tempo = settings.tempo ?? previous.tempo ?? 'normal';
   const opponent = getOpponentProfile(settings.opponent ?? previous.opponent).id;
-  const maxStamina = boundedBonus(settings.maxStamina ?? previous.maxStamina ?? 100, 100, 110);
-  const maxResistance = boundedBonus(settings.maxResistance ?? previous.maxResistance ?? 100, 100, 108);
-  const recoveryBonus = boundedBonus(settings.recoveryBonus ?? previous.recoveryBonus ?? 0, 0, .10);
-  const powerBonus = boundedBonus(settings.powerBonus ?? previous.powerBonus ?? 0, 0, 5);
+  const maxStamina = boundedBonus(settings.maxStamina ?? previous.maxStamina ?? 100, 100, 124);
+  const maxResistance = boundedBonus(settings.maxResistance ?? previous.maxResistance ?? 100, 100, 122);
+  const recoveryBonus = boundedBonus(settings.recoveryBonus ?? previous.recoveryBonus ?? 0, 0, .20);
+  const powerBonus = boundedBonus(settings.powerBonus ?? previous.powerBonus ?? 0, 0, 10);
   const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
-  const lesson = opponent === 'beton' ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
+  const official = getOpponentProfile(opponent).official;
+  const lesson = official ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
     duration: unguided(lesson) && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
-    tempo: opponent === 'beton' ? 'normal' : !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
+    tempo: official ? 'normal' : !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
     lesson, opponent, maxStamina, maxResistance, recoveryBonus, powerBonus,
+    tournament: Boolean(settings.tournament ?? previous.tournament),
   };
 }
 
@@ -115,6 +117,7 @@ export class SparringSession {
     this._nextGuardLevel = 'head';
     this._remiAction = null;
     this._remiStage = 0;
+    this._patternIndex = 0;
     this._knockdown = null;
     this._coach = unguided(this.settings.lesson) ? null : new TrainingCoach(this.settings.lesson);
     this.state = {
@@ -130,11 +133,11 @@ export class SparringSession {
       settings: { ...this.settings },
       training: null,
       bout: this.settings.lesson === 'resistance' ? {
-        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: KNOCKDOWN_RULES.maxResistance, playerMaxResistance: this.settings.maxResistance,
-        resistance: { player: this.settings.maxResistance, remi: 100 },
+        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: this.profile.maxResistance ?? KNOCKDOWN_RULES.maxResistance, playerMaxResistance: this.settings.maxResistance,
+        resistance: { player: this.settings.maxResistance, remi: this.profile.maxResistance ?? 100 },
         downs: { player: { round: 0, total: 0 }, remi: { round: 0, total: 0 } },
         count: null, result: null, roundHistory: [],
-        ...(this.profile.official ? { score: { player: 0, remi: 0 }, coach: betonCornerAdvice() } : {}),
+        ...(this.profile.official ? { score: { player: 0, remi: 0 }, coach: opponentCornerAdvice(this.profile.id) } : {}),
       } : null,
     };
     this._roundStartStats = { ...this.state.stats };
@@ -350,7 +353,11 @@ export class SparringSession {
     const attack = this._playerAction.action;
     const target = this._playerAction.target;
     const sequence = this._playerAction.sequence;
-    if (this._remiAction?.action === 'guard' && this._remiAction.guardLevel === target) {
+    if (this._remiAction?.action === 'dodge' && this._remiAction.elapsed >= .08 && this._remiAction.elapsed <= .44) {
+      this.state.stats.missed += 1;
+      if (sequence) sequence.valid = false;
+      this._emit('player-missed', { attack, target, impact: this._playerAction.impact });
+    } else if (this._remiAction?.action === 'guard' && this._remiAction.guardLevel === target) {
       this.state.stats.opponentBlocked += 1;
       this._emit('player-blocked', { attack, target, impact: this._playerAction.impact });
     } else {
@@ -414,6 +421,7 @@ export class SparringSession {
 
   _nextRemiAction() {
     if (this.profile.id === 'beton') { this._nextBetonAction(); return; }
+    if (this.profile.pattern) { this._nextAuthoredAction(); return; }
     const current = this._remiAction;
     const tempo = TEMPOS[this.settings.tempo];
     if (this._coach?.state.completed) {
@@ -446,6 +454,36 @@ export class SparringSession {
     } else {
       this._setRemiAction('open', this._coach ? tempo.opening : tempo.openingFree);
     }
+  }
+
+  _nextAuthoredAction() {
+    const current = this._remiAction;
+    if (current.action === 'tellLeft' || current.action === 'tellRight') {
+      const attack = current.side === 'left' ? 'jab' : 'cross';
+      this._setRemiAction(attack, TIMINGS.remi[attack].duration, {
+        impact: TIMINGS.remi[attack].impact, side: current.side, target: current.target,
+        safeDodge: current.safeDodge, opening: current.opening,
+      });
+      return;
+    }
+    if (current.action === 'jab' || current.action === 'cross') {
+      this._setRemiAction('open', current.opening);
+      return;
+    }
+    // The next move depends solely on this authored cycle. No input, current
+    // guard, hit or held button can cause a reactive block or a surprise punch.
+    const stage = this.profile.pattern[this._patternIndex % this.profile.pattern.length];
+    this._patternIndex += 1;
+    if (!stage.attack) {
+      this._setRemiAction(stage.action, stage.duration, { guardLevel: stage.guardLevel ?? 'head', side: stage.side ?? null });
+      return;
+    }
+    const side = stage.attack === 'jab' ? 'left' : 'right';
+    const safeDodge = side === 'left' ? 'dodgeRight' : 'dodgeLeft';
+    this._setRemiAction(side === 'left' ? 'tellLeft' : 'tellRight', stage.tell, {
+      side, safeDodge, target: stage.target, opening: stage.opening,
+    });
+    this._emit('tell', { side, safeDodge, target: stage.target, duration: stage.tell });
   }
 
   _nextBetonAction() {
@@ -634,6 +672,19 @@ export class SparringSession {
       if (count.elapsed + EPSILON >= KNOCKDOWN_RULES.count) {
         for (const actor of ACTORS) if (count.downed[actor] && !count.recovered[actor] && !count.eliminated[actor]) count.eliminated[actor] = 'ko';
       }
+      // Kramer reaches his second count across the whole bout, waves the fight
+      // off, then rises. This reveal happens here, never in the introduction.
+      if (this.profile.quitsAfterDowns && count.downed.remi
+        && this.state.bout.downs.remi.total >= this.profile.quitsAfterDowns
+        && count.elapsed >= 2 && !count.downed.player) {
+        count.stage = 'surrender'; count.elapsed = 0;
+        this._emit('opponent-abandon', { opponent: this.profile.id });
+        return;
+      }
+    }
+    if (count.stage === 'surrender') {
+      if (count.elapsed >= 1.9) this._finishBout({ reason: 'abandon', winner: 'player', loser: 'remi' });
+      return;
     }
     for (const actor of ACTORS) if (count.recovered[actor] && !this._knockdown.standing[actor]
       && this._knockdown.time - this._knockdown.recoveredAt[actor] + EPSILON >= KNOCKDOWN_RULES.rise) this._standUp(actor);
@@ -680,6 +731,12 @@ export class SparringSession {
     if (count.stage !== 'rise') { count.stage = 'rise'; count.elapsed = 0; }
     if (!eligible.every(actor => this._knockdown.standing[actor])) return;
     if (ACTORS.some(actor => count.eliminated[actor])) { this._finishEliminations(); return; }
+    if (this.profile.quitsAfterDowns && count.downed.remi
+      && this.state.bout.downs.remi.total >= this.profile.quitsAfterDowns) {
+      count.stage = 'surrender'; count.elapsed = .8;
+      this._emit('opponent-abandon', { opponent: this.profile.id });
+      return;
+    }
     this.state.bout.count = null;
     this._knockdown = null;
     this._clearCombatActions();
@@ -715,6 +772,10 @@ export class SparringSession {
         if (count.stage === 'fall') { action = 'fall'; duration = KNOCKDOWN_RULES.fall; elapsed = count.elapsed; }
         else if (count.recovered[actor]) { action = this._knockdown.standing[actor] ? 'idle' : 'rise'; duration = KNOCKDOWN_RULES.rise; elapsed = this._knockdown.time - this._knockdown.recoveredAt[actor]; }
         else action = 'down';
+        if (count.stage === 'surrender' && actor === 'remi') {
+          action = count.elapsed < .8 ? 'rise' : 'surrender';
+          duration = .8; elapsed = count.elapsed;
+        }
       }
       this.state[actor] = actionState(action, duration, elapsed, { target: this._knockdown.poses[actor].hurtTarget ?? 'head' });
     }
@@ -733,7 +794,7 @@ export class SparringSession {
         remi: bout.score.remi - this._roundStartScore.remi,
       } } : {}),
     });
-    if (bout.score) bout.coach = betonCornerAdvice(bout.roundHistory.at(-1));
+    if (bout.score) bout.coach = opponentCornerAdvice(this.profile.id, bout.roundHistory.at(-1));
   }
 
   _finishResistanceRound() {

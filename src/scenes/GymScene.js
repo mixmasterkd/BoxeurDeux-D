@@ -7,6 +7,8 @@ import { resumePending } from '../game/ResumeRouting.js';
 import { downloadCareer } from '../ui/CareerMenu.js';
 import { careerMenuOpen } from '../ui/GameControls.js';
 import { sparringActivity } from '../game/DailyActivityGate.js';
+import { showEquipment, chapterChoose } from './ChapterInteractions.js';
+import { preloadOutfits, boxingTexture } from './OutfitView.js';
 
 const ACTIVITIES = {
   sac: { title: 'Le sac de frappe', text: 'Travaille le rythme et les enchaînements pendant 45 secondes. Observe les repères : jab, double jab, jab–direct, jab–direct–crochet et frappes au corps. Une pression par coup, et on relâche les épaules entre les séries.' },
@@ -21,6 +23,7 @@ export class GymScene extends Phaser.Scene {
 
   preload() {
     const base = import.meta.env.BASE_URL;
+    preloadOutfits(this,{boxing:true});
     this.load.image('gym-exploration', `${base}assets/backgrounds/gym-exploration.png`);
     this.load.json('gym-player-data', `${base}assets/sprites/exploration/player.json`);
     for (const direction of ['down', 'right', 'up', 'left']) {
@@ -69,7 +72,7 @@ export class GymScene extends Phaser.Scene {
       onBag: () => this.enterBag(),
       onShadow: () => this.enterShadow(),
       onRhythm: activity => this.enterRhythm(activity),
-      onDialogAction: action => { if (action?.id === 'neighborhood') this.enterNeighborhood(); },
+      onDialogAction: action => { if (action?.id === 'neighborhood') this.enterNeighborhood(); else if(action?.id.startsWith('equip-'))chapterChoose(this,action.id); },
       onExportCareer: () => downloadCareer(),
       onInspectCareer: text => careerProfile.inspectImport(text),
       onImportCareer: text => { careerProfile.importText(text); this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus()); window.dispatchEvent(new CustomEvent('career-imported')); },
@@ -109,6 +112,7 @@ export class GymScene extends Phaser.Scene {
     const station = this.world.getNearby();
     if (!station) return;
     this.world.releaseControls();
+    if(station.id==='locker'){showEquipment(this,'boxing');return;}
     if (station.id === 'remi') {
       this.ui.showDialog({
         speaker: 'RÉMI LE TANK', title: 'On fait un round ?',
@@ -245,7 +249,7 @@ export class GymScene extends Phaser.Scene {
     const state = this.world.state;
     const step = state.moving && !state.paused && !this.ui.dialog
       ? [0, 1, 0, 2][Math.floor(state.walkTime / .14) % 4] : 0;
-    this.player.setTexture(`gym-player-${state.facing}-${step}`).setPosition(Math.round(state.x), Math.round(state.y)).setDepth(state.y);
+    this.player.setTexture(boxingTexture(this,`gym-player-${state.facing}-${step}`)).setPosition(Math.round(state.x), Math.round(state.y)).setDepth(state.y);
     this.shadow.setPosition(state.x, state.y + 1);
     const station = state.nearby;
     this.marker.clear();

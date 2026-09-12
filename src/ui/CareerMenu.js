@@ -1,4 +1,5 @@
 import { careerProfile } from '../game/CareerProfile.js';
+import { careerPlace, careerMoney, careerMedals, careerChapter, careerImportSummary } from './CareerSummary.js';
 import './career.css';
 
 export function downloadCareer() {
@@ -24,8 +25,11 @@ export function installCareerMenu() {
   const focus = element => { element?.focus({ preventScroll: true }); element?.scrollIntoView({ block: 'nearest' }); };
   const render = () => {
     const p = careerProfile.snapshot();
-    root.querySelector("#career-title").textContent = `Jour ${p.daily.day} · ${p.location.scene === "home" ? "Chez toi" : p.location.scene === "gym" ? "Au gym" : "Le quartier"}`;
-    stats.innerHTML = `<div><dt>Énergie de journée</dt><dd>${p.daily.energy}/${p.daily.maxEnergy}</dd></div><div><dt>Endurance</dt><dd>${p.stats.endurance}/${p.caps.endurance}</dd></div><div><dt>Résistance</dt><dd>${p.stats.resistance}/${p.caps.resistance}</dd></div><div><dt>Puissance</dt><dd>+${p.stats.power}/${p.caps.power}</dd></div><div><dt>Récupération</dt><dd>+${Math.round((p.stats.recovery - 1) * 100)}%</dd></div>`;
+    root.querySelector('#career-title').textContent = `Jour ${p.daily.day} · ${careerPlace(p)}`;
+    stats.innerHTML = `<div><dt>Énergie de journée</dt><dd>${p.daily.energy}/${p.daily.maxEnergy}</dd></div><div><dt>Argent / plafond</dt><dd>${careerMoney(p)}</dd></div><div><dt>Endurance</dt><dd>${p.stats.endurance}/${p.caps.endurance}</dd></div><div><dt>Résistance</dt><dd>${p.stats.resistance}/${p.caps.resistance}</dd></div><div><dt>Puissance</dt><dd>+${p.stats.power}/${p.caps.power}</dd></div><div><dt>Récupération</dt><dd>+${Math.round((p.stats.recovery - 1) * 100)}%</dd></div><div><dt>Collection</dt><dd>${careerMedals(p)}</dd></div><div><dt>Tenues possédées</dt><dd>${p.inventory?.owned.length ?? 2}</dd></div>`;
+    let chapter = root.querySelector('.career-chapter');
+    if (!chapter) { chapter = document.createElement('p'); chapter.className = 'career-chapter'; stats.after(chapter); }
+    chapter.textContent = careerChapter(p);
     status.textContent = careerProfile.saveStatus().message;
     status.dataset.state = careerProfile.saveStatus().state;
   };
@@ -53,8 +57,7 @@ export function installCareerMenu() {
       const text = await file.text();
       if (abort.signal.aborted || root.hidden) return;
       const candidate = careerProfile.inspectImport(text);
-      const victories = candidate.fights.beton.wins;
-      confirm(`Remplacer la progression actuelle par cette partie : endurance ${candidate.stats.endurance}, résistance ${candidate.stats.resistance}, ${victories} victoire${victories === 1 ? '' : 's'} contre Béton ? Une copie de la partie actuelle sera conservée si le stockage est disponible.`, () => {
+      confirm(`Remplacer la progression actuelle par cette partie ? ${careerImportSummary(candidate)} Une copie de la partie actuelle sera conservée si le stockage est disponible.`, () => {
         careerProfile.importText(text); render(); cancel();
       }, 'Remplacer ma partie');
     } catch (error) { status.textContent = error.message; status.dataset.state = 'invalid'; }

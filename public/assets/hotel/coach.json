@@ -1,0 +1,84 @@
+{
+  "width": 512,
+  "height": 640,
+  "anchor": {
+    "x": 256,
+    "y": 624
+  },
+  "artHeight": 512,
+  "poses": {
+    "ready": {
+      "sourceBounds": {
+        "x": 160,
+        "y": 13,
+        "w": 387,
+        "h": 599
+      },
+      "scale": 0.8547579298831386,
+      "foot": 353,
+      "leftTarget": {
+        "x": 193.60267111853088,
+        "y": 207.73288814691153
+      },
+      "rightTarget": {
+        "x": 313.2687813021703,
+        "y": 207.73288814691153
+      }
+    },
+    "left": {
+      "sourceBounds": {
+        "x": 720,
+        "y": 13,
+        "w": 402,
+        "h": 600
+      },
+      "scale": 0.8533333333333334,
+      "foot": 920.5,
+      "leftTarget": {
+        "x": 156.58666666666664,
+        "y": 206.72000000000003
+      },
+      "rightTarget": {
+        "x": 308.48,
+        "y": 207.57333333333332
+      }
+    },
+    "right": {
+      "sourceBounds": {
+        "x": 148,
+        "y": 639,
+        "w": 419,
+        "h": 597
+      },
+      "scale": 0.8576214405360134,
+      "foot": 357,
+      "leftTarget": {
+        "x": 205.4003350083752,
+        "y": 205.48073701842546
+      },
+      "rightTarget": {
+        "x": 351.1959798994975,
+        "y": 206.33835845896147
+      }
+    },
+    "sweep": {
+      "sourceBounds": {
+        "x": 667,
+        "y": 642,
+        "w": 520,
+        "h": 593
+      },
+      "scale": 0.863406408094435,
+      "foot": 971,
+      "leftTarget": {
+        "x": 40.14839797639124,
+        "y": 209.56492411467116
+      },
+      "rightTarget": {
+        "x": 312.98482293423274,
+        "y": 252.73524451939292
+      }
+    }
+  },
+  "method": "Generated alpha preserved. Four cells extracted, uniform height and foot-anchor normalization, nearest-neighbor."
+}

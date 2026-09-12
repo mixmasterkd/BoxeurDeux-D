@@ -1,0 +1,18 @@
+{
+  "keys": [
+    "outfit-street-blue-down-0",
+    "outfit-street-blue-right-1",
+    "outfit-street-burgundy-down-0",
+    "outfit-street-burgundy-right-1",
+    "outfit-boxing-emerald-down-0",
+    "outfit-boxing-emerald-right-1",
+    "outfit-boxing-burgundy-down-0",
+    "outfit-boxing-burgundy-right-1",
+    "preview-boxer",
+    "outfit-boxing-emerald-preview-boxer",
+    "outfit-boxing-burgundy-preview-boxer"
+  ],
+  "cacheStable": true,
+  "official": "preview-boxer",
+  "errors": []
+}

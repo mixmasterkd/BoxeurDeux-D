@@ -283,9 +283,21 @@ export class CareerProfile {
     if (!offer.ok) return this._result(false, offer.message, offer);
     if (this.profile.delivery.nextId === Number.MAX_SAFE_INTEGER) return this._result(false, 'Le nombre maximal de tournées est atteint.');
     this.profile.daily.energy -= offer.cost;
-    this.profile.delivery.active = { id: this.profile.delivery.nextId++, stops: [...stops], completed: [], earned: 0 };
+    this.profile.delivery.active = { id: this.profile.delivery.nextId++, stops: [...stops], completed: [], earned: 0, elapsed: 0, bumps: 0 };
     this._save();
     return this._result(true, `Trois colis à livrer · ${offer.cost} points d’énergie utilisés.`, this.deliveryStatus());
+  }
+  recordDeliveryProgress({ elapsed, bumps } = {}) {
+    const active = this.profile.delivery.active;
+    if (!active) return this._result(false, 'Aucune tournée en cours.');
+    elapsed ??= active.elapsed; bumps ??= active.bumps;
+    if (typeof elapsed !== 'number' || !Number.isFinite(elapsed) || elapsed < 0
+      || elapsed > Number.MAX_SAFE_INTEGER || !counter(bumps)) return this._result(false, 'Le suivi de la livraison est invalide.');
+    const nextElapsed = Math.max(active.elapsed, elapsed), nextBumps = Math.max(active.bumps, bumps);
+    if (nextElapsed === active.elapsed && nextBumps === active.bumps) return this._result(true, 'Trajet déjà enregistré.', { unchanged: true });
+    active.elapsed = nextElapsed; active.bumps = nextBumps;
+    this._save();
+    return this._result(true, 'Trajet enregistré.', { elapsed: nextElapsed, bumps: nextBumps });
   }
   deliverParcel(stopId, options = {}) {
     const active = this.profile.delivery.active;
@@ -299,6 +311,7 @@ export class CareerProfile {
       Number.MAX_SAFE_INTEGER - this.profile.wallet.totalEarned);
     this.profile.wallet.money += paid; this.profile.wallet.totalEarned += paid;
     active.completed.push(stopId); active.earned += paid;
+    active.elapsed = 0; active.bumps = 0;
     const completed = active.completed.length === active.stops.length, earned = active.earned;
     if (completed) { this.profile.delivery.completedTours += 1; this.profile.delivery.active = null; }
     this._save();

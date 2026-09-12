@@ -400,9 +400,9 @@ try {
 
     // The combat facade replaces the former gym poster. Return to its street
     // door and use the public interaction to enter another clean encounter.
-    await page.waitForFunction(() => document.querySelector('.gym-nearby-label')?.textContent === 'Salle de boxe · Béton');
+    await page.waitForFunction(() => document.querySelector('.gym-nearby-label')?.textContent === 'Salle de boxe · Les rencontres');
     await interact();
-    await page.locator('.gym-dialog [data-gym-action="enter-fight"]').waitFor({ state: 'visible' });
+    await page.locator('.gym-dialog [data-gym-action="meet-beton"]').waitFor({ state: 'visible' });
     assert.match(await page.locator('#gym-dialog-title').textContent(), /Béton/);
     if (mobile) await press('#gym-ui [data-pad-button="a"]');
     else await page.keyboard.press('Enter');

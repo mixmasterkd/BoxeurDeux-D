@@ -1,0 +1,9 @@
+/* All new places use the existing fixed canvas, side rails and menu controls. */
+#rhythm-ui[data-activity="pads"] .rhythm-conductor { width: 34%; max-width: 370px; }
+#rhythm-ui[data-activity="pads"] .rhythm-cue { flex-basis: 110px; }
+#rhythm-ui[data-activity="pool"] .rhythm-cue { flex-basis: 85px; }
+#rhythm-ui:is([data-activity="pads"], [data-activity="pool"]) .rhythm-conductor { bottom: 3%; }
+#rhythm-ui:is([data-activity="pads"], [data-activity="pool"]) .rhythm-feedback { bottom: 8%; }
+#rhythm-ui:is([data-activity="pads"], [data-activity="pool"]) .rhythm-panel { max-height: calc(100% - 18px); top: 50%; }
+html[data-touch="true"] #rhythm-ui[data-activity="pads"] .rhythm-cue { flex-basis: 83px; }
+html[data-touch="true"] #rhythm-ui:is([data-activity="pads"], [data-activity="pool"]) .rhythm-panel { max-height: calc(var(--play-height) - 10px); }

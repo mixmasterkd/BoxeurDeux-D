@@ -285,3 +285,75 @@ test('a failed chapter save reports the failure but export preserves in-memory t
   const target = create(new MemoryStorage()); target.importText(profile.exportText());
   assert.equal(target.moneyStatus().money, 6); assert.equal(target.deliverParcel(DELIVERY_STOPS[0]).duplicate, true);
 });
+
+test('delivery timing survives scene changes and reload, cannot decrease, and resets only after the current parcel is paid', () => {
+  const storage = new MemoryStorage(); let profile = create(storage);
+  profile.startDelivery(); const money = profile.moneyStatus(), energy = profile.dailyStatus().energy;
+  assert.equal(profile.recordDeliveryProgress({ elapsed: 38.25, bumps: 2 }).ok, true);
+  profile.setLocation({ scene: 'commercial', x: 2265, y: 780, facing: 'left' });
+  profile = create(storage);
+  assert.equal(profile.deliveryStatus().active.elapsed, 38.25);
+  assert.equal(profile.deliveryStatus().active.bumps, 2);
+  const writes = storage.writes;
+  assert.equal(profile.recordDeliveryProgress({ elapsed: 0, bumps: 0 }).unchanged, true);
+  assert.equal(profile.recordDeliveryProgress({ elapsed: 38.25, bumps: 2 }).unchanged, true);
+  assert.equal(storage.writes, writes, 'Repeated or stale saves must not reset or rewrite the trip');
+  for (const invalid of [{ elapsed: -1 }, { elapsed: Infinity }, { elapsed: NaN }, { bumps: -1 }, { bumps: .5 }]) {
+    assert.equal(profile.recordDeliveryProgress(invalid).ok, false);
+    assert.equal(storage.writes, writes);
+  }
+  profile.recordDeliveryProgress({ elapsed: 63 });
+  assert.equal(profile.deliveryStatus().active.bumps, 2);
+  const beforeWrongDoor = profile.exportText();
+  profile.deliverParcel(DELIVERY_STOPS[1]);
+  assert.equal(profile.exportText(), beforeWrongDoor, 'A rejected delivery must keep its penalties');
+  assert.deepEqual(profile.moneyStatus(), money); assert.equal(profile.dailyStatus().energy, energy);
+  profile.deliverParcel(DELIVERY_STOPS[0], { tip: 0 });
+  profile = create(storage);
+  assert.equal(profile.moneyStatus().money, 5); assert.equal(profile.deliveryStatus().active.elapsed, 0);
+  assert.equal(profile.deliveryStatus().active.bumps, 0); assert.equal(profile.deliveryStatus().nextStop, DELIVERY_STOPS[1]);
+  profile.abandonDelivery(); assert.equal(profile.recordDeliveryProgress({ elapsed: 1, bumps: 0 }).ok, false);
+});
+
+test('early v3 delivery saves receive safe timing defaults while malformed present timing cannot replace progress', () => {
+  const storage = new MemoryStorage(), original = create(storage); original.startDelivery();
+  original.deliverParcel(DELIVERY_STOPS[0]); const raw = original.snapshot();
+  delete raw.delivery.active.elapsed; delete raw.delivery.active.bumps;
+  storage.setItem(CAREER_STORAGE_KEY, JSON.stringify(raw)); const profile = create(storage);
+  assert.equal(profile.deliveryStatus().active.elapsed, 0); assert.equal(profile.deliveryStatus().active.bumps, 0);
+  assert.equal(profile.deliveryStatus().nextStop, DELIVERY_STOPS[1]); assert.equal(profile.moneyStatus().money, 6);
+  const current = profile.exportText();
+  for (const patch of [{ elapsed: -1 }, { elapsed: null }, { elapsed: '50' }, { bumps: -1 }, { bumps: 1.5 }, { bumps: null }]) {
+    const bad = JSON.parse(current); Object.assign(bad.delivery.active, patch);
+    assert.throws(() => profile.importText(JSON.stringify(bad))); assert.equal(profile.exportText(), current);
+  }
+});
+
+test('full training ceilings and savings cannot skip the victory-based Béton → Kramer → tournament order', () => {
+  const profile = create(new MemoryStorage());
+  for (let i = 0; i < 30; i++) {
+    profile.reward('bag', { contacts: 12, accuracy: 100 });
+    profile.reward('rope', { hits: 30, accuracy: 100 });
+    profile.reward('speedball', { hits: 30, accuracy: 100 });
+    profile.reward('sparring', { completed: true, rounds: 1, actions: 20 });
+  }
+  for (let i = 0; i < 10; i++) tour(profile);
+  assert.deepEqual(profile.snapshot().stats, profile.snapshot().caps);
+  assert.equal(profile.moneyStatus().money, 200);
+  for (const winner of ['draw', 'remi']) profile.recordFight({ opponent: 'beton', winner });
+  const before = profile.exportText();
+  for (const opponent of ['kramer', 'bellini', 'fortin', 'gagnon']) assert.equal(Boolean(profile.canFight(opponent).ok), false);
+  assert.equal(profile.recordFight({ opponent: 'kramer', winner: 'player' }).ok, false);
+  assert.equal(profile.startTournament().ok, false); assert.equal(profile.exportText(), before);
+  profile.recordFight({ opponent: 'beton', winner: 'player' });
+  assert.equal(profile.canFight('kramer').ok, true); assert.equal(profile.canStartTournament().ok, false);
+  for (const winner of ['draw', 'remi']) profile.recordFight({ opponent: 'kramer', winner });
+  assert.equal(profile.canStartTournament().ok, false);
+  profile.recordFight({ opponent: 'kramer', winner: 'player' });
+  assert.equal(profile.startTournament().ok, true);
+  assert.equal(profile.canFight('bellini').ok, true);
+  assert.equal(profile.canFight('fortin').ok, false); assert.equal(profile.canFight('gagnon').ok, false);
+  profile.recordTournamentFight(currentResult(profile));
+  assert.equal(profile.canFight('bellini').ok, false); assert.equal(profile.canFight('fortin').ok, false);
+  profile.sleep(); assert.equal(profile.canFight('fortin').ok, true); assert.equal(profile.canFight('gagnon').ok, false);
+});

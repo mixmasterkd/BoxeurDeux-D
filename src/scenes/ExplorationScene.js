@@ -7,6 +7,18 @@ import { careerMenuOpen } from '../ui/GameControls.js';
 import { downloadCareer } from '../ui/CareerMenu.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import '../ui/exploration.css';
+import { DistrictWorld, DISTRICT_PLACES } from '../game/DistrictWorld.js';
+import { chapterInteract, chapterChoose, installChapterReadout, updateChapterReadout } from './ChapterInteractions.js';
+import { preloadOutfits, streetTexture } from './OutfitView.js';
+import { addMedalDisplay } from './MedalDisplay.js';
+
+const PLACES = ['home','neighborhood',...DISTRICT_PLACES];
+const COPY = {
+  residential: {title:'La rue des livreurs',welcome:'Livraisons à vélo',hint:'Le dépôt est au sud. Trois portes numérotées au nord.'},
+  commercial: {title:'La place commerçante',welcome:'Un tour aux boutiques',hint:'Rue Nord pour les vêtements; Le Coin Bleu pour la boxe.'},
+  'clothing-shop': {title:'Rue Nord',welcome:'Bienvenue chez Rue Nord',hint:'Approche-toi du comptoir pour voir la collection.'},
+  'boxing-shop': {title:'Le Coin Bleu',welcome:'Le Coin Bleu',hint:'Approche-toi du comptoir pour voir les équipements.'},
+};
 
 export class ExplorationScene extends Phaser.Scene {
   constructor() { super('ExplorationScene'); }
@@ -14,7 +26,7 @@ export class ExplorationScene extends Phaser.Scene {
   init(data = {}) {
     const entry = new URLSearchParams(location.search).get('scene');
     const saved = careerProfile.snapshot().location;
-    this.place = data.place ?? (['home', 'neighborhood'].includes(entry) ? entry : saved.scene === 'neighborhood' ? 'neighborhood' : 'home');
+    this.place = data.place ?? (PLACES.includes(entry) ? entry : PLACES.includes(saved.scene) ? saved.scene : 'home');
     this.entryPosition = data.location ?? (data.entrance ? (this.place === 'home'
       ? { x: 640, y: 622, facing: 'up' } : WORLD_ENTRANCES[data.entrance])
       : saved.scene === this.place ? saved : undefined);
@@ -22,11 +34,19 @@ export class ExplorationScene extends Phaser.Scene {
     this.sleeping = false;
     this.sleepInterrupted = false;
     this.persistClock = 0;
+    const delivery=careerProfile.deliveryStatus().active;
+    this.deliveryClock = delivery?.elapsed??0; this.deliveryBumps = delivery?.bumps??0; this.returningBike = false;
   }
 
   preload() {
     const base = import.meta.env.BASE_URL;
+    preloadOutfits(this,{street:true});
     this.load.image(`world-${this.place}`, `${base}assets/world/${this.place}.png`);
+    if(this.place==='neighborhood') this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);
+    if(this.place==='residential') {
+      this.load.json('cycling-player-data',`${base}assets/sprites/cycling/player.json`);
+      for(const direction of ['down','right','up','left'])for(let step=0;step<3;step++)this.load.image(`cycling-player-${direction}-${step}`,`${base}assets/sprites/cycling/player-${direction}-${step}.png`);
+    }
     this.load.json('street-player-data', `${base}assets/sprites/street/player.json`);
     for (const direction of ['down', 'right', 'up', 'left']) for (let step = 0; step < 3; step++) {
       this.load.image(`street-player-${direction}-${step}`, `${base}assets/sprites/street/player-${direction}-${step}.png`);
@@ -35,14 +55,16 @@ export class ExplorationScene extends Phaser.Scene {
 
   create() {
     setSceneShell(this.place);
-    this.world = new ExplorationWorld({ place: this.place, position: this.entryPosition });
+    this.world = DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
     const { width, height } = this.world.layout;
     this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
+    if(this.place==='neighborhood') this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);
     this.addForeground();
+    if(this.place==='home')addMedalDisplay(this,careerProfile.snapshot().tournament.medals);
     const metadata = this.cache.json.get('street-player-data');
     // The house furniture is drawn at twice the street actor's scale. Keep an
     // integer scale for crisp pixels, with the same foot anchor in every pose.
-    const actorScale = this.place === 'home' ? 2 : 1;
+    const actorScale = this.place === 'home' || this.place.endsWith('-shop') ? 2 : 1;
     this.shadow = this.add.ellipse(0, 0, 33, 11, 0x132323, .24).setScale(actorScale).setDepth(1);
     this.player = this.add.image(0, 0, 'street-player-down-0')
       .setOrigin(metadata.anchor.x / metadata.width, metadata.anchor.y / metadata.height).setScale(actorScale);
@@ -66,7 +88,7 @@ export class ExplorationScene extends Phaser.Scene {
         window.dispatchEvent(new CustomEvent('career-imported'));
       },
       onRefreshCareer: () => this.refreshProfile(),
-    }, this.place === 'home' ? {
+    }, COPY[this.place] ? {eyebrow:'MONTRÉAL · LE QUARTIER',...COPY[this.place],pauseText:'Ta journée attend. La tournée reprend après la pause.',commandsTitle:'Commandes du quartier',commandsHint:'Marche ou roule jusqu’à une porte ou un comptoir, puis interagis.'} : this.place === 'home' ? {
       eyebrow: 'CHEZ TOI · MONTRÉAL', title: 'Un nouveau jour', welcome: 'Chez toi',
       hint: 'Le lit pour dormir, la porte pour sortir.', pauseText: 'Ta journée attend. Se promener ne coûte aucune énergie.',
       commandsTitle: 'Commandes de la maison', commandsHint: 'Approche-toi du lit ou de la porte, puis interagis.',
@@ -75,12 +97,12 @@ export class ExplorationScene extends Phaser.Scene {
       hint: 'Explore les rues. Maison, gym et salle de boxe sont ouverts.', pauseText: 'Les rues t’attendent. Se promener ne coûte aucune énergie.',
       commandsTitle: 'Commandes du quartier', commandsHint: 'Marche jusqu’à une porte et interagis pour entrer. Les cônes indiquent les rues encore fermées.',
     });
-    this.refreshProfile();
+    installChapterReadout(this); this.refreshProfile();
     this.renderWorld();
     const camera = this.cameras.main;
     camera.setBounds(0, 0, width, height);
     camera.centerOn(this.player.x, this.player.y);
-    if (this.place === 'neighborhood') camera.startFollow(this.player, true, .10, .10, 0, 60);
+    if (width>1280 || height>720) camera.startFollow(this.player, true, .10, .10, 0, 60);
     // Interior keeps the same 1280×720 frame as the gym; outdoors it is a
     // window into a larger world. Actor size follows each setting's furniture.
     this.ui.update(this.world.state);
@@ -104,6 +126,7 @@ export class ExplorationScene extends Phaser.Scene {
 
   persistLocation() {
     if (!this.world || this.changingPlace || careerMenuOpen() || resumePending()) return;
+    if(this.place==='residential'&&careerProfile.deliveryStatus().active)careerProfile.recordDeliveryProgress({elapsed:this.deliveryClock,bumps:this.deliveryBumps});
     careerProfile.setLocation(this.world.location());
   }
 
@@ -112,6 +135,7 @@ export class ExplorationScene extends Phaser.Scene {
     const station = this.world.getNearby();
     if (!station) return;
     this.world.releaseControls(); this.persistLocation();
+    if(chapterInteract(this,station)) return;
     const daily = careerProfile.dailyStatus();
     const show = (title, text, actions = []) => this.ui.showDialog({ speaker: this.place === 'home' ? 'CHEZ TOI' : 'LA VIE DE QUARTIER', title, text, actions });
     const back = { id: 'close', label: 'Continuer la visite →' };
@@ -130,7 +154,7 @@ export class ExplorationScene extends Phaser.Scene {
       show('Ta signature.', 'Survêtement noir à bandes blanches et tuque rouge pour le quartier. Au gym, tu retrouves ta tenue de boxe.\n\nLes nouvelles tenues arriveront plus tard.', [back]);
     } else if (station.id === 'notebook') {
       const { stats, caps, fights } = careerProfile.snapshot();
-      show('Ton carnet de boxe', `Endurance : ${stats.endurance}/${caps.endurance}\nRésistance : ${stats.resistance}/${caps.resistance}\nPuissance : +${stats.power}/+${caps.power}\nRécupération : +${Math.round((stats.recovery - 1) * 100)} %\n\nBéton : ${fights.beton.wins} victoire(s) · ${fights.beton.attempts} combat(s).\nL’entraînement améliore tes capacités jusqu’au plafond du palier.`, [back]);
+      show('Ton carnet de boxe', `Endurance : ${stats.endurance}/${caps.endurance}\nRésistance : ${stats.resistance}/${caps.resistance}\nPuissance : +${stats.power}/+${caps.power}\nRécupération : +${Math.round((stats.recovery - 1) * 100)} %\n\nBéton : ${fights.beton.wins} victoire(s) · Kramer : ${fights.kramer.wins} victoire(s).\n${fights.kramer.wins?'Prochain objectif : les Gants de bronze.':fights.beton.wins?'Prochain défi : Kramer.':'Prochain défi : Béton.'}\nL’entraînement améliore tes capacités jusqu’au plafond du palier.`, [back]);
     } else if (station.id.startsWith('works')) {
       show('Fin des travaux : éventuellement.', 'Les cônes veillent sur les prochains coins du quartier.\n\nCette rue est encore fermée. La maison, le gym, le parc et la salle de boxe restent accessibles.', [back]);
     } else if (station.id === 'shop') {
@@ -140,6 +164,7 @@ export class ExplorationScene extends Phaser.Scene {
 
   choose(id) {
     if (this.changingPlace || this.sleeping || resumePending() || this.world.state.paused || !this.ui.dialog) return;
+    if(chapterChoose(this,id))return;
     if (id === 'sleep' && this.world.getNearby()?.id === 'bed') this.sleep();
     else if (id === 'enter-fight' && this.world.getNearby()?.id === 'fight') {
       this.persistLocation(); this.changingPlace = true; this.ui.clearInputs(); this.world.pause();
@@ -162,7 +187,7 @@ export class ExplorationScene extends Phaser.Scene {
     // Commit the night once on confirmation. Reloading during the fade resumes
     // the already-saved morning; it cannot grant a second day or a stat bonus.
     const result = careerProfile.sleep();
-    if (!result.ok) { this.sleeping = false; this.world.resume(); return; }
+    if (!result.ok) { this.sleeping = false; this.world.resume(); this.ui.showDialog({speaker:'CHEZ TOI',title:'Avant de dormir',text:result.message,actions:[{id:'close',label:'Continuer →'}]}); return; }
     Object.assign(this.world.state, { x: 944, y: 365, facing: 'down' });
     this.persistLocation(); this.refreshProfile();
     this.cameras.main.fadeOut(450, 7, 16, 24);
@@ -181,9 +206,16 @@ export class ExplorationScene extends Phaser.Scene {
   }
 
   addForeground() {
+    if(DISTRICT_PLACES.includes(this.place)&&this.place!=='residential')return;
     // Extract existing art pixels into transparent layers. Nothing is repainted:
     // trunks/benches keep their original shape, and feet decide the draw order.
-    const layers = this.place === 'home' ? [
+    const layers = this.place === 'residential' ? [
+      {id:'tree-12',points:[[338,238],[364,214],[392,222],[411,249],[426,284],[408,307],[390,324],[389,357],[374,357],[373,321],[348,305],[330,281]],depth:359},
+      {id:'tree-24',points:[[915,249],[939,220],[970,217],[993,241],[1005,276],[987,303],[966,320],[966,357],[948,357],[948,318],[925,306],[907,278]],depth:359},
+      {id:'tree-36',points:[[1446,243],[1470,219],[1495,225],[1514,249],[1531,282],[1512,311],[1496,321],[1496,355],[1480,355],[1479,322],[1455,306],[1439,277]],depth:358},
+      {id:'depot',points:[[638,527],[948,527],[948,807],[638,807]],depth:807},
+      {id:'houses-south',points:[[1063,524],[1548,524],[1548,872],[1063,872]],depth:872},
+    ] : this.place === 'home' ? [
       { id: 'bed', points: [[990,171],[1208,171],[1208,365],[990,365]], depth: 365 },
       { id: 'table', points: [[0,453],[136,453],[136,560],[0,560]], depth: 565 },
     ] : [
@@ -195,7 +227,7 @@ export class ExplorationScene extends Phaser.Scene {
       { id: 'park-fence-right', points: [[389,858],[666,858],[666,938],[389,938]], depth: 932 },
       { id: 'park-bench', points: [[452,803],[539,781],[561,815],[546,842],[471,861],[454,838]], depth: 853 },
     ];
-    const scale = this.place === 'neighborhood' ? STREET_SCALE : 1;
+    const scale = this.place === 'neighborhood'||this.place==='residential' ? STREET_SCALE : 1;
     const source = this.textures.get(`world-${this.place}`).getSourceImage();
     for (const layer of layers) {
       const key = `world-layer-${this.place}-${layer.id}`;
@@ -213,12 +245,17 @@ export class ExplorationScene extends Phaser.Scene {
   update(_time, delta) {
     if (!this.world || !this.ui) return;
     const wasMoving = this.world.state.moving;
-    if (!this.ui.dialog && !this.sleeping && !this.changingPlace && !careerMenuOpen() && !resumePending()) this.world.update((this.game.loop.rawDelta ?? delta) / 1000);
+    const cycling=this.place==='residential'&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike);
+    this.world.layout.speed=cycling?360:this.place==='residential'?230:this.world.layout.speed;
+    if (!this.ui.dialog && !this.sleeping && !this.changingPlace && !careerMenuOpen() && !resumePending()) {
+      this.world.update((this.game.loop.rawDelta ?? delta) / 1000);
+      if(cycling&&!this.world.state.paused){this.deliveryClock+=Math.min(delta/1000,.1);if((this.world.input.x||this.world.input.y)&&!this.world.state.moving)this.deliveryBumps++;}
+    }
     this.persistClock += delta;
     if (!this.sleeping && (wasMoving && !this.world.state.moving || this.persistClock > 1500)) {
       this.persistLocation(); this.persistClock = 0;
     }
-    this.renderWorld(); this.ui.update(this.world.state);
+    this.renderWorld(); this.ui.update(this.world.state);updateChapterReadout(this);
     // During the brief night transition the fade itself is the presentation.
     if (this.sleeping) this.ui.root.dataset.sleeping = 'true'; else delete this.ui.root.dataset.sleeping;
   }
@@ -226,7 +263,11 @@ export class ExplorationScene extends Phaser.Scene {
   renderWorld() {
     const state = this.world.state;
     const step = state.moving && !state.paused && !this.ui?.dialog ? [0,1,0,2][Math.floor(state.walkTime / .14) % 4] : 0;
-    this.player.setTexture(`street-player-${state.facing}-${step}`).setPosition(Math.round(state.x), Math.round(state.y)).setDepth(state.y);
+    const cycling=this.place==='residential'&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike),prefix=cycling?'cycling':'street';
+    const meta=this.cache.json.get(`${prefix}-player-data`);
+    const key=`${prefix}-player-${state.facing}-${step}`;
+    this.player.setTexture(cycling?key:streetTexture(this,key)).setOrigin(meta.anchor.x/meta.width,meta.anchor.y/meta.height).setPosition(Math.round(state.x), Math.round(state.y)).setDepth(state.y);
+    this.shadow.setScale(cycling?1.8:this.place==='home'||this.place.endsWith('-shop')?2:1);
     this.shadow.setPosition(state.x, state.y + 1);
     this.marker.clear();
     if (state.nearby && !state.paused && !this.ui?.dialog) this.marker.lineStyle(2, 0xebc37d, .8).strokeEllipse(state.nearby.x, state.nearby.y + 4, 42, 12);

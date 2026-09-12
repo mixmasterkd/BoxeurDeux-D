@@ -8,6 +8,20 @@ const GUIDES = {
 };
 
 export function setSceneShell(mode, { opponent = 'remi' } = {}) {
+  const chapterPlaces={residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
+    'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · RÉCEPTION','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':'LES GANTS DE BRONZE'};
+  if(chapterPlaces[mode]){
+    setSceneShell('gym');document.getElementById('stage').dataset.scene=mode;
+    document.getElementById('stage').setAttribute('aria-label',chapterPlaces[mode]);
+    document.getElementById('game').setAttribute('aria-label',`${chapterPlaces[mode]} · Lieu explorable en pixel art.`);
+    document.querySelector('.gym-location').textContent=chapterPlaces[mode];document.querySelector('.prototype-label').textContent=chapterPlaces[mode];return;
+  }
+  if(mode==='pads'||mode==='pool'){
+    setSceneShell('rope');document.getElementById('stage').dataset.scene=mode;
+    document.getElementById('stage').setAttribute('aria-label',mode==='pads'?'Pads avec Rémi':'Longueurs à la piscine');
+    document.querySelector('.gym-location').textContent='LES GANTS DE BRONZE · HÔTEL';
+    document.querySelector('.prototype-label').textContent=mode==='pads'?'PADS AVEC RÉMI':'PISCINE · LONGUEURS';return;
+  }
   if (mode === 'home' || mode === 'neighborhood') {
     setSceneShell('gym');
     document.getElementById('stage').dataset.scene = mode;
@@ -17,7 +31,7 @@ export function setSceneShell(mode, { opponent = 'remi' } = {}) {
     document.querySelector('.prototype-label').textContent = mode === 'home' ? 'MAISON' : 'LE QUARTIER';
     return;
   }
-  const fight = mode === 'sparring' && opponent === 'beton';
+  const fight = mode === 'sparring' && opponent !== 'remi';
   document.querySelector('.gym-location').innerHTML = `MONTRÉAL <span aria-hidden="true">/</span> ${fight ? 'SALLE DE BOXE' : 'AU GYM'}`;
   document.getElementById('stage').dataset.scene = mode;
   document.getElementById('stage').setAttribute('aria-label', { gym: 'Visite du gym', sparring: 'Sparring avec Rémi le Tank', bag: 'Entraînement au sac de frappe', shadow: 'Shadow boxing devant le miroir', speedball: 'Entraînement à la speed ball', rope: 'Entraînement à la corde à danser' }[mode]);
@@ -31,8 +45,9 @@ export function setSceneShell(mode, { opponent = 'remi' } = {}) {
   document.getElementById('game-commands').innerHTML = GUIDES[mode];
   document.querySelector('.prototype-label').textContent = { gym: 'LE GYM', sparring: 'SPARRING AVEC RÉMI', bag: 'SAC · ENCHAÎNEMENTS', shadow: 'MIROIR · SHADOW BOXING', speedball: 'SPEED BALL · RYTHME', rope: 'CORDE · ENDURANCE' }[mode];
   if (fight) {
-    document.getElementById('stage').setAttribute('aria-label', 'Combat contre Béton dans une salle de boxe');
-    document.getElementById('game').setAttribute('aria-label', 'Salle de boxe en pixel art, public autour du ring et projecteurs de soirée. Vous êtes de dos face à Béton.');
-    document.querySelector('.prototype-label').textContent = 'COMBAT EN SALLE · BÉTON';
+    const name={beton:'Béton',kramer:'Kramer',bellini:'Marco Bellini',fortin:'Louis Fortin',gagnon:'André Gagnon'}[opponent]??opponent;
+    document.getElementById('stage').setAttribute('aria-label', `Combat contre ${name} dans une salle de boxe`);
+    document.getElementById('game').setAttribute('aria-label', `Salle de boxe en pixel art, public autour du ring. Vous êtes de dos face à ${name}.`);
+    document.querySelector('.prototype-label').textContent = `COMBAT EN SALLE · ${name.toUpperCase()}`;
   }
 }
