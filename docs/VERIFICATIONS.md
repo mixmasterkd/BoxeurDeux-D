@@ -1,5 +1,13 @@
 # Vérification du prototype — 11 septembre 2026
 
+## Proportions du personnage dans la maison
+
+Correction demandée après la livraison : hauteur visible portée de 88 à environ **176 px** à la maison, par agrandissement entier des sprites existants. Ombre également ×2, même ancre aux pieds dans les douze poses, empreinte de collision portée à 28 × 14 de demi-dimensions. Cadrage et dimensions des autres lieux conservés.
+
+- **207 tests autonomes et compilation réussis**, bundle `index-BW6I6iq4.js`. Seul l’avertissement de taille connu de Phaser subsiste.
+- **`npm run test:exploration` réussi** après correction : navigation maison/quartier/gym, accès au lit, sommeil annulé/confirmé, sauvegarde/reprise et accès Béton. Parcours clavier et tactile simulé; import épuisé à 568 × 320. Rapport `exploration-browser-results.json`, erreurs `[]`, échec `null`.
+- Composition inspectée sur ordinateur **1280 × 900**, mobile **844 × 390**, petit paysage **568 × 320** : proportions 16:9, pas de défilement et joypad/A/B hors de l’image. Approches réelles au clavier du lit, de la cuisine et de la chaise/carnet; collisions et interaction du carnet confirmées. Captures `home-proportions-{desktop,mobile,small,bed,kitchen,table}.png`. Aucun essai sur téléphone physique.
+
 ## Maison, quartier et journées — GO suivant
 
 Extension intégrée : quartier de **2379 × 1488** avec caméra de **1280 × 720** qui suit le joueur, maison et gym explorables, entrée directe de la salle de Béton à la place de la pancarte. Rues, ruelles, parc, obstacles et chantiers ferment les futures extensions. Le personnage porte son survêtement et sa tuque rouge à la maison et dehors, puis sa tenue de boxe au gym. Sources et prompts de génération intégrée dans `references/world/` et `references/characters/street/`; aucune dépendance de génération pendant le jeu.

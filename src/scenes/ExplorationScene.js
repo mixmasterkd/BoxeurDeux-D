@@ -40,9 +40,12 @@ export class ExplorationScene extends Phaser.Scene {
     this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
     this.addForeground();
     const metadata = this.cache.json.get('street-player-data');
-    this.shadow = this.add.ellipse(0, 0, 33, 11, 0x132323, .24).setDepth(1);
+    // The house furniture is drawn at twice the street actor's scale. Keep an
+    // integer scale for crisp pixels, with the same foot anchor in every pose.
+    const actorScale = this.place === 'home' ? 2 : 1;
+    this.shadow = this.add.ellipse(0, 0, 33, 11, 0x132323, .24).setScale(actorScale).setDepth(1);
     this.player = this.add.image(0, 0, 'street-player-down-0')
-      .setOrigin(metadata.anchor.x / metadata.width, metadata.anchor.y / metadata.height);
+      .setOrigin(metadata.anchor.x / metadata.width, metadata.anchor.y / metadata.height).setScale(actorScale);
     this.marker = this.add.graphics().setDepth(2);
     this.ui = new GymUI({
       onMove: vector => { if (!this.sleeping && !this.changingPlace && !resumePending()) this.world.setInput(vector); },
@@ -79,7 +82,7 @@ export class ExplorationScene extends Phaser.Scene {
     camera.centerOn(this.player.x, this.player.y);
     if (this.place === 'neighborhood') camera.startFollow(this.player, true, .10, .10, 0, 60);
     // Interior keeps the same 1280×720 frame as the gym; outdoors it is a
-    // window into a larger world, with exactly the same actor scale.
+    // window into a larger world. Actor size follows each setting's furniture.
     this.ui.update(this.world.state);
     this.persistLocation();
     this.abort = new AbortController();

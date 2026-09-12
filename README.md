@@ -75,6 +75,8 @@ Le personnage d’exploration du gym porte une tuque rouge courte avec un petit 
 
 Une nouvelle partie commence **à la maison**. On peut se déplacer dans la pièce, rejoindre le lit ou sortir. Le lit propose de passer au lendemain : seule la confirmation déclenche le sommeil. La maison laisse de la place pour de futures activités; garde-robe, trophées et autres interactions ne sont pas fonctionnels à cette étape.
 
+Le personnage est affiché deux fois plus grand dans la maison pour correspondre aux proportions du mobilier. Son ombre et son empreinte au sol suivent cette taille, avec les pieds ancrés sur le plancher dans toutes les poses. Le cadrage reste 1280 × 720 sur ordinateur et téléphone.
+
 Le quartier mesure **2379 × 1488** dans le monde du jeu. L’écran en montre une portion de **1280 × 720** : la caméra suit le personnage et s’arrête aux limites de la carte. La carte entière n’est pas réduite à un seul écran. Même échelle, mêmes proportions et même portion visible sur ordinateur et mobile paysage.
 
 - **Maison** : porte vers l’intérieur explorable et le lit.

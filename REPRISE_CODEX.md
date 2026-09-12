@@ -1,5 +1,9 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Correction des proportions de la maison
+
+Après la livraison du quartier, l’utilisateur trouve le personnage trop petit pour la maison. Le rendu maison utilise désormais une échelle entière **×2** sur le personnage et son ombre, avec l’ancre aux pieds préservée; l’empreinte au sol passe à **28 × 14** de demi-dimensions pour respecter le mobilier. Rue, gym, caméra et sauvegardes conservent leurs règles. Voir la section correspondante de `docs/VERIFICATIONS.md` pour les contrôles et la publication.
+
 ## GO actuel — maison, quartier explorable et journées
 
 L’utilisateur a confirmé puis donné **GO pour l’ensemble** : quartier plus grand que l’écran avec caméra suiveuse, maison explorable et lit, gym relié au quartier, salle communautaire accessible par une porte qui ouvre directement Béton, énergie quotidienne et sauvegarde du jour/énergie/lieu. Il a explicitement demandé de faire la maison avec le sommeil, puis confirmé que le quartier fait partie de ce GO. **Ne pas revenir à une carte réduite à un écran, ni attendre un nouveau GO pour terminer cette boucle.** Les anciennes portées et ordres conservés plus bas sont historiques.

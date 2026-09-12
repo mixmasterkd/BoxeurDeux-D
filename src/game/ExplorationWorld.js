@@ -35,7 +35,7 @@ export const NEIGHBORHOOD_LAYOUT = {
 
 export const HOME_LAYOUT = {
   width: 1280, height: 720, speed: 200,
-  footprint: { halfWidth: 14, halfHeight: 7 },
+  footprint: { halfWidth: 28, halfHeight: 14 },
   bounds: { left: 43, right: 1234, top: 213, bottom: 666 },
   spawn: { x: 640, y: 540, facing: 'down' },
   obstacles: [
