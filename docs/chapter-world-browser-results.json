@@ -1,0 +1,26 @@
+{
+  "tests": [
+    {
+      "label": "desktop",
+      "deliveryMoney": 21,
+      "actualRoute": true,
+      "bothShopInteriors": true,
+      "geometry": true
+    },
+    {
+      "label": "mobile",
+      "deliveryMoney": 21,
+      "actualRoute": true,
+      "bothShopInteriors": true,
+      "geometry": true
+    },
+    {
+      "label": "purchase-equip",
+      "purchaseSeparateFromEquip": true,
+      "walkedHome": true,
+      "reload": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

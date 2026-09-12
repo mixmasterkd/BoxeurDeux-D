@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-12T23:33:00.522Z",
+  "runtimeCommit": "2164799",
+  "build": {
+    "js": "index-DIN6ZfRa.js",
+    "css": "index-C0-Rsoda.css",
+    "sha256": "770e3d4882703d0fa0b050ba91660026ae2be0a5c0ec42ed8ad3dce9eb7cca80"
+  },
+  "unitTests": 285,
+  "unitFailures": 0,
+  "chapterProductionCases": 19,
+  "chapterProductionResources": 233,
+  "legacyProduction": {
+    "passed": true,
+    "desktop": true,
+    "simulatedTouch": true
+  },
+  "phonePhysicalTest": false
+}

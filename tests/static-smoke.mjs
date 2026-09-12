@@ -403,7 +403,7 @@ try {
     await page.waitForFunction(() => document.querySelector('.gym-nearby-label')?.textContent === 'Salle de boxe · Les rencontres');
     await interact();
     await page.locator('.gym-dialog [data-gym-action="meet-beton"]').waitFor({ state: 'visible' });
-    assert.match(await page.locator('#gym-dialog-title').textContent(), /Béton/);
+    assert.match(await page.locator('#gym-dialog-text').textContent(), /Prochain défi : Béton/);
     if (mobile) await press('#gym-ui [data-pad-button="a"]');
     else await page.keyboard.press('Enter');
     await page.waitForFunction(() => document.querySelector('#sparring-ui')?.dataset.opponent === 'beton'

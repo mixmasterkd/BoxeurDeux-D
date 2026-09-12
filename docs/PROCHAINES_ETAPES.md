@@ -1,5 +1,17 @@
 # Suite du projet BoxeurDeux-D
 
+## Chapitre autorisé le 12 septembre 2026
+
+Le GO regroupe désormais **livraisons à vélo, économie, deux boutiques dans une nouvelle portion inspirée du DIX30, tenues équipables, Kramer, puis Gants de bronze sur trois jours**. Le gym, la maison et le quartier précédents sont conservés. Le fonctionnement courant est décrit dans le README; la preuve des essais et de la publication est dans VERIFICATIONS.md. Les sections suivantes conservent la liste initiale et son historique, sans limiter ce GO.
+
+La progression est linéaire, dans l’esprit Punch-Out : **victoire contre Béton → Kramer → inscription au tournoi → Bellini (quart) → Fortin (demi) → Gagnon (finale)**. Les entraînements ne sautent aucun adversaire; leurs capacités restent plafonnées. Kramer abandonne à sa deuxième chute cumulée. L’hôtel comporte chambre, couloir, ascenseur, réception, pads, piscine et salle défilante à quatre rings. Une victoire puis le sommeil ouvrent le jour suivant; une élimination termine le parcours et laisse rentrer.
+
+Une tournée coûte 30 énergie et rapporte 15 à 21 dollars; épargne plafonnée 200/350/500 selon les victoires. Deux boutiques seulement sont ouvertes : vêtements Rue Nord, équipement Le Coin Bleu. Équiper se fait à la maison/au casier du gym; achats cosmétiques, uniforme de tournoi fourni. Première inscription 120 dollars, suivantes 60. Sauvegarde v3 avec migration v1/v2, argent, inventaire, lieux, tournée, séjour et médailles.
+
+**À discuter après cette livraison** : retours de confort et de difficulté sur téléphone physique, davantage de vêtements et équipements, nouveaux adversaires/quartiers et contenu domestique. Les futurs ordinateurs, cellulaires et achats en ligne restent une idée ultérieure. Ne pas en faire une obligation cachée du chapitre actuel.
+
+## Historique — maison, quartier et liste initiale
+
 Direction confirmée par l’utilisateur, actualisée avec le **GO maison, quartier explorable et journées**. Voir `VERIFICATIONS.md` pour les validations effectivement terminées; cette feuille de route ne confirme pas à elle seule une publication. La liste initiale en huit étapes est conservée plus bas, avec son contexte historique.
 
 ## Portée du GO actuel — maison, quartier et journées

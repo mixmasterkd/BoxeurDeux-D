@@ -1,10 +1,18 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## GO actif — livraisons, boutiques, Kramer et Gants de bronze
+
+Le 12 septembre 2026, l’utilisateur donne explicitement GO pour l’ensemble discuté. Terminer ce chapitre sans redemander chaque détail courant : lisibilité du ring mobile en premier; nouvelle rue résidentielle de livraisons à vélo; secteur commercial distinct inspiré du Quartier DIX30 avec DEUX boutiques (vêtements et boxe), autres vitrines fermées et cônes aux futures extensions; argent, achats, garde-robe maison et casier gym; Kramer « The Quitter » qui abandonne à sa deuxième chute cumulée; tournoi payant sur trois jours avec Marco Bellini, Louis « Le Roc » Fortin et André « Le Patron » Gagnon. Béton puis Kramer sont les deux rencontres avant le tournoi. Tableau de huit, trois adversaires sur le parcours et quatre participants d’ambiance.
+
+Hôtel explorable en plusieurs lieux reliés : chambre, couloir, ascenseur, hall, mini-gym/pads avec Rémi, piscine avec longueurs animées, salle d’événement défilante avec quatre rings/gradins/boxeurs. Victoire puis lit pour avancer du quart à la demi puis finale; médailles or/argent/bronze selon résultat, souvenir en quart, retour maison et exposition. Prévoir défaite, départ anticipé, reprise sauvegardée et idempotence des paiements/résultats. Équipements cosmétiques; plafonds sportifs progressifs. Tenues de compétition inspirées du règlement Boxe Canada janvier 2025 : couleur de coin, ceinture contrastante, casque ouvert sans protège-joues. Mécanique de combat actuelle conservée.
+
+La demande autorise intégration, commits intermédiaires et publication GitHub Pages selon le relais existant. Les achats futurs d’ordinateur/cellulaire et les achats en ligne restent une idée ultérieure, pas ce GO. Les sections « attendre GO » ci-dessous décrivent les livraisons précédentes. Chapitre intégré et vérifié localement : `a07883b` (économie/sauvegarde v3), `2164799` (runtime, visuels et tests). 285 tests autonomes, combats réellement joués, livraisons/boutiques/tenues, hôtel/journées et deux parcours de production passent. Le menu mobile est corrigé, y compris son défilement tactile. Publication en préparation : lire `docs/VERIFICATIONS.md` pour sa preuve finale. Les références historiques ci-dessous restent conservées, sans limiter cette livraison.
+
 ## Correction des proportions de la maison
 
 Après la livraison du quartier, l’utilisateur trouve le personnage trop petit pour la maison. Le rendu maison utilise désormais une échelle entière **×2** sur le personnage et son ombre, avec l’ancre aux pieds préservée; l’empreinte au sol passe à **28 × 14** de demi-dimensions pour respecter le mobilier. Rue, gym, caméra et sauvegardes conservent leurs règles. Voir la section correspondante de `docs/VERIFICATIONS.md` pour les contrôles et la publication.
 
-## GO actuel — maison, quartier explorable et journées
+## Historique — GO maison, quartier explorable et journées
 
 L’utilisateur a confirmé puis donné **GO pour l’ensemble** : quartier plus grand que l’écran avec caméra suiveuse, maison explorable et lit, gym relié au quartier, salle communautaire accessible par une porte qui ouvre directement Béton, énergie quotidienne et sauvegarde du jour/énergie/lieu. Il a explicitement demandé de faire la maison avec le sommeil, puis confirmé que le quartier fait partie de ce GO. **Ne pas revenir à une carte réduite à un écran, ni attendre un nouveau GO pour terminer cette boucle.** Les anciennes portées et ordres conservés plus bas sont historiques.
 

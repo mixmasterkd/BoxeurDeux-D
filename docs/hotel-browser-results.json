@@ -1,0 +1,92 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "tests": [
+    {
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "energy": 80,
+      "rooms": [
+        "room",
+        "corridor",
+        "gym",
+        "pool",
+        "venue"
+      ],
+      "walkedWithoutEnergyCost": true
+    },
+    {
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "energy": 80,
+      "rooms": [
+        "room",
+        "corridor",
+        "gym",
+        "pool",
+        "venue"
+      ],
+      "walkedWithoutEnergyCost": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

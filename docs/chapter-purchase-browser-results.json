@@ -1,0 +1,12 @@
+{
+  "tests": [
+    {
+      "label": "purchase-equip",
+      "purchaseSeparateFromEquip": true,
+      "walkedHome": true,
+      "reload": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

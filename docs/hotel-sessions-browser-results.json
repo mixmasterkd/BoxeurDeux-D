@@ -1,0 +1,233 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "sessions": [
+    {
+      "activity": "pads",
+      "mobile": false,
+      "elapsedWallMs": 45356,
+      "summary": {
+        "hits": 29,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 29,
+        "bestStreak": 29,
+        "accuracy": 100,
+        "laps": 0,
+        "completed": true,
+        "qualified": true
+      },
+      "energy": 90,
+      "stats": {
+        "power": 1,
+        "recovery": 1,
+        "endurance": 100,
+        "resistance": 100
+      },
+      "contacts": 29,
+      "layout": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777662418563605,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "pool",
+      "mobile": false,
+      "elapsedWallMs": 45418,
+      "summary": {
+        "hits": 52,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 52,
+        "bestStreak": 52,
+        "accuracy": 100,
+        "laps": 4,
+        "completed": true,
+        "qualified": true
+      },
+      "energy": 90,
+      "stats": {
+        "power": 0,
+        "recovery": 1,
+        "endurance": 102,
+        "resistance": 100
+      },
+      "contacts": 52,
+      "layout": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777662418563605,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "pads",
+      "mobile": true,
+      "elapsedWallMs": 45260,
+      "summary": {
+        "hits": 29,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 29,
+        "bestStreak": 29,
+        "accuracy": 100,
+        "laps": 0,
+        "completed": true,
+        "qualified": true
+      },
+      "energy": 90,
+      "stats": {
+        "power": 1,
+        "recovery": 1,
+        "endurance": 100,
+        "resistance": 100
+      },
+      "contacts": 29,
+      "layout": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : gardes et esquives, comme en combat",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "activity": "pool",
+      "mobile": true,
+      "elapsedWallMs": 45370,
+      "summary": {
+        "hits": 52,
+        "wrong": 0,
+        "early": 0,
+        "late": 0,
+        "missed": 0,
+        "streak": 52,
+        "bestStreak": 52,
+        "accuracy": 100,
+        "laps": 4,
+        "completed": true,
+        "qualified": true
+      },
+      "energy": 90,
+      "stats": {
+        "power": 0,
+        "recovery": 1,
+        "endurance": 102,
+        "resistance": 100
+      },
+      "contacts": 52,
+      "layout": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

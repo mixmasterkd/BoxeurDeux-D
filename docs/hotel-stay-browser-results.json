@@ -1,0 +1,105 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "cases": [
+    {
+      "case": "three-day-stay-and-gold-return",
+      "mobile": false,
+      "day": 5,
+      "medals": [
+        {
+          "tournamentId": 1,
+          "type": "gold",
+          "day": 5
+        }
+      ],
+      "history": [
+        {
+          "id": 1,
+          "day": 3,
+          "status": "champion",
+          "results": [
+            {
+              "day": 1,
+              "opponent": "bellini",
+              "matchId": "1:1",
+              "winner": "player",
+              "score": 10
+            },
+            {
+              "day": 2,
+              "opponent": "fortin",
+              "matchId": "1:2",
+              "winner": "player",
+              "score": 10
+            },
+            {
+              "day": 3,
+              "opponent": "gagnon",
+              "matchId": "1:3",
+              "winner": "player",
+              "score": 10
+            }
+          ],
+          "medal": "gold",
+          "returnedAtDay": 5
+        }
+      ]
+    },
+    {
+      "case": "three-day-stay-and-gold-return",
+      "mobile": true,
+      "day": 5,
+      "medals": [
+        {
+          "tournamentId": 1,
+          "type": "gold",
+          "day": 5
+        }
+      ],
+      "history": [
+        {
+          "id": 1,
+          "day": 3,
+          "status": "champion",
+          "results": [
+            {
+              "day": 1,
+              "opponent": "bellini",
+              "matchId": "1:1",
+              "winner": "player",
+              "score": 10
+            },
+            {
+              "day": 2,
+              "opponent": "fortin",
+              "matchId": "1:2",
+              "winner": "player",
+              "score": 10
+            },
+            {
+              "day": 3,
+              "opponent": "gagnon",
+              "matchId": "1:3",
+              "winner": "player",
+              "score": 10
+            }
+          ],
+          "medal": "gold",
+          "returnedAtDay": 5
+        }
+      ]
+    },
+    {
+      "case": "elimination-stay-or-return",
+      "medals": [
+        {
+          "tournamentId": 1,
+          "type": "bronze",
+          "day": 4
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "failure": null
+}
