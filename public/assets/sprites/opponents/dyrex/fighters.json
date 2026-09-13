@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "dyrex",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.528358208955224,
+  "poses": {
+    "dyrex-guard": {
+      "file": "opponents/dyrex/dyrex-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 157,
+        "y": 112,
+        "width": 327,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 76,
+        "y": 4,
+        "w": 214,
+        "h": 335
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-block": {
+      "file": "opponents/dyrex/dyrex-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 166,
+        "y": 110,
+        "width": 310,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 382,
+        "y": 3,
+        "w": 203,
+        "h": 336
+      },
+      "head": {
+        "x": 321,
+        "y": 197
+      },
+      "body": {
+        "x": 321,
+        "y": 310
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-jab-windup": {
+      "file": "opponents/dyrex/dyrex-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 107,
+        "width": 350,
+        "height": 517
+      },
+      "sourceBounds": {
+        "x": 664,
+        "y": 4,
+        "w": 229,
+        "h": 338
+      },
+      "head": {
+        "x": 301,
+        "y": 195
+      },
+      "body": {
+        "x": 319,
+        "y": 308
+      },
+      "glove": {
+        "x": 459,
+        "y": 241
+      },
+      "contact": {
+        "x": 459,
+        "y": 241
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-jab": {
+      "file": "opponents/dyrex/dyrex-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 148,
+        "y": 109,
+        "width": 367,
+        "height": 515
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 4,
+        "w": 240,
+        "h": 337
+      },
+      "head": {
+        "x": 284,
+        "y": 197
+      },
+      "body": {
+        "x": 309,
+        "y": 315
+      },
+      "glove": {
+        "x": 471,
+        "y": 202
+      },
+      "contact": {
+        "x": 471,
+        "y": 202
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-cross-windup": {
+      "file": "opponents/dyrex/dyrex-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 130,
+        "y": 132,
+        "width": 382,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 45,
+        "y": 331,
+        "w": 250,
+        "h": 322
+      },
+      "head": {
+        "x": 363,
+        "y": 216
+      },
+      "body": {
+        "x": 340,
+        "y": 334
+      },
+      "glove": {
+        "x": 229,
+        "y": 240
+      },
+      "contact": {
+        "x": 229,
+        "y": 240
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-cross": {
+      "file": "opponents/dyrex/dyrex-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 140,
+        "width": 373,
+        "height": 484
+      },
+      "sourceBounds": {
+        "x": 364,
+        "y": 336,
+        "w": 244,
+        "h": 317
+      },
+      "head": {
+        "x": 330,
+        "y": 222
+      },
+      "body": {
+        "x": 326,
+        "y": 343
+      },
+      "glove": {
+        "x": 180,
+        "y": 251
+      },
+      "contact": {
+        "x": 180,
+        "y": 251
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-cross-windup-body": {
+      "file": "opponents/dyrex/dyrex-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 213,
+        "width": 399,
+        "height": 411
+      },
+      "sourceBounds": {
+        "x": 654,
+        "y": 382,
+        "w": 261,
+        "h": 269
+      },
+      "head": {
+        "x": 384,
+        "y": 312
+      },
+      "body": {
+        "x": 340,
+        "y": 390
+      },
+      "glove": {
+        "x": 320,
+        "y": 427
+      },
+      "contact": {
+        "x": 320,
+        "y": 427
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-cross-body": {
+      "file": "opponents/dyrex/dyrex-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 191,
+        "width": 388,
+        "height": 433
+      },
+      "sourceBounds": {
+        "x": 972,
+        "y": 367,
+        "w": 254,
+        "h": 283
+      },
+      "head": {
+        "x": 356,
+        "y": 282
+      },
+      "body": {
+        "x": 329,
+        "y": 377
+      },
+      "glove": {
+        "x": 391,
+        "y": 433
+      },
+      "contact": {
+        "x": 391,
+        "y": 433
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-block-body": {
+      "file": "opponents/dyrex/dyrex-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 153,
+        "y": 138,
+        "width": 336,
+        "height": 486
+      },
+      "sourceBounds": {
+        "x": 70,
+        "y": 644,
+        "w": 220,
+        "h": 318
+      },
+      "head": {
+        "x": 321,
+        "y": 221
+      },
+      "body": {
+        "x": 321,
+        "y": 347
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-hit": {
+      "file": "opponents/dyrex/dyrex-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 129,
+        "width": 365,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 384,
+        "y": 639,
+        "w": 239,
+        "h": 324
+      },
+      "head": {
+        "x": 302,
+        "y": 213
+      },
+      "body": {
+        "x": 328,
+        "y": 322
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-hit-body": {
+      "file": "opponents/dyrex/dyrex-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 142,
+        "y": 196,
+        "width": 358,
+        "height": 428
+      },
+      "sourceBounds": {
+        "x": 683,
+        "y": 681,
+        "w": 234,
+        "h": 280
+      },
+      "head": {
+        "x": 353,
+        "y": 299
+      },
+      "body": {
+        "x": 332,
+        "y": 389
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-fall": {
+      "file": "opponents/dyrex/dyrex-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 148,
+        "y": 256,
+        "width": 344,
+        "height": 368
+      },
+      "sourceBounds": {
+        "x": 989,
+        "y": 718,
+        "w": 225,
+        "h": 241
+      },
+      "head": {
+        "x": 303,
+        "y": 333
+      },
+      "body": {
+        "x": 313,
+        "y": 411
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-down": {
+      "file": "opponents/dyrex/dyrex-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 100,
+        "y": 283,
+        "width": 440,
+        "height": 341
+      },
+      "sourceBounds": {
+        "x": 47,
+        "y": 1020,
+        "w": 288,
+        "h": 223
+      },
+      "head": {
+        "x": 276,
+        "y": 355
+      },
+      "body": {
+        "x": 307,
+        "y": 440
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-rise": {
+      "file": "opponents/dyrex/dyrex-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 166,
+        "y": 199,
+        "width": 307,
+        "height": 425
+      },
+      "sourceBounds": {
+        "x": 396,
+        "y": 961,
+        "w": 201,
+        "h": 278
+      },
+      "head": {
+        "x": 289,
+        "y": 288
+      },
+      "body": {
+        "x": 313,
+        "y": 382
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-dodge": {
+      "file": "opponents/dyrex/dyrex-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 204,
+        "width": 359,
+        "height": 420
+      },
+      "sourceBounds": {
+        "x": 682,
+        "y": 969,
+        "w": 235,
+        "h": 275
+      },
+      "head": {
+        "x": 245,
+        "y": 280
+      },
+      "body": {
+        "x": 299,
+        "y": 360
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    },
+    "dyrex-surrender": {
+      "file": "opponents/dyrex/dyrex-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 135,
+        "y": 190,
+        "width": 378,
+        "height": 434
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 960,
+        "w": 247,
+        "h": 284
+      },
+      "head": {
+        "x": 328,
+        "y": 264
+      },
+      "body": {
+        "x": 331,
+        "y": 372
+      },
+      "sourceFile": "references/characters/opponents/dyrex-alpha.png",
+      "physicalScale": 1.528358208955224
+    }
+  }
+}

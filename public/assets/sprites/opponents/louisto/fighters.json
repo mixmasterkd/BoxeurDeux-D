@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "louisto",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.5609756097560976,
+  "poses": {
+    "louisto-guard": {
+      "file": "opponents/louisto/louisto-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 154,
+        "y": 112,
+        "width": 334,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 76,
+        "y": 11,
+        "w": 214,
+        "h": 328
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-block": {
+      "file": "opponents/louisto/louisto-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 162,
+        "y": 114,
+        "width": 318,
+        "height": 510
+      },
+      "sourceBounds": {
+        "x": 380,
+        "y": 11,
+        "w": 204,
+        "h": 327
+      },
+      "head": {
+        "x": 321,
+        "y": 201
+      },
+      "body": {
+        "x": 321,
+        "y": 313
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-jab-windup": {
+      "file": "opponents/louisto/louisto-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 144,
+        "y": 115,
+        "width": 354,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 662,
+        "y": 12,
+        "w": 227,
+        "h": 326
+      },
+      "head": {
+        "x": 296,
+        "y": 202
+      },
+      "body": {
+        "x": 314,
+        "y": 313
+      },
+      "glove": {
+        "x": 456,
+        "y": 247
+      },
+      "contact": {
+        "x": 456,
+        "y": 247
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-jab": {
+      "file": "opponents/louisto/louisto-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 115,
+        "width": 364,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 980,
+        "y": 12,
+        "w": 233,
+        "h": 326
+      },
+      "head": {
+        "x": 282,
+        "y": 202
+      },
+      "body": {
+        "x": 307,
+        "y": 319
+      },
+      "glove": {
+        "x": 467,
+        "y": 207
+      },
+      "contact": {
+        "x": 467,
+        "y": 207
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-cross-windup": {
+      "file": "opponents/louisto/louisto-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 125,
+        "y": 129,
+        "width": 392,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 45,
+        "y": 334,
+        "w": 251,
+        "h": 317
+      },
+      "head": {
+        "x": 364,
+        "y": 213
+      },
+      "body": {
+        "x": 340,
+        "y": 332
+      },
+      "glove": {
+        "x": 227,
+        "y": 238
+      },
+      "contact": {
+        "x": 227,
+        "y": 238
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-cross": {
+      "file": "opponents/louisto/louisto-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 119,
+        "y": 139,
+        "width": 387,
+        "height": 485
+      },
+      "sourceBounds": {
+        "x": 357,
+        "y": 339,
+        "w": 248,
+        "h": 311
+      },
+      "head": {
+        "x": 324,
+        "y": 222
+      },
+      "body": {
+        "x": 320,
+        "y": 343
+      },
+      "glove": {
+        "x": 169,
+        "y": 251
+      },
+      "contact": {
+        "x": 169,
+        "y": 251
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-cross-windup-body": {
+      "file": "opponents/louisto/louisto-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 118,
+        "y": 204,
+        "width": 406,
+        "height": 420
+      },
+      "sourceBounds": {
+        "x": 652,
+        "y": 381,
+        "w": 260,
+        "h": 269
+      },
+      "head": {
+        "x": 386,
+        "y": 305
+      },
+      "body": {
+        "x": 341,
+        "y": 385
+      },
+      "glove": {
+        "x": 321,
+        "y": 422
+      },
+      "contact": {
+        "x": 321,
+        "y": 422
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-cross-body": {
+      "file": "opponents/louisto/louisto-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 179,
+        "width": 387,
+        "height": 445
+      },
+      "sourceBounds": {
+        "x": 979,
+        "y": 365,
+        "w": 248,
+        "h": 285
+      },
+      "head": {
+        "x": 355,
+        "y": 272
+      },
+      "body": {
+        "x": 328,
+        "y": 370
+      },
+      "glove": {
+        "x": 390,
+        "y": 428
+      },
+      "contact": {
+        "x": 390,
+        "y": 428
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-block-body": {
+      "file": "opponents/louisto/louisto-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 148,
+        "y": 143,
+        "width": 347,
+        "height": 481
+      },
+      "sourceBounds": {
+        "x": 71,
+        "y": 650,
+        "w": 222,
+        "h": 308
+      },
+      "head": {
+        "x": 321,
+        "y": 225
+      },
+      "body": {
+        "x": 321,
+        "y": 350
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-hit": {
+      "file": "opponents/louisto/louisto-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 132,
+        "width": 367,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 383,
+        "y": 642,
+        "w": 235,
+        "h": 315
+      },
+      "head": {
+        "x": 303,
+        "y": 216
+      },
+      "body": {
+        "x": 329,
+        "y": 324
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-hit-body": {
+      "file": "opponents/louisto/louisto-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 199,
+        "width": 375,
+        "height": 425
+      },
+      "sourceBounds": {
+        "x": 678,
+        "y": 684,
+        "w": 240,
+        "h": 272
+      },
+      "head": {
+        "x": 354,
+        "y": 301
+      },
+      "body": {
+        "x": 332,
+        "y": 390
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-fall": {
+      "file": "opponents/louisto/louisto-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 243,
+        "width": 362,
+        "height": 381
+      },
+      "sourceBounds": {
+        "x": 987,
+        "y": 712,
+        "w": 232,
+        "h": 244
+      },
+      "head": {
+        "x": 302,
+        "y": 323
+      },
+      "body": {
+        "x": 313,
+        "y": 403
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-down": {
+      "file": "opponents/louisto/louisto-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 85,
+        "y": 276,
+        "width": 470,
+        "height": 348
+      },
+      "sourceBounds": {
+        "x": 42,
+        "y": 1019,
+        "w": 301,
+        "h": 223
+      },
+      "head": {
+        "x": 273,
+        "y": 349
+      },
+      "body": {
+        "x": 306,
+        "y": 436
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-rise": {
+      "file": "opponents/louisto/louisto-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 168,
+        "y": 195,
+        "width": 304,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 395,
+        "y": 965,
+        "w": 195,
+        "h": 275
+      },
+      "head": {
+        "x": 290,
+        "y": 285
+      },
+      "body": {
+        "x": 314,
+        "y": 380
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-dodge": {
+      "file": "opponents/louisto/louisto-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 190,
+        "width": 378,
+        "height": 434
+      },
+      "sourceBounds": {
+        "x": 678,
+        "y": 962,
+        "w": 242,
+        "h": 278
+      },
+      "head": {
+        "x": 242,
+        "y": 268
+      },
+      "body": {
+        "x": 298,
+        "y": 351
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "louisto-surrender": {
+      "file": "opponents/louisto/louisto-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 179,
+        "width": 386,
+        "height": 445
+      },
+      "sourceBounds": {
+        "x": 972,
+        "y": 960,
+        "w": 247,
+        "h": 285
+      },
+      "head": {
+        "x": 333,
+        "y": 255
+      },
+      "body": {
+        "x": 336,
+        "y": 366
+      },
+      "sourceFile": "references/characters/opponents/louisto-alpha.png",
+      "physicalScale": 1.5609756097560976
+    }
+  }
+}

@@ -1,0 +1,561 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "lefeu",
+  "sourceFile": "references/characters/opponents/lefeu/source.png",
+  "physicalScale": 1.7009966777408638,
+  "poses": {
+    "lefeu-guard": {
+      "file": "opponents/lefeu/lefeu-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 160,
+        "y": 112,
+        "width": 321,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 44,
+        "y": 9,
+        "w": 189,
+        "h": 301
+      },
+      "head": {
+        "x": 321,
+        "y": 189
+      },
+      "body": {
+        "x": 321,
+        "y": 317
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-block": {
+      "file": "opponents/lefeu/lefeu-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 158,
+        "y": 114,
+        "width": 325,
+        "height": 510
+      },
+      "sourceBounds": {
+        "x": 355,
+        "y": 9,
+        "w": 191,
+        "h": 300
+      },
+      "head": {
+        "x": 320,
+        "y": 191
+      },
+      "body": {
+        "x": 320,
+        "y": 318
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-jab-windup": {
+      "file": "opponents/lefeu/lefeu-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 134,
+        "y": 122,
+        "width": 373,
+        "height": 502
+      },
+      "sourceBounds": {
+        "x": 650,
+        "y": 12,
+        "w": 223,
+        "h": 300
+      },
+      "head": {
+        "x": 335,
+        "y": 212
+      },
+      "body": {
+        "x": 328,
+        "y": 323
+      },
+      "glove": {
+        "x": 414,
+        "y": 263
+      },
+      "contact": {
+        "x": 414,
+        "y": 263
+      },
+      "sourceFile": "references/characters/opponents/lefeu/clean-alpha-source.png",
+      "physicalScale": 1.673202614379085
+    },
+    "lefeu-jab": {
+      "file": "opponents/lefeu/lefeu-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 119,
+        "width": 415,
+        "height": 505
+      },
+      "sourceBounds": {
+        "x": 964,
+        "y": 13,
+        "w": 244,
+        "h": 297
+      },
+      "head": {
+        "x": 321,
+        "y": 195
+      },
+      "body": {
+        "x": 334,
+        "y": 321
+      },
+      "glove": {
+        "x": 521,
+        "y": 200
+      },
+      "contact": {
+        "x": 521,
+        "y": 200
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-cross-windup": {
+      "file": "opponents/lefeu/lefeu-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 117,
+        "width": 362,
+        "height": 507
+      },
+      "sourceBounds": {
+        "x": 44,
+        "y": 331,
+        "w": 213,
+        "h": 298
+      },
+      "head": {
+        "x": 307,
+        "y": 203
+      },
+      "body": {
+        "x": 314,
+        "y": 320
+      },
+      "glove": {
+        "x": 310,
+        "y": 370
+      },
+      "contact": {
+        "x": 310,
+        "y": 370
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-cross": {
+      "file": "opponents/lefeu/lefeu-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 71,
+        "y": 107,
+        "width": 437,
+        "height": 517
+      },
+      "sourceBounds": {
+        "x": 315,
+        "y": 325,
+        "w": 257,
+        "h": 304
+      },
+      "head": {
+        "x": 342,
+        "y": 190
+      },
+      "body": {
+        "x": 333,
+        "y": 314
+      },
+      "glove": {
+        "x": 123,
+        "y": 210
+      },
+      "contact": {
+        "x": 123,
+        "y": 210
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-cross-windup-body": {
+      "file": "opponents/lefeu/lefeu-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 177,
+        "width": 376,
+        "height": 447
+      },
+      "sourceBounds": {
+        "x": 650,
+        "y": 365,
+        "w": 221,
+        "h": 263
+      },
+      "head": {
+        "x": 366,
+        "y": 262
+      },
+      "body": {
+        "x": 313,
+        "y": 356
+      },
+      "glove": {
+        "x": 317,
+        "y": 392
+      },
+      "contact": {
+        "x": 317,
+        "y": 392
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-cross-body": {
+      "file": "opponents/lefeu/lefeu-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 200,
+        "width": 383,
+        "height": 424
+      },
+      "sourceBounds": {
+        "x": 948,
+        "y": 380,
+        "w": 225,
+        "h": 249
+      },
+      "head": {
+        "x": 363,
+        "y": 268
+      },
+      "body": {
+        "x": 301,
+        "y": 369
+      },
+      "glove": {
+        "x": 447,
+        "y": 412
+      },
+      "contact": {
+        "x": 447,
+        "y": 412
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-block-body": {
+      "file": "opponents/lefeu/lefeu-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 145,
+        "y": 141,
+        "width": 352,
+        "height": 483
+      },
+      "sourceBounds": {
+        "x": 54,
+        "y": 654,
+        "w": 207,
+        "h": 284
+      },
+      "head": {
+        "x": 318,
+        "y": 213
+      },
+      "body": {
+        "x": 321,
+        "y": 354
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-hit": {
+      "file": "opponents/lefeu/lefeu-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 127,
+        "width": 357,
+        "height": 497
+      },
+      "sourceBounds": {
+        "x": 365,
+        "y": 646,
+        "w": 210,
+        "h": 292
+      },
+      "head": {
+        "x": 256,
+        "y": 182
+      },
+      "body": {
+        "x": 306,
+        "y": 326
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-hit-body": {
+      "file": "opponents/lefeu/lefeu-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 148,
+        "y": 214,
+        "width": 345,
+        "height": 410
+      },
+      "sourceBounds": {
+        "x": 654,
+        "y": 696,
+        "w": 203,
+        "h": 241
+      },
+      "head": {
+        "x": 355,
+        "y": 296
+      },
+      "body": {
+        "x": 314,
+        "y": 403
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-fall": {
+      "file": "opponents/lefeu/lefeu-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 68,
+        "y": 199,
+        "width": 503,
+        "height": 425
+      },
+      "sourceBounds": {
+        "x": 930,
+        "y": 708,
+        "w": 296,
+        "h": 250
+      },
+      "head": {
+        "x": 249,
+        "y": 284
+      },
+      "body": {
+        "x": 254,
+        "y": 369
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-down": {
+      "file": "opponents/lefeu/lefeu-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 87,
+        "y": 303,
+        "width": 466,
+        "height": 321
+      },
+      "sourceBounds": {
+        "x": 14,
+        "y": 1068,
+        "w": 274,
+        "h": 189
+      },
+      "head": {
+        "x": 273,
+        "y": 361
+      },
+      "body": {
+        "x": 259,
+        "y": 464
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-rise": {
+      "file": "opponents/lefeu/lefeu-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 241,
+        "width": 362,
+        "height": 383
+      },
+      "sourceBounds": {
+        "x": 358,
+        "y": 1028,
+        "w": 213,
+        "h": 225
+      },
+      "head": {
+        "x": 346,
+        "y": 295
+      },
+      "body": {
+        "x": 295,
+        "y": 394
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-dodge": {
+      "file": "opponents/lefeu/lefeu-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 132,
+        "width": 400,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 641,
+        "y": 958,
+        "w": 235,
+        "h": 289
+      },
+      "head": {
+        "x": 381,
+        "y": 196
+      },
+      "body": {
+        "x": 321,
+        "y": 329
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    },
+    "lefeu-surrender": {
+      "file": "opponents/lefeu/lefeu-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 161,
+        "y": 132,
+        "width": 320,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 980,
+        "y": 958,
+        "w": 188,
+        "h": 289
+      },
+      "head": {
+        "x": 311,
+        "y": 211
+      },
+      "body": {
+        "x": 318,
+        "y": 329
+      },
+      "sourceFile": "references/characters/opponents/lefeu/source.png",
+      "physicalScale": 1.7009966777408638
+    }
+  }
+}
