@@ -1,0 +1,121 @@
+{
+  "date": "2026-09-13T14:25:12.946Z",
+  "url": "http://mobile-overlay.local/BoxeurDeux-D/",
+  "production": true,
+  "mobileSimulated": true,
+  "cases": [
+    {
+      "place": "clothing-shop",
+      "width": 568,
+      "height": 320,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "Rue Nord · CollectionAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "boxing-shop",
+      "width": 568,
+      "height": 320,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "Le Coin Bleu · ÉquipementsAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "gym",
+      "width": 568,
+      "height": 320,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "The Octopus · Conseils et drillsAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "clothing-shop",
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "Rue Nord · CollectionAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "boxing-shop",
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "Le Coin Bleu · ÉquipementsAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "gym",
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "proximity": {
+        "clip": "inset(50%)",
+        "width": 1,
+        "height": 1,
+        "text": "The Octopus · Conseils et drillsAppuyez sur A pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": true
+    },
+    {
+      "place": "clothing-shop",
+      "width": 1280,
+      "height": 720,
+      "mobile": false,
+      "proximity": {
+        "clip": "none",
+        "width": 168.890625,
+        "height": 55.390625,
+        "text": "Rue Nord · CollectionE pour interagir.",
+        "live": "polite"
+      },
+      "dialogOpenedAndClosed": true,
+      "noPageScroll": true,
+      "controlsInMargins": false
+    }
+  ],
+  "errors": []
+}

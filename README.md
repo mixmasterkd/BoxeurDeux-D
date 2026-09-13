@@ -55,6 +55,8 @@ Après les Gants, The Octopus peut enseigner **J → J → K**, ou **A → A →
 
 Sur ordinateur, aucune manette ni liste permanente de raccourcis ne couvre l’action. Sur mobile, le joypad et A/B restent **dans les deux marges latérales**, hors de l’image. Le ring place ses indications au-dessus des combattants. La petite sortie **← Gym / ← Hôtel / ← Quartier / ← Salle** ramène directement au lieu précédent.
 
+Pendant l’exploration sur mobile, la bannière d’accueil et de proximité est masquée pour dégager les personnages et les vendeurs. **A s’active à proximité d’une interaction**; les dialogues s’ouvrent seulement sur demande. L’annonce de proximité reste accessible aux lecteurs d’écran.
+
 Les menus ont un encadrement pixel et une police hébergée dans le jeu. Dans les petits cadrages, le texte et les listes de choix défilent à l’intérieur de leur fenêtre; le repère **↕** signale la suite. Glissez le doigt pour lire, ou naviguez au joypad. Les actions principales des combats restent accessibles en bas du menu.
 
 Une perte de focus, un changement de périphérique ou le passage en portrait libère les appuis et met en pause. Le portrait tactile affiche une invitation à tourner l’appareil; aucune API de verrouillage n’est requise. La reprise reste explicite. Un ordinateur déclarant aussi du tactile reste sans manette si son périphérique principal est une souris.

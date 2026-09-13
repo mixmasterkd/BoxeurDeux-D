@@ -1,5 +1,9 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Correction mobile — dégager les vendeurs et les lieux
+
+À la demande de l’utilisateur, la bannière permanente d’accueil/proximité `.gym-nearby` est masquée visuellement sur mobile dans tous les lieux d’exploration. Elle reste disponible aux lecteurs d’écran. Le bouton A garde son indicateur disponible/grisé; les dialogues, commandes et menus volontaires fonctionnent. L’affichage ordinateur reste identique. Compilation réussie; sept parcours sur le bundle compilé vérifient les deux boutiques et le gym en 568 × 320 / 844 × 390, plus un contrôle ordinateur avec E. Ouverture/fermeture A/B, commandes dans les marges et absence de défilement vérifiées sans erreur. Rapport `docs/mobile-uncluttered-results.json`, captures `docs/mobile-uncluttered-*.png`. Aucun téléphone physique testé.
+
 ## Chapitre intégré — trois défis libres et Cuba (13 septembre 2026)
 
 L’utilisateur autorise le chapitre suivant : après une participation terminée aux Gants de bronze, Dyrex, Le Feu et le voyage à Cuba sont disponibles dans l’ordre choisi. Aucun des trois adversaires ne verrouille les deux autres. Cuba coûte 160 $ d’argent du jeu par séjour, retour compris; on peut travailler aux livraisons pour économiser. Logement avec lit, petite rue et plage explorables avec caméra suiveuse, gym à plancher de béton et sacs en pneus, puis plus loin sur la plage un ring extérieur contre **Louisto**. Fredo reste le coach partout. Le Feu est plus difficile, roux cheveux très courts/barbe rousse/tatouages aux bras et haut du torse, gants noirs/orange, short noir/orange, d’après la photo envoyée. Dyrex et Louisto sont originaux.

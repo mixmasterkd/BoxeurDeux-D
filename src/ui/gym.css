@@ -107,7 +107,12 @@
 #gym-ui .gym-movement, #gym-ui .gym-interact-button, #gym-ui .gym-pause-button { display: none; }
 html[data-touch="true"] #gym-ui .gym-movement { display: grid; }
 html[data-touch="true"] #gym-ui .gym-interact-button, html[data-touch="true"] #gym-ui .gym-pause-button { display: flex; }
-html[data-touch="true"] #gym-ui .gym-nearby { max-width: calc(100% - 190px); }
+/* On phones, A already signals interaction availability. Keep the proximity
+   announcement accessible without covering shopkeepers or the scenery. */
+html[data-touch="true"] #gym-ui .gym-nearby {
+  width: 1px; height: 1px; max-width: 1px; padding: 0; border: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
 @container (max-width: 550px) {
   .gym-pause-panel { padding: 17px 21px; }
   .gym-pause-panel h2 { font-size: 23px; }
