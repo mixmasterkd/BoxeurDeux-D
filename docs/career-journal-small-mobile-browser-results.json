@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "name": "small-mobile",
+      "scene": "gym",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "sparring",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "bag",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "shadow",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "rope",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "speedball",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pads",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pool",
+      "inside": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,303 @@
+{
+  "date": "2026-09-13T04:23:43.175Z",
+  "reports": [
+    {
+      "id": "louisto",
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "text": [
+        {
+          "selector": "fight-hud",
+          "top": 0,
+          "bottom": 0.17994022503516174
+        },
+        {
+          "selector": "fight-signal",
+          "top": 0.1849507735583685,
+          "bottom": 0.2434071729957806
+        }
+      ]
+    },
+    {
+      "id": "louisto",
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Attendre",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Attendre",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "text": [
+        {
+          "selector": "knockdown-panel",
+          "top": 0.009933192686357244,
+          "bottom": 0.20683895921237694
+        }
+      ]
+    },
+    {
+      "id": "louisto",
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Attendre",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Attendre",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "text": [
+        {
+          "selector": "knockdown-panel",
+          "top": 0.009933192686357244,
+          "bottom": 0.20683895921237694
+        }
+      ]
+    },
+    {
+      "id": "louisto",
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Attendre",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Attendre",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "text": [
+        {
+          "selector": "knockdown-panel",
+          "top": 0.009933192686357244,
+          "bottom": 0.20683895921237694
+        }
+      ]
+    },
+    {
+      "id": "louisto",
+      "result": {
+        "reason": "round-limit",
+        "winner": "player",
+        "loser": "remi"
+      },
+      "stats": {
+        "landed": 16,
+        "received": 0,
+        "blocked": 9,
+        "dodged": 0,
+        "thrown": 16,
+        "opponentBlocked": 0,
+        "missed": 0,
+        "hooks": 0,
+        "combos": 5,
+        "doubleJabCombos": 5,
+        "landedHead": 16,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 6,
+        "blockedBody": 3
+      },
+      "downs": {
+        "player": {
+          "round": 0,
+          "total": 0
+        },
+        "remi": {
+          "round": 3,
+          "total": 3
+        }
+      },
+      "storedFight": {
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "attempts": 1,
+        "bestScore": 25
+      },
+      "tournament": null,
+      "impacts": 25
+    },
+    {
+      "id": "louisto",
+      "returnToBeach": true,
+      "location": {
+        "scene": "cuba-beach",
+        "x": 1390,
+        "y": 790,
+        "facing": "down"
+      }
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

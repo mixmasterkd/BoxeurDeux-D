@@ -1,0 +1,160 @@
+{
+  "date": "2026-09-13T04:21:29.941Z",
+  "reports": [
+    {
+      "id": "lefeu",
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "text": [
+        {
+          "selector": "fight-hud",
+          "top": 0,
+          "bottom": 0.23055555555555557
+        },
+        {
+          "selector": "fight-signal",
+          "top": 0.1899956597222222,
+          "bottom": 0.2316623263888889
+        }
+      ]
+    },
+    {
+      "id": "lefeu",
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "text": [
+        {
+          "selector": "fight-hud",
+          "top": 0,
+          "bottom": 0.23055555555555557
+        },
+        {
+          "selector": "knockdown-panel",
+          "top": 0.3599826388888889,
+          "bottom": 0.47803819444444445
+        }
+      ]
+    },
+    {
+      "id": "lefeu",
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "text": [
+        {
+          "selector": "fight-hud",
+          "top": 0,
+          "bottom": 0.23055555555555557
+        },
+        {
+          "selector": "knockdown-panel",
+          "top": 0.3599826388888889,
+          "bottom": 0.47803819444444445
+        }
+      ]
+    },
+    {
+      "id": "lefeu",
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "text": [
+        {
+          "selector": "fight-hud",
+          "top": 0,
+          "bottom": 0.23055555555555557
+        },
+        {
+          "selector": "knockdown-panel",
+          "top": 0.3599826388888889,
+          "bottom": 0.47803819444444445
+        }
+      ]
+    },
+    {
+      "id": "lefeu",
+      "result": {
+        "reason": "round-limit",
+        "winner": "player",
+        "loser": "remi"
+      },
+      "stats": {
+        "landed": 16,
+        "received": 0,
+        "blocked": 22,
+        "dodged": 0,
+        "thrown": 16,
+        "opponentBlocked": 0,
+        "missed": 0,
+        "hooks": 0,
+        "combos": 5,
+        "doubleJabCombos": 5,
+        "landedHead": 16,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 13,
+        "blockedBody": 9
+      },
+      "downs": {
+        "player": {
+          "round": 0,
+          "total": 0
+        },
+        "remi": {
+          "round": 3,
+          "total": 3
+        }
+      },
+      "storedFight": {
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "attempts": 1,
+        "bestScore": 25
+      },
+      "tournament": null,
+      "impacts": 38
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

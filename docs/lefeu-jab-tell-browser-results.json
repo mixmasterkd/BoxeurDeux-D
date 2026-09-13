@@ -1,0 +1,29 @@
+{
+  "preparation": {
+    "texture": "lefeu-jab-windup",
+    "phase": "tell",
+    "pose": "jab-windup"
+  },
+  "jab": {
+    "type": "remi-blocked",
+    "time": 4.352000000000003,
+    "attack": "jab",
+    "target": "head",
+    "impact": 0.4,
+    "x": 603.10546875,
+    "y": 380.03125,
+    "contactPoint": {
+      "x": 603.10546875,
+      "y": 380.03125
+    },
+    "targetPoint": {
+      "x": 603.23828125,
+      "y": 380.27734375
+    },
+    "playerProgress": 0,
+    "remiProgress": 0.42051149425287143,
+    "playerTexture": "player-block",
+    "remiTexture": "lefeu-jab"
+  },
+  "errors": []
+}

@@ -1,6 +1,6 @@
 # BoxeurDeux-D
 
-Jeu original de vie de boxeur en 2D, en JavaScript avec **Phaser 4.2.1** et **Vite 8.2.2**. Le personnage à tuque rouge explore un quartier montréalais, s’entraîne, travaille à vélo et dispute ses premiers combats, puis les **Gants de bronze**.
+Jeu original de vie de boxeur en 2D, en JavaScript avec **Phaser 4.2.1** et **Vite 8.2.2**. Le personnage à tuque rouge explore un quartier montréalais, s’entraîne, travaille à vélo et dispute ses premiers combats, puis les **Gants de bronze**. Après une participation terminée, il choisit librement entre **Dyrex**, **Le Feu** et un séjour à **Cuba** pour rencontrer **Louisto**.
 
 Le décor de sparring validé est préservé. L’exploration utilise une caméra de **1280 × 720**, qui suit le joueur sur les grandes cartes; les intérieurs et le ring conservent ce cadrage. L’image garde ses proportions 16:9 sur ordinateur et téléphone en paysage.
 
@@ -19,7 +19,7 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
-Les vérifications de ce chapitre sont consignées dans [docs/HARMONISATION_SNES.md](docs/HARMONISATION_SNES.md); [docs/VERIFICATIONS.md](docs/VERIFICATIONS.md) conserve les livraisons précédentes.
+La portée et les vérifications du chapitre actuel sont consignées dans [docs/CUBA_ET_DEFIS.md](docs/CUBA_ET_DEFIS.md). [docs/HARMONISATION_SNES.md](docs/HARMONISATION_SNES.md) et [docs/VERIFICATIONS.md](docs/VERIFICATIONS.md) conservent les livraisons précédentes. Une adresse publique existante ne confirme pas que le dernier chapitre y est déjà publié.
 
 ## Commencer et découvrir le chapitre
 
@@ -29,6 +29,7 @@ Les vérifications de ce chapitre sont consignées dans [docs/HARMONISATION_SNES
 4. Continuez à gauche vers la **place commerçante inspirée du DIX30**. Entrez chez **Rue Nord** pour les vêtements et au **Coin Bleu** pour la boxe. Les autres commerces restent fermés; cônes et barrières ferment les futures extensions.
 5. Battez **Béton**, puis **Kramer « The Quitter »**. Épargnez l’inscription aux **Gants de bronze**, puis partez depuis la salle communautaire.
 6. L’entrée du **métro** est au sud-est du quartier du gym. Descendez à pied, interagissez avec le train pour voyager, puis sortez par l’escalier à **Des Rives**. Cette nouvelle place est explorable; les cônes réservent les futures extensions.
+7. Après une participation terminée aux Gants et votre retour de l’hôtel, la **salle communautaire** propose Dyrex et Le Feu. L’agence à **Des Rives** propose le séjour à Cuba. Le **Carnet**, dans les menus, suit ces trois défis, le budget du voyage, les résultats et les techniques.
 
 Avancez dans les portes ouvertes et les passages pour changer de lieu. **E / A** sert aux personnes, ateliers, achats, livraisons, au train et aux confirmations; il n’est plus demandé à chaque porte.
 
@@ -41,7 +42,7 @@ Marcher, rouler sur une tournée déjà payée, franchir une porte, ouvrir un me
 | Se déplacer / choisir dans un menu | WASD | Joypad gauche |
 | Interagir / confirmer | E, ou clic sur le choix | A |
 | Revenir dans un menu | P ou Échap | B |
-| Pause et aide **Commandes** | P ou Échap | ☰ |
+| Pause, **Commandes** et **Carnet** | P ou Échap | ☰ |
 | Jab gauche / direct droit | J / K | A / B |
 | Garde haute / basse | W / S | Joypad haut / bas |
 | Esquive gauche / droite | A / D | Joypad gauche / droite |
@@ -49,6 +50,8 @@ Marcher, rouler sur une tournée déjà payée, franchir une porte, ouvrir un me
 | Couper / rétablir le son | Menu pause | Menu pause |
 
 **J → K → J** (ou **A → B → A**) permet jab, direct, crochet gauche. Le prochain coup peut être préparé juste avant le retour en garde : les échanges répondent plus vite, avec une pression par frappe. Maintenir le bouton ne répète pas les coups. La garde et les diagonales utiles acceptent les appuis simultanés. Les flèches et ZQSD restent compatibles pour les directions; **E est l’unique confirmation au clavier**, y compris pour les sauvegardes et les achats. Entrée, Espace et J/K ne valident pas les menus.
+
+Après les Gants, The Octopus peut enseigner **J → J → K**, ou **A → A → B** : double jab, direct. Terminez son drill de **trois séries**, au gym de Montréal; il coûte **10 énergie** au départ. Le déblocage est permanent et sauvegardé. Le combo de départ J → K → J reste disponible. Le double jab–direct coûte 41 endurance; son dernier direct inflige 4 dégâts supplémentaires, sans point gratuit ni hausse des plafonds.
 
 Sur ordinateur, aucune manette ni liste permanente de raccourcis ne couvre l’action. Sur mobile, le joypad et A/B restent **dans les deux marges latérales**, hors de l’image. Le ring place ses indications au-dessus des combattants. La petite sortie **← Gym / ← Hôtel / ← Quartier / ← Salle** ramène directement au lieu précédent.
 
@@ -87,10 +90,11 @@ Le gym reste gratuit. Les séances utilisent une réserve quotidienne de **100 �
 | Shadow au miroir | 5 | Pratique libre, reflet et ralenti | Aucun bonus permanent |
 | Sparring libre / leçons de Rémi | 20 / 10 | Pratique, lecture des signaux | Aucun bonus permanent |
 | Pads avec Fredo, au gym ou à l’hôtel · 45 s | 10 | 12 contacts, 60 % de précision | Puissance +1 |
-| Drills avec The Octopus | 10 | Gestes, défenses ou combo guidés au miroir | Aucun bonus permanent |
+| Drills avec The Octopus | 10 | Gestes, défenses ou combo guidés au miroir | Aucun bonus de capacité |
+| Drill double jab–direct, après les Gants | 10 | 3 séries J → J → K terminées | Technique JJK sauvegardée |
 | Piscine de l’hôtel · 45 s | 10 | 3 longueurs, 60 % | Endurance maximale +2 |
 
-Le sac annonce ses enchaînements; la corde et la speed ball utilisent J/K ou A/B en alternance. **Rémi reste le partenaire de sparring**. **Fredo**, en survêtement bleu marine, est le coach au gym et dans tous les coins entre les rounds. **The Octopus** propose des conseils selon le prochain adversaire et trois drills au miroir, sans remplacer Fredo. Les touches sont comptées au contact des animations, avec une distinction entre coup net, blocage et esquive. Chaque accueil annonce son coût, son objectif et son plafond; le bilan indique le gain obtenu ou la raison de son absence.
+Le sac annonce ses enchaînements; la corde et la speed ball utilisent J/K ou A/B en alternance. **Rémi reste le partenaire de sparring**. **Fredo**, en survêtement bleu marine, est le coach au gym et dans tous les coins entre les rounds. **The Octopus** propose des conseils selon le prochain adversaire, trois drills de base au miroir puis le double jab après les Gants, sans remplacer Fredo. Les touches sont comptées au contact des animations, avec une distinction entre coup net, blocage et esquive. Chaque accueil annonce son coût, son objectif et son plafond; le bilan indique le gain obtenu ou la raison de son absence.
 
 Aux pads, Fredo garde une cible levée jusqu’au bon contact. Frappez en croisé : **J / A, jab gauche vers le pad à droite de l’écran**; **K / B, direct droit vers le pad à gauche**. Vous choisissez le moment, sans barre de rythme ni pénalité pour attendre. Un mauvais choix de main réduit la précision. Les 45 secondes limitent la séance, pas le délai autorisé pour répondre à chaque cible.
 
@@ -115,6 +119,9 @@ Le sparring libre avec **Rémi le Tank** reste un round de 60 secondes au gym. *
 | Marco Bellini | Quart de finale; mobilité et jab |
 | Louis « Le Roc » Fortin | Demi-finale; pression, garde et corps |
 | André « Le Patron » Gagnon | Finale; rythmes et enchaînements plus variés |
+| Dyrex | Après les Gants; garde qui change de hauteur, jab de mesure et direct suivi d’une ouverture |
+| Le Feu | Après les Gants; défi plus difficile, rafales de deux puis trois coups, corps puis tête |
+| Louisto | À Cuba; appuis, feintes et contres préparés, combat sur le ring de la plage |
 
 Le calendrier des gardes et attaques adverses est autonome : l’adversaire ne bloque pas instantanément en lisant le bouton du joueur. Les signaux laissent réagir puis riposter. Chaque adversaire possède ses propres poses, couleurs et identité; les données de rythme sont dans `src/game/OpponentProfiles.js`.
 
@@ -142,9 +149,23 @@ Les **pads avec Fredo** reprennent le même exercice libre qu’au gym du quarti
 
 Les uniformes du tournoi distinguent le joueur **bleu/blanc** et l’adversaire **rouge/blanc**, avec ceinture contrastante et casque ouvert sans protège-joues de sparring. Référence visuelle : [Articles et règlements de Boxe Canada, janvier 2025](https://boxingcanada.org/wp-content/uploads/2025/04/Articles-and-Rules-January-2025.pdf), §1.4 et §10. Les règles de combat restent celles du prototype arcade décrites ci-dessus. Le tableau des autres participants suit un parcours écrit; leurs combats d’ambiance ne sont pas des simulations compétitives supplémentaires.
 
+## Après les Gants : trois défis, ordre libre
+
+**Terminer une participation** aux Gants de bronze, puis rentrer de l’hôtel, ouvre la suite. L’or n’est pas obligatoire : une élimination, même en quart de finale, suffit. Quitter le tournoi avant d’en avoir terminé le parcours ne débloque pas ce chapitre.
+
+**Dyrex et Le Feu** sont proposés à la salle communautaire. **Louisto** se rencontre uniquement pendant un séjour à Cuba, sur le ring de la plage. Aucun de ces trois combats n’exige d’avoir battu les deux autres. Les entraînements gardent les plafonds obtenus après Kramer; les nouvelles victoires ne donnent ni bourse automatique, ni augmentation illimitée des capacités.
+
+À **Des Rives**, l’agence de voyages annonce **160 $ par séjour à Cuba**, logement et retour à Montréal compris. Terminez ou arrêtez votre tournée et rentrez du tournoi avant de partir. Le prix est payé une seule fois à la confirmation; vous choisissez la durée du séjour. Revenir puis repartir constitue un nouveau voyage payant.
+
+À Cuba, explorez le **village**, votre **logement**, le **gym aux pneus** et la **plage**. Village et plage sont des cartes de **1920 × 1080** vues à travers la caméra 1280 × 720. Marcher dans les passages et les portes relie les lieux. Au gym, retrouvez les **pads (10 énergie)**, la **corde (15)** et un atelier de frappe sur **six pneus suspendus (15)** utilisant la boucle du sac. Les gains restent ceux des ateliers et leurs plafonds habituels.
+
+Le lit du logement avance le jour et remet seulement l’énergie quotidienne à 100, sans supplément à payer ni victoire préalable obligatoire. Le séjour reste actif après sommeil, fermeture et reprise du jeu. Le retour inclus ramène à **Des Rives**, avec les résultats et acquis conservés. À zéro énergie, marcher, combattre, dormir et rentrer restent possibles.
+
+Le **Carnet** est accessible depuis les menus des lieux et activités. Ses pages **Objectifs**, **Parcours** et **Techniques** donnent les défis, le montant restant pour Cuba, les victoires/défaites, la collection de médailles et les commandes apprises. Il reste dans le cadrage SNES; fermer le carnet retourne au menu sans reprendre le jeu.
+
 ## Sauvegarde et transfert
 
-La sauvegarde **v3** conserve jour, énergie, lieu et position, capacités, résultats, argent, inventaire, équipement, livraisons, séjour et médailles. Les parties v1/v2 sont migrées automatiquement sans perdre les acquis; une copie précédente valide sert de secours lorsque le stockage est disponible. La clé locale historique reste `boxeur-deux-d-career-v1`.
+La sauvegarde **v4** conserve jour, énergie, lieu et position, capacités, résultats des huit adversaires, argent, inventaire, équipement, livraisons, tournoi, médailles, séjours à Cuba et technique du double jab. Les parties **v1/v2/v3** sont migrées automatiquement sans perdre les acquis, y compris une tournée ou un séjour à l’hôtel déjà en cours; une copie précédente valide sert de secours lorsque le stockage est disponible. La clé locale historique reste `boxeur-deux-d-career-v1`.
 
 **Continuer** reprend le lieu sauvegardé. Un combat interrompu reprend depuis le lieu d’accès, sans reconstituer un round au milieu d’une animation. Coûts payés et résultats validés restent enregistrés. Les transactions de livraison, d’inscription et de récompense empêchent les doubles paiements.
 
@@ -165,14 +186,22 @@ npm run test:refined-combat   # Coups rapides, pads libres 45 s PC/tactile
 npm run test:refined-competition # Uniformes et poses du tournoi
 npm run test:tournament-corner   # Vrai round 60 s, Fredo, reprise du round 2
 npm run test:harmonization-static # Bundle compilé du chapitre sans serveur concurrent
+npm run test:next-career      # Migration v4, ordre libre, voyage Cuba et transactions
+npm run test:next-shadow      # Apprentissage des trois séries de double jab
+npm run test:journal          # Carnet dans huit familles de menus, PC/844/568
+npm run test:next-combat      # Les trois nouveaux patterns et le double jab
+npm run test:opponents        # Nouveaux combats joués dans le navigateur
+npm run test:cuba-world       # Collisions, portes et arrivées des cartes de Cuba
+npm run test:cuba             # Voyage, lieux, sommeil et retour dans le navigateur
+npm run test:next-static      # Bundle compilé : leçon JJK, voyage et reprise PC/tactile
 ```
 
-Les autres scripts de contrôle sont listés dans `package.json`. Playwright utilise l’installation déjà disponible dans cet environnement ou `PLAYWRIGHT_MODULE_PATH`; ce n’est pas une dépendance du jeu. Les essais mobiles sont des **simulations de viewport et de contacts tactiles**, pas des essais sur un téléphone physique.
+Les vérifications du chapitre sont consignées dans [docs/CUBA_ET_DEFIS.md](docs/CUBA_ET_DEFIS.md), dont les quatre parcours sur le bundle compilé. `SPARRING_URL` permet de reprendre ces parcours sur une adresse publiée, dans un navigateur de test isolé. Les autres scripts de contrôle sont listés dans `package.json`. Playwright utilise l’installation déjà disponible dans cet environnement ou `PLAYWRIGHT_MODULE_PATH`; ce n’est pas une dépendance du jeu. Les essais mobiles sont des **simulations de viewport et de contacts tactiles**, pas des essais sur un téléphone physique.
 
 `npm run build` produit l’index statique dans `dist/`. Pour héberger, déployer **tout le contenu de dist/** avec ses ressources, pas le `index.html` source. La configuration Vite utilise `base: './'` pour le sous-chemin GitHub Pages. Le workflow `.github/workflows/pages.yml` construit puis publie `main`; consulter son résultat avant d’annoncer une mise en ligne.
 
-Les accès `?scene=home`, `neighborhood`, `residential`, `commercial`, `clothing-shop`, `boxing-shop`, `metro-station`, `metro-riverside`, `riverside`, `gym`, `bag`, `shadow`, `rope`, `speedball` et `fight&opponent=kramer` sont des raccourcis de développement. Ils ne donnent ni argent ni énergie ni qualification. Les liens directs `hotel-*`, `pads` et `pool` nécessitent une inscription active; les pads locaux restent accessibles en parlant à Fredo au gym.
+Les accès `?scene=home`, `neighborhood`, `residential`, `commercial`, `clothing-shop`, `boxing-shop`, `metro-station`, `metro-riverside`, `riverside`, `gym`, `bag`, `shadow`, `rope`, `speedball` et `fight&opponent=kramer` sont des raccourcis de développement. Ils ne donnent ni argent ni énergie ni qualification. Les liens directs `hotel-*`, `pads` et `pool` nécessitent une inscription active; les pads locaux restent accessibles en parlant à Fredo au gym. Les destinations `cuba-village`, `cuba-home`, `cuba-gym`, `cuba-beach` nécessitent un séjour à Cuba payé; `fight&opponent=dyrex`, `lefeu` ou `louisto` respectent les mêmes conditions que les accès à pied.
 
 Le code distingue les règles (`src/game/`), scènes et vues Phaser (`src/scenes/`), commandes et interfaces (`src/ui/`). Les ressources finales sont dans `public/assets/`; sources de génération, prompts et scripts de préparation sont conservés dans `references/` et `scripts/`. Aucun abonnement ni service d’IA n’est nécessaire pour les utiliser en jeu.
 
-La suite reste à discuter : réglages après essais sur téléphone physique, deux ou trois adversaires supplémentaires et un éventuel **camp à Cuba** (petite carte, logement, plage, gym et combat). Ce sont des projets futurs, comme les ordinateurs, cellulaires et achats en ligne. La liste initiale et son historique restent dans [docs/PROCHAINES_ETAPES.md](docs/PROCHAINES_ETAPES.md).
+La suite reste à discuter après les retours sur ce chapitre : confort sur téléphone physique, équilibrage des trois nouveaux adversaires, nouvelles activités ou collections. Les ordinateurs, cellulaires, achats en ligne et autres régions restent des idées futures. La liste initiale et son historique restent dans [docs/PROCHAINES_ETAPES.md](docs/PROCHAINES_ETAPES.md).

@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-13T04:25:05.485Z",
+  "reports": [
+    {
+      "id": "dyrex",
+      "lockedLink": true,
+      "startDisabled": true
+    },
+    {
+      "id": "lefeu",
+      "lockedLink": true,
+      "startDisabled": true
+    },
+    {
+      "id": "louisto",
+      "lockedLink": true,
+      "startDisabled": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

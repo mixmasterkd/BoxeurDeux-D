@@ -1,6 +1,28 @@
 # Suite du projet BoxeurDeux-D
 
-## GO courant — harmoniser les commandes, les lieux et les personnages
+## GO courant — après les Gants, Dyrex, Le Feu et Cuba
+
+Le dernier GO autorise **trois défis supplémentaires dans l’ordre libre**, un séjour explorable à Cuba, le double jab à apprendre et un carnet de progression. Il actualise la proposition précédente où Cuba et ces adversaires étaient encore futurs. L’historique initial est conservé ci-dessous; [CUBA_ET_DEFIS.md](CUBA_ET_DEFIS.md) décrit le contrat et les vérifications de ce chapitre sans annoncer une publication avant preuve.
+
+| Travail autorisé | Portée retenue |
+| --- | --- |
+| Déblocage | Une participation aux Gants de bronze terminée puis le retour à Montréal. Une élimination suffit; l’or n’est pas obligatoire. L’abandon anticipé ne débloque pas la suite. |
+| Dyrex | Technicien à la salle communautaire de Montréal : garde changeante, lecture de la hauteur et ouverture après le direct. |
+| Le Feu | Défi plus difficile à Montréal : rafales de deux puis trois coups, corps puis tête, récupération à exploiter après la série. |
+| Louisto | Adversaire du séjour à Cuba, sur le ring de la plage : appuis, feintes et contres préparés. Aucune victoire sur Dyrex ou Le Feu n’est requise. |
+| Voyage à Cuba | Agence à Des Rives, 160 $ d’argent du jeu par séjour, logement et retour compris. Refus pendant tournée ou tournoi; paiement unique à la confirmation. Durée libre, retour possible avant ou après le combat. |
+| Lieux cubains | Village et plage défilants de 1920 × 1080; casa et gym au cadrage 1280 × 720. Personnage à ×1,5 dans le village, la plage et le gym; ×2 dans la casa. Portes et passages à pied. |
+| Entraînement sur place | Pads 10 énergie, corde 15, six pneus suspendus comme atelier du sac 15. Boucles et gains des ateliers existants, plafonds conservés. |
+| Sommeil | Lit de la casa : jour +1, énergie à 100 seulement. Aucun supplément par nuit, aucun bonus gratuit, séjour conservé. |
+| Technique | Après les Gants, The Octopus enseigne le double jab–direct au gym de Montréal : trois séries J → J → K, ou A → A → B. La séance coûte 10 énergie. Le combo J → K → J reste disponible. |
+| Carnet | Pages Objectifs, Parcours et Techniques dans les menus de tous les lieux et activités; progression des trois défis, budget Cuba, résultats et médailles. Fenêtre SNES et mêmes commandes clavier/tactile. |
+| Sauvegarde | Schéma v4 avec migration v1/v2/v3, séjour Cuba actif et historique, résultats des trois défis et technique apprise. Aucun double débit ni gain dupliqué après reprise. |
+
+Les nouveaux combats ne donnent pas de bourse automatique ni de statistiques illimitées. Les plafonds d’entraînement et d’épargne après Kramer restent les mêmes : l’ordre libre doit reposer sur le choix du joueur et la lecture des adversaires, pas sur un nouvel escalier obligatoire de puissance.
+
+**Après ce chapitre** : recueillir les retours sur téléphone physique et le rythme des trois rencontres, puis choisir ensemble les prochaines activités, collections ou régions. Ordinateurs, cellulaires, achats en ligne, nouveaux commerces et autres voyages restent des idées futures. La suite ne constitue pas une autorisation implicite de développer ou publier un service distant.
+
+## Historique — harmoniser les commandes, les lieux et les personnages
 
 Le dernier GO ajoute les ajustements ci-dessous au chapitre déjà jouable. Cette section décrit l’état courant; les mentions de Rémi coach, d’Entrée pour confirmer, de portes à activer et de pads rythmiques dans l’historique sont dépassées. Les comptes rendus de vérification et l’état de publication font foi séparément; cette feuille de route n’annonce pas une nouvelle mise en ligne.
 

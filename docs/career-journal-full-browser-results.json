@@ -1,0 +1,149 @@
+{
+  "cases": [
+    {
+      "name": "desktop",
+      "scene": "gym",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "sparring",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "bag",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "shadow",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "rope",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "speedball",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "pads",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "desktop",
+      "scene": "pool",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "gym",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "sparring",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "bag",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "shadow",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "rope",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "speedball",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "pads",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "mobile",
+      "scene": "pool",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "gym",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "sparring",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "bag",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "shadow",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "rope",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "speedball",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pads",
+      "inside": true,
+      "noOverflow": true
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pool",
+      "inside": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}
