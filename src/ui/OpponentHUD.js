@@ -56,9 +56,13 @@ export class OpponentHUD {
     put(this.score, `VOUS ${scores.player} · ${scores.remi} ${name.toUpperCase()}`);
     put(ui.root.querySelector('.opponent-info .fighter-name'), name);
     put(ui.root.querySelector('.opponent-info .fighter-eyebrow'), 'VOTRE ADVERSAIRE');
-    put(ui.root.querySelector('.round-footnote'), tournament ? 'Gants de bronze · Tenue de compétition' : 'Soirée de boxe · Revanche gratuite');
+    put(ui.root.querySelector('.round-footnote'), tournament ? 'Gants de bronze · Tenue de compétition' : profile.id === 'louisto' ? 'Cuba · Ring de la plage · Revanche gratuite' : 'Soirée de boxe · Revanche gratuite');
     put(ui.root.querySelector('#sparring-commands-title'), 'Commandes du combat');
     put(ui.root.querySelector('.combo-help'), 'Comme avec Rémi : J → K → J donne jab, direct, crochet. Le prochain coup peut être préparé juste avant le retour en garde. Une pression par frappe. Le combo coûte 48 d’endurance. Une garde haute, une esquive, un coup reçu ou une pause l’interrompt. Maintenez bas pour les coups au corps.');
+    if (state.settings?.techniques?.doubleJab) {
+      const touch = ui.controlsQuery.matches;
+      put(ui.root.querySelector('.combo-help'), `${touch?'A → B → A':'J → K → J'} : jab, direct, crochet. Technique apprise : ${touch?'A → A → B':'J → J → K'}, deux jabs puis un direct appuyé (le dernier coup coûte 4 endurance de plus). Une pression par frappe. La garde haute, l’esquive, un coup reçu ou une pause coupent la série. Bas + frappe vise le corps.`);
+    }
     put(ui.root.querySelector('.recovery-help'), 'Au tapis : six pressions alternées J/K ou A/B, en commençant par J/A, avant dix. Relâchez et suivez le repère. Pause avec P / Échap / ☰. Au terme des trois rounds : 1 point par touche nette et 3 par chute adverse; le plus haut total gagne.');
     ui.elements['lesson-choice'].hidden = true;
     ui.elements['round-settings'].hidden = true;

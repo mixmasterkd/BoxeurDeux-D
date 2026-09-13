@@ -1,5 +1,6 @@
 import { careerProfile } from '../game/CareerProfile.js';
 import { MEDAL_LABELS } from '../game/ChapterRules.js';
+import { postBronzeUnlocked, CUBA_PRICE } from '../game/NextChapterRules.js';
 import { deliveryAddress, DELIVERY_ADDRESSES, routeDirection } from '../game/DeliveryRoute.js';
 import { DISTRICT_ARRIVALS } from '../game/DistrictWorld.js';
 import './chapter.css';
@@ -33,6 +34,15 @@ function showDepot(scene,message=''){
 }
 function showFights(scene,message=''){
   const p=careerProfile.snapshot(),entry=careerProfile.canStartTournament();
+  if (postBronzeUnlocked(p)) {
+    show(scene,'Tes prochains défis',`${message}${message?'\n\n':''}Dyrex, Le Feu et Cuba se jouent dans l’ordre choisi. Dyrex est technique; Le Feu met davantage de pression. Louisto t’attend sur son ring au bord de la mer.\n\nPour Cuba : métro → Des Rives → comptoir Voyages. Séjour ${CUBA_PRICE} $, retour inclus.`,
+      [{id:'meet-dyrex',label:`${p.fights.dyrex.wins?'Revoir':'Affronter'} Dyrex →`,disabled:!careerProfile.canFight('dyrex').ok},{id:'meet-lefeu',label:`${p.fights.lefeu.wins?'Revoir':'Affronter'} Le Feu →`,disabled:!careerProfile.canFight('lefeu').ok},
+        {id:'cuba-info',label:`Cuba · ${p.wallet.money}/${CUBA_PRICE} $`},{id:'classic-fights',label:'Premiers combats et Gants de bronze'},close],'APRÈS LES GANTS DE BRONZE'); return;
+  }
+  showClassicFights(scene,message);
+}
+function showClassicFights(scene,message=''){
+  const p=careerProfile.snapshot(),entry=careerProfile.canStartTournament();
   const next=!p.fights.beton.wins?'Prochain défi : Béton.':!p.fights.kramer.wins?'Béton vaincu. Prochain défi : Kramer.':'Béton et Kramer vaincus. Prochaine étape : les Gants de bronze.';
   show(scene,'La salle de boxe',`${message}${message?'\n\n':''}${next}\nBéton → Kramer → Quart → Demi → Finale. Chaque victoire ouvre la suite.\n${entry.message??''}`,
     [{id:'meet-beton',label:p.fights.beton.wins?'Revanche contre Béton →':'Affronter Béton →'},{id:'meet-kramer',label:p.fights.kramer.wins?'Revanche contre Kramer →':p.fights.beton.wins?'Affronter Kramer →':'Kramer · gagne contre Béton',disabled:!p.fights.beton.wins},
@@ -40,6 +50,7 @@ function showFights(scene,message=''){
 }
 export function chapterInteract(scene,station){
   const id=station.id;
+  if(id==='cuba-travel'){showCubaTravel(scene);return true;}
   if(id==='to-residential'){chapterTravel(scene,'residential','neighborhood');return true;}
   if(id==='return-neighborhood'){chapterTravel(scene,'neighborhood');return true;}
   if(id==='to-commercial'){chapterTravel(scene,'commercial','residential');return true;}
@@ -77,6 +88,13 @@ export function chapterInteract(scene,station){
   return false;
 }
 export function chapterChoose(scene,id){
+  if(id==='classic-fights'){showClassicFights(scene);return true;}
+  if(id==='cuba-info'){show(scene,'Le camp de Cuba',`Va au comptoir Voyages à Des Rives, accessible par le métro au sud-est du quartier du gym.\n\nSéjour : ${CUBA_PRICE} $. Logement, gym et retour inclus. Louisto t’attend plus loin sur la plage. Aucun combat contre Dyrex ou Le Feu n’est imposé avant le départ.`);return true;}
+  if(id==='confirm-cuba'){
+    const result=careerProfile.startCuba();
+    if(!result.ok){showCubaTravel(scene,result.message);return true;}
+    scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();scene.scene.start('CubaScene',{place:'cuba-home',location:result.location});return true;
+  }
   if(id==='take-metro'){scene.ui.closeDialog();scene.world.pause();scene.cameras.main.fadeOut(350,8,21,38);scene.cameras.main.once('camerafadeoutcomplete',()=>chapterTravel(scene,scene.place==='metro-station'?'metro-riverside':'metro-station'));return true;}
   if(id.startsWith('equip-')){const item=id.slice(6),slot=item.startsWith('street-')?'street':'boxing',r=careerProfile.equipItem(item,slot==='street'?'home':'gym');scene.refreshProfile?.();showEquipment(scene,slot,r.message);return true;}
   if(id.startsWith('buy-')){
@@ -92,7 +110,8 @@ export function chapterChoose(scene,id){
   }
   if(id==='abandon-delivery'){show(scene,'Arrêter la tournée ?','Les livraisons déjà payées restent acquises. L’énergie du départ reste dépensée.',[{id:'close',label:'Continuer à livrer'},{id:'confirm-abandon',label:'Rendre le vélo'}]);return true;}
   if(id==='confirm-abandon'){careerProfile.abandonDelivery();scene.refreshProfile();showDepot(scene,'Vélo rendu.');return true;}
-  if(id==='meet-beton'||id==='meet-kramer'){
+  if(['meet-beton','meet-kramer','meet-dyrex','meet-lefeu'].includes(id)){
+    if(!careerProfile.canFight(id.slice(5)).ok)return true;
     scene.persistLocation();scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();scene.scene.start('SparringScene',{opponent:id.slice(5),lesson:'resistance'});return true;
   }
   if(id==='register-tournament'){
@@ -111,6 +130,12 @@ export function installChapterReadout(scene){
 }
 export function updateChapterReadout(scene){
   const p=careerProfile.snapshot(),run=p.delivery.active,target=run?.stops[run.completed.length];
-  const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':'Épargne pour les Gants de bronze'}`;
+  const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':postBronzeUnlocked(p)?scene.place==='riverside'?`VOYAGES → comptoir au nord-est du métro · Cuba ${CUBA_PRICE} $`:'Dyrex, Le Feu ou Cuba · Consulte ton carnet':'Épargne pour les Gants de bronze'}`;
   if(scene.chapterReadout&&scene.chapterReadout.textContent!==text)scene.chapterReadout.textContent=text;
+}
+
+function showCubaTravel(scene,message='') {
+  const offer=careerProfile.cubaOffer(),p=careerProfile.snapshot();
+  show(scene,'Un camp au bord de la mer',`${message}${message?'\n\n':''}Cuba · ${CUBA_PRICE} $ le séjour. Logement, gym et billet retour inclus.\n\nTu y marches librement, t’entraînes avec Fredo et affrontes Louisto sur la plage quand tu veux. Dormir avance la journée et rend seulement l’énergie quotidienne.\n\nPortefeuille : ${p.wallet.money} $. ${offer.ok?`Après paiement : ${p.wallet.money-CUBA_PRICE} $.`:offer.message}`,
+    [{id:'close',label:'Pas maintenant'},{id:'confirm-cuba',label:`Payer ${CUBA_PRICE} $ et partir →`,disabled:!offer.ok}],'VOYAGES · DES RIVES');
 }

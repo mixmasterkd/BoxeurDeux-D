@@ -7,17 +7,18 @@ import { SparringAudio } from '../audio/SparringAudio.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import { DailyActivityGate } from '../game/DailyActivityGate.js';
 import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
-import { rememberActivityReturn } from './activityLifecycle.js';
+import { rememberActivityReturn, returnFromActivity } from './activityLifecycle.js';
 
 export class RhythmScene extends Phaser.Scene {
   constructor() { super('RhythmScene'); }
   init(data = {}) {
     const requested = data.activity ?? new URLSearchParams(location.search).get('scene');
     this.activity = requested === 'rope' ? 'rope' : 'speedball';
+    this.fromCuba = Boolean(data.fromCuba) || Boolean(careerProfile.snapshot().cuba?.active);
   }
   preload() { RhythmTrainingView.preload(this); }
   create() {
-    setSceneShell(this.activity); this.session = new RhythmSession({ activity: this.activity }); this.rewarded = false;
+    setSceneShell(this.activity, { fromCuba: this.fromCuba }); this.session = new RhythmSession({ activity: this.activity }); this.rewarded = false;
     rememberActivityReturn(this);
     this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: this.activity });
     this.view = new RhythmTrainingView(this, this.activity); this.audio = new SparringAudio();
@@ -28,7 +29,7 @@ export class RhythmScene extends Phaser.Scene {
     });
     this.ui = new RhythmUI(this.activity, { getState: () => this.session.state, onAction: input => this.session.act(input), onGuard: () => {}, onStart: start,
       onPause: () => { this.session.pause(); this.audio.setActive(false); }, onResume: () => { this.session.resume(); this.audio.setActive(true); },
-      onReturnGym: () => { this.session.pause(); this.audio.setActive(false); this.scene.start('GymScene'); },
+      onReturnGym: () => { this.session.pause(); this.audio.setActive(false); returnFromActivity(this); },
       onAudioGesture: () => this.audio.unlock(),
       onMute: () => { this.audio.setMuted(!this.audio.getState().muted); this.ui.setAudioState(this.audio.getState()); if (!this.audio.getState().muted) this.audio.unlock(); } });
     this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.rhythm-actions', primary: '.rhythm-primary', restarts: ['.rhythm-restart'] });

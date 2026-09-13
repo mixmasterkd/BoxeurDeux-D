@@ -7,13 +7,14 @@ import { setSceneShell } from '../ui/SceneShell.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { DailyActivityGate } from '../game/DailyActivityGate.js';
 import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
-import { rememberActivityReturn } from './activityLifecycle.js';
+import { rememberActivityReturn, returnFromActivity } from './activityLifecycle.js';
 
 export class BagScene extends Phaser.Scene {
   constructor() { super('BagScene'); }
+  init(data = {}) { this.fromCuba = Boolean(data.fromCuba) || Boolean(careerProfile.snapshot().cuba?.active); }
   preload() { BagFighterView.preload(this); }
   create() {
-    setSceneShell('bag');
+    setSceneShell('bag', { fromCuba: this.fromCuba });
     rememberActivityReturn(this);
     this.session = new BagSession();
     this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: 'bag' });
@@ -32,7 +33,7 @@ export class BagScene extends Phaser.Scene {
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onReturnGym: () => {
         this.session.pause(); this.session.releaseControls();
-        this.audio.setActive(false); this.scene.start('GymScene');
+        this.audio.setActive(false); returnFromActivity(this);
       },
       onBlur: () => { this.session.pause(); this.session.releaseControls(); this.audio.setActive(false); },
       onAudioGesture: () => this.audio.unlock(),

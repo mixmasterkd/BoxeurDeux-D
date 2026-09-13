@@ -1,5 +1,6 @@
 import { careerProfile } from '../game/CareerProfile.js';
 import { GYM_FRIEND_STATIONS, OCTOPUS_DRILLS, nextFightAdvice } from '../game/GymFriendsRules.js';
+import { postBronzeUnlocked } from '../game/NextChapterRules.js';
 
 const close = { id: 'close', label: 'À bientôt' };
 export function preloadGymFriends(scene) {
@@ -32,7 +33,7 @@ export function interactGymFriend(scene, station) {
   } else {
     scene.ui.showDialog({ speaker: 'THE OCTOPUS · TON AMI AU GYM', title: 'Salut, la tuque rouge !', image: 'assets/sprites/friends/octopus-portrait.png', imageAlt: 'The Octopus, barbe et chandail noir à poulpe blanc',
       text: 'On peut travailler quelques gestes ensemble ou parler de ton prochain adversaire. Fredo reste ton coach; moi, je partage mes trucs de boxeur.\n\nUn drill coûte 10 énergie. On pratique sans bonus automatique de compétence.',
-      actions: [...Object.entries(OCTOPUS_DRILLS).map(([id, drill]) => ({ id: `friend-drill-${id}`, label: `${drill.title} · 10 énergie`, disabled: !careerProfile.canStartActivity('lesson').ok })), { id: 'friend-octopus-advice', label: 'Un conseil pour mon prochain combat' }, { id: 'friend-shirt', label: 'Ton chandail est en boutique ?' }, close] });
+      actions: [...Object.entries(OCTOPUS_DRILLS).map(([id, drill]) => ({ id: `friend-drill-${id}`, label: `${drill.title}${id === 'doubleJab' && !postBronzeUnlocked(careerProfile.snapshot()) ? ' · Après les Gants' : ' · 10 énergie'}`, disabled: !careerProfile.canStartActivity('lesson').ok || id === 'doubleJab' && !postBronzeUnlocked(careerProfile.snapshot()) })), { id: 'friend-octopus-advice', label: 'Un conseil pour mon prochain combat' }, { id: 'friend-shirt', label: 'Ton chandail est en boutique ?' }, close] });
   }
   return true;
 }
@@ -48,6 +49,7 @@ export function chooseGymFriend(scene, action) {
   }
   const pads = id === 'friend-pads', drill = id.slice('friend-drill-'.length);
   if (!pads && !Object.hasOwn(OCTOPUS_DRILLS, drill)) return true;
+  if (drill === 'doubleJab' && !postBronzeUnlocked(careerProfile.snapshot())) return true;
   if (!careerProfile.canStartActivity(pads ? 'pads' : 'lesson').ok) return true;
   scene.persistLocation(); scene.changingPlace = true; scene.ui.clearInputs(); scene.world.pause();
   scene.scene.start(pads ? 'HotelActivityScene' : 'ShadowScene', pads ? { activity: 'pads', fromGym: true } : { mentor: 'octopus', drill });

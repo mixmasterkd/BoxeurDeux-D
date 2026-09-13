@@ -1,4 +1,5 @@
 import { getOpponentProfile } from './OpponentProfiles.js';
+import { postBronzeUnlocked } from './NextChapterRules.js';
 
 export const GYM_FRIEND_STATIONS = [
   { id: 'fredo', label: 'Fredo · Ton coach', x: 350, y: 493, radius: 68, kind: 'friend' },
@@ -7,6 +8,7 @@ export const GYM_FRIEND_STATIONS = [
 export const GYM_FRIEND_OBSTACLES = GYM_FRIEND_STATIONS.map(({ id, x, y }) => ({ id, x: x - 20, y: y - 18, width: 40, height: 26 }));
 
 export const OCTOPUS_DRILLS = Object.freeze({
+  doubleJab: { title: 'Deux jabs, un direct', description: 'Une nouvelle technique après les Gants de bronze. Fais jab, jab, direct trois fois : le dernier direct devient appuyé. Même J–J–K ou A–A–B, avec un peu plus d’endurance au dernier coup.', steps: ['doubleJab', 'doubleJab', 'doubleJab'], labels: ['Premier jab–jab–direct', 'Deuxième série propre', 'Une dernière série pour apprendre'] },
   basics: { title: 'Des directs propres', description: 'On travaille dans le vide ensemble. Suis le geste demandé, à ton rythme. Après les deux premiers coups, tiens la garde haute avant de recommencer.', steps: ['jab', 'cross', 'guardHead', 'jab', 'cross'], labels: ['Jab à la tête', 'Direct à la tête', 'Reviens en garde haute', 'Encore un jab à la tête', 'Termine par un direct'] },
   defense: { title: 'Se protéger et répondre', description: 'Monte la garde, protège le corps, puis esquive et réponds. Les gardes se tiennent un petit instant; inutile de marteler les directions.', steps: ['guardHead', 'guardBody', 'dodgeLeft', 'jab', 'dodgeRight', 'cross'], labels: ['Tiens la garde haute', 'Tiens la garde basse', 'Esquive à gauche', 'Réponds avec un jab', 'Esquive à droite', 'Réponds avec un direct'] },
   combo: { title: 'Le troisième coup', description: 'Jab, direct, puis jab à nouveau : ce troisième geste devient un crochet. Réussis trois enchaînements complets, à la tête ou au corps. Une pression par frappe.', steps: ['combo', 'combo', 'combo'], labels: ['Premier jab–direct–crochet', 'Deuxième enchaînement', 'Un dernier enchaînement propre'] },
@@ -14,6 +16,11 @@ export const OCTOPUS_DRILLS = Object.freeze({
 
 export function nextFightAdvice(profile) {
   const active = profile.tournament?.active;
+  if (postBronzeUnlocked(profile) && !active) {
+    const id = profile.cuba?.active ? 'louisto' : ['dyrex', 'lefeu'].find(key => !profile.fights?.[key]?.wins) ?? 'louisto';
+    const opponent = getOpponentProfile(id);
+    return { id, name: opponent.name, text: `${opponent.advice ?? ''}\n\nDyrex, Le Feu et Cuba sont disponibles dans l’ordre de ton choix. Ce conseil te propose une piste, sans imposer ton prochain combat.` };
+  }
   const id = !profile.fights?.beton?.wins ? 'beton' : !profile.fights?.kramer?.wins ? 'kramer'
     : active ? ['bellini', 'fortin', 'gagnon'][Math.max(0, Math.min(2, active.day - 1))] : 'bellini';
   const opponent = getOpponentProfile(id);
@@ -33,7 +40,8 @@ export class OctopusDrill {
     if (state.phase !== 'running' || this.completed) return;
     for (const event of events) {
       if (event.type !== 'motion' || this.completed) continue;
-      if (this.expected === 'combo' ? event.action === 'hook' && event.combo === true
+      if (this.expected === 'doubleJab' ? event.comboType === 'doubleJab' && event.combo === true
+        : this.expected === 'combo' ? event.action === 'hook' && event.combo === true
         : event.action === this.expected && (event.action.startsWith('dodge') || event.target === 'head')) this.advance(state.seconds);
     }
     if (this.expected?.startsWith('guard')) {
@@ -45,7 +53,7 @@ export class OctopusDrill {
   }
   presentation() {
     return { name: 'The Octopus', title: this.descriptor.title, description: this.descriptor.description,
-      objective: this.completed ? 'Bien joué ! Garde ces gestes pour ta prochaine séance avec Rémi.' : this.descriptor.labels[this.progress],
+      objective: this.completed ? this.id === 'doubleJab' ? 'Technique réussie ! Le jab–jab–direct rejoint ton carnet.' : 'Bien joué ! Garde ces gestes pour ta prochaine séance avec Rémi.' : this.descriptor.labels[this.progress],
       progress: `${this.progress} / ${this.descriptor.steps.length}`, completed: this.completed };
   }
 }

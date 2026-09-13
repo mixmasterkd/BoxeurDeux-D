@@ -7,7 +7,7 @@ import { setSceneShell } from '../ui/SceneShell.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { DailyActivityGate } from '../game/DailyActivityGate.js';
 import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
-import { rememberActivityReturn } from './activityLifecycle.js';
+import { rememberActivityReturn, returnFromActivity } from './activityLifecycle.js';
 import { OctopusDrill } from '../game/GymFriendsRules.js';
 
 export class ShadowScene extends Phaser.Scene {
@@ -21,7 +21,7 @@ export class ShadowScene extends Phaser.Scene {
   create() {
     setSceneShell('shadow');
     rememberActivityReturn(this);
-    this.session = new ShadowSession();
+    this.session = new ShadowSession({ techniques: { ...careerProfile.snapshot().techniques, ...(this.mentor && this.drillId === 'doubleJab' ? { doubleJab: true } : {}) } });
     this.drill = this.mentor ? new OctopusDrill(this.drillId) : null;
     this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: this.mentor ? 'lesson' : 'shadow' });
     this.progressRecorded = false;
@@ -46,7 +46,7 @@ export class ShadowScene extends Phaser.Scene {
       onFinish: () => { this.session.finish(); this.recordProgress(); this.audio.setActive(false); },
       onReturnGym: () => {
         this.session.finish(); this.recordProgress(); this.session.releaseControls();
-        this.audio.setActive(false); this.scene.start('GymScene');
+        this.audio.setActive(false); returnFromActivity(this);
       },
       onSpeed: speed => this.session.setSpeed(speed),
       onBlur: () => { this.session.pause(); this.session.releaseControls(); this.audio.setActive(false); },
@@ -81,6 +81,7 @@ export class ShadowScene extends Phaser.Scene {
   recordProgress() {
     if (this.progressRecorded || this.session.state.seconds < 1) return;
     this.progressRecorded = true; careerProfile.reward('shadow', { seconds: this.session.state.seconds });
+    if (this.drill?.id === 'doubleJab' && this.drill.completed) this.techniqueResult = careerProfile.unlockTechnique('doubleJab', { completed: true, source: 'octopus' });
   }
 
   update(_time, delta) {
@@ -91,6 +92,9 @@ export class ShadowScene extends Phaser.Scene {
     this.fighter.render(state.player, state.elapsed);
     const events = this.session.drainEvents();
     this.drill?.observe(state, events);
+    // Save the learned gesture at its third completed contact, before the
+    // celebration delay. Pausing or reloading cannot lose a validated lesson.
+    if (this.drill?.id === 'doubleJab' && this.drill.completed) this.recordProgress();
     if (this.drill) {
       this.ui.setMentor?.(this.drill.presentation());
       const demonstrate = state.phase === 'running' && !this.drill.completed && ['jab', 'combo'].includes(this.drill.expected) && state.seconds % 2.6 < .65;

@@ -36,6 +36,7 @@ export class GymScene extends Phaser.Scene {
   }
 
   create(data = {}) {
+    if (careerProfile.snapshot().cuba?.active) { this.changingPlace = true; this.scene.start('CubaScene'); return; }
     this.changingPlace = false;
     setSceneShell('gym');
     this.world = this.registry.get('gym-world') ?? new GymWorld();

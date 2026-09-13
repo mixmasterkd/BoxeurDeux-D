@@ -13,9 +13,9 @@ const PLAYER_POSES=['guard','jab','cross','jab-windup','cross-windup','jab-recov
 const COACH_POSES=['ready','left','right','sweep'];
 export class HotelActivityScene extends Phaser.Scene{
   constructor(){super('HotelActivityScene');}
-  init(data={}){this.activity=(data.activity??new URLSearchParams(location.search).get('scene'))==='pool'?'pool':'pads';this.fromGym=this.activity==='pads'&&Boolean(data.fromGym);this.place=this.activity==='pool'?'hotel-pool':'hotel-gym';this.backgroundKey=`activity-${this.activity}-${this.fromGym?'local':'hotel'}`;}
+  init(data={}){this.activity=(data.activity??new URLSearchParams(location.search).get('scene'))==='pool'?'pool':'pads';this.fromCuba=this.activity==='pads'&&Boolean(data.fromCuba);this.fromGym=this.activity==='pads'&&Boolean(data.fromGym);this.place=this.fromCuba?'cuba-gym':this.activity==='pool'?'hotel-pool':'hotel-gym';this.backgroundKey=`activity-${this.activity}-${this.fromCuba?'cuba':this.fromGym?'local':'hotel'}`;}
   preload(){
-    const b=import.meta.env.BASE_URL;this.load.image(this.backgroundKey,this.fromGym?`${b}assets/backgrounds/gym.png`:`${b}assets/hotel/${this.activity==='pool'?'pool':'gym'}.png`);
+    const b=import.meta.env.BASE_URL;this.load.image(this.backgroundKey,this.fromCuba?`${b}assets/cuba/gym-training.png`:this.fromGym?`${b}assets/backgrounds/gym.png`:`${b}assets/hotel/${this.activity==='pool'?'pool':'gym'}.png`);
     if(this.activity==='pool'){
       this.load.json('hotel-swimmer-data',`${b}assets/hotel/swimmer.json`);
       for(let i=0;i<4;i++)this.load.image(`hotel-swimmer-${i}`,`${b}assets/hotel/swimmer-${i}.png`);
@@ -28,8 +28,9 @@ export class HotelActivityScene extends Phaser.Scene{
     }
   }
   create(){
-    if(!this.fromGym&&!careerProfile.tournamentStatus().active){this.scene.start('ExplorationScene',{place:'neighborhood',entrance:'fight'});return;}
-    setSceneShell(this.activity,{fromGym:this.fromGym});this.session=new HotelActivitySession({activity:this.activity});this.rewarded=false;
+    if(this.fromCuba&&!careerProfile.cubaStatus().active){this.scene.start('ExplorationScene',{place:'riverside'});return;}
+    if(!this.fromGym&&!this.fromCuba&&!careerProfile.tournamentStatus().active){this.scene.start('ExplorationScene',{place:'neighborhood',entrance:'fight'});return;}
+    setSceneShell(this.activity,{fromGym:this.fromGym,fromCuba:this.fromCuba});this.session=new HotelActivitySession({activity:this.activity});this.rewarded=false;
     if(!this.fromGym&&careerProfile.snapshot().location.scene!==this.place)careerProfile.setLocation({scene:this.place,x:640,y:610,facing:'up'});
     this.add.image(0,0,this.backgroundKey).setOrigin(0).setDisplaySize(1280,720);
     this.audio=new SparringAudio();this.createActors();
@@ -38,9 +39,9 @@ export class HotelActivityScene extends Phaser.Scene{
     this.ui=new HotelActivityUI(this.activity,{
       onAction:action=>this.session.act(action),onGuard:(held,level)=>this.session.setGuard(held,level),onStart:start,
       onPause:()=>{this.session.pause();this.audio.setActive(false);},onResume:()=>{this.session.resume();this.audio.setActive(true);},
-      onReturnGym:()=>{this.session.pause();this.audio.setActive(false);this.scene.start(this.fromGym?'GymScene':'HotelScene',this.fromGym?{}:{place:this.place});},
+      onReturnGym:()=>{this.session.pause();this.audio.setActive(false);this.scene.start(this.fromCuba?'CubaScene':this.fromGym?'GymScene':'HotelScene',this.fromGym?{}:{place:this.place,location:careerProfile.snapshot().location});},
       onAudioGesture:()=>this.audio.unlock(),onMute:()=>{this.audio.setMuted(!this.audio.getState().muted);this.ui.setAudioState(this.audio.getState());if(!this.audio.getState().muted)this.audio.unlock();},
-    },{fromGym:this.fromGym});
+    },{fromGym:this.fromGym,fromCuba:this.fromCuba});
     this.dailyNotice=new DailyActivityNotice({root:this.ui.root,gate:this.dailyGate,panel:'.rhythm-actions',primary:'.rhythm-primary',restarts:['.rhythm-restart']});
     this.ui.update(this.session.state);this.dailyNotice.update(this.session.state);this.ui.setAudioState(this.audio.getState());
     this.resizeObserver=new ResizeObserver(()=>{this.scale.getParentBounds();this.scale.refresh();});this.resizeObserver.observe(document.getElementById('game'));
@@ -71,7 +72,7 @@ export class HotelActivityScene extends Phaser.Scene{
     }
     if(s.phase==='finished'&&!this.rewarded){this.rewarded=true;this.ui.setReward(careerProfile.reward(this.activity,s.summary));}
     this.renderActors(s);this.ui.update(s);this.dailyNotice.update(s);
-    if(!this.fromGym&&this.dailyNotice.note.textContent.includes('rentre dormir à la maison'))this.dailyNotice.note.textContent=this.dailyNotice.note.textContent.replace('rentre dormir à la maison','repose-toi dans ta chambre après le combat');
+    if(!this.fromGym&&this.dailyNotice.note.textContent.includes('rentre dormir à la maison'))this.dailyNotice.note.textContent=this.dailyNotice.note.textContent.replace('rentre dormir à la maison',this.fromCuba?'retrouve ton lit à la casa':'repose-toi dans ta chambre après le combat');
     if(import.meta.env.DEV)for(const e of events)if(e.type==='hit')window.__hotelActivity.contacts.push({...e,visual:this.contact??null});
   }
   renderActors(s){

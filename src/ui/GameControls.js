@@ -1,4 +1,5 @@
 import { prepareCommandWindows, installMenuScrollCues } from './MenuWindow.js';
+import { installCareerJournal } from './CareerJournal.js';
 const DIRECTIONS = {
   ArrowUp: 'up', KeyW: 'up', KeyZ: 'up', ArrowDown: 'down', KeyS: 'down',
   ArrowLeft: 'left', KeyA: 'left', KeyQ: 'left', ArrowRight: 'right', KeyD: 'right',
@@ -286,10 +287,10 @@ export class GameControls {
  * status displays stay owned by each activity; the physical controls do not. */
 export function installConsoleControls(ui, mode = 'combat') {
   prepareCommandWindows(ui.root);
-  return new GameControls({
+  const controls = new GameControls({
     root: ui.root, mode,
     canPlay: () => mode === 'gym' ? ui.canMove() : ui.canPlay?.() ?? ui.phase === 'running',
-    getMenu: () => ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
+    getMenu: () => ui.journal?.isOpen ? ui.journal.panel : ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
     canInteract: () => Boolean(ui.nearby) && !ui.nearby.autoTravel,
     onMove: vector => ui.callbacks.onMove?.(vector),
     onAction: action => ui.callbacks.onAction?.(action),
@@ -297,7 +298,8 @@ export function installConsoleControls(ui, mode = 'combat') {
     onInteract: () => ui.interact(),
     onPause: () => mode === 'gym' ? ui.requestPause() : ui.callbacks.onPause(),
     onMenu: () => {
-      if (ui.pendingCareerImport) ui.cancelCareerImport();
+      if (ui.journal?.isOpen) ui.journal.close();
+      else if (ui.pendingCareerImport) ui.cancelCareerImport();
       else if (ui.commandsOpen) ui.showCommands(false);
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
@@ -309,7 +311,8 @@ export function installConsoleControls(ui, mode = 'combat') {
       // again leaves them in place; only B or the explicit exit returns outside.
     },
     onBack: () => {
-      if (ui.pendingCareerImport) ui.cancelCareerImport();
+      if (ui.journal?.isOpen) ui.journal.close();
+      else if (ui.pendingCareerImport) ui.cancelCareerImport();
       else if (ui.commandsOpen) ui.showCommands(false);
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
@@ -321,4 +324,7 @@ export function installConsoleControls(ui, mode = 'combat') {
     onAudioGesture: () => ui.callbacks.onAudioGesture?.(),
     onReturnGym: mode === 'gym' ? null : () => ui.callbacks.onReturnGym(),
   });
+  ui.controls = controls;
+  installCareerJournal(ui);
+  return controls;
 }

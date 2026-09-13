@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { CareerProfile, CAREER_STORAGE_KEY, CAREER_BACKUP_KEY } from '../src/game/CareerProfile.js';
+import { CareerProfile, CAREER_STORAGE_KEY, CAREER_BACKUP_KEY, CAREER_VERSION } from '../src/game/CareerProfile.js';
 import { WORLD_SCENES } from '../src/game/DayRules.js';
 import { DELIVERY_STOPS, HOTEL_ROOM_SPAWN, TOURNAMENT_RETURN_SPAWN } from '../src/game/ChapterRules.js';
 
@@ -36,7 +36,7 @@ test('v2 migration preserves a depleted day, location and acquired progress, add
   for (const id of ['kramer', 'bellini', 'fortin', 'gagnon']) delete old.fights[id];
   const original = JSON.stringify(old); storage.setItem(CAREER_STORAGE_KEY, original);
   const migrated = create(storage).snapshot();
-  assert.equal(migrated.version, 3);
+  assert.equal(migrated.version, CAREER_VERSION);
   for (const key of ['daily', 'location', 'stats', 'revision', 'createdAt', 'updatedAt']) assert.deepEqual(migrated[key], old[key]);
   assert.deepEqual(migrated.fights.beton, old.fights.beton);
   assert.deepEqual(migrated.inventory, { owned: ['street-black', 'boxing-blue'], equipped: { street: 'street-black', boxing: 'boxing-blue' } });

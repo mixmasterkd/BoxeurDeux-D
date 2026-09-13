@@ -13,6 +13,7 @@ import { DistrictWorld, DISTRICT_PLACES, OUTDOOR_PLACES } from '../game/District
 import { chapterInteract, chapterChoose, installChapterReadout, updateChapterReadout } from './ChapterInteractions.js';
 import { preloadOutfits, streetTexture } from './OutfitView.js';
 import { addMedalDisplay } from './MedalDisplay.js';
+import { careerChapter } from '../ui/CareerSummary.js';
 
 const PLACES = ['home','neighborhood',...DISTRICT_PLACES];
 const COPY = {
@@ -49,6 +50,7 @@ export class ExplorationScene extends Phaser.Scene {
     this.load.image(`world-${this.place}`, `${base}assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`);
     if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
     if(this.place==='residential')this.load.image('depot-kiosk',`${base}assets/world/depot-kiosk.png`);
+    if(this.place==='riverside')this.load.image('cuba-travel-kiosk',`${base}assets/cuba/travel-kiosk.png`);
     if(OUTDOOR_PLACES.includes(this.place)) {
       this.load.json('cycling-player-data',`${base}assets/sprites/cycling/player.json`);
       for(const direction of ['down','right','up','left'])for(let step=0;step<3;step++)this.load.image(`cycling-player-${direction}-${step}`,`${base}assets/sprites/cycling/player-${direction}-${step}.png`);
@@ -60,6 +62,7 @@ export class ExplorationScene extends Phaser.Scene {
   }
 
   create() {
+    if (careerProfile.snapshot().cuba?.active) { this.changingPlace = true; this.scene.start('CubaScene'); return; }
     setSceneShell(this.place);
     this.world = DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
     this.doorTravel = new DoorTravel(this.world.layout.doors ?? [], this.world.state);
@@ -67,6 +70,7 @@ export class ExplorationScene extends Phaser.Scene {
     this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
     if(this.place==='neighborhood') {this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1230*STREET_SCALE,675*STREET_SCALE,'neighborhood-metro').setOrigin(0).setScale(STREET_SCALE);}
     if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
+    if(this.place==='riverside')this.add.image(1520,700,'cuba-travel-kiosk').setOrigin(.5,1).setDepth(700);
     this.addForeground();
     if(this.place==='home')addMedalDisplay(this,careerProfile.snapshot().tournament.medals);
     const metadata = this.cache.json.get('street-player-data');
@@ -163,8 +167,8 @@ export class ExplorationScene extends Phaser.Scene {
     } else if (station.id === 'wardrobe') {
       show('Ta signature.', 'Survêtement noir à bandes blanches et tuque rouge pour le quartier. Au gym, tu retrouves ta tenue de boxe.\n\nLes nouvelles tenues arriveront plus tard.', [back]);
     } else if (station.id === 'notebook') {
-      const { stats, caps, fights } = careerProfile.snapshot();
-      show('Ton carnet de boxe', `Endurance : ${stats.endurance}/${caps.endurance}\nRésistance : ${stats.resistance}/${caps.resistance}\nPuissance : +${stats.power}/+${caps.power}\nRécupération : +${Math.round((stats.recovery - 1) * 100)} %\n\nBéton : ${fights.beton.wins} victoire(s) · Kramer : ${fights.kramer.wins} victoire(s).\n${fights.kramer.wins?'Prochain objectif : les Gants de bronze.':fights.beton.wins?'Prochain défi : Kramer.':'Prochain défi : Béton.'}\nL’entraînement améliore tes capacités jusqu’au plafond du palier.`, [back]);
+      const profile=careerProfile.snapshot(), {stats,caps}=profile;
+      show('Ton carnet de boxe', `Endurance : ${stats.endurance}/${caps.endurance}\nRésistance : ${stats.resistance}/${caps.resistance}\nPuissance : +${stats.power}/+${caps.power}\nRécupération : +${Math.round((stats.recovery - 1) * 100)} %\n\n${careerChapter(profile)}\n\nLe journal du menu pause conserve tes objectifs, résultats et techniques. L’entraînement améliore tes capacités jusqu’au plafond du palier.`, [back]);
     } else if (station.id.startsWith('works')) {
       show('Fin des travaux : éventuellement.', 'Les cônes veillent sur les prochains coins du quartier.\n\nCette rue est encore fermée. La maison, le gym, le parc et la salle de boxe restent accessibles.', [back]);
     } else if (station.id === 'shop') {

@@ -14,6 +14,10 @@ export class BagFighterView {
   static preload(scene) {
     const base = import.meta.env.BASE_URL;
     scene.load.image('bag-room', `${base}assets/backgrounds/bag-training.png`);
+    if (scene.fromCuba) {
+      scene.load.image('cuba-bag-room', `${base}assets/cuba/gym-training.png`);
+      scene.load.image('cuba-heavy-bag', `${base}assets/cuba/tire-bag.png`);
+    }
     scene.load.json('bag-fighters', `${base}${ASSETS}fighters.json`);
     scene.load.json('bag-body-data', `${base}assets/sprites/body-training/gym.json`);
     scene.load.json('bag-defense-data', `${base}assets/sprites/mirror/fighters.json`);
@@ -32,7 +36,7 @@ export class BagFighterView {
     this.x = 595;
     this.feet = 618;
     this.pivot = { x: 835, y: 85 };
-    this.background = scene.add.image(640, 360, 'bag-room').setDisplaySize(1280, 720).setDepth(0);
+    this.background = scene.add.image(640, 360, scene.fromCuba ? 'cuba-bag-room' : 'bag-room').setDisplaySize(1280, 720).setDepth(0);
     // Continue the authored chain to the top edge, so its pivot is suspended
     // from the ceiling rather than appearing to float in front of the window.
     this.suspension = scene.add.graphics().setDepth(1);
@@ -41,7 +45,7 @@ export class BagFighterView {
     this.bagShadow = scene.add.ellipse(835, 612, 145, 28, 0x061526, .24).setDepth(1);
     this.playerShadow = scene.add.ellipse(this.x - 8, this.feet - 5, 202, 28, 0x061526, .27).setDepth(2);
     const bag = this.metadata.bag;
-    this.bag = scene.add.image(this.pivot.x, this.pivot.y, 'heavy-bag')
+    this.bag = scene.add.image(this.pivot.x, this.pivot.y, scene.fromCuba ? 'cuba-heavy-bag' : 'heavy-bag')
       .setOrigin(bag.pivot.x / bag.width, bag.pivot.y / bag.height).setDepth(3);
     this.sprite = scene.add.image(this.x, this.feet, boxingTexture(scene, 'bag-player-guard'))
       .setOrigin(this.anchor.x / this.metadata.canvas.width, this.anchor.y / this.metadata.canvas.height)

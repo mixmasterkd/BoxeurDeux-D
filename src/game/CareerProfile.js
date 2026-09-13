@@ -1,15 +1,17 @@
 import { activityCost, DAILY_ENERGY_MAX, freshDaily, HOME_SPAWN, LEGACY_GYM_SPAWN,
   validDaily, cleanLocation } from './DayRules.js';
 import { BASE_STATS, trainingCaps, moneyCap, freshFight, freshChapter, normalizeChapter, cleanFight,
-  SHOP_CATALOG, FIGHT_IDS, DELIVERY_STOPS, DELIVERY_PAY, DELIVERY_MAX_TIP, validDeliveryStops,
+  SHOP_CATALOG, FIGHT_IDS, LEGACY_FIGHT_IDS, DELIVERY_STOPS, DELIVERY_PAY, DELIVERY_MAX_TIP, validDeliveryStops,
   TOURNAMENT_OPPONENTS, TOURNAMENT_PARTICIPANTS, TOURNAMENT_ROUNDS, TOURNAMENT_FEES, MEDAL_LABELS,
   HOTEL_ROOM_SPAWN, TOURNAMENT_RETURN_SPAWN } from './ChapterRules.js';
+import { NEXT_FIGHT_IDS, CUBA_PRICE, CUBA_HOME_SPAWN, CUBA_RETURN_SPAWN,
+  postBronzeUnlocked, freshNextChapter, normalizeNextChapter } from './NextChapterRules.js';
 
 // Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
 const BACKUP_KEY = `${STORAGE_KEY}-backup`;
 const CORRUPT_KEY = `${STORAGE_KEY}-corrupt`;
-const VERSION = 3;
+const VERSION = 4;
 const LEGACY_ACTIVITIES = ['bag', 'speedball', 'rope', 'sparring', 'shadow'];
 const ACTIVITIES = [...LEGACY_ACTIVITIES, 'pads', 'pool'];
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -25,12 +27,12 @@ function freshProfile(now = new Date().toISOString()) {
     stats: { ...BASE_STATS }, caps: trainingCaps({}),
     activities: Object.fromEntries(ACTIVITIES.map(id => [id, { sessions: 0, best: 0 }])),
     fights: Object.fromEntries(FIGHT_IDS.map(id => [id, freshFight()])),
-    ...freshChapter(),
+    ...freshChapter(), ...freshNextChapter(),
   };
 }
 
 function normalize(raw) {
-  if (!object(raw) || ![1, 2, VERSION].includes(raw.version)) {
+  if (!object(raw) || ![1, 2, 3, VERSION].includes(raw.version)) {
     if (object(raw) && typeof raw.version === 'number' && raw.version > VERSION) {
       const error = new Error('Cette sauvegarde vient d’une version plus récente du jeu.');
       error.code = 'future-version'; throw error;
@@ -49,7 +51,7 @@ function normalize(raw) {
     profile.daily = { day: raw.daily.day, energy: raw.daily.energy, maxEnergy: DAILY_ENERGY_MAX };
     profile.location = cleanLocation(raw.location);
   }
-  for (const id of raw.version < VERSION ? ['beton'] : FIGHT_IDS) profile.fights[id] = cleanFight(raw.fights[id]);
+  for (const id of raw.version < 3 ? ['beton'] : raw.version === 3 ? LEGACY_FIGHT_IDS : FIGHT_IDS) profile.fights[id] = cleanFight(raw.fights[id]);
   profile.caps = trainingCaps(profile.fights);
   for (const stat of Object.keys(BASE_STATS)) {
     const value = raw.stats[stat];
@@ -59,7 +61,7 @@ function normalize(raw) {
     }
     profile.stats[stat] = Number(Math.min(profile.caps[stat], value).toFixed(2));
   }
-  for (const id of raw.version < VERSION ? LEGACY_ACTIVITIES : ACTIVITIES) {
+  for (const id of raw.version < 3 ? LEGACY_ACTIVITIES : ACTIVITIES) {
     const activity = raw.activities[id];
     if (!object(activity) || !counter(activity.sessions) || typeof activity.best !== 'number'
       || !Number.isFinite(activity.best) || activity.best < 0) {
@@ -67,7 +69,8 @@ function normalize(raw) {
     }
     profile.activities[id] = { sessions: activity.sessions, best: activity.best };
   }
-  if (raw.version === VERSION) Object.assign(profile, normalizeChapter(raw, profile.fights));
+  if (raw.version >= 3) Object.assign(profile, normalizeChapter(raw, profile.fights));
+  if (raw.version === VERSION) Object.assign(profile, normalizeNextChapter(raw, profile));
   return profile;
 }
 
@@ -184,6 +187,8 @@ export class CareerProfile {
     if (active) {
       if (active.status === 'awaiting-sleep') { active.day += 1; active.status = 'ready'; }
       this.profile.location = { ...HOTEL_ROOM_SPAWN };
+    } else if (this.profile.cuba.active) {
+      this.profile.location = { ...CUBA_HOME_SPAWN };
     } else if (this.profile.location.scene !== 'home') this.profile.location = { ...HOME_SPAWN };
     this._save();
     const message = `Jour ${this.profile.daily.day} : énergie de journée récupérée.`;
@@ -277,6 +282,7 @@ export class CareerProfile {
   }
   startDelivery(stops = DELIVERY_STOPS) {
     if (!validDeliveryStops(stops)) return this._result(false, 'Une tournée doit avoir trois adresses différentes.');
+    if (this.profile.cuba.active) return this._result(false, 'Rentrez de Cuba avant de reprendre les livraisons.');
     if (this.profile.tournament.active) return this._result(false, 'Terminez votre séjour au tournoi avant de reprendre les livraisons.');
     if (this.profile.delivery.active) return this._result(false, 'Une tournée est déjà en cours. Retrouvez la prochaine adresse.');
     const offer = this.canStartActivity('delivery');
@@ -325,6 +331,13 @@ export class CareerProfile {
     return this._result(true, 'Tournée abandonnée. Les gains déjà reçus sont conservés; l’énergie dépensée reste utilisée.');
   }
   canFight(opponent = 'beton') {
+    if (this.profile.cuba.active && opponent !== 'louisto') return { ok: false, opponent, message: 'Ce combat se déroule à Montréal. Rentrez de Cuba pour y participer.' };
+    if (NEXT_FIGHT_IDS.includes(opponent)) {
+      if (!postBronzeUnlocked(this.profile)) return { ok: false, opponent, message: 'Terminez une participation aux Gants de bronze, puis rentrez à Montréal pour ouvrir ces défis.' };
+      if (this.profile.tournament.active) return { ok: false, opponent, message: 'Terminez votre séjour aux Gants de bronze avant de choisir ce défi.' };
+      if (opponent === 'louisto' && !this.profile.cuba.active) return { ok: false, opponent, message: 'Louisto vous attend sur le ring de la plage pendant votre séjour à Cuba.' };
+      return { ok: true, opponent };
+    }
     if (opponent === 'beton') return { ok: true, opponent };
     if (opponent === 'kramer') return { ok: this.profile.fights.beton.wins > 0, opponent,
       message: 'Battez Béton pour rencontrer Kramer « The Quitter ».' };
@@ -335,6 +348,7 @@ export class CareerProfile {
   canStartTournament() {
     const fee = this.profile.tournament.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first;
     const base = { fee, money: this.profile.wallet.money };
+    if (this.profile.cuba.active) return { ...base, ok: false, message: 'Rentrez de Cuba avant une nouvelle inscription aux Gants de bronze.' };
     if (this.profile.tournament.active) return { ...base, ok: false, message: 'Votre séjour aux Gants de bronze est déjà en cours.' };
     if (this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez ou abandonnez votre tournée avant de partir.' };
     if (!this.profile.fights.kramer.wins) return { ...base, ok: false, message: 'Battez Kramer pour vous inscrire aux Gants de bronze.' };
@@ -361,6 +375,52 @@ export class CareerProfile {
       participants: clone(TOURNAMENT_PARTICIPANTS), canSleep: !active || active.status !== 'ready',
       canFight: active?.status === 'ready', fee: state.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first };
   }
+  cubaOffer() {
+    const base = { fee: CUBA_PRICE, price: CUBA_PRICE, money: this.profile.wallet.money };
+    if (this.profile.cuba.active) return { ...base, ok: false, duplicate: true, message: 'Votre séjour à Cuba est déjà payé et en cours.' };
+    if (this.profile.tournament.active) return { ...base, ok: false, message: 'Rentrez des Gants de bronze avant de partir à Cuba.' };
+    if (this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez ou abandonnez votre tournée avant de partir à Cuba.' };
+    if (!postBronzeUnlocked(this.profile)) return { ...base, ok: false, message: 'Une participation terminée aux Gants de bronze ouvre les voyages à Cuba. Une élimination compte aussi; un abandon ne suffit pas.' };
+    if (this.profile.wallet.money < CUBA_PRICE) return { ...base, ok: false, message: `Séjour à Cuba : ${CUBA_PRICE} $. Il manque ${CUBA_PRICE - this.profile.wallet.money} $. Le retour est compris.` };
+    if (this.profile.cuba.nextId === Number.MAX_SAFE_INTEGER) return { ...base, ok: false, message: 'Le nombre maximal de séjours à Cuba est atteint.' };
+    return { ...base, ok: true, message: `${CUBA_PRICE} $ pour ce séjour : logement et retour à Montréal compris. Aucun nombre de nuits imposé.` };
+  }
+  startCuba() {
+    const offer = this.cubaOffer();
+    if (!offer.ok) return this._result(false, offer.message, offer);
+    const cuba = this.profile.cuba;
+    this.profile.wallet.money -= CUBA_PRICE;
+    cuba.active = { id: cuba.nextId++, startedAtDay: this.profile.daily.day, fee: CUBA_PRICE };
+    cuba.entries++;
+    this.profile.location = { ...CUBA_HOME_SPAWN };
+    this._save();
+    return this._result(true, 'Bienvenue à Cuba. Installez-vous, explorez le village et retrouvez Louisto sur le ring de la plage.',
+      { ...this.cubaStatus(), location: { ...this.profile.location } });
+  }
+  cubaStatus() {
+    const cuba = clone(this.profile.cuba);
+    return { ...cuba, fee: CUBA_PRICE, price: CUBA_PRICE, unlocked: postBronzeUnlocked(this.profile),
+      canLeave: Boolean(cuba.active), canFight: Boolean(cuba.active), opponent: cuba.active ? 'louisto' : null };
+  }
+  leaveCuba() {
+    const cuba = this.profile.cuba, active = cuba.active;
+    if (!active) return this._result(false, 'Aucun séjour à Cuba en cours.');
+    cuba.history.push({ ...active, returnedAtDay: this.profile.daily.day });
+    cuba.active = null;
+    this.profile.location = { ...CUBA_RETURN_SPAWN };
+    this._save();
+    return this._result(true, 'Retour à Des Rives. Votre séjour est terminé; vos acquis sont conservés.',
+      { ...this.cubaStatus(), location: { ...this.profile.location } });
+  }
+  unlockTechnique(id, { completed = false, source = null } = {}) {
+    if (id !== 'doubleJab') return this._result(false, 'Cette technique n’existe pas.');
+    if (this.profile.techniques.doubleJab) return this._result(true, 'Le double jab–direct est déjà appris.', { unchanged: true });
+    if (!postBronzeUnlocked(this.profile) || this.profile.tournament.active || this.profile.cuba.active) return this._result(false, 'Cette technique se travaille avec The Octopus au gym de Montréal, après votre retour des Gants de bronze.');
+    if (completed !== true || source !== 'octopus') return this._result(false, 'Terminez le drill du double jab avec The Octopus pour apprendre cette technique.');
+    this.profile.techniques.doubleJab = true;
+    this._save();
+    return this._result(true, 'Double jab–direct appris : J → J → K, ou A → A → B. Retrouvez la technique dans votre carnet.', { technique: id });
+  }
   _updateFight(opponent, result) {
     const fight = this.profile.fights[opponent]; fight.attempts += 1;
     if (result.winner === 'player') fight.wins += 1;
@@ -372,7 +432,7 @@ export class CareerProfile {
   recordFight(result = {}) {
     if (!['player', 'remi', 'draw'].includes(result.winner)) throw new Error('Le résultat du combat est incomplet.');
     const opponent = result.opponent ?? 'beton';
-    if (!['beton', 'kramer'].includes(opponent)) return this._result(false, 'Les résultats du tournoi sont enregistrés avec leur numéro de rencontre.');
+    if (!['beton', 'kramer', ...NEXT_FIGHT_IDS].includes(opponent)) return this._result(false, 'Les résultats du tournoi sont enregistrés avec leur numéro de rencontre.');
     const offer = this.canFight(opponent);
     if (!offer.ok) return this._result(false, offer.message);
     if (result.matchId != null) {

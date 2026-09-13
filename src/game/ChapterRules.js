@@ -1,4 +1,5 @@
 // The economy and tournament are local, deterministic game rules, with no service dependency.
+import { NEXT_FIGHT_IDS } from './NextChapterRules.js';
 export const BASE_STATS = Object.freeze({ power: 0, recovery: 1, endurance: 100, resistance: 100 });
 export const TRAINING_TIERS = Object.freeze([
   Object.freeze({ power: 5, recovery: 1.10, endurance: 110, resistance: 108 }),
@@ -16,7 +17,8 @@ export const SHOP_CATALOG = Object.freeze([
 ].map(item => Object.freeze(item)));
 export const DEFAULT_INVENTORY = Object.freeze({ street: 'street-black', boxing: 'boxing-blue' });
 export const TOURNAMENT_OPPONENTS = Object.freeze(['bellini', 'fortin', 'gagnon']);
-export const FIGHT_IDS = Object.freeze(['beton', 'kramer', ...TOURNAMENT_OPPONENTS]);
+export const LEGACY_FIGHT_IDS = Object.freeze(['beton', 'kramer', ...TOURNAMENT_OPPONENTS]);
+export const FIGHT_IDS = Object.freeze([...LEGACY_FIGHT_IDS, ...NEXT_FIGHT_IDS]);
 export const TOURNAMENT_PARTICIPANTS = Object.freeze([
   { id: 'player', name: 'La Tuque rouge', seed: 1 },
   { id: 'bellini', name: 'Marco Bellini', seed: 2 },

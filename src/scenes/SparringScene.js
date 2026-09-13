@@ -9,6 +9,7 @@ import { DailyActivityGate, sparringActivity } from '../game/DailyActivityGate.j
 import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
 import { rememberActivityReturn } from './activityLifecycle.js';
 import { getOpponentProfile } from '../game/OpponentProfiles.js';
+import { CUBA_FIGHT_RETURN } from '../game/CubaWorld.js';
 
 const FEEDBACK = {
   'player-hit': ['Touché !', 'success'],
@@ -33,21 +34,23 @@ export class SparringScene extends Phaser.Scene {
     // Tournament identity determines its uniform, result route and hotel return;
     // an URL option must never turn a bracket opponent into a standalone bout.
     this.tournament = Boolean(this.profile.tournament);
-    this.matchId = data.matchId ?? (this.tournament ? careerProfile.tournamentStatus().currentMatchId : null);
+    this.matchId = this.tournament ? careerProfile.tournamentStatus().currentMatchId : null;
+    this.fromCuba = this.profile.region === 'cuba';
     this.initialLesson = this.profile.official ? 'resistance' : data.lesson ?? query.get('lesson') ?? 'free';
-    this.backgroundKey = this.profile.official ? 'fight-hall' : 'gym';
-    this.returnToNeighborhood = this.profile.official && !this.tournament;
+    this.backgroundKey = this.fromCuba ? 'cuba-beach-ring' : this.profile.official ? 'fight-hall' : 'gym';
+    this.returnToNeighborhood = this.profile.official && !this.tournament && !this.fromCuba;
   }
 
   preload() {
-    this.load.image(this.backgroundKey, `${import.meta.env.BASE_URL}assets/backgrounds/${this.backgroundKey}.png`);
+    const background = this.fromCuba ? 'assets/cuba/beach-ring.png' : `assets/backgrounds/${this.backgroundKey}.png`;
+    this.load.image(this.backgroundKey, `${import.meta.env.BASE_URL}${background}`);
     FighterView.preload(this, { opponent: this.opponentId, tournament: this.tournament });
   }
 
   create(data = {}) {
     setSceneShell('sparring', { opponent: this.opponentId, tournament: this.tournament });
-    if (!this.tournament) rememberActivityReturn(this, { fight: this.returnToNeighborhood });
-    this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId, tournament: this.tournament, ...careerProfile.bonuses() });
+    if (!this.tournament && !this.fromCuba) rememberActivityReturn(this, { fight: this.returnToNeighborhood });
+    this.session = new SparringSession({ lesson: this.initialLesson, opponent: this.opponentId, tournament: this.tournament, ...careerProfile.bonuses(), techniques: careerProfile.snapshot().techniques });
     this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: () => sparringActivity(this.session.state.settings) });
     this.progressRecorded = false;
     this.audio = new SparringAudio();
@@ -93,10 +96,10 @@ export class SparringScene extends Phaser.Scene {
     this.signal = this.ui.root.querySelector('.fight-signal');
     this.accessNote = document.createElement('p'); this.accessNote.className = 'fight-access-note';
     this.accessNote.hidden = true; this.ui.elements['panel-copy'].after(this.accessNote);
-    if (this.returnToNeighborhood || this.tournament) {
-      this.ui.root.querySelector('.return-gym-button').textContent = this.tournament ? '← Retour à la salle' : '← Retour au quartier';
+    if (this.returnToNeighborhood || this.tournament || this.fromCuba) {
+      this.ui.root.querySelector('.return-gym-button').textContent = this.fromCuba ? '← Retour à la plage' : this.tournament ? '← Retour à la salle' : '← Retour au quartier';
       const exit = this.ui.controls.exit;
-      exit.textContent = this.tournament ? '← Salle' : '← Quartier'; exit.setAttribute('aria-label', this.tournament ? 'Quitter le ring et retourner à la salle' : 'Quitter le combat et retourner au quartier');
+      exit.textContent = this.fromCuba ? '← Plage' : this.tournament ? '← Salle' : '← Quartier'; exit.setAttribute('aria-label', this.fromCuba ? 'Quitter le ring et retourner à la plage' : this.tournament ? 'Quitter le ring et retourner à la salle' : 'Quitter le combat et retourner au quartier');
     }
     this.ui.setAudioState(this.audio.getState());
     this.remi.render(this.session.state.remi, 0);
@@ -136,7 +139,8 @@ export class SparringScene extends Phaser.Scene {
       this.audio.setActive(false);
       this.progressRecorded = false;
       this.ui.boutHUD.setReward(null);
-      this.session.reset({ ...settings, ...careerProfile.bonuses() });
+      this.session.reset({ ...settings, ...careerProfile.bonuses(), techniques: careerProfile.snapshot().techniques });
+      if (this.profile.official && !this.tournament) this.matchId = globalThis.crypto?.randomUUID?.() ?? `bout-${Date.now()}-${Math.floor(Math.random() * 1e9)}`;
       this.session.start();
       this.audio.setActive(true);
       this.audio.play('round-start');
@@ -145,7 +149,8 @@ export class SparringScene extends Phaser.Scene {
 
   returnToPlace() {
     this.session.pause(); this.session.releaseControls(); this.audio.setActive(false);
-    if (this.tournament) this.scene.start('HotelScene', { place: 'hotel-venue' });
+    if (this.fromCuba) this.scene.start('CubaScene', { place: CUBA_FIGHT_RETURN.scene, location: { ...CUBA_FIGHT_RETURN } });
+    else if (this.tournament) this.scene.start('HotelScene', { place: 'hotel-venue' });
     else if (this.returnToNeighborhood) this.scene.start('ExplorationScene', { place: 'neighborhood', entrance: 'fight' });
     else this.scene.start('GymScene');
   }
@@ -174,7 +179,7 @@ export class SparringScene extends Phaser.Scene {
           if (event.result.winner !== 'draw') {
             this.recordResult = careerProfile.recordTournamentFight({ ...event.result, opponent: this.opponentId, score: state.bout?.score?.player, matchId: this.matchId });
           }
-        } else if (this.profile.official) careerProfile.recordFight({ ...event.result, opponent: this.opponentId, score: state.bout?.score?.player });
+        } else if (this.profile.official) careerProfile.recordFight({ ...event.result, opponent: this.opponentId, score: state.bout?.score?.player, matchId: this.matchId });
         else this.ui.boutHUD.setReward(careerProfile.reward('sparring', {
           completed: true, rounds: event.round, actions: state.stats.landed + state.stats.blocked + state.stats.dodged,
         }));
@@ -183,7 +188,9 @@ export class SparringScene extends Phaser.Scene {
       // End cues finish naturally on the report; there is no ambient sound loop.
       if (event.type !== 'round-start') this.audio.play(event.type);
       const message = event.type === 'player-blocked' && this.profile.official ? [`${this.profile.shortName} bloque`, 'block'] : FEEDBACK[event.type];
-      if (event.type === 'player-hit' && event.attack === 'hook') {
+      if (event.type === 'player-hit' && event.comboType === 'doubleJab') {
+        this.ui.showFeedback(event.combo ? 'Double jab, direct !' : 'Direct appuyé !', 'success');
+      } else if (event.type === 'player-hit' && event.attack === 'hook') {
         this.ui.showFeedback(event.combo ? 'Combo réussi !' : `Crochet gauche${event.target === 'body' ? ' au corps' : ''} !`, 'success');
       } else if (event.type === 'player-hit' && event.target === 'body') {
         this.ui.showFeedback('Touché au corps !', 'success');
@@ -245,7 +252,7 @@ export class SparringScene extends Phaser.Scene {
     } else if (opened) {
       const label = state.training?.id === 'guard' ? 'RELÂCHEZ · SOUFFLEZ'
         : state.training?.id === 'jab' ? 'OUVERTURE · UN JAB !'
-          : state.combo?.ready ? 'OUVERTURE · CROCHET PRÊT !' : 'OUVERTURE · À VOUS !';
+          : state.combo?.ready ? (state.combo.type === 'doubleJab' ? 'OUVERTURE · DIRECT PRÊT !' : 'OUVERTURE · CROCHET PRÊT !') : 'OUVERTURE · À VOUS !';
       this.signal.textContent = label;
       this.signal.dataset.tone = 'open';
     }

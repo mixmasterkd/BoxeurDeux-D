@@ -46,7 +46,15 @@
     "test:refined-competition": "node tests/refined-competition-browser.mjs",
     "test:refined-gym-pads": "node tests/refined-gym-pads-browser.mjs",
     "test:tournament-corner": "node tests/tournament-corner-browser.mjs",
-    "test:harmonization-static": "node tests/harmonization-static-browser.mjs"
+    "test:harmonization-static": "node tests/harmonization-static-browser.mjs",
+    "test:next-career": "node --test tests/next-chapter-career.test.js",
+    "test:next-shadow": "node --test tests/next-shadow-technique.test.js",
+    "test:journal": "node tests/career-journal-browser.mjs",
+    "test:next-combat": "node --test tests/new-opponents.test.js tests/double-jab.test.js",
+    "test:opponents": "node tests/new-opponents-browser.mjs",
+    "test:cuba-world": "node --test tests/cuba-world.test.js",
+    "test:cuba": "node tests/cuba-browser.mjs",
+    "test:next-static": "node tests/next-chapter-static-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

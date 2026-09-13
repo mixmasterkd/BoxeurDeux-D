@@ -47,7 +47,8 @@ DISTRICT_LAYOUTS.riverside={...outdoor,spawn:{x:1200,y:1320,facing:'down'},obsta
  r('west-works',0,404,69,154),r('east-works',1510,402,76,154),
  r('station',640,548,323,275),r('garden-left',0,610,507,280),r('garden-right',1090,609,496,280),
  r('tree-west',65,330,64,59),r('tree-middle',705,340,80,50),r('tree-east',1120,340,55,51),
- ],stations:[s('to-metro','Métro · Station Des Rives',800,832,65),s('works-north','La suite du quartier · Travaux',835,360,60),s('closed-riverside','Les commerces ouvriront plus tard',590,348,60)],
+ {id:'travel-kiosk',x:1450,y:657,width:140,height:43},
+ ],stations:[s('to-metro','Métro · Station Des Rives',800,832,65),{id:'cuba-travel',label:'VOYAGES · Camp de Cuba',x:1520,y:730,radius:90},s('works-north','La suite du quartier · Travaux',835,360,60),s('closed-riverside','Les commerces ouvriront plus tard',590,348,60)],
  doors:[doorway('to-metro',1110,1235,180,36,'up')]};
 DISTRICT_LAYOUTS.residential.doors=[doorway('return-neighborhood',2240,575,115,220,'right'),doorway('to-commercial',24,575,100,220,'left')];
 DISTRICT_LAYOUTS.commercial.doors=[doorway('return-residential',2240,665,115,220,'right'),doorway('clothing-store',905,411,116,25,'up'),doorway('boxing-store',1464,411,116,25,'up')];

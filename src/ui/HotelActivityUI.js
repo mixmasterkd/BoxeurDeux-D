@@ -5,17 +5,17 @@ const INFO = {
   pool: {title:'Quelques longueurs',skill:'Endurance',invitation:'Trouve ta glisse.',copy:'Alterne les bras, gauche puis droite, au petit repère. Douze bonnes poussées font une longueur. La piscine entraîne l’endurance; elle ne remplit pas l’énergie de journée.',commands:'Alterne J et K au repère. Chaque bonne poussée te fait avancer. Relâche entre deux mouvements; marteler les touches fatigue le rythme.',left:'Bras gauche',right:'Bras droit'},
 };
 export class HotelActivityUI extends RhythmUI {
-  constructor(activity, callbacks, { fromGym = false } = {}) {
+  constructor(activity, callbacks, { fromGym = false, fromCuba = false } = {}) {
     super('speedball', {...callbacks,getState:undefined});
-    this.activity=activity; this.info=INFO[activity]; this.fromGym=fromGym; this.root.dataset.activity=activity;
+    this.activity=activity; this.info=INFO[activity]; this.fromGym=fromGym||fromCuba; this.fromCuba=fromCuba; this.root.dataset.activity=activity;
     this.root.querySelector('.rhythm-heading h2').textContent=this.info.title;
-    this.root.querySelector('.rhythm-heading .rhythm-eyebrow').textContent=fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
+    this.root.querySelector('.rhythm-heading .rhythm-eyebrow').textContent=fromCuba?'CUBA · LE GYM AUX PNEUS':fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
     this.root.querySelector('#rhythm-commands-title').textContent=`Commandes · ${this.info.title}`;
     this.root.querySelector('.commands-notes p').textContent=this.info.commands;
     this.root.querySelector('.rhythm-panel-content>.rhythm-eyebrow').textContent=this.info.skill;
-    this.root.querySelector('.rhythm-return').textContent=fromGym?'← Retour au gym':activity==='pool'?'← Retour à la piscine':'← Retour au mini-gym';
-    this.controls.exit.textContent=fromGym?'← Gym':'← Hôtel';
-    this.controls.exit.setAttribute('aria-label',fromGym?'Quitter les pads et retourner au gym':'Quitter l’activité et retourner dans l’hôtel');
+    this.root.querySelector('.rhythm-return').textContent=fromCuba?'← Retour au gym de Cuba':fromGym?'← Retour au gym':activity==='pool'?'← Retour à la piscine':'← Retour au mini-gym';
+    this.controls.exit.textContent=this.fromGym?'← Gym':'← Hôtel';
+    this.controls.exit.setAttribute('aria-label',this.fromGym?'Quitter les pads et retourner au gym':'Quitter l’activité et retourner dans l’hôtel');
     this.controls.a.dataset.moveLabel=this.info.left; this.controls.b.dataset.moveLabel=this.info.right;
     this.controls.pad.setAttribute('aria-label','Joypad : navigation des menus');
     this.root.querySelector('.commands-grid dt').textContent=activity==='pads'?'Jab / direct':'Bras gauche / droit';

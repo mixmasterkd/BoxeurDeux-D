@@ -10,8 +10,9 @@ const EMPTY_COMBO = () => ({ step: 0, ready: false, remaining: 0 });
  * selected practice speed. Motion events mark the same peak as sparring.
  */
 export class ShadowSession {
-  constructor({ speed = 1 } = {}) {
+  constructor({ speed = 1, techniques = {} } = {}) {
     this._speed = speed === 0.65 ? 0.65 : 1;
+    this.techniques = { doubleJab: techniques.doubleJab === true };
     this.reset();
   }
 
@@ -29,7 +30,7 @@ export class ShadowSession {
       speed: this._speed,
       player: null,
       combo: EMPTY_COMBO(),
-      stats: { jab: 0, cross: 0, hook: 0, combos: 0, dodgeLeft: 0, dodgeRight: 0, guardSeconds: 0, head: 0, body: 0, guardHeadSeconds: 0, guardBodySeconds: 0 },
+      stats: { jab: 0, cross: 0, hook: 0, combos: 0, doubleJabCombos: 0, dodgeLeft: 0, dodgeRight: 0, guardSeconds: 0, head: 0, body: 0, guardHeadSeconds: 0, guardBodySeconds: 0 },
     };
     this._syncState();
     return this.state;
@@ -74,42 +75,50 @@ export class ShadowSession {
     return true;
   }
 
-  act(input) {
+  act(input, target = this._guardHeld && this._guardLevel === 'body' ? 'body' : 'head') {
     if (!INPUTS.has(input) || this.state.phase !== 'running') return false;
+    target = target === 'body' ? 'body' : 'head';
     if (input.startsWith('dodge')) this._queued = null;
     if (this._action) {
       if (['jab', 'cross'].includes(input) && !this._queued && this._action.counted
         && this._action.duration - this._action.elapsed <= .16 + EPSILON) {
-        this._queued = { input }; return true;
+        // Match sparring: the button chooses height now, even if the guard
+        // is released while the previous hand finishes recovering.
+        this._queued = { input, target }; return true;
       }
       return false;
     }
     this._expireCombo();
     if ((this._guardHeld && this._guardLevel === 'head') || input.startsWith('dodge')) this._clearCombo();
-    const action = input === 'jab' && this._combo?.step === 2 ? 'hook' : input;
+    const action = input === 'jab' && this._combo?.step === 2 && this._combo.type !== 'doubleJab' ? 'hook' : input;
     const timing = TIMINGS.player[action];
     let sequence = null;
+    let finisher = false;
     if (!this._guardHeld || this._guardLevel === 'body') {
-      if (action === 'jab') {
+      if (action === 'jab' && this.techniques.doubleJab && this._combo?.step === 1) {
+        sequence = this._combo; sequence.step = 2; sequence.type = 'doubleJab';
+      } else if (action === 'cross' && this._combo?.step === 2 && this._combo.type === 'doubleJab') {
+        sequence = this._combo; this._combo = null; finisher = true;
+      } else if (action === 'jab') {
         this._clearCombo();
         sequence = { step: 1, motions: 0, valid: true };
       } else if (action === 'cross' && this._combo?.step === 1) {
         sequence = this._combo;
-        sequence.step = 2;
+        sequence.step = 2; sequence.type = 'hook';
       } else if (action === 'hook') {
         sequence = this._combo;
         this._combo = null;
       } else {
         this._clearCombo();
       }
-      if (sequence && action !== 'hook') {
+      if (sequence && action !== 'hook' && !finisher) {
         sequence.expiresAt = this.state.elapsed + timing.duration + COMBO_WINDOW;
         this._combo = sequence;
       }
     }
     this._action = {
       action,
-      target: this._guardHeld && this._guardLevel === 'body' ? 'body' : 'head',
+      target,
       elapsed: 0,
       startedAt: this.state.elapsed,
       duration: timing.duration,
@@ -117,6 +126,7 @@ export class ShadowSession {
       peak: timing.impact === undefined ? timing.activeFrom : timing.duration * timing.impact,
       counted: false,
       sequence,
+      finisher,
     };
     this._syncState();
     return true;
@@ -155,9 +165,11 @@ export class ShadowSession {
         this.state.stats[action.action] += 1;
         if (action.impact !== null) this.state.stats[action.target] += 1;
         const event = { type: 'motion', action: action.action, target: action.target, time: action.startedAt + action.peak };
-        if (action.action === 'hook') {
+        if (action.action === 'hook' || action.finisher) {
           event.combo = action.sequence?.valid === true && action.sequence.motions === 2;
+          event.comboType = action.finisher ? 'doubleJab' : 'hook';
           if (event.combo) this.state.stats.combos += 1;
+          if (event.combo && action.finisher) this.state.stats.doubleJabCombos += 1;
         } else if (action.sequence?.valid) {
           action.sequence.motions += 1;
         }
@@ -166,7 +178,7 @@ export class ShadowSession {
       if (action.elapsed + EPSILON >= action.duration) {
         this._action = null;
         const queued = this._queued; this._queued = null;
-        if (queued) this.act(queued.input);
+        if (queued) this.act(queued.input, queued.target);
       }
     }
     // Holding guard during a punch raises it only after the committed recovery.
@@ -202,7 +214,7 @@ export class ShadowSession {
     const action = this._action;
     this.state.combo = {
       step: this._combo?.step ?? 0,
-      ready: this.state.phase === 'running' && !action && (!this._guardHeld || this._guardLevel === 'body') && this._combo?.step === 2,
+      ready: this.state.phase === 'running' && !action && (!this._guardHeld || this._guardLevel === 'body') && this._combo?.step === 2 && this._combo.type !== 'doubleJab',
       remaining: this._combo && !action ? Math.max(0, this._combo.expiresAt - this.state.elapsed) : 0,
     };
     if (this.state.phase === 'finished') return;

@@ -11,6 +11,7 @@ const POSES = {
 export class RhythmTrainingView {
   static preload(scene) {
     const base = import.meta.env.BASE_URL;
+    if (scene.fromCuba) scene.load.image('cuba-training-room', base + 'assets/cuba/gym-training.png');
     for (const id of Object.keys(POSES)) {
       scene.load.image(id + '-room', base + 'assets/backgrounds/' + id + '-training.png');
       scene.load.json(id + '-athlete-data', base + 'assets/sprites/' + id + '/player.json');
@@ -24,7 +25,7 @@ export class RhythmTrainingView {
     prepareBoxingOutfits(scene, POSES[activity].map(pose => `${activity}-athlete-${pose}`));
     this.data = scene.cache.json.get(activity + '-athlete-data');
     this.anchor = this.data.anchor;
-    scene.add.image(640, 360, activity + '-room').setDisplaySize(1280, 720);
+    scene.add.image(640, 360, scene.fromCuba ? 'cuba-training-room' : activity + '-room').setDisplaySize(1280, 720);
     this.ground = activity === 'rope' ? 602 : 620;
     this.baseX = activity === 'rope' ? 716 : 823;
     this.shadow = scene.add.ellipse(this.baseX, this.ground + 3, activity === 'rope' ? 144 : 155, 23, 0x04121e, .32).setDepth(2);

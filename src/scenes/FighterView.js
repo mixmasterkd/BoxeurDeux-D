@@ -11,7 +11,8 @@ const BETON_ASSETS = 'assets/sprites/beton/';
 const BETON_POSES = ['guard', 'block', 'jab-windup', 'jab-recover', 'jab',
   'cross-windup-body', 'cross-recover-body', 'cross-body', 'block-body',
   'hit', 'hit-body', 'fall', 'down', 'rise'];
-const CHAPTER_OPPONENTS = ['kramer', 'bellini', 'fortin', 'gagnon'];
+const CHAPTER_OPPONENTS = ['kramer', 'bellini', 'fortin', 'gagnon', 'dyrex', 'lefeu', 'louisto'];
+const NEW_OPPONENTS = ['dyrex', 'lefeu', 'louisto'];
 const CHAPTER_ASSETS = 'assets/sprites/chapter-combat/';
 const CHAPTER_POSES = ['guard', 'block', 'jab-windup', 'jab', 'cross-windup', 'cross',
   'cross-windup-body', 'cross-body', 'block-body', 'hit', 'hit-body', 'fall', 'down', 'rise', 'dodge', 'surrender'];
@@ -63,8 +64,9 @@ export class FighterView {
       for (const pose of BETON_POSES) scene.load.image(`beton-${pose}`, `${base}${BETON_ASSETS}beton-${pose}.png`);
     }
     if (CHAPTER_OPPONENTS.includes(opponent)) {
-      scene.load.json(`fighters-${opponent}`, `${base}${CHAPTER_ASSETS}${opponent}/fighters.json`);
-      for (const pose of CHAPTER_POSES) scene.load.image(`${opponent}-${pose}`, `${base}${CHAPTER_ASSETS}${opponent}/${opponent}-${pose}.png`);
+      const folder = NEW_OPPONENTS.includes(opponent) ? 'assets/sprites/opponents/' : CHAPTER_ASSETS;
+      scene.load.json(`fighters-${opponent}`, `${base}${folder}${opponent}/fighters.json`);
+      for (const pose of CHAPTER_POSES) scene.load.image(`${opponent}-${pose}`, `${base}${folder}${opponent}/${opponent}-${pose}.png`);
     }
     if (tournament) {
       scene.load.json('fighters-competition', `${base}${COMPETITION_ASSETS}fighters.json`);
@@ -152,10 +154,17 @@ export class FighterView {
     if (action === 'feint') {
       // An authored shoulder twitch returns to guard without emitting a tell
       // or making contact. The following real attack receives its full tell.
-      motion.pose = progress < .70 ? 'jab-windup' : 'guard';
-      motion.dx = -5 * Math.sin(progress * Math.PI);
-      motion.rotation = -.012 * Math.sin(progress * Math.PI);
+      const side = fighter.side === 'right' ? 1 : -1;
+      motion.pose = progress < .70 ? (side > 0 ? 'cross-windup' : 'jab-windup') : 'guard';
+      motion.dx = side * 5 * Math.sin(progress * Math.PI);
+      motion.rotation = side * .012 * Math.sin(progress * Math.PI);
       motion.phase = 'feint';
+    } else if (action === 'dodge' && this.texturePrefix === 'louisto') {
+      // His authored slip leans toward screen left; mirror only for his right step.
+      const side = fighter.side === 'right' ? 1 : -1;
+      motion.dx = side * Math.abs(motion.dx);
+      motion.rotation = side * Math.abs(motion.rotation);
+      motion.flip = motion.pose === 'dodge' && side > 0;
     } else if (action === 'surrender') {
       motion.pose = 'surrender'; motion.phase = 'surrender';
       motion.dx = 0; motion.dy = 0; motion.rotation = Math.sin(elapsed * 5) * .012;
@@ -206,7 +215,7 @@ export function drawImpact(scene, event, x, y) {
   const dodged = event.type.includes('dodged') || event.type.includes('missed');
   const color = blocked ? 0x8acbd6 : dodged ? 0xaac8ae : 0xffdb8c;
   const mark = scene.add.graphics().setDepth(20);
-  mark.lineStyle(blocked ? 5 : 3, color, 1);
+  mark.lineStyle(blocked || event.comboType === 'doubleJab' ? 5 : 3, color, 1);
   if (blocked) {
     mark.strokePoints([{x: -21,y: -17},{x: 0,y: -26},{x:21,y:-17},{x:17,y:12},{x:0,y:27},{x:-17,y:12}], true);
   } else if (dodged) {

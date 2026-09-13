@@ -1,8 +1,9 @@
+import { getOpponentProfile } from './OpponentProfiles.js';
 /** Charge a whole session at its explicit start, never at entry or on resume.
  * Keeping this boundary outside the combat models leaves their round clocks
  * and energy during a fight independent from the player's day. */
 export const sparringActivity = ({ opponent = 'remi', lesson = 'free' } = {}) =>
-  ['beton', 'kramer', 'bellini', 'fortin', 'gagnon'].includes(opponent) ? 'fight' : ['free', 'resistance'].includes(lesson) ? 'sparring' : 'lesson';
+  getOpponentProfile(opponent).official ? 'fight' : ['free', 'resistance'].includes(lesson) ? 'sparring' : 'lesson';
 
 export class DailyActivityGate {
   constructor({ profile, getState, activity }) {

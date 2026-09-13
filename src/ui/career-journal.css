@@ -1,0 +1,33 @@
+#stage .career-journal-panel {
+  position: absolute; z-index: 90; pointer-events: auto; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(760px, calc(100% - 24px)); height: min(480px, calc(100% - 24px)); max-height: calc(100% - 24px);
+  padding: clamp(10px, 2cqw, 24px); gap: clamp(10px, 2cqw, 24px);
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr);
+  min-width: 0; min-height: 0; overflow: hidden; color: var(--menu-paper); background: var(--menu-night);
+  border: 3px solid var(--menu-paper); border-radius: 0;
+  box-shadow: inset 0 0 0 2px var(--menu-silver), inset 0 0 0 4px var(--menu-deep), 0 0 0 2px var(--menu-deep), 4px 4px 0 #061021;
+  font: 400 clamp(13px, 1.55cqw, 17px)/1.32 var(--menu-font); text-shadow: 1px 1px 0 #061021;
+}
+#stage .career-journal-panel[hidden] { display: none !important; }
+#stage .is-career-journal-open > section:not(.career-journal-panel) { visibility: hidden !important; }
+#stage .career-journal-panel h2 { margin: 4px 0 12px; font: 700 clamp(21px, 3.1cqw, 34px)/1.08 var(--menu-font); color: #fff2cf; }
+#stage .career-journal-panel .journal-eyebrow { font-size: clamp(11px, 1.35cqw, 15px); letter-spacing: .6px; color: var(--menu-gold); }
+#stage .journal-description { margin: 0 0 14px; color: #d1dbc9; }
+#stage .journal-entries { margin: 0; display: grid; gap: 12px; }
+#stage .journal-entries div { border-top: 1px solid #738693; padding-top: 8px; }
+#stage .journal-entries dt { color: #f7d487; font-weight: 700; }
+#stage .journal-entries dd { margin: 4px 0 0; white-space: pre-line; color: #d1dbc9; }
+#stage .journal-choices button {
+  min-height: 39px; padding: 8px 12px; border-radius: 0; border: 2px solid #8396a0; background: #1b344e;
+  color: var(--menu-paper); text-align: left; font: 400 clamp(13px, 1.6cqw, 18px)/1.15 var(--menu-font);
+  box-shadow: inset 1px 1px 0 #b0b9a34d, inset -2px -2px 0 #081a2d; touch-action: manipulation;
+}
+#stage .journal-choices button[aria-current="page"] { color: #fbd386; border-color: #d0b274; }
+#stage .journal-choices button:is(:focus, :hover) { outline: 0; border-color: #fff0b2; background: #5d4934; box-shadow: inset 3px 0 0 #ffd980; }
+@container (max-width: 640px) {
+  #stage .career-journal-panel { width: calc(100% - 16px); height: calc(100% - 16px); max-height: calc(100% - 16px); padding: 9px; gap: 9px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  #stage .career-journal-panel h2 { font-size: 21px; }
+  #stage .career-journal-panel .journal-eyebrow { display: none; }
+  #stage .journal-choices button { min-height: 34px; padding: 6px 8px; font-size: 14px; }
+}
+@container (max-width: 380px) { #stage .career-journal-panel h2 { font-size: 19px; } }

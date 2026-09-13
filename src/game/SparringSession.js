@@ -14,6 +14,7 @@ export const COMBO_WINDOW = 0.50;
 // never charged or thrown until the first hand has returned, and early spam
 // cannot build a list of automatic attacks.
 export const PUNCH_BUFFER = 0.16;
+export const DOUBLE_JAB_FINISHER = Object.freeze({ extraCost: 4, extraDamage: 4 });
 
 export const TIMINGS = Object.freeze({
   player: Object.freeze({
@@ -77,6 +78,7 @@ function normalizeSettings(settings = {}, previous = {}) {
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
     lesson, opponent, maxStamina, maxResistance, recoveryBonus, powerBonus,
     tournament: Boolean(settings.tournament ?? previous.tournament),
+    techniques: { doubleJab: (settings.techniques ?? previous.techniques)?.doubleJab === true },
   };
 }
 
@@ -133,7 +135,7 @@ export class SparringSession {
       stamina: this.settings.maxStamina,
       player: actionState('idle'),
       remi: actionState('idle', 0, 0, { safeDodge: null, side: null }),
-      stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0, hooks: 0, combos: 0, landedHead: 0, landedBody: 0, receivedHead: 0, receivedBody: 0, blockedHead: 0, blockedBody: 0 },
+      stats: { landed: 0, received: 0, blocked: 0, dodged: 0, thrown: 0, opponentBlocked: 0, missed: 0, hooks: 0, combos: 0, doubleJabCombos: 0, landedHead: 0, landedBody: 0, receivedHead: 0, receivedBody: 0, blockedHead: 0, blockedBody: 0 },
       combo: { step: 0, ready: false, remaining: 0 },
       settings: { ...this.settings },
       training: null,
@@ -211,8 +213,9 @@ export class SparringSession {
   _startPlayerAction(action, target = this._guardRequested && this._guardLevel === 'body' ? 'body' : 'head') {
     this._expireCombo();
     if ((this._guardHeld && this._guardLevel === 'head') || action.startsWith('dodge')) this._clearCombo();
-    if (!this._coach && action === 'jab' && this._combo?.step === 2) action = 'hook';
-    const timing = TIMINGS.player[action];
+    if (!this._coach && action === 'jab' && this._combo?.step === 2 && this._combo.kind !== 'doubleJab') action = 'hook';
+    const finisher = !this._coach && this.settings.techniques.doubleJab && action === 'cross' && this._combo?.step === 2 && this._combo.kind === 'doubleJab' ? 'doubleJab' : null;
+    const timing = finisher ? { ...TIMINGS.player.cross, cost: TIMINGS.player.cross.cost + DOUBLE_JAB_FINISHER.extraCost } : TIMINGS.player[action];
     if (this.state.stamina + EPSILON < timing.cost) {
       this._clearCombo();
       this._emit('exhausted', { action });
@@ -221,12 +224,16 @@ export class SparringSession {
     }
     let sequence = null;
     if (!this._coach && (!this._guardHeld || this._guardLevel === 'body')) {
-      if (action === 'jab') {
+      if (action === 'jab' && this.settings.techniques.doubleJab && this._combo?.step === 1) {
+        sequence = this._combo; sequence.step = 2; sequence.kind = 'doubleJab';
+      } else if (finisher) {
+        sequence = this._combo; this._combo = null;
+      } else if (action === 'jab') {
         this._clearCombo();
         sequence = { step: 1, hits: 0, valid: true };
       } else if (action === 'cross' && this._combo?.step === 1) {
         sequence = this._combo;
-        sequence.step = 2;
+        sequence.step = 2; sequence.kind = 'hook';
       } else if (action === 'hook') {
         sequence = this._combo;
         // Keep the completed sequence attached to the punch until contact.
@@ -234,13 +241,13 @@ export class SparringSession {
       } else {
         this._clearCombo();
       }
-      if (sequence && action !== 'hook') {
+      if (sequence && action !== 'hook' && !finisher) {
         sequence.expiresAt = this.state.elapsed + timing.duration + COMBO_WINDOW;
         this._combo = sequence;
       }
     }
     this.state.stamina = Math.max(0, this.state.stamina - timing.cost);
-    this._playerAction = { action, target, elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence };
+    this._playerAction = { action, target, elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence, ...(finisher ? { finisher } : {}) };
     this._recoverAt = this.state.elapsed + timing.duration + RECOVERY_DELAY;
     if (timing.impact !== undefined) this.state.stats.thrown += 1;
     this._syncState();
@@ -374,28 +381,32 @@ export class SparringSession {
     const attack = this._playerAction.action;
     const target = this._playerAction.target;
     const sequence = this._playerAction.sequence;
+    const finisher = this._playerAction.finisher;
+    const techniqueEvent = finisher ? { comboType: finisher, combo: false } : {};
     if (this._remiAction?.action === 'dodge' && this._remiAction.elapsed >= .08 && this._remiAction.elapsed <= .44) {
       this.state.stats.missed += 1;
       if (sequence) sequence.valid = false;
-      this._emit('player-missed', { attack, target, impact: this._playerAction.impact });
+      this._emit('player-missed', { attack, target, impact: this._playerAction.impact, ...techniqueEvent });
     } else if (this._remiAction?.action === 'guard' && this._remiAction.guardLevel === target) {
       this.state.stats.opponentBlocked += 1;
-      this._emit('player-blocked', { attack, target, impact: this._playerAction.impact });
+      this._emit('player-blocked', { attack, target, impact: this._playerAction.impact, ...techniqueEvent });
     } else {
-      this._damage('remi', attack);
+      this._damage('remi', attack, finisher ? DOUBLE_JAB_FINISHER.extraDamage : 0);
       if (this.state.bout?.score) this.state.bout.score.player += 1;
       this.state.stats.landed += 1;
       this.state.stats[target === 'body' ? 'landedBody' : 'landedHead'] += 1;
-      const combo = attack === 'hook' && sequence?.valid === true && sequence.hits === 2;
+      const combo = (attack === 'hook' || finisher) && sequence?.valid === true && sequence.hits === 2;
       if (attack === 'hook') {
         this.state.stats.hooks += 1;
         if (combo) this.state.stats.combos += 1;
+      } else if (finisher) {
+        if (combo) { this.state.stats.combos++; this.state.stats.doubleJabCombos++; }
       } else if (sequence?.valid) {
         sequence.hits += 1;
       }
       this._remiHurt = HURT_DURATION;
       this._remiHurtTarget = target;
-      this._emit('player-hit', { attack, target, impact: this._playerAction.impact, ...(attack === 'hook' ? { combo } : {}) });
+      this._emit('player-hit', { attack, target, impact: this._playerAction.impact, ...(attack === 'hook' ? { combo } : {}), ...(finisher ? { comboType: finisher, combo } : {}) });
     }
   }
 
@@ -541,13 +552,15 @@ export class SparringSession {
     this.state.combo = {
       step: this._combo?.step ?? 0,
       ready: this.state.phase === 'running' && !player && (!this._guardHeld || this._guardLevel === 'body')
-        && this._combo?.step === 2 && this.state.stamina + EPSILON >= TIMINGS.player.hook.cost,
+        && this._combo?.step === 2 && this.state.stamina + EPSILON >= (this._combo.kind === 'doubleJab' ? TIMINGS.player.cross.cost + DOUBLE_JAB_FINISHER.extraCost : TIMINGS.player.hook.cost),
       remaining: this._combo && !player ? Math.max(0, this._combo.expiresAt - this.state.elapsed) : 0,
+      ...(this.settings.techniques.doubleJab ? { type: this._combo?.kind ?? null } : {}),
     };
     this.state.player = player
       ? actionState(player.action, player.duration, player.elapsed, {
         impact: player.impact,
         target: player.target,
+        ...(player.finisher ? { finisher: player.finisher } : {}),
         guardLevel: this._guardLevel,
         hurtTarget: this._playerHurtTarget,
         hurt: this._playerHurt / HURT_DURATION,
@@ -607,11 +620,11 @@ export class SparringSession {
     return true;
   }
 
-  _damage(actor, attack) {
+  _damage(actor, attack, extra = 0) {
     if (!this.state.bout) return;
     const resistance = this.state.bout.resistance;
     const power = actor === 'remi' ? this.settings.powerBonus : 0;
-    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack] - power);
+    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack] - power - extra);
   }
 
   _clearCombatActions() {
