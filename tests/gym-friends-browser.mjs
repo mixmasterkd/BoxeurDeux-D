@@ -85,10 +85,10 @@ try {
   }
   // Funds are an isolated fixture; purchase/equip are actual UI actions.
   const context = await browser.newContext({ viewport: { width: 1280, height: 900 } }); await suppressHotReload(context);
-  const fixture = new CareerProfile({ storage: null }); fixture.profile.wallet = { money: 60, totalEarned: 60 }; fixture.setLocation({ scene: 'clothing-shop', x: 640, y: 345, facing: 'up' });
+  const fixture = new CareerProfile({ storage: null }); fixture.profile.wallet = { money: 60, totalEarned: 60 }; fixture.setLocation({ scene: 'clothing-shop', x: 640, y: 325, facing: 'up' });
   await context.addInitScript(save => { if (!localStorage.getItem('boxeur-deux-d-career-v1')) localStorage.setItem('boxeur-deux-d-career-v1', save); }, fixture.exportText());
   const p = await context.newPage(); p.on('pageerror', e => report.errors.push(e.message)); p.on('response', r => { if (r.status() >= 400) report.errors.push(`${r.status()} ${r.url()}`); });
-  await p.goto(url); await wait(p, () => document.querySelector('.career-continue')); await p.locator('.career-continue').click(); await wait(p, () => window.__exploration?.scene.player);
+  await p.goto(url); await wait(p, () => document.querySelector('.career-continue')); await p.locator('.career-continue').click(); await wait(p, () => window.__exploration?.scene.player); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(500);
   await p.keyboard.press('KeyE'); await p.locator('[data-gym-action="buy-street-octopus"]').click();
   await p.screenshot({ path: 'docs/friends-shirt-shop.png' });
   await p.locator('[data-gym-action="confirm-buy-street-octopus"]').click(); assert.equal((await saved(p)).wallet.money, 15);

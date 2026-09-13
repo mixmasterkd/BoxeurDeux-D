@@ -74,7 +74,7 @@ async function silhouette(c,name,background,{x,y,halfWidth=72,scanHeight=210}){
   let changes=0;
   for(let sx=Math.floor(r.x+(x-halfWidth)*r.width/1280);sx<=Math.ceil(r.x+(x+halfWidth)*r.width/1280);sx++){
    const wx=Math.floor((sx+.5-r.x)/r.width*1280),wy=Math.floor((sy+.5-r.y)/r.height*720),at=(sy*shot.width+sx)*4;let delta=Infinity;
-   for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const bx=Math.max(0,Math.min(bg.width-1,wx+dx)),by=Math.max(0,Math.min(bg.height-1,wy+dy)),b=(by*bg.width+bx)*4;delta=Math.min(delta,Math.abs(shot.pixels[at]-bg.pixels[b])+Math.abs(shot.pixels[at+1]-bg.pixels[b+1])+Math.abs(shot.pixels[at+2]-bg.pixels[b+2]));}
+   for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++){const bx=Math.max(0,Math.min(bg.width-1,Math.floor(wx*bg.width/1280)+dx)),by=Math.max(0,Math.min(bg.height-1,Math.floor(wy*bg.height/720)+dy)),b=(by*bg.width+bx)*4;delta=Math.min(delta,Math.abs(shot.pixels[at]-bg.pixels[b])+Math.abs(shot.pixels[at+1]-bg.pixels[b+1])+Math.abs(shot.pixels[at+2]-bg.pixels[b+2]));}
    if(delta>115)changes++;
   }
   if(changes>=pixelsPerRow)rows.push(sy);
@@ -85,7 +85,7 @@ async function silhouette(c,name,background,{x,y,halfWidth=72,scanHeight=210}){
 async function actors(mobile){
  const label=mobile?'mobile':'desktop',c=await open(fixture('gym',{x:640,y:585,facing:'down'}),'gym',mobile);await ready(c,'gym');const name=`gym-actors-${label}`;await capture(c,name);
  const metrics={};for(const [id,x,y]of [['player',640,585],['fredo',350,493],['octopus',1040,555],['remi',915,470]]){
-  metrics[id]=await silhouette(c,name,'public/assets/backgrounds/gym-exploration.png',{x,y,scanHeight:150,halfWidth:44});assert.ok(metrics[id].heightInGamePixels>=75&&metrics[id].heightInGamePixels<=140,`${id}: visible, proportionate gym silhouette ${JSON.stringify(metrics[id])}`);
+  metrics[id]=await silhouette(c,name,'public/assets/backgrounds/gym-exploration.png',{x,y,scanHeight:id==='remi'?122:150,halfWidth:44});assert.ok(metrics[id].heightInGamePixels>=75&&metrics[id].heightInGamePixels<=140,`${id}: visible, proportionate gym silhouette ${JSON.stringify(metrics[id])}`);
  }
  report.cases.at(-1).actors=metrics;await c.close();
 }

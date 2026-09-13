@@ -1,0 +1,173 @@
+{
+  "date": "2026-09-13T02:14:56.905Z",
+  "url": "http://harmonization.local/BoxeurDeux-D/",
+  "production": true,
+  "emulatedMobile": true,
+  "cases": [
+    {
+      "name": "gym-actors-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [],
+      "actors": {
+        "player": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 109,
+          "visibleRows": 109
+        },
+        "fredo": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 104,
+          "visibleRows": 104
+        },
+        "octopus": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 114,
+          "visibleRows": 114
+        },
+        "remi": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 118,
+          "visibleRows": 118
+        }
+      }
+    },
+    {
+      "name": "gym-actors-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [],
+      "actors": {
+        "player": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 109.4,
+          "visibleRows": 26
+        },
+        "fredo": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 101.3,
+          "visibleRows": 25
+        },
+        "octopus": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 113.4,
+          "visibleRows": 28
+        },
+        "remi": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 117.5,
+          "visibleRows": 29
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "failure": null,
+  "loadedResources": 47,
+  "resources": [
+    "assets/PixelifySans-lrcDQVzA.ttf",
+    "assets/backgrounds/gym-exploration.png",
+    "assets/index-CZezE5qH.css",
+    "assets/index-P3OQdXPr.js",
+    "assets/sprites/exploration/player-down-0.png",
+    "assets/sprites/exploration/player-down-1.png",
+    "assets/sprites/exploration/player-down-2.png",
+    "assets/sprites/exploration/player-left-0.png",
+    "assets/sprites/exploration/player-left-1.png",
+    "assets/sprites/exploration/player-left-2.png",
+    "assets/sprites/exploration/player-right-0.png",
+    "assets/sprites/exploration/player-right-1.png",
+    "assets/sprites/exploration/player-right-2.png",
+    "assets/sprites/exploration/player-up-0.png",
+    "assets/sprites/exploration/player-up-1.png",
+    "assets/sprites/exploration/player-up-2.png",
+    "assets/sprites/exploration/player.json",
+    "assets/sprites/exploration/remi.png",
+    "assets/sprites/friends/fredo-idle.png",
+    "assets/sprites/friends/fredo-ready.png",
+    "assets/sprites/friends/octopus-idle.png",
+    "assets/sprites/friends/octopus-ready.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-2.png",
+    "index.html"
+  ]
+}

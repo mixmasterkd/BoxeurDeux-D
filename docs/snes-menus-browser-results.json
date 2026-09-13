@@ -1,0 +1,607 @@
+{
+  "cases": [
+    {
+      "name": "desktop",
+      "case": "resume-new-cancel-and-continue",
+      "inside": true,
+      "noPageScroll": true,
+      "noOverflow": true,
+      "pixelFont": true,
+      "width": 760,
+      "height": 480
+    },
+    {
+      "name": "desktop",
+      "case": "pause-commands-import-cancel",
+      "pause": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "commands": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "imported": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "sparring",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "bag",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "shadow",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "rope",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 640,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "speedball",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 640,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "pads",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 640,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "pool",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 640,
+        "height": 480
+      }
+    },
+    {
+      "name": "desktop",
+      "scene": "fight&opponent=gagnon",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 760,
+        "height": 480
+      }
+    },
+    {
+      "name": "mobile",
+      "case": "resume-new-cancel-and-continue",
+      "inside": true,
+      "noPageScroll": true,
+      "noOverflow": true,
+      "pixelFont": true,
+      "width": 568,
+      "height": 309
+    },
+    {
+      "name": "mobile",
+      "case": "pause-commands-import-cancel",
+      "pause": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "commands": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "imported": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "sparring",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "bag",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "shadow",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "rope",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "speedball",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "pads",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "pool",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "scene": "fight&opponent=gagnon",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 576,
+        "height": 317
+      }
+    },
+    {
+      "name": "mobile",
+      "case": "portrait-pauses"
+    },
+    {
+      "name": "small-mobile",
+      "case": "resume-new-cancel-and-continue",
+      "inside": true,
+      "noPageScroll": true,
+      "noOverflow": true,
+      "pixelFont": true,
+      "width": 292,
+      "height": 154
+    },
+    {
+      "name": "small-mobile",
+      "case": "pause-commands-import-cancel",
+      "pause": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "commands": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "imported": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "sparring",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "bag",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "shadow",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "rope",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "speedball",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pads",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "pool",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "scene": "fight&opponent=gagnon",
+      "ready": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      },
+      "help": {
+        "inside": true,
+        "noPageScroll": true,
+        "noOverflow": true,
+        "pixelFont": true,
+        "width": 300,
+        "height": 162
+      }
+    },
+    {
+      "name": "small-mobile",
+      "case": "portrait-pauses"
+    }
+  ],
+  "errors": []
+}

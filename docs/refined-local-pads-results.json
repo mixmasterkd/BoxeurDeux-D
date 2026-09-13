@@ -1,0 +1,136 @@
+{
+  "reports": [
+    {
+      "mobile": false,
+      "location": {
+        "scene": "gym",
+        "x": 350,
+        "y": 550,
+        "facing": "up"
+      },
+      "energy": 90,
+      "contact": {
+        "type": "hit",
+        "time": 0.2733000000000002,
+        "input": "jab",
+        "result": "hit",
+        "targetIndex": 0,
+        "side": "left",
+        "screenSide": "right",
+        "visual": {
+          "x": 704.3277795786062,
+          "y": 276.7757536466774,
+          "target": {
+            "x": 704.3277795786062,
+            "y": 276.77575364667746
+          },
+          "pose": "jab",
+          "player": {
+            "x": 742.8077795786062,
+            "y": 697.0957536466774
+          },
+          "coachPose": "left",
+          "phase": "contact",
+          "error": 5.684341886080802e-14
+        }
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.777762503723051,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "mobile": true,
+      "location": {
+        "scene": "gym",
+        "x": 350,
+        "y": 550,
+        "facing": "up"
+      },
+      "energy": 90,
+      "contact": {
+        "type": "hit",
+        "time": 0.43990000000000057,
+        "input": "jab",
+        "result": "hit",
+        "targetIndex": 0,
+        "side": "left",
+        "screenSide": "right",
+        "visual": {
+          "x": 704.3277795786062,
+          "y": 276.7757536466774,
+          "target": {
+            "x": 704.3277795786062,
+            "y": 276.77575364667746
+          },
+          "pose": "jab",
+          "player": {
+            "x": 742.8077795786062,
+            "y": 697.0957536466774
+          },
+          "coachPose": "left",
+          "phase": "contact",
+          "error": 5.684341886080802e-14
+        }
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": []
+}

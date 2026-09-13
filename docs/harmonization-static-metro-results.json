@@ -1,0 +1,315 @@
+{
+  "date": "2026-09-13T02:10:00.458Z",
+  "url": "http://harmonization.local/BoxeurDeux-D/",
+  "production": true,
+  "emulatedMobile": true,
+  "cases": [
+    {
+      "name": "metro-proportions-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [],
+      "playerBody": {
+        "method": "Screenshot body pixels compared with the unchanged background",
+        "heightInGamePixels": 105,
+        "visibleRows": 105
+      },
+      "doorOpeningGamePixels": 126
+    },
+    {
+      "name": "metro-rives-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "des-rives-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-round-trip-desktop",
+      "automaticStairs": true,
+      "realTrainConfirm": true,
+      "noCharge": true
+    },
+    {
+      "name": "metro-proportions-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [],
+      "playerBody": {
+        "method": "Screenshot body pixels compared with the unchanged background",
+        "heightInGamePixels": 101.3,
+        "visibleRows": 25
+      },
+      "doorOpeningGamePixels": 126
+    },
+    {
+      "name": "metro-rives-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "des-rives-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-round-trip-mobile",
+      "automaticStairs": true,
+      "realTrainConfirm": true,
+      "noCharge": true
+    }
+  ],
+  "errors": [],
+  "failure": null,
+  "loadedResources": 71,
+  "resources": [
+    "assets/PixelifySans-lrcDQVzA.ttf",
+    "assets/index-CZezE5qH.css",
+    "assets/index-P3OQdXPr.js",
+    "assets/sprites/cycling/player-down-0.png",
+    "assets/sprites/cycling/player-down-1.png",
+    "assets/sprites/cycling/player-down-2.png",
+    "assets/sprites/cycling/player-left-0.png",
+    "assets/sprites/cycling/player-left-1.png",
+    "assets/sprites/cycling/player-left-2.png",
+    "assets/sprites/cycling/player-right-0.png",
+    "assets/sprites/cycling/player-right-1.png",
+    "assets/sprites/cycling/player-right-2.png",
+    "assets/sprites/cycling/player-up-0.png",
+    "assets/sprites/cycling/player-up-1.png",
+    "assets/sprites/cycling/player-up-2.png",
+    "assets/sprites/cycling/player.json",
+    "assets/sprites/outfits/street-blue/player-down-0.png",
+    "assets/sprites/outfits/street-blue/player-down-1.png",
+    "assets/sprites/outfits/street-blue/player-down-2.png",
+    "assets/sprites/outfits/street-blue/player-left-0.png",
+    "assets/sprites/outfits/street-blue/player-left-1.png",
+    "assets/sprites/outfits/street-blue/player-left-2.png",
+    "assets/sprites/outfits/street-blue/player-right-0.png",
+    "assets/sprites/outfits/street-blue/player-right-1.png",
+    "assets/sprites/outfits/street-blue/player-right-2.png",
+    "assets/sprites/outfits/street-blue/player-up-0.png",
+    "assets/sprites/outfits/street-blue/player-up-1.png",
+    "assets/sprites/outfits/street-blue/player-up-2.png",
+    "assets/sprites/outfits/street-burgundy/player-down-0.png",
+    "assets/sprites/outfits/street-burgundy/player-down-1.png",
+    "assets/sprites/outfits/street-burgundy/player-down-2.png",
+    "assets/sprites/outfits/street-burgundy/player-left-0.png",
+    "assets/sprites/outfits/street-burgundy/player-left-1.png",
+    "assets/sprites/outfits/street-burgundy/player-left-2.png",
+    "assets/sprites/outfits/street-burgundy/player-right-0.png",
+    "assets/sprites/outfits/street-burgundy/player-right-1.png",
+    "assets/sprites/outfits/street-burgundy/player-right-2.png",
+    "assets/sprites/outfits/street-burgundy/player-up-0.png",
+    "assets/sprites/outfits/street-burgundy/player-up-1.png",
+    "assets/sprites/outfits/street-burgundy/player-up-2.png",
+    "assets/sprites/outfits/street-octopus/player-down-0.png",
+    "assets/sprites/outfits/street-octopus/player-down-1.png",
+    "assets/sprites/outfits/street-octopus/player-down-2.png",
+    "assets/sprites/outfits/street-octopus/player-left-0.png",
+    "assets/sprites/outfits/street-octopus/player-left-1.png",
+    "assets/sprites/outfits/street-octopus/player-left-2.png",
+    "assets/sprites/outfits/street-octopus/player-right-0.png",
+    "assets/sprites/outfits/street-octopus/player-right-1.png",
+    "assets/sprites/outfits/street-octopus/player-right-2.png",
+    "assets/sprites/outfits/street-octopus/player-up-0.png",
+    "assets/sprites/outfits/street-octopus/player-up-1.png",
+    "assets/sprites/outfits/street-octopus/player-up-2.png",
+    "assets/sprites/street/player-down-0.png",
+    "assets/sprites/street/player-down-1.png",
+    "assets/sprites/street/player-down-2.png",
+    "assets/sprites/street/player-left-0.png",
+    "assets/sprites/street/player-left-1.png",
+    "assets/sprites/street/player-left-2.png",
+    "assets/sprites/street/player-right-0.png",
+    "assets/sprites/street/player-right-1.png",
+    "assets/sprites/street/player-right-2.png",
+    "assets/sprites/street/player-up-0.png",
+    "assets/sprites/street/player-up-1.png",
+    "assets/sprites/street/player-up-2.png",
+    "assets/sprites/street/player.json",
+    "assets/world/metro-station.png",
+    "assets/world/neighborhood-metro.png",
+    "assets/world/neighborhood-west-open.png",
+    "assets/world/neighborhood.png",
+    "assets/world/riverside.png",
+    "index.html"
+  ]
+}

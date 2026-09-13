@@ -1,0 +1,1338 @@
+{
+  "date": "2026-09-13T02:18:55.049Z",
+  "url": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "production": true,
+  "emulatedMobile": true,
+  "cases": [
+    {
+      "name": "gym-actors-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [],
+      "actors": {
+        "player": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 109,
+          "visibleRows": 109
+        },
+        "fredo": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 103,
+          "visibleRows": 103
+        },
+        "octopus": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 114,
+          "visibleRows": 114
+        },
+        "remi": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 118,
+          "visibleRows": 118
+        }
+      }
+    },
+    {
+      "name": "fredo-dialog-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "gym-dialog snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-ready-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "rhythm-panel",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-contact-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "pads-commandes-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "commands-panel rhythm-commands snes-command-window snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-real-input-desktop",
+      "wrongHandUnscored": true,
+      "correctJabScored": true,
+      "chargeOnce": 10,
+      "pause": true,
+      "returnToGym": true
+    },
+    {
+      "name": "octopus-dialog-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "gym-dialog snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "octopus-drill-complete-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "shadow-panel",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "shirt-confirm-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [
+        {
+          "id": "gym-dialog",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "shirt-equipped-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-proportions-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": [],
+      "playerBody": {
+        "method": "Screenshot body pixels compared with the unchanged background",
+        "heightInGamePixels": 105,
+        "visibleRows": 105
+      },
+      "doorOpeningGamePixels": 126
+    },
+    {
+      "name": "metro-rives-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "des-rives-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-round-trip-desktop",
+      "automaticStairs": true,
+      "realTrainConfirm": true,
+      "noCharge": true
+    },
+    {
+      "name": "hotel-rc-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "hotel-rings-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "windows": []
+    },
+    {
+      "name": "gym-actors-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [],
+      "actors": {
+        "player": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 109.4,
+          "visibleRows": 26
+        },
+        "fredo": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 101.3,
+          "visibleRows": 25
+        },
+        "octopus": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 109.4,
+          "visibleRows": 27
+        },
+        "remi": {
+          "method": "Screenshot body pixels compared with the unchanged background",
+          "heightInGamePixels": 117.5,
+          "visibleRows": 29
+        }
+      }
+    },
+    {
+      "name": "fredo-dialog-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "gym-dialog snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-ready-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "rhythm-panel snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-contact-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "pads-commandes-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "commands-panel rhythm-commands snes-command-window snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "pads-real-input-mobile",
+      "wrongHandUnscored": true,
+      "correctJabScored": true,
+      "chargeOnce": 10,
+      "pause": true,
+      "returnToGym": true
+    },
+    {
+      "name": "octopus-dialog-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "gym-dialog snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "octopus-drill-complete-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "shadow-panel snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "shirt-confirm-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [
+        {
+          "id": "gym-dialog snes-scrollable",
+          "fits": true,
+          "font": "\"Boxeur Pixel\", \"Trebuchet MS\", sans-serif",
+          "radius": "0px",
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "shirt-equipped-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-proportions-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": [],
+      "playerBody": {
+        "method": "Screenshot body pixels compared with the unchanged background",
+        "heightInGamePixels": 101.3,
+        "visibleRows": 25
+      },
+      "doorOpeningGamePixels": 126
+    },
+    {
+      "name": "metro-rives-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "des-rives-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "metro-round-trip-mobile",
+      "automaticStairs": true,
+      "realTrainConfirm": true,
+      "noCharge": true
+    },
+    {
+      "name": "hotel-rc-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    },
+    {
+      "name": "hotel-rings-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "windows": []
+    }
+  ],
+  "errors": [],
+  "failure": null,
+  "loadedResources": 179,
+  "resources": [
+    "assets/PixelifySans-lrcDQVzA.ttf",
+    "assets/backgrounds/gym-exploration.png",
+    "assets/backgrounds/gym.png",
+    "assets/backgrounds/mirror-training.png",
+    "assets/hotel/gym.png",
+    "assets/hotel/lobby-ground-floor.png",
+    "assets/hotel/pool.png",
+    "assets/hotel/venue.png",
+    "assets/index-CZezE5qH.css",
+    "assets/index-P3OQdXPr.js",
+    "assets/sprites/bag-orthodox/fighters.json",
+    "assets/sprites/bag-orthodox/player-cross.png",
+    "assets/sprites/bag-orthodox/player-guard.png",
+    "assets/sprites/bag-orthodox/player-hook-windup.png",
+    "assets/sprites/bag-orthodox/player-hook.png",
+    "assets/sprites/bag-orthodox/player-jab.png",
+    "assets/sprites/bag-orthodox/player-windup.png",
+    "assets/sprites/body-training/gym-block-body.png",
+    "assets/sprites/body-training/gym-cross-body.png",
+    "assets/sprites/body-training/gym-hook-body.png",
+    "assets/sprites/body-training/gym-hook-windup-body.png",
+    "assets/sprites/body-training/gym-jab-body.png",
+    "assets/sprites/body-training/gym-windup-body.png",
+    "assets/sprites/body-training/gym.json",
+    "assets/sprites/body-training/player-block-body.png",
+    "assets/sprites/chapter-combat/bellini/bellini-block.png",
+    "assets/sprites/chapter-combat/bellini/bellini-guard.png",
+    "assets/sprites/chapter-combat/bellini/bellini-jab.png",
+    "assets/sprites/chapter-combat/bellini/fighters.json",
+    "assets/sprites/chapter-combat/fortin/fighters.json",
+    "assets/sprites/chapter-combat/fortin/fortin-block.png",
+    "assets/sprites/chapter-combat/fortin/fortin-guard.png",
+    "assets/sprites/chapter-combat/fortin/fortin-jab.png",
+    "assets/sprites/chapter-combat/gagnon/fighters.json",
+    "assets/sprites/chapter-combat/gagnon/gagnon-block.png",
+    "assets/sprites/chapter-combat/gagnon/gagnon-guard.png",
+    "assets/sprites/chapter-combat/gagnon/gagnon-jab.png",
+    "assets/sprites/chapter-combat/kramer/kramer-guard.png",
+    "assets/sprites/competition-v2/competition-block.png",
+    "assets/sprites/competition-v2/competition-guard.png",
+    "assets/sprites/competition-v2/competition-jab.png",
+    "assets/sprites/competition-v2/fighters.json",
+    "assets/sprites/cycling/player-down-0.png",
+    "assets/sprites/cycling/player-down-1.png",
+    "assets/sprites/cycling/player-down-2.png",
+    "assets/sprites/cycling/player-left-0.png",
+    "assets/sprites/cycling/player-left-1.png",
+    "assets/sprites/cycling/player-left-2.png",
+    "assets/sprites/cycling/player-right-0.png",
+    "assets/sprites/cycling/player-right-1.png",
+    "assets/sprites/cycling/player-right-2.png",
+    "assets/sprites/cycling/player-up-0.png",
+    "assets/sprites/cycling/player-up-1.png",
+    "assets/sprites/cycling/player-up-2.png",
+    "assets/sprites/cycling/player.json",
+    "assets/sprites/exploration/player-down-0.png",
+    "assets/sprites/exploration/player-down-1.png",
+    "assets/sprites/exploration/player-down-2.png",
+    "assets/sprites/exploration/player-left-0.png",
+    "assets/sprites/exploration/player-left-1.png",
+    "assets/sprites/exploration/player-left-2.png",
+    "assets/sprites/exploration/player-right-0.png",
+    "assets/sprites/exploration/player-right-1.png",
+    "assets/sprites/exploration/player-right-2.png",
+    "assets/sprites/exploration/player-up-0.png",
+    "assets/sprites/exploration/player-up-1.png",
+    "assets/sprites/exploration/player-up-2.png",
+    "assets/sprites/exploration/player.json",
+    "assets/sprites/exploration/remi.png",
+    "assets/sprites/fredo/coach.json",
+    "assets/sprites/fredo/left.png",
+    "assets/sprites/fredo/ready.png",
+    "assets/sprites/fredo/right.png",
+    "assets/sprites/fredo/sweep.png",
+    "assets/sprites/friends/fredo-idle.png",
+    "assets/sprites/friends/fredo-portrait.png",
+    "assets/sprites/friends/fredo-ready.png",
+    "assets/sprites/friends/octopus-idle.png",
+    "assets/sprites/friends/octopus-portrait.png",
+    "assets/sprites/friends/octopus-ready.png",
+    "assets/sprites/mirror/fighters.json",
+    "assets/sprites/mirror/player-block.png",
+    "assets/sprites/mirror/player-dodge-left.png",
+    "assets/sprites/mirror/player-dodge-right.png",
+    "assets/sprites/octopus/idle.png",
+    "assets/sprites/octopus/jab.png",
+    "assets/sprites/octopus/ready.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-down-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-left-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-right-2.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-0.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-1.png",
+    "assets/sprites/outfits/boxing-burgundy/player-up-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-down-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-left-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-right-2.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-0.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-1.png",
+    "assets/sprites/outfits/boxing-emerald/player-up-2.png",
+    "assets/sprites/outfits/street-blue/player-down-0.png",
+    "assets/sprites/outfits/street-blue/player-down-1.png",
+    "assets/sprites/outfits/street-blue/player-down-2.png",
+    "assets/sprites/outfits/street-blue/player-left-0.png",
+    "assets/sprites/outfits/street-blue/player-left-1.png",
+    "assets/sprites/outfits/street-blue/player-left-2.png",
+    "assets/sprites/outfits/street-blue/player-right-0.png",
+    "assets/sprites/outfits/street-blue/player-right-1.png",
+    "assets/sprites/outfits/street-blue/player-right-2.png",
+    "assets/sprites/outfits/street-blue/player-up-0.png",
+    "assets/sprites/outfits/street-blue/player-up-1.png",
+    "assets/sprites/outfits/street-blue/player-up-2.png",
+    "assets/sprites/outfits/street-burgundy/player-down-0.png",
+    "assets/sprites/outfits/street-burgundy/player-down-1.png",
+    "assets/sprites/outfits/street-burgundy/player-down-2.png",
+    "assets/sprites/outfits/street-burgundy/player-left-0.png",
+    "assets/sprites/outfits/street-burgundy/player-left-1.png",
+    "assets/sprites/outfits/street-burgundy/player-left-2.png",
+    "assets/sprites/outfits/street-burgundy/player-right-0.png",
+    "assets/sprites/outfits/street-burgundy/player-right-1.png",
+    "assets/sprites/outfits/street-burgundy/player-right-2.png",
+    "assets/sprites/outfits/street-burgundy/player-up-0.png",
+    "assets/sprites/outfits/street-burgundy/player-up-1.png",
+    "assets/sprites/outfits/street-burgundy/player-up-2.png",
+    "assets/sprites/outfits/street-octopus/player-down-0.png",
+    "assets/sprites/outfits/street-octopus/player-down-1.png",
+    "assets/sprites/outfits/street-octopus/player-down-2.png",
+    "assets/sprites/outfits/street-octopus/player-left-0.png",
+    "assets/sprites/outfits/street-octopus/player-left-1.png",
+    "assets/sprites/outfits/street-octopus/player-left-2.png",
+    "assets/sprites/outfits/street-octopus/player-right-0.png",
+    "assets/sprites/outfits/street-octopus/player-right-1.png",
+    "assets/sprites/outfits/street-octopus/player-right-2.png",
+    "assets/sprites/outfits/street-octopus/player-up-0.png",
+    "assets/sprites/outfits/street-octopus/player-up-1.png",
+    "assets/sprites/outfits/street-octopus/player-up-2.png",
+    "assets/sprites/outfits/street-octopus/preview.png",
+    "assets/sprites/sparring-v2/fighters.json",
+    "assets/sprites/sparring-v2/player-block.png",
+    "assets/sprites/sparring-v2/player-cross-recover.png",
+    "assets/sprites/sparring-v2/player-cross-windup.png",
+    "assets/sprites/sparring-v2/player-cross.png",
+    "assets/sprites/sparring-v2/player-dodge.png",
+    "assets/sprites/sparring-v2/player-guard.png",
+    "assets/sprites/sparring-v2/player-jab-recover.png",
+    "assets/sprites/sparring-v2/player-jab-windup.png",
+    "assets/sprites/sparring-v2/player-jab.png",
+    "assets/sprites/street/player-down-0.png",
+    "assets/sprites/street/player-down-1.png",
+    "assets/sprites/street/player-down-2.png",
+    "assets/sprites/street/player-left-0.png",
+    "assets/sprites/street/player-left-1.png",
+    "assets/sprites/street/player-left-2.png",
+    "assets/sprites/street/player-right-0.png",
+    "assets/sprites/street/player-right-1.png",
+    "assets/sprites/street/player-right-2.png",
+    "assets/sprites/street/player-up-0.png",
+    "assets/sprites/street/player-up-1.png",
+    "assets/sprites/street/player-up-2.png",
+    "assets/sprites/street/player.json",
+    "assets/world/clothing-shop.png",
+    "assets/world/home.png",
+    "assets/world/metro-station.png",
+    "assets/world/neighborhood-metro.png",
+    "assets/world/neighborhood-west-open.png",
+    "assets/world/neighborhood.png",
+    "assets/world/riverside.png",
+    "index.html"
+  ]
+}

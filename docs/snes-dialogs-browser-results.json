@@ -1,0 +1,105 @@
+{
+  "cases": [
+    {
+      "mobile": false,
+      "scene": "clothing-shop",
+      "item": "street-octopus",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      },
+      "preview": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      },
+      "chargedOnce": 45
+    },
+    {
+      "mobile": false,
+      "scene": "boxing-shop",
+      "item": "boxing-emerald",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      },
+      "preview": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      },
+      "chargedOnce": 32
+    },
+    {
+      "mobile": false,
+      "scene": "hotel-room",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      }
+    },
+    {
+      "mobile": false,
+      "scene": "hotel-venue",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": false
+      }
+    },
+    {
+      "mobile": true,
+      "scene": "clothing-shop",
+      "item": "street-octopus",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      },
+      "preview": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      },
+      "chargedOnce": 45
+    },
+    {
+      "mobile": true,
+      "scene": "boxing-shop",
+      "item": "boxing-emerald",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      },
+      "preview": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      },
+      "chargedOnce": 32
+    },
+    {
+      "mobile": true,
+      "scene": "hotel-room",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      }
+    },
+    {
+      "mobile": true,
+      "scene": "hotel-venue",
+      "main": {
+        "inside": true,
+        "noOverflow": true,
+        "copyScroll": true
+      }
+    }
+  ],
+  "errors": []
+}

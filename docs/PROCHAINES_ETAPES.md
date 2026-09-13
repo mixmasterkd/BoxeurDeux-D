@@ -1,5 +1,31 @@
 # Suite du projet BoxeurDeux-D
 
+## GO courant — harmoniser les commandes, les lieux et les personnages
+
+Le dernier GO ajoute les ajustements ci-dessous au chapitre déjà jouable. Cette section décrit l’état courant; les mentions de Rémi coach, d’Entrée pour confirmer, de portes à activer et de pads rythmiques dans l’historique sont dépassées. Les comptes rendus de vérification et l’état de publication font foi séparément; cette feuille de route n’annonce pas une nouvelle mise en ligne.
+
+| Axe livré | Fonctionnement courant |
+| --- | --- |
+| Menus SNES | Fenêtres bleu marine, bordures pixel et police locale; le contenu reste dans le cadrage 16:9. Les longs textes et choix défilent à l’intérieur, avec un repère ↕ et des actions de combat fixes. |
+| Convention commune | WASD pour marcher/naviguer, **E seul pour confirmer**, J/K pour les frappes, P/Échap pour pause/retour. La souris reste possible. Mobile : joypad et A/B dans les marges, ☰ pour le menu; aucune manette permanente sur ordinateur. |
+| Fredo | Coach permanent en survêtement bleu marine : au gym, aux pads et dans le coin de tous les combats. Rémi reste exclusivement le partenaire de sparring. |
+| Pads libres | Au gym et à l’hôtel, séance de 45 secondes, 10 énergie. Fredo maintient la cible jusqu’au bon contact; jab gauche vers son pad à droite de l’écran, direct droit vers le pad à gauche. Aucun retard automatique ni barre de rythme. 12 contacts et 60 % de précision donnent puissance +1 jusqu’au plafond. |
+| The Octopus | Ami au gym avec portraits et poses dédiés, conseils adaptés au prochain combat et trois drills guidés au miroir (gestes, défenses, combo). Coût de 10 énergie, aucun bonus automatique. Son chandail noir Poulin/poulpe blanc coûte 45 $ chez Rue Nord et s’équipe à la maison. |
+| Déplacements | Portes et passages traversés à pied; E/A reste pour les personnes, activités, achats et confirmations. Les entrées protègent contre les rebonds immédiats à la sortie. |
+| Hôtel | Ascenseur entre chambres et RC; rez-de-chaussée défilant de 1920 × 1080 où rejoindre librement accueil, gym, piscine et salle d’événement. Les trois jours du tournoi restent inchangés. |
+| Livraisons | Dépôt signalé au guichet jaune devant l’entrepôt. Destination complète et direction du secteur : 12 rue des Érables, dépanneur 84 avenue du Gym, Rue Nord 210 promenade du Nord. Trois secteurs parcourus, paiements/coûts inchangés et anciennes tournées préservées. |
+| Métro | Station du Quartier, trajet en train vers Des Rives et sortie dans une nouvelle place explorable. Style inspiré du métro de Montréal, accès futurs fermés par des cônes. |
+| Combat et proportions | Jab/direct plus réactifs, prochain coup préparé juste avant la fin du précédent, sans répétition par maintien. Les poses de tournoi suivent les proportions du sparring. Les personnages du gym et des quais sont agrandis de 25 %, sans changer la caméra 1280 × 720. |
+
+La sauvegarde v3, l’économie, les plafonds, les cinq adversaires et le tournoi restent la base du jeu. Aucun service distant, abonnement ou génération d’images en cours de partie n’est nécessaire. Les essais mobiles de cette livraison utilisent **des fenêtres et contacts tactiles simulés**, pas un téléphone physique.
+
+### Suite proposée, à discuter après cette livraison
+
+1. Recueillir les retours sur le téléphone physique : lisibilité des petits menus, confort du joypad, portes et rythme des échanges. Corriger les défauts observés avant d’étendre le contenu.
+2. Concevoir deux ou trois nouveaux adversaires, un à la fois, avec un problème lisible à apprendre et de nouveaux conseils de Fredo/The Octopus. Ne pas ajouter de boutons sans besoin clair.
+3. Définir ensuite un **camp à Cuba** : petite carte explorable, logement, plage, gym et un combat. Les activités, coût et conditions d’accès restent à décider; Cuba n’est pas développé dans ce GO.
+4. Garder les nouveaux commerces, activités à Des Rives, ordinateurs, cellulaires et achats en ligne dans la liste d’idées futures. Les cônes réservent les extensions sans promettre un accès déjà jouable.
+
 ## Chapitre autorisé le 12 septembre 2026
 
 Le GO regroupe désormais **livraisons à vélo, économie, deux boutiques dans une nouvelle portion inspirée du DIX30, tenues équipables, Kramer, puis Gants de bronze sur trois jours**. Cette livraison est **terminée, publiée et vérifiée en local et sur GitHub Pages**, avec essais clavier et tactile simulé. Le gym, la maison et le quartier précédents sont conservés. Le fonctionnement courant est décrit dans le README; la preuve des essais et de la publication est dans VERIFICATIONS.md. Les sections suivantes conservent la liste initiale et son historique, sans limiter ce GO.

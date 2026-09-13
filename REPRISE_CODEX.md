@@ -1,6 +1,14 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
-## GO actif — livraisons, boutiques, Kramer et Gants de bronze
+## Livraison terminée — harmonisation SNES, Fredo et exploration libre
+
+L’utilisateur a donné GO pour le lot détaillé dans `docs/HARMONISATION_SNES.md` : menus SNES cadrés, E seul pour confirmer au clavier, portes et limites traversées à pied, hôtel RC défilant, pads libres et croisés avec Fredo, The Octopus au gym avec conseils/drills et son chandail en boutique, frappes plus réactives et visuels tournoi cohérents, livraisons dans plusieurs secteurs avec dépôt clair, métro montréalais vers Des Rives. Fredo porte un Adidas bleu marine à trois bandes blanches et reste le coach partout; Rémi est uniquement partenaire de sparring. Les photos reçues servent de références aux sprites, sans publier les photos brutes. Nouveaux adversaires et Cuba restent futurs.
+
+Chapitre intégré, vérifié et publié le 12 septembre 2026. Commits `c97b10f` (Fredo) et `6b0e574` (runtime, personnages, commandes, exploration et tests). 304 tests autonomes, sept parcours amis du gym, 32 contrôles menus, dialogues, vrai round/coin Fredo, combat/pads, livraisons et déplacements passent. Compilation et workflow Pages `34732616759` réussis. Le vrai site public passe 32 contrôles ordinateur/tactile simulé, 179 ressources sans erreur; bundle `index-P3OQdXPr.js` identique à la compilation locale. Voir `docs/HARMONISATION_SNES.md` et `docs/harmonization-static-public-results.json`.
+
+La dernière précision utilisateur est intégrée : proportions du joueur dans les stations de métro ajustées aux portes du train, personnages du gym harmonisés avec de nouvelles petites silhouettes de Fredo et d’Octopus; empreintes et visibilité vérifiées. Serveur existant réutilisé sur5173; Wi-Fi courant192.168.50.123. Aucun téléphone physique testé. Les sauvegardes, anciens assets et documents historiques sont conservés. Le prochain développement reste à discuter; ne pas démarrer Cuba ni de nouveaux adversaires automatiquement.
+
+## Historique — livraisons, boutiques, Kramer et Gants de bronze
 
 Le 12 septembre 2026, l’utilisateur donne explicitement GO pour l’ensemble discuté. Terminer ce chapitre sans redemander chaque détail courant : lisibilité du ring mobile en premier; nouvelle rue résidentielle de livraisons à vélo; secteur commercial distinct inspiré du Quartier DIX30 avec DEUX boutiques (vêtements et boxe), autres vitrines fermées et cônes aux futures extensions; argent, achats, garde-robe maison et casier gym; Kramer « The Quitter » qui abandonne à sa deuxième chute cumulée; tournoi payant sur trois jours avec Marco Bellini, Louis « Le Roc » Fortin et André « Le Patron » Gagnon. Béton puis Kramer sont les deux rencontres avant le tournoi. Tableau de huit, trois adversaires sur le parcours et quatre participants d’ambiance.
 

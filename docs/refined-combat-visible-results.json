@@ -1,0 +1,108 @@
+{
+  "reports": [
+    {
+      "activity": "combat",
+      "mobile": false,
+      "stats": {
+        "landed": 3,
+        "received": 0,
+        "blocked": 0,
+        "dodged": 0,
+        "thrown": 3,
+        "opponentBlocked": 0,
+        "missed": 0,
+        "hooks": 1,
+        "combos": 1,
+        "landedHead": 3,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 0,
+        "blockedBody": 0
+      },
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "activity": "combat",
+      "mobile": true,
+      "stats": {
+        "landed": 3,
+        "received": 0,
+        "blocked": 0,
+        "dodged": 0,
+        "thrown": 3,
+        "opponentBlocked": 0,
+        "missed": 0,
+        "hooks": 1,
+        "combos": 1,
+        "landedHead": 3,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 0,
+        "blockedBody": 0
+      },
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Direct",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Jab",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": []
+}

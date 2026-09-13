@@ -1,0 +1,21 @@
+{
+  "url": "http://127.0.0.1:5173/",
+  "tests": [
+    {
+      "label": "entrances-desktop",
+      "homeExitAutomatic": true,
+      "gymRoundTripAutomatic": true,
+      "fightEntranceAutomatic": true,
+      "noEnergyCost": true
+    },
+    {
+      "label": "entrances-mobile",
+      "homeExitAutomatic": true,
+      "gymRoundTripAutomatic": true,
+      "fightEntranceAutomatic": true,
+      "noEnergyCost": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

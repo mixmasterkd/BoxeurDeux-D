@@ -1,0 +1,50 @@
+{
+  "tests": [
+    {
+      "device": "desktop",
+      "drill": "basics",
+      "completedThroughControls": true,
+      "energy": 80
+    },
+    {
+      "device": "desktop",
+      "drill": "defense",
+      "completedThroughControls": true,
+      "energy": 70
+    },
+    {
+      "device": "desktop",
+      "drill": "combo",
+      "completedThroughControls": true,
+      "energy": 60
+    },
+    {
+      "device": "mobile",
+      "drill": "basics",
+      "completedThroughControls": true,
+      "energy": 80
+    },
+    {
+      "device": "mobile",
+      "drill": "defense",
+      "completedThroughControls": true,
+      "energy": 70
+    },
+    {
+      "device": "mobile",
+      "drill": "combo",
+      "completedThroughControls": true,
+      "energy": 60
+    },
+    {
+      "shirt": "street-octopus",
+      "purchasedThroughUI": true,
+      "paid": 45,
+      "equippedSeparately": true,
+      "wardrobeThroughWalking": true,
+      "reloadedOutfit": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}
