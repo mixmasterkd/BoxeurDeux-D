@@ -8,7 +8,7 @@ Nouveaux modules : `FightBalance.js`, `CornerRecovery.js`, `BoutJudges.js`, `Cor
 
 Les décisions utilisent trois cartes calculées par round (10–9/10–10 puis déductions de chutes), avec touches nettes prioritaires et nuances précision/défense uniquement si serré. Deux cartes gagnantes nécessaires ; égalité autorise revanche et ne fait pas avancer le tournoi. Présentation des cartes à 1/3/5 secondes, annonce de l’arbitre à 7 secondes. Le résultat est enregistré une seule fois, avant la présentation. Arbitre original généré via outil intégré ; source et extraction reproductible conservées. Pose joueur gagnant bras levé ; en cas de défaite, l’arbitre désigne le côté adverse, dont la pose reste en garde.
 
-Les menus, activités, sauvegardes v4, tenues, profils et routes de progression existants sont conservés. Lire `docs/FIGHT_PACING.md` pour les vérifications et limites réelles de cette livraison.
+Les menus, activités, sauvegardes v4, tenues, profils et routes de progression existants sont conservés. Lire `docs/FIGHT_PACING.md` pour les vérifications et limites réelles de cette livraison. Livraison commitée (`2a3f088`, `7bb0e98`) et publiée : workflow `34779348402` réussi, 374 tests, deux vrais combats de trois rounds PC/tactile, version compilée et vrai site public vérifiés sans erreur. Bundle `index-oSos2UJu.js`.
 
 ## Correction mobile — dégager les vendeurs et les lieux
 

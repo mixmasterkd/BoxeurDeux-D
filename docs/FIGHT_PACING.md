@@ -27,3 +27,9 @@ L’arbitre original provient de l’outil imagegen intégré. Trois poses cohé
 - `npm run build` réussit : `index-oSos2UJu.js` et `index-BIlHaQu6.css`. Avertissement historique de taille du bundle Phaser conservé.
 
 Les essais mobiles sont des viewports tactiles Chromium simulés, pas un essai sur le téléphone physique de l’utilisateur. Le barème des juges est celui du jeu, pas une reproduction réglementaire. L’équilibrage reste à affiner avec le ressenti de vraies parties ; aucune durée minimale ou invulnérabilité n’empêche une très bonne victoire rapide.
+
+## Publication vérifiée
+
+Commits `2a3f088` (art) et `7bb0e98` (jeu et contrôles) publiés sur GitHub Pages. Workflow **34779348402** réussi. Le vrai site `https://mixmasterkd.github.io/BoxeurDeux-D/` a rejoué le parcours compilé : round de 45 secondes défendu au tactile, Fredo, pause/reprise, passage et round 2, tailles 568/844, quatre ressources arbitre HTTP 200, aucune erreur. Voir `fight-public-results.json` et `fredo-public.png`.
+
+Le JS public `index-oSos2UJu.js` est identique au build local : SHA-256 `0dbf7780c531da4e9f5978300256f8c4b60c830ba8e1dd8e59848d7f48a5202f`. Serveur Vite existant réutilisé sur `127.0.0.1:5173`, Wi-Fi vérifié `192.168.50.123:5173` ; aucun nouveau serveur ni port changé.

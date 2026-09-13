@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-13T20:02:39.294Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "buildWithoutDevBridge": true,
+  "round45Played": true,
+  "cornerPauseSkipAndRound2": true,
+  "refereeAssets": [
+    "/BoxeurDeux-D/assets/sprites/referee/neutral.png",
+    "/BoxeurDeux-D/assets/sprites/referee/fighters.json",
+    "/BoxeurDeux-D/assets/sprites/referee/raise-left.png",
+    "/BoxeurDeux-D/assets/sprites/referee/raise-right.png"
+  ],
+  "layouts": [
+    {
+      "mobile": true,
+      "menu": true,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 15.080001831054688,
+          "y": 124.58000183105469,
+          "width": 99.83999633789062,
+          "height": 99.83999633789062,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 479,
+          "y": 83.5,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Expirer",
+          "x": 448,
+          "y": 204.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Inspirer",
+          "x": 497,
+          "y": 143.5,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    },
+    {
+      "mobile": true,
+      "menu": true,
+      "width": 1280,
+      "height": 720,
+      "ratio": 1.7777777777777777,
+      "noScroll": true,
+      "fits": true,
+      "controls": [
+        {
+          "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+          "x": 13,
+          "y": 157.5,
+          "width": 104,
+          "height": 104,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "Menu pause",
+          "x": 755,
+          "y": 114,
+          "width": 48,
+          "height": 44,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "B — Expirer",
+          "x": 724,
+          "y": 244,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        },
+        {
+          "name": "A — Inspirer",
+          "x": 773,
+          "y": 183,
+          "width": 61,
+          "height": 61,
+          "outside": true,
+          "fits": true
+        }
+      ],
+      "primaryFine": false,
+      "touchPoints": 1
+    }
+  ],
+  "errors": []
+}
