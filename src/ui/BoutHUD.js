@@ -58,7 +58,7 @@ export class BoutHUD {
     ui.root.dataset.bout = String(enabled);
     ui.root.classList.toggle('is-counting', active && state.phase === 'knockdown');
     ui.elements['primary-button'].classList.toggle('next-round-button', state.phase === 'between');
-    this.rules.hidden = !enabled || state.phase !== 'ready';
+    this.rules.hidden = !enabled || profile.official || state.phase !== 'ready';
     for (const who of ['player', 'remi']) {
       const meter = this.meters[who]; meter.root.hidden = !enabled;
       if (!enabled) continue;

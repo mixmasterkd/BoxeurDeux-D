@@ -1,3 +1,4 @@
+import { DecisionView } from './DecisionView.js';
 import Phaser from 'phaser';
 import { SparringSession, TIMINGS } from '../game/SparringSession.js';
 import { SparringUI } from '../ui/SparringUI.js';
@@ -44,6 +45,7 @@ export class SparringScene extends Phaser.Scene {
   preload() {
     const background = this.fromCuba ? 'assets/cuba/beach-ring.png' : `assets/backgrounds/${this.backgroundKey}.png`;
     this.load.image(this.backgroundKey, `${import.meta.env.BASE_URL}${background}`);
+    if (this.profile.official) DecisionView.preload(this);
     FighterView.preload(this, { opponent: this.opponentId, tournament: this.tournament });
   }
 
@@ -64,6 +66,7 @@ export class SparringScene extends Phaser.Scene {
     this.fighterLayer.add([this.remi.shadow, this.remi.sprite, this.player.shadow, this.player.sprite]);
     this.player.target = this.remi.point('guard', 'head');
     this.remi.target = this.player.point('guard', 'head');
+    this.decisionView = this.profile.official ? new DecisionView(this, { player: this.player, remi: this.remi }) : null;
     this.cue = this.add.graphics().setDepth(12);
     this.ui = new SparringUI({
       onAction: (action) => this.session.act(action),
@@ -72,6 +75,7 @@ export class SparringScene extends Phaser.Scene {
       onPause: () => { this.session.pause(); this.audio.setActive(false); },
       onResume: () => { this.session.resume(); this.audio.setActive(true); },
       onRestart: (settings) => this.beginSession(settings),
+      onSkipCorner: () => this.session.finishCorner(),
       onNextRound: () => {
         this.session.releaseControls();
         if (this.session.nextRound()) { this.audio.setActive(true); this.audio.play('round-start'); }
@@ -161,7 +165,9 @@ export class SparringScene extends Phaser.Scene {
     // session subdivides its boundaries; blur/portrait explicitly pause it.
     this.session.update(this.session.state.phase === 'knockdown' ? (this.game.loop.rawDelta ?? delta) / 1000 : Math.min(delta / 1000, .05));
     const state = this.session.state;
-    this.fighterLayer.setVisible(!(this.profile.official && state.phase === 'between'));
+    const decisionVisible = this.decisionView?.update(state, document.hidden || this.ui.portraitQuery.matches ? 0 : Math.min(delta / 1000, .05));
+    this.ui.opponentHUD.decisionElapsed = this.decisionView?.elapsed ?? 0;
+    this.fighterLayer.setVisible(!decisionVisible && !(this.profile.official && ['between', 'corner'].includes(state.phase)));
     // Rémi commits to the promised height; moving out of that aim is a dodge.
     this.remi.target = this.player.point('guard', state.remi.target ?? 'head');
     this.remi.render(state.remi, state.elapsed, state.bout);
@@ -210,7 +216,8 @@ export class SparringScene extends Phaser.Scene {
     }
     this.ui.update(state);
     this.dailyNotice.update(state);
-    this.dailyNotice.note.hidden = this.tournament && !['ready', 'paused'].includes(state.phase);
+    this.dailyNotice.note.hidden = this.profile.official && !['ready', 'paused'].includes(state.phase);
+    if (state.phase === 'finished' && state.bout?.result?.decision && (this.decisionView?.elapsed ?? 0) < 7) this.ui.elements['primary-button'].disabled = true;
     const access = this.profile.official ? careerProfile.canFight(this.opponentId) : { ok: true };
     this.accessNote.hidden = state.phase !== 'ready' || access.ok;
     if (!this.accessNote.hidden) {

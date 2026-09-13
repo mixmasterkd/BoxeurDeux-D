@@ -1,0 +1,359 @@
+{
+  "date": "2026-09-13T19:49:46.570Z",
+  "reports": [
+    {
+      "mobile": false,
+      "cornerLayout": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "mobile": true,
+      "cornerLayout": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Expirer",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Inspirer",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "mobile": false,
+      "rounds": [
+        {
+          "round": 1,
+          "bonus": 8
+        },
+        {
+          "round": 2,
+          "bonus": 8
+        }
+      ],
+      "result": {
+        "reason": "points",
+        "decision": {
+          "winner": "player",
+          "kind": "unanimous",
+          "cards": [
+            {
+              "name": "Juge 1",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 8
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 9
+                }
+              ]
+            },
+            {
+              "name": "Juge 2",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 8
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 9
+                }
+              ]
+            },
+            {
+              "name": "Juge 3",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 8
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 9
+                }
+              ]
+            }
+          ]
+        },
+        "winner": "player",
+        "loser": "remi"
+      },
+      "stats": {
+        "landed": 36,
+        "received": 0,
+        "blocked": 39,
+        "dodged": 0,
+        "thrown": 36,
+        "opponentBlocked": 0,
+        "missed": 0,
+        "hooks": 0,
+        "combos": 0,
+        "doubleJabCombos": 0,
+        "landedHead": 36,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 21,
+        "blockedBody": 18
+      },
+      "layout": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "panelFits": true,
+      "errors": []
+    },
+    {
+      "mobile": true,
+      "rounds": [
+        {
+          "round": 1,
+          "bonus": 8
+        },
+        {
+          "round": 2,
+          "bonus": 8
+        }
+      ],
+      "result": {
+        "reason": "points",
+        "decision": {
+          "winner": "player",
+          "kind": "unanimous",
+          "cards": [
+            {
+              "name": "Juge 1",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 8
+                }
+              ]
+            },
+            {
+              "name": "Juge 2",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 8
+                }
+              ]
+            },
+            {
+              "name": "Juge 3",
+              "player": 30,
+              "remi": 26,
+              "winner": "player",
+              "rounds": [
+                {
+                  "round": 1,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 2,
+                  "player": 10,
+                  "remi": 9
+                },
+                {
+                  "round": 3,
+                  "player": 10,
+                  "remi": 8
+                }
+              ]
+            }
+          ]
+        },
+        "winner": "player",
+        "loser": "remi"
+      },
+      "stats": {
+        "landed": 28,
+        "received": 0,
+        "blocked": 54,
+        "dodged": 0,
+        "thrown": 30,
+        "opponentBlocked": 0,
+        "missed": 1,
+        "hooks": 0,
+        "combos": 0,
+        "doubleJabCombos": 0,
+        "landedHead": 28,
+        "landedBody": 0,
+        "receivedHead": 0,
+        "receivedBody": 0,
+        "blockedHead": 54,
+        "blockedBody": 0
+      },
+      "layout": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "panelFits": true,
+      "errors": []
+    }
+  ]
+}

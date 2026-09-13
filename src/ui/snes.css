@@ -84,11 +84,11 @@
 #stage .gym-save-tools { display: flex; flex-direction: column; gap: 8px; margin: 0; }
 #stage .gym-resume-button { margin-top: 0; }
 /* Combat has a dedicated action footer. Reading and settings never push it off-screen. */
-#stage #sparring-ui:not([data-phase="between"]) .round-panel:not([hidden]) {
+#stage #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .round-panel:not([hidden]) {
   display: grid !important; grid-template-columns: minmax(0, 1fr) !important;
   grid-template-rows: minmax(0, 1fr) auto !important;
 }
-#stage #sparring-ui:not([data-phase="between"]) .panel-scroll {
+#stage #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .panel-scroll {
   display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px;
   grid-column: 1; grid-row: 1; height: 100%; min-height: 0; min-width: 0;
   overflow: auto; overscroll-behavior: contain; padding: 3px 5px 3px 3px; scrollbar-width: thin;
@@ -106,14 +106,14 @@
 #stage .panel-options .audio-button { position: static !important; width: 100%; height: auto; }
 #stage #sparring-ui[data-official="true"] .panel-scroll { grid-template-columns: minmax(0, 1fr); }
 #stage #sparring-ui[data-official="true"] .panel-options { display: none; }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .round-panel:not([hidden]) {
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .round-panel:not([hidden]) {
   display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
   grid-template-rows: minmax(0, 1fr) auto !important;
 }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-scroll { display: block; height: 100%; min-height: 0; overflow: auto; grid-row: 1; grid-column: 1; }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-intro { height: auto; overflow: visible; }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .corner-vignette { position: static; grid-column: 2; grid-row: 1; height: 100%; margin: 0; align-self: center; display: flex; flex-direction: column; justify-content: center; }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .corner-vignette img { height: 100%; min-height: 0; max-height: 100%; object-fit: contain; }
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-scroll { display: block; height: 100%; min-height: 0; overflow: auto; grid-row: 1; grid-column: 1; }
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-intro { height: auto; overflow: visible; }
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette { position: static; grid-column: 2; grid-row: 1; height: 100%; margin: 0; align-self: center; display: flex; flex-direction: column; justify-content: center; }
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette img { height: 100%; min-height: 0; max-height: 100%; object-fit: contain; }
 #stage .corner-vignette figcaption { font: 14px/1.2 var(--menu-font); }
 /* The save screen is anchored to the physical camera by CareerMenu, outside
    its inert subtree. Mobile still has no scrolling page behind the window. */
@@ -146,7 +146,7 @@
   #stage .commands-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   #stage .commands-grid dd { font-size: 14px; }
   #stage .gym-career { grid-template-columns: 1fr; }
-  #stage #sparring-ui:not([data-phase="between"]) .panel-scroll { display: block; }
+  #stage #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .panel-scroll { display: block; }
   #stage .round-settings { grid-template-columns: 1fr 1fr; gap: 8px; }
   #stage .round-results { margin: 9px 0; }
   #stage .corner-vignette figcaption { display: none; }
@@ -187,7 +187,7 @@ html[data-career-open="true"] #stage .input-rail * { visibility: hidden !importa
 @media (pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait) { #career-menu { visibility: hidden; } }
 #stage .snes-scrollable::after, #career-menu .snes-scrollable::after { content: '↕'; position: absolute; right: 5px; bottom: 3px; font: 700 15px/1 var(--menu-font); color: #f2cd80; background: #12243c; pointer-events: none; }
 #career-menu section { position: relative; }
-#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-options { display: none; }
+#stage #sparring-ui[data-bout="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-options { display: none; }
 #scene-loading > div { width: min(420px, calc(100% - 24px)); max-height: calc(100% - 16px); display: grid; gap: 8px; padding: clamp(8px, 2cqw, 20px); overflow: hidden; }
 #scene-loading :is(.loading-title, progress) { margin: 0; }
 #scene-loading .loading-eyebrow { font-size: 12px; line-height: 1; }

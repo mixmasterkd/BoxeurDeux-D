@@ -26,12 +26,13 @@ function counterStrategy() {
   let next = null;
   return session => {
     const state = session.state;
+    if (state.phase === 'between') session.nextRound();
     if (state.phase !== 'running') { next = null; return; }
     protect(session);
     if (state.player.action !== 'idle') return;
     if (next) {
       if (session.act(next)) next = next === 'cross' ? 'jab' : null;
-    } else if (state.remi.action === 'open' && state.remi.duration >= 1.7
+    } else if (state.remi.action === 'open' && state.remi.duration >= TIMINGS.player.jab.duration + TIMINGS.player.cross.duration + TIMINGS.player.hook.duration
       && state.remi.progress < .05 && state.stamina >= 48) {
       session.act('jab'); next = 'cross';
     }
@@ -46,7 +47,7 @@ test('Béton is a separate opponent using resistance rules, a fixed authored rhy
   assert.equal(session.state.training, null);
   assert.deepEqual(session.state.bout.score, { player: 0, remi: 0 });
   assert.deepEqual(session.state.bout.resistance, { player: 100, remi: 100 });
-  assert.equal(session.state.remaining, 60);
+  assert.equal(session.state.remaining, 45);
   assert.equal(session.state.bout.rounds, 3);
   assert.equal(session.state.remi.duration, OPPONENT_PROFILES.beton.rhythm.initialOpening);
   assert.ok(session.state.remi.duration < TIMINGS.player.jab.duration + TIMINGS.player.cross.duration + TIMINGS.player.hook.duration);
@@ -136,13 +137,14 @@ test('the baseline fight is winnable by reading both guard heights and counterin
     const session = create();
     until(session, state => state.phase === 'finished', { control: counterStrategy(), hz });
     assert.equal(session.state.bout.result.winner, 'player');
-    assert.equal(session.state.bout.result.reason, 'round-limit');
-    assert.equal(session.state.bout.downs.remi.round, 3);
+    assert.ok(['points', 'round-limit', 'total-limit'].includes(session.state.bout.result.reason));
+    assert.ok(session.state.bout.round >= 2, 'Patient counters must no longer erase the entire bout in round one');
     assert.equal(session.state.stats.received, 0);
     assert.ok(session.state.stats.blockedHead > 0 && session.state.stats.blockedBody > 0);
     assert.ok(session.state.stats.combos >= 3);
-    assert.ok(session.state.elapsed < 60);
-    assert.equal(session.state.bout.score.player, session.state.stats.landed + 9, 'Each of the three real falls adds exactly three bonus points');
+    assert.ok(session.state.elapsed <= 45);
+    assert.ok(session.state.bout.roundHistory[0].duration === 45);
+    assert.equal(session.state.bout.score.player, session.state.stats.landed + session.state.bout.downs.remi.total * 3, 'The contact summary retains its three-point knockdown bonus independently of judge cards');
     assert.equal(session.state.bout.score.remi, 0);
     assert.match(session.state.bout.coach, /enchaînement/);
     return session.state.bout.result;
@@ -161,7 +163,7 @@ test('an undefended opponent fight can be lost by the real ten-count without any
   assert.equal(session.state.bout.score.remi, session.state.stats.received + 3);
 });
 
-test('three complete sixty-second rounds decide win, loss and draw by net points while keeping round history and recovery', () => {
+test('three complete forty-five-second rounds decide win, loss and draw on judge cards while keeping round history and recovery', () => {
   for (const outcome of ['player', 'remi', 'draw']) {
     const session = create();
     for (let round = 1; round <= 3; round++) {
@@ -173,15 +175,18 @@ test('three complete sixty-second rounds decide win, loss and draw by net points
           else protect(current);
         },
       });
-      assert.equal(session.state.elapsed, 60);
+      assert.equal(session.state.elapsed, 45);
       const history = session.state.bout.roundHistory.at(-1);
       assert.equal(history.round, round);
-      assert.equal(history.duration, 60);
+      assert.equal(history.duration, 45);
       assert.deepEqual(history.score, { player: outcome === 'player' ? 1 : 0, remi: outcome === 'remi' ? 1 : 0 });
       assert.equal(session.state.bout.downs.player.total, 0);
       assert.equal(session.state.bout.downs.remi.total, 0);
       if (round < 3) {
         assert.equal(session.state.phase, 'between');
+        assert.equal(session.state.bout.corner.completed, true);
+        assert.equal(session.state.bout.corner.elapsed, 9);
+        assert.equal(session.state.bout.corner.bonus, 0, 'Waiting guarantees the baseline without an earned supplement');
         const resistance = { ...session.state.bout.resistance };
         const points = { ...session.state.bout.score };
         session.nextRound();
@@ -193,6 +198,12 @@ test('three complete sixty-second rounds decide win, loss and draw by net points
     assert.equal(session.state.phase, 'finished');
     assert.equal(session.state.bout.result.reason, 'points');
     assert.equal(session.state.bout.result.winner, outcome);
+    assert.equal(session.state.bout.result.decision.cards.length, 3);
+    for (const card of session.state.bout.result.decision.cards) {
+      assert.equal(card.player, outcome === 'remi' ? 27 : 30);
+      assert.equal(card.remi, outcome === 'player' ? 27 : 30);
+      assert.equal(card.rounds.length, 3);
+    }
     assert.deepEqual(session.state.bout.score, { player: outcome === 'player' ? 3 : 0, remi: outcome === 'remi' ? 3 : 0 });
     assert.equal(session.state.bout.roundHistory.length, 3);
     if (outcome === 'remi') assert.match(session.state.bout.coach, /jab vise la tête/);

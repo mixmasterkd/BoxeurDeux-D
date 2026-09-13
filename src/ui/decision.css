@@ -1,0 +1,37 @@
+#stage #sparring-ui[data-decision="true"] .menu-shade { opacity: 0; }
+#stage #sparring-ui[data-decision="true"] .fight-hud { visibility: hidden; }
+#stage #sparring-ui[data-decision="true"] .round-panel:not([hidden]) { top: auto !important; bottom: 2% !important; left: 5% !important; width: 90% !important; height: 42% !important; max-height: 42% !important; transform: none !important; padding: 10px 14px !important; gap: 5px !important; background: #0b1b2bf5; }
+#stage #sparring-ui[data-decision="true"] .panel-scroll { display: block; padding: 0; }
+#stage #sparring-ui[data-decision="true"] :is(.panel-copy, .lesson-description, .round-results, .panel-options, .fight-access-note, .bout-benefit) { display: none; }
+#stage #sparring-ui[data-decision="true"] .panel-heading { font-size: clamp(15px, 2.8cqw, 27px) !important; margin: 2px 0 5px; }
+#stage #sparring-ui[data-decision="true"] .panel-eyebrow { font-size: clamp(8px, 1.4cqw, 13px) !important; margin: 0; }
+.judge-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; font-family: var(--menu-font); text-align: center; }
+.judge-cards article { padding: 5px; border: 2px solid #8c9a9e; background: #142637; display: grid; gap: 2px; }
+.judge-cards strong, .judge-cards small { font-size: clamp(8px,1.5cqw,14px); }
+.judge-cards b { color: #f4d38c; font-size: clamp(17px,2.8cqw,27px); }
+.judge-cards [data-winner="player"] { border-color: #9fceae; }
+.judge-cards [data-winner="remi"] { border-color: #d99a8c; }
+.judge-details { font: 13px/1.2 var(--menu-font); margin-top: 4px; }
+.judge-detail-toggle { cursor: pointer; color: #d4dbc9; background: transparent; border: 0; padding: 2px; font: inherit; text-decoration: underline; }
+.judge-details p { white-space: pre-line; margin: 3px 0; }
+@container(max-width:650px) {
+ #stage #sparring-ui[data-decision="true"] .round-panel:not([hidden]) { padding: 5px 7px !important; height: 46% !important; max-height: 46% !important; gap: 3px !important; }
+ #stage #sparring-ui[data-decision="true"] .panel-heading { margin: 1px 0 2px; }
+ .judge-cards { gap: 4px; }
+ .judge-cards article { padding: 2px; border-width: 1px; gap: 0; }
+ .judge-cards small { display: none; }
+ .judge-details { font-size: 10px; }
+}
+
+#stage #sparring-ui[data-decision="true"] .judge-detail-toggle { min-height: 20px !important; padding: 2px 4px !important; font-size: 12px !important; }
+#stage #sparring-ui[data-decision="true"] .career-journal-open { display: none; }
+@container(max-width:550px) {
+ #stage #sparring-ui[data-decision="true"] .round-panel:not([hidden]) { height: 54% !important; max-height: 54% !important; padding: 4px 6px !important; }
+ #stage #sparring-ui[data-decision="true"] .panel-eyebrow { display: none; }
+ #stage #sparring-ui[data-decision="true"] .panel-heading { font-size: 14px !important; margin: 0 0 2px; }
+ #stage #sparring-ui[data-decision="true"] .panel-actions button { font-size: 11px !important; min-height: 26px !important; padding: 2px 4px !important; }
+ #stage #sparring-ui[data-decision="true"] .judge-cards strong { font-size: 7px; }
+ #stage #sparring-ui[data-decision="true"] .judge-cards b { font-size: 16px; line-height: 1; }
+ #stage #sparring-ui[data-decision="true"] .judge-cards article { padding: 1px; }
+ #stage #sparring-ui[data-decision="true"] .judge-detail-toggle { font-size: 10px !important; min-height: 16px !important; }
+}

@@ -4,7 +4,7 @@ import { SparringSession, TIMINGS } from '../src/game/SparringSession.js';
 import { getOpponentProfile } from '../src/game/OpponentProfiles.js';
 
 const ids = ['kramer', 'bellini', 'fortin', 'gagnon'];
-function play(id, { hz = 60, duration = 60, protect = true, counters = true, pauseAtSurrender = false } = {}) {
+function play(id, { hz = 60, duration = 45, protect = true, counters = true, pauseAtSurrender = false } = {}) {
   const game = new SparringSession({ opponent: id, duration }); game.start();
   let sequence = null, clock = 0, pausedSurrender = false; const events = [], falls = [];
   while (clock < 350 && game.state.phase !== 'finished') {
@@ -19,7 +19,7 @@ function play(id, { hz = 60, duration = 60, protect = true, counters = true, pau
       game.setGuard(protect && striking, state.remi.target);
       if (counters && state.player.action === 'idle') {
         if (sequence) { if (game.act(sequence)) sequence = sequence === 'cross' ? 'jab' : null; }
-        else if (state.remi.action === 'open' && state.remi.duration >= 1.7 && state.remi.progress < .06 && state.stamina >= 48) {
+        else if (state.remi.action === 'open' && state.remi.duration >= TIMINGS.player.jab.duration + TIMINGS.player.cross.duration + TIMINGS.player.hook.duration && state.remi.progress < .06 && state.stamina >= 48) {
           if (game.act('jab')) sequence = 'cross';
         }
       }
@@ -35,6 +35,8 @@ for (const id of ids) {
     for (const hz of [20, 60]) {
       const { game, events } = play(id, { hz });
       assert.equal(game.state.bout.result?.winner, 'player', JSON.stringify(game.state.bout));
+      assert.ok(game.state.bout.round >= 2, 'A patient baseline counter strategy must reach later rounds');
+      assert.equal(game.state.bout.roundHistory[0].duration, 45);
       assert.ok(game.state.stats.blocked >= 1);
       assert.ok(game.state.stats.combos >= 2);
       assert.equal(events.filter(event => event.type === 'bout-finish').length, 1);
@@ -66,7 +68,7 @@ for (const id of ids) {
 }
 
 test('Kramer counts both falls across different rounds and cannot advance while his surrender is paused', () => {
-  const { game, falls, pausedSurrender } = play('kramer', { duration: 15, pauseAtSurrender: true });
+  const { game, falls, pausedSurrender } = play('kramer', { duration: 35, pauseAtSurrender: true });
   assert.equal(game.state.bout.result?.reason, 'abandon');
   assert.equal(falls.length, 2);
   assert.ok(falls[1].boutRound > falls[0].boutRound, JSON.stringify(falls));

@@ -5,7 +5,7 @@ import { BoutHUD } from './BoutHUD.js';
 import { OpponentHUD } from './OpponentHUD.js';
 
 const openSparring = id => id === 'free' || id === 'resistance';
-const activePhase = phase => phase === 'running' || phase === 'knockdown';
+const activePhase = phase => phase === 'running' || phase === 'knockdown' || phase === 'corner';
 
 const REMI_LABELS = {
   idle: 'Il vous observe',
@@ -39,7 +39,7 @@ export class SparringUI {
   constructor(callbacks = {}) {
     this.callbacks = Object.fromEntries([
       'onAction', 'onGuard', 'onStart', 'onPause', 'onResume', 'onRestart', 'onSettings', 'onBlur',
-      'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym', 'onNextRound',
+      'onChooseLesson', 'onAudioGesture', 'onAudioSettings', 'onReturnGym', 'onNextRound', 'onSkipCorner',
     ].map((name) => [name, callbacks[name] ?? noop]));
     this.phase = 'ready';
     this.commandsOpen = false;
@@ -223,6 +223,7 @@ export class SparringUI {
       else if (this.phase === 'paused') this.callbacks.onResume();
       else if (this.phase === 'finished') this.callbacks.onRestart({ ...this.settings });
       else if (this.phase === 'between') this.callbacks.onNextRound();
+      else if (this.phase === 'corner') this.callbacks.onSkipCorner();
     });
     this.listenActivation(this.elements['secondary-button'], (event) => {
       event.currentTarget.blur();
@@ -329,6 +330,7 @@ export class SparringUI {
     if (this.phase !== phase || !this.initialized || this.renderedLesson !== lesson.id
       || this.renderedCompleted !== Boolean(training?.completed)) {
       this.phase = phase;
+      this.root.querySelector('.panel-scroll').scrollTop = 0;
       this.commandsOpen = false;
       this.elements['commands-panel'].hidden = true;
       this.root.classList.remove('is-showing-commands');
@@ -339,8 +341,8 @@ export class SparringUI {
       this.clearInputs();
       this.root.dataset.phase = phase;
       const running = activePhase(phase);
-      this.elements['round-panel'].hidden = running;
-      this.elements['menu-shade'].classList.toggle('is-visible', !running);
+      this.elements['round-panel'].hidden = running && phase !== 'corner';
+      this.elements['menu-shade'].classList.toggle('is-visible', !running || phase === 'corner');
       this.elements['pause-button'].disabled = !running;
       this.elements['return-gym-button'].hidden = running;
       for (const button of this.buttons.values()) button.disabled = !running;

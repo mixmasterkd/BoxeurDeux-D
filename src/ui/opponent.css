@@ -3,16 +3,16 @@
 /* A compact menu has one scrollable reading area and a permanently reachable
    action footer. Explicit grid slots from the desktop layout cannot create a
    phantom second column on narrow phones. Between-round art keeps its layout. */
-html[data-touch="true"] #sparring-ui:not([data-phase="between"]) .round-panel { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; height: min(560px, calc(var(--play-height) - 12px)); gap: 8px; overflow: hidden; }
-html[data-touch="true"] #sparring-ui:not([data-phase="between"]) .panel-scroll { display: block; grid-column: 1; grid-row: 1; min-width: 0; min-height: 0; height: 100%; overflow: auto; overscroll-behavior: contain; padding-right: 3px; }
-html[data-touch="true"] #sparring-ui:not([data-phase="between"]) :is(.panel-intro, .panel-options) { grid-column: auto; grid-row: auto; }
-html[data-touch="true"] #sparring-ui:not([data-phase="between"]) .panel-actions { grid-column: 1; grid-row: 2; background: #10252a; }
-html[data-touch="true"] #sparring-ui:not([data-phase="between"]) .panel-heading { white-space: normal; overflow-wrap: normal; font-size: clamp(19px, 4.1cqw, 28px); }
+html[data-touch="true"] #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .round-panel { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; height: min(560px, calc(var(--play-height) - 12px)); gap: 8px; overflow: hidden; }
+html[data-touch="true"] #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .panel-scroll { display: block; grid-column: 1; grid-row: 1; min-width: 0; min-height: 0; height: 100%; overflow: auto; overscroll-behavior: contain; padding-right: 3px; }
+html[data-touch="true"] #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) :is(.panel-intro, .panel-options) { grid-column: auto; grid-row: auto; }
+html[data-touch="true"] #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .panel-actions { grid-column: 1; grid-row: 2; background: #10252a; }
+html[data-touch="true"] #sparring-ui:not(:is([data-phase="between"], [data-phase="corner"])) .panel-heading { white-space: normal; overflow-wrap: normal; font-size: clamp(19px, 4.1cqw, 28px); }
 html[data-touch="true"] #sparring-ui[data-official="true"]:is([data-phase="ready"], [data-phase="finished"]) .panel-options { display: none; }
-html[data-touch="true"] #sparring-ui[data-official="true"][data-phase="between"] .round-panel { width: calc(100% - 12px); height: calc(var(--play-height) - 12px); max-height: calc(var(--play-height) - 12px); left: 50%; top: 50%; transform: translate(-50%, -50%); grid-template-rows: minmax(0, 1fr) auto; overflow: hidden; }
-html[data-touch="true"] #sparring-ui[data-official="true"][data-phase="between"] .panel-intro { min-height: 0; height: 100%; overflow: auto; overscroll-behavior: contain; }
-html[data-touch="true"] #sparring-ui[data-official="true"][data-phase="between"] .corner-vignette { position: static; align-self: center; }
-html[data-touch="true"] #sparring-ui[data-official="true"][data-phase="between"] .panel-actions { position: static; padding: 0; min-width: 0; }
+html[data-touch="true"] #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .round-panel { width: calc(100% - 12px); height: calc(var(--play-height) - 12px); max-height: calc(var(--play-height) - 12px); left: 50%; top: 50%; transform: translate(-50%, -50%); grid-template-rows: minmax(0, 1fr) auto; overflow: hidden; }
+html[data-touch="true"] #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-intro { min-height: 0; height: 100%; overflow: auto; overscroll-behavior: contain; }
+html[data-touch="true"] #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette { position: static; align-self: center; }
+html[data-touch="true"] #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-actions { position: static; padding: 0; min-width: 0; }
 .fight-access-note { color: #ffd08b; border-left: 2px solid #ddb36f; padding: 8px 10px; font-size: 12px; }
 .fight-signal { position: absolute; top: 19%; left: 50%; transform: translateX(-50%); max-width: 65%; padding: 5px 10px; background: #10202aed; color: #ffdf96; font-size: clamp(8px, 1.35cqw, 17px); font-weight: 800; white-space: nowrap; text-align: center; letter-spacing: .5px; }
 .fight-signal[data-tone="open"] { color: #b8dfbf; }
@@ -59,21 +59,21 @@ html[data-touch="true"] #sparring-ui .knockdown-progress { margin: 2px 0; }
 .corner-vignette img { display: block; width: 100%; height: auto; max-height: 400px; object-fit: contain; image-rendering: pixelated; }
 .corner-vignette figcaption { text-align: center; color: #b9c7be; font-size: 10px; margin-top: 8px; }
 #sparring-ui[data-official="true"] .round-clock { min-width: 125px; }
-#sparring-ui[data-official="true"][data-phase="between"] .round-panel { width: 92%; left: 4%; top: 50%; transform: translateY(-50%); max-height: calc(100% - 22px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 28px; row-gap: 12px; padding: 22px; background: #10252af2; }
-#sparring-ui[data-official="true"][data-phase="between"] .panel-intro { grid-column: 1; grid-row: 1; align-self: center; }
-#sparring-ui[data-official="true"][data-phase="between"] .panel-options { display: none; }
-#sparring-ui[data-official="true"][data-phase="between"] .corner-vignette { grid-column: 2; grid-row: 1; }
-#sparring-ui[data-official="true"][data-phase="between"] .panel-actions { grid-column: 1 / -1; grid-row: 2; display: flex; gap: 10px; align-items: center; }
-#sparring-ui[data-official="true"][data-phase="between"] .panel-actions .primary-button { flex: 2; }
-#sparring-ui[data-official="true"][data-phase="between"] .panel-actions .return-gym-button { flex: 1; margin: 0; }
-#sparring-ui[data-official="true"][data-phase="between"] .round-footnote { display: none; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .round-panel { width: 92%; left: 4%; top: 50%; transform: translateY(-50%); max-height: calc(100% - 22px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 28px; row-gap: 12px; padding: 22px; background: #10252af2; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-intro { grid-column: 1; grid-row: 1; align-self: center; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-options { display: none; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette { grid-column: 2; grid-row: 1; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-actions { grid-column: 1 / -1; grid-row: 2; display: flex; gap: 10px; align-items: center; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-actions .primary-button { flex: 2; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-actions .return-gym-button { flex: 1; margin: 0; }
+#sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .round-footnote { display: none; }
 @container (max-width: 850px) {
   .combat-score { margin-top: 2px; font-size: 7px; letter-spacing: 0; }
   #sparring-ui[data-official="true"] .round-clock { min-width: 100px; }
   .combat-rules { font-size: 10px; padding: 7px 8px; }
-  #sparring-ui[data-official="true"][data-phase="between"] .round-panel { gap: 10px; padding: 10px; }
-  #sparring-ui[data-official="true"][data-phase="between"] .panel-heading { font-size: 21px; }
-  #sparring-ui[data-official="true"][data-phase="between"] .panel-copy { font-size: 9px; line-height: 1.35; margin: 6px 0; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .round-panel { gap: 10px; padding: 10px; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-heading { font-size: 21px; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-copy { font-size: 9px; line-height: 1.35; margin: 6px 0; }
   .corner-advice { margin: 7px 0; padding: 6px 8px; }
   .corner-advice strong { font-size: 7px; letter-spacing: .4px; }
   .corner-advice p { font-size: 10px; margin-top: 4px; line-height: 1.35; }
@@ -83,11 +83,11 @@ html[data-touch="true"] #sparring-ui .knockdown-progress { margin: 2px 0; }
 @container (max-width: 550px) {
   .combat-score { font-size: 6px; }
   #sparring-ui[data-official="true"] .round-clock { min-width: 72px; }
-  #sparring-ui[data-official="true"][data-phase="between"] .round-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 8px; gap: 8px; align-items: start; }
-  #sparring-ui[data-official="true"][data-phase="between"] .panel-heading { font-size: 17px; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .round-panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: 8px; gap: 8px; align-items: start; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-heading { font-size: 17px; }
   .corner-vignette img { max-height: 145px; }
-  #sparring-ui[data-official="true"][data-phase="between"] .corner-vignette { position: sticky; top: 4px; align-self: start; }
-  #sparring-ui[data-official="true"][data-phase="between"] .corner-vignette img { max-height: min(145px, calc(var(--play-height) - 74px)); }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette { position: sticky; top: 4px; align-self: start; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .corner-vignette img { max-height: min(145px, calc(var(--play-height) - 74px)); }
   .corner-vignette figcaption { display: none; }
-  #sparring-ui[data-official="true"][data-phase="between"] .panel-actions { position: sticky; bottom: -8px; background: #10252a; padding: 4px 0; gap: 5px; }
+  #sparring-ui[data-official="true"]:is([data-phase="between"], [data-phase="corner"]) .panel-actions { position: sticky; bottom: -8px; background: #10252a; padding: 4px 0; gap: 5px; }
 }

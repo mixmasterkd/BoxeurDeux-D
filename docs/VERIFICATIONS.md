@@ -273,3 +273,7 @@ Pour essayer manuellement : frappez pendant les ouvertures; maintenez puis relâ
 - Animation par poses clés originales, avec anticipation, demi-extension, contact et récupération; les transitions et certaines variations de jambes pourront encore être affinées par des images intermédiaires. Dix poses par boxeur, dont quelques variantes en miroir, sans morphing. Sources, prompts exacts et préparation dans `references/characters/sparring-v2/README.md` et `PROMPTS.md`.
 - Sparring volontairement réduit : pas de KO, sélection tête/corps, crochets, déplacement en profondeur, carrière ou combats officiels.
 - Les tests navigateur couvrent Chromium; validation physique sur téléphone et essai Safari/iOS restent à faire.
+
+## 13 septembre 2026 — rythme des combats, Fredo et juges
+
+Voir [FIGHT_PACING.md](FIGHT_PACING.md) : 374 tests autonomes, 32 simulations de contres avec délai de perception, 12 stratégies aveugles/aléatoires sanctionnées au maximum d’entraînement. Deux combats complets joués au navigateur (PC et tactile 568 × 320), coin, pause/portrait, décisions, sauvegarde et retour/revanche. Version compilée sous chemin Pages testée sur un vrai round et reprise du second, en 568 et 844 pixels de largeur. Captures finales `judges-desktop.png`, `judges-mobile.png`, `fredo-recovery-*`. Les captures `*-fixture-*` sont des mises en état destinées au rendu, distinctes des parties réellement jouées.

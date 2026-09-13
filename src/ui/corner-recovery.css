@@ -1,0 +1,27 @@
+.corner-recovery { text-align: center; color: #f6d99a; font-family: var(--menu-font); }
+.breath-orbit { position: relative; width: clamp(48px, 9cqw, 94px); aspect-ratio: 1; margin: 8px auto; border: 2px dashed #899ca4; border-radius: 50%; display: grid; place-items: center; }
+.breath-orbit i { position: absolute; inset: 0; border: 3px solid #dbb676; border-radius: 50%; transform: scale(var(--breath-scale, .5)); }
+.breath-orbit strong { font-size: clamp(20px, 3cqw, 30px); }
+.corner-recovery.is-ready .breath-orbit { border-color: #a2e2b1; color: #a2e2b1; }
+.corner-recovery.is-ready .breath-orbit i { border-color: #a2e2b1; }
+.breath-cue { margin: 4px 0; font-size: clamp(12px, 2cqw, 18px); }
+.breath-beats { display: flex; gap: 4px; justify-content: center; margin: 8px 0; }
+.breath-beats i { width: 9px; height: 7px; background: #243c4b; border: 1px solid #8c9c9b; }
+.breath-beats .earned { background: #a2e2b1; }
+.breath-feedback { font-size: clamp(10px, 1.6cqw, 14px); }
+#stage #sparring-ui[data-phase="corner"] :is(.lesson-description, .corner-advice) { display: none; }
+#stage #sparring-ui[data-phase="corner"] .panel-actions { grid-template-columns: 1fr !important; }
+#stage #sparring-ui[data-phase="corner"] .panel-heading { font-size: clamp(18px, 3.2cqw, 32px); }
+/* On a small phone the exercise itself always remains in view. Full rules
+   are in Commands; the key and breathing cue carry the live instruction. */
+@container(max-width:550px) {
+ #stage #sparring-ui[data-phase="corner"] .panel-copy { display: none; }
+ #stage #sparring-ui[data-phase="corner"] .panel-heading { font-size: 16px !important; margin: 2px 0; }
+ #stage #sparring-ui[data-phase="corner"] .panel-eyebrow { font-size: 8px !important; margin: 0; }
+ .breath-orbit { width: 35px; margin: 3px auto; }
+ .breath-orbit strong { font-size: 18px; }
+ #stage #sparring-ui[data-phase="corner"] .breath-cue { font-size: 10px !important; margin: 2px 0; }
+ .breath-feedback { display: none; }
+ .breath-beats { margin: 3px 0; gap: 3px; }
+ .breath-beats i { width: 6px; height: 4px; }
+}

@@ -1,3 +1,5 @@
+import { DecisionHUD } from './DecisionHUD.js';
+import { CornerHUD } from './CornerHUD.js';
 import './opponent.css';
 import { getOpponentProfile } from '../game/OpponentProfiles.js';
 
@@ -9,12 +11,12 @@ export class OpponentHUD {
     this.ui = ui;
     this.score = document.createElement('div');
     this.score.className = 'combat-score';
-    this.score.setAttribute('aria-label', 'Points du combat');
+    this.score.setAttribute('aria-label', 'Touches nettes du combat');
     this.score.hidden = true;
     ui.root.querySelector('.round-clock').append(this.score);
     this.rules = document.createElement('p');
     this.rules.className = 'combat-rules'; this.rules.hidden = true;
-    this.rules.textContent = '3 rounds de 60 s. Une touche nette vaut 1 point; une chute adverse ajoute 3 points. À la fin, le plus haut total gagne. Égalité possible. KO à dix, arrêt à 3 chutes dans un round ou 4 dans le combat.';
+    this.rules.textContent = '3 rounds de 45 s. Trois juges notent chaque round : touches nettes, puis précision et défense si le round est serré. 10–9 ou 10–10, moins un point par chute. Deux cartes gagnées donnent la victoire. Égalité possible. KO à dix, arrêt à 3 chutes dans un round ou 4 dans le combat.';
     ui.elements['panel-copy'].after(this.rules);
     this.advice = document.createElement('div');
     this.advice.className = 'corner-advice'; this.advice.hidden = true;
@@ -25,6 +27,8 @@ export class OpponentHUD {
     this.figure.className = 'corner-vignette'; this.figure.hidden = true;
     this.figure.innerHTML = '<img alt="Votre boxeur assis sur un tabouret écoute Fredo, son coach, une serviette sur l’épaule." width="800" height="650"><figcaption>On reprend son souffle. On prépare la suite.</figcaption>';
     ui.elements['round-panel'].append(this.figure);
+    this.cornerHUD = new CornerHUD(ui, this.advice);
+    this.decisionHUD = new DecisionHUD(ui);
   }
 
   update(state) {
@@ -33,7 +37,7 @@ export class OpponentHUD {
     const name = profile.shortName ?? profile.name;
     const fight = profile.official;
     const tournament = Boolean(state.settings?.tournament);
-    const between = Boolean(state.bout) && state.phase === 'between';
+    const between = Boolean(state.bout) && ['between', 'corner'].includes(state.phase);
     ui.root.dataset.opponent = profile.id;
     ui.root.dataset.official = String(Boolean(fight));
     ui.root.dataset.tournament = String(tournament);
@@ -52,8 +56,7 @@ export class OpponentHUD {
       return;
     }
     const bout = state.bout;
-    const scores = bout?.score ?? { player: 0, remi: 0 };
-    put(this.score, `VOUS ${scores.player} · ${scores.remi} ${name.toUpperCase()}`);
+    put(this.score, `TOUCHES ${state.stats.landed} · ${state.stats.received}`);
     put(ui.root.querySelector('.opponent-info .fighter-name'), name);
     put(ui.root.querySelector('.opponent-info .fighter-eyebrow'), 'VOTRE ADVERSAIRE');
     put(ui.root.querySelector('.round-footnote'), tournament ? 'Gants de bronze · Tenue de compétition' : profile.id === 'louisto' ? 'Cuba · Ring de la plage · Revanche gratuite' : 'Soirée de boxe · Revanche gratuite');
@@ -63,7 +66,7 @@ export class OpponentHUD {
       const touch = ui.controlsQuery.matches;
       put(ui.root.querySelector('.combo-help'), `${touch?'A → B → A':'J → K → J'} : jab, direct, crochet. Technique apprise : ${touch?'A → A → B':'J → J → K'}, deux jabs puis un direct appuyé (le dernier coup coûte 4 endurance de plus). Une pression par frappe. La garde haute, l’esquive, un coup reçu ou une pause coupent la série. Bas + frappe vise le corps.`);
     }
-    put(ui.root.querySelector('.recovery-help'), 'Au tapis : six pressions alternées J/K ou A/B, en commençant par J/A, avant dix. Relâchez et suivez le repère. Pause avec P / Échap / ☰. Au terme des trois rounds : 1 point par touche nette et 3 par chute adverse; le plus haut total gagne.');
+    put(ui.root.querySelector('.recovery-help'), 'Au tapis : six pressions alternées J/K ou A/B, en commençant par J/A, avant dix. Relâchez et suivez le repère. Pause avec P / Échap / ☰. Au terme des trois rounds : trois cartes de juges, round par round. Touches nettes prioritaires, chutes déduites. Au coin : suivez les respirations de Fredo avec J/K ou A/B pour récupérer jusqu’à 8 résistance supplémentaires.');
     ui.elements['lesson-choice'].hidden = true;
     ui.elements['round-settings'].hidden = true;
     ui.elements['choose-session-button'].hidden = true;
@@ -79,19 +82,19 @@ export class OpponentHUD {
       put(ui.elements['primary-button'], 'Commencer le combat →');
     } else if (state.phase === 'paused') {
       put(ui.elements['panel-eyebrow'], 'COMBAT EN PAUSE');
-      put(ui.elements['panel-copy'], state.pausedPhase === 'knockdown' ? 'Le compte de dix est aussi arrêté. Reprenez quand vous êtes prêt.' : 'Le combat et les points sont en pause. Reprenez à votre rythme.');
-      put(ui.elements['primary-button'], state.pausedPhase === 'knockdown' ? 'Reprendre le décompte →' : 'Reprendre le combat →');
+      put(ui.elements['panel-copy'], state.pausedPhase === 'corner' ? 'La respiration avec Fredo est en pause. Le bonus acquis est conservé.' : state.pausedPhase === 'knockdown' ? 'Le compte de dix est aussi arrêté. Reprenez quand vous êtes prêt.' : 'Le combat et les points sont en pause. Reprenez à votre rythme.');
+      put(ui.elements['primary-button'], state.pausedPhase === 'corner' ? 'Reprendre avec Fredo →' : state.pausedPhase === 'knockdown' ? 'Reprendre le décompte →' : 'Reprendre le combat →');
     } else if (between) {
       put(ui.values['remi-status'], 'Dans son coin');
       put(ui.elements['panel-eyebrow'], `ROUND ${bout.round} TERMINÉ · VOTRE COIN`);
       put(ui.elements['panel-heading'], 'Écoute Fredo.');
-      put(ui.elements['panel-copy'], `À la reprise : endurance ${state.settings.maxStamina} · résistance ${Math.ceil(bout.resistance.player)} → ${Math.min(state.settings.maxResistance, Math.ceil(bout.resistance.player) + 20)}. Chutes du round remises à zéro; total conservé.`);
+      put(ui.elements['panel-copy'], `À la reprise : endurance ${state.settings.maxStamina} · résistance ${Math.ceil(bout.resistance.player)} → ${Math.min(state.settings.maxResistance, Math.ceil(bout.resistance.player) + 20 + (bout.corner?.bonus ?? 0))}. ${bout.corner?.bonus ? `Fredo : +${bout.corner.bonus} en bonus. ` : ''}Chutes du round remises à zéro; total conservé.`);
       put(this.adviceText, bout.coach ?? 'Observe son direct au corps. Bloque bas, puis profite de son retour en garde pour répondre.');
       const last = bout.roundHistory.at(-1);
       if (last) {
         put(ui.values['result-landed'], last.stats.landed);
         put(ui.values['result-received'], last.stats.received);
-        put(ui.elements['round-detail'], `Ce round : ${last.stats.blocked} blocages · ${last.stats.dodged} esquives\nPoints du combat : vous ${scores.player} · ${name} ${scores.remi}`);
+        put(ui.elements['round-detail'], `Ce round : ${last.stats.blocked} blocages · ${last.stats.dodged} esquives\nTouches du combat : vous ${state.stats.landed} · ${name} ${state.stats.received}`);
       }
     } else if (state.phase === 'finished') {
       put(ui.values['remi-status'], 'Combat terminé');
@@ -110,8 +113,10 @@ export class OpponentHUD {
           : tournament ? won ? profile.id === 'gagnon' ? 'La finale est gagnée ! Retrouvez le tableau et votre médaille dans la salle.' : 'Vous passez au tour suivant. Retrouvez votre chambre et dormez pour la prochaine journée.' : 'Votre résultat est inscrit au tableau. Vous pouvez profiter du séjour ou rentrer au quartier.'
             : won ? 'Vous avez trouvé son rythme et ses ouvertures. Fredo vous attend au gym.' : 'Fredo est toujours dans votre coin. Reprenez les entraînements ou tentez une revanche à votre rythme.');
       put(ui.elements['primary-button'], tournament && !draw ? 'Retour à la salle →' : `Revanche contre ${name} →`);
-      put(ui.elements['round-detail'], `Points : vous ${scores.player} · ${name} ${scores.remi}\n${state.stats.blocked} coups bloqués · ${state.stats.dodged} esquivés\nChutes : vous ${bout.downs.player.total} · ${name} ${bout.downs.remi.total}\n${state.stats.combos} combos complets`);
+      put(ui.elements['round-detail'], `Touches : vous ${state.stats.landed} · ${name} ${state.stats.received}\n${state.stats.blocked} coups bloqués · ${state.stats.dodged} esquivés\nChutes : vous ${bout.downs.player.total} · ${name} ${bout.downs.remi.total}\n${state.stats.combos} combos complets`);
     }
+    this.cornerHUD.update(state);
+    this.decisionHUD.update(state, this.decisionElapsed ?? 0);
     // A decisive tournament result belongs to the bracket. Its next action is
     // return, never a local reset that could replay an already recorded match.
     ui.elements['secondary-button'].hidden = state.phase !== 'paused';

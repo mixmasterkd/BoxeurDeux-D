@@ -1,5 +1,15 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Combats sur plusieurs rounds — GO du 13 septembre 2026
+
+Le GO actuel demande de corriger les victoires trop rapides, la progression de difficulté, puis d’ajouter un moment avec Fredo et une décision des juges. Les combats officiels utilisent maintenant **3 × 45 s**, dégâts joueur 5/7/9 avec puissance proportionnelle maximale +20 %, relevés 80/72/65 % du maximum. Rémi garde ses exercices et timings. Les fenêtres adverses restent annoncées et indépendantes des commandes ; le danger progresse jusqu’à Le Feu. Kramer abandonne toujours après deux chutes cumulées.
+
+Nouveaux modules : `FightBalance.js`, `CornerRecovery.js`, `BoutJudges.js`, `CornerHUD.js`, `DecisionHUD.js`, `DecisionView.js`. Au coin officiel : phase `corner` de 9 secondes, J/K ou A/B alternés au rythme, +20 résistance garantis et jusqu’à +8 gagnés, puis `between` attend E/A. Passer avec E ou le bouton conserve le bonus acquis. Pause/focus/portrait figent aussi la respiration. Aucun coût ni gain permanent supplémentaire.
+
+Les décisions utilisent trois cartes calculées par round (10–9/10–10 puis déductions de chutes), avec touches nettes prioritaires et nuances précision/défense uniquement si serré. Deux cartes gagnantes nécessaires ; égalité autorise revanche et ne fait pas avancer le tournoi. Présentation des cartes à 1/3/5 secondes, annonce de l’arbitre à 7 secondes. Le résultat est enregistré une seule fois, avant la présentation. Arbitre original généré via outil intégré ; source et extraction reproductible conservées. Pose joueur gagnant bras levé ; en cas de défaite, l’arbitre désigne le côté adverse, dont la pose reste en garde.
+
+Les menus, activités, sauvegardes v4, tenues, profils et routes de progression existants sont conservés. Lire `docs/FIGHT_PACING.md` pour les vérifications et limites réelles de cette livraison.
+
 ## Correction mobile — dégager les vendeurs et les lieux
 
 À la demande de l’utilisateur, la bannière permanente d’accueil/proximité `.gym-nearby` est masquée visuellement sur mobile dans tous les lieux d’exploration. Elle reste disponible aux lecteurs d’écran. Le bouton A garde son indicateur disponible/grisé; les dialogues, commandes et menus volontaires fonctionnent. L’affichage ordinateur reste identique. Compilation réussie; sept parcours sur le bundle compilé vérifient les deux boutiques et le gym en 568 × 320 / 844 × 390, plus un contrôle ordinateur avec E. Ouverture/fermeture A/B, commandes dans les marges et absence de défilement vérifiées sans erreur. Rapport `docs/mobile-uncluttered-results.json`, captures `docs/mobile-uncluttered-*.png`. Aucun téléphone physique testé.

@@ -7,12 +7,15 @@ function punch(s,action,expected=action){assert.equal(s.act(action),true);assert
 function prepare(s){punch(s,'jab');punch(s,'jab');assert.equal(s.state.combo.type,'doubleJab');assert.equal(s.state.combo.step,2);}
 const attacks=s=>s.drainEvents().filter(e=>e.type.startsWith('player-'));
 
-test('learned J J K charges 41 and adds four resistance damage only at the visible final direct contact',()=>{
- const s=create({opponent:'dyrex'});prepare(s);assert.equal(s.state.bout.resistance.remi,92);assert.equal(s.act('cross'),true);assert.equal(s.state.player.finisher,'doubleJab');assert.equal(s.state.stamina,59);
- const contact=TIMINGS.player.cross.duration*TIMINGS.player.cross.impact;s.update(contact-.00001);assert.equal(s.state.stats.landed,2);assert.equal(s.state.bout.resistance.remi,92);
- s.update(.00001);assert.equal(fighterMotion(s.state.player,s.state.elapsed,'player').phase,'contact');assert.equal(s.state.bout.resistance.remi,70);assert.equal(s.state.stats.landed,3);assert.equal(s.state.bout.score.player,3);assert.equal(s.state.stats.doubleJabCombos,1);assert.equal(s.state.stats.combos,1);assert.equal(s.state.stats.hooks,0);
+test('learned J J K charges 41 and adds its modest official damage bonus only at the visible final direct contact',()=>{
+ // Dyrex closes his initial high opening before the final direct: target the free body.
+ const s=create({opponent:'dyrex'});s.setGuard(true,'body');prepare(s);assert.equal(s.state.bout.resistance.remi,118);assert.equal(s.act('cross'),true);assert.equal(s.state.player.finisher,'doubleJab');assert.equal(s.state.stamina,59);
+ const contact=TIMINGS.player.cross.duration*TIMINGS.player.cross.impact;s.update(contact-.00001);assert.equal(s.state.stats.landed,2);assert.equal(s.state.bout.resistance.remi,118);
+ s.update(.00001);assert.equal(fighterMotion(s.state.player,s.state.elapsed,'player').phase,'contact');assert.equal(s.state.bout.resistance.remi,109.5);assert.equal(s.state.stats.landed,3);assert.equal(s.state.bout.score.player,3);assert.equal(s.state.stats.doubleJabCombos,1);assert.equal(s.state.stats.combos,1);assert.equal(s.state.stats.hooks,0);
  const e=attacks(s);assert.deepEqual(e.map(x=>x.attack),['jab','jab','cross']);assert.equal(e.at(-1).comboType,'doubleJab');assert.equal(e.at(-1).combo,true);
  s.update(.5);assert.equal(s.state.stats.thrown,3);assert.equal(s.state.stats.doubleJabCombos,1);
+ const ordinary=create({opponent:'dyrex',techniques:{doubleJab:false}});ordinary.setGuard(true,'body');punch(ordinary,'jab');punch(ordinary,'jab');punch(ordinary,'cross');
+ assert.equal(ordinary.state.bout.resistance.remi-s.state.bout.resistance.remi,1.5,'Official finisher earns exactly 1.5 extra damage for its additional four endurance');
 });
 test('before unlocking, including truthy malformed values, J J K remains three ordinary punches',()=>{
  for(const doubleJab of [false,undefined,1,'true']){const s=create({techniques:{doubleJab}});punch(s,'jab');punch(s,'jab');punch(s,'cross');assert.equal(s.state.stamina,63);assert.equal(s.state.bout.resistance.remi,58);assert.equal(s.state.stats.doubleJabCombos,0);assert.equal(attacks(s).at(-1).comboType,undefined);}

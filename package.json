@@ -54,7 +54,9 @@
     "test:opponents": "node tests/new-opponents-browser.mjs",
     "test:cuba-world": "node --test tests/cuba-world.test.js",
     "test:cuba": "node tests/cuba-browser.mjs",
-    "test:next-static": "node tests/next-chapter-static-browser.mjs"
+    "test:next-static": "node tests/next-chapter-static-browser.mjs",
+    "test:fight-pacing": "node tests/fight-pacing-browser.mjs",
+    "test:fight-presentation": "node tests/fight-presentation-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

@@ -197,7 +197,7 @@ export class GameControls {
     if (direction) {
       this.keys.set(event.code, direction); this.refreshDirections();
       if (this.mode !== 'gym' && (direction === 'left' || direction === 'right')) this.onAction(direction === 'left' ? 'dodgeLeft' : 'dodgeRight');
-    } else if (this.mode === 'gym' && event.code === 'KeyE') {
+    } else if (event.code === 'KeyE') {
       this.menuHeld.add(event.code); this.clear(); this.onInteract();
     } else if (this.mode !== 'gym' && (event.code === 'KeyJ' || event.code === 'KeyK')) {
       this.keys.set(event.code, event.code); this.onAudioGesture(); this.onAction(event.code === 'KeyJ' ? 'jab' : 'cross');
@@ -290,12 +290,12 @@ export function installConsoleControls(ui, mode = 'combat') {
   const controls = new GameControls({
     root: ui.root, mode,
     canPlay: () => mode === 'gym' ? ui.canMove() : ui.canPlay?.() ?? ui.phase === 'running',
-    getMenu: () => ui.journal?.isOpen ? ui.journal.panel : ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
+    getMenu: () => (ui.phase === 'corner' || (ui.phase === 'finished' && ui.root.dataset.decision === 'true' && (ui.opponentHUD?.decisionElapsed ?? 0) < 7)) ? null : ui.journal?.isOpen ? ui.journal.panel : ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
     canInteract: () => Boolean(ui.nearby) && !ui.nearby.autoTravel,
     onMove: vector => ui.callbacks.onMove?.(vector),
     onAction: action => ui.callbacks.onAction?.(action),
     onGuard: (held, level) => ui.callbacks.onGuard?.(held, level),
-    onInteract: () => ui.interact(),
+    onInteract: () => mode === 'gym' ? ui.interact() : ui.callbacks.onSkipCorner?.(),
     onPause: () => mode === 'gym' ? ui.requestPause() : ui.callbacks.onPause(),
     onMenu: () => {
       if (ui.journal?.isOpen) ui.journal.close();
@@ -306,7 +306,7 @@ export function installConsoleControls(ui, mode = 'combat') {
         else if (ui.dialog) ui.callbacks.onCloseDialog();
         else ui.requestPause();
       } else if (ui.phase === 'paused') ui.callbacks.onResume();
-      else if (ui.phase === 'running' || ui.phase === 'knockdown') ui.callbacks.onPause();
+      else if (ui.phase === 'running' || ui.phase === 'knockdown' || ui.phase === 'corner') ui.callbacks.onPause();
       // The ready screen and the results already are menus. Opening the menu
       // again leaves them in place; only B or the explicit exit returns outside.
     },

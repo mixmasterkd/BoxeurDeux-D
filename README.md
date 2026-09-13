@@ -112,7 +112,7 @@ Confirmer le sommeil au lit avance exactement **d’un jour** et remet seulement
 
 ## Combats et adversaires
 
-Le sparring libre avec **Rémi le Tank** reste un round de 60 secondes au gym. **Résistance et relevés** et les combats officiels utilisent au plus **trois rounds de 60 secondes**, avec **Fredo** au coin entre les reprises. La silhouette et les poses des combats du tournoi conservent les proportions du sparring; leurs uniformes restent propres à la compétition.
+Le sparring libre avec **Rémi le Tank** reste un round de 60 secondes au gym. **Résistance et relevés** conserve trois rounds de 60 secondes. Les **combats officiels** passent à **trois rounds de 45 secondes**, avec **Fredo** au coin entre les reprises. La silhouette et les poses des combats du tournoi conservent les proportions du sparring; leurs uniformes restent propres à la compétition.
 
 | Adversaire | Particularité |
 | --- | --- |
@@ -128,11 +128,12 @@ Le sparring libre avec **Rémi le Tank** reste un round de 60 secondes au gym. *
 Le calendrier des gardes et attaques adverses est autonome : l’adversaire ne bloque pas instantanément en lisant le bouton du joueur. Les signaux laissent réagir puis riposter. Chaque adversaire possède ses propres poses, couleurs et identité; les données de rythme sont dans `src/game/OpponentProfiles.js`.
 
 - **Endurance** : paie frappes, gardes et esquives, puis remonte au repos. La vider ne met pas au tapis.
-- **Résistance** : descend sur les touches nettes. Jab/direct/crochet font 12/18/22 dégâts de base, plus la puissance entraînée du joueur. Une bonne défense évite ces dégâts.
+- **Résistance** : descend sur les touches nettes. En combat officiel, jab/direct/crochet font 5/7/9 dégâts, avec un bonus de puissance proportionnel plafonné à +20 %. J–J–K ajoute 1,5 dégât au direct avant ce multiplicateur. Le sparring conserve ses dégâts pédagogiques. Une bonne défense évite ces dégâts.
 - **Chute à zéro résistance** : le contact se termine visuellement, puis le compte de dix commence. Le temps du round s’arrête.
-- **Relevé** : six pressions alternées J/K ou A/B, en commençant par J/A, espacées d’au moins 0,35 seconde. Le maintien ne répète pas les efforts.
+- **Relevé** : six pressions alternées J/K ou A/B, en commençant par J/A, espacées d’au moins 0,35 seconde. Le maintien ne répète pas les efforts. En combat officiel, les relevés rendent 80 %, puis 72 % et 65 % de la résistance maximale personnelle.
 - **Arrêt** : dix sans relevé = KO; troisième chute du round ou quatrième du combat = arrêt. Kramer possède en plus son abandon spécial. Pas de KO aléatoire ajouté.
-- **Au coin** : conseil de Fredo, endurance pleine à son maximum personnel, résistance +20 sans dépasser son maximum; seul le compteur de chutes du round est remis à zéro. La reprise attend le joueur.
+- **Au coin** : en combat officiel, 9 secondes de respiration avec Fredo. J puis K sur ordinateur, A puis B sur mobile, lorsque le cercle rejoint le repère. Huit respirations donnent jusqu’à +8 résistance en supplément des +20 garantis. Le bouton « Passer » (ou E) conserve le bonus déjà acquis; aucun malus en cas d’échec. P/Échap ou ☰ met aussi cet exercice en pause. À la reprise : endurance pleine, résistance plafonnée au maximum personnel, chutes du round remises à zéro; total conservé. Le round suivant attend E/A.
+- **Juges** : après trois rounds, trois cartes déterministes. Chaque juge attribue 10–9 ou 10–10 par round, puis retire un point par chute. Les touches nettes priment; précision et défense ne départagent que les rounds très serrés. Deux cartes gagnées donnent la victoire; une égalité permet la revanche, y compris au tournoi. Les cartes sont révélées successivement, puis l’arbitre annonce le résultat. « Détail des rounds » se consulte aussi avec WASD/E ou joypad/A. Ce barème est une règle simplifiée du jeu.
 - **Décision** : 1 point par touche nette et 3 par chute adverse. Bloquer/esquiver ne donne aucun point. Le meilleur total gagne; égalité possible.
 
 ## Les Gants de bronze
@@ -186,7 +187,9 @@ npm run test:world-flow       # Portes à pied, métro, trois secteurs et RC de 
 npm run test:gym-friends      # Fredo, Octopus, drills, chandail et retour au gym
 npm run test:refined-combat   # Coups rapides, pads libres 45 s PC/tactile
 npm run test:refined-competition # Uniformes et poses du tournoi
-npm run test:tournament-corner   # Vrai round 60 s, Fredo, reprise du round 2
+npm run test:fight-pacing        # Trois vrais rounds PC/tactile, Fredo, juges, sauvegarde
+npm run test:fight-presentation  # Fixtures visuelles : verdicts et menus très petits
+node tests/fight-built-browser.mjs # Version compilée, sous-chemin Pages
 npm run test:harmonization-static # Bundle compilé du chapitre sans serveur concurrent
 npm run test:next-career      # Migration v4, ordre libre, voyage Cuba et transactions
 npm run test:next-shadow      # Apprentissage des trois séries de double jab

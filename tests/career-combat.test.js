@@ -29,8 +29,8 @@ test('reloaded gym progress gives measurable player gains in Béton without stre
     session.act('jab'); session.update(TIMINGS.player.jab.duration * TIMINGS.player.jab.impact);
     assert.equal(session.state.stats.landed, 1); assert.equal(session.state.bout.score.player, 1);
   }
-  assert.equal(base.state.bout.resistance.remi, 88);
-  assert.equal(improved.state.bout.resistance.remi, 87);
+  assert.equal(base.state.bout.resistance.remi, 95);
+  assert.equal(improved.state.bout.resistance.remi, 94.9);
   near(improved.state.stamina - base.state.stamina, 2);
 });
 
@@ -48,6 +48,8 @@ test('speedball changes real post-punch recovery while action costs and impact t
 test('the corner restores trained endurance and caps resistance separately for player and opponent', () => {
   const { profile } = trained(8), session = fight({ ...profile.bonuses(), duration: 10 });
   while (session.state.phase === 'running') session.update(1 / 60);
+  assert.equal(session.state.phase, 'corner');
+  session.update(9);
   assert.equal(session.state.phase, 'between');
   const resistance = session.state.bout.resistance.player;
   assert.ok(resistance < 108);

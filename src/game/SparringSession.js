@@ -1,3 +1,6 @@
+import { OFFICIAL_ROUND_DURATION, officialDamage, officialRestoredResistance } from './FightBalance.js';
+import { createCornerRecovery, pressCorner } from './CornerRecovery.js';
+import { judgeBout } from './BoutJudges.js';
 import { LESSONS, TrainingCoach } from './TrainingCoach.js';
 import { getOpponentProfile, opponentCornerAdvice } from './OpponentProfiles.js';
 
@@ -61,7 +64,7 @@ const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const boundedBonus = (value, min, max) => Number.isFinite(Number(value)) ? clamp(Number(value), min, max) : min;
 
 function normalizeSettings(settings = {}, previous = {}) {
-  const duration = Number(settings.duration ?? previous.duration ?? 60);
+  const duration = Number(settings.duration ?? previous.duration ?? (getOpponentProfile(settings.opponent ?? previous.opponent).official ? OFFICIAL_ROUND_DURATION : 60));
   const recovery = Number(settings.recovery ?? previous.recovery ?? 1);
   const tempo = settings.tempo ?? previous.tempo ?? 'normal';
   const opponent = getOpponentProfile(settings.opponent ?? previous.opponent).id;
@@ -178,7 +181,7 @@ export class SparringSession {
   }
 
   pause() {
-    if (!['running', 'knockdown'].includes(this.state.phase)) return false;
+    if (!['running', 'knockdown', 'corner'].includes(this.state.phase)) return false;
     this.state.pausedPhase = this.state.phase;
     this.state.phase = 'paused';
     this.releaseControls();
@@ -194,6 +197,7 @@ export class SparringSession {
   }
 
   act(action) {
+    if (this.state.phase === 'corner') return pressCorner(this.state.bout.corner, action);
     if (this.state.phase === 'knockdown') return this._recoveryPress(action);
     // The hook belongs to J → K → J, never to a third attack command.
     if (!['jab', 'cross', 'dodgeLeft', 'dodgeRight'].includes(action)
@@ -288,6 +292,12 @@ export class SparringSession {
   }
 
   update(dtSeconds) {
+    if (this.state.phase === 'corner' && Number.isFinite(dtSeconds) && dtSeconds > 0) {
+      const corner = this.state.bout.corner;
+      corner.elapsed = Math.min(corner.duration, corner.elapsed + dtSeconds);
+      if (corner.elapsed >= corner.duration) this.finishCorner();
+      return;
+    }
     if (!['running', 'knockdown'].includes(this.state.phase) || !Number.isFinite(dtSeconds) || dtSeconds <= 0) return;
     let remaining = dtSeconds;
     // Bound integration and land exactly on action/impact boundaries. This keeps
@@ -595,6 +605,15 @@ export class SparringSession {
     if (this.state.bout?.count) this._syncKnockdown();
   }
 
+  finishCorner() {
+    if (this.state.phase !== 'corner') return false;
+    this.state.bout.corner.completed = true;
+    this.state.phase = 'between';
+    this.releaseControls();
+    this._emit('corner-finish', { bonus: this.state.bout.corner.bonus });
+    return true;
+  }
+
   nextRound() {
     const bout = this.state.bout;
     if (this.state.phase !== 'between' || !bout || bout.round >= bout.rounds) return false;
@@ -602,8 +621,9 @@ export class SparringSession {
     for (const actor of ACTORS) {
       bout.downs[actor].round = 0;
       const maximum = actor === 'player' ? bout.playerMaxResistance : bout.maxResistance;
-      bout.resistance[actor] = Math.min(maximum, bout.resistance[actor] + 20);
+      bout.resistance[actor] = Math.min(maximum, bout.resistance[actor] + 20 + (actor === 'player' ? bout.corner?.bonus ?? 0 : 0));
     }
+    bout.corner = null;
     this.state.elapsed = 0;
     this.state.remaining = this.settings.duration;
     this.state.stamina = this.settings.maxStamina;
@@ -624,7 +644,8 @@ export class SparringSession {
     if (!this.state.bout) return;
     const resistance = this.state.bout.resistance;
     const power = actor === 'remi' ? this.settings.powerBonus : 0;
-    resistance[actor] = Math.max(0, resistance[actor] - KNOCKDOWN_RULES.damage[attack] - power - extra);
+    const damage = this.profile.official ? officialDamage(this.profile, actor, attack, power, extra) : KNOCKDOWN_RULES.damage[attack] + power + extra;
+    resistance[actor] = Math.max(0, resistance[actor] - damage);
   }
 
   _clearCombatActions() {
@@ -754,7 +775,9 @@ export class SparringSession {
   _standUp(actor) {
     const bout = this.state.bout;
     this._knockdown.standing[actor] = true;
-    bout.resistance[actor] = KNOCKDOWN_RULES.restoredResistance[Math.min(2, bout.downs[actor].total - 1)];
+    bout.resistance[actor] = this.profile.official
+      ? officialRestoredResistance(actor === 'player' ? bout.playerMaxResistance : bout.maxResistance, bout.downs[actor].total)
+      : KNOCKDOWN_RULES.restoredResistance[Math.min(2, bout.downs[actor].total - 1)];
     if (actor === 'player') this.state.stamina = 60;
     this._emit('stood-up', { actor, resistance: bout.resistance[actor], round: bout.round, totalDowns: bout.downs[actor].total });
   }
@@ -843,11 +866,13 @@ export class SparringSession {
     this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
     if (this.state.bout.round >= this.state.bout.rounds) {
       const score = this.state.bout.score;
-      const winner = score ? score.player === score.remi ? 'draw' : score.player > score.remi ? 'player' : 'remi' : null;
-      this._finishBout({ reason: score ? 'points' : 'time', winner, loser: !score || winner === 'draw' ? null : winner === 'player' ? 'remi' : 'player' });
+      const decision = score ? judgeBout(this.state.bout.roundHistory) : null;
+      const winner = decision?.winner ?? null;
+      this._finishBout({ reason: score ? 'points' : 'time', ...(decision ? { decision } : {}), winner, loser: !score || winner === 'draw' ? null : winner === 'player' ? 'remi' : 'player' });
       return;
     }
-    this.state.phase = 'between';
+    this.state.bout.corner = this.profile.official ? createCornerRecovery() : null;
+    this.state.phase = this.profile.official ? 'corner' : 'between';
     this.state.pausedPhase = null;
     this._emit('round-break', { round: this.state.bout.round, history: structuredClone(this.state.bout.roundHistory.at(-1)) });
   }
