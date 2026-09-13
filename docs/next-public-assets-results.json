@@ -1,0 +1,441 @@
+{
+  "date": "2026-09-13T04:55:04.355Z",
+  "url": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": [
+    {
+      "file": "assets/cuba/beach-ring.png",
+      "status": 200,
+      "bytes": 2431899,
+      "sha256": "1ccd6d5e3806a6b9ef0b4118f4926582be839cdffe92ef51d5973a037fcbef92",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/beach.png",
+      "status": 200,
+      "bytes": 4593822,
+      "sha256": "b898540c10fccef70bddce455fd3b2ddfefa7d9ea10c878d454acff22b39ce13",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/gym-training.png",
+      "status": 200,
+      "bytes": 2433721,
+      "sha256": "0f24f22f5cd757d941c42d2bfc4758661093c7c2cf14e589ef1203c3f91fbff4",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/gym.png",
+      "status": 200,
+      "bytes": 2435150,
+      "sha256": "904f65eda5315c45850bd5ff0424c28f70a009e136816c522cf927e54e88ce0f",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/home.png",
+      "status": 200,
+      "bytes": 2487677,
+      "sha256": "90ec52fb0b1d1e26013624f1f5b7b1425d7a1a1092a012099041aca6bc51152d",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/tire-bag.png",
+      "status": 200,
+      "bytes": 134891,
+      "sha256": "79e8048d84b74ed209aac450645bac7401e2a177fdcca1725de649a7f82201c7",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/travel-kiosk.png",
+      "status": 200,
+      "bytes": 89376,
+      "sha256": "3ea2ecdf4902c7dcdd0ef2156d045a4f1f99f45e24639bfea65f8a96f0b993dd",
+      "identical": true
+    },
+    {
+      "file": "assets/cuba/village.png",
+      "status": 200,
+      "bytes": 5118939,
+      "sha256": "ea5abb86caf6ba78bfefa20c3914092786313fe9bfb1142254f146ae1fda8716",
+      "identical": true
+    },
+    {
+      "file": "assets/index-DCX6AnIy.css",
+      "status": 200,
+      "bytes": 88321,
+      "sha256": "25dd89b736c6c1f2ff9febeb05841afb9864198fce840788e7b2aa765baa14f7",
+      "identical": true
+    },
+    {
+      "file": "assets/index-DeJi5c8u.js",
+      "status": 200,
+      "bytes": 1772538,
+      "sha256": "5b1aaebe577c0a7d71b806f33de76381c39c6a00360312d7aa4fd5ad47ece7ba",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-block-body.png",
+      "status": 200,
+      "bytes": 120581,
+      "sha256": "0e7fa1d94a72538274b3ceaf3bb274e0c223556aaeadad266a7e7eca9d6084f1",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-block.png",
+      "status": 200,
+      "bytes": 113382,
+      "sha256": "31c436c9925bf05a1a46ca78fbf9cde4a9672a95e56e0be4bfcd3dd1460de355",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-cross-body.png",
+      "status": 200,
+      "bytes": 105393,
+      "sha256": "2cf34b46d5242a4deda75b33fdd3bc907f83898cc5fbba5f696dc67b5b7e3b17",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-cross-windup-body.png",
+      "status": 200,
+      "bytes": 112057,
+      "sha256": "32539f16eff45974ba910031b3af913e272136a0712e9f534ad8f92fc4dadf82",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-cross-windup.png",
+      "status": 200,
+      "bytes": 125512,
+      "sha256": "430db9a9be32591a44b5157f75f1a92cf45f9d313e54a6882b4fe6acfe49177c",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-cross.png",
+      "status": 200,
+      "bytes": 125938,
+      "sha256": "3c07f87b4b4fd7186b60356ab7cc5fd59f855fd90f9282fc20aaa017b968d3b6",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-dodge.png",
+      "status": 200,
+      "bytes": 107791,
+      "sha256": "d69f0f812541e1c462e137be4a2b2f857cde7a77d17759e15370c0690b5bf31a",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-down.png",
+      "status": 200,
+      "bytes": 108871,
+      "sha256": "5299cae99fe57abafb32ab05f1392c2b952e7817a300fc8dc37293d7dca8bd40",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-fall.png",
+      "status": 200,
+      "bytes": 117701,
+      "sha256": "9137b9516fdc63a015621cc0a8f22362dcd7d5c2e7f253a58cd829502c94be4d",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-guard.png",
+      "status": 200,
+      "bytes": 122834,
+      "sha256": "0bd2afb05a1b8b50ac39044dd152782cadc657a15331be02dc7300a0ecbcfcac",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-hit-body.png",
+      "status": 200,
+      "bytes": 112066,
+      "sha256": "7c23923e20ca74a3b1941d23dae90ecda57d8fb1f6740a7f1ba1bc0b4d8b618a",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-hit.png",
+      "status": 200,
+      "bytes": 128691,
+      "sha256": "47b69f145c90df621f260f84d344c865456f926dce3380763b773e95cf95538f",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-jab-windup.png",
+      "status": 200,
+      "bytes": 126209,
+      "sha256": "539ac4752223dc42e8b36102f3e0eb14532dd60ad32c2fccfef08f31d371115a",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-jab.png",
+      "status": 200,
+      "bytes": 127790,
+      "sha256": "b4efafb69c450ec226baebc219ddd996f792c5c3151dc90672e8cff69c5333fd",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-rise.png",
+      "status": 200,
+      "bytes": 129932,
+      "sha256": "82fe6b0ed67151a0245a3ee823a9c0a1cce9eb25b55a84a86512b863d21b9485",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/dyrex-surrender.png",
+      "status": 200,
+      "bytes": 113820,
+      "sha256": "daa45bdb1563318a1b0eb7ee62fb5c36a2764db708a6350bef0b162280393951",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/dyrex/fighters.json",
+      "status": 200,
+      "bytes": 10987,
+      "sha256": "63abae929b5a740f20da183d139675da52f3cf1c30c5b373f9c1ab771068e219",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/fighters.json",
+      "status": 200,
+      "bytes": 11099,
+      "sha256": "436651b1da9d93917e351d81612cf0d7aa93e72dd4825e5e51b352cceaf002b3",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-block-body.png",
+      "status": 200,
+      "bytes": 107515,
+      "sha256": "e0e4fe9a724e2005689284bc5041215a454033031f8ec2fb528c001df1e6fe36",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-block.png",
+      "status": 200,
+      "bytes": 103175,
+      "sha256": "ebdb0356a6c135d0315a332e101fedeb23f8cbe90508f7e479e5b819ee7773cf",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-cross-body.png",
+      "status": 200,
+      "bytes": 100346,
+      "sha256": "110a009ed718692c924caa3de2f215ada5243a8ecbe32d449f8ae9e9b5feb23e",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-cross-windup-body.png",
+      "status": 200,
+      "bytes": 106953,
+      "sha256": "9852139df2f7fb7f74dba63e1652b5b309dd335cbfd5d9741c6ad164ffa08271",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-cross-windup.png",
+      "status": 200,
+      "bytes": 106816,
+      "sha256": "83ed4a0bb89f420167d29e9fde08c9fcb568c4745228b207426982d48b7a530d",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-cross.png",
+      "status": 200,
+      "bytes": 123034,
+      "sha256": "5fded13a28539f0581f60a59346dc4cd0dcef011b132737e07a17fa5be2eb8bf",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-dodge.png",
+      "status": 200,
+      "bytes": 111666,
+      "sha256": "cd616e67d152e47e76182e8e4482721020a3942047afb8f6bcd94bafed6c6bdd",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-down.png",
+      "status": 200,
+      "bytes": 107688,
+      "sha256": "7a99c638b115e66e2b39b3a6a12de085fb4673dacb53d8f05ed5e6ac8b83e8ea",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-fall.png",
+      "status": 200,
+      "bytes": 116936,
+      "sha256": "f28398c28c25f7de81d3aac2cb6d959dcdce3ddda601ec0ad9a637f738fc0c48",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-guard.png",
+      "status": 200,
+      "bytes": 107637,
+      "sha256": "19ee36644d4ca68effa5419d941c0f752e4d8bff998a8f0f4772335140156479",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-hit-body.png",
+      "status": 200,
+      "bytes": 95962,
+      "sha256": "dedecfebe2508cb41abc92e2bae49576fd9f8fb636a010e47627b96f18f3fe29",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-hit.png",
+      "status": 200,
+      "bytes": 115480,
+      "sha256": "4c87349884b36a6f2e0ece37a8cd49a6cc5eb370f92673ed602a985c5428ca22",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-jab-windup.png",
+      "status": 200,
+      "bytes": 114351,
+      "sha256": "cde32aadc4351f16b55a101b7bf7ab1df23ed92e3ab88138502dae18994e138e",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-jab.png",
+      "status": 200,
+      "bytes": 116206,
+      "sha256": "e34deaed908a75a186666989ac439db2a004943b920d57fe9c678c334720f0ce",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-rise.png",
+      "status": 200,
+      "bytes": 105736,
+      "sha256": "4811482a7895c80f2029568642ead624b3971f45054971343670af256c777d25",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/lefeu/lefeu-surrender.png",
+      "status": 200,
+      "bytes": 108921,
+      "sha256": "9773e8f32e8c3c3394e00d771fdd0343c2cb2479d6eecc78b158e056a54f4e52",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/fighters.json",
+      "status": 200,
+      "bytes": 11137,
+      "sha256": "b89483b64bf557a367ddc4411f3a16982a9df535acdc7d7b7a8595c2ea3d2efd",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-block-body.png",
+      "status": 200,
+      "bytes": 117551,
+      "sha256": "a3f0620726f5cd351bde8142033e4ab160400919785f870cb489c7beff74b352",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-block.png",
+      "status": 200,
+      "bytes": 112746,
+      "sha256": "b6b8f7bcc7078d33b7b962da18ffd935cd1aed4778117350265012b51f74898e",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-cross-body.png",
+      "status": 200,
+      "bytes": 104099,
+      "sha256": "10b406479ae6709d0cdbd3c2bb4ff852b9e9f7f48b99f3fedf4d1da2f77c77af",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-cross-windup-body.png",
+      "status": 200,
+      "bytes": 117173,
+      "sha256": "a232047eb3bf9c41b7d817da29b8c009335dc15173f2885bccf433a04e730e6b",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-cross-windup.png",
+      "status": 200,
+      "bytes": 127982,
+      "sha256": "50fa10356c48d5a4265b34fc5fb650d4f1ce3d404e29a37426f939d59803937b",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-cross.png",
+      "status": 200,
+      "bytes": 121791,
+      "sha256": "195e66a65ef8b884e5d80953a94c1911d5293185996494f6a8a9db0bc4400264",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-dodge.png",
+      "status": 200,
+      "bytes": 109704,
+      "sha256": "1d6bc28c5dfb6cac01941d09f3ca8dffcf7b920b91a18ff2372e76272465b1c5",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-down.png",
+      "status": 200,
+      "bytes": 112095,
+      "sha256": "4acca3a99b144be9a867ea9c53575d6dcc38f4bd8c07d507bb9105159f57ff10",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-fall.png",
+      "status": 200,
+      "bytes": 126091,
+      "sha256": "7a1d7350ff6610021c491ef4ba000d4acfd4f1fbc332150c36295b5f4f894cad",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-guard.png",
+      "status": 200,
+      "bytes": 121154,
+      "sha256": "b8ee4c54a9f90c09fcd4ebe9478aaef51842c73df68faac171bb6acd96c771dd",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-hit-body.png",
+      "status": 200,
+      "bytes": 111132,
+      "sha256": "df0a9c5c18d58fc0fccd0be64db85b83212eb5fc12d98f3acc27a9ce6884ce22",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-hit.png",
+      "status": 200,
+      "bytes": 129839,
+      "sha256": "0a8b5d39aa6e3c11e758a398a17474c12320ecdfa6bd253ac7979db6eb28747b",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-jab-windup.png",
+      "status": 200,
+      "bytes": 123161,
+      "sha256": "227203c54fd9dd10a5087bd2c2d1d917067847966f60dd65343e608d534b9571",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-jab.png",
+      "status": 200,
+      "bytes": 124779,
+      "sha256": "6cb82504c9492b1c0b9cfe4a49bb90791aa385101b4a75d144a40917b4f4b514",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-rise.png",
+      "status": 200,
+      "bytes": 132679,
+      "sha256": "bdf5326fbc46d42286cfd3e97463a71243fafa53d2707e2c3dc55752613c786b",
+      "identical": true
+    },
+    {
+      "file": "assets/sprites/opponents/louisto/louisto-surrender.png",
+      "status": 200,
+      "bytes": 114660,
+      "sha256": "bf192d1b92888d989c925a7f50c7aaaabd40c846c261a311679750bff74cd61e",
+      "identical": true
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "bytes": 2429,
+      "sha256": "0c29d93db6a50854df02f255071afa74589f13820f7b8e18d37eeb69e274618e",
+      "identical": true
+    }
+  ],
+  "errors": []
+}

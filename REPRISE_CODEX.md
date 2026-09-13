@@ -8,7 +8,9 @@ Carnet de carrière dans le menu SNES et technique J–J–K débloquée par tro
 
 Implémentation et vérifications locales terminées : **352 tests unitaires**, trois nouveaux combats réellement gagnés dans le navigateur, trois accès verrouillés vérifiés, **28 contrôles du voyage Cuba** sur ordinateur et mobile simulé, **quatre parcours de production** sans hooks DEV (leçon JJK, migration v3, paiement, sommeil, reload, retour inclus et ordre libre), carnet 24 + 8 contrôles. La technique est sauvegardée dès le troisième combo, avant sa célébration; le buffer du shadow conserve la hauteur de frappe comme celui du ring. Menu Retour compact corrigé et revérifié. Aucun téléphone physique testé. Build réussi : `index-DeJi5c8u.js`, `index-DCX6AnIy.css`.
 
-Commits locaux : `6852793` (visuels et sources), `0e05911` (carrière, activités, combats et contrôles). Publication GitHub Pages déjà autorisée, à finaliser et vérifier avant clôture de cette mission. Voir `docs/CUBA_ET_DEFIS.md` et ses rapports pour les détails. Serveur existant conservé sur `http://127.0.0.1:5173/`, Wi-Fi revérifié `http://192.168.50.123:5173/`. Ne pas lancer un autre serveur Vite.
+Commits publiés : `6852793` (visuels et sources), `0e05911` (carrière, activités, combats et contrôles), `acd6bbe` (preuves locales et documentation). **GitHub Pages publié et vérifié**, workflow `34738918454` réussi. Les quatre parcours ont aussi été joués sur le vrai site public (223 ressources, zéro erreur); les 62 fichiers du chapitre et du bundle comparés sont identiques à `dist/`. Voir `docs/CUBA_ET_DEFIS.md`, `docs/next-static-public-results.json` et `docs/next-public-assets-results.json`. Serveur existant conservé sur `http://127.0.0.1:5173/`, Wi-Fi revérifié `http://192.168.50.123:5173/`. Ne pas lancer un autre serveur Vite.
+
+Ce GO est terminé. Les prochains adversaires, ajouts au séjour ou nouvelles activités restent à discuter; ne pas en inventer une nouvelle phase automatiquement. Les paragraphes anciens ci-dessous sont historiques et ne rétablissent pas les anciennes limitations de portée.
 
 ## Livraison terminée — harmonisation SNES, Fredo et exploration libre
 

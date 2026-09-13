@@ -81,6 +81,7 @@ Vérifications terminées le 13 septembre, sur le jeu local et le bundle compil�
 - **Quatre parcours sur le bundle de production**, sous `/BoxeurDeux-D/`, sans serveur concurrent et sans accès aux objets de développement : apprentissage PC/tactile de trois séries J-J-K, migration réelle v3→v4, paiement unique de 160 $ malgré une confirmation maintenue, recharge à Cuba, nuit, retour inclus sans avoir affronté Louisto, puis accès libre à Le Feu et Dyrex. La technique est acquise au troisième contact : une pause immédiate suivie d’un rechargement mobile ne la perd pas. Aucun gain de capacité gratuit ni second débit.
 - Le test de production a détecté le libellé « Retour au quartier » trop large dans le menu de combat en 568 × 320. Son retour à la ligne est corrigé; le parcours mobile entier repasse avec le bouton dans son cadre et les commandes dans les marges. Aucune erreur console, ressource manquante ou débordement de page.
 - **28 contrôles Cuba**, lors de deux parcours complets PC et 568 × 320 : voyage, contact aux pads et aux pneus, deux appuis à la corde, nuit de 60 à 100 énergie, reprise du séjour, plage à caméra défilante, entrée et jab contre Louisto, retour sans réentrée accidentelle dans le ring, vol inclus et métro vers le quartier. Aucune erreur navigateur.
+- **14 contrôles ciblés supplémentaires du sac en pneus**, avec vraies frappes à la tête et au corps : écart gant/cible de 0 à 0,46 pixel au moment compté; S+K et joypad bas+B simultanés. [Rapport des contacts](cuba-contact-browser-results.json).
 - **Trois combats gagnés dans Chromium** : Dyrex et Le Feu au clavier, Louisto en 568 × 320 avec véritables événements tactiles émulés. Contacts, gardes hautes/basses, double jab, mises au tapis et résultat sauvegardé concordent. Le retour de Louisto mène à la plage. Les trois liens directs restent bloqués avec une partie non admissible. Aucune erreur navigateur.
 
 Rapports : [carnet complet](career-journal-browser-results.json), [carnet compact](career-journal-small-mobile-browser-results.json), [nouveaux combats et accès](new-opponents-browser-results.json), [production consolidée](next-static-results.json), [parcours Cuba](cuba-browser-results.json). Captures : [carnet ordinateur](career-journal-desktop.png), [carnet tactile](career-journal-small-mobile.png), [drill réussi](next-static-octopus-double-jab-desktop.png), [réveil à Cuba sur mobile](next-static-cuba-morning-mobile.png), [menu Le Feu corrigé](next-static-free-lefeu-mobile.png).
@@ -98,4 +99,15 @@ npm run build
 npm run test:next-static
 ```
 
-Les essais mobiles ci-dessus sont **des simulations de fenêtre et de contacts tactiles dans Chromium**. Aucun essai sur le téléphone physique de l’utilisateur n’est revendiqué. Le test statique utilise `dist/`; `SPARRING_URL` permet de refaire les mêmes quatre parcours sur une adresse publiée, dans un contexte de navigateur isolé. Ces résultats locaux ne constituent pas une preuve de publication. Le workflow et les parcours sur l’adresse publique doivent être vérifiés séparément.
+Les essais mobiles ci-dessus sont **des simulations de fenêtre et de contacts tactiles dans Chromium**. Aucun essai sur le téléphone physique de l’utilisateur n’est revendiqué. Le test statique utilise `dist/`; `SPARRING_URL` permet de refaire les mêmes quatre parcours sur une adresse publiée, dans un contexte de navigateur isolé.
+
+## Publication vérifiée
+
+Chapitre publié sur [GitHub Pages](https://mixmasterkd.github.io/BoxeurDeux-D/), à partir du commit `acd6bbe`. Le [workflow 34738918454](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/34738918454) a réussi. Les quatre parcours ont ensuite été exécutés sur le vrai site public, sans interception des requêtes : PC 1280 × 720 et tactile simulé 568 × 320, 223 ressources chargées, aucune erreur. Migration v3, apprentissage des neuf frappes, pause au troisième combo, recharge, paiement unique, nuit, retour inclus et accès Le Feu puis Dyrex sont confirmés. [Rapport public](next-static-public-results.json), [menu Le Feu mobile](next-static-public-free-lefeu-mobile.png).
+
+Un contrôle distinct compare les octets de l’index, des bundles et de tous les nouveaux décors/sprites : **62 fichiers HTTP 200, identiques à la compilation locale**, SHA-256 consignés dans le [rapport des ressources](next-public-assets-results.json). Les versions finales sont `index-DeJi5c8u.js` et `index-DCX6AnIy.css`. La compilation conserve l’avertissement habituel de Vite sur la taille du bundle Phaser; elle réussit.
+
+```bash
+SPARRING_URL=https://mixmasterkd.github.io/BoxeurDeux-D/ npm run test:next-static
+node tests/next-chapter-public-assets.mjs
+```
