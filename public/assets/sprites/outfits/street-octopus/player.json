@@ -1,0 +1,513 @@
+{
+  "version": 1,
+  "outfitId": "street-octopus",
+  "width": 96,
+  "height": 112,
+  "canvas": {
+    "width": 96,
+    "height": 112
+  },
+  "anchor": {
+    "x": 48,
+    "y": 104
+  },
+  "artHeight": 88,
+  "alphaThreshold": 16,
+  "scale": 0.3024054982817869,
+  "source": {
+    "file": "references/characters/outfits/street-octopus/alpha.png",
+    "width": 1254,
+    "height": 1254,
+    "transparentPixels": 1200510
+  },
+  "sourceBounds": [
+    {
+      "key": "down-0",
+      "x": 277,
+      "y": 15,
+      "width": 164,
+      "height": 291,
+      "anchor": {
+        "x": 359,
+        "y": 306
+      }
+    },
+    {
+      "key": "down-1",
+      "x": 550,
+      "y": 16,
+      "width": 158,
+      "height": 293,
+      "anchor": {
+        "x": 631,
+        "y": 309
+      }
+    },
+    {
+      "key": "down-2",
+      "x": 816,
+      "y": 17,
+      "width": 158,
+      "height": 292,
+      "anchor": {
+        "x": 898.5,
+        "y": 309
+      }
+    },
+    {
+      "key": "right-0",
+      "x": 306,
+      "y": 322,
+      "width": 104,
+      "height": 297,
+      "anchor": {
+        "x": 360,
+        "y": 619
+      }
+    },
+    {
+      "key": "right-1",
+      "x": 551,
+      "y": 322,
+      "width": 156,
+      "height": 294,
+      "anchor": {
+        "x": 633.5,
+        "y": 616
+      }
+    },
+    {
+      "key": "right-2",
+      "x": 808,
+      "y": 322,
+      "width": 180,
+      "height": 294,
+      "anchor": {
+        "x": 902,
+        "y": 616
+      }
+    },
+    {
+      "key": "up-0",
+      "x": 272,
+      "y": 627,
+      "width": 164,
+      "height": 280,
+      "anchor": {
+        "x": 353.5,
+        "y": 907
+      }
+    },
+    {
+      "key": "up-1",
+      "x": 547,
+      "y": 629,
+      "width": 160,
+      "height": 283,
+      "anchor": {
+        "x": 629.5,
+        "y": 912
+      }
+    },
+    {
+      "key": "up-2",
+      "x": 815,
+      "y": 629,
+      "width": 164,
+      "height": 283,
+      "anchor": {
+        "x": 897.5,
+        "y": 912
+      }
+    },
+    {
+      "key": "left-0",
+      "x": 302,
+      "y": 918,
+      "width": 108,
+      "height": 300,
+      "anchor": {
+        "x": 356.5,
+        "y": 1218
+      }
+    },
+    {
+      "key": "left-1",
+      "x": 539,
+      "y": 921,
+      "width": 169,
+      "height": 295,
+      "anchor": {
+        "x": 619,
+        "y": 1216
+      }
+    },
+    {
+      "key": "left-2",
+      "x": 808,
+      "y": 921,
+      "width": 179,
+      "height": 293,
+      "anchor": {
+        "x": 893.5,
+        "y": 1214
+      }
+    }
+  ],
+  "directions": [
+    "down",
+    "right",
+    "up",
+    "left"
+  ],
+  "poses": {
+    "down-0": {
+      "direction": "down",
+      "frame": 0,
+      "componentId": 1,
+      "sourceBounds": {
+        "x": 277,
+        "y": 15,
+        "width": 164,
+        "height": 291
+      },
+      "sourceAnchor": {
+        "x": 359,
+        "y": 306
+      },
+      "file": "player-down-0.png",
+      "bounds": {
+        "x": 23,
+        "y": 16,
+        "width": 50,
+        "height": 88
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "down-1": {
+      "direction": "down",
+      "frame": 1,
+      "componentId": 2,
+      "sourceBounds": {
+        "x": 550,
+        "y": 16,
+        "width": 158,
+        "height": 293
+      },
+      "sourceAnchor": {
+        "x": 631,
+        "y": 309
+      },
+      "file": "player-down-1.png",
+      "bounds": {
+        "x": 24,
+        "y": 15,
+        "width": 48,
+        "height": 89
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "down-2": {
+      "direction": "down",
+      "frame": 2,
+      "componentId": 3,
+      "sourceBounds": {
+        "x": 816,
+        "y": 17,
+        "width": 158,
+        "height": 292
+      },
+      "sourceAnchor": {
+        "x": 898.5,
+        "y": 309
+      },
+      "file": "player-down-2.png",
+      "bounds": {
+        "x": 23,
+        "y": 16,
+        "width": 48,
+        "height": 88
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "right-0": {
+      "direction": "right",
+      "frame": 0,
+      "componentId": 7,
+      "sourceBounds": {
+        "x": 306,
+        "y": 322,
+        "width": 104,
+        "height": 297
+      },
+      "sourceAnchor": {
+        "x": 360,
+        "y": 619
+      },
+      "file": "player-right-0.png",
+      "bounds": {
+        "x": 32,
+        "y": 14,
+        "width": 31,
+        "height": 90
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "right-1": {
+      "direction": "right",
+      "frame": 1,
+      "componentId": 8,
+      "sourceBounds": {
+        "x": 551,
+        "y": 322,
+        "width": 156,
+        "height": 294
+      },
+      "sourceAnchor": {
+        "x": 633.5,
+        "y": 616
+      },
+      "file": "player-right-1.png",
+      "bounds": {
+        "x": 23,
+        "y": 15,
+        "width": 47,
+        "height": 89
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "right-2": {
+      "direction": "right",
+      "frame": 2,
+      "componentId": 9,
+      "sourceBounds": {
+        "x": 808,
+        "y": 322,
+        "width": 180,
+        "height": 294
+      },
+      "sourceAnchor": {
+        "x": 902,
+        "y": 616
+      },
+      "file": "player-right-2.png",
+      "bounds": {
+        "x": 20,
+        "y": 15,
+        "width": 54,
+        "height": 89
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "up-0": {
+      "direction": "up",
+      "frame": 0,
+      "componentId": 10,
+      "sourceBounds": {
+        "x": 272,
+        "y": 627,
+        "width": 164,
+        "height": 280
+      },
+      "sourceAnchor": {
+        "x": 353.5,
+        "y": 907
+      },
+      "file": "player-up-0.png",
+      "bounds": {
+        "x": 23,
+        "y": 19,
+        "width": 50,
+        "height": 85
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "up-1": {
+      "direction": "up",
+      "frame": 1,
+      "componentId": 11,
+      "sourceBounds": {
+        "x": 547,
+        "y": 629,
+        "width": 160,
+        "height": 283
+      },
+      "sourceAnchor": {
+        "x": 629.5,
+        "y": 912
+      },
+      "file": "player-up-1.png",
+      "bounds": {
+        "x": 23,
+        "y": 18,
+        "width": 48,
+        "height": 86
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "up-2": {
+      "direction": "up",
+      "frame": 2,
+      "componentId": 12,
+      "sourceBounds": {
+        "x": 815,
+        "y": 629,
+        "width": 164,
+        "height": 283
+      },
+      "sourceAnchor": {
+        "x": 897.5,
+        "y": 912
+      },
+      "file": "player-up-2.png",
+      "bounds": {
+        "x": 23,
+        "y": 18,
+        "width": 50,
+        "height": 86
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "left-0": {
+      "direction": "left",
+      "frame": 0,
+      "componentId": 15,
+      "sourceBounds": {
+        "x": 302,
+        "y": 918,
+        "width": 108,
+        "height": 300
+      },
+      "sourceAnchor": {
+        "x": 356.5,
+        "y": 1218
+      },
+      "file": "player-left-0.png",
+      "bounds": {
+        "x": 32,
+        "y": 13,
+        "width": 33,
+        "height": 91
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "left-1": {
+      "direction": "left",
+      "frame": 1,
+      "componentId": 16,
+      "sourceBounds": {
+        "x": 539,
+        "y": 921,
+        "width": 169,
+        "height": 295
+      },
+      "sourceAnchor": {
+        "x": 619,
+        "y": 1216
+      },
+      "file": "player-left-1.png",
+      "bounds": {
+        "x": 24,
+        "y": 15,
+        "width": 51,
+        "height": 89
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    },
+    "left-2": {
+      "direction": "left",
+      "frame": 2,
+      "componentId": 17,
+      "sourceBounds": {
+        "x": 808,
+        "y": 921,
+        "width": 179,
+        "height": 293
+      },
+      "sourceAnchor": {
+        "x": 893.5,
+        "y": 1214
+      },
+      "file": "player-left-2.png",
+      "bounds": {
+        "x": 22,
+        "y": 15,
+        "width": 54,
+        "height": 89
+      },
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "scale": 0.3024054982817869
+    }
+  }
+}

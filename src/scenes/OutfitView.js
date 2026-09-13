@@ -2,7 +2,7 @@ import { careerProfile } from '../game/CareerProfile.js';
 import { SHOP_CATALOG } from '../game/ChapterRules.js';
 
 const DIRECTIONS = ['down', 'right', 'up', 'left'];
-const VARIANTS = { street: ['street-blue', 'street-burgundy'], boxing: ['boxing-emerald', 'boxing-burgundy'] };
+const VARIANTS = { street: ['street-blue', 'street-burgundy', 'street-octopus'], boxing: ['boxing-emerald', 'boxing-burgundy'] };
 const defaults = { street: 'street-black', boxing: 'boxing-blue' };
 const outfitKey = (id, pose) => `outfit-${id}-${pose}`;
 

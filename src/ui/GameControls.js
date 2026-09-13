@@ -1,3 +1,4 @@
+import { prepareCommandWindows, installMenuScrollCues } from './MenuWindow.js';
 const DIRECTIONS = {
   ArrowUp: 'up', KeyW: 'up', KeyZ: 'up', ArrowDown: 'down', KeyS: 'down',
   ArrowLeft: 'left', KeyA: 'left', KeyQ: 'left', ArrowRight: 'right', KeyD: 'right',
@@ -9,10 +10,10 @@ export const careerMenuOpen = () => Boolean(document.querySelector('#career-menu
 /** One console convention for every place and activity. Inputs are sources,
  * never queued actions: changing a menu or losing focus releases all of them. */
 export class GameControls {
-  constructor({ root, mode = 'combat', canPlay, onAction = noop, onGuard = noop, onMove = noop,
+  constructor({ root, mode = 'combat', canPlay, canInteract = () => true, onAction = noop, onGuard = noop, onMove = noop,
     onInteract = noop, onPause = noop, onBack = noop, onMenu = noop, onMute = noop, onAudioGesture = noop,
     onReturnGym = null, getMenu }) {
-    Object.assign(this, { root, mode, canPlay, onAction, onGuard, onMove, onInteract,
+    Object.assign(this, { root, mode, canPlay, canInteract, onAction, onGuard, onMove, onInteract,
       onPause, onBack, onMenu, onMute, onAudioGesture, getMenu });
     this.abort = new AbortController();
     this.keys = new Map(); this.pointers = new Map(); this.menuHeld = new Set();
@@ -74,7 +75,7 @@ export class GameControls {
     this.on(window, 'focus', () => this.menuHeld.clear());
     this.on(window, 'career-menu-change', () => { this.clear(); this.menuHeld.clear(); });
     this.on(document, 'visibilitychange', () => { if (document.hidden) this.clear(); });
-    this.on(this.controlsQuery, 'change', () => this.clear());
+    this.on(this.controlsQuery, 'change', () => { this.clear(); this.adaptCommandLabels(); });
     this.on(this.portrait, 'change', () => this.clear());
     this.on(window, 'keydown', event => {
       if (careerMenuOpen() || event.code !== 'Tab' || !this.menu()) return;
@@ -83,7 +84,23 @@ export class GameControls {
         event.preventDefault(); this.focusControl(controls[event.shiftKey ? controls.length - 1 : 0]);
       }
     }, { capture: true });
+    this.adaptCommandLabels();
+    this.disposeScrollCues = installMenuScrollCues(this.root);
     this.refresh();
+  }
+
+  adaptCommandLabels() {
+    for (const field of this.root.querySelectorAll('.commands-grid dd:not([class])')) {
+      field.dataset.desktopLabel ??= field.textContent;
+      let label = field.dataset.desktopLabel;
+      if (this.controlsQuery.matches) {
+        label = label.replaceAll('WASD', 'Joypad').replaceAll('W / S maintenu', 'Joypad ↑ / ↓ maintenu')
+          .replaceAll('S + J / K', 'Joypad bas + A / B').replaceAll('A / D', 'Joypad ← / →')
+          .replace(/\bJ\b/g, 'A').replace(/\bK\b/g, 'B').replace(/^E$/, 'A')
+          .replaceAll('P ou Échap', '☰ / B').replaceAll('P / Échap', '☰ / B').replace(/\bM\b/g, 'Menu Son');
+      }
+      field.textContent = label;
+    }
   }
 
   on(target, type, callback, options = {}) { target.addEventListener(type, callback, { ...options, signal: this.abort.signal }); }
@@ -121,7 +138,7 @@ export class GameControls {
 
   menuControls() {
     return [...(this.menu()?.querySelectorAll('button:not(:disabled), select:not(:disabled), input:not(:disabled)') ?? [])]
-      .filter(element => element.getClientRects().length && !element.closest('[hidden]'));
+      .filter(element => element.getClientRects().length && !element.closest('[hidden], [inert]'));
   }
   focusControl(element) { element?.focus({ preventScroll: true }); element?.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
   navigateMenu(direction) {
@@ -157,20 +174,19 @@ export class GameControls {
     if (careerMenuOpen()) { this.clear(); return; }
     if (!INPUT_KEYS.has(event.code)) return;
     // Fields outside this game's menu retain their ordinary typing behavior.
-    if (event.target instanceof Element && event.target.closest('textarea, [contenteditable="true"]')) return;
+    if (event.target instanceof Element && event.target.closest('textarea, [contenteditable="true"], input:not([type="range"]):not([type="button"]):not([type="submit"])')) return;
     event.preventDefault(); event.stopImmediatePropagation();
     if (!this.allowed() || event.repeat || this.keys.has(event.code) || this.menuHeld.has(event.code)) return;
-    if (['Enter', 'Space'].includes(event.code) && event.target instanceof HTMLButtonElement
-      && !event.target.disabled && this.root.contains(event.target)) {
-      this.menuHeld.add(event.code); event.target.click(); return;
-    }
+    // E alone confirms. Suppress native Enter/Space button clicks as well so
+    // a focused old action cannot accidentally start another activity.
+    if (event.code === 'Enter' || event.code === 'Space') return;
     const direction = DIRECTIONS[event.code];
     if (this.menu()) {
       this.menuHeld.add(event.code);
       if (direction) this.navigateMenu(direction);
-      else if (event.code === 'Enter' || event.code === 'KeyJ') this.confirmMenu();
+      else if (event.code === 'KeyE') this.confirmMenu();
       else if (event.code === 'KeyP') { this.clear(); this.onMenu(); }
-      else if (['Escape', 'KeyK'].includes(event.code)) { this.clear(); this.onBack(); }
+      else if (event.code === 'Escape') { this.clear(); this.onBack(); }
       else if (event.code === 'KeyM') this.onMute();
       return;
     }
@@ -180,7 +196,7 @@ export class GameControls {
     if (direction) {
       this.keys.set(event.code, direction); this.refreshDirections();
       if (this.mode !== 'gym' && (direction === 'left' || direction === 'right')) this.onAction(direction === 'left' ? 'dodgeLeft' : 'dodgeRight');
-    } else if (this.mode === 'gym' && (event.code === 'KeyE' || event.code === 'Enter')) {
+    } else if (this.mode === 'gym' && event.code === 'KeyE') {
       this.menuHeld.add(event.code); this.clear(); this.onInteract();
     } else if (this.mode !== 'gym' && (event.code === 'KeyJ' || event.code === 'KeyK')) {
       this.keys.set(event.code, event.code); this.onAudioGesture(); this.onAction(event.code === 'KeyJ' ? 'jab' : 'cross');
@@ -250,7 +266,8 @@ export class GameControls {
   }
   refresh() {
     const menu = Boolean(this.menu()); this.root.dataset.controlMode = menu ? 'menu' : 'play';
-    this.a.disabled = this.b.disabled = false;
+    this.a.disabled = this.mode === 'gym' && !menu && (!this.canPlay() || !this.canInteract());
+    this.b.disabled = false;
     this.b.classList.toggle('is-inactive', this.mode === 'gym' && !menu);
     const labels = menu ? ['Valider', 'Retour'] : this.mode === 'gym' ? ['Interagir', 'Retour'] : [this.a.dataset.moveLabel ?? (this.a.classList.contains('is-combo-ready') ? 'Crochet' : 'Jab'), this.b.dataset.moveLabel ?? 'Direct'];
     for (const [button, letter, label] of [[this.a, 'A', labels[0]], [this.b, 'B', labels[1]]]) {
@@ -262,16 +279,18 @@ export class GameControls {
     }
     if (this.pause) { this.pause.disabled = false; this.pause.hidden = false; }
   }
-  destroy() { this.clear(); this.abort.abort(); this.menuHeld.clear(); }
+  destroy() { this.disposeScrollCues?.(); this.clear(); this.abort.abort(); this.menuHeld.clear(); }
 }
 
 /** Adapter shared by the existing scene overlays. Their panels, settings and
  * status displays stay owned by each activity; the physical controls do not. */
 export function installConsoleControls(ui, mode = 'combat') {
+  prepareCommandWindows(ui.root);
   return new GameControls({
     root: ui.root, mode,
     canPlay: () => mode === 'gym' ? ui.canMove() : ui.canPlay?.() ?? ui.phase === 'running',
     getMenu: () => ui.root.querySelector('.commands-panel:not([hidden]), .gym-import-confirm:not([hidden]), .gym-dialog:not([hidden]), .gym-pause-panel:not([hidden]), .round-panel:not([hidden]), .bag-panel:not([hidden]), .shadow-panel:not([hidden]), .rhythm-panel:not([hidden])'),
+    canInteract: () => Boolean(ui.nearby) && !ui.nearby.autoTravel,
     onMove: vector => ui.callbacks.onMove?.(vector),
     onAction: action => ui.callbacks.onAction?.(action),
     onGuard: (held, level) => ui.callbacks.onGuard?.(held, level),

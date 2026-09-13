@@ -37,7 +37,16 @@
     "test:delivery-resume": "node tests/chapter-delivery-resume-browser.mjs",
     "test:hotel-sessions": "node tests/hotel-sessions-browser.mjs",
     "test:hotel-stay": "node tests/hotel-stay-browser.mjs",
-    "test:chapter-menus": "node tests/chapter-menu-browser.mjs"
+    "test:chapter-menus": "node tests/chapter-menu-browser.mjs",
+    "test:snes-menus": "node tests/snes-menus-browser.mjs",
+    "test:snes-dialogs": "node tests/snes-dialogs-browser.mjs",
+    "test:world-flow": "node tests/world-flow-browser.mjs",
+    "test:gym-friends": "node tests/gym-friends-browser.mjs",
+    "test:refined-combat": "node tests/refined-combat-pads-browser.mjs",
+    "test:refined-competition": "node tests/refined-competition-browser.mjs",
+    "test:refined-gym-pads": "node tests/refined-gym-pads-browser.mjs",
+    "test:tournament-corner": "node tests/tournament-corner-browser.mjs",
+    "test:harmonization-static": "node tests/harmonization-static-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

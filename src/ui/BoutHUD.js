@@ -107,7 +107,7 @@ export class BoutHUD {
     if (state.phase === 'ready') {
       text(ui.elements['panel-eyebrow'], 'TROIS ROUNDS POUR APPRENDRE');
       text(ui.elements['panel-heading'], 'Résistance\net relevés.');
-      text(ui.elements['panel-copy'], 'Rémi vous aide à apprendre les chutes et le relevé. L’endurance sert aux gestes; la résistance encaisse les coups.');
+      text(ui.elements['panel-copy'], 'Fredo guide l’exercice avec Rémi, votre partenaire. L’endurance sert aux gestes; la résistance encaisse les coups.');
       text(ui.elements['primary-button'], 'Commencer la séance →');
     } else if (state.phase === 'paused') {
       text(ui.elements['panel-copy'], state.pausedPhase === 'knockdown' ? 'Le décompte est aussi en pause. Reprenez quand vous êtes prêt, avec de nouveaux appuis.' : 'Toute la séance est en pause. Reprenez à votre rythme.');

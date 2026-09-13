@@ -2,8 +2,9 @@ import { TOURNAMENT_ROUNDS, MEDAL_LABELS, moneyCap } from '../game/ChapterRules.
 
 const PLACES = {
   home: 'Chez toi', gym: 'Au gym', neighborhood: 'Le quartier', residential: 'Rue des livraisons',
+  'metro-station': 'Métro du quartier', 'metro-riverside': 'Métro des Rives', riverside: 'Des Rives',
   commercial: 'Quartier des boutiques', 'clothing-shop': 'Boutique de vêtements', 'boxing-shop': 'Boutique de boxe',
-  'hotel-room': 'Hôtel · Chambre', 'hotel-corridor': 'Hôtel · Couloir', 'hotel-lobby': 'Hôtel · Réception',
+  'hotel-room': 'Hôtel · Chambre', 'hotel-corridor': 'Hôtel · Couloir', 'hotel-lobby': 'Hôtel · Rez-de-chaussée',
   'hotel-gym': 'Hôtel · Mini-gym', 'hotel-pool': 'Hôtel · Piscine', 'hotel-venue': 'Gants de bronze · Salle',
 };
 export const careerPlace = profile => PLACES[profile.location?.scene] ?? 'Le quartier';

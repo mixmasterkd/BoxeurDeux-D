@@ -54,7 +54,7 @@ function simultaneousFixture(session) {
   session.update(remainingTell + TIMINGS.remi.jab.duration * TIMINGS.remi.jab.impact - TIMINGS.player.jab.duration * TIMINGS.player.jab.impact);
   session.state.bout.resistance.player = session.state.bout.resistance.remi = 12;
   session.act('jab');
-  return .198;
+  return TIMINGS.player.jab.duration * TIMINGS.player.jab.impact;
 }
 
 test('resistance is an opt-in three-round mode; free sparring and all guided lessons keep their original non-KO rules', () => {
@@ -123,7 +123,7 @@ test('both simultaneous contacts resolve before a double fall and each contact p
   assert.deepEqual(session.state.bout.count.downed, { player: true, remi: true });
   assert.deepEqual(session.drainEvents().map(event => event.type), ['player-hit', 'remi-hit', 'knockdown']);
   assert.equal(session.state.player.action, 'jab');
-  close(session.state.player.progress, .45);
+  close(session.state.player.progress, TIMINGS.player.jab.impact);
   close(session.state.remi.progress, .4);
   const frozen = structuredClone({ elapsed: session.state.elapsed, stamina: session.state.stamina, stats: session.state.stats });
   session.update(.09999);
@@ -288,9 +288,9 @@ test('three timed rounds produce per-round touch totals and no invented official
 
 test('an ordinary contact on the interval bell remains visible and cannot score again before the next round', () => {
   const session = create({ duration: 1 });
-  session.update(.802);
+  session.update(1 - TIMINGS.player.jab.duration * TIMINGS.player.jab.impact);
   session.act('jab');
-  session.update(.198);
+  session.update(TIMINGS.player.jab.duration * TIMINGS.player.jab.impact);
   assert.equal(session.state.phase, 'between');
   assert.equal(session.state.stats.landed, 1);
   assert.equal(session.state.player.action, 'jab');

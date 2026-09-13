@@ -21,22 +21,25 @@ try {
   page.on('console', message => {
     if (message.type() === 'error' || /mask.*not supported/i.test(message.text())) errors.push(message.text());
   });
-  await page.goto('http://127.0.0.1:5173/');
+  await page.goto('http://127.0.0.1:5173/?scene=gym');
   await page.waitForFunction(() => window.__gym?.world);
+  await page.evaluate(() => document.fonts.ready);
+  await page.waitForTimeout(750);
   assert.equal(await page.evaluate(() => window.__gym.scene.game.renderer.type), canvas ? 1 : 2);
   const move = async (axis, target) => {
     const value = await page.evaluate(axis => window.__gym.world.state[axis], axis);
     if (Math.abs(value - target) < 4) return;
     const sign = Math.sign(target - value);
-    const key = axis === 'x' ? sign > 0 ? 'ArrowRight' : 'ArrowLeft' : sign > 0 ? 'ArrowDown' : 'ArrowUp';
+    const key = axis === 'x' ? sign > 0 ? 'KeyD' : 'KeyA' : sign > 0 ? 'KeyS' : 'KeyW';
     await page.keyboard.down(key);
     try { await page.waitForFunction(({ axis, sign, target }) => (window.__gym.world.state[axis] - target) * sign >= 0, { axis, sign, target }, { timeout: 10000 }); }
+    catch (error) { console.error(axis, target, await page.evaluate(() => window.__gym.world.state)); throw error; }
     finally { await page.keyboard.up(key); }
   };
   for (const [name, points] of [
     ['sac', [['x', 310], ['y', 310], ['x', 265]]],
     ['miroir', [['x', 154], ['y', 245]]],
-    ['speedball', [['y', 310], ['x', 320], ['y', 520], ['x', 1065], ['y', 276]]],
+    ['speedball', [['y', 310], ['x', 300], ['y', 595], ['x', 1100], ['y', 276]]],
   ]) {
     for (const [axis, target] of points) await move(axis, target);
     const gameCanvas = page.locator('#game canvas');

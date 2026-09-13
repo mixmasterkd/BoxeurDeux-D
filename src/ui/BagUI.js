@@ -20,17 +20,17 @@ export class BagUI {
       <div class="bag-feedback" role="status"></div>
       <div class="bag-menu-shade"></div>
       <section class="bag-panel" role="dialog" aria-modal="true" aria-labelledby="bag-title">
-        <div><p class="commands-eyebrow">L’ATELIER DU SAC</p><h2 id="bag-title">Trouve ton rythme</h2><p class="bag-panel-copy">Observe les coups annoncés. Frappe quand leur repère s’allume, puis laisse revenir les bras. Les enchaînements deviennent progressivement plus longs.</p>
+        <div class="bag-panel-content"><p class="commands-eyebrow">L’ATELIER DU SAC</p><h2 id="bag-title">Trouve ton rythme</h2><p class="bag-panel-copy">Observe les coups annoncés. Frappe quand leur repère s’allume, puis laisse revenir les bras. Les enchaînements deviennent progressivement plus longs.</p>
         <p class="bag-benefit"></p><div class="bag-results" hidden><dl><div><dt>Contacts</dt><dd data-bag-stat="contacts">0</dd></div><div><dt>Enchaînements réussis</dt><dd data-bag-stat="combosCompleted">0</dd></div><div><dt>Précision</dt><dd class="bag-precision">0 %</dd></div></dl><p class="bag-reward"></p><small class="bag-save-status" role="status"></small><p class="bag-advice"></p></div></div>
         <div class="bag-panel-actions"><button class="bag-start-button primary-button">Commencer · 45 s →</button><button class="bag-restart-button choose-session-button" hidden>Recommencer la séance</button><button class="commands-open-button">Commandes</button><button class="bag-return-button choose-session-button">← Retour au gym</button></div>
       </section>
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="bag-commands-title" hidden><p class="commands-eyebrow">SÉANCE ARRÊTÉE</p><h2 id="bag-commands-title">Commandes du sac</h2>
         <div class="commands-grid"><dl>
           <div><dt>Jab / direct</dt><dd>J / K</dd></div>
-          <div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div>
-          <div><dt>Esquive gauche / droite</dt><dd>← / → ou A / D</dd></div>
-          <div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
-          <div><dt>Pause · son</dt><dd>P / Échap · M</dd></div>
+          <div><dt>Garde haute / basse</dt><dd>W / S maintenu</dd></div>
+          <div><dt>Esquive gauche / droite</dt><dd>A / D</dd></div>
+          <div><dt>Frappe au corps</dt><dd>S + J / K</dd></div>
+          <div><dt>Pause / retour</dt><dd>P / Échap</dd></div>
         </dl><div class="commands-notes"><p><strong>J → K → J : jab, direct, crochet.</strong> Le troisième J devient un crochet si les deux premiers coups de cet enchaînement sont réussis et si tu suis le rythme.</p><p>Une pression par frappe ou esquive. Au tactile : joypad à gauche — haut pour la garde haute, bas pour la garde basse, côtés pour les esquives. À droite : A pour le jab, B pour le direct; A → B → A donne le crochet. Bas + A / B frappe au corps.</p><p>Dans les menus, le joypad choisit, A valide et B revient.</p></div></div><button class="commands-back-button">← Retour au menu</button></section>
       <div class="bag-action-dock"><button class="control-button attack-control" data-action="jab"><span class="control-key">A</span><span class="control-label">Jab</span></button><button class="control-button attack-control" data-action="cross"><span class="control-key">B</span><span class="control-label">Direct</span></button></div>
       <button class="bag-pause-button" aria-label="Mettre la séance en pause">Ⅱ</button><button class="bag-audio-button audio-button" aria-label="Activer ou couper le son">♪ Son</button>`;

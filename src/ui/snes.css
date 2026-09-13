@@ -1,0 +1,196 @@
+/* One locally hosted, SIL-OFL pixel font. Nothing is fetched during play. */
+@font-face {
+  font-family: 'Boxeur Pixel'; src: url('../assets/fonts/PixelifySans.ttf') format('truetype');
+  font-style: normal; font-weight: 400 700; font-display: swap;
+}
+:root {
+  --menu-night: #12243c; --menu-deep: #0b1529; --menu-blue: #253f5d;
+  --menu-paper: #f7e9c6; --menu-silver: #899caa; --menu-gold: #f1c36d;
+  --menu-font: 'Boxeur Pixel', 'Trebuchet MS', sans-serif;
+}
+/* Double hard edges echo a 16-bit RPG window. No blur or floating cards. */
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel),
+#career-menu section, #scene-loading > div {
+  color: var(--menu-paper); background: var(--menu-night) !important;
+  border: 3px solid var(--menu-paper) !important; border-radius: 0 !important;
+  box-shadow: inset 0 0 0 2px var(--menu-silver), inset 0 0 0 4px var(--menu-deep), 0 0 0 2px var(--menu-deep), 4px 4px 0 #061021 !important;
+  font-family: var(--menu-font); font-weight: 400;
+  text-shadow: 1px 1px 0 #061021;
+}
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) {
+  left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important;
+  width: min(760px, calc(100% - 24px)) !important;
+  height: min(480px, calc(100% - 24px)) !important;
+  max-height: calc(100% - 24px) !important;
+  padding: clamp(10px, 2cqw, 24px) !important;
+  min-width: 0; min-height: 0; overflow: hidden !important;
+  gap: clamp(10px, 2cqw, 24px) !important;
+  overscroll-behavior: contain;
+}
+#stage :is(.gym-dialog, .snes-split, .bag-panel, .shadow-panel, .rhythm-panel) {
+  display: grid !important; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) !important; align-items: stretch !important;
+}
+#stage :is(.gym-dialog-copy, .gym-dialog-actions, .snes-reading, .snes-choices, .bag-panel-content, .bag-panel-actions, .shadow-panel-intro, .shadow-panel-actions, .rhythm-panel-content, .rhythm-actions),
+#career-menu :is(.snes-reading, .snes-choices) {
+  min-width: 0; min-height: 0; max-height: 100%; height: 100%;
+  overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: #adbea9 #0c1a2d;
+  padding: 3px 5px 3px 3px; align-self: stretch; scroll-padding: 5px;
+  touch-action: pan-y;
+}
+#stage :is(.gym-dialog-actions, .snes-choices, .bag-panel-actions, .shadow-panel-actions, .rhythm-actions),
+#career-menu .snes-choices {
+  display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 8px;
+}
+#stage :is(.gym-dialog-actions, .snes-choices, .bag-panel-actions, .shadow-panel-actions, .rhythm-actions) > *,
+#career-menu .snes-choices > * { flex-shrink: 0; }
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) :is(h2, .panel-heading),
+#career-menu h2 { font-family: var(--menu-font); font-size: clamp(21px, 3.1cqw, 34px) !important; font-weight: 700; line-height: 1.08; letter-spacing: 0; margin: 4px 0 12px; color: #fff2cf; overflow-wrap: anywhere; white-space: normal; }
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) :is(p, label, dt, small, .lesson-description, .round-detail, .commands-tip, .daily-activity-note),
+#career-menu :is(p, small, dt) { font-size: clamp(13px, 1.55cqw, 17px) !important; line-height: 1.32 !important; letter-spacing: 0; color: #d1dbc9; }
+#stage :is(.gym-eyebrow, .commands-eyebrow, .panel-eyebrow, .rhythm-panel .rhythm-eyebrow),
+#career-menu .snes-reading > p:first-child { color: var(--menu-gold) !important; font-family: var(--menu-font); font-size: clamp(11px, 1.35cqw, 15px) !important; letter-spacing: .6px !important; font-weight: 700; }
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) button,
+#career-menu section button {
+  position: relative; font-family: var(--menu-font); font-size: clamp(13px, 1.6cqw, 18px) !important;
+  font-weight: 400; line-height: 1.15 !important; letter-spacing: 0;
+  min-height: 39px; padding: 8px 12px !important; border-radius: 0 !important;
+  border: 2px solid #8396a0 !important; background: #1b344e !important;
+  box-shadow: inset 1px 1px 0 #b0b9a34d, inset -2px -2px 0 #081a2d;
+  color: var(--menu-paper) !important; text-shadow: 1px 1px 0 #061021;
+  margin: 0; text-align: left; text-decoration: none; overflow-wrap: anywhere;
+  touch-action: manipulation;
+}
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) button:is(.primary-button, .gym-resume-button, .gym-session-button[data-lesson="free"]),
+#career-menu .career-continue { background: #405144 !important; border-color: #e1c995 !important; }
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) button:is(:focus, :hover):not(:disabled),
+#career-menu section button:is(:focus, :hover):not(:disabled) {
+  outline: 0 !important; border-color: #fff0b2 !important; background: #5d4934 !important;
+  box-shadow: inset 3px 0 0 #ffd980, inset 0 0 0 1px #d6ab64, 0 0 0 1px #091523;
+  color: #fff3c8 !important;
+}
+#stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) button:disabled { opacity: .5; }
+#stage :is(.round-panel, .shadow-panel) :is(select, input), #career-menu input { font-family: var(--menu-font); accent-color: var(--menu-gold); }
+#stage :is(.round-panel, .shadow-panel) select { min-height: 36px; font-size: 15px !important; color: #f4e9cb; background: #142940; border: 2px solid #758d9a; border-radius: 0; }
+#stage :is(.round-panel, .shadow-panel) :is(select, input):focus { outline: 2px solid #f1c36d; outline-offset: 0; }
+#stage .snes-command-window { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; grid-template-rows: minmax(0, 1fr) auto !important; }
+#stage .snes-command-window > .commands-back-button { margin: 0; width: 100%; }
+#stage .commands-grid { gap: 18px; }
+#stage .commands-grid dd { margin: 3px 0 0; color: #f7d487; font: 700 17px/1.15 var(--menu-font); }
+#stage .gym-career { margin: 12px 0; gap: 7px; }
+#stage .gym-career span { flex-wrap: wrap; font: 13px/1.25 var(--menu-font); padding: 6px; gap: 4px; background: #091929; }
+#stage .gym-career b { font-weight: 400; }
+#stage .gym-save-tools { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+#stage .gym-resume-button { margin-top: 0; }
+/* Combat has a dedicated action footer. Reading and settings never push it off-screen. */
+#stage #sparring-ui:not([data-phase="between"]) .round-panel:not([hidden]) {
+  display: grid !important; grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+}
+#stage #sparring-ui:not([data-phase="between"]) .panel-scroll {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px;
+  grid-column: 1; grid-row: 1; height: 100%; min-height: 0; min-width: 0;
+  overflow: auto; overscroll-behavior: contain; padding: 3px 5px 3px 3px; scrollbar-width: thin;
+}
+#stage .panel-intro, #stage .panel-options { grid-column: auto !important; grid-row: auto !important; min-width: 0; }
+#stage #sparring-ui .panel-actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 7px !important; grid-column: 1 / -1 !important; grid-row: 2 !important; min-width: 0; background: var(--menu-night) !important; padding: 0 !important; position: static !important; }
+#stage #sparring-ui .panel-actions > * { min-width: 0; grid-column: auto !important; }
+#stage .panel-actions :is(.return-gym-button, .primary-button) { margin: 0; }
+#stage .round-footnote { display: none; }
+#stage .panel-copy { display: block; }
+#stage .round-settings { margin-top: 12px; display: grid; grid-template-columns: 1fr; }
+#stage .lesson-choice { margin: 12px 0; }
+#stage .lesson-description { margin-bottom: 12px; }
+#stage .panel-options .audio-button { position: static !important; width: 100%; height: auto; }
+#stage #sparring-ui[data-official="true"] .panel-scroll { grid-template-columns: minmax(0, 1fr); }
+#stage #sparring-ui[data-official="true"] .panel-options { display: none; }
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .round-panel:not([hidden]) {
+  display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+}
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-scroll { display: block; height: 100%; min-height: 0; overflow: auto; grid-row: 1; grid-column: 1; }
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-intro { height: auto; overflow: visible; }
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .corner-vignette { position: static; grid-column: 2; grid-row: 1; height: 100%; margin: 0; align-self: center; display: flex; flex-direction: column; justify-content: center; }
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .corner-vignette img { height: 100%; min-height: 0; max-height: 100%; object-fit: contain; }
+#stage .corner-vignette figcaption { font: 14px/1.2 var(--menu-font); }
+/* The save screen is anchored to the physical camera by CareerMenu, outside
+   its inert subtree. Mobile still has no scrolling page behind the window. */
+#career-menu { inset: auto; position: fixed; display: grid; place-items: center; padding: 12px; background: #081527ed; overflow: hidden; container-type: inline-size; }
+#career-menu section { width: min(760px, 100%); height: min(480px, 100%); max-height: 100%; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 20px; overflow: hidden; padding: 20px; }
+#career-menu .career-tools { display: flex; flex-direction: column; gap: 8px; margin-top: 0; }
+#career-menu dl { grid-template-columns: 1fr 1fr; gap: 6px; margin: 10px 0; }
+#career-menu dl div { display: block; padding: 6px; background: #091929; }
+#career-menu dd { font: 16px/1.2 var(--menu-font); margin: 3px 0 0; color: #f5d38d; }
+#career-menu .career-confirm > div { flex-direction: column; }
+#career-menu section.is-confirming .career-tools, #career-menu section.is-confirming .career-continue { display: none; }
+#career-menu .career-confirm { margin-top: 0; }
+#career-menu .career-confirm p { margin-top: 0; }
+#scene-loading { background: #0c1c30f5; }
+#scene-loading > div { padding: 20px; }
+#scene-loading :is(.loading-title, .loading-eyebrow, .loading-detail) { font-family: var(--menu-font); }
+#scene-loading .loading-title { color: #fff0c8; font-size: clamp(18px, 2.6cqw, 28px); }
+#scene-loading .loading-detail { font-size: clamp(13px, 1.6cqw, 17px); }
+#scene-loading progress { height: 8px; border: 2px solid #8195a2; }
+/* Keep action geometry identical at every size. The short camera receives
+   two independently scrollable columns, with readable type instead of shrink. */
+@container (max-width: 640px) {
+  #stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) {
+    width: calc(100% - 16px) !important; height: calc(100% - 16px) !important; max-height: calc(100% - 16px) !important;
+    padding: 9px !important; gap: 9px !important;
+  }
+  #stage :is(.gym-dialog, .snes-split, .bag-panel, .shadow-panel, .rhythm-panel) { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
+  #stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) button { min-height: 34px !important; padding: 6px 8px !important; font-size: 14px !important; }
+  #stage .gym-eyebrow, #stage .commands-eyebrow { display: block; }
+  #stage .commands-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  #stage .commands-grid dd { font-size: 14px; }
+  #stage .gym-career { grid-template-columns: 1fr; }
+  #stage #sparring-ui:not([data-phase="between"]) .panel-scroll { display: block; }
+  #stage .round-settings { grid-template-columns: 1fr 1fr; gap: 8px; }
+  #stage .round-results { margin: 9px 0; }
+  #stage .corner-vignette figcaption { display: none; }
+  #stage .shadow-speed-setting { margin: 0; }
+  #career-menu { padding: 8px; }
+  #career-menu section { padding: 9px; gap: 9px; }
+  #career-menu h2 { font-size: 21px !important; }
+  #career-menu section button { min-height: 34px; font-size: 14px !important; padding: 6px 8px !important; }
+  #career-menu dl { grid-template-columns: 1fr; }
+}
+@container (max-width: 380px) {
+  #stage .commands-grid { grid-template-columns: 1fr; }
+  #stage :is(.gym-dialog, .snes-split, .bag-panel, .shadow-panel, .rhythm-panel) { grid-template-columns: minmax(0, .9fr) minmax(0, 1fr) !important; }
+  #stage :is(.gym-dialog, .gym-pause-panel, .gym-import-confirm, .commands-panel, .round-panel, .bag-panel, .shadow-panel, .rhythm-panel) :is(h2, .panel-heading) { font-size: 19px !important; }
+  #stage #sparring-ui .panel-actions button { font-size: 13px !important; min-height: 30px !important; padding: 4px 6px !important; }
+}
+/* Extra character dialogue never covers the hands or feet during drills. */
+.shadow-mentor-progress { position: absolute; left: 50%; top: 9%; transform: translateX(-50%); max-width: 80%; padding: 3px 8px; color: #f3d18c; background: #102438ed; font: clamp(8px, 1.6cqw, 16px)/1.2 var(--menu-font); text-align: center; pointer-events: none; }
+#shadow-ui:not([data-phase="running"]) .shadow-mentor-progress { display: none; }
+#rhythm-ui[data-activity="pads"] .rhythm-conductor { display: none; }
+/* Structural display rules above must never expose another scene or modal. */
+html #stage [hidden], html #career-menu[hidden], html #career-menu [hidden] { display: none !important; }
+#stage #sparring-ui .panel-actions > .daily-activity-note { grid-column: 1 / -1 !important; }
+#stage :is(.round-panel, .bag-panel, .shadow-panel, .rhythm-panel) .daily-activity-note { font-size: clamp(11px, 1.35cqw, 15px) !important; line-height: 1.2 !important; margin: 0 0 5px; color: #edd398; }
+#stage :is(.bag-panel-actions, .shadow-panel-actions) > :is(.audio-button, .bag-audio-button, .shadow-audio-button) { position: static !important; height: auto; width: 100%; display: block; margin-top: 0; }
+#stage .panel-options .audio-button { display: flex; flex-direction: row; gap: 8px; }
+#stage .panel-options .audio-label { font: inherit; }
+.commands-touch-only { display: none; }
+html[data-touch="true"] .commands-touch-only { display: inline; }
+html[data-touch="true"] .commands-desktop-only { display: none; }
+#stage .commands-menu-tip { padding: 5px 0 9px; border-bottom: 1px solid #728497; color: #f2d291 !important; }
+.gym-dialog-portrait { display: block; width: auto; max-width: 100%; max-height: 150px; object-fit: contain; margin: 0 auto 12px; image-rendering: pixelated; }
+@container (max-width: 640px) { .gym-dialog-portrait { max-height: 90px; margin-bottom: 8px; } }
+#career-menu { overflow: visible; }
+#career-menu .career-input-rail { font-family: 'Trebuchet MS', sans-serif; }
+html[data-career-open="true"] #stage .input-rail { visibility: hidden !important; }
+html[data-career-open="true"] #stage .input-rail * { visibility: hidden !important; }
+@media (pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait) { #career-menu { visibility: hidden; } }
+#stage .snes-scrollable::after, #career-menu .snes-scrollable::after { content: '↕'; position: absolute; right: 5px; bottom: 3px; font: 700 15px/1 var(--menu-font); color: #f2cd80; background: #12243c; pointer-events: none; }
+#career-menu section { position: relative; }
+#stage #sparring-ui[data-bout="true"][data-phase="between"] .panel-options { display: none; }
+#scene-loading > div { width: min(420px, calc(100% - 24px)); max-height: calc(100% - 16px); display: grid; gap: 8px; padding: clamp(8px, 2cqw, 20px); overflow: hidden; }
+#scene-loading :is(.loading-title, progress) { margin: 0; }
+#scene-loading .loading-eyebrow { font-size: 12px; line-height: 1; }
+#scene-loading .loading-title { line-height: 1.15; }
+#scene-loading .loading-detail { line-height: 1.2; }
+#stage .chapter-readout { font-family: var(--menu-font); font-size: clamp(10px, 1.45cqw, 16px); line-height: 1.2; color: #f7e4b7; border: 1px solid #a2adb0; box-shadow: 1px 1px 0 #061021; background: #12243cf0; }
+#gym-ui:not([data-mode="walking"]) .chapter-readout { visibility: hidden; }

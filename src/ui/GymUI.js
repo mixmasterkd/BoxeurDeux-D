@@ -1,3 +1,4 @@
+import { splitMenu } from './MenuWindow.js';
 import { installConsoleControls, careerMenuOpen } from './GameControls.js';
 import { careerMoney, careerMedals, careerChapter, careerImportSummary } from './CareerSummary.js';
 import './gym.css';
@@ -51,10 +52,10 @@ export class GymUI {
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="gym-commands-title" hidden>
         <p class="commands-eyebrow">VISITE EN PAUSE</p><h2 id="gym-commands-title">Commandes du gym</h2>
         <div class="commands-grid"><dl>
-          <div><dt>Marcher</dt><dd>Flèches · WASD · ZQSD</dd></div>
-          <div><dt>Interagir</dt><dd>E ou Entrée</dd></div>
+          <div><dt>Marcher</dt><dd>WASD</dd></div>
+          <div><dt>Interagir</dt><dd>E</dd></div>
           <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
-        </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p>Échap ferme aussi une conversation.</p><p class="commands-touch-tip">Au tactile : joypad à gauche, A pour interagir, ☰ pour le menu. Dans les menus, le joypad choisit, A valide et B revient.</p></div></div>
+        </dl><div class="commands-notes"><p>Approchez-vous de Rémi ou d’un atelier, puis interagissez.</p><p class="commands-desktop-only">WASD choisit dans les menus; E confirme. P ou Échap revient en arrière.</p><p class="commands-touch-tip">Au tactile : joypad à gauche, A pour interagir, ☰ pour le menu. Dans les menus, le joypad choisit, A valide et B revient.</p></div></div>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>
       </section>
       <section class="gym-import-confirm" role="dialog" aria-modal="true" aria-labelledby="gym-import-title" hidden>
@@ -81,6 +82,14 @@ export class GymUI {
     // The main action stays above career details on a short landscape phone.
     // Extra progression is still available by scrolling the pause panel.
     this.root.querySelector('.gym-career').before(this.elements['gym-resume-button']);
+    splitMenu(this.elements['gym-pause-panel'], {
+      reading: ['.gym-eyebrow', 'h2', ':scope > p:not(.gym-eyebrow)', '.gym-career', '.gym-save-status'],
+      actions: ['.gym-resume-button', '.commands-open-button', '.gym-save-tools'],
+    });
+    splitMenu(this.elements['gym-import-confirm'], {
+      reading: ['.commands-eyebrow', 'h2', '.commands-notes'],
+      actions: ['.gym-import-cancel', '.gym-import-replace'],
+    });
     this.bindEvents();
     this.controls = installConsoleControls(this, 'gym');
     this.stage.inert = this.portraitQuery.matches || careerMenuOpen();
@@ -193,7 +202,7 @@ export class GymUI {
   }
 
   interact() {
-    if (!this.canMove() || !this.nearby) return;
+    if (!this.canMove() || !this.nearby || this.nearby.autoTravel) return;
     this.clearInputs();
     this.callbacks.onInteract();
   }
@@ -249,10 +258,10 @@ export class GymUI {
     this.renderMode();
     this.setText(this.elements['gym-nearby-label'], this.nearby?.label ?? this.options.welcome);
     this.setText(this.elements['gym-nearby-hint'], this.nearby
-      ? document.documentElement.dataset.touch === 'true' ? 'Appuyez sur A pour interagir.' : 'Approchez-vous et interagissez.'
+      ? this.nearby.autoTravel ? 'Avancez pour passer.' : document.documentElement.dataset.touch === 'true' ? 'Appuyez sur A pour interagir.' : 'E pour interagir.'
       : this.options.hint);
     this.elements['gym-nearby'].classList.toggle('is-available', Boolean(this.nearby));
-    this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby;
+    this.elements['gym-interact-button'].disabled = !this.canMove() || !this.nearby || Boolean(this.nearby.autoTravel);
     this.controls?.refresh();
     if (this.paused && !wasPaused && !this.portraitQuery.matches) {
       this.elements['gym-resume-button'].focus({ preventScroll: true });
@@ -284,10 +293,15 @@ export class GymUI {
     if (!this.portraitQuery.matches) this.elements[open ? 'commands-back-button' : 'commands-open-button'].focus({ preventScroll: true });
   }
 
-  showDialog({ speaker = '', title = '', text = '', actions = [] } = {}) {
+  showDialog({ speaker = '', title = '', text = '', actions = [], image = null, imageAlt = '' } = {}) {
     if (this.destroyed) return;
     this.clearInputs();
     this.dialog = { speaker, title, text, actions };
+    let picture = this.root.querySelector('.gym-dialog-portrait');
+    if (image) {
+      if (!picture) { picture = document.createElement('img'); picture.className = 'gym-dialog-portrait'; this.elements['gym-dialog-speaker'].before(picture); }
+      picture.src = `${import.meta.env.BASE_URL}${image}`; picture.alt = imageAlt; picture.hidden = false;
+    } else if (picture) picture.hidden = true;
     this.setText(this.elements['gym-dialog-speaker'], speaker);
     this.setText(this.root.querySelector('#gym-dialog-title'), title);
     this.setText(this.root.querySelector('#gym-dialog-text'), text);

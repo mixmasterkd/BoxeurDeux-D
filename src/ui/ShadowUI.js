@@ -51,12 +51,12 @@ export class ShadowUI {
         <p class="commands-eyebrow">PRATIQUE LIBRE</p><h2 id="shadow-commands-title">Commandes du miroir</h2>
         <div class="commands-grid"><dl>
           <div><dt>Jab gauche</dt><dd>J</dd></div><div><dt>Direct droit</dt><dd>K</dd></div>
-          <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div><div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
+          <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div><div><dt>Garde haute / basse</dt><dd>W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>S + J / K</dd></div>
         </dl><dl>
-          <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
-          <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div><div><dt>Son / muet</dt><dd>M</dd></div>
+          <div><dt>Esquive gauche / droite</dt><dd>A / D</dd></div>
+          <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div><div><dt>Son / muet</dt><dd>Menu pause</dd></div>
         </dl></div>
-        <p class="commands-tip">Une pression par frappe ou esquive. Pour le crochet : jab, retour en garde, direct, retour en garde, puis jab à nouveau. Enchaînez rapidement après chaque retour en garde. La garde haute, une esquive ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps.</p>
+        <p class="commands-tip">Une pression par frappe ou esquive. Enchaînez J → K → J : le prochain coup peut être préparé juste avant le retour en garde. La garde haute, une esquive ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps.</p>
         <p class="commands-tip">Le ralenti se choisit dans le menu. Terminez la séance depuis le menu pause pour voir les mouvements pratiqués.</p>
         <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. A → B → A donne le crochet. Dans les menus, A valide et B revient.</p>
         <button type="button" class="commands-back-button">← Retour au menu</button>
@@ -163,6 +163,24 @@ export class ShadowUI {
     button.setAttribute('aria-label', !available ? 'Son indisponible' : muted ? 'Activer le son' : 'Couper le son');
   }
 
+  setMentor(data) {
+    this.mentor = data ? { ...this.mentor, ...data } : null;
+    let progress = this.root.querySelector('.shadow-mentor-progress');
+    if (!progress) {
+      progress = document.createElement('div'); progress.className = 'shadow-mentor-progress';
+      progress.setAttribute('role', 'status'); this.root.append(progress);
+    }
+    progress.hidden = !this.mentor;
+    if (!this.mentor) return;
+    const { name = 'The Octopus', title = 'Drills au gym', description = '', objective = '', progress: count = '', completed = false } = this.mentor;
+    this.root.querySelector('.shadow-hud > span').textContent = `${name.toUpperCase()} · DRILLS`;
+    this.text('#shadow-title', this.phase === 'paused' ? `${name} t’attend` : this.phase === 'finished' ? completed ? 'Drill réussi !' : 'Les gestes travaillés' : title);
+    this.text('.shadow-panel-copy', description);
+    this.root.querySelector('.shadow-panel-copy').hidden = this.phase === 'finished';
+    progress.textContent = `${completed ? '✓ ' : ''}${objective}${count !== '' ? ` · ${count}` : ''}`;
+    this.text('.shadow-session-note', completed ? `${name} : beau travail. Retrouve ce geste dans le ring.` : description);
+  }
+
   update(state) {
     const changed = !this.initialized || this.phase !== state.phase;
     this.initialized = true;
@@ -206,6 +224,7 @@ export class ShadowUI {
       this.text('[data-shadow-stat="guard"]', `${Math.floor(stats.guardSeconds)} s`);
       this.text('.shadow-punch-detail', `${stats.jab} jab${stats.jab > 1 ? 's' : ''} · ${stats.cross} direct${stats.cross > 1 ? 's' : ''} · ${stats.hook} crochet${stats.hook > 1 ? 's' : ''}`);
     }
+    if (this.mentor) this.setMentor(this.mentor);
   }
 
   destroy() {

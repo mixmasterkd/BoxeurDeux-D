@@ -1,0 +1,49 @@
+{
+  "width": 96,
+  "height": 112,
+  "anchor": {
+    "x": 48,
+    "y": 104
+  },
+  "source": "references/characters/gym-explorers/source.png",
+  "scale": 0.152428810720268,
+  "transparentFraction": 0.6581627366661263,
+  "poses": {
+    "fredo-idle": {
+      "sourceBounds": {
+        "x": 168,
+        "y": 71,
+        "w": 344,
+        "h": 545
+      },
+      "artHeight": 83.07370184254607
+    },
+    "fredo-ready": {
+      "sourceBounds": {
+        "x": 639,
+        "y": 71,
+        "w": 360,
+        "h": 546
+      },
+      "artHeight": 83.22613065326634
+    },
+    "octopus-idle": {
+      "sourceBounds": {
+        "x": 169,
+        "y": 697,
+        "w": 334,
+        "h": 595
+      },
+      "artHeight": 90.69514237855947
+    },
+    "octopus-ready": {
+      "sourceBounds": {
+        "x": 646,
+        "y": 697,
+        "w": 345,
+        "h": 597
+      },
+      "artHeight": 91
+    }
+  }
+}

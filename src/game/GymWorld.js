@@ -1,3 +1,5 @@
+import { doorway, markDoors } from './DoorTravel.js';
+import { GYM_FRIEND_STATIONS, GYM_FRIEND_OBSTACLES } from './GymFriendsRules.js';
 // World coordinates are the centre of the boxer's footprint, at his feet.
 // Keep the layout separate from movement so the art and its colliders can be
 // aligned without changing the controller. The camera remains 1280 × 720.
@@ -5,19 +7,22 @@ export const GYM_LAYOUT = {
   width: 1280,
   height: 720,
   speed: 200,
-  footprint: { halfWidth: 14, halfHeight: 7 },
+  actorScale: 1.25,
+  footprint: { halfWidth: 17.5, halfHeight: 8.75 },
   spawn: { x: 640, y: 585, facing: 'up' },
   bounds: { left: 64, right: 1216, top: 213, bottom: 666 },
   obstacles: [
+    ...GYM_FRIEND_OBSTACLES,
     { id: 'ring', x: 425, y: 211, width: 450, height: 228 },
     { id: 'marches', x: 790, y: 437, width: 70, height: 33 },
-    { id: 'remi', x: 899, y: 458, width: 32, height: 20 },
+    { id: 'remi', x: 895, y: 454, width: 40, height: 25 },
     { id: 'sac', x: 197, y: 237, width: 60, height: 29 },
     { id: 'banc-gauche', x: 64, y: 320, width: 70, height: 111 },
     { id: 'banc-droit', x: 1162, y: 399, width: 55, height: 180 },
     { id: 'casiers', x: 1172, y: 213, width: 44, height: 115 },
   ],
   stations: [
+    ...GYM_FRIEND_STATIONS,
     { id: 'remi', label: 'Rémi le Tank', x: 915, y: 470, radius: 85, kind: 'sparring' },
     { id: 'sac', label: 'Sac de frappe', x: 226, y: 275, radius: 65, kind: 'bag' },
     { id: 'miroir', label: 'Miroir', x: 125, y: 217, radius: 65, kind: 'shadow' },
@@ -27,6 +32,9 @@ export const GYM_LAYOUT = {
     { id: 'locker', label: 'Ton casier · Équipement', x: 1150, y: 306, radius: 64, kind: 'equipment' },
   ],
 };
+
+GYM_LAYOUT.doors = [doorway('porte',588,641,104,38,'down')];
+markDoors(GYM_LAYOUT);
 
 const EPSILON = 1e-7;
 const clamp = (value, minimum, maximum) => Math.min(maximum, Math.max(minimum, value));
@@ -61,7 +69,7 @@ function blocksView(rect, from, to) {
 
 export class GymWorld {
   constructor({ layout = GYM_LAYOUT } = {}) {
-    this.layout = layout;
+    this.layout = structuredClone(layout);
     this.input = { x: 0, y: 0 };
     const spawn = layout.spawn || GYM_LAYOUT.spawn;
     this.state = {

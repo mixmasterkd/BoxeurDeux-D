@@ -48,7 +48,7 @@ test('J K J lands a left hook at contact, charges 48 stamina and counts a full c
   assert.equal(session.state.player.action, 'hook');
   assert.deepEqual(session.state.combo, { step: 0, ready: false, remaining: 0 });
   assert.equal(session.state.stamina, 52);
-  session.update(.31999);
+  session.update(TIMINGS.player.hook.duration * TIMINGS.player.hook.impact - .00001);
   assert.equal(session.state.stats.landed, 2);
   session.update(.00001);
   assert.equal(session.state.stats.landed, 3);
@@ -57,8 +57,8 @@ test('J K J lands a left hook at contact, charges 48 stamina and counts a full c
   const events = attackEvents(session);
   assert.deepEqual(events.map(event => event.attack), ['jab', 'cross', 'hook']);
   assert.equal(events[2].combo, true);
-  close(events[2].time, 1.36);
-  session.update(.36);
+  close(events[2].time, 1.03);
+  session.update(.31);
   assert.equal(session.state.stats.thrown, 3);
   assert.equal(session.state.stats.combos, 1);
   session.update(.34);
@@ -112,7 +112,7 @@ test('the follow-up window begins after recovery, includes its boundary and then
 test('early button spam is ignored without queuing, breaking or advancing the sequence', () => {
   const session = create();
   assert.equal(session.act('jab'), true);
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < 8; i += 1) {
     assert.equal(session.act(i % 2 ? 'jab' : 'cross'), false);
     session.update(.02);
   }
@@ -138,7 +138,7 @@ test('an accepted second jab restarts the chain instead of completing the wrong 
 
 test('a scheduled guard can block the hook without changing its animation or refunding its cost', () => {
   const session = create();
-  advance(session, .55);
+  advance(session, .9);
   prepareHook(session);
   assert.equal(session.state.stats.landed, 2);
   assert.equal(session.act('jab'), true);
@@ -236,7 +236,7 @@ test('receiving a punch breaks the chain while the committed hook still makes co
   const session = create();
   until(session, state => state.remi.action === 'guard');
   // The jab lands just after the guard opens; Rémi then attacks during our hook.
-  advance(session, session.state.remi.duration * (1 - session.state.remi.progress) - .19);
+  advance(session, session.state.remi.duration * (1 - session.state.remi.progress) + .05);
   prepareHook(session);
   assert.equal(session.state.stats.landed, 2);
   assert.equal(session.act('jab'), true);
@@ -286,14 +286,14 @@ test('round completion and restart discard a prepared chain and reset its statis
 });
 
 test('a hook scored in the final frame stays visibly at contact while the clock and report freeze', () => {
-  const session = create({ duration: 1.37 });
+  const session = create({ duration: 1.04 });
   prepareHook(session);
   assert.equal(session.act('jab'), true);
-  session.update(.30);
+  session.update(.25);
   session.drainEvents();
-  session.update(.05); // This frame crosses both contact at 1.36 and the bell at 1.37.
+  session.update(.05); // This frame crosses both contact at 1.03 and the bell at 1.04.
   assert.equal(session.state.phase, 'finished');
-  assert.equal(session.state.elapsed, 1.37);
+  assert.equal(session.state.elapsed, 1.04);
   assert.equal(session.state.remaining, 0);
   assert.equal(session.state.player.action, 'hook');
   assert.equal(fighterMotion(session.state.player, session.state.elapsed, 'player').phase, 'contact');
@@ -301,7 +301,7 @@ test('a hook scored in the final frame stays visibly at contact while the clock 
   assert.equal(session.state.stats.combos, 1);
   const events = session.drainEvents();
   assert.deepEqual(events.map(event => event.type), ['player-hit', 'round-end']);
-  close(events[0].time, 1.36);
+  close(events[0].time, 1.03);
   assert.equal(events[1].stats.combos, 1);
   const frozen = structuredClone(session.state);
   assert.equal(session.act('jab'), false);

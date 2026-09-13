@@ -1,10 +1,12 @@
+import { ReactivePadsSession } from './ReactivePadsSession.js';
 const EPS = 1e-8;
 const SEQUENCE = ['jab', 'cross', 'guardHead', 'jab', 'cross', 'dodgeLeft', 'jab', 'guardBody', 'cross', 'dodgeRight'];
 export const HOTEL_CUES = Object.freeze({ jab: 'Jab gauche', cross: 'Direct droit', guardHead: 'Garde haute', guardBody: 'Garde basse', dodgeLeft: 'Esquive gauche', dodgeRight: 'Esquive droite' });
-/** The coach announces each cue before the acceptance window. A new input
- * starts an animation, and its contact (not its button press) scores the cue. */
+/** Pads use the free reactive target model. The existing timed swimming
+ * model below keeps its alternating strokes and counts at hand contact. */
 export class HotelActivitySession {
-  constructor({ activity = 'pads', duration = 45 } = {}) {
+  constructor({ activity = 'pads', duration = 45, random = Math.random } = {}) {
+    if (activity !== 'pool') return new ReactivePadsSession({ duration, random });
     this.activity = activity === 'pool' ? 'pool' : 'pads';
     this.duration = Math.max(5, Math.min(180, Number(duration) || 45));
     this.rules = { interval: this.activity === 'pool' ? .82 : 1.5, preparation: 2,

@@ -8,22 +8,33 @@ import { careerProfile } from '../game/CareerProfile.js';
 import { DailyActivityGate } from '../game/DailyActivityGate.js';
 import { DailyActivityNotice } from '../ui/DailyActivityNotice.js';
 import { rememberActivityReturn } from './activityLifecycle.js';
+import { OctopusDrill } from '../game/GymFriendsRules.js';
 
 export class ShadowScene extends Phaser.Scene {
   constructor() { super('ShadowScene'); }
-  preload() { ShadowFighterView.preload(this); }
+  init(data = {}) { this.mentor = data.mentor === 'octopus'; this.drillId = data.drill ?? 'basics'; }
+  preload() {
+    ShadowFighterView.preload(this);
+    if (this.mentor) for (const pose of ['idle', 'ready', 'jab']) this.load.image(`octopus-drill-${pose}`, `${import.meta.env.BASE_URL}assets/sprites/octopus/${pose}.png`);
+  }
 
   create() {
     setSceneShell('shadow');
     rememberActivityReturn(this);
     this.session = new ShadowSession();
-    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: 'shadow' });
+    this.drill = this.mentor ? new OctopusDrill(this.drillId) : null;
+    this.dailyGate = new DailyActivityGate({ profile: careerProfile, getState: () => this.session.state, activity: this.mentor ? 'lesson' : 'shadow' });
     this.progressRecorded = false;
-    this.fighter = new ShadowFighterView(this);
+    this.fighter = new ShadowFighterView(this, { mentor: this.mentor });
+    if (this.mentor) {
+      this.add.ellipse(178, 644, 137, 19, 0x102129, .25);
+      this.mentorSprite = this.add.image(178, 644, 'octopus-drill-ready').setOrigin(.5, 624 / 640).setScale(.65);
+      document.querySelector('.prototype-label').textContent = 'DRILLS AVEC THE OCTOPUS';
+    }
     this.audio = new SparringAudio();
     const start = () => this.dailyGate.start(() => {
       this.audio.setActive(false);
-      this.progressRecorded = false; this.session.reset(); this.session.start(); this.audio.setActive(true);
+      this.progressRecorded = false; this.drill?.reset(); this.session.reset(); this.session.start(); this.audio.setActive(true);
     });
     this.ui = new ShadowUI({
       getState: () => this.session.state,
@@ -49,6 +60,7 @@ export class ShadowScene extends Phaser.Scene {
     this.ui.setAudioState(this.audio.getState());
     this.fighter.render(this.session.state.player, 0);
     this.ui.update(this.session.state);
+    if (this.drill) this.ui.setMentor?.(this.drill.presentation());
     this.resizeObserver = new ResizeObserver(() => {
       // Phaser refresh computes display size before its final bounds read.
       // Read the resized parent first, including a change of primary pointer.
@@ -77,7 +89,17 @@ export class ShadowScene extends Phaser.Scene {
     this.session.update(realSeconds, Math.min(realSeconds, .05));
     const state = this.session.state;
     this.fighter.render(state.player, state.elapsed);
-    for (const event of this.session.drainEvents()) {
+    const events = this.session.drainEvents();
+    this.drill?.observe(state, events);
+    if (this.drill) {
+      this.ui.setMentor?.(this.drill.presentation());
+      const demonstrate = state.phase === 'running' && !this.drill.completed && ['jab', 'combo'].includes(this.drill.expected) && state.seconds % 2.6 < .65;
+      this.mentorSprite.setTexture(`octopus-drill-${state.phase !== 'running' || this.drill.completed ? 'idle' : demonstrate ? 'jab' : 'ready'}`);
+      if (this.drill.completed && state.phase === 'running' && state.seconds - this.drill.completedAt >= 1.1) {
+        this.session.finish(); this.recordProgress(); this.audio.setActive(false);
+      }
+    }
+    for (const event of events) {
       if (event.type !== 'motion') continue;
       this.audio.play('shadow-motion');
       if (import.meta.env.DEV) {

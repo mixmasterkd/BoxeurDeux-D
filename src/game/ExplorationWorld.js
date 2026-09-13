@@ -1,4 +1,5 @@
 import { GymWorld } from './GymWorld.js';
+import { doorway, markDoors } from './DoorTravel.js';
 
 // The map is larger than the camera. These measured landmarks use the source
 // image's coordinates, uniformly scaled into the world (never a stretched view).
@@ -27,8 +28,8 @@ export const NEIGHBORHOOD_LAYOUT = {
   ],
   stations: [
     station('home', 'Chez toi · 1736', 272, 335), station('gym', 'Le gym du quartier', 752, 336),
-    station('fight', 'Salle de boxe · Les rencontres', 1267, 341), station('shop', 'Le dépanneur', 1095, 873, 52),
-    station('future', 'À venir', 1350, 874, 52), station('to-residential', 'Rue des livreurs · Passage ouvert', 70, 477, 67),
+    station('fight', 'Salle de boxe · Les rencontres', 1267, 341), station('depanneur-84', '84, avenue du Gym · Dépanneur', 1095, 873, 52),
+    station('to-metro', 'Métro · Station du Quartier', 1365, 874, 52), station('to-residential', 'Rue des livreurs · Passage ouvert', 70, 477, 67),
     station('works-east', 'Rue barrée', 1492, 477, 67), station('works-south', 'Travaux en cours', 778, 892, 67),
   ],
 };
@@ -58,6 +59,10 @@ export const HOME_LAYOUT = {
   ],
 };
 
+NEIGHBORHOOD_LAYOUT.doors = [doorway('home',360,497,96,24,'up'), doorway('gym',1070,500,116,24,'up'), doorway('fight',1840,512,124,24,'up'), doorway('to-residential',82,625,52,170,'left'), doorway('to-metro',1980,1285,138,35,'up')];
+HOME_LAYOUT.doors = [doorway('exit',586,643,108,38,'down')];
+markDoors(NEIGHBORHOOD_LAYOUT); markDoors(HOME_LAYOUT);
+
 export const WORLD_ENTRANCES = {
   home: { x: 408, y: 550, facing: 'down' },
   gym: { x: 1128, y: 555, facing: 'down' },
@@ -74,7 +79,7 @@ export function canStand(layout, position) {
 export class ExplorationWorld extends GymWorld {
   constructor({ place = 'home', position } = {}) {
     const layout = place === 'neighborhood' ? NEIGHBORHOOD_LAYOUT : HOME_LAYOUT;
-    super({ layout });
+    super({ layout: structuredClone(layout) });
     this.place = place;
     // Imported positions never place the player inside furniture or a wall.
     if (canStand(layout, position)) Object.assign(this.state, { x: position.x, y: position.y,

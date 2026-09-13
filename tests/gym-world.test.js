@@ -39,7 +39,7 @@ test('the footprint stops against thin equipment, including after a delayed fram
     const model = world({ obstacles: [{ x: 390, y: 450, width: 2, height: 100 }] });
     model.setInput({ x: 1 });
     advance(model, 1, dt);
-    assert.equal(model.state.x, 376);
+    assert.equal(model.state.x, 390 - model.layout.footprint.halfWidth);
     assert.equal(model.state.y, 500);
     model.update(.1);
     assert.equal(model.state.moving, false, 'a blocked body must not keep its walk animation');
@@ -53,11 +53,11 @@ test('a diagonal slides along a wall and can walk around its end', () => {
   const model = world({ obstacles: [{ x: 350, y: 370, width: 80, height: 130 }] });
   model.setInput({ x: 1, y: -1 });
   advance(model, .7);
-  assert.equal(model.state.x, 336);
+  assert.equal(model.state.x, 350 - model.layout.footprint.halfWidth);
   assert.ok(model.state.y < 405, 'blocked horizontal motion must preserve vertical motion');
   advance(model, .8);
   assert.ok(model.state.y < 363);
-  assert.ok(model.state.x > 336, 'the boxer can go around the end once the footprint clears it');
+  assert.ok(model.state.x > 350 - model.layout.footprint.halfWidth, 'the boxer can go around the end once the footprint clears it');
 });
 
 test('all four room edges contain the entire footprint and never alter the camera frame', () => {
@@ -99,12 +99,13 @@ test('the nearest accessible station wins, while equipment blocks prompts throug
 test('Rémi can be approached without standing inside his footprint', () => {
   const model = world({
     spawn: { x: 915, y: 610 },
-    obstacles: [{ id: 'remi', x: 899, y: 458, width: 32, height: 20 }],
+    obstacles: [GYM_LAYOUT.obstacles.find(obstacle => obstacle.id === 'remi')],
     stations: [{ id: 'remi', x: 915, y: 470, radius: 85, kind: 'sparring' }],
   });
   model.setInput({ y: -1 });
   advance(model, 1);
-  assert.equal(model.state.y, 485);
+  const remi = model.layout.obstacles[0];
+  assert.equal(model.state.y, remi.y + remi.height + model.layout.footprint.halfHeight);
   assert.equal(model.state.nearby?.id, 'remi');
   assert.equal(model.getNearby()?.kind, 'sparring');
 });
@@ -150,7 +151,8 @@ test('the former fight poster is walkable and the real gym exit remains reachabl
   const model = new GymWorld();
   assert.equal(GYM_LAYOUT.stations.some(station => station.id === 'combat'), false);
   assert.equal(GYM_LAYOUT.obstacles.some(obstacle => obstacle.id === 'affiche-combat'), false);
-  model.restorePosition({ x: 1010, y: 610, facing: 'up' });
+  // Octopus now stands at 1040,555; pass beside his visible footprint.
+  model.restorePosition({ x: 980, y: 610, facing: 'up' });
   model.setInput({ y: -1 }); advance(model, .25);
   assert.ok(Math.abs(model.state.y - 560) < 1e-6, 'no invisible poster collider remains');
   model.restorePosition({ x: 640, y: 630, facing: 'up' });

@@ -80,7 +80,7 @@ test('jab validates only the requested punch and at most once in each real openi
   assert.equal(session.state.training.progress, 2);
   until(session, state => state.remi.action === 'guard');
   until(session, state => state.remi.action === 'open');
-  session.act('jab'); session.update(.198);
+  session.act('jab'); session.update(TIMINGS.player.jab.duration * TIMINGS.player.jab.impact);
   assert.equal(session.state.training.progress, 3);
   assert.equal(session.state.training.completed, true);
   assert.equal(session.state.player.action, 'jab');

@@ -20,6 +20,7 @@ export class ShadowSession {
     this._guardHeld = false;
     this._guardLevel = 'head';
     this._action = null;
+    this._queued = null;
     this._combo = null;
     this.state = {
       phase: 'ready',
@@ -58,6 +59,7 @@ export class ShadowSession {
   finish() {
     if (!['running', 'paused'].includes(this.state.phase)) return false;
     this.state.phase = 'finished';
+    this._queued = null;
     this._clearCombo();
     this._guardHeld = false;
     this.state.combo = EMPTY_COMBO();
@@ -73,7 +75,15 @@ export class ShadowSession {
   }
 
   act(input) {
-    if (!INPUTS.has(input) || this.state.phase !== 'running' || this._action) return false;
+    if (!INPUTS.has(input) || this.state.phase !== 'running') return false;
+    if (input.startsWith('dodge')) this._queued = null;
+    if (this._action) {
+      if (['jab', 'cross'].includes(input) && !this._queued && this._action.counted
+        && this._action.duration - this._action.elapsed <= .16 + EPSILON) {
+        this._queued = { input }; return true;
+      }
+      return false;
+    }
     this._expireCombo();
     if ((this._guardHeld && this._guardLevel === 'head') || input.startsWith('dodge')) this._clearCombo();
     const action = input === 'jab' && this._combo?.step === 2 ? 'hook' : input;
@@ -115,7 +125,7 @@ export class ShadowSession {
   setGuard(held, level = 'head') {
     const guardLevel = level === 'body' ? 'body' : 'head';
     const next = Boolean(held) && this.state.phase === 'running';
-    if (next && guardLevel === 'head') this._clearCombo();
+    if (next && guardLevel === 'head') { this._clearCombo(); this._queued = null; }
     this._guardHeld = next;
     this._guardLevel = next ? guardLevel : 'head';
     this._syncState();
@@ -123,6 +133,7 @@ export class ShadowSession {
   }
 
   releaseControls() {
+    this._queued = null;
     this._clearCombo();
     this._guardHeld = false;
     this._guardLevel = 'head';
@@ -152,7 +163,11 @@ export class ShadowSession {
         }
         this._events.push(event);
       }
-      if (action.elapsed + EPSILON >= action.duration) this._action = null;
+      if (action.elapsed + EPSILON >= action.duration) {
+        this._action = null;
+        const queued = this._queued; this._queued = null;
+        if (queued) this.act(queued.input);
+      }
     }
     // Holding guard during a punch raises it only after the committed recovery.
     // A renderer may bound animation steps to keep peaks visible on slow frames.

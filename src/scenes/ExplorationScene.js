@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { DoorTravel } from '../game/DoorTravel.js';
+import { deliveryAddress } from '../game/DeliveryRoute.js';
 import { ExplorationWorld, STREET_SCALE, WORLD_ENTRANCES } from '../game/ExplorationWorld.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { resumePending } from '../game/ResumeRouting.js';
@@ -7,14 +9,17 @@ import { careerMenuOpen } from '../ui/GameControls.js';
 import { downloadCareer } from '../ui/CareerMenu.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import '../ui/exploration.css';
-import { DistrictWorld, DISTRICT_PLACES } from '../game/DistrictWorld.js';
+import { DistrictWorld, DISTRICT_PLACES, OUTDOOR_PLACES } from '../game/DistrictWorld.js';
 import { chapterInteract, chapterChoose, installChapterReadout, updateChapterReadout } from './ChapterInteractions.js';
 import { preloadOutfits, streetTexture } from './OutfitView.js';
 import { addMedalDisplay } from './MedalDisplay.js';
 
 const PLACES = ['home','neighborhood',...DISTRICT_PLACES];
 const COPY = {
-  residential: {title:'La rue des livreurs',welcome:'Livraisons à vélo',hint:'Le dépôt est au sud. Trois portes numérotées au nord.'},
+  'metro-station':{title:'Métro · Quartier',welcome:'Station du Quartier',hint:'Le train pour Des Rives. L’escalier pour revenir dans le quartier.'},
+  'metro-riverside':{title:'Métro · Des Rives',welcome:'Station Des Rives',hint:'Le train pour le quartier du gym. L’escalier pour explorer Des Rives.'},
+  riverside:{title:'Des Rives',welcome:'Un nouveau coin de Montréal',hint:'Explore la place. Les cônes gardent les futurs accès.'},
+  residential: {title:'Rue des Érables',welcome:'Les livraisons en ville',hint:'DÉPÔT : le guichet jaune au bord de la rue, devant l’entrepôt.'},
   commercial: {title:'La place commerçante',welcome:'Un tour aux boutiques',hint:'Rue Nord pour les vêtements; Le Coin Bleu pour la boxe.'},
   'clothing-shop': {title:'Rue Nord',welcome:'Bienvenue chez Rue Nord',hint:'Approche-toi du comptoir pour voir la collection.'},
   'boxing-shop': {title:'Le Coin Bleu',welcome:'Le Coin Bleu',hint:'Approche-toi du comptoir pour voir les équipements.'},
@@ -35,15 +40,16 @@ export class ExplorationScene extends Phaser.Scene {
     this.sleepInterrupted = false;
     this.persistClock = 0;
     const delivery=careerProfile.deliveryStatus().active;
-    this.deliveryClock = delivery?.elapsed??0; this.deliveryBumps = delivery?.bumps??0; this.returningBike = false;
+    this.deliveryClock = delivery?.elapsed??0; this.deliveryBumps = delivery?.bumps??0; this.returningBike = Boolean(data.returningBike);
   }
 
   preload() {
     const base = import.meta.env.BASE_URL;
     preloadOutfits(this,{street:true});
-    this.load.image(`world-${this.place}`, `${base}assets/world/${this.place}.png`);
-    if(this.place==='neighborhood') this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);
-    if(this.place==='residential') {
+    this.load.image(`world-${this.place}`, `${base}assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`);
+    if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
+    if(this.place==='residential')this.load.image('depot-kiosk',`${base}assets/world/depot-kiosk.png`);
+    if(OUTDOOR_PLACES.includes(this.place)) {
       this.load.json('cycling-player-data',`${base}assets/sprites/cycling/player.json`);
       for(const direction of ['down','right','up','left'])for(let step=0;step<3;step++)this.load.image(`cycling-player-${direction}-${step}`,`${base}assets/sprites/cycling/player-${direction}-${step}.png`);
     }
@@ -56,18 +62,22 @@ export class ExplorationScene extends Phaser.Scene {
   create() {
     setSceneShell(this.place);
     this.world = DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
+    this.doorTravel = new DoorTravel(this.world.layout.doors ?? [], this.world.state);
     const { width, height } = this.world.layout;
     this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
-    if(this.place==='neighborhood') this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);
+    if(this.place==='neighborhood') {this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1230*STREET_SCALE,675*STREET_SCALE,'neighborhood-metro').setOrigin(0).setScale(STREET_SCALE);}
+    if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
     this.addForeground();
     if(this.place==='home')addMedalDisplay(this,careerProfile.snapshot().tournament.medals);
     const metadata = this.cache.json.get('street-player-data');
     // The house furniture is drawn at twice the street actor's scale. Keep an
     // integer scale for crisp pixels, with the same foot anchor in every pose.
-    const actorScale = this.place === 'home' || this.place.endsWith('-shop') ? 2 : 1;
+    const actorScale = this.place.startsWith('metro-') ? 1.25 : this.place === 'home' || this.place.endsWith('-shop') ? 2 : 1;
     this.shadow = this.add.ellipse(0, 0, 33, 11, 0x132323, .24).setScale(actorScale).setDepth(1);
     this.player = this.add.image(0, 0, 'street-player-down-0')
       .setOrigin(metadata.anchor.x / metadata.width, metadata.anchor.y / metadata.height).setScale(actorScale);
+    this.addWayfinding();
+    this.deliveryMarker = this.add.graphics().setDepth(2000);
     this.marker = this.add.graphics().setDepth(2);
     this.ui = new GymUI({
       onMove: vector => { if (!this.sleeping && !this.changingPlace && !resumePending()) this.world.setInput(vector); },
@@ -88,14 +98,14 @@ export class ExplorationScene extends Phaser.Scene {
         window.dispatchEvent(new CustomEvent('career-imported'));
       },
       onRefreshCareer: () => this.refreshProfile(),
-    }, COPY[this.place] ? {eyebrow:'MONTRÉAL · LE QUARTIER',...COPY[this.place],pauseText:'Ta journée attend. La tournée reprend après la pause.',commandsTitle:'Commandes du quartier',commandsHint:'Marche ou roule jusqu’à une porte ou un comptoir, puis interagis.'} : this.place === 'home' ? {
+    }, COPY[this.place] ? {eyebrow:'MONTRÉAL · LE QUARTIER',...COPY[this.place],pauseText:'Ta journée attend. La tournée reprend après la pause.',commandsTitle:'Commandes du quartier',commandsHint:'Marche ou roule jusqu’à une porte ou un comptoir, les portes s’ouvrent en avançant. E pour parler ou utiliser un objet.'} : this.place === 'home' ? {
       eyebrow: 'CHEZ TOI · MONTRÉAL', title: 'Un nouveau jour', welcome: 'Chez toi',
       hint: 'Le lit pour dormir, la porte pour sortir.', pauseText: 'Ta journée attend. Se promener ne coûte aucune énergie.',
-      commandsTitle: 'Commandes de la maison', commandsHint: 'Approche-toi du lit ou de la porte, puis interagis.',
+      commandsTitle: 'Commandes de la maison', commandsHint: 'Approche-toi du lit ou de la porte, les portes s’ouvrent en avançant. E pour parler ou utiliser un objet.',
     } : {
       eyebrow: 'MONTRÉAL · LE QUARTIER', title: 'À deux pas du gym', welcome: 'Le quartier',
       hint: 'Explore les rues. Maison, gym et salle de boxe sont ouverts.', pauseText: 'Les rues t’attendent. Se promener ne coûte aucune énergie.',
-      commandsTitle: 'Commandes du quartier', commandsHint: 'Marche jusqu’à une porte et interagis pour entrer. Les cônes indiquent les rues encore fermées.',
+      commandsTitle: 'Commandes du quartier', commandsHint: 'Avance dans une porte pour entrer. Les cônes indiquent les rues encore fermées.',
     });
     installChapterReadout(this); this.refreshProfile();
     this.renderWorld();
@@ -126,7 +136,7 @@ export class ExplorationScene extends Phaser.Scene {
 
   persistLocation() {
     if (!this.world || this.changingPlace || careerMenuOpen() || resumePending()) return;
-    if(this.place==='residential'&&careerProfile.deliveryStatus().active)careerProfile.recordDeliveryProgress({elapsed:this.deliveryClock,bumps:this.deliveryBumps});
+    if(careerProfile.deliveryStatus().active)careerProfile.recordDeliveryProgress({elapsed:this.deliveryClock,bumps:this.deliveryBumps});
     careerProfile.setLocation(this.world.location());
   }
 
@@ -147,7 +157,7 @@ export class ExplorationScene extends Phaser.Scene {
     else if (station.id === 'home') this.travel('home', 'street');
     else if (station.id === 'gym') this.travel('gym');
     else if (station.id === 'fight') {
-      show('Béton vous attend.', 'Entre directement dans la salle de boxe pour affronter Béton. Trois rounds de 60 secondes, Rémi dans ton coin.\n\nCombat et revanche : aucune énergie de journée dépensée. Tu commences avec tes capacités entraînées.', [
+      show('Béton vous attend.', 'Entre directement dans la salle de boxe pour affronter Béton. Trois rounds de 60 secondes, Fredo dans ton coin.\n\nCombat et revanche : aucune énergie de journée dépensée. Tu commences avec tes capacités entraînées.', [
         { id: 'enter-fight', label: 'Rencontrer Béton →' }, back,
       ]);
     } else if (station.id === 'wardrobe') {
@@ -205,6 +215,36 @@ export class ExplorationScene extends Phaser.Scene {
     });
   }
 
+
+  interactDoor(id) {
+    const station=this.world.layout.stations.find(s=>s.id===id); if(!station)return;
+    this.world.releaseControls();this.persistLocation();
+    if(chapterInteract(this,station))return;
+    if(id==='exit')this.travel('neighborhood','home');
+    else if(id==='home')this.travel('home','street');
+    else if(id==='gym')this.travel('gym');
+  }
+  addWayfinding() {
+    const sign=(x,y,text,color='#f1d68f',size=18)=>this.add.text(x,y,text,{fontFamily:'monospace',fontStyle:'bold',fontSize:`${size}px`,color,backgroundColor:'#152834',padding:{x:10,y:7},align:'center'}).setOrigin(.5,1).setDepth(1800);
+    if(this.place==='residential'){
+      sign(1490,806,'DÉPÔT ↓', '#fff0a8',14);
+      sign(215,845,'← BOUTIQUES', '#f1d68f',16);sign(2200,845,'GYM / MÉTRO →','#f1d68f',16);
+      for(const [x,n]of [[441,12],[1189,24],[1942,36]])sign(x,480,String(n),'#fff0a8',15);
+    }
+    if(this.place==='neighborhood'){sign(1642,1280,'84','#fff0a8',16);sign(245,820,'← DÉPÔT / BOUTIQUES','#f1d68f',16);}
+    if(this.place==='commercial')sign(1096,423,'210 · COLIS','#fff0a8',15);
+    if(this.place==='metro-riverside'){this.add.rectangle(448,75,140,32,0x1c345c).setDepth(1799);sign(448,88,'DES RIVES','#e7e7dc',16);}
+    if(this.place.startsWith('metro-'))sign(760,152,this.place==='metro-station'?'QUARTIER  →  DES RIVES':'DES RIVES  →  QUARTIER','#dbeaff',20);
+  }
+  drawDeliveryTarget() {
+    this.deliveryMarker.clear();const active=careerProfile.deliveryStatus().active;
+    if(!active)return;const target=deliveryAddress(active.stops[active.completed.length]);
+    if(target.place!==this.place)return;
+    const pulse=.65+Math.sin(this.time.now/240)*.2;
+    this.deliveryMarker.lineStyle(3,0xffd36b,pulse).strokeEllipse(target.x,target.y+18,62,24);
+    this.deliveryMarker.fillStyle(0xffd36b,pulse).fillTriangle(target.x-9,target.y-100,target.x+9,target.y-100,target.x,target.y-86);
+  }
+
   addForeground() {
     if(DISTRICT_PLACES.includes(this.place)&&this.place!=='residential')return;
     // Extract existing art pixels into transparent layers. Nothing is repainted:
@@ -245,12 +285,14 @@ export class ExplorationScene extends Phaser.Scene {
   update(_time, delta) {
     if (!this.world || !this.ui) return;
     const wasMoving = this.world.state.moving;
-    const cycling=this.place==='residential'&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike);
-    this.world.layout.speed=cycling?360:this.place==='residential'?230:this.world.layout.speed;
+    const cycling=OUTDOOR_PLACES.includes(this.place)&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike);
+    if(OUTDOOR_PLACES.includes(this.place))this.world.layout.speed=cycling?360:230;
     if (!this.ui.dialog && !this.sleeping && !this.changingPlace && !careerMenuOpen() && !resumePending()) {
       this.world.update((this.game.loop.rawDelta ?? delta) / 1000);
       if(cycling&&!this.world.state.paused){this.deliveryClock+=Math.min(delta/1000,.1);if((this.world.input.x||this.world.input.y)&&!this.world.state.moving)this.deliveryBumps++;}
     }
+    const door=this.doorTravel.update(this.world.state,this.world.input,this.world.state.paused||Boolean(this.ui.dialog)||this.sleeping||this.changingPlace||careerMenuOpen()||resumePending());
+    if(door)this.interactDoor(door);
     this.persistClock += delta;
     if (!this.sleeping && (wasMoving && !this.world.state.moving || this.persistClock > 1500)) {
       this.persistLocation(); this.persistClock = 0;
@@ -263,12 +305,13 @@ export class ExplorationScene extends Phaser.Scene {
   renderWorld() {
     const state = this.world.state;
     const step = state.moving && !state.paused && !this.ui?.dialog ? [0,1,0,2][Math.floor(state.walkTime / .14) % 4] : 0;
-    const cycling=this.place==='residential'&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike),prefix=cycling?'cycling':'street';
+    const cycling=OUTDOOR_PLACES.includes(this.place)&&Boolean(careerProfile.snapshot().delivery.active||this.returningBike),prefix=cycling?'cycling':'street';
     const meta=this.cache.json.get(`${prefix}-player-data`);
     const key=`${prefix}-player-${state.facing}-${step}`;
     this.player.setTexture(cycling?key:streetTexture(this,key)).setOrigin(meta.anchor.x/meta.width,meta.anchor.y/meta.height).setPosition(Math.round(state.x), Math.round(state.y)).setDepth(state.y);
-    this.shadow.setScale(cycling?1.8:this.place==='home'||this.place.endsWith('-shop')?2:1);
+    this.shadow.setScale(cycling?1.8:this.place.startsWith('metro-')?1.25:this.place==='home'||this.place.endsWith('-shop')?2:1);
     this.shadow.setPosition(state.x, state.y + 1);
+    this.drawDeliveryTarget();
     this.marker.clear();
     if (state.nearby && !state.paused && !this.ui?.dialog) this.marker.lineStyle(2, 0xebc37d, .8).strokeEllipse(state.nearby.x, state.nearby.y + 4, 42, 12);
   }

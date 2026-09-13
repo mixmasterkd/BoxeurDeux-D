@@ -38,13 +38,13 @@ export class ShadowFighterView {
     for (const pose of BODY_POSES) scene.load.image(`shadow-${pose}`, `${base}assets/sprites/body-training/gym-${pose}.png`);
   }
 
-  constructor(scene) {
+  constructor(scene, { mentor = false } = {}) {
     this.scene = scene;
     prepareBoxingOutfits(scene, [...BASE_POSES, ...BODY_POSES, ...Object.keys(DEFENSE_POSES)].map(pose => `shadow-${pose}`));
     const base = scene.cache.json.get('shadow-base-data');
     this.metadata = { ...base, poses: { ...base.poses, ...scene.cache.json.get('shadow-defense-data').poses, ...scene.cache.json.get('shadow-body-data').poses } };
     this.anchor = this.metadata.anchor;
-    this.layout = MIRROR_LAYOUT;
+    this.layout = mentor ? { ...MIRROR_LAYOUT, player: { x: 535, feet: 645, scale: .95 }, reflection: { x: 1010, feet: 499, scale: .76 } } : MIRROR_LAYOUT;
     scene.add.image(640, 360, 'mirror-room').setDisplaySize(1280, 720);
     const { player, reflection } = this.layout;
     this.reflectionShadow = scene.add.ellipse(reflection.x, reflection.feet - 2, 174, 16, 0x182b36, .17);

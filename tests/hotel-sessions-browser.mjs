@@ -33,7 +33,9 @@ async function run(activity,mobile){
      const stopped=(await state(p)).elapsed;await p.waitForTimeout(180);assert.equal((await state(p)).elapsed,stopped);
      await tap(p,cdp,'.rhythm-primary');assert.equal((await profile(p)).daily.energy,initial.daily.energy-10);continue;
    }
-   if(s.beat.expected&&!seen.has(s.beat.index)){
+   if(activity==='pads'&&s.target.phase==='waiting'&&s.player.action==='idle'){
+     await action(p,cdp,s.target.expected);
+   }else if(activity==='pool'&&s.beat.expected&&!seen.has(s.beat.index)){
      await wait(p,time=>window.__hotelActivity.session.state.elapsed>=time,s.beat.inputAt-(mobile?.09:.018),4000);
      seen.add(s.beat.index);if(s.beat.index%8===0)console.log(activity,mobile?'touch':'PC','cue',s.beat.index,s.beat.expected);await action(p,cdp,s.beat.expected);
    }else await p.waitForTimeout(25);
@@ -45,8 +47,8 @@ async function run(activity,mobile){
  assert.equal(after.daily.energy,initial.daily.energy-10);assert.equal(after.tournament.active.status,'ready');
  const contacts=await p.evaluate(()=>window.__hotelActivity.contacts);
  if(activity==='pads')for(const e of contacts.filter(e=>['jab','cross'].includes(e.input))){
-   const gloveX=e.visual.player.x+(e.input==='cross'?52:-52)*.68,gloveY=e.visual.player.y-568*.68;
-   assert.ok(Math.hypot(gloveX-e.visual.x,gloveY-e.visual.y)<.1,'actual pose glove coincides with mitt when the hit is counted');
+   assert.equal(e.visual.coachPose,e.input==='jab'?'left':'right');
+   assert.ok(e.visual.error<.001,'actual pose glove coincides with anatomical mitt at contact');
  }
  else assert.ok(s.summary.laps>=3);
  await p.screenshot({path:`docs/hotel-${activity}-complete-${mobile?'mobile':'desktop'}.png`});

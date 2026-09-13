@@ -34,10 +34,10 @@ for (const speed of [230, 360]) test(`the residential loop links all three deliv
     walk(world, [[1189.5, 490]], dt); assert.equal(world.getNearby()?.id, 'maison-24');
     walk(world, [[441, 490]], dt); assert.equal(world.getNearby()?.id, 'maison-12');
     walk(world, [[441, 680], [120, 680]], dt); assert.equal(world.getNearby()?.id, 'to-commercial');
-    walk(world, [[1500, 680], [1500, 1250], [1192.5, 1250]], dt);
+    walk(world, [[1500, 680], [1500, 835]], dt);
     assert.equal(world.getNearby()?.id, 'depot');
-    walk(world, [[1182, 1305]], dt); assert.equal(world.getNearby()?.id, 'works-delivery');
-    walk(world, [[1500, 1305], [1500, 680], [2265, 680]], dt);
+    walk(world, [[1450,835],[1450,1250],[1182, 1250],[1182,1305]], dt); assert.equal(world.getNearby()?.id, 'works-delivery');
+    walk(world, [[1450, 1305], [1450, 835], [1500, 680], [2265, 680]], dt);
     assert.equal(world.getNearby()?.id, 'return-neighborhood');
     assert.ok(world.state.walkTime * speed > 4 * 1280, 'The trip spans several fixed camera widths');
   }
@@ -65,11 +65,14 @@ for (const place of ['clothing-shop', 'boxing-shop']) test(`${place} counter and
   world.resume(); world.update(1); assert.deepEqual(world.location(), paused, 'Unpausing discards held movement');
 });
 
-test('all saved district arrivals fit the footprint and permit an immediate return interaction', () => {
+test('all saved district arrivals fit the footprint and expose the expected nearby landmark', () => {
   for (const place of DISTRICT_PLACES) assert.ok(canStand(DISTRICT_LAYOUTS[place], DISTRICT_LAYOUTS[place].spawn), `${place} spawn`);
   const expected = {
     residential: { neighborhood: 'return-neighborhood', commercial: 'to-commercial' },
     commercial: { residential: 'return-residential', 'clothing-shop': 'clothing-store', 'boxing-shop': 'boxing-store' },
+    'metro-station': {neighborhood:'metro-exit','metro-riverside':'train'},
+    'metro-riverside': {riverside:'metro-exit','metro-station':'train'},
+    riverside:{'metro-riverside':'to-metro'},
   };
   for (const [place, arrivals] of Object.entries(DISTRICT_ARRIVALS)) for (const [from, arrival] of Object.entries(arrivals)) {
     assert.ok(canStand(DISTRICT_LAYOUTS[place], arrival), `${from} → ${place} arrival`);
@@ -109,10 +112,10 @@ test('stalled and sustained input cannot cross houses, parked cars, roadworks or
 
 test('new neighborhood images use uniform world scaling and both shop interiors retain the fixed frame', () => {
   for (const place of DISTRICT_PLACES) {
-    const data = readFileSync(new URL(`../public/assets/world/${place}.png`, import.meta.url));
+    const data = readFileSync(new URL(`../public/assets/world/${place==='metro-riverside'?'metro-station':place}.png`, import.meta.url));
     const width = data.readUInt32BE(16), height = data.readUInt32BE(20), world = DISTRICT_LAYOUTS[place];
     assert.equal(world.width / width, world.height / height, `${place} has no stretched axes`);
-    if (place.endsWith('shop')) assert.deepEqual([world.width, world.height], [1280, 720]);
+    if (place.endsWith('shop')||place.startsWith('metro-')) assert.deepEqual([world.width, world.height], [1280, 720]);
     else assert.ok(world.width > 1280 && world.height > 720);
   }
 });

@@ -1,15 +1,15 @@
 const GUIDES = {
-  gym: '<span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> Marcher</span><span><kbd>WASD</kbd> / <kbd>ZQSD</kbd> Marcher</span><span><kbd>E</kbd> / <kbd>Entrée</kbd> Interagir</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
-  sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>↑</kbd> Garde haute <kbd>↓</kbd> Garde basse et coups au corps</span><span><kbd>←</kbd><kbd>→</kbd> Esquiver · flèches ou WASD</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span><span><kbd>M</kbd> Son</span>',
-  bag: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Combo avec crochet</span><span><kbd>↑</kbd><kbd>↓</kbd> Gardes <kbd>←</kbd><kbd>→</kbd> Esquives · flèches ou WASD</span><span><kbd>↓</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
-  shadow: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>↑</kbd><kbd>↓</kbd> Gardes <kbd>←</kbd><kbd>→</kbd> Esquives · flèches ou WASD</span><span><kbd>↓</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause et commandes</span>',
+  gym: '<span><kbd>WASD</kbd> Marcher</span><span><kbd>E</kbd> Interagir et confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
+  sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>W</kbd> Garde haute <kbd>S</kbd> Garde basse et coups au corps</span><span><kbd>A</kbd><kbd>D</kbd> Esquiver</span><span><kbd>E</kbd> Confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
+  bag: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>W</kbd><kbd>S</kbd> Gardes <kbd>A</kbd><kbd>D</kbd> Esquives</span><span><kbd>S</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
+  shadow: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>J K J</kbd> Crochet en combo</span><span><kbd>W</kbd><kbd>S</kbd> Gardes <kbd>A</kbd><kbd>D</kbd> Esquives</span><span><kbd>S</kbd> + frappe : corps</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
   speedball: '<span><kbd>J</kbd> Main gauche <kbd>K</kbd> Main droite</span><span>Alterne au repère</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
   rope: '<span><kbd>J</kbd> Appui gauche <kbd>K</kbd> Appui droit</span><span>Alterne au passage de la corde</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
 };
 
-export function setSceneShell(mode, { opponent = 'remi' } = {}) {
-  const chapterPlaces={residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
-    'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · RÉCEPTION','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':'LES GANTS DE BRONZE'};
+export function setSceneShell(mode, { opponent = 'remi', fromGym = false } = {}) {
+  const chapterPlaces={'metro-station':'MÉTRO · DU QUARTIER','metro-riverside':'MÉTRO · DES RIVES',riverside:'DES RIVES',residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
+    'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · REZ-DE-CHAUSSÉE','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':'LES GANTS DE BRONZE'};
   if(chapterPlaces[mode]){
     setSceneShell('gym');document.getElementById('stage').dataset.scene=mode;
     document.getElementById('stage').setAttribute('aria-label',chapterPlaces[mode]);
@@ -18,9 +18,9 @@ export function setSceneShell(mode, { opponent = 'remi' } = {}) {
   }
   if(mode==='pads'||mode==='pool'){
     setSceneShell('rope');document.getElementById('stage').dataset.scene=mode;
-    document.getElementById('stage').setAttribute('aria-label',mode==='pads'?'Pads avec Rémi':'Longueurs à la piscine');
-    document.querySelector('.gym-location').textContent='LES GANTS DE BRONZE · HÔTEL';
-    document.querySelector('.prototype-label').textContent=mode==='pads'?'PADS AVEC RÉMI':'PISCINE · LONGUEURS';return;
+    document.getElementById('stage').setAttribute('aria-label',mode==='pads'?'Pads avec Fredo':'Longueurs à la piscine');
+    document.querySelector('.gym-location').textContent=fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
+    document.querySelector('.prototype-label').textContent=mode==='pads'?'PADS AVEC FREDO':'PISCINE · LONGUEURS';return;
   }
   if (mode === 'home' || mode === 'neighborhood') {
     setSceneShell('gym');

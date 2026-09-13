@@ -9,6 +9,7 @@ export const SHOP_CATALOG = Object.freeze([
   { id: 'street-black', shop: 'clothing', slot: 'street', label: 'Survêtement noir', price: 0, color: 0x252c38, accent: 0xf1ede2 },
   { id: 'street-blue', shop: 'clothing', slot: 'street', label: 'Survêtement bleu roi', price: 28, color: 0x315ba7, accent: 0xf1ede2 },
   { id: 'street-burgundy', shop: 'clothing', slot: 'street', label: 'Survêtement bordeaux', price: 36, color: 0x873b52, accent: 0xf0d09c },
+  { id: 'street-octopus', shop: 'clothing', slot: 'street', label: 'Chandail The Octopus · Poulin', price: 45, color: 0x252c38, accent: 0xf1ede2 },
   { id: 'boxing-blue', shop: 'boxing', slot: 'boxing', label: 'Ensemble bleu du gym', price: 0, color: 0x3776b9, accent: 0xf1ede2 },
   { id: 'boxing-emerald', shop: 'boxing', slot: 'boxing', label: 'Ensemble émeraude · gants assortis', price: 32, color: 0x2e826c, accent: 0xf1ede2 },
   { id: 'boxing-burgundy', shop: 'boxing', slot: 'boxing', label: 'Ensemble bordeaux et or · gants assortis', price: 48, color: 0x873b52, accent: 0xe5b654 },
@@ -31,7 +32,7 @@ export const TOURNAMENT_FEES = Object.freeze({ first: 120, retry: 60 });
 export const MEDAL_LABELS = Object.freeze({ gold: 'Médaille d’or', silver: 'Médaille d’argent', bronze: 'Médaille de bronze', participation: 'Souvenir de participation' });
 export const HOTEL_ROOM_SPAWN = Object.freeze({ scene: 'hotel-room', x: 640, y: 540, facing: 'down' });
 export const TOURNAMENT_RETURN_SPAWN = Object.freeze({ scene: 'neighborhood', x: 1900, y: 562, facing: 'down' });
-export const DELIVERY_STOPS = Object.freeze(['maison-12', 'maison-24', 'maison-36']);
+export const DELIVERY_STOPS = Object.freeze(['maison-12', 'depanneur-84', 'rue-nord-210']);
 export const DELIVERY_PAY = 5;
 export const DELIVERY_MAX_TIP = 2;
 export const chapterTier = fights => fights.kramer?.wins > 0 ? 2 : fights.beton?.wins > 0 ? 1 : 0;

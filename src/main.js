@@ -14,13 +14,14 @@ import { installGameLayout } from './ui/GameLayout.js';
 import './ui/layout.css';
 import { installCareerMenu } from './ui/CareerMenu.js';
 import { installSceneLoading } from './ui/SceneLoading.js';
+import './ui/snes.css';
 
 const disposeLayout = installGameLayout();
 const disposeCareer = installCareerMenu();
 const entry = new URLSearchParams(location.search).get('scene');
 const savedPlace=careerProfile.snapshot().location.scene;
 const initialScene = entry?.startsWith('hotel-') ? HotelScene : ['pads','pool'].includes(entry) ? HotelActivityScene
-  : {gym:GymScene,home:ExplorationScene,neighborhood:ExplorationScene,residential:ExplorationScene,commercial:ExplorationScene,'clothing-shop':ExplorationScene,'boxing-shop':ExplorationScene,bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene}[entry]
+  : {gym:GymScene,home:ExplorationScene,neighborhood:ExplorationScene,residential:ExplorationScene,commercial:ExplorationScene,'clothing-shop':ExplorationScene,'boxing-shop':ExplorationScene,'metro-station':ExplorationScene,'metro-riverside':ExplorationScene,riverside:ExplorationScene,bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene}[entry]
   ?? (savedPlace.startsWith('hotel-')?HotelScene:savedPlace==='gym'?GymScene:ExplorationScene);
 const scenes = [initialScene, ...[ExplorationScene, GymScene, SparringScene, BagScene, ShadowScene, RhythmScene,HotelScene,HotelActivityScene].filter(scene => scene !== initialScene)];
 

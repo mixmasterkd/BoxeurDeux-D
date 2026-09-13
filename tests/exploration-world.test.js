@@ -83,9 +83,9 @@ test('the park gate opens onto a complete walk around the garden and back home',
 test('the lower shopfronts can be reached without crossing their roofs or the roadworks', () => {
   const model = new ExplorationWorld({ place: 'neighborhood', position: WORLD_ENTRANCES.gym });
   walk(model, [street(752, 477), street(780, 477), street(780, 875), street(1095, 875)]);
-  assert.equal(model.getNearby()?.id, 'shop');
+  assert.equal(model.getNearby()?.id, 'depanneur-84');
   walk(model, [street(1350, 875)]);
-  assert.equal(model.getNearby()?.id, 'future');
+  assert.equal(model.getNearby()?.id, 'to-metro');
   walk(model, [street(780, 875), street(780, 477), street(752, 477), WORLD_ENTRANCES.gym]);
   assert.equal(model.getNearby()?.id, 'gym');
 });

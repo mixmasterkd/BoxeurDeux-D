@@ -61,8 +61,8 @@ export class RhythmUI {
         <div class="commands-grid"><dl>
           <div><dt>${this.info.left} / ${this.info.right.toLowerCase()}</dt><dd class="rhythm-command-actions">J / K</dd></div>
           <div><dt>Menu pause</dt><dd class="rhythm-command-pause">P / Échap</dd></div>
-          <div><dt>Choisir · valider · revenir</dt><dd class="rhythm-command-menu">Flèches · Entrée ou J · K</dd></div>
-        </dl><div class="commands-notes"><p>${this.info.commands}</p><p>Relâche entre deux actions : maintenir une touche ne répète pas le mouvement.</p><p class="rhythm-command-sound">M active ou coupe le son. Le bouton « ← Gym » quitte directement l’atelier.</p></div></div>
+          <div><dt>Choisir · valider · revenir</dt><dd class="rhythm-command-menu">WASD · E · P / Échap</dd></div>
+        </dl><div class="commands-notes"><p>${this.info.commands}</p><p>Relâche entre deux actions : maintenir une touche ne répète pas le mouvement.</p><p class="rhythm-command-sound">Le son se règle dans le menu. Le bouton « ← Gym » quitte directement l’atelier.</p></div></div>
         <button type="button" class="commands-back-button">← Retour au menu</button>
       </section>
       <button type="button" class="rhythm-pause-button" aria-label="Menu pause">☰</button>
@@ -114,8 +114,8 @@ export class RhythmUI {
     const touch = this.controlsQuery.matches;
     this.text('rhythm-command-actions', touch ? 'A / B' : 'J / K');
     this.text('rhythm-command-pause', touch ? 'Bouton ☰' : 'P / Échap');
-    this.text('rhythm-command-menu', touch ? 'Joypad · A · B' : 'Flèches · Entrée ou J · K');
-    this.text('rhythm-command-sound', touch ? 'Le son se règle dans le menu. Le bouton « ← Gym » quitte directement l’atelier.' : 'M active ou coupe le son. Le bouton « ← Gym » quitte directement l’atelier.');
+    this.text('rhythm-command-menu', touch ? 'Joypad · A · B' : 'WASD · E · P / Échap');
+    this.text('rhythm-command-sound', touch ? 'Le son se règle dans le menu. Le bouton « ← Gym » quitte directement l’atelier.' : 'Le son se règle dans le menu. Le bouton « ← Gym » quitte directement l’atelier.');
   }
   showCommands(open) {
     if (this.phase === 'running') return;

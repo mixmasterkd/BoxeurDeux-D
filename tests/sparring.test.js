@@ -52,12 +52,12 @@ test('cross costs more stamina, hits later, and resting recovers after its delay
   session.start();
   session.act('cross');
   assert.equal(session.state.stamina, 83);
-  session.update(0.299);
+  session.update(TIMINGS.player.cross.duration * TIMINGS.player.cross.impact - .001);
   assert.equal(session.state.stats.landed, 0);
   session.update(0.001);
   assert.equal(session.state.stats.landed, 1);
-  close(session.state.player.progress, 0.5);
-  session.update(0.64);
+  close(session.state.player.progress, TIMINGS.player.cross.impact);
+  session.update(TIMINGS.player.cross.duration * (1 - TIMINGS.player.cross.impact) + .34);
   close(session.state.stamina, 83);
   session.update(0.5);
   assert.ok(session.state.stamina > 92 && session.state.stamina < 94);

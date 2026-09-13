@@ -1,15 +1,16 @@
 import { careerProfile } from '../game/CareerProfile.js';
 import { MEDAL_LABELS } from '../game/ChapterRules.js';
+import { deliveryAddress, DELIVERY_ADDRESSES, routeDirection } from '../game/DeliveryRoute.js';
 import { DISTRICT_ARRIVALS } from '../game/DistrictWorld.js';
 import './chapter.css';
 
 const close = {id:'close',label:'Continuer →'};
-const show=(scene,title,text,actions=[close],speaker='LA VIE DE QUARTIER')=>scene.ui.showDialog({speaker,title,text,actions});
+const show=(scene,title,text,actions=[close],speaker='LA VIE DE QUARTIER',extra={})=>scene.ui.showDialog({speaker,title,text,actions,...extra});
 export function chapterTravel(scene,place,from=scene.place){
   scene.persistLocation();scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();
-  const position=place==='neighborhood'?{x:145,y:715,facing:'right'}:DISTRICT_ARRIVALS[place]?.[from]??{x:640,y:615,facing:'up'};
+  const position=place==='neighborhood'?(from==='metro-station'?{x:2047,y:1375,facing:'down'}:{x:170,y:715,facing:'right'}):DISTRICT_ARRIVALS[place]?.[from]??{x:640,y:615,facing:'up'};
   careerProfile.setLocation({scene:place,...position});
-  scene.scene.start('ExplorationScene',{place,location:position});
+  scene.scene.start('ExplorationScene',{place,location:position,returningBike:scene.returningBike});
 }
 export function showEquipment(scene,slot='street',message=''){
   const p=careerProfile.snapshot(),items=careerProfile.catalogue(slot==='street'?'clothing':'boxing');
@@ -24,8 +25,9 @@ export function showShop(scene,message=''){
 function showDepot(scene,message=''){
   const {active}=careerProfile.deliveryStatus(),p=careerProfile.snapshot();
   const touch=scene.ui.controlsQuery.matches;
-  const intro=`${message}${message?'\n\n':''}Le vélo est prêté pour ta tournée. Trois adresses, 5 $ par colis livré et jusqu’à 2 $ de pourboire. Coût de départ : 30 énergie.\n${touch?'Joypad pour rouler; A':'Flèches ou WASD pour rouler; E'} à la porte indiquée. Les pauses arrêtent le chrono du pourboire.`;
-  show(scene,'Le dépôt des livreurs',active?`${message}\nTournée en cours : ${active.completed.length}/3 livraisons. Les colis suivants t’attendent.`:intro,
+  const next=active?deliveryAddress(active.stops[active.completed.length]):null;
+  const intro=`${message}${message?'\n\n':''}Le vélo est prêté pour ta tournée. Trois adresses réparties dans la ville : rue des Érables, quartier du gym et place commerçante. 5 $ par colis livré et jusqu’à 2 $ de pourboire. Coût de départ : 30 énergie.\n${touch?'Joypad pour rouler; A':'Flèches ou WASD pour rouler; E'} à la porte indiquée. Les pauses arrêtent le chrono du pourboire.`;
+  show(scene,'Le dépôt des livreurs',active?`${message}\nTournée en cours : ${active.completed.length}/3 livraisons. Prochain arrêt : ${next.address}. ${next.sector}. La destination reste affichée en bas pendant la tournée.`:intro,
     active?[{id:'close',label:'Continuer la tournée →'},{id:'abandon-delivery',label:'Rendre le vélo et arrêter'}]:[
       {id:'start-delivery',label:`Prendre une tournée · 30 énergie`,disabled:p.daily.energy<30||Boolean(p.tournament.active)},close],'LIVRAISONS À VÉLO');
 }
@@ -44,6 +46,9 @@ export function chapterInteract(scene,station){
   if(id==='return-residential'){chapterTravel(scene,'residential','commercial');return true;}
   if(id==='clothing-store'||id==='boxing-store'){chapterTravel(scene,id==='clothing-store'?'clothing-shop':'boxing-shop');return true;}
   if(id==='shop-exit'){chapterTravel(scene,'commercial');return true;}
+  if(id==='to-metro'){chapterTravel(scene,scene.place==='riverside'?'metro-riverside':'metro-station');return true;}
+  if(id==='metro-exit'){chapterTravel(scene,scene.place==='metro-riverside'?'riverside':'neighborhood');return true;}
+  if(id==='train'){const to=scene.place==='metro-station'?'Des Rives':'Quartier';show(scene,`Direction ${to}`,`Le prochain train rejoint la station ${to}. Le trajet est gratuit, comme tes déplacements à pied.`,[{id:'take-metro',label:`Prendre le métro → ${to}`},close],'MÉTRO DE MONTRÉAL');return true;}
   if(id==='counter'){showShop(scene);return true;}
   if(id==='wardrobe'||id==='locker'){showEquipment(scene,id==='wardrobe'?'street':'boxing');return true;}
   if(id==='depot'){scene.returningBike=false;showDepot(scene);return true;}
@@ -55,16 +60,16 @@ export function chapterInteract(scene,station){
   if(id==='shop'){
     show(scene,'Le dépanneur du coin','Les livraisons partent du dépôt de la nouvelle rue. Rejoins le passage ouvert à gauche du quartier pour travailler à vélo, puis découvre la place commerçante.',[close]);return true;
   }
-  if(id.startsWith('maison-')){
+  if(Object.hasOwn(DELIVERY_ADDRESSES,id)){
     const {active}=careerProfile.deliveryStatus();
     if(!active){show(scene,'Une adresse de livraison','Récupère une tournée au dépôt avant de livrer ici.');return true;}
     const target=active.stops[active.completed.length];
-    if(target!==id){show(scene,'Le prochain colis',`Cette livraison est destinée au ${target.split('-')[1]}. Suis l’adresse de ta tournée.`);return true;}
+    if(target!==id){show(scene,'Le prochain colis',`Prochaine adresse : ${deliveryAddress(target).address}.\n${deliveryAddress(target).sector} · ${routeDirection(scene.place,deliveryAddress(target))}.`);return true;}
     const tip=(scene.deliveryClock??0)<35&&!(scene.deliveryBumps>0)?2:(scene.deliveryClock??0)<60?1:0;
     const result=careerProfile.deliverParcel(id,{tip});scene.deliveryClock=0;scene.deliveryBumps=0;
     scene.refreshProfile();
     const left=careerProfile.deliveryStatus().active;
-    show(scene,left?'Merci pour le colis !':'Tournée terminée !',result.ok?`Livraison au ${id.split('-')[1]} : ${result.paid} $ reçus${result.capped?' · plafond atteint':` (dont ${tip} $ de pourboire)`}.\n${left?`Prochaine adresse : ${left.stops[left.completed.length].split('-')[1]}.`:'Retourne au dépôt pour rendre le vélo et prendre une autre tournée.'}\nPortefeuille : ${careerProfile.moneyStatus().money} $.`:result.message,[close],'LIVRAISON');
+    show(scene,left?'Merci pour le colis !':'Tournée terminée !',result.ok?`Livraison · ${deliveryAddress(id).address} : ${result.paid} $ reçus${result.capped?' · plafond atteint':` (dont ${tip} $ de pourboire)`}.\n${left?`Prochaine adresse : ${deliveryAddress(left.stops[left.completed.length]).address}.\n${routeDirection(scene.place,deliveryAddress(left.stops[left.completed.length]))}.`:'Retourne au dépôt pour rendre le vélo et prendre une autre tournée.'}\nPortefeuille : ${careerProfile.moneyStatus().money} $.`:result.message,[close],'LIVRAISON');
     if(result.ok&&!left)scene.returningBike=true;
     return true;
   }
@@ -72,15 +77,16 @@ export function chapterInteract(scene,station){
   return false;
 }
 export function chapterChoose(scene,id){
+  if(id==='take-metro'){scene.ui.closeDialog();scene.world.pause();scene.cameras.main.fadeOut(350,8,21,38);scene.cameras.main.once('camerafadeoutcomplete',()=>chapterTravel(scene,scene.place==='metro-station'?'metro-riverside':'metro-station'));return true;}
   if(id.startsWith('equip-')){const item=id.slice(6),slot=item.startsWith('street-')?'street':'boxing',r=careerProfile.equipItem(item,slot==='street'?'home':'gym');scene.refreshProfile?.();showEquipment(scene,slot,r.message);return true;}
   if(id.startsWith('buy-')){
     const item=careerProfile.catalogue().find(i=>i.id===id.slice(4));if(!item)return true;
-    show(scene,'Confirmer cet achat ?',`${item.label} · ${item.price} $.\nSolde après achat : ${careerProfile.moneyStatus().money-item.price} $.`,[{id:'shop-back',label:'Pas maintenant'},{id:`confirm-buy-${item.id}`,label:'Acheter'}],'BOUTIQUE');return true;
+    show(scene,'Confirmer cet achat ?',`${item.label} · ${item.price} $.\nSolde après achat : ${careerProfile.moneyStatus().money-item.price} $.`,[{id:'shop-back',label:'Pas maintenant'},{id:`confirm-buy-${item.id}`,label:'Acheter'}],'BOUTIQUE',item.id==='street-octopus'?{image:'assets/sprites/outfits/street-octopus/preview.png',imageAlt:'Chandail noir Poulin avec poulpe blanc'}:{});return true;
   }
   if(id==='shop-back'){showShop(scene);return true;}
   if(id.startsWith('confirm-buy-')){const r=careerProfile.buyItem(id.slice(12));scene.refreshProfile();showShop(scene,r.message);return true;}
   if(id==='start-delivery'){
-    const tours=careerProfile.deliveryStatus().completedTours,orders=[['maison-12','maison-24','maison-36'],['maison-36','maison-12','maison-24'],['maison-24','maison-36','maison-12']];
+    const tours=careerProfile.deliveryStatus().completedTours,orders=[['maison-12','depanneur-84','rue-nord-210'],['rue-nord-210','maison-24','depanneur-84'],['depanneur-84','rue-nord-210','maison-36']];
     const r=careerProfile.startDelivery(orders[tours%3]);scene.deliveryClock=0;scene.deliveryBumps=0;scene.refreshProfile();
     if(r.ok){scene.returningBike=false;scene.ui.closeDialog();scene.world.releaseControls();}else showDepot(scene,r.message);return true;
   }
@@ -105,6 +111,6 @@ export function installChapterReadout(scene){
 }
 export function updateChapterReadout(scene){
   const p=careerProfile.snapshot(),run=p.delivery.active,target=run?.stops[run.completed.length];
-  const text=run?`VÉLO · ${run.completed.length}/3 · Prochain colis : ${target.split('-')[1]} · ${p.wallet.money} $`:`${p.wallet.money} $ · ${scene.place==='residential'?'Dépôt et trois adresses':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':'Épargne pour les Gants de bronze'}`;
+  const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':'Épargne pour les Gants de bronze'}`;
   if(scene.chapterReadout&&scene.chapterReadout.textContent!==text)scene.chapterReadout.textContent=text;
 }

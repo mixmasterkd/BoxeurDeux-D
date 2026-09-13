@@ -275,7 +275,7 @@ test('mirror guard statistics separate each height and exclude the whole committ
   session.setGuard(true, 'body');
   session.update(2);
   session.act('jab');
-  session.update(.54);
+  session.update(TIMINGS.player.jab.duration + .1);
   close(session.state.stats.guardHeadSeconds, 1);
   close(session.state.stats.guardBodySeconds, 2.1);
   close(session.state.stats.guardSeconds, 3.1);

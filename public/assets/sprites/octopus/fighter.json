@@ -1,0 +1,47 @@
+{
+  "width": 512,
+  "height": 640,
+  "anchor": {
+    "x": 256,
+    "y": 624
+  },
+  "artHeight": 512,
+  "poses": {
+    "idle": {
+      "source": "references/characters/octopus/idle-alpha.png",
+      "sourceBounds": {
+        "x": 331,
+        "y": 20,
+        "w": 551,
+        "h": 1249
+      },
+      "scale": 0.4099279423538831,
+      "foot": 615.5,
+      "transparentFraction": 0.7269087256939809
+    },
+    "ready": {
+      "source": "references/characters/octopus/ready-alpha.png",
+      "sourceBounds": {
+        "x": 253,
+        "y": 11,
+        "w": 678,
+        "h": 1257
+      },
+      "scale": 0.40731901352426414,
+      "foot": 592,
+      "transparentFraction": 0.7160631735504174
+    },
+    "jab": {
+      "source": "references/characters/octopus/jab-alpha.png",
+      "sourceBounds": {
+        "x": 85,
+        "y": 13,
+        "w": 1132,
+        "h": 1199
+      },
+      "scale": 0.42579505300353354,
+      "foot": 577.5,
+      "transparentFraction": 0.6915145005370569
+    }
+  }
+}

@@ -11,6 +11,7 @@ export function installSceneLoading(game) {
   const title = root.querySelector('.loading-title'), progress = root.querySelector('progress'), detail = root.querySelector('.loading-detail');
   let current = null, started = 0;
   const labels = {
+    HotelScene: 'Un tour dans l’hôtel…', HotelActivityScene: 'Préparation de l’entraînement…',
     GymScene: 'Entrée dans le gym…', BagScene: 'Préparation du sac…', ShadowScene: 'Devant le miroir…',
     SparringScene: 'Préparation du ring…', RhythmScene: 'Préparation de l’atelier…',
   };

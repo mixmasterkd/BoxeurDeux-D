@@ -89,7 +89,6 @@ export class SparringScene extends Phaser.Scene {
       },
     });
     this.dailyNotice = new DailyActivityNotice({ root: this.ui.root, gate: this.dailyGate, panel: '.panel-actions', primary: '.primary-button', restarts: ['.secondary-button', '.next-lesson-button'] });
-    this.ui.elements['panel-copy'].after(this.dailyNotice.note);
     this.dailyNotice.update(this.session.state);
     this.signal = this.ui.root.querySelector('.fight-signal');
     this.accessNote = document.createElement('p'); this.accessNote.className = 'fight-access-note';
@@ -212,7 +211,7 @@ export class SparringScene extends Phaser.Scene {
       this.ui.elements['primary-button'].disabled = true;
     }
     if (this.tournament) {
-      this.dailyNotice.note.textContent = 'Gants de bronze · Combat compris dans votre inscription. Tenue bleue de compétition.';
+      this.dailyNotice.note.textContent = 'Combat compris dans l’inscription.';
     }
   }
 

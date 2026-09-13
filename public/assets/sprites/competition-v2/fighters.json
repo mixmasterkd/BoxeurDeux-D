@@ -1,0 +1,956 @@
+{
+  "version": 2,
+  "identity": "competition",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "note": "Clothing edits of the validated sparring athlete; uniform scaling, no width distortion. Complete generated transitions and floor poses.",
+  "poses": {
+    "competition-guard": {
+      "file": "competition-v2/competition-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 186,
+        "y": 112,
+        "width": 269,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 19,
+        "y": 112,
+        "w": 337,
+        "h": 642
+      },
+      "head": {
+        "x": 321,
+        "y": 157
+      },
+      "body": {
+        "x": 320,
+        "y": 301
+      },
+      "sourceFile": "references/characters/competition-v2/base-alpha.png",
+      "physicalScale": 0.7975077881619937
+    },
+    "competition-jab": {
+      "file": "competition-v2/competition-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 187,
+        "y": 30,
+        "width": 266,
+        "height": 594
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 9,
+        "w": 334,
+        "h": 745
+      },
+      "head": {
+        "x": 327,
+        "y": 158
+      },
+      "glove": {
+        "x": 267,
+        "y": 56
+      },
+      "body": {
+        "x": 320,
+        "y": 250
+      },
+      "contact": {
+        "x": 267,
+        "y": 56
+      },
+      "sourceFile": "references/characters/competition-v2/base-alpha.png",
+      "physicalScale": 0.7975077881619937
+    },
+    "competition-cross": {
+      "file": "competition-v2/competition-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 187,
+        "y": 30,
+        "width": 266,
+        "height": 594
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 9,
+        "w": 334,
+        "h": 745
+      },
+      "head": {
+        "x": 327,
+        "y": 158
+      },
+      "glove": {
+        "x": 267,
+        "y": 56
+      },
+      "body": {
+        "x": 320,
+        "y": 250
+      },
+      "contact": {
+        "x": 267,
+        "y": 56
+      },
+      "sourceFile": "references/characters/competition-v2/base-alpha.png",
+      "physicalScale": 0.7975077881619937,
+      "reusedFrom": "jab",
+      "mirror": true
+    },
+    "competition-block": {
+      "file": "competition-v2/competition-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 186,
+        "y": 85,
+        "width": 270,
+        "height": 539
+      },
+      "sourceBounds": {
+        "x": 18,
+        "y": 772,
+        "w": 338,
+        "h": 676
+      },
+      "head": {
+        "x": 322,
+        "y": 163
+      },
+      "body": {
+        "x": 321,
+        "y": 284
+      },
+      "sourceFile": "references/characters/competition-v2/base-alpha.png",
+      "physicalScale": 0.7975077881619937
+    },
+    "competition-hit": {
+      "file": "competition-v2/competition-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 187,
+        "y": 134,
+        "width": 261,
+        "height": 490
+      },
+      "sourceBounds": {
+        "x": 391,
+        "y": 833,
+        "w": 327,
+        "h": 614
+      },
+      "head": {
+        "x": 263,
+        "y": 171
+      },
+      "body": {
+        "x": 317,
+        "y": 315
+      },
+      "sourceFile": "references/characters/competition-v2/base-alpha.png",
+      "physicalScale": 0.7975077881619937
+    },
+    "competition-dodge": {
+      "file": "competition-v2/competition-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 149,
+        "y": 183,
+        "width": 343,
+        "height": 441
+      },
+      "sourceBounds": {
+        "x": 1154,
+        "y": 629,
+        "w": 287,
+        "h": 369
+      },
+      "head": {
+        "x": 227,
+        "y": 240
+      },
+      "body": {
+        "x": 321,
+        "y": 346
+      },
+      "sourceFile": "references/characters/competition-v2/transitions-alpha.png",
+      "physicalScale": 1.1962616822429906
+    },
+    "competition-jab-windup": {
+      "file": "competition-v2/competition-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 170,
+        "y": 112,
+        "width": 300,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 147,
+        "y": 56,
+        "w": 251,
+        "h": 428
+      },
+      "head": {
+        "x": 328,
+        "y": 165
+      },
+      "glove": {
+        "x": 253,
+        "y": 171
+      },
+      "body": {
+        "x": 320,
+        "y": 301
+      },
+      "contact": {
+        "x": 253,
+        "y": 171
+      },
+      "sourceFile": "references/characters/competition-v2/transitions-alpha.png",
+      "physicalScale": 1.1962616822429906
+    },
+    "competition-cross-windup": {
+      "file": "competition-v2/competition-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 170,
+        "y": 114,
+        "width": 300,
+        "height": 510
+      },
+      "sourceBounds": {
+        "x": 647,
+        "y": 58,
+        "w": 251,
+        "h": 426
+      },
+      "head": {
+        "x": 326,
+        "y": 165
+      },
+      "glove": {
+        "x": 388,
+        "y": 201
+      },
+      "body": {
+        "x": 320,
+        "y": 303
+      },
+      "contact": {
+        "x": 388,
+        "y": 201
+      },
+      "sourceFile": "references/characters/competition-v2/transitions-alpha.png",
+      "physicalScale": 1.1962616822429906
+    },
+    "competition-jab-recover": {
+      "file": "competition-v2/competition-jab-recover.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 170,
+        "y": 74,
+        "width": 301,
+        "height": 550
+      },
+      "sourceBounds": {
+        "x": 1144,
+        "y": 24,
+        "w": 252,
+        "h": 460
+      },
+      "head": {
+        "x": 335,
+        "y": 167
+      },
+      "glove": {
+        "x": 292,
+        "y": 104
+      },
+      "body": {
+        "x": 321,
+        "y": 278
+      },
+      "contact": {
+        "x": 292,
+        "y": 104
+      },
+      "sourceFile": "references/characters/competition-v2/transitions-alpha.png",
+      "physicalScale": 1.1962616822429906
+    },
+    "competition-cross-recover": {
+      "file": "competition-v2/competition-cross-recover.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 170,
+        "y": 74,
+        "width": 301,
+        "height": 550
+      },
+      "sourceBounds": {
+        "x": 1144,
+        "y": 24,
+        "w": 252,
+        "h": 460
+      },
+      "head": {
+        "x": 335,
+        "y": 167
+      },
+      "glove": {
+        "x": 292,
+        "y": 104
+      },
+      "body": {
+        "x": 321,
+        "y": 278
+      },
+      "contact": {
+        "x": 292,
+        "y": 104
+      },
+      "sourceFile": "references/characters/competition-v2/transitions-alpha.png",
+      "physicalScale": 1.1962616822429906,
+      "reusedFrom": "jab-recover",
+      "mirror": true
+    },
+    "competition-jab-windup-body": {
+      "file": "competition-v2/competition-jab-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 115,
+        "width": 360,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 34,
+        "y": 16,
+        "w": 347,
+        "h": 490
+      },
+      "head": {
+        "x": 313,
+        "y": 174
+      },
+      "body": {
+        "x": 324,
+        "y": 310
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-jab-body": {
+      "file": "competition-v2/competition-jab-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 115,
+        "width": 348,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 425,
+        "y": 16,
+        "w": 335,
+        "h": 490
+      },
+      "head": {
+        "x": 319,
+        "y": 174
+      },
+      "body": {
+        "x": 319,
+        "y": 313
+      },
+      "glove": {
+        "x": 251,
+        "y": 191
+      },
+      "contact": {
+        "x": 251,
+        "y": 191
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-cross-windup-body": {
+      "file": "competition-v2/competition-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 152,
+        "y": 118,
+        "width": 337,
+        "height": 506
+      },
+      "sourceBounds": {
+        "x": 796,
+        "y": 19,
+        "w": 324,
+        "h": 487
+      },
+      "head": {
+        "x": 333,
+        "y": 177
+      },
+      "body": {
+        "x": 331,
+        "y": 312
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-cross-body": {
+      "file": "competition-v2/competition-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 149,
+        "y": 115,
+        "width": 345,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 1167,
+        "y": 16,
+        "w": 332,
+        "h": 490
+      },
+      "head": {
+        "x": 339,
+        "y": 173
+      },
+      "body": {
+        "x": 339,
+        "y": 308
+      },
+      "glove": {
+        "x": 396,
+        "y": 198
+      },
+      "contact": {
+        "x": 396,
+        "y": 198
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-hook-windup-body": {
+      "file": "competition-v2/competition-hook-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 129,
+        "width": 360,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 34,
+        "y": 521,
+        "w": 347,
+        "h": 477
+      },
+      "head": {
+        "x": 312,
+        "y": 187
+      },
+      "body": {
+        "x": 322,
+        "y": 328
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-hook-body": {
+      "file": "competition-v2/competition-hook-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 130,
+        "width": 364,
+        "height": 494
+      },
+      "sourceBounds": {
+        "x": 425,
+        "y": 523,
+        "w": 350,
+        "h": 476
+      },
+      "head": {
+        "x": 313,
+        "y": 187
+      },
+      "body": {
+        "x": 309,
+        "y": 324
+      },
+      "glove": {
+        "x": 198,
+        "y": 281
+      },
+      "contact": {
+        "x": 198,
+        "y": 281
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-block-body": {
+      "file": "competition-v2/competition-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 150,
+        "y": 136,
+        "width": 341,
+        "height": 488
+      },
+      "sourceBounds": {
+        "x": 811,
+        "y": 529,
+        "w": 328,
+        "h": 470
+      },
+      "head": {
+        "x": 322,
+        "y": 196
+      },
+      "body": {
+        "x": 319,
+        "y": 323
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-hit-body": {
+      "file": "competition-v2/competition-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 155,
+        "y": 200,
+        "width": 332,
+        "height": 424
+      },
+      "sourceBounds": {
+        "x": 1183,
+        "y": 590,
+        "w": 320,
+        "h": 408
+      },
+      "head": {
+        "x": 328,
+        "y": 231
+      },
+      "body": {
+        "x": 319,
+        "y": 312
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817
+    },
+    "competition-jab-recover-body": {
+      "file": "competition-v2/competition-jab-recover-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 115,
+        "width": 360,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 34,
+        "y": 16,
+        "w": 347,
+        "h": 490
+      },
+      "head": {
+        "x": 313,
+        "y": 174
+      },
+      "body": {
+        "x": 324,
+        "y": 310
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817,
+      "reusedFrom": "jab-windup-body"
+    },
+    "competition-cross-recover-body": {
+      "file": "competition-v2/competition-cross-recover-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 152,
+        "y": 118,
+        "width": 337,
+        "height": 506
+      },
+      "sourceBounds": {
+        "x": 796,
+        "y": 19,
+        "w": 324,
+        "h": 487
+      },
+      "head": {
+        "x": 333,
+        "y": 177
+      },
+      "body": {
+        "x": 331,
+        "y": 312
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817,
+      "reusedFrom": "cross-windup-body"
+    },
+    "competition-hook-recover-body": {
+      "file": "competition-v2/competition-hook-recover-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 129,
+        "width": 360,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 34,
+        "y": 521,
+        "w": 347,
+        "h": 477
+      },
+      "head": {
+        "x": 312,
+        "y": 187
+      },
+      "body": {
+        "x": 322,
+        "y": 328
+      },
+      "sourceFile": "references/characters/competition-v2/body-alpha.png",
+      "physicalScale": 1.0387755102040817,
+      "reusedFrom": "hook-windup-body"
+    },
+    "competition-fall": {
+      "file": "competition-v2/competition-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 174,
+        "y": 290,
+        "width": 292,
+        "height": 334
+      },
+      "sourceBounds": {
+        "x": 534,
+        "y": 322,
+        "w": 388,
+        "h": 443
+      },
+      "head": {
+        "x": 372,
+        "y": 327
+      },
+      "body": {
+        "x": 330,
+        "y": 413
+      },
+      "sourceFile": "references/characters/competition-v2/floor-alpha.png",
+      "physicalScale": 0.7529411764705882
+    },
+    "competition-down": {
+      "file": "competition-v2/competition-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 148,
+        "y": 397,
+        "width": 345,
+        "height": 227
+      },
+      "sourceBounds": {
+        "x": 1027,
+        "y": 450,
+        "w": 458,
+        "h": 302
+      },
+      "head": {
+        "x": 300,
+        "y": 423
+      },
+      "body": {
+        "x": 302,
+        "y": 515
+      },
+      "sourceFile": "references/characters/competition-v2/floor-alpha.png",
+      "physicalScale": 0.7529411764705882
+    },
+    "competition-rise": {
+      "file": "competition-v2/competition-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 189,
+        "y": 195,
+        "width": 262,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 1546,
+        "y": 202,
+        "w": 348,
+        "h": 570
+      },
+      "head": {
+        "x": 335,
+        "y": 243
+      },
+      "body": {
+        "x": 338,
+        "y": 351
+      },
+      "sourceFile": "references/characters/competition-v2/floor-alpha.png",
+      "physicalScale": 0.7529411764705882
+    },
+    "competition-hook-windup": {
+      "file": "competition-v2/competition-hook-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 172,
+        "y": 112,
+        "width": 308,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 140,
+        "y": 80,
+        "w": 472,
+        "h": 785
+      },
+      "head": {
+        "x": 335,
+        "y": 161
+      },
+      "glove": {
+        "x": 264,
+        "y": 140
+      },
+      "body": {
+        "x": 326,
+        "y": 301
+      },
+      "contact": {
+        "x": 264,
+        "y": 140
+      },
+      "sourceFile": "references/characters/competition-v2/hooks-alpha.png",
+      "physicalScale": 0.6522292993630573
+    },
+    "competition-hook-recover": {
+      "file": "competition-v2/competition-hook-recover.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 177,
+        "y": 98,
+        "width": 301,
+        "height": 526
+      },
+      "sourceBounds": {
+        "x": 672,
+        "y": 59,
+        "w": 462,
+        "h": 806
+      },
+      "head": {
+        "x": 334,
+        "y": 175
+      },
+      "glove": {
+        "x": 296,
+        "y": 120
+      },
+      "body": {
+        "x": 328,
+        "y": 293
+      },
+      "contact": {
+        "x": 296,
+        "y": 120
+      },
+      "sourceFile": "references/characters/competition-v2/hooks-alpha.png",
+      "physicalScale": 0.6522292993630573
+    },
+    "competition-hook": {
+      "file": "competition-v2/competition-hook.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 175,
+        "y": 73,
+        "width": 309,
+        "height": 551
+      },
+      "sourceBounds": {
+        "x": 1199,
+        "y": 20,
+        "w": 474,
+        "h": 845
+      },
+      "head": {
+        "x": 350,
+        "y": 143
+      },
+      "glove": {
+        "x": 394,
+        "y": 96
+      },
+      "body": {
+        "x": 330,
+        "y": 277
+      },
+      "contact": {
+        "x": 394,
+        "y": 96
+      },
+      "sourceFile": "references/characters/competition-v2/hooks-alpha.png",
+      "physicalScale": 0.6522292993630573
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { careerProfile } from '../game/CareerProfile.js';
 import { careerPlace, careerMoney, careerMedals, careerChapter, careerImportSummary } from './CareerSummary.js';
 import './career.css';
+import { splitMenu, installMenuScrollCues } from './MenuWindow.js';
 
 export function downloadCareer() {
   const blob = new Blob([careerProfile.exportText()], { type: 'application/json' });
@@ -16,8 +17,20 @@ export function installCareerMenu() {
   const abort = new AbortController(), previousFocus = document.activeElement;
   let pending = null, held = new Set();
   const notify = open => window.dispatchEvent(new CustomEvent('career-menu-change', { detail: { open } }));
-  root.hidden = false; if (stage) stage.inert = true;
+  root.hidden = false; document.documentElement.dataset.careerOpen = 'true'; if (stage) stage.inert = true;
   root.innerHTML = `<section role="dialog" aria-modal="true" aria-labelledby="career-title"><p>BOXEURDEUX-D</p><h2 id="career-title">Reprendre ta journée.</h2><dl class="career-stats"></dl><button type="button" class="career-continue primary-button">Continuer</button><div class="career-tools"><button type="button" class="career-export">Exporter ma partie</button><button type="button" class="career-import">Importer une partie</button><button type="button" class="career-new">Nouvelle partie</button></div><div class="career-confirm" hidden><p></p><div><button type="button" class="career-cancel">Annuler</button><button type="button" class="career-confirm-button">Confirmer</button></div></div><input class="career-file" type="file" accept="application/json,.json" hidden><small class="career-status" role="status" aria-live="polite"></small><small class="career-storage-note">Partie conservée dans ce navigateur et à cette adresse. Exporter permet de la transférer sur un autre appareil.</small></section>`;
+  const frame = root.querySelector('section');
+  const { copy, choices } = splitMenu(frame, {
+    reading: [':scope > p', 'h2', '.career-stats', '.career-status', '.career-storage-note'],
+    actions: ['.career-continue', '.career-tools', '.career-confirm', '.career-file'],
+  });
+  // The resume screen follows the same 16:9 camera as every in-game window.
+  const fit = () => {
+    const rect = stage.getBoundingClientRect();
+    Object.assign(root.style, { left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px` });
+  };
+  const observer = new ResizeObserver(fit); observer.observe(stage);
+  window.addEventListener('resize', fit, { signal: abort.signal }); fit();
   const stats = root.querySelector('.career-stats'), confirmation = root.querySelector('.career-confirm');
   const status = root.querySelector('.career-status'), main = root.querySelector('.career-continue');
   const fileInput = root.querySelector('.career-file'), tools = root.querySelector('.career-tools');
@@ -34,17 +47,19 @@ export function installCareerMenu() {
     status.dataset.state = careerProfile.saveStatus().state;
   };
   const close = () => {
-    root.hidden = true; if (stage) stage.inert = matchMedia('(pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait)').matches; held.clear(); notify(false);
+    root.hidden = true; document.documentElement.dataset.careerOpen = 'false'; if (stage) stage.inert = matchMedia('(pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait)').matches; held.clear(); notify(false);
     if (previousFocus?.isConnected && previousFocus !== document.body) previousFocus.focus({ preventScroll: true });
   };
   const cancel = () => {
     pending = null; confirmation.hidden = true; tools.inert = false; main.disabled = false;
+    frame.classList.remove('is-confirming');
     focus(main);
   };
   const confirm = (message, action, label) => {
     pending = action; confirmation.querySelector('p').textContent = message;
     confirmation.querySelector('.career-confirm-button').textContent = label;
     confirmation.hidden = false; tools.inert = true; main.disabled = true;
+    frame.classList.add('is-confirming');
     focus(confirmation.querySelector('.career-cancel'));
   };
   on(main, 'click', close);
@@ -67,14 +82,14 @@ export function installCareerMenu() {
   }, 'Oui, recommencer'));
   on(confirmation.querySelector('.career-cancel'), 'click', cancel);
   on(confirmation.querySelector('.career-confirm-button'), 'click', () => pending?.());
-  const controls = () => [...root.querySelectorAll('button:not(:disabled)')].filter(element => !element.closest('[hidden], [inert]'));
+  const controls = () => [...frame.querySelectorAll('button:not(:disabled)')].filter(element => !element.closest('[hidden], [inert]'));
   const backwards = new Set(['ArrowUp', 'ArrowLeft', 'KeyW', 'KeyZ', 'KeyA', 'KeyQ']);
   const forwards = new Set(['ArrowDown', 'ArrowRight', 'KeyS', 'KeyD']);
   on(window, 'keydown', event => {
     if (root.hidden) return;
     // A modal owns input even if another scene has installed global listeners.
     event.stopImmediatePropagation();
-    if (!['Tab', 'Enter', 'Space', 'KeyJ', 'KeyK', 'KeyP', 'Escape', ...backwards, ...forwards].includes(event.code)) return;
+    if (!['Tab', 'Enter', 'Space', 'KeyE', 'KeyJ', 'KeyK', 'KeyP', 'Escape', ...backwards, ...forwards].includes(event.code)) return;
     event.preventDefault();
     if (event.repeat || held.has(event.code)) return;
     held.add(event.code);
@@ -82,9 +97,9 @@ export function installCareerMenu() {
     if (event.code === 'Tab' || backwards.has(event.code) || forwards.has(event.code)) {
       const step = backwards.has(event.code) || event.code === 'Tab' && event.shiftKey ? -1 : 1;
       focus(buttons[index < 0 ? 0 : (index + step + buttons.length) % buttons.length]);
-    } else if (['KeyK', 'Escape', 'KeyP'].includes(event.code)) {
+    } else if (['Escape', 'KeyP'].includes(event.code)) {
       if (pending) cancel(); else close();
-    } else (buttons[index] ?? buttons[0])?.click();
+    } else if (event.code === 'KeyE') (buttons[index] ?? buttons[0])?.click();
   }, { capture: true });
   on(window, 'keyup', event => {
     held.delete(event.code);
@@ -94,6 +109,37 @@ export function installCareerMenu() {
   on(root, 'focusout', () => queueMicrotask(() => {
     if (!root.hidden && !root.contains(document.activeElement)) focus(controls()[0]);
   }));
+  const left = document.createElement('div'); left.className = 'input-rail rail-left career-input-rail';
+  left.innerHTML = '<div class="joypad" aria-label="Joypad du menu de sauvegarde"><span class="joypad-axis axis-horizontal"></span><span class="joypad-axis axis-vertical"></span><span class="joypad-mark mark-up">▲</span><span class="joypad-mark mark-down">▼</span><span class="joypad-mark mark-left">◀</span><span class="joypad-mark mark-right">▶</span><span class="joypad-stick"></span></div>';
+  const right = document.createElement('div'); right.className = 'input-rail rail-right career-input-rail';
+  right.innerHTML = '<div class="console-actions"><button class="pad-action" data-pad-button="b" aria-label="B — Retour"><span class="control-key">B</span><span class="control-label">Retour</span></button><button class="pad-action" data-pad-button="a" aria-label="A — Valider"><span class="control-key">A</span><span class="control-label">Valider</span></button></div>';
+  root.append(left, right);
+  const portrait = () => matchMedia('(pointer: coarse) and (hover: none) and (max-width: 900px) and (orientation: portrait)').matches;
+  const pad = left.firstElementChild;
+  let padPointer = null, padDirection = 0;
+  const padMove = event => {
+    const rect = pad.getBoundingClientRect();
+    const dx = event.clientX - rect.left - rect.width / 2, dy = event.clientY - rect.top - rect.height / 2;
+    const step = Math.hypot(dx, dy) < rect.width * .15 ? 0 : Math.abs(dy) > Math.abs(dx) ? Math.sign(dy) : Math.sign(dx);
+    if (step && step !== padDirection) {
+      const buttons = controls(), index = buttons.indexOf(document.activeElement);
+      focus(buttons[index < 0 ? 0 : (index + step + buttons.length) % buttons.length]);
+    }
+    padDirection = step; pad.classList.toggle('is-held', Boolean(step));
+  };
+  on(pad, 'pointerdown', event => {
+    if (root.hidden || portrait() || padPointer !== null) return;
+    event.preventDefault(); padPointer = event.pointerId;
+    pad.setPointerCapture(event.pointerId); padMove(event);
+  });
+  on(pad, 'pointermove', event => { if(event.pointerId === padPointer) { event.preventDefault(); padMove(event); } });
+  for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) on(pad, type, () => { padPointer = null; padDirection = 0; pad.classList.remove('is-held'); });
+  for (const [letter, action] of [['a', () => { const buttons = controls(); (buttons.includes(document.activeElement) ? document.activeElement : buttons[0])?.click(); }], ['b', () => pending ? cancel() : close()]]) {
+    const button = right.querySelector(`[data-pad-button="${letter}"]`);
+    on(button, 'pointerdown', event => { if (root.hidden || portrait()) return; event.preventDefault(); action(); });
+    on(button, 'click', event => { event.preventDefault(); if (!event.detail && !root.hidden && !portrait()) action(); });
+  }
+  const disposeScrollCues = installMenuScrollCues(root);
   render(); focus(main); notify(true);
-  return () => { abort.abort(); close(); root.replaceChildren(); };
+  return () => { disposeScrollCues(); observer.disconnect(); abort.abort(); close(); root.replaceChildren(); };
 }

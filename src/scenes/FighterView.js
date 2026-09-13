@@ -15,7 +15,8 @@ const CHAPTER_OPPONENTS = ['kramer', 'bellini', 'fortin', 'gagnon'];
 const CHAPTER_ASSETS = 'assets/sprites/chapter-combat/';
 const CHAPTER_POSES = ['guard', 'block', 'jab-windup', 'jab', 'cross-windup', 'cross',
   'cross-windup-body', 'cross-body', 'block-body', 'hit', 'hit-body', 'fall', 'down', 'rise', 'dodge', 'surrender'];
-const COMPETITION_POSES = ['guard', 'block', 'jab-windup', 'jab', 'cross-windup', 'cross', 'hook-windup', 'hook',
+const COMPETITION_ASSETS = 'assets/sprites/competition-v2/';
+const COMPETITION_POSES = ['jab-recover','cross-recover','hook-recover','jab-recover-body','cross-recover-body','hook-recover-body','guard', 'block', 'jab-windup', 'jab', 'cross-windup', 'cross', 'hook-windup', 'hook',
   'jab-windup-body', 'jab-body', 'cross-windup-body', 'cross-body', 'hook-windup-body', 'hook-body', 'block-body', 'hit-body', 'hit', 'dodge', 'fall', 'down', 'rise'];
 const CHAPTER_FALLBACKS = {
   'jab-recover': 'jab-windup', 'cross-recover': 'cross-windup', 'cross-recover-body': 'cross-windup-body',
@@ -66,8 +67,8 @@ export class FighterView {
       for (const pose of CHAPTER_POSES) scene.load.image(`${opponent}-${pose}`, `${base}${CHAPTER_ASSETS}${opponent}/${opponent}-${pose}.png`);
     }
     if (tournament) {
-      scene.load.json('fighters-competition', `${base}${CHAPTER_ASSETS}competition/fighters.json`);
-      for (const pose of COMPETITION_POSES) scene.load.image(`competition-${pose}`, `${base}${CHAPTER_ASSETS}competition/competition-${pose}.png`);
+      scene.load.json('fighters-competition', `${base}${COMPETITION_ASSETS}fighters.json`);
+      for (const pose of COMPETITION_POSES) scene.load.image(`competition-${pose}`, `${base}${COMPETITION_ASSETS}competition-${pose}.png`);
     }
   }
 
@@ -103,7 +104,7 @@ export class FighterView {
         ? { 'jab-recover':'jab-windup', 'cross-recover':'cross-windup', 'hook-recover':'hook-windup',
           'jab-recover-body':'jab-windup-body', 'cross-recover-body':'cross-windup-body', 'hook-recover-body':'hook-windup-body' }
         : CHAPTER_FALLBACKS;
-      for (const [pose, source] of Object.entries(fallbacks)) poses[`${who}-${pose}`] = { ...poses[`${who}-${source}`], fallbackFrom: pose };
+      for (const [pose, source] of Object.entries(fallbacks)) if (!poses[`${who}-${pose}`]) poses[`${who}-${pose}`] = { ...poses[`${who}-${source}`], fallbackFrom: pose };
       this.metadata = { ...atlas, poses };
     }
     this.anchor = this.metadata.anchor;

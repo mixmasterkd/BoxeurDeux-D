@@ -1,0 +1,9 @@
+# Chandail POULIN — imagegen intégré
+
+Use case: identity-preserve. Edit target image1: the EXISTING player's twelve walking sprites,3columns4rows. Referenceimage2: Octopus shirt emblem design only. Change ONLY player upper clothing in ALL12poses to a black short-sleeve POULIN T-shirt with a small white octopus emblem on chest. Keep player's OWN face, red tuque with tiny blackboxer emblem, beard, skin, black pants with white side stripes, pale shoes, same poses/directions/gait/body proportions and transparent gaps. Do NOT change player into TheOctopus. Frontlogo normally readable; rear shirt plain black, side view only narrow partial emblem. Sleeves end above elbow so forearms show naturally. Preserve entire full12sprite grid: row1facingdown, row2facingright, row3backfacingup,row4facingleft. Columns idle/step1/step2. Exactly12 fullfigures on genuine transparent RGBA background, allfeet visible, no checkerboard. Crisp SNES pixelart, same established player silhouette. Avoid adding objects or any extra pose.
+
+Le motif est une adaptation lisible du chandail envoyé par l’utilisateur. Le personnage conserve sa tuque rouge et sa propre identité. Achat cosmétique, aucun gain sportif.
+
+## Transparence et préparation
+
+La première tentative conservait un faux damier. La dernière passe intégrée demande simplement douze sprites isolés sur fond réellement transparent, avec les mêmes poses et la même tenue : `alpha.png` est la source finale vérifiée. La préparation technique utilise `scripts/prepare-outfit-sprites.mjs` avec `street-octopus`. Le même facteur de réduction et les mêmes pieds sont appliqués aux douze poses. L’aperçu boutique vient du premier personnage de cette planche, recadré puis ajusté proportionnellement à 192 × 272. Aucun service d’IA n’est appelé pendant une partie.

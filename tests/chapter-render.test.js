@@ -8,7 +8,7 @@ import { readPng } from '../scripts/sprite-png.mjs';
 const json = file => JSON.parse(readFileSync(new URL(`../public/assets/sprites/${file}`,import.meta.url)));
 const ids=['kramer','bellini','fortin','gagnon'];
 const atlases={fighters:json('sparring-v2/fighters.json'),'fighters-hook':json('sparring-hook/fighters.json'),'fighters-body':json('body-training/sparring.json'),'fighters-knockdown':json('knockdown/fighters.json')};
-for(const id of [...ids,'competition'])atlases[`fighters-${id}`]=json(`chapter-combat/${id}/fighters.json`);
+for(const id of [...ids,'competition'])atlases[`fighters-${id}`]=json(id==='competition'?'competition-v2/fighters.json':`chapter-combat/${id}/fighters.json`);
 function object(x,y,key){return{x,y,texture:{key},rotation:0,flipX:false,setOrigin(){return this;},setScale(s){this.scaleX=this.scaleY=s;return this;},setPosition(x,y){this.x=x;this.y=y;return this;},setRotation(r){this.rotation=r;return this;},setFlipX(v){this.flipX=v;return this;},setAlpha(a){this.alpha=a;return this;},setTexture(key){this.texture={key};return this;}};}
 const scene=()=>({cache:{json:{get:key=>atlases[key]}},add:{image:object,ellipse:object}});
 function bounds(view){const b=view.metadata.poses[`${view.who}-${view.pose}`].bounds;return[[b.x,b.y],[b.x+b.width,b.y],[b.x,b.y+b.height],[b.x+b.width,b.y+b.height]].map(([x,y])=>transformFighterPoint({x,y},view.anchor,{x:view.sprite.x,y:view.sprite.y,scale:view.sprite.scaleX,rotation:view.sprite.rotation,flip:view.sprite.flipX}));}
@@ -16,7 +16,7 @@ function visible(view){for(const p of bounds(view)){const x=640*.12+p.x*.88,y=p.
 
 test('all new boxers have genuine transparent full poses, measured glove pixels and lower floor poses',()=>{
   for(const id of [...ids,'competition']){
-    const atlas=atlases[`fighters-${id}`];assert.equal(Object.keys(atlas.poses).length,id==='competition'?21:16);
+    const atlas=atlases[`fighters-${id}`];assert.equal(Object.keys(atlas.poses).length,id==='competition'?27:16);
     for(const [name,spec]of Object.entries(atlas.poses)){
       const png=readPng(new URL(`../public/assets/sprites/${spec.file}`,import.meta.url));let clear=0,visible=0;
       for(let i=3;i<png.pixels.length;i+=4){if(!png.pixels[i])clear++;else if(png.pixels[i]>220)visible++;}

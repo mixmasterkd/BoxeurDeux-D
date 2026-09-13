@@ -71,19 +71,19 @@ export class SparringUI {
           <div class="fighter-name">Rémi le Tank</div>
           <div class="remi-status"><span class="status-dot" aria-hidden="true"></span><span data-value="remi-status">Prêt à vous entraîner</span></div>
           <button type="button" class="pause-button" aria-label="Mettre en pause" title="Pause — P ou Échap" disabled>Ⅱ</button>
-          <button type="button" class="audio-button" aria-label="Couper le son — M" title="Son — M" aria-pressed="false"><span class="audio-icon" aria-hidden="true">♪</span><span class="audio-label">Son</span></button>
+          <button type="button" class="audio-button" aria-label="Couper le son" title="Son" aria-pressed="false"><span class="audio-icon" aria-hidden="true">♪</span><span class="audio-label">Son</span></button>
         </div>
       </div>
       <div class="session-caption"><span class="touches-count" data-value="landed">0</span> TOUCHES DONNÉES <span aria-hidden="true">·</span> <span class="touches-count" data-value="received">0</span> REÇUES</div>
       <div class="fight-feedback" role="status" aria-live="polite" aria-atomic="true"></div>
       <div class="fight-signal" aria-live="off" hidden></div>
-      <aside class="training-coach" aria-label="Conseil de Rémi" hidden>
-        <div class="coach-heading"><span>RÉMI VOUS GUIDE</span><strong data-value="training-progress">0 / 3</strong></div>
+      <aside class="training-coach" aria-label="Conseil de Fredo" hidden>
+        <div class="coach-heading"><span>FREDO VOUS GUIDE</span><strong data-value="training-progress">0 / 3</strong></div>
         <div class="coach-steps" aria-hidden="true"><i></i><i></i><i></i></div>
         <p class="coach-objective"></p>
         <p class="coach-cue" role="status" aria-live="polite" aria-atomic="true"></p>
       </aside>
-      <section class="round-panel" aria-labelledby="round-panel-title">
+      <section class="round-panel" role="dialog" aria-modal="true" aria-labelledby="round-panel-title">
         <div class="panel-scroll">
         <div class="panel-intro">
         <p class="panel-eyebrow">60 SECONDES POUR APPRENDRE</p>
@@ -129,14 +129,14 @@ export class SparringUI {
           <div><dt>Jab gauche</dt><dd>J</dd></div>
           <div><dt>Direct droit</dt><dd>K</dd></div>
           <div><dt>Crochet gauche en combo</dt><dd>J → K → J</dd></div>
-          <div><dt>Garde haute / basse</dt><dd>↑ / ↓ ou W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>↓ ou S + J / K</dd></div>
+          <div><dt>Garde haute / basse</dt><dd>W / S maintenu</dd></div><div><dt>Frappe au corps</dt><dd>S + J / K</dd></div>
         </dl><dl>
-          <div><dt>Esquive gauche / droite</dt><dd>A / D ou ← / →</dd></div>
+          <div><dt>Esquive gauche / droite</dt><dd>A / D</dd></div>
           <div><dt>Pause / retour</dt><dd>P ou Échap</dd></div>
-          <div><dt>Son / muet</dt><dd>M</dd></div>
+          <div><dt>Son / muet</dt><dd>Menu pause</dd></div>
         </dl></div>
         <p class="commands-tip">Relâchez la garde pour récupérer. Une pression par frappe ou esquive.</p>
-        <p class="commands-tip combo-help">En sparring libre : attendez le retour en garde, puis enchaînez sous une demi-seconde. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
+        <p class="commands-tip combo-help">Enchaînez J → K → J : le prochain coup peut être préparé juste avant le retour en garde. Une pression par frappe. Jab, direct, crochet coûtent 48 d’endurance. La garde haute, une esquive, un coup reçu ou une pause interrompt le combo. Maintenir bas permet d’enchaîner au corps. Les leçons gardent jab et direct.</p>
         <p class="commands-touch-tip commands-tip">Au tactile : joypad à gauche (haut : tête, bas : corps, côtés : esquives), A pour le jab, B pour le direct. Bas + A / B frappe au corps. Dans les menus, A valide et B revient; le joypad choisit.</p>
         <p class="commands-tip recovery-help">Séance Résistance et relevés : au tapis, alternez J et K, ou A et B, six fois avant dix. Relâchez entre chaque pression et suivez le repère, sans marteler. Le décompte se met aussi en pause avec P / Échap ou ☰.</p>
         <button type="button" class="commands-back-button">← Retour au menu pause</button>

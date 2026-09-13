@@ -10,7 +10,7 @@ import { readPng, writePng } from './sprite-png.mjs';
 const root = path.resolve(import.meta.dirname, '..');
 const args = process.argv.slice(2);
 const outfitId = args[args.indexOf('--id') + 1];
-if (!['street-blue', 'street-burgundy', 'boxing-emerald', 'boxing-burgundy'].includes(outfitId)) throw new Error('Supply a valid --id.');
+if (!['street-blue', 'street-burgundy', 'street-octopus', 'boxing-emerald', 'boxing-burgundy'].includes(outfitId)) throw new Error('Supply a valid --id.');
 const output = path.join(root, 'public/assets/sprites/outfits', outfitId);
 const directions = ['down', 'right', 'up', 'left'];
 const width = 96;

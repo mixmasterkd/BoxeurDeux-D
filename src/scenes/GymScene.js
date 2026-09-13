@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import { DoorTravel } from '../game/DoorTravel.js';
+import { preloadGymFriends, createGymFriends, renderGymFriends, interactGymFriend, chooseGymFriend } from './GymFriends.js';
 import { GymWorld, GYM_LAYOUT } from '../game/GymWorld.js';
 import { GymUI } from '../ui/GymUI.js';
 import { setSceneShell } from '../ui/SceneShell.js';
@@ -24,6 +26,7 @@ export class GymScene extends Phaser.Scene {
   preload() {
     const base = import.meta.env.BASE_URL;
     preloadOutfits(this,{boxing:true});
+    preloadGymFriends(this);
     this.load.image('gym-exploration', `${base}assets/backgrounds/gym-exploration.png`);
     this.load.json('gym-player-data', `${base}assets/sprites/exploration/player.json`);
     for (const direction of ['down', 'right', 'up', 'left']) {
@@ -42,6 +45,7 @@ export class GymScene extends Phaser.Scene {
     if (spawn) this.world.restorePosition(spawn);
     this.registry.set('gym-world', this.world);
     this.world.resume();
+    this.doorTravel = new DoorTravel(this.world.layout.doors ?? [], this.world.state);
     this.add.image(640, 360, 'gym-exploration').setDisplaySize(1280, 720);
     this.locationClock = 0;
     this.lastLocation = null;
@@ -51,16 +55,17 @@ export class GymScene extends Phaser.Scene {
     this.addForeground([[465,145],[841,145],[873,297],[875,439],[426,439],[426,296]], 439);
     this.addForeground([[206,104],[242,104],[258,128],[258,253],[250,265],[203,265],[196,252],[196,129]], 267);
     const remi = GYM_LAYOUT.stations.find(station => station.id === 'remi');
-    this.remiShadow = this.add.ellipse(remi.x, remi.y + 1, 45, 13, 0x0c1b23, .30).setDepth(1);
-    this.remi = this.add.image(remi.x, remi.y, 'gym-remi').setOrigin(.5, 104 / 112).setDepth(remi.y);
-    this.remiName = this.add.text(remi.x, remi.y - 103, 'RÉMI', {
+    this.remiShadow = this.add.ellipse(remi.x, remi.y + 1, 45, 13, 0x0c1b23, .30).setScale(GYM_LAYOUT.actorScale).setDepth(1);
+    this.remi = this.add.image(remi.x, remi.y, 'gym-remi').setOrigin(.5, 104 / 112).setScale(GYM_LAYOUT.actorScale).setDepth(remi.y);
+    this.remiName = this.add.text(remi.x, remi.y - 103 * GYM_LAYOUT.actorScale, 'RÉMI', {
       fontFamily: 'monospace', fontSize: '13px', fontStyle: 'bold', color: '#f2d29a',
       backgroundColor: '#142b32df', padding: { x: 8, y: 4 },
     }).setOrigin(.5, 1).setDepth(900);
+    createGymFriends(this);
     this.playerData = this.cache.json.get('gym-player-data');
-    this.shadow = this.add.ellipse(0, 0, 33, 11, 0x102129, .27).setDepth(1);
+    this.shadow = this.add.ellipse(0, 0, 33, 11, 0x102129, .27).setScale(GYM_LAYOUT.actorScale).setDepth(1);
     this.player = this.add.image(0, 0, 'gym-player-down-0').setOrigin(
-      this.playerData.anchor.x / this.playerData.width, this.playerData.anchor.y / this.playerData.height);
+      this.playerData.anchor.x / this.playerData.width, this.playerData.anchor.y / this.playerData.height).setScale(GYM_LAYOUT.actorScale);
     this.marker = this.add.graphics().setDepth(2);
     this.ui = new GymUI({
       onMove: vector => { if (!this.changingPlace && !resumePending()) this.world.setInput(vector); },
@@ -72,7 +77,7 @@ export class GymScene extends Phaser.Scene {
       onBag: () => this.enterBag(),
       onShadow: () => this.enterShadow(),
       onRhythm: activity => this.enterRhythm(activity),
-      onDialogAction: action => { if (action?.id === 'neighborhood') this.enterNeighborhood(); else if(action?.id.startsWith('equip-'))chapterChoose(this,action.id); },
+      onDialogAction: action => { if (chooseGymFriend(this,action)) return; if (action?.id === 'neighborhood') this.enterNeighborhood(); else if(action?.id.startsWith('equip-'))chapterChoose(this,action.id); },
       onExportCareer: () => downloadCareer(),
       onInspectCareer: text => careerProfile.inspectImport(text),
       onImportCareer: text => { careerProfile.importText(text); this.ui.setCareer(careerProfile.snapshot(), careerProfile.saveStatus()); window.dispatchEvent(new CustomEvent('career-imported')); },
@@ -112,6 +117,7 @@ export class GymScene extends Phaser.Scene {
     const station = this.world.getNearby();
     if (!station) return;
     this.world.releaseControls();
+    if(interactGymFriend(this,station))return;
     if(station.id==='locker'){showEquipment(this,'boxing');return;}
     if (station.id === 'remi') {
       this.ui.showDialog({
@@ -238,6 +244,7 @@ export class GymScene extends Phaser.Scene {
     // Phaser smooths and caps its default delta during startup/focus recovery.
     // Use elapsed frame time so walking speed stays steady on slower devices.
     if (!this.ui.dialog && !this.changingPlace && !resumePending() && !careerMenuOpen()) this.world.update((this.game.loop.rawDelta ?? delta) / 1000);
+    if (this.doorTravel.update(this.world.state, this.world.input, this.changingPlace || this.world.state.paused || Boolean(this.ui.dialog) || resumePending() || careerMenuOpen()) === 'porte') this.enterNeighborhood();
     this.renderWorld();
     this.ui.update(this.world.state);
     this.locationClock += Math.min(delta / 1000, .1);
@@ -246,6 +253,7 @@ export class GymScene extends Phaser.Scene {
   }
 
   renderWorld() {
+    renderGymFriends(this,this.time.now);
     const state = this.world.state;
     const step = state.moving && !state.paused && !this.ui.dialog
       ? [0, 1, 0, 2][Math.floor(state.walkTime / .14) % 4] : 0;

@@ -10,12 +10,16 @@ import { getOpponentProfile, opponentCornerAdvice } from './OpponentProfiles.js'
 export const IMPACT_HOLD = 0.10;
 // Each follow-up must begin within this interval after the previous punch ends.
 export const COMBO_WINDOW = 0.50;
+// One deliberate follow-up can be remembered near the end of a punch. It is
+// never charged or thrown until the first hand has returned, and early spam
+// cannot build a list of automatic attacks.
+export const PUNCH_BUFFER = 0.16;
 
 export const TIMINGS = Object.freeze({
   player: Object.freeze({
-    jab: Object.freeze({ duration: 0.44, impact: 0.45, cost: 10 }),
-    cross: Object.freeze({ duration: 0.60, impact: 0.50, cost: 17 }),
-    hook: Object.freeze({ duration: 0.68, impact: 0.32 / 0.68, cost: 21 }),
+    jab: Object.freeze({ duration: 0.34, impact: 0.14 / 0.34, cost: 10 }),
+    cross: Object.freeze({ duration: 0.42, impact: 0.19 / 0.42, cost: 17 }),
+    hook: Object.freeze({ duration: 0.58, impact: 0.27 / 0.58, cost: 21 }),
     dodgeLeft: Object.freeze({ duration: 0.60, activeFrom: 0.08, activeUntil: 0.44, cost: 12 }),
     dodgeRight: Object.freeze({ duration: 0.60, activeFrom: 0.08, activeUntil: 0.44, cost: 12 }),
     hit: Object.freeze({ duration: 0.28 }),
@@ -106,6 +110,7 @@ export class SparringSession {
     this._guardRequested = false;
     this._guardLevel = 'head';
     this._playerAction = null;
+    this._queuedPunch = null;
     this._combo = null;
     this._playerHurt = 0;
     this._remiHurt = 0;
@@ -190,7 +195,20 @@ export class SparringSession {
     if (this.state.phase === 'knockdown') return this._recoveryPress(action);
     // The hook belongs to J → K → J, never to a third attack command.
     if (!['jab', 'cross', 'dodgeLeft', 'dodgeRight'].includes(action)
-      || this.state.phase !== 'running' || this._playerAction || this._coach?.state.completed) return false;
+      || this.state.phase !== 'running' || this._coach?.state.completed) return false;
+    if (action.startsWith('dodge')) this._queuedPunch = null;
+    if (this._playerAction) {
+      const current = this._playerAction;
+      if (this._queuedPunch || !['jab', 'cross'].includes(action)
+        || !['jab', 'cross', 'hook'].includes(current.action) || !current.impacted
+        || current.duration - current.elapsed > PUNCH_BUFFER + EPSILON) return false;
+      this._queuedPunch = { action, target: this._guardRequested && this._guardLevel === 'body' ? 'body' : 'head' };
+      return true;
+    }
+    return this._startPlayerAction(action);
+  }
+
+  _startPlayerAction(action, target = this._guardRequested && this._guardLevel === 'body' ? 'body' : 'head') {
     this._expireCombo();
     if ((this._guardHeld && this._guardLevel === 'head') || action.startsWith('dodge')) this._clearCombo();
     if (!this._coach && action === 'jab' && this._combo?.step === 2) action = 'hook';
@@ -222,7 +240,7 @@ export class SparringSession {
       }
     }
     this.state.stamina = Math.max(0, this.state.stamina - timing.cost);
-    this._playerAction = { action, target: this._guardRequested && this._guardLevel === 'body' ? 'body' : 'head', elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence };
+    this._playerAction = { action, target, elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence };
     this._recoverAt = this.state.elapsed + timing.duration + RECOVERY_DELAY;
     if (timing.impact !== undefined) this.state.stats.thrown += 1;
     this._syncState();
@@ -233,7 +251,7 @@ export class SparringSession {
     const guardLevel = level === 'body' ? 'body' : 'head';
     // Down also selects body punches, so holding it between punches must keep
     // their combo window intact. A high guard remains a defensive interruption.
-    if (held && guardLevel === 'head' && this.state.phase === 'running') this._clearCombo();
+    if (held && guardLevel === 'head' && this.state.phase === 'running') { this._clearCombo(); this._queuedPunch = null; }
     const requested = Boolean(held) && this.state.phase === 'running';
     // Exhaustion drops the effective defense, not the held direction. Down
     // keeps selecting body punches while resting; the exhausted guard needs
@@ -251,6 +269,7 @@ export class SparringSession {
   }
 
   releaseControls() {
+    this._queuedPunch = null;
     this._clearCombo();
     this.setGuard(false);
   }
@@ -328,6 +347,8 @@ export class SparringSession {
 
     if (this._playerAction && this._playerAction.elapsed + EPSILON >= this._playerAction.duration) {
       this._playerAction = null;
+      const next = this._queuedPunch; this._queuedPunch = null;
+      if (next && this.state.remaining > EPSILON && !this._coach?.state.completed) this._startPlayerAction(next.action, next.target);
     }
     if (this._remiAction && this._remiAction.elapsed + EPSILON >= this._remiAction.duration) {
       this._nextRemiAction();
@@ -405,6 +426,7 @@ export class SparringSession {
     this.state.stats.received += 1;
     this.state.stats[target === 'body' ? 'receivedBody' : 'receivedHead'] += 1;
     this._clearCombo();
+    this._queuedPunch = null;
     this.state.stamina = Math.max(0, this.state.stamina - 4);
     this._playerHurt = HURT_DURATION;
     this._playerHurtTarget = target;
@@ -593,6 +615,7 @@ export class SparringSession {
   }
 
   _clearCombatActions() {
+    this._queuedPunch = null;
     this._clearCombo();
     this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
     this._playerAction = null; this._remiAction = null;
@@ -601,6 +624,7 @@ export class SparringSession {
   }
 
   _beginKnockdown() {
+    this._queuedPunch = null;
     if (this.state.remaining <= EPSILON) { this.state.remaining = 0; this.state.elapsed = this.settings.duration; }
     const bout = this.state.bout;
     // Snapshot only after resolving both contacts at this exact boundary. The
@@ -798,6 +822,7 @@ export class SparringSession {
   }
 
   _finishResistanceRound() {
+    this._queuedPunch = null;
     this._recordResistanceRound();
     // Freeze any contact that occurred on the bell behind the interval/report.
     // nextRound, rather than the bell itself, discards the committed actions.
@@ -816,6 +841,7 @@ export class SparringSession {
 
   _finishBout(result) {
     if (this.state.phase === 'finished') return;
+    this._queuedPunch = null;
     this._recordResistanceRound();
     this.state.bout.result = result;
     this.state.phase = 'finished';
@@ -840,6 +866,7 @@ export class SparringSession {
   }
 
   _finishRound() {
+    this._queuedPunch = null;
     if (this.state.bout) { this._finishResistanceRound(); return; }
     this.state.phase = 'finished';
     this._clearCombo();
