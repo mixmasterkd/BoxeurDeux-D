@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "identity": "Arbitre original — chemise bleu clair, nœud papillon et gants noirs, tempes grises.",
+  "source": "references/characters/referee/atlas-chroma.png",
+  "scale": 0.6360248447204969,
+  "note": "Three independently generated poses on one atlas. Uniform standing body scale and common foot baseline; raised arms retain their extra height. Left/right names refer to image coordinates. Actual RGBA transparency extracted from integrated-imagegen chroma background.",
+  "poses": {
+    "neutral": {
+      "file": "referee/neutral.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 167,
+        "y": 113,
+        "width": 311,
+        "height": 511
+      },
+      "sourceBounds": {
+        "x": 15,
+        "y": 163,
+        "w": 489,
+        "h": 804
+      },
+      "handLeft": {
+        "x": 185,
+        "y": 378
+      },
+      "handRight": {
+        "x": 458,
+        "y": 378
+      },
+      "head": {
+        "x": 320,
+        "y": 145
+      }
+    },
+    "raise-left": {
+      "file": "referee/raise-left.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 150,
+        "y": 46,
+        "width": 308,
+        "height": 578
+      },
+      "sourceBounds": {
+        "x": 499,
+        "y": 59,
+        "w": 485,
+        "h": 908
+      },
+      "handLeft": {
+        "x": 170,
+        "y": 73
+      },
+      "handRight": {
+        "x": 437,
+        "y": 380
+      },
+      "head": {
+        "x": 320,
+        "y": 145
+      }
+    },
+    "raise-right": {
+      "file": "referee/raise-right.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 174,
+        "y": 64,
+        "width": 300,
+        "height": 560
+      },
+      "sourceBounds": {
+        "x": 1048,
+        "y": 86,
+        "w": 471,
+        "h": 881
+      },
+      "handLeft": {
+        "x": 196,
+        "y": 381
+      },
+      "handRight": {
+        "x": 452,
+        "y": 89
+      },
+      "head": {
+        "x": 320,
+        "y": 145
+      }
+    }
+  }
+}
