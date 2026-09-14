@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-14T02:08:52.358Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": 7,
+  "allMatch": true,
+  "results": [
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "92d22d2bf560bdf4c2a822a13c25642cc2b2d401f4054eb366fbf10cda19e8b7",
+      "match": true
+    },
+    {
+      "file": "assets/index-Bl_NKUT6.css",
+      "bytes": 102843,
+      "sha256": "142da0cf54013353a075bcc7b7cc2925d9f37d52bddfe7cae009df1465229d57",
+      "match": true
+    },
+    {
+      "file": "assets/index-chDa6-Xw.js",
+      "bytes": 1890816,
+      "sha256": "7d619de3df5aa0a899093a25bc2e63dfa4bb4afb68f875ddbe42b1b26a4c574b",
+      "match": true
+    },
+    {
+      "file": "assets/metro/train.png",
+      "bytes": 2295136,
+      "sha256": "f67e24e8279a002dbc7b5180c5b8426d5a1d1d97bea6c58fc4a0e19951b834bf",
+      "match": true
+    },
+    {
+      "file": "assets/metro/train-doors.png",
+      "bytes": 110076,
+      "sha256": "d2314c3c7a3b2ccc8d0e5056bce02e7c61d5c0f0e3de8a9f0a17a933d2de317e",
+      "match": true
+    },
+    {
+      "file": "assets/metro/window-platform.png",
+      "bytes": 255535,
+      "sha256": "e7da9214d173b20fc7dd6e9091179aa034288d8bb0c2fbcf06f662da432be461",
+      "match": true
+    },
+    {
+      "file": "assets/metro/window-tunnel.png",
+      "bytes": 203450,
+      "sha256": "12eaefc3411ca686b4286d6beecd295a08055d9439c2280ead276a498bfdcd69",
+      "match": true
+    }
+  ]
+}
