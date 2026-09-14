@@ -23,6 +23,9 @@ function fixture(kind) {
   if (kind === 'marathon') {
     assert.ok(profile.applyTestCommand('test marathon').ok);
     profile.setLocation({scene: 'marathon-island', x: 930, y: 820, facing: 'up'});
+  } else if (kind === 'pablo') {
+    assert.ok(profile.applyTestCommand('test mexique').ok);
+    profile.setLocation({scene:'mexico-gym',x:1040,y:620,facing:'up'});
   } else if (kind === 'pads') {
     assert.ok(profile.applyTestCommand('test mexique').ok);
     profile.setLocation({scene: 'mexico-gym', x: 430, y: 515, facing: 'up'});
@@ -155,8 +158,34 @@ async function metro(mobile) {
   report.cases.push({name: 'metro-production', mobile, plan5Stops: true, physicalBoarding: true, trainMoves: true});
   await close(context);
 }
+async function pablo(mobile) {
+  const {page,context,controls:c}=await setup('pablo',mobile);
+  await c.confirm();await c.choose('[data-gym-action="pablo-sparring"]');await ready(page,'sparring');
+  const named=async()=>{
+    const copy=await page.locator('#sparring-ui').textContent();
+    assert.ok(!/rémi/i.test(copy),'Pablo owns all shared labels, help and settings');
+    assert.ok(!/rémi/i.test(await page.locator('#stage').getAttribute('aria-label')));
+    assert.match(await page.locator('.opponent-info .fighter-name').textContent(),/Pablo/);
+  };
+  await named();await c.pause();await named();await c.back();
+  await c.choose('#sparring-ui .primary-button');
+  await wait(page,()=>document.querySelector('#sparring-ui').dataset.phase==='running');
+  await c.punch('jab');await page.waitForTimeout(450);await c.punch('cross');
+  await c.pause();await named();await capture(page,c,mobile,'pablo-pause');
+  await c.back();await c.tap('#sparring-ui .activity-exit-button');await ready(page,'mexico-gym');
+  report.cases.push({name:'pablo-correct-name',mobile,readyAndRunningAndPause:true,settingsAndHelpRenamed:true,returnMexico:true});
+  await close(context);
+}
 async function restaurant(mobile) {
   const {page, context, controls: c, profile} = await setup('gold', mobile);
+  assert.equal(await page.locator('.gym-heading').isVisible(),false);
+  assert.equal(await page.locator('.gym-daily').isVisible(),false);
+  const hint=await page.locator('.gym-nearby').boundingBox();assert.ok(hint.width<=1&&hint.height<=1);
+  await capture(page,c,mobile,'hotel-clear-view');
+  await c.pause();assert.equal(await page.locator('.gym-daily').isVisible(),true);
+  assert.ok(await page.locator('.gym-daily').evaluate(e=>{const r=e.getBoundingClientRect(),p=e.closest('.snes-reading').getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom;}),'Daily resources are immediately visible in Pause');
+  await capture(page,c,mobile,'hotel-pause-daily');await c.choose('.gym-resume-button');
+  await wait(page,()=>document.querySelector('#gym-ui').dataset.mode==='walking');await page.waitForTimeout(60);
   await c.hold('up', 650); await ready(page, 'hotel-restaurant');
   await capture(page, c, mobile, 'gold-restaurant');
   await c.hold('up', 1210); await c.hold('left', 725); await c.confirm();
@@ -210,7 +239,7 @@ async function marathon(mobile) {
 }
 try {
   for (const mobile of [false,true]) {
-    await laptop(mobile); await pads(mobile); await metro(mobile); await restaurant(mobile); await marathon(mobile);
+    await laptop(mobile); await pads(mobile); await pablo(mobile); await metro(mobile); await restaurant(mobile); await marathon(mobile);
   }
   assert.ok([...assets].some(p => p.endsWith('/assets/sprites/octopus-pads/left.png')));
   assert.ok([...assets].some(p => p.endsWith('/assets/hotel/restaurant.png')));

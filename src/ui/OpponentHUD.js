@@ -5,6 +5,15 @@ import { getOpponentProfile } from '../game/OpponentProfiles.js';
 
 const put = (element, value) => { if (element.textContent !== String(value)) element.textContent = String(value); };
 
+// Shared sparring controls include both static labels and phase-specific copy.
+// Replace text nodes only, preserving the selects, focus and event handlers.
+function nameSparringPartner(root, name) {
+  const replace = text => text.replace(/Rémi(?: le Tank)?/g, name).replace(/RÉMI(?: LE TANK)?/g, name.toUpperCase());
+  const nodes = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  while (nodes.nextNode()) { const node = nodes.currentNode, next = replace(node.nodeValue); if (next !== node.nodeValue) node.nodeValue = next; }
+  for (const el of root.querySelectorAll('[aria-label]')) { const value = el.getAttribute('aria-label'), next = replace(value); if (next !== value) el.setAttribute('aria-label', next); }
+}
+
 /** The first opponent shares the combat controls, but owns his presentation. */
 export class OpponentHUD {
   constructor(ui) {
@@ -58,6 +67,7 @@ export class OpponentHUD {
       if (state.phase === 'ready') { put(ui.elements['panel-heading'], 'Sparring avec Pablo.'); put(ui.elements['panel-copy'], profile.introduction); }
       if (state.phase === 'finished') put(ui.elements['panel-heading'], 'Pablo vous salue.');
       for (const key of ['panel-copy', 'round-detail', 'lesson-description']) put(ui.elements[key], ui.elements[key].textContent.replaceAll('Rémi', 'Pablo'));
+      nameSparringPartner(ui.root, 'Pablo');
     }
     if (!fight) {
       if (between) {

@@ -33,7 +33,7 @@ export class TrainSession {
   get nextStation() { return METRO_STATIONS[this.state.index + this.state.direction]; }
   get doorsOpen() { return this.state.phase === 'stopped'; }
   get progress() { return this.state.elapsed / (this.doorsOpen ? TRAIN_STOP_SECONDS : TRAIN_TRAVEL_SECONDS); }
-  disembark() { return this.doorsOpen && !this.state.paused ? metroPlatformLocation(this.station.id) : null; }
-  resumeLocation() { return metroPlatformLocation(this.station.id); }
+  disembark() { return this.doorsOpen && !this.state.paused ? metroPlatformLocation(this.station.id,this.state.direction) : null; }
+  resumeLocation() { return metroPlatformLocation(this.station.id,this.state.direction); }
   snapshot() { return { ...this.state, station: this.station.id, next: this.nextStation.id, doorsOpen: this.doorsOpen, progress: this.progress }; }
 }

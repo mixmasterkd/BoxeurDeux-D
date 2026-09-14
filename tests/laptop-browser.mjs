@@ -100,7 +100,7 @@ async function run(mobile) {
   await capture(page, `desktop-${suffix}`, mobile);
   const initialPose = await pose(page), initial = await saved(page);
   assert.equal(initial.wallet.money, 500);
-  await select(action('browser')); await pageIs(page, 'browser');
+  if(mobile) await select(action('browser')); else await page.locator(action('browser')).click(); await pageIs(page, 'browser');
   await select(action('marathon')); await pageIs(page, 'marathon');
   assert.match(await page.locator('#gym-dialog-text').textContent(), /100 \$ par inscription.*sans prix en argent/s);
   await capture(page, `marathon-${suffix}`, mobile);
@@ -135,6 +135,9 @@ async function run(mobile) {
   report.cases.push({ name: `purchases-${suffix}`, marathonFee: 100, travelFees: [160, 160], finalBalance: 80, duplicateCharges: false, automaticDeparture: false, worldStill: true });
   await back(); await pageIs(page, 'desktop');
   await select(action('terminal')); await pageIs(page, 'terminal');
+  assert.equal(await page.locator('.terminal-console pre').textContent(),'');
+  assert.equal(await page.locator('.terminal-console input').getAttribute('placeholder'),null);
+  assert.ok(!/liste|test cuba|test mexique|retour.*carrière/i.test(await page.locator('.laptop-window').innerText()));
   // Editing uses real key events and Enter. Direction keys in the field must
   // not drive the actor underneath the laptop window.
   let input = page.locator('.terminal-console input');

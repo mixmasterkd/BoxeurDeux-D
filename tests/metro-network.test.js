@@ -1,12 +1,29 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { TrainSession, TRAIN_STOP_SECONDS, TRAIN_TRAVEL_SECONDS } from '../src/game/TrainSession.js';
-import { METRO_STATIONS, METRO_STATION_IDS, METRO_PLACES, METRO_EXITS, metroDirection } from '../src/game/MetroNetwork.js';
+import { METRO_STATIONS, METRO_STATION_IDS, METRO_PLACES, METRO_EXITS, metroDirection, metroHallLocation, metroPlatformLocation } from '../src/game/MetroNetwork.js';
 import { MetroWorld } from '../src/game/MetroWorld.js';
 import { DoorTravel } from '../src/game/DoorTravel.js';
 import { validLocation } from '../src/game/DayRules.js';
 const tick=(session,seconds,dt=1/60)=>{const events=[];for(let elapsed=0;elapsed<seconds-1e-8;elapsed+=dt)events.push(...session.update(Math.min(dt,seconds-elapsed)));return events;};
 const walk=(world,vector,seconds)=>{world.setInput(vector);for(let elapsed=0;elapsed<seconds;elapsed+=1/60)world.update(1/60);world.releaseControls();};
+
+test('each station hall has two physically reachable platforms and a separate street exit',()=>{
+  for(const station of METRO_STATIONS){
+    for(const [x,target] of [[340,'quai-forward'],[940,'quai-backward']]){
+      const world=new MetroWorld({place:metroHallLocation(station.id).scene});
+      walk(world,{x:Math.sign(x-640),y:0},Math.abs(x-640)/220);
+      const doors=new DoorTravel(world.layout.doors,world.state);world.setInput({x:0,y:-1});let triggered=null;
+      for(let i=0;i<140&&!triggered;i++){world.update(1/60);triggered=doors.update(world.state,world.input);}
+      assert.equal(triggered,target,station.id);
+    }
+    for(const direction of [-1,1]){
+      const place=metroPlatformLocation(station.id,direction);assert.ok(validLocation(place));
+      const train=new TrainSession({station:station.id,direction});
+      assert.deepEqual(train.resumeLocation(),place,'reload keeps the physical direction of the selected quay');
+    }
+  }
+});
 
 test('five stops connect useful walkable destinations and all save locations are recognized',()=>{
   assert.equal(METRO_STATIONS.length,5);assert.equal(new Set(METRO_STATION_IDS).size,5);
@@ -29,7 +46,7 @@ test('pause and stalls never fast-forward a hidden trip and last reached platfor
   const session=new TrainSession({station:'metro-island',direction:-1});tick(session,9);
   assert.equal(session.state.phase,'moving');const before=session.snapshot();session.pause();session.update(1000);assert.deepEqual(session.snapshot(),{...before,paused:true});
   session.resume();session.update(1000);assert.ok(Math.abs(session.state.elapsed-2)<1e-8,'stall is capped to one second');
-  assert.equal(session.resumeLocation().scene,'metro-island');tick(session,2);assert.equal(session.resumeLocation().scene,'metro-riverside');
+  assert.equal(session.resumeLocation().scene,'metro-island-return');tick(session,2);assert.equal(session.resumeLocation().scene,'metro-riverside-return');
   const world=new MetroWorld({place:session.resumeLocation().scene,position:session.resumeLocation()});assert.deepEqual(world.location(),session.resumeLocation());
   const doors=new DoorTravel(world.layout.doors,world.state);assert.equal(doors.update(world.state,{x:0,y:0}),null);
 });

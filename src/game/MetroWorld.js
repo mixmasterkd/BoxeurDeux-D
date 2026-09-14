@@ -10,7 +10,15 @@ const platform = { width:1280,height:720,speed:220,actorScale:1.25,footprint:{ha
     {id:'metro-map',label:'Plan du métro · Direction',x:398,y:375,radius:70}],
   doors:[doorway('train',584,328,112,38,'up'),doorway('metro-exit',580,532,120,55,'down')],
 };
-const train = { width:1280,height:720,speed:200,actorScale:1.5,footprint:{halfWidth:20,halfHeight:10},
+const hall = {width:1280,height:720,speed:220,actorScale:2,footprint:{halfWidth:20,halfHeight:10},
+  bounds:{left:95,right:1185,top:235,bottom:682},spawn:{x:640,y:610,facing:'up'},
+  obstacles:[{id:'bench-left',x:95,y:285,width:190,height:82},{id:'bench-right',x:1000,y:285,width:190,height:82}],
+  stations:[{id:'quai-forward',label:'Quai A · Vers l’aéroport',x:340,y:275,radius:75},
+    {id:'quai-backward',label:'Quai B · Vers le quartier',x:940,y:275,radius:75},
+    {id:'metro-map',label:'Plan du métro',x:640,y:280,radius:78},{id:'metro-exit',label:'Sortie vers la rue',x:640,y:640,radius:65}],
+  doors:[doorway('quai-forward',283,237,114,40,'up'),doorway('quai-backward',883,237,114,40,'up'),doorway('metro-exit',560,638,160,42,'down')],
+};
+const train = { width:1280,height:720,speed:200,actorScale:2.5,footprint:{halfWidth:24,halfHeight:12},
   bounds:{left:105,right:1175,top:326,bottom:670},spawn:{x:640,y:495,facing:'down'},
   obstacles:[{id:'left-seats',x:65,y:270,width:315,height:80},{id:'right-seats',x:894,y:270,width:324,height:80},
     {id:'pole-left',x:381,y:355,width:16,height:16},{id:'pole-right',x:884,y:355,width:16,height:16},
@@ -31,12 +39,12 @@ const airport = { width:1280,height:720,speed:215,actorScale:1.5,footprint:{half
   doors:[doorway('board-cuba',269,265,102,35,'up'),doorway('board-mexico',915,265,102,35,'up'),doorway('airport-metro',570,486,140,40,'down')],
 };
 export const METRO_LAYOUTS = Object.freeze(Object.fromEntries(METRO_PLACES.map(place => [place,
-  markDoors(structuredClone(place==='airport'?airport:place==='metro-train'?train:platform))])));
+  markDoors(structuredClone(place==='airport'?airport:place==='metro-train'?train:place.endsWith('-hall')?hall:platform))])));
 export class MetroWorld extends GymWorld {
   constructor({ place='metro-station', position }={}) {
     const valid=METRO_PLACES.includes(place)?place:'metro-station';super({layout:METRO_LAYOUTS[valid]});this.place=valid;
     this.restorePosition(position ?? this.layout.spawn);
-    if(METRO_STATION_IDS.includes(valid))this.layout.stations.find(station=>station.id==='metro-exit').label=`Sortie · ${metroStation(valid).attraction}`;
+    if(valid!=='metro-train'&&valid!=='airport')this.layout.stations.find(station=>station.id==='metro-exit').label=valid.endsWith('-hall')?`Sortie · ${metroStation(valid).attraction}`:'Hall · Choisir un quai ou sortir';
   }
   location(){return {scene:this.place,x:Math.round(this.state.x),y:Math.round(this.state.y),facing:this.state.facing};}
   setDoorsOpen(open){

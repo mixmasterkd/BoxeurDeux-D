@@ -1,4 +1,5 @@
 import {sceneForPlace} from '../game/SceneRouting.js';
+import {METRO_STATION_IDS,metroHallLocation} from '../game/MetroNetwork.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { MEDAL_LABELS } from '../game/ChapterRules.js';
 import { postBronzeUnlocked, CUBA_PRICE } from '../game/NextChapterRules.js';
@@ -9,6 +10,7 @@ import './chapter.css';
 const close = {id:'close',label:'Continuer →'};
 const show=(scene,title,text,actions=[close],speaker='LA VIE DE QUARTIER',extra={})=>scene.ui.showDialog({speaker,title,text,actions,...extra});
 export function chapterTravel(scene,place,from=scene.place){
+  if(METRO_STATION_IDS.includes(place))place=metroHallLocation(place).scene;
   scene.persistLocation();scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();
   const position=place==='neighborhood'?(from==='metro-station'?{x:2047,y:1375,facing:'down'}:{x:170,y:715,facing:'right'}):DISTRICT_ARRIVALS[place]?.[from]??{x:640,y:615,facing:'up'};
   careerProfile.setLocation({scene:place,...position});
@@ -134,6 +136,7 @@ export function installChapterReadout(scene){
 }
 export function updateChapterReadout(scene){
   const p=careerProfile.snapshot(),run=p.delivery.active,target=run?.stops[run.completed.length];
+  if(scene.chapterReadout)scene.chapterReadout.hidden=!run;
   const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':postBronzeUnlocked(p)?scene.place==='riverside'?`VOYAGES → Cuba ou Mexique · ${CUBA_PRICE} $`:'Défis, voyages et Gants dorés · Consulte ton carnet':'Épargne pour les Gants de bronze'}`;
   if(scene.chapterReadout&&scene.chapterReadout.textContent!==text)scene.chapterReadout.textContent=text;
 }

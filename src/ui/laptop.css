@@ -1,33 +1,44 @@
-#gym-ui .laptop-window { border-color:#879be2!important; background:#142340!important; }
-#gym-ui .laptop-window .gym-dialog-speaker { color:#9cf1d8!important; }
-#gym-ui .laptop-window[data-page='terminal'] { grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)!important; }
-#gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy {
-  display:grid; grid-template-rows:auto auto auto minmax(0,1fr); overflow:hidden;
+/* The interactive display sits inside the generated physical laptop bezel. */
+#stage #gym-ui .laptop-window {
+  width:100%!important; height:100%!important; max-height:100%!important;
+  padding:0!important; border:0!important; box-shadow:none!important;
+  background:var(--laptop-device) center/100% 100% no-repeat!important;
+  display:block!important; image-rendering:pixelated;
 }
-#gym-ui .terminal-console {
-  display:grid; grid-template-rows:minmax(0,1fr) auto; gap:.45rem;
-  min-height:0; min-width:0; font:13px/1.35 monospace; color:#9ce9b8; margin-top:.5rem;
+#stage #gym-ui .laptop-screen {
+  position:absolute; left:19%; top:5.3%; width:62%; height:59.5%;
+  display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:clamp(5px,1.4cqw,18px);
+  padding:clamp(6px,1.8cqw,23px); box-sizing:border-box; min-height:0; overflow:hidden;
+  background:linear-gradient(125deg,#152f4beb,#06152dd9); border:1px solid #416079;
 }
-#gym-ui .terminal-console pre {
-  min-height:0; margin:0; padding:2px; overflow:auto; overscroll-behavior:contain;
-  white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; line-height:1.35;
-  scrollbar-width:thin; scrollbar-color:#91b6a2 #071627; touch-action:pan-y;
-}
+#stage #gym-ui .laptop-window .gym-dialog-speaker { color:#9cf1d8!important; margin:0 0 4px; }
+#stage #gym-ui .laptop-window #gym-dialog-title { font-size:clamp(15px,2.4cqw,28px)!important; margin:0 0 8px; }
+#stage #gym-ui .laptop-window #gym-dialog-text { font-size:clamp(11px,1.5cqw,17px)!important; margin:0; }
+#stage #gym-ui .laptop-window .gym-dialog-actions { gap:clamp(4px,1cqw,10px); padding:2px; }
+#stage #gym-ui .laptop-window button { min-height:30px; padding:clamp(4px,1cqw,10px)!important; font-size:clamp(11px,1.5cqw,17px)!important; }
+#stage #gym-ui .laptop-window [data-gym-action='laptop-terminal'] { align-self:flex-end; margin-top:auto; width:42px; min-height:26px; text-align:center; color:#acbfcd!important; }
+#stage #gym-ui .laptop-window[data-page='terminal'] .laptop-screen { grid-template-columns:minmax(0,1fr) minmax(65px,.36fr); }
+#stage #gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy { display:grid; grid-template-rows:auto minmax(0,1fr); overflow:hidden; }
+#stage #gym-ui .laptop-window[data-page='terminal'] :is(.gym-dialog-speaker,#gym-dialog-text) { display:none!important; }
+#gym-ui .terminal-console { display:grid; grid-template-rows:minmax(0,1fr) auto; gap:5px; min-height:0; min-width:0; font:13px/1.35 monospace; color:#9ce9b8; }
+#gym-ui .terminal-console pre { min-height:0; margin:0; padding:2px; overflow:auto; overscroll-behavior:contain; white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; scrollbar-width:thin; scrollbar-color:#91b6a2 #071627; touch-action:pan-y; }
 #gym-ui .terminal-console form { min-width:0; }
-#gym-ui .terminal-console label { display:flex; align-items:center; gap:.4rem; }
-#gym-ui .terminal-console input { min-width:0; width:100%; color:#b8ffca; background:#071627; border:1px solid #839cbc; padding:.45rem; font:16px/1.2 monospace; }
-#gym-ui .laptop-window[data-page='terminal'] #gym-dialog-text { font-size:.85em; }
+#stage #gym-ui .terminal-console label { display:flex; align-items:center; gap:4px; font:inherit!important; }
+#gym-ui .terminal-console input { min-width:0; width:100%; color:#b8ffca; background:#071627; border:1px solid #839cbc; padding:5px; font:16px/1.2 monospace; }
 @container (max-width:640px) {
-  #gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy { grid-template-rows:auto minmax(0,1fr); }
-  #gym-ui .laptop-window[data-page='terminal'] :is(.gym-dialog-speaker,#gym-dialog-text) { display:none!important; }
-  #gym-ui .laptop-window[data-page='terminal'] #gym-dialog-title { margin:0 0 5px; font-size:19px!important; }
-  #gym-ui .terminal-console { margin:0; gap:4px; font-size:12px; }
-  #gym-ui .terminal-console input { padding:5px; }
+  /* Zoom the desk framing, keeping the screen, bezel and keyboard visible. */
+  #stage #gym-ui .laptop-window { background-size:124% 124%!important; background-position:center top!important; }
+  #stage #gym-ui .laptop-screen { left:11.6%; top:6.5%; width:76.8%; height:73.8%; padding:6px; gap:6px; }
+  #stage #gym-ui .laptop-window .gym-dialog-speaker { display:none; }
+  #stage #gym-ui .laptop-window #gym-dialog-title { font-size:15px!important; margin:0 0 5px; }
+  #stage #gym-ui .laptop-window #gym-dialog-text { font-size:11px!important; line-height:1.2!important; }
+  #stage #gym-ui .laptop-window button { min-height:28px; font-size:11px!important; line-height:1.1!important; }
+  #gym-ui .terminal-console { gap:3px; font-size:11px; }
 }
-/* A phone keyboard can leave only 200 px of landscape height. Keep all
-   three console controls available in the margins of this laptop window. */
 @media (max-height:240px) and (orientation:landscape) {
   #gym-ui:has(.laptop-window:not([hidden])) .rail-right { gap:6px; }
   #gym-ui:has(.laptop-window:not([hidden])) .console-actions { height:92px; }
   #gym-ui:has(.laptop-window:not([hidden])) .console-actions .pad-action { width:48px; height:48px; }
+  #stage #gym-ui .laptop-window[data-page='terminal'] #gym-dialog-title { display:none!important; }
+  #stage #gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy { grid-template-rows:minmax(0,1fr); }
 }

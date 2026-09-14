@@ -1,4 +1,5 @@
 import { careerProfile } from '../game/CareerProfile.js';
+import { metroStation } from '../game/MetroNetwork.js';
 const GUIDES = {
   gym: '<span><kbd>WASD</kbd> Marcher</span><span><kbd>E</kbd> Interagir et confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
   sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>W</kbd> Garde haute <kbd>S</kbd> Garde basse et coups au corps</span><span><kbd>A</kbd><kbd>D</kbd> Esquiver</span><span><kbd>E</kbd> Confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
@@ -12,6 +13,7 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
   const chapterPlaces={'metro-island':'MÉTRO · ÎLE','metro-stadium':'MÉTRO · STADE','metro-airport':'MÉTRO · AÉROPORT','metro-train':'MÉTRO · EN VOITURE',airport:'AÉROPORT · DÉPARTS','marathon-island':'ÎLE SAINTE-HÉLÈNE','marathon-downtown':'LE CENTRE-VILLE','marathon-oldport':'LE VIEUX-PORT','marathon-stadium':'LE STADE OLYMPIQUE','mexico-village':'MEXIQUE · LE VILLAGE','mexico-home':'MEXIQUE · LA POSADA','mexico-gym':'MEXIQUE · LE GYM','mexico-beach':'MEXIQUE · LA PLAGE','mexico-arena':'MEXIQUE · LES ARÈNES','hotel-restaurant':'HÔTEL · LE RESTAURANT','metro-station':'MÉTRO · DU QUARTIER','metro-riverside':'MÉTRO · DES RIVES',riverside:'DES RIVES',residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
     'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · REZ-DE-CHAUSSÉE','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':careerProfile.tournamentStatus().active?.tier==='gold'?'LES GANTS DORÉS':'LES GANTS DE BRONZE',
     'cuba-home':'CUBA · TON LOGEMENT','cuba-village':'CUBA · LE VILLAGE','cuba-gym':'CUBA · LE GYM AUX PNEUS','cuba-beach':'CUBA · LA PLAGE'};
+  if(mode.startsWith('metro-')&&/-(hall|return)$/.test(mode))chapterPlaces[mode]=`MÉTRO · ${metroStation(mode).name.toUpperCase()} · ${mode.endsWith('-hall')?'HALL':'QUAI B'}`;
   if(chapterPlaces[mode]){
     setSceneShell('gym');document.getElementById('stage').dataset.scene=mode;
     document.getElementById('stage').setAttribute('aria-label',chapterPlaces[mode]);
@@ -20,7 +22,7 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
   }
   if(mode==='pads'||mode==='pool'){
     setSceneShell('rope');document.getElementById('stage').dataset.scene=mode;
-    document.getElementById('stage').setAttribute('aria-label',mode==='pads'?'Pads avec Fredo':'Longueurs à la piscine');
+    document.getElementById('stage').setAttribute('aria-label',mode==='pads'?(fromMexico?'Pads avec The Octopus':'Pads avec Fredo'):'Longueurs à la piscine');
     document.querySelector('.gym-location').textContent=fromMexico?'MEXIQUE · LE GYM':fromCuba?'CUBA · LE GYM AUX PNEUS':fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
     document.querySelector('.prototype-label').textContent=mode==='pads'?(fromMexico?'PADS AVEC THE OCTOPUS':'PADS AVEC FREDO'):'PISCINE · LONGUEURS';return;
   }

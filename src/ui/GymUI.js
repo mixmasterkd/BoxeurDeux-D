@@ -47,7 +47,7 @@ export class GymUI {
         <div class="gym-dialog-actions"></div>
       </section>
       <section class="gym-pause-panel" role="dialog" aria-modal="true" aria-labelledby="gym-pause-title" hidden>
-        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Visite en pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><div class="gym-career"><span>END <b data-career="endurance">100/110</b></span><span>RÉS <b data-career="resistance">100/108</b></span><span>PUI <b data-career="power">0/5</b></span><span>RÉC <b data-career="recovery">+0%</b></span><span>ARGENT <b data-career="money">0 / 200 $</b></span><span>COLLECTION <b data-career="medals">À gagner</b></span></div><p class="gym-chapter"></p><button type="button" class="gym-resume-button">Continuer la visite →</button><button type="button" class="commands-open-button">Commandes</button><div class="gym-save-tools"><button type="button" class="gym-export-button">Exporter la sauvegarde</button><button type="button" class="gym-import-button">Importer</button><input type="file" class="gym-import-file" accept="application/json,.json" hidden></div><small class="gym-save-status">Sauvegarde locale automatique</small>
+        <p class="gym-eyebrow">ON PREND SON TEMPS</p><h2 id="gym-pause-title">Pause</h2><p>Le gym vous attend. Reprenez quand vous êtes prêt.</p><div class="gym-career"><span>END <b data-career="endurance">100/110</b></span><span>RÉS <b data-career="resistance">100/108</b></span><span>PUI <b data-career="power">0/5</b></span><span>RÉC <b data-career="recovery">+0%</b></span><span>ARGENT <b data-career="money">0 / 200 $</b></span><span>COLLECTION <b data-career="medals">À gagner</b></span></div><p class="gym-chapter"></p><button type="button" class="gym-resume-button">Continuer la visite →</button><button type="button" class="commands-open-button">Commandes</button><div class="gym-save-tools"><button type="button" class="gym-export-button">Exporter la sauvegarde</button><button type="button" class="gym-import-button">Importer</button><input type="file" class="gym-import-file" accept="application/json,.json" hidden></div><small class="gym-save-status">Sauvegarde locale automatique</small>
       </section>
       <section class="commands-panel" role="dialog" aria-modal="true" aria-labelledby="gym-commands-title" hidden>
         <p class="commands-eyebrow">VISITE EN PAUSE</p><h2 id="gym-commands-title">Commandes du gym</h2>
@@ -66,6 +66,7 @@ export class GymUI {
       </section>
     `;
     mountSideControls(this.root, { left: ['.gym-movement'], right: ['.gym-pause-button', '.gym-interact-button'] });
+    this.root.querySelector('.gym-pause-panel .gym-career').before(this.root.querySelector('.gym-daily'));
     this.elements = Object.fromEntries([
       'gym-pause-button', 'gym-nearby', 'gym-nearby-label', 'gym-nearby-hint', 'gym-day', 'gym-energy', 'gym-money', 'gym-chapter',
       'gym-movement', 'gym-interact-button', 'gym-interact-label',
@@ -83,7 +84,7 @@ export class GymUI {
     // Extra progression is still available by scrolling the pause panel.
     this.root.querySelector('.gym-career').before(this.elements['gym-resume-button']);
     splitMenu(this.elements['gym-pause-panel'], {
-      reading: ['.gym-eyebrow', 'h2', ':scope > p:not(.gym-eyebrow)', '.gym-career', '.gym-save-status'],
+      reading: ['.gym-eyebrow', 'h2', '.gym-daily', ':scope > p:not(.gym-eyebrow)', '.gym-career', '.gym-save-status'],
       actions: ['.gym-resume-button', '.commands-open-button', '.gym-save-tools'],
     });
     splitMenu(this.elements['gym-import-confirm'], {

@@ -1,5 +1,15 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Retouches de confort V5 — 13 septembre 2026
+
+Dernière demande : poursuivre les corrections du métro et du laptop, enlever aussi les bandeaux qui cachent le décor. **Ne pas recommencer le chapitre précédent.** Détails et preuves actuels : [docs/CONFORT_V5.md](docs/CONFORT_V5.md).
+
+Pablo nommé dans toutes les commandes et phases du sparring mexicain; The Octopus reste son coach, Fredo ailleurs. Laptop avec véritable boîtier illustré et clavier, navigateur au clic/joypad. Terminal discret : **ne pas annoncer ses commandes dans le jeu ni dans le guide public**, préserver son profil séparé. Halls de métro avec choix physique quai A vers Aéroport / quai B vers Quartier; sens conservé dans les nouveaux lieux `*-return`, rue par `*-hall`. Les anciens quais et sauvegardes restent valides. Personnage du wagon agrandi, fenêtres de station à l’arrêt et tunnel en route, passage plat remplaçant l’escalier du quai.
+
+Promenade : pas de grand titre, bannière de proximité ni budget flottant dans le décor, PC et mobile. Lieu dans la bordure; jour, argent et énergie en tête de Pause. Annonces accessibles et dialogues volontaires conservés, adresse de livraison conservée pendant une tournée.
+
+Validation locale : **426 tests**, compilation, **19 contrôles laptop**, **18 contrôles métro**, **34 contrôles du bundle final / 219 ressources**, sans erreur au passage final. Clavier, clic, joypad/CDP, portrait et petite fenêtre clavier simulés, aucun téléphone physique. Vite existant conservé sur 5173; Wi-Fi revérifié 192.168.50.123. Publication en cours de vérification; aucun nouveau chapitre à lancer après ces retouches sans discussion.
+
 ## Chapitre V5 — métro, marathon, Mexique et Gants dorés (13 septembre 2026)
 
 Le GO utilisateur regroupe le métro parcouru en train avec cinq stations et aéroport, le laptop maison (navigateur et CLI de test), le marathon optionnel, le Mexique et les Gants dorés, ainsi que les esquives, le barème des juges, la présentation des décisions et les menus simplifiés. Ce bloc remplace les anciennes descriptions contradictoires ci-dessous ; elles restent historiques.
@@ -12,7 +22,7 @@ Le marathon coûte 100 $ par inscription, sans prime d’arrivée. Quatre cartes
 
 Gants dorés 240 $ : Bronze terminé et victoires Dyrex, Le Feu, Louisto, Danielo. Rafael Ríos, Émile Moreau, Thiago Santos sur trois jours. Hôtel, chambre et activités conservés ; restaurant La Croûte dorée avec pain, grille-pain et garniture, sans mutation de capacités/énergie/argent. Juges 10-point-must 10–9/8/7, trois en local/cinq au tournoi, aucune égalité finale ni déduction automatique de chute. Joueur de face à la décision. Rounds officiels 3 × 45 s conservés.
 
-Sauvegarde V5 sur la clé historique, migrations v1–4, paiements et récompenses idempotents. Le Terminal accepte `liste`, `test cuba`, `test mexique`, `test marathon`, `test dore` et autres commandes annoncées. **Profil de test séparé** ; `retour` ou Quitter le mode test rend la carrière normale et son secours inchangés. L’entrée de texte est la seule exception à la convention E seul : le Terminal utilise la saisie habituelle et Entrée/Exécuter.
+Sauvegarde V5 sur la clé historique, migrations v1–4, paiements et récompenses idempotents. Le Terminal de développement utilise un profil séparé; la carrière normale et son secours restent inchangés. **Depuis le retour utilisateur suivant, le Terminal est discret et ses commandes ne sont plus annoncées dans les interfaces ou le guide de jeu.**
 
 Sources finales et prompts conservés ; aucune IA appelée pendant le jeu. Vite existant sur 0.0.0.0:5173 réutilisé, Wi-Fi vérifié 192.168.50.123. Les essais mobiles sont des simulations Chromium, pas le téléphone physique. Les vérifications, limites et état de publication actuels sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md), qui prévaut sur les rapports intermédiaires.
 

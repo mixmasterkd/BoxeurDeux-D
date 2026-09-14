@@ -60,6 +60,8 @@ Pendant l’exploration sur mobile, la bannière d’accueil et de proximité es
 
 Les accueils et bilans d’activités ont **deux choix : commencer/rejouer, ou revenir au lieu**. **P/Échap/☰** ouvre les options avant ou après une séance; les commandes, le carnet, le son et les réglages restent accessibles dans la pause. Les leçons de Rémi se choisissent depuis le gym ou les options avant le sparring. Consulter les menus ne dépense pas d’énergie.
 
+La promenade laisse les décors dégagés : le lieu figure dans la bordure extérieure, et le jour, l’argent et l’énergie sont dans **P / Échap / ☰ → Pause**. Les repères d’interaction et les dialogues volontaires restent disponibles.
+
 Les menus ont un encadrement pixel et une police hébergée dans le jeu. Dans les petits cadrages, le texte et les listes de choix défilent à l’intérieur de leur fenêtre; le repère **↕** signale la suite. Glissez le doigt pour lire, ou naviguez au joypad. Les actions principales des combats restent accessibles en bas du menu.
 
 Une perte de focus, un changement de périphérique ou le passage en portrait libère les appuis et met en pause. Le portrait tactile affiche une invitation à tourner l’appareil; aucune API de verrouillage n’est requise. La reprise reste explicite. Un ordinateur déclarant aussi du tactile reste sans manette si son périphérique principal est une souris.
@@ -178,13 +180,13 @@ Le lit du logement avance le jour et remet seulement l’énergie quotidienne à
 
 Le réseau fictif inspiré de Montréal relie **Quartier ↔ Des Rives ↔ Île Sainte-Hélène ↔ Stade olympique ↔ Aéroport**.
 
-Sur le quai, **E / A devant le panneau PLAN** ouvre le réseau et permet de choisir la direction avant de monter. **Marchez dans la porte du train**, puis promenez-vous à l’intérieur. Le trajet dure quatre secondes entre deux arrêts; les portes restent ouvertes huit secondes. Descendez en marchant dans la porte ouverte à la station voulue. Si vous manquez un arrêt, restez à bord : le train inverse sa direction au terminus.
+Dans le **hall de chaque station**, marchez vers le **quai A pour l’Aéroport**, ou le **quai B pour le Quartier**. Au terminus, seul le quai du départ est ouvert. **E / A devant le panneau PLAN** ouvre le réseau; le choix du sens se fait en rejoignant le quai. **Marchez dans la porte du train**, puis promenez-vous à l’intérieur. Le trajet dure quatre secondes entre deux arrêts; les portes restent ouvertes huit secondes. Descendez en marchant dans la porte ouverte à la station voulue. Si vous manquez un arrêt, restez à bord : le train inverse sa direction au terminus.
 
-Le plan est aussi accessible à bord et depuis la pause. Les indications discrètes donnent la station actuelle ou le prochain arrêt. Pause, perte de focus et portrait suspendent le train. Le métro est gratuit et ne consomme pas d’énergie. Une recharge pendant le trajet reprend sur le quai de la dernière station atteinte.
+Le plan est aussi accessible à bord et depuis la pause. Les indications discrètes donnent la station actuelle ou le prochain arrêt. Pause, perte de focus et portrait suspendent le train. Le métro est gratuit et ne consomme pas d’énergie. Une recharge pendant le trajet reprend sur le quai de la dernière station atteinte, dans le même sens. Le passage au sud du quai rejoint le hall; sa sortie au sud mène à la rue. Les fenêtres montrent la station à l’arrêt et le tunnel entre les arrêts.
 
 ## Laptop et marathon de Montréal
 
-À la maison, approchez-vous du **laptop** et utilisez **E / A**. Le bureau propose un **Navigateur** et un **Terminal**; ce sont des interfaces du jeu, sans compte ni connexion à un service extérieur.
+À la maison, approchez-vous du **laptop** et utilisez **E / A**. Le **Navigateur** apparaît dans un véritable visuel de laptop. Cliquez sur ordinateur, ou choisissez avec le joypad et validez avec A sur mobile. Ces services appartiennent au jeu : aucun compte extérieur requis.
 
 Dans le navigateur, **Marathon de Montréal** permet de s’inscrire pour **100 $ par participation**. La course est **facultative** et n’entre pas dans les conditions des Gants dorés. L’inscription conserve votre lieu; rejoignez le départ sur l’île en métro puis à pied.
 
@@ -193,23 +195,6 @@ Le parcours traverse **l’île Sainte-Hélène, le centre-ville, le Vieux-Port 
 Une rencontre avec un coureur peut provoquer **une seule altercation par participation**, que l’on peut éviter. En cas de bagarre, un seul passage au sol termine l’échange, sans rounds ni juges; on reprend ensuite au point sauvegardé, même après une défaite ou un abandon du combat. La course est en pause pendant l’altercation. Celle-ci ne donne ni argent, ni capacité, ni victoire officielle.
 
 L’arrivée accorde **une médaille souvenir unique**, visible à la maison, et conserve le meilleur temps. **Aucune prime d’argent** n’est versée. Rejouer coûte une nouvelle inscription à 100 $; la médaille n’est pas dupliquée. Le métro du Stade permet de revenir. Sans inscription, les mêmes lieux restent visitables en promenade, sans ambiance de course. Une course commencée doit être terminée ou abandonnée avant de dormir, s’entraîner ou partir dans un autre événement.
-
-### Terminal de test
-
-Tapez **`liste`** pour connaître les commandes. Cette consultation ne change pas la carrière. Une commande de test active une **sauvegarde distincte**, annoncée par **MODE TEST**, pour essayer une destination sans refaire toute la progression.
-
-| Commande | Effet dans le profil de test |
-| --- | --- |
-| `test maison` / `test gym` | Rejoindre le lieu |
-| `test cuba` / `test mexique` | Rejoindre un séjour payé |
-| `test aeroport` | Aéroport avec les deux réservations |
-| `test marathon` | Inscription et position près du départ |
-| `test bronze` / `test dore` | Tournoi correspondant, jour 1 |
-| `combat feu` | Combat direct; accepte aussi `beton`, `kramer`, `dyrex`, `louisto`, `danielo` |
-| `argent 500` / `energie 100` | Fixer les ressources de test, dans les plafonds du profil |
-| `retour` | Retrouver la carrière normale et son lieu, sans transférer les gains de test |
-
-Dans le champ du terminal, tapez puis utilisez **Entrée**, ou choisissez **Exécuter**. Les menus autour restent navigables avec les directions, E ou la souris; sur mobile, le clavier ne s’ouvre qu’en touchant le champ. On peut aussi **Quitter le mode test** depuis la pause ou les options. Recharger normalement le jeu ouvre toujours la carrière normale. Le terminal n’exécute aucune commande du système.
 
 ## Les Gants dorés
 

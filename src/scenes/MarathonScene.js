@@ -4,6 +4,7 @@ import {careerProfile} from '../game/CareerProfile.js';
 import {careerMenuOpen} from '../ui/GameControls.js';
 import {resumePending} from '../game/ResumeRouting.js';
 import {startAt} from '../game/SceneRouting.js';
+import {metroHallLocation} from '../game/MetroNetwork.js';
 import '../ui/marathon.css';
 const timer=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
 export class MarathonScene extends ExplorationScene{
@@ -124,7 +125,7 @@ export class MarathonScene extends ExplorationScene{
   }
   careerProfile.setLocation(position);startAt(this,position);
  }
- returnMetro(){const station=this.place==='marathon-island'?'metro-island':'metro-stadium';const p={scene:station,x:640,y:490,facing:'up'};careerProfile.setLocation(p);startAt(this,p);}
+ returnMetro(){const station=this.place==='marathon-island'?'metro-island':'metro-stadium';const p=metroHallLocation(station);careerProfile.setLocation(p);startAt(this,p);}
  update(time,delta){
   const advance=this.world&&!this.world.state.paused&&!this.ui?.dialog&&!this.changingPlace&&!careerMenuOpen()&&!resumePending()&&!document.hidden;
   if(advance&&this.isRunning()){

@@ -1,0 +1,20 @@
+# Laptop et métro — septembre 2026
+
+Images originales créées avec la génération d’images intégrée. Mise au format uniforme 1280 × 720 par `scripts/prepare-comfort-assets.mjs`. Décors précédents conservés.
+
+## comfort-laptop
+
+Use case: stylized-concept. Asset: polished 16-bit pixel-art game close-up of an open laptop, matching the supplied cozy Montréal apartment reference in palette and craft. Not a screenshot of an app: draw the physical object. Front-facing, exactly symmetrical, nearly orthographic close-up, 16:9 canvas. Laptop fills almost the entire image. Large perfectly rectangular dark navy BLANK screen occupies x 9%..91%, y 6%..75% of image. Thin charcoal and brushed-steel screen bezel around it. Below screen y79%..95%, a foreshortened real keyboard with many individual keycaps, palm rest and trackpad. Wood desk visible at edges, warm room lighting. No text, logos, icons, visible software or people. Screen must be uniformly dark navy empty because real interactive HTML will overlay this exact rectangle. Crisp art, rich shading, no blurry mockup; identity coherent with existing game. Make 1920x1080.
+
+## comfort-platform
+
+Use case: precise-object-edit. Edit target: existing metro platform pixel art. Preserve the entire upper 72 percent, blue train, central open train doorway, proportions, tile art, benches, map style, lighting and 1280x720 framing. Correct only lower central exit currently drawn as a downward stairwell that faces the wrong way: replace the hole with a broad FLOOR-LEVEL CONCOURSE passage leading off the bottom of the frame at x480..810, from y550 down to720. Same tiled floor continuing naturally downward beyond screen, flush threshold, no stairs, no hole, no vertical wall across this corridor. Keep side metal railings as unobtrusive waist-high guardrails and leave central corridor entirely walkable. Add a small dark-blue overhead/ground-direction sign near y545 reading SORTIE with down arrow, no other changes. This passage will lead to the station's concourse, where the player chooses the platform or street exit. Exactly preserve rest of image.
+
+## comfort-station
+
+Use case: precise-object-edit. Edit target: inside metro train image. Keep camera, every seat, pole, frame, door and floor pixel coherent with original 1280x720 composition. Change ONLY the view behind the two big train windows (left interior approximately x137..363 y100..187; right x831..1145 y100..187): the train is STOPPED AT A STATION. Through both windows show the same brightly lit tiled station platform wall visible through the open central doorway, cream tiles with orange/blue horizontal mosaic accents, blue bench and upright lit station fixtures. No rails, dark tunnel, black void or motion lines outside these windows. Keep window metal frames exactly placed and no new passengers. Preserve the open central door and all interior geometry.
+
+## comfort-hall
+
+Use case: stylized-concept. Asset: explorable station CONCOURSE for a polished SNES-inspired Montreal boxing life game, same pixel-art style as the reference metro platform. Wide 1280x720 straight-on slightly overhead interior. No train in this room. Cream tiles, orange/blue mosaic bands, steel handrails, warm fluorescent lighting, recognizable Montreal ambiance. TWO CLEAR WALKABLE DOORWAYS in rear wall: left centered at x320 y255, right centered at x960 y255, each 155px wide; shallow corridors continuing horizontally behind them, not stairs or pits. Blank dark blue sign above each doorway, game draws destination lettering. Large clear tiled concourse floor y310..650. Small wall network map at x640 y260. Central exit to the street is a FLOOR-LEVEL broad corridor at bottom x560..720 continuing off the screen, no stairs. A wooden bench at x100..260 y420, another at x1015..1170 y420; no obstacles on central paths. No people, no UI overlay, no lettering, no letters, no logos except optional geometric fleur-de-lis mosaic. Keep free paths from bottom center to both upper doors. Scene must make choosing either platform by walking completely intuitive.
+

@@ -1,10 +1,12 @@
 # Chapitre V5 — voyages, métro et marathon
 
+Les retouches suivantes du laptop, des quais, de Pablo et de l’affichage sont décrites dans [CONFORT_V5.md](CONFORT_V5.md); elles prévalent sur les descriptions historiques ci-dessous.
+
 Livraison du 13 septembre 2026. Le projet existant, son décor validé, ses activités et sa carrière sont conservés. Le serveur Vite existant est réutilisé sur le port strict 5173.
 
 ## Parcours jouables
 
-- **Maison, laptop** : navigateur rétro pour s’inscrire au marathon et réserver Cuba/Mexique ; Terminal pour les raccourcis de développement. `liste` montre les commandes. `test cuba`, `test mexique`, `test marathon`, `test dore`, `combat feu`, etc. travaillent sur un profil séparé. `retour` rend la carrière normale ; elle et sa copie de secours sont préservées à l’octet près.
+- **Maison, laptop** : navigateur rétro pour s’inscrire au marathon et réserver Cuba/Mexique. Un Terminal discret de développement utilise une sauvegarde distincte sans toucher à la carrière normale ou à sa copie de secours. Le guide de jeu ne divulgue pas ses commandes.
 - **Métro** : Quartier → Des Rives → Île Sainte-Hélène → Stade olympique → Aéroport, dans les deux sens. Plan consultable, station courante/prochaine et direction annoncées. Marcher dans le train à l’arrêt, attendre son arrêt puis sortir physiquement au bon endroit. Une recharge reprend sur un quai sûr.
 - **Voyages** : Cuba et Mexique coûtent chacun 160 $ d’argent du jeu, logement/retour inclus. Réservation depuis le laptop ou le kiosque, puis départ à l’aéroport. Accessibles ensemble après une participation terminée aux Gants de bronze. Réservations, séjours, dépenses et retours sont sauvegardés sans double débit.
 - **Mexique** : village, posada, plage/promenade, gym et arènes de Danielo. Pablo est partenaire de sparring. **The Octopus est le coach au Mexique**, aux pads et dans le coin ; Fredo reste ailleurs. Lit, entraînement, portes et retours utilisent les conventions existantes.

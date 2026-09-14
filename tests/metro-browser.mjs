@@ -28,18 +28,21 @@ try{
     const {context,seed}=await contextFor(mobile,'metro-station'),c=await controls(mobile);
     await capture('platform',mobile);await c.pause();await c.choose('.metro-plan-button');await page.locator('.metro-network-map').waitFor({state:'visible'});
     assert.equal(await page.locator('.metro-network-map li').count(),5);await capture('network-map',mobile);await c.back();assert.equal((await state(page)).paused,true);await c.choose('.gym-resume-button');
-    await c.hold('up',780);await ready('metro-train');await capture('train-open',mobile);
+    await c.hold('up',780);await ready('metro-train');await capture('train-open',mobile);assert.equal(await page.evaluate(()=>__metro.scene.player.scaleX),2.5);assert.ok(await page.evaluate(()=>__metro.scene.windowViews.every(v=>v.stopped.visible&&!v.moving.visible)));
     await wait(page,()=>__metro.train.state.phase==='moving',null,15000);await c.pause();const frozen=await state(page);await page.waitForTimeout(1100);assert.deepEqual((await state(page)).train,frozen.train);
-    await c.choose('.gym-resume-button');await page.waitForTimeout(450);await capture('train-moving',mobile);
+    await c.choose('.gym-resume-button');await page.waitForTimeout(450);await capture('train-moving',mobile);assert.ok(await page.evaluate(()=>__metro.scene.windowViews.every(v=>!v.stopped.visible&&v.moving.visible)));
     await wait(page,()=>__metro.train.station.id==='metro-riverside'&&__metro.train.doorsOpen,null,10000);
     // Deliberately stay aboard at Des Rives. There is no automatic destination teleport.
     await wait(page,()=>__metro.train.station.id==='metro-island'&&__metro.train.doorsOpen,null,15000);
     await c.hold('up',850);await ready('metro-island');assert.equal((await state(page)).place,'metro-island');
-    await c.pause();await c.choose('.metro-plan-button');await c.choose('[data-gym-action=direction-backward]');assert.equal((await state(page)).paused,true);await c.choose('.gym-resume-button');
-    await c.hold('up',650);await ready('metro-train');assert.equal((await state(page)).train.direction,-1);
+    await c.hold('down',650);await ready('metro-island-hall');await capture('hall',mobile);
+    await c.axis('x',940);await c.hold('up',1300);await ready('metro-island-return');
+    assert.equal(await page.locator('#gym-ui').getAttribute('data-metro-direction'),'-1');await capture('quai-b',mobile);
+    await c.hold('up',780);await ready('metro-train');assert.equal((await state(page)).train.direction,-1);
     await wait(page,()=>__metro.train.state.phase==='moving',null,15000);
     if(mobile){await page.setViewportSize({width:390,height:844});await page.locator('#rotate-prompt').waitFor({state:'visible'});const portrait=(await state(page)).train;await page.waitForTimeout(600);assert.deepEqual((await state(page)).train,portrait);await page.setViewportSize({width:568,height:320});await page.locator('#rotate-prompt').waitFor({state:'hidden'});await c.choose('.gym-resume-button');}
-    await page.evaluate(()=>history.replaceState(null,'',location.pathname));await page.reload();if(await page.locator('.career-continue').isVisible())await page.locator('.career-continue').click();await ready('metro-island');
+    await page.evaluate(()=>history.replaceState(null,'',location.pathname));await page.reload();if(await page.locator('.career-continue').isVisible())await page.locator('.career-continue').click();await ready('metro-island-return');
+    assert.equal(await page.locator('#gym-ui').getAttribute('data-metro-direction'),'-1');
     const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),CAREER_STORAGE_KEY);assert.equal(saved.wallet.money,seed.moneyStatus().money);assert.deepEqual(saved.daily,seed.dailyStatus());
     report.cases.push({name:'route-choice-pause-reload',mobile,passedStop:'metro-riverside',chosenStop:'metro-island',oppositeDirection:true,reloadOnLastPlatform:true,free:true});await context.close();
     const airport=await contextFor(mobile,'airport'),a=await controls(mobile),startMoney=airport.seed.moneyStatus().money;

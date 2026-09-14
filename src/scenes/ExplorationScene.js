@@ -48,6 +48,7 @@ export class ExplorationScene extends Phaser.Scene {
   preload() {
     const base = import.meta.env.BASE_URL;
     preloadOutfits(this,{street:true});
+    if(this.place==='home')this.load.image('laptop-device',`${base}assets/laptop/device.png`);
     this.load.image(`world-${this.place}`, `${base}${this.assetPath ?? `assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`}`);
     if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
     if(this.place==='residential')this.load.image('depot-kiosk',`${base}assets/world/depot-kiosk.png`);

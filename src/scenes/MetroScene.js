@@ -1,7 +1,7 @@
 import { ExplorationScene } from './ExplorationScene.js';
 import { MetroWorld } from '../game/MetroWorld.js';
 import { TrainSession } from '../game/TrainSession.js';
-import { METRO_PLACES, METRO_STATIONS, METRO_STATION_IDS, METRO_EXITS, metroStation, metroDirection, metroTerminus, metroPlatformLocation } from '../game/MetroNetwork.js';
+import { METRO_PLACES, METRO_STATIONS, METRO_STATION_IDS, METRO_EXITS, metroStation, metroDirection, metroTerminus, metroPlatformLocation, metroHallLocation } from '../game/MetroNetwork.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { careerMenuOpen } from '../ui/GameControls.js';
 import { resumePending } from '../game/ResumeRouting.js';
@@ -16,20 +16,21 @@ export class MetroScene extends ExplorationScene {
     const place=METRO_PLACES.includes(requested)?requested:'metro-station';
     super.init({...data,place});
     this.world=null;this.train=null;this.mapElement=null;this.mapFromPause=false;this.closedDoors=null;this.routeSign=null;this.doorAmount=0;this.windowViews=[];
-    this.direction=metroDirection(place,data.direction??1);
-    if(place==='metro-train')this.train=new TrainSession({station:data.station??(METRO_STATION_IDS.includes(saved.scene)?saved.scene:'metro-station'),direction:data.direction??1});
-    this.assetPath=place==='metro-train'?'assets/metro/train.png':place==='airport'?'assets/metro/airport.png':'assets/world/metro-station.png';
-    this.actorScale=place==='metro-train'||place==='airport'?1.5:1.25;
+    this.stationId=metroStation(place==='airport'?'metro-airport':place).id;this.hall=place.endsWith('-hall');
+    this.direction=metroDirection(this.stationId,place.endsWith('-return')?-1:data.direction??1);
+    if(place==='metro-train')this.train=new TrainSession({station:data.station??metroStation(saved.scene).id,direction:data.direction??1});
+    this.assetPath=place==='metro-train'?'assets/metro/train.png':place==='airport'?'assets/metro/airport.png':this.hall?'assets/metro/concourse.png':'assets/metro/platform.png';
+    this.actorScale=place==='metro-train'?2.5:place==='airport'?1.5:this.hall?2:1.25;
     this.makeWorld=()=>new MetroWorld({place:this.place,position:this.entryPosition});
     const name=place==='airport'?'Aéroport de Montréal':place==='metro-train'?'À bord du métro':metroStation(place).name;
     this.placeCopy={eyebrow:place==='airport'?'MONTRÉAL · LES VOYAGES':'MONTRÉAL · LE MÉTRO',title:name,welcome:name,
       hint:place==='airport'?'Réserve au comptoir, puis avance dans ta porte d’embarquement. Le métro est au centre.'
         :place==='metro-train'?'Descends en avançant dans la porte ouverte à la station voulue. Consulte le plan au mur ou dans le menu.'
-          :'Avance dans le train. Le panneau donne le plan et permet de choisir la direction; l’escalier mène dehors.',
+          :this.hall?'Choisis ton quai en marchant vers son passage. La sortie au sud rejoint la rue.':'Avance dans le train. Le passage au sud mène au hall, à l’autre quai et à la sortie.',
       pauseText:'Le trajet attend pendant la pause. Une recharge te replace sur le quai de la dernière station, sans coût.',
       commandsTitle:'Commandes · Métro et voyages',commandsHint:'WASD ou les flèches pour marcher; E pour le plan ou le comptoir. Au mobile, joypad et A. Avance dans les portes pour monter, descendre ou embarquer.'};
   }
-  preload(){super.preload();if(this.train)this.load.image('metro-doors-closed',`${import.meta.env.BASE_URL}assets/metro/train-doors.png`);}
+  preload(){super.preload();if(this.train){this.load.image('metro-doors-closed',`${import.meta.env.BASE_URL}assets/metro/train-doors.png`);this.load.image('metro-train-station',`${import.meta.env.BASE_URL}assets/metro/train-at-station.png`);}}
   create(){
     super.create();if(!this.world||!this.ui)return;
     const mapButton=document.createElement('button');mapButton.type='button';mapButton.className='metro-plan-button';mapButton.textContent='Plan du métro';
@@ -44,10 +45,13 @@ export class MetroScene extends ExplorationScene {
   }
   addForeground(){
     if(!this.train)return;
-    const room=this.textures.get('world-metro-train');
-    for(const [id,x,width]of [['left-window',139,225],['right-window',835,282]]){
-      if(!room.has(id))room.add(id,0,x,112,width,64);
-      this.windowViews.push(this.add.tileSprite(x+width/2,144,width,64,'world-metro-train',id).setDepth(1));
+    const room=this.textures.get('world-metro-train'),station=this.textures.get('metro-train-station');
+    for(const [id,x,width]of [['left-window',135,230],['right-window',829,318]]){
+      if(!room.has(id))room.add(id,0,x,86,width,104);
+      if(!station.has(id))station.add(id,0,x,86,width,104);
+      const moving=this.add.image(x+width/2,138,'world-metro-train',id).setDepth(1);
+      const stopped=this.add.image(x+width/2,138,'metro-train-station',id).setDepth(2);
+      this.windowViews.push({moving,stopped});
     }
     const texture=this.textures.get('metro-doors-closed');
     if(!texture.has('left'))texture.add('left',0,0,0,96,252);
@@ -63,12 +67,18 @@ export class MetroScene extends ExplorationScene {
       text(337,100,'CUBA',20);text(984,100,'MEXIQUE',20);text(640,263,'BILLETS',16);text(640,490,'MÉTRO ↓',17);
     }else if(this.train){
       this.routeSign=text(640,26,'',17);text(445,250,'PLAN',13);
+    }else if(this.hall){
+      text(640,58,metroStation(this.place).name.toUpperCase(),23);
+      const atStart=this.stationId==='metro-station',atEnd=this.stationId==='metro-airport';
+      text(340,75,atEnd?'QUAI FERMÉ':'QUAI A · AÉROPORT ↑',18);
+      text(940,75,atStart?'QUAI FERMÉ':'QUAI B · QUARTIER ↑',18);
+      text(640,242,'PLAN',14);text(640,655,'RUE ↓',18);
     }else{
-      text(448,77,metroStation(this.place).name.toUpperCase(),this.place==='metro-island'?12:15);
+      text(448,77,metroStation(this.place).name.toUpperCase(),this.stationId==='metro-island'?12:15);
       this.routeSign=text(805,136,'',17);
-      text(395,334,'PLAN',14);text(640,532,'SORTIE ↓',14);
+      text(395,334,'PLAN',14);text(640,532,'HALL · QUAIS / SORTIE ↓',14);
       const g=this.add.graphics().setDepth(330);g.fillStyle(0x173f68).fillRect(365,343,60,36);g.lineStyle(3,0xeebc54).lineBetween(374,360,417,360);
-      for(let i=0;i<5;i++)g.fillStyle(i===METRO_STATION_IDS.indexOf(this.place)?0xfaf3d9:0x67bde0).fillCircle(375+i*10,360,3);
+      for(let i=0;i<5;i++)g.fillStyle(i===METRO_STATION_IDS.indexOf(this.stationId)?0xfaf3d9:0x67bde0).fillCircle(375+i*10,360,3);
     }
   }
   updateSigns(){
@@ -80,7 +90,7 @@ export class MetroScene extends ExplorationScene {
       target.label=s.doorsOpen?`Descendre · ${station.name}`:'Portes fermées · Le train roule';
       document.querySelector('.prototype-label').textContent=label;
       this.ui.root.dataset.metroStation=station.id;this.ui.root.dataset.metroTrain=s.phase;
-    }else if(this.place!=='airport')this.routeSign?.setText(`DIRECTION ${metroTerminus(this.direction).name.toUpperCase()} →`);
+    }else if(this.place!=='airport'){this.routeSign?.setText(`QUAI ${this.direction===1?'A':'B'} · ${metroTerminus(this.direction).name.toUpperCase()} ${this.direction===1?'→':'←'}`);this.ui.root.dataset.metroDirection=String(this.direction);}
   }
   blocked(){return this.changingPlace||this.sleeping||resumePending()||careerMenuOpen()||this.world?.state.paused||Boolean(this.ui?.dialog);}
   persistLocation(){
@@ -100,10 +110,7 @@ export class MetroScene extends ExplorationScene {
     if(fromPause){this.world.resume();this.ui.update(this.world.state);}
     const station=this.train?.station??metroStation(this.place==='airport'?'metro-airport':this.place);
     const currentDirection=this.train?.state.direction??this.direction;
-    const actions=this.train||this.place==='airport'?[back]:[
-      {id:'direction-forward',label:'Vers l’aéroport',disabled:station.id==='metro-airport'},
-      {id:'direction-backward',label:'Vers le quartier',disabled:station.id==='metro-station'},back];
-    this.show('Le métro',`Tu es à ${station.name}. Direction ${metroTerminus(currentDirection).name}.\nReste à bord et descends par la porte à ton arrêt.`,actions);
+    this.show('Le métro',`Tu es à ${station.name}. ${this.hall?'Choisis le passage du quai A vers l’aéroport ou B vers le quartier.':`Direction ${metroTerminus(currentDirection).name}. Descends à ton arrêt; le hall permet de changer de quai.`}`,[back]);
     const map=document.createElement('ol');map.className='metro-network-map';map.setAttribute('aria-label','Les cinq stations dans l’ordre');
     for(const stop of METRO_STATIONS){const row=document.createElement('li');row.dataset.current=String(stop.id===station.id);
       const name=document.createElement('strong');name.textContent=({'metro-island':'Île','metro-stadium':'Stade'}[stop.id]??stop.name);row.setAttribute('aria-label',`${stop.name} : ${stop.attraction}`);const attraction=document.createElement('span');attraction.textContent=stop.attraction;
@@ -123,9 +130,6 @@ export class MetroScene extends ExplorationScene {
   choose(id){
     if(this.changingPlace||resumePending()||this.world.state.paused||!this.ui.dialog)return;
     if(id==='close'){this.closeDialog();return;}
-    if(id==='direction-forward'||id==='direction-backward'){
-      this.direction=metroDirection(this.place,id==='direction-backward'?-1:1);this.closeDialog();this.updateSigns();return;
-    }
     if(id.startsWith('ticket-')){
       const destination=id.slice(7);if(!['cuba','mexico'].includes(destination))return;
       const offer=careerProfile.travelOffer(destination);
@@ -145,15 +149,22 @@ export class MetroScene extends ExplorationScene {
   interactDoor(id){
     if(this.changingPlace||this.world.state.paused||this.ui.dialog||resumePending()||careerMenuOpen())return;
     if(id==='train'){
-      this.change('MetroScene','metro-train',null,{station:this.place,direction:this.direction});return;
+      this.change('MetroScene','metro-train',null,{station:this.stationId,direction:this.direction});return;
     }
     if(id==='train-exit'){
       const location=this.train?.disembark();if(location)this.change('MetroScene',location.scene,location,{direction:this.train.state.direction});return;
     }
-    if(id==='metro-exit'){
-      const exit=METRO_EXITS[this.place];if(exit)this.change(exit.scene,exit.place,exit.location);return;
+    if(id==='quai-forward'||id==='quai-backward'){
+      const direction=id==='quai-forward'?1:-1;
+      if(metroDirection(this.stationId,direction)!==direction){this.show('Quai fermé',`Tu es au terminus. Le quai ${direction===-1?'A':'B'} dessert les autres stations.`);return;}
+      const location={...metroPlatformLocation(this.stationId,direction),x:640,y:490,facing:'up'};
+      this.change('MetroScene',location.scene,location,{direction});return;
     }
-    if(id==='airport-metro'){const location={scene:'metro-airport',x:640,y:490,facing:'up'};this.change('MetroScene','metro-airport',location);return;}
+    if(id==='metro-exit'){
+      if(!this.hall){const location={...metroHallLocation(this.stationId),y:470,facing:'down'};this.change('MetroScene',location.scene,location);return;}
+      const exit=METRO_EXITS[this.stationId];if(exit)this.change(exit.scene,exit.place,exit.location);return;
+    }
+    if(id==='airport-metro'){const location=metroHallLocation('metro-airport');this.change('MetroScene',location.scene,location);return;}
     if(id==='board-cuba'||id==='board-mexico'){
       const destination=id.slice(6);this.persistLocation();const result=careerProfile.boardTravel(destination);
       if(!result.ok){this.world.releaseControls();this.show('Avant l’embarquement',result.message);return;}
@@ -168,7 +179,7 @@ export class MetroScene extends ExplorationScene {
       if(this.blocked()||document.hidden||this.ui.portraitQuery.matches)this.train.pause();else this.train.resume();
       const events=this.train.update((this.game.loop.rawDelta??delta)/1000);
       this.world.setDoorsOpen(this.train.doorsOpen);
-      if(!this.blocked())for(const window of this.windowViews)window.tilePositionX=this.train.doorsOpen?0:window.tilePositionX+Math.min(delta/1000,.1)*95*this.train.state.direction;
+      for(const view of this.windowViews){view.stopped.setVisible(this.train.doorsOpen);view.moving.setVisible(!this.train.doorsOpen);}
       const target=this.train.doorsOpen?0:1;
       if(!this.blocked())this.doorAmount+=Math.sign(target-this.doorAmount)*Math.min(Math.abs(target-this.doorAmount),Math.min(delta/1000,.1)/.3);
       if(this.closedDoors){

@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-13T23:04:20.112Z",
+  "date": "2026-09-14T01:14:07.660Z",
   "url": "http://127.0.0.1:5173/",
   "mobileEmulated": true,
   "cases": [
@@ -76,13 +76,13 @@
           "index": 0,
           "direction": 1,
           "phase": "stopped",
-          "elapsed": 0.6667000000000003,
+          "elapsed": 0.8666000000000007,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": true,
-          "progress": 0.08333750000000004
+          "progress": 0.10832500000000009
         },
         "doorAmount": 0
       }
@@ -112,15 +112,63 @@
           "index": 0,
           "direction": 1,
           "phase": "moving",
-          "elapsed": 0.9663000000000387,
+          "elapsed": 1.249700000000016,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": false,
-          "progress": 0.24157500000000967
+          "progress": 0.312425000000004
         },
         "doorAmount": 1
+      }
+    },
+    {
+      "name": "hall",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-island-hall",
+        "x": 640,
+        "y": 470,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "quai-b",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-island-return",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
       }
     },
     {
@@ -347,13 +395,13 @@
           "index": 0,
           "direction": 1,
           "phase": "stopped",
-          "elapsed": 0.33329999999999976,
+          "elapsed": 0.5667,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": true,
-          "progress": 0.04166249999999997
+          "progress": 0.0708375
         },
         "doorAmount": 0
       }
@@ -420,15 +468,137 @@
           "index": 0,
           "direction": 1,
           "phase": "moving",
-          "elapsed": 0.8329000000000427,
+          "elapsed": 0.8497000000000251,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": false,
-          "progress": 0.20822500000001068
+          "progress": 0.21242500000000628
         },
         "doorAmount": 1
+      }
+    },
+    {
+      "name": "hall",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "state": {
+        "place": "metro-island-hall",
+        "x": 640,
+        "y": 470,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "quai-b",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "state": {
+        "place": "metro-island-return",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
       }
     },
     {
@@ -509,6 +679,5 @@
       "destination": "cuba-home"
     }
   ],
-  "errors": [],
-  "verificationRuns": "Desktop full route and separately repeated mobile full route after an interrupted browser run."
+  "errors": []
 }
