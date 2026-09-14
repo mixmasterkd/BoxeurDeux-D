@@ -1,0 +1,1208 @@
+{
+  "date": "2026-09-14T00:32:18.465Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": 200,
+  "allMatch": true,
+  "results": [
+    {
+      "file": "assets/hotel/lobby-gold.png",
+      "bytes": 4293291,
+      "sha256": "52efda1b23c9fb6bb34849927b70142071ec2392bbd94243ce1a7653714725dc",
+      "match": true
+    },
+    {
+      "file": "assets/hotel/restaurant.png",
+      "bytes": 2523669,
+      "sha256": "dc126f3a491b7adee4a9cf71e5989418db916b39983ae2d0d82596eaeb70256d",
+      "match": true
+    },
+    {
+      "file": "assets/index-B0HO_F6X.css",
+      "bytes": 100946,
+      "sha256": "afdce8efce4705160ed422886e72f6c7958e34cbd5548d032ae93091f878dd9d",
+      "match": true
+    },
+    {
+      "file": "assets/index-Dy1faqWr.js",
+      "bytes": 1885756,
+      "sha256": "1592222c90fa3e39d70a97a61a0acc5216362ae34446e3adc1d09ba97c302319",
+      "match": true
+    },
+    {
+      "file": "assets/marathon/downtown.png",
+      "bytes": 5135585,
+      "sha256": "e730ab8f5ac4c334817ed0ba639230129583549c9a8c95041d7a5b7ba2cf6000",
+      "match": true
+    },
+    {
+      "file": "assets/marathon/island.png",
+      "bytes": 5168388,
+      "sha256": "5d4d7de6562c12e7b38ee066c1eac0edf0fe46a5d1082a91821216b24fe27cc3",
+      "match": true
+    },
+    {
+      "file": "assets/marathon/oldport.png",
+      "bytes": 5021967,
+      "sha256": "67e372d2bda3fe7c473a43c33101f42d962a71bcf0c3b7c9ab23daa60693b191",
+      "match": true
+    },
+    {
+      "file": "assets/marathon/stadium.png",
+      "bytes": 5202262,
+      "sha256": "2734c1400f95ab28d66a741e518c8ac45b97e0aa24bf61d921e33fc3312e4edc",
+      "match": true
+    },
+    {
+      "file": "assets/marathon/street-fight.png",
+      "bytes": 2316352,
+      "sha256": "72f83bb2866ffcf9fa9fef22f0d8d6e48bb9038a5532201e47d39a45fb0dd64b",
+      "match": true
+    },
+    {
+      "file": "assets/metro/airport.png",
+      "bytes": 2588364,
+      "sha256": "c063a7f567dd8ca615a697c3b1f0c419a9085c19b3adad36bb797135b6261b19",
+      "match": true
+    },
+    {
+      "file": "assets/metro/train-doors.png",
+      "bytes": 110076,
+      "sha256": "d2314c3c7a3b2ccc8d0e5056bce02e7c61d5c0f0e3de8a9f0a17a933d2de317e",
+      "match": true
+    },
+    {
+      "file": "assets/metro/train.png",
+      "bytes": 2295136,
+      "sha256": "f67e24e8279a002dbc7b5180c5b8426d5a1d1d97bea6c58fc4a0e19951b834bf",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/arena-ring.png",
+      "bytes": 2592074,
+      "sha256": "bd13ec11a433fac4492db4b59448b00c91e4cc886eaf12bf75b96b1a6fc7d030",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/arena.png",
+      "bytes": 4786832,
+      "sha256": "530a349ca91a61172dd77e2de1f30c86e5d60eaefc9df7f61c9ba580693f250d",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/beach.png",
+      "bytes": 5195375,
+      "sha256": "8646b042279c5eafcd2628125e82edac7b0d3076690a29768f481b271f73d81b",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/gym-sparring.png",
+      "bytes": 2258751,
+      "sha256": "9bdfcde3bc77966e1b9765ad01c48e831aa2307a20ff9c0605f91bc18250782f",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/gym.png",
+      "bytes": 2642354,
+      "sha256": "24332ed99fa4946e112414a86fe28430f83a6fc6229b68590df9e816cc134249",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/home.png",
+      "bytes": 2638199,
+      "sha256": "353ef6f7dd3255d52fe5a1f1dc6dab2d9f8161f9b90539429c1b0a461a4d30f1",
+      "match": true
+    },
+    {
+      "file": "assets/mexico/village.png",
+      "bytes": 5247833,
+      "sha256": "d0e6dd4f901fb2d18aae4e8a2e4837671ce21aeabc2b5a3b29d41cdc4c3c67ef",
+      "match": true
+    },
+    {
+      "file": "assets/PixelifySans-lrcDQVzA.ttf",
+      "bytes": 79160,
+      "sha256": "9ba86cd010a4de309d263ceff8e8044092c9db7efda869620cb9ff1c4389e8a5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/corner/octopus-coach.png",
+      "bytes": 910337,
+      "sha256": "eeeba5f1091660a03f38ed3b33d4a90afcfabb0aad1756b520fa81e8ca051035",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-local/fighters.json",
+      "bytes": 1842,
+      "sha256": "1446d27f351acdb6caa90adc26e5651e9500878c5fabe068609b9d196ae98559",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-local/loser.png",
+      "bytes": 198154,
+      "sha256": "8dcd821d38685ba6db2e254eb4e130321b861c8f02223e9d1288585a611f7782",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-local/neutral.png",
+      "bytes": 198404,
+      "sha256": "a4e27bdb5d67ed6f11ab9a3ec4b3c7ae37079d45fceaa2cad93e521a3f1eaeb7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-local/winner.png",
+      "bytes": 205248,
+      "sha256": "31ea78edadf349820124626fdfdf57cfc3055e1c1525d6a588b971211a8852f8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-player/fighters.json",
+      "bytes": 1845,
+      "sha256": "95c3ff58fb18ec2fd006b14dd0da4c4f1072cd4de686f5a669a25e38783dd6be",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-player/loser.png",
+      "bytes": 198154,
+      "sha256": "342af8b388faddaab7e8b7a359636f9b128ff1aec8c68fe4dea07a94e3d0e278",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-player/neutral.png",
+      "bytes": 198306,
+      "sha256": "6d882c4e5332a60f70827f0486a6389b6284312358368f8e41f4c380d7f24a7a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/decision-player/winner.png",
+      "bytes": 205764,
+      "sha256": "45b792ca12a6b755d997bb7dcb464fcd2e0921cfe8103093183c4eed9fe245bd",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-down-0.png",
+      "bytes": 6283,
+      "sha256": "ebe7047bbb8366108e8661519fcbbbddda5f3afdf3456220c03980ebd30b6fcf",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-down-1.png",
+      "bytes": 6315,
+      "sha256": "c20fbcda3cede0e10405bf77fb8713ea229e3b32b9103e951dad692ad3716988",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-right-0.png",
+      "bytes": 6744,
+      "sha256": "d3298895729bc506849f8326a0d11a3001f95b515b1c769cfddfdff0138f0f44",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-right-1.png",
+      "bytes": 6901,
+      "sha256": "7a87deb082273dc3ef7080b2d19b78c1c62e76c5334fea8559c022a6934a3951",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-up-0.png",
+      "bytes": 6554,
+      "sha256": "b2ed3691021153a4605965a438f5c70d9023bb2a8f9b0b581ba881bb0565e7b5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-0-up-1.png",
+      "bytes": 6121,
+      "sha256": "145116949d89b6612e13615b083467fbeab374551f4b55fd1025c2f26e6f3939",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-down-0.png",
+      "bytes": 6004,
+      "sha256": "b3b4eb6fafbfc9c65a8d2dcc5ad3d2fc4532613b88fc8386900f07d27795f7be",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-down-1.png",
+      "bytes": 5921,
+      "sha256": "606c0134b409ea4326c2a3a76503a827f29939fcdf9340d69a81185fe9f90ac0",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-right-0.png",
+      "bytes": 7044,
+      "sha256": "3f59925a11c3d9afde092011131b3c5d8e3c5bccfffbf8bd0e62b6e34096dfc3",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-right-1.png",
+      "bytes": 7166,
+      "sha256": "0a164d05d26d5ebcce242f1764e09ab7d4dc0ba47dc7d92249bd961edebb3984",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-up-0.png",
+      "bytes": 6216,
+      "sha256": "4b0f91d1702f6b0a2d75d763c28ffc684a0b79cd3e01c496dd6b6862d8bf46a4",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-1-up-1.png",
+      "bytes": 5809,
+      "sha256": "9da715fa02b83d3f454ea9415fd1ed3c9696dd0c067b30904dd4d4c8af704a1b",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-down-0.png",
+      "bytes": 6489,
+      "sha256": "70269ea909afa1b4220e00066bdcade39aa67bf922708215c7fff5f9df4e7f5d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-down-1.png",
+      "bytes": 6578,
+      "sha256": "4b09a255f913f5944fffa8269e5eb2f2a6027ce7131bf6efd569ab696c980910",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-right-0.png",
+      "bytes": 7073,
+      "sha256": "57f8a864bc33fe6f0de6222c780d9283e981d1f1e388d90f70e09ad663b0baa7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-right-1.png",
+      "bytes": 7194,
+      "sha256": "8f1e34609f92c3b7928c695a8e34600ab8832550f780c7420a717d205eae5eb4",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-up-0.png",
+      "bytes": 6823,
+      "sha256": "176e42640581b43775e573ae61433596ebddc3b206540ca218a8ff507881bf35",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-2-up-1.png",
+      "bytes": 6335,
+      "sha256": "11fdd744d47df1a85406e5cd35b19cca733ce627432b22a102af7112b258728a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-down-0.png",
+      "bytes": 6205,
+      "sha256": "f54a68205233cc67e926e6a22694b44f16c286dfe50f0e8d9617dc6cb5e5f762",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-down-1.png",
+      "bytes": 6284,
+      "sha256": "a465e1d9acc1fcae8aadb46b9de1879b4b07d6dbb1e090e3cb8a2aa6de5699a8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-right-0.png",
+      "bytes": 6817,
+      "sha256": "06c16f7a2da4403545290f63f1269682de99b00d21d0e54dadcb25b961ae662e",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-right-1.png",
+      "bytes": 6998,
+      "sha256": "ddfbda1b35a5d6a44e8087be59932de5884fb2c5128fcf6808cb9f709ba2bc0d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-up-0.png",
+      "bytes": 6575,
+      "sha256": "e34ea4d93f6ba9613cdc764276de165c1c2c1893aea326f8cbd3c5881c81184e",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/crowd-3-up-1.png",
+      "bytes": 6111,
+      "sha256": "cd364561b28c157c937c62b97544cc3cb9638e28726bb6c396c53d9231ad17ea",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-down-0.png",
+      "bytes": 7027,
+      "sha256": "7979af7a9403a014176fe8aec2e0caa6213a77e8a998ec8cffa6c1b8162ab4b2",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-down-1.png",
+      "bytes": 6509,
+      "sha256": "2e089beb1e9dcf5a7fd84a0e5873169f01d2c0cb02f8d291cb7a4af7c311191b",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-down-2.png",
+      "bytes": 6297,
+      "sha256": "f745a404e02293515f6a91dd97029baa0f9e85877458636a5b42962593180723",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-left-0.png",
+      "bytes": 4647,
+      "sha256": "fb606495d783515a1fc14134357315050f96b1fcfd74cff7bd3ed56cfc76dd2b",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-left-1.png",
+      "bytes": 6913,
+      "sha256": "e58116d17b14a3949beb5ca4e6ae446e64637dd225da19bd881965aa7788b50a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-left-2.png",
+      "bytes": 6885,
+      "sha256": "1638f870a301452c33d4e12c2c7c651251268bf938169265c61fe1ab3d4ab5fc",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-right-0.png",
+      "bytes": 4593,
+      "sha256": "cd4d524cd1cfc07b223f10dcb9d5d46d84cae5fbcf581f0c2b6fab3a7f80e169",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-right-1.png",
+      "bytes": 6480,
+      "sha256": "c7f64033038408db54dcba0498f5f5fc63bad5d5919284c5a28f95ba028df272",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-right-2.png",
+      "bytes": 6808,
+      "sha256": "2d58abc38aa590c4a8f7742af8e42be19c91a6fcea364100994202171e36946d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-up-0.png",
+      "bytes": 6084,
+      "sha256": "68839d22aba1bbbe6182a9ead191d3ae7a3e97c908991a368a905b7a7a9e1e3c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-up-1.png",
+      "bytes": 5732,
+      "sha256": "9d3c647b65197d63835b7441cfcdcf1e1e848d16ab353735c9b693800f8764c3",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player-up-2.png",
+      "bytes": 6275,
+      "sha256": "b88f8d91aa2f0fa47bb380a09b500200bd975f2c000050f6303f9812af77e519",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/marathon/player.json",
+      "bytes": 4595,
+      "sha256": "c5fa36fdcbb3a5162d884a6a9501ef7b7782079f544894bfcc9fa594c4ed6583",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/mexico-pablo/fighters.json",
+      "bytes": 909,
+      "sha256": "b883e4a3c377f1caf8693322e570c124ed4bfa3c1af25709c426e30b4f49cdb8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/mexico-pablo/idle.png",
+      "bytes": 8658,
+      "sha256": "4533475bbfa818eefa97a8d358cc2ef402eff022824839e1d441cf05a47367c1",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/mexico-pablo/ready.png",
+      "bytes": 8476,
+      "sha256": "236601308dbe451ba19b38b3f8c8f596932dc195c3a608e770bd645d59931f1a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/octopus-pads/coach.json",
+      "bytes": 2347,
+      "sha256": "dd77418d0f7762323ffaa1fbc7f1eb3a22264bffb9f7f8121ef6dec6f4a1f449",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/octopus-pads/left.png",
+      "bytes": 203530,
+      "sha256": "9284d0007e3d30c41893b7c1c21b6eb9cd1db64e5b5e231cd1da4ad1ecad9add",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/octopus-pads/ready.png",
+      "bytes": 181941,
+      "sha256": "fa1361c1e87f8a3135b25eb4060ae784c5825a7aa9d357b9ffccc9d23011e496",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/octopus-pads/right.png",
+      "bytes": 196106,
+      "sha256": "0cb3b6288f03866990113ec56e88bcd56943d9f282550477df934884d1fe02b0",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/octopus-pads/sweep.png",
+      "bytes": 196427,
+      "sha256": "0463f3e3627089f52ee4690245b76169c445a4a3da29b68bd97349ce54a3c8f1",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-block-body.png",
+      "bytes": 117053,
+      "sha256": "0220c5de1df2cd4ba9436db1b30ac4655f04360e9b44da92fa2411ff79d7022f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-block.png",
+      "bytes": 112087,
+      "sha256": "d001863b457726ac7c268b15f243a1a7c22793d73fc762aa1734d2fa00022558",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-cross-body.png",
+      "bytes": 101770,
+      "sha256": "86dd945b174d11e8cff39e5f7722d0e30a95a1f167b6f82510f39cefe1546191",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-cross-windup-body.png",
+      "bytes": 118522,
+      "sha256": "c166f1aa2481b0245bc327d97d288d7c964ea1c6f494958d694926679872ea37",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-cross-windup.png",
+      "bytes": 126309,
+      "sha256": "46577119f9c03deb0666f3be8b83af9ceac5f2e73717f625921c72199348e0c2",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-cross.png",
+      "bytes": 126939,
+      "sha256": "1d47dc56369b45ae073ca1983f9e5c6279cc704f6407c141ee82fb5842ce5f27",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-dodge.png",
+      "bytes": 112333,
+      "sha256": "e06d4d82ed8a884da1b69eb08bf07e2dd0d151449e165b585feffe16e4715f06",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-down.png",
+      "bytes": 119895,
+      "sha256": "8f5212c2d2ca9529230a182ecbb27b3bed80d435a7c332fd7fd31f38830eabad",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-fall.png",
+      "bytes": 128935,
+      "sha256": "191542e60ea396dc4643c3d5340f8ba4d3a26b2f053ddc4e0c7e2fc2dd763fc9",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-guard.png",
+      "bytes": 121713,
+      "sha256": "b7dcd38cfb388d54c76cf8b251640cd4c45652a8c71b34dc3c51cb760f6497d9",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-hit-body.png",
+      "bytes": 114845,
+      "sha256": "cb3118d3631b3efb66359ff4a0fada1fedff2453b045b83fe098ec085cf0798e",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-hit.png",
+      "bytes": 130960,
+      "sha256": "4a468e139789ce8914fe875cd1890e24c8a77585e48b857b58a9fcc396c9551d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-jab-windup.png",
+      "bytes": 122606,
+      "sha256": "4b516eee6ec4a96c769088a61c9724ae1da904bf87edb6b8ae63dfc3a72424f6",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-jab.png",
+      "bytes": 125159,
+      "sha256": "0cf5d7e645dc513d4a3ae943b1e7d4363d62c204d9bb15fe797e40f300fe0526",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-rise.png",
+      "bytes": 140778,
+      "sha256": "a826f29b1ee4e1e0dc8faf22195c1278dce1c4fc4c4036ea6696fe96de882265",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/danielo-surrender.png",
+      "bytes": 106525,
+      "sha256": "3378b1e6bd91e1aaf796bf825177405e41d936f405d0478ef75421aeff776622",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/danielo/fighters.json",
+      "bytes": 11280,
+      "sha256": "8d70ee15d62aa60a2c901375c243fdc541c4811a1cb6010cdfcfccb0de36c2d5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/fighters.json",
+      "bytes": 11519,
+      "sha256": "18b90f9840c02a4034a30247471483ed8dcbc8b8558418a4dbab9cfab1febd88",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-block-body.png",
+      "bytes": 139734,
+      "sha256": "f5cfb103f029c9bce8198088442dd8f881032fc954f1e805043b029eb6fa6189",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-block.png",
+      "bytes": 135566,
+      "sha256": "b1cc7cb0bee4b9e0d8bebd11757bd729f30b039d08d3de89b9da4ce9523c6580",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-cross-body.png",
+      "bytes": 131173,
+      "sha256": "fe5ab030806f44f857cd2581638de76cc5bcc7c152e149d8f138b65d4d3ede31",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-cross-windup-body.png",
+      "bytes": 151035,
+      "sha256": "d40c61dcd3272dfaa34f1dc6744e2a056e7f75bcd75c4556e66983a457447b84",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-cross-windup.png",
+      "bytes": 153987,
+      "sha256": "e5dc4a4085abfe457943aaa4fa3404374693169f7cd4548ce3a5447eaaa6bd05",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-cross.png",
+      "bytes": 154963,
+      "sha256": "9ee15f12d17a94d83f236cf665d2905705c1c3958baf4a7992b02172e415fd07",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-dodge.png",
+      "bytes": 129194,
+      "sha256": "9ec67ba28fb79f747033ff04dd6e6c3439998173be0f11c2991b63ad7d7e32ff",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-down.png",
+      "bytes": 138889,
+      "sha256": "3f1757caf8a5b45a557c7535aa051dd1df44c85f8b1dc0c196d8920be8d4ec11",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-fall.png",
+      "bytes": 150660,
+      "sha256": "0b869e64fc41eef706f3ccff09d98447e0a2a19690b99a3d2327621b264a97d4",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-guard.png",
+      "bytes": 145115,
+      "sha256": "902b3c7df6d258e4723896596a2694a881d57a1fa0b96c1682bb6b0e38083ab5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-hit-body.png",
+      "bytes": 137078,
+      "sha256": "c0940e175e85953140d2bf283df04243dc8d18198a6537643af1768389d39b80",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-hit.png",
+      "bytes": 157309,
+      "sha256": "e0761ba7adc02082691b54fc16d18006d958c08464b6622e8d9f7062e64cae11",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-jab-windup.png",
+      "bytes": 146700,
+      "sha256": "a85f1434f9e091fd16a1b1be3d922a37e3e2c936b8d99a0d67b477a94e9d8bff",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-jab.png",
+      "bytes": 151664,
+      "sha256": "115808cb7487ca192aeb4fdce04c920095ebdc5af863503469b4e5e8cbc624d9",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-rise.png",
+      "bytes": 152673,
+      "sha256": "5da0b946fa2bbe5edd29c15a3b2e835623c6fec571f2abd747fbbc018c99275c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-moreau/gold-moreau-surrender.png",
+      "bytes": 127287,
+      "sha256": "8e8bfc7e62b005fcdf95b590902f138f9a757189f52b6d487fd28e552d49986f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/fighters.json",
+      "bytes": 11410,
+      "sha256": "79bcc9aa254ca7ec40f8da95aecdbb344bb11ba43b7242be2a5a942debdc8d88",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-block-body.png",
+      "bytes": 116796,
+      "sha256": "85e51b4a22ecc509c74dd24cdd460a7a891643d10955974d9358b3f16de2cfde",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-block.png",
+      "bytes": 109013,
+      "sha256": "d836627bf39897c3f2f8b9e5848fbf0d27a4abaf29040cce0bd451aa341f9ad5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-cross-body.png",
+      "bytes": 100723,
+      "sha256": "714a7368df8e83f969776ad2b8ce845466aad58b4d191cd635fb97ac175acab4",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-cross-windup-body.png",
+      "bytes": 114639,
+      "sha256": "42b5ccbbf7254219af85e5e0a02ae89c4e6bba90916beb84e1e291af122e5276",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-cross-windup.png",
+      "bytes": 121995,
+      "sha256": "f25b27ffaeff3a2fe7a9297a32d9df0c320a16e27258da9149304f26a8e7fe23",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-cross.png",
+      "bytes": 121943,
+      "sha256": "667639a4b7b49245c9c1d217489d7e2796947e1969fec3f67ca4c8553b6d5a31",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-dodge.png",
+      "bytes": 106152,
+      "sha256": "2ff7ebf13f606c3a242683033c19dba995424054dbef6bc7c5bdc24a7cafd614",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-down.png",
+      "bytes": 116703,
+      "sha256": "3de7a6ad0a86aef30c5e44d6be2a8f876ce09e5b9bcb545f89cf5302bc0033b3",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-fall.png",
+      "bytes": 128284,
+      "sha256": "70536a9dabb19ea89a93766d75a2191639c4bc6d74cabeeaf93f294008ca5e64",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-guard.png",
+      "bytes": 117314,
+      "sha256": "1d219f1a0d9f387af66a02df887b772bc5aecb3d2920b57b4aa6593a6aef9bf2",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-hit-body.png",
+      "bytes": 110190,
+      "sha256": "98db22aa74eef0383da96aadb746aead3ce4ecfe72ddb604e119bbb5ab48191a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-hit.png",
+      "bytes": 126510,
+      "sha256": "d777796b2d98f140f565403591e8172fd0e01d470c025088a78965bb3d3743a0",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-jab-windup.png",
+      "bytes": 117945,
+      "sha256": "53a56c7c7626e665d959ab973f61b01ee09d443202fe1fc6602faa39b4cad10e",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-jab.png",
+      "bytes": 123339,
+      "sha256": "01005aefd7ddd25efbeecd9ad048e25b39627940f3d32187ab145586e4b80d85",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-rise.png",
+      "bytes": 125791,
+      "sha256": "33b7adcd392d98b76ddc24e5e00db7ad2776b02d755a5c749a5631583a91782f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-rios/gold-rios-surrender.png",
+      "bytes": 103530,
+      "sha256": "856f200d3fc7dc89f4a6eaeed2ebc56734aac063ee1f63e50a88cdeb3c06d773",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/fighters.json",
+      "bytes": 11540,
+      "sha256": "35343fc42255cef6d2169d3297e0cf42fcaff303af0f2749d37fcc0bd0d7ddc7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-block-body.png",
+      "bytes": 96655,
+      "sha256": "e1df147d817aca7055135f553c25e5b3c01bf5158092d40fc8a1e65c882b3163",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-block.png",
+      "bytes": 85340,
+      "sha256": "f64e1c047bbe1d175d1ebcf52ee2ec19ab4e30e222509e26b977186a222b6295",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-cross-body.png",
+      "bytes": 85334,
+      "sha256": "9716bd916ee29d0791e84b7bdc26e378d14f4c17699ef8e1ced3546d60516d26",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-cross-windup-body.png",
+      "bytes": 97460,
+      "sha256": "b876787a1b0f7344518897b8559534b1ddf3bd7cca7bba416d09bb50f0df4c4b",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-cross-windup.png",
+      "bytes": 100987,
+      "sha256": "792c51040c00645be61d96608d6b137cc52ba637075a4e6cae4f2ac08c6e1541",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-cross.png",
+      "bytes": 101081,
+      "sha256": "d2a910f9a7d9f20f7274522c15e5e7b96290ac14f8fd9a2ff3416e2472a82a02",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-dodge.png",
+      "bytes": 91574,
+      "sha256": "dda277b145088da621b2170e592c9ae9ca2f9e1a4c2e0345c3328f5cb16ba27c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-down.png",
+      "bytes": 99347,
+      "sha256": "59f3b3a08395fe8f6abc0fa85402bcb401e4505401704877de0022b66a358d70",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-fall.png",
+      "bytes": 102343,
+      "sha256": "60beecbfe444b105a8084d31183ea17956242ea709c8ddf550c13422f13e63c1",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-guard.png",
+      "bytes": 92892,
+      "sha256": "b5524538af488845c3eedfd73953ce28289b90e1366d1c28e5b892412b4dd6a1",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-hit-body.png",
+      "bytes": 91981,
+      "sha256": "6743615456ad53d71d1004803340da06f0f7526f06c6eba72ba9e968cac5e206",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-hit.png",
+      "bytes": 102879,
+      "sha256": "40e5592cf150aa9d3842fb547583373af527c556fb5632e71dc50e71a799fa4d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-jab-windup.png",
+      "bytes": 95248,
+      "sha256": "469f5d2bb22c5f8ad0359ceeadac97e62b4b3b12001ff0612c704ceaaa73e211",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-jab.png",
+      "bytes": 97798,
+      "sha256": "a4d0c08374ef86fd590e1708e45f7f32c9bf2fb6fb9829ec03f85d2d2fd98113",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-rise.png",
+      "bytes": 111239,
+      "sha256": "ec26443fb540aefd341bf28cf5d1b7699ad450f618a9d0c4b1bc7a46d2129a33",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/gold-santos/gold-santos-surrender.png",
+      "bytes": 94288,
+      "sha256": "522670855cc4c70b2a79190a4496bb2d3d28b9becd72f78168893e843af68571",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/fighters.json",
+      "bytes": 11151,
+      "sha256": "9e147658d0df558d6e83813cdbdb64a483d024bd2e01814f0ad2bb2d9af31043",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-block-body.png",
+      "bytes": 122181,
+      "sha256": "e64af0e8e7b12aac6a15ffb1a0e863803a41fd0d0969a42eb79d019916edca12",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-block.png",
+      "bytes": 114006,
+      "sha256": "aab0197098d55b5183b016d1509f4798a4dee690461a7e1887b125b3a66fc890",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-cross-body.png",
+      "bytes": 106520,
+      "sha256": "a173bdb43462af1831e715b2ef50b9f2625d943e65c28adf95885c5e1f65ad2c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-cross-windup-body.png",
+      "bytes": 125758,
+      "sha256": "1b24c02c631209f9c31b2a309689aadb6a7ac20a30e06ff24eb5d19d071d1801",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-cross-windup.png",
+      "bytes": 129431,
+      "sha256": "49f6372b52d7a181df5e68346ebd1236609b2943c1fd7afb9f7d518ce5a8b2a8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-cross.png",
+      "bytes": 127990,
+      "sha256": "9e7fd248118873674b2bf880405ce01589618de65f2f05a36feff1097d695268",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-dodge.png",
+      "bytes": 112948,
+      "sha256": "3a9c7e068ef3c6a01b8501cb2fa12a3bece7a0544dc733edd180c637102fc02f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-down.png",
+      "bytes": 119836,
+      "sha256": "fa05b5627e40efcde540431e30eb743a148dab53b67ec4661393512f069bbbfb",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-fall.png",
+      "bytes": 133411,
+      "sha256": "f9f4e230360d5ab9f935c1df09473ed74be4616ed4b5a3b83cf70d79d2d90cc5",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-guard.png",
+      "bytes": 123437,
+      "sha256": "0cabf665f42802c1f8e3d4dd12b4be32659c59a12598fc47b9855caf89c97ff0",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-hit-body.png",
+      "bytes": 113594,
+      "sha256": "2f0d5c55a9542a5d77a24a534e1d06e0b2073acbd87fcee0abca1c90875f1417",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-hit.png",
+      "bytes": 133084,
+      "sha256": "d5732d4d2be70d5878a3a48f4367b34d7ff13e5408aa8296cbe376b040ad3cfb",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-jab-windup.png",
+      "bytes": 125382,
+      "sha256": "2d87a155bade09e8df0c4a2b9d1c032a847d46a2b8d1bf510d6e4548331cb032",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-jab.png",
+      "bytes": 129579,
+      "sha256": "1ba21753cd6ae56cbbc212bde81504c8ed12e1e9eb11f2da453ac1f0cdb8b9e7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-rise.png",
+      "bytes": 136773,
+      "sha256": "990e72ea76f520736ce57f22bc4afc23439910ae3f3741eafa0d1d6313276e25",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/pablo/pablo-surrender.png",
+      "bytes": 106641,
+      "sha256": "3a1c476a65e5f5a55d144c49ad98ed8799e2ebde11ff4a67d699133bc29eeb00",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/fighters.json",
+      "bytes": 16756,
+      "sha256": "83a0be723f5cc850e72bbd97678840e80decfdf24c5b9ec731b75e302a8ef93f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-block-body.png",
+      "bytes": 75142,
+      "sha256": "7113620c2444c61bfcc2635b75e3f9251dd4d275d1376575b37a6ae5ff29c14a",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-block.png",
+      "bytes": 81015,
+      "sha256": "9ccc608c7bd176a824d70a0b599ad1b58481a5c8e77a9f2efc061a6528f6695d",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-cross-body.png",
+      "bytes": 82965,
+      "sha256": "cac9799ac9c79024e889283b6686e24dbcbba7b822181c170d207299c7f30c95",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-cross-windup-body.png",
+      "bytes": 78420,
+      "sha256": "0022562f0977c8e511ec0d189340b2e0cda3a3bce5723e67e6448a852a3cb470",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-cross-windup.png",
+      "bytes": 87456,
+      "sha256": "6cee26756c941cbe0092a40a0c7c5d8d306769cff050563f94400298748cd75f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-cross.png",
+      "bytes": 89327,
+      "sha256": "c3b982856183ae7cd4bb66e2a3d32a86db1e2a72eb43710d4f19aeb6c07bbe82",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-dodge.png",
+      "bytes": 84003,
+      "sha256": "bf42e473089827d3e87e8dce7cdc398418209e8c01c1566dc4f91fc585f30a2f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-down.png",
+      "bytes": 79332,
+      "sha256": "b446ad282f47af865e6f165bb32b4e7a7f44242259268411d8268971bf74642f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-fall.png",
+      "bytes": 86048,
+      "sha256": "b4257a35ee899206609b7c82b7025d9cbce2f1f2ca7667c1398e8243ad3f9ed8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-guard.png",
+      "bytes": 82385,
+      "sha256": "e0df129fabfdfc59646639056065ad5828ec3dcae7d53a7856868ab953703a5e",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hit-body.png",
+      "bytes": 75783,
+      "sha256": "5f069a3049fa6e378e2c623fed7d54fb26d2ce5acf85dd837e4ee176d8413cae",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hit.png",
+      "bytes": 89539,
+      "sha256": "082212f09f88bbcc834c9e7ae8cf63643944d0cc121a98dec3e417bbcec81b54",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hook-body.png",
+      "bytes": 82965,
+      "sha256": "cac9799ac9c79024e889283b6686e24dbcbba7b822181c170d207299c7f30c95",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hook-recover.png",
+      "bytes": 84816,
+      "sha256": "b40faa4e155edc8de9ebd02cdb19a734395ac34f470be489aa9731c03045e2fa",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hook-windup-body.png",
+      "bytes": 78420,
+      "sha256": "0022562f0977c8e511ec0d189340b2e0cda3a3bce5723e67e6448a852a3cb470",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hook-windup.png",
+      "bytes": 84816,
+      "sha256": "b40faa4e155edc8de9ebd02cdb19a734395ac34f470be489aa9731c03045e2fa",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-hook.png",
+      "bytes": 86997,
+      "sha256": "48d3746d5be3970ba5cb7f33d4e94b17b7e36f50d2531ff739250fee1c9e89bc",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-jab-body.png",
+      "bytes": 82965,
+      "sha256": "cac9799ac9c79024e889283b6686e24dbcbba7b822181c170d207299c7f30c95",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-jab-windup-body.png",
+      "bytes": 78420,
+      "sha256": "0022562f0977c8e511ec0d189340b2e0cda3a3bce5723e67e6448a852a3cb470",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-jab-windup.png",
+      "bytes": 84816,
+      "sha256": "b40faa4e155edc8de9ebd02cdb19a734395ac34f470be489aa9731c03045e2fa",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-jab.png",
+      "bytes": 86192,
+      "sha256": "2db653f7149c419c5d42fec0ef63c26f0b14d1dc98b3a48e6ec74d135e758ee7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner-player/runner-player-rise.png",
+      "bytes": 86082,
+      "sha256": "9ab834a550fec1a917f927962a473fe1c306418faabccc207414e8235358e150",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/fighters.json",
+      "bytes": 11215,
+      "sha256": "30090ffedb9525b916f39e3a12072346c9795232ca32069e74c979b10c626490",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-block-body.png",
+      "bytes": 100521,
+      "sha256": "2e23fca14888c4a71c2f284f9e928c665bf7e7119a9621ab3b7288f5b997ac60",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-block.png",
+      "bytes": 102203,
+      "sha256": "96c336edb305b48e5829439f7c39e7de43c43ec132f5eca5d1da3bbdcb0a3dce",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-cross-body.png",
+      "bytes": 99308,
+      "sha256": "49402cc0878e277d7735034b7f391a4315521cca93c4e578e0c567dde389746c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-cross-windup-body.png",
+      "bytes": 111372,
+      "sha256": "234f9e638dae40f0570d9e6afae90c26cecb9a60c8e1ec6b0109acc439874927",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-cross-windup.png",
+      "bytes": 114102,
+      "sha256": "3b04e0737f8393792950cb6f4a24f1b61a6bafa3218e5b7018a6401fffd0eee4",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-cross.png",
+      "bytes": 113475,
+      "sha256": "11996cf95d35f1c99ed4b6fd174645910d72c8034d07ee4fb7ef12420c9632d2",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-dodge.png",
+      "bytes": 107822,
+      "sha256": "67d68a41217df733c5525c992526629b5a11a8022b15311175e6cd6f003851bd",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-down.png",
+      "bytes": 115824,
+      "sha256": "391f64e142a3f1a585098ecbbf96181f87ef0a73a2a69dc2d5a1ff92f25d32d8",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-fall.png",
+      "bytes": 119095,
+      "sha256": "0cea0e8839d05ecf681800f592638120617895702d24c6388cefff3e52331c0f",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-guard.png",
+      "bytes": 107490,
+      "sha256": "1cae69619eb660d0b749410a7555370b7a8a58a635a39cd21d4d6f532ea44fe7",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-hit-body.png",
+      "bytes": 104762,
+      "sha256": "ec29381ce7a65746e6cbd6a06352d91b8cb53b6d74d51ba1fbb6becaefe81993",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-hit.png",
+      "bytes": 113920,
+      "sha256": "e951a596b80c48c5c2f2a2165ba57adf39379d7c5958c34325aa8e4b0a122605",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-jab-windup.png",
+      "bytes": 109128,
+      "sha256": "7716483226d7a19e0e3f055bd27042a79dcf554e644f512af166d7da943c161c",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-jab.png",
+      "bytes": 112667,
+      "sha256": "7cf9974cc9f5ab5cd3cbe14db1b02d07e897faeafc90ab5e67f24755559bd60b",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-rise.png",
+      "bytes": 120788,
+      "sha256": "f0358d64fa2cdc77b77a631afd26d7d62f4354fd9101aee5f823b93331739a28",
+      "match": true
+    },
+    {
+      "file": "assets/sprites/opponents/runner/runner-surrender.png",
+      "bytes": 113623,
+      "sha256": "2d565076ca4c44a90c450f0a657816372eec9f3924843b7a6d173a6b6367e800",
+      "match": true
+    },
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "5ca9237dd4296155ac023581090542cfccac2e845d14fbbeec08a81098f168da",
+      "match": true
+    }
+  ]
+}

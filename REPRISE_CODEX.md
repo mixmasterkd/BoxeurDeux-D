@@ -16,6 +16,8 @@ Sauvegarde V5 sur la clé historique, migrations v1–4, paiements et récompens
 
 Sources finales et prompts conservés ; aucune IA appelée pendant le jeu. Vite existant sur 0.0.0.0:5173 réutilisé, Wi-Fi vérifié 192.168.50.123. Les essais mobiles sont des simulations Chromium, pas le téléphone physique. Les vérifications, limites et état de publication actuels sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md), qui prévaut sur les rapports intermédiaires.
 
+**Chapitre terminé, commité et publié** : `7a814ff` (visuels), `d82cdb0` (jeu/carrière/tests), `1c1f200` (documentation et preuves locales). 425 tests autonomes, compilation, deux courses complètes clavier/tactile jusqu’au retour au métro, combats/coins/juges, voyages et sauvegardes vérifiés. Workflow Pages `34792833027` réussi. Le vrai site public a passé 26 contrôles PC/tactiles, 159 ressources HTTP sans erreur au dernier passage ; 200 fichiers publics identiques à `dist` par SHA-256. Bundles `index-Dy1faqWr.js` et `index-B0HO_F6X.css`. L’incident réseau initial résolu et les limites réelles sont documentés. La prochaine extension reste à discuter, sans démarrer un nouveau chapitre automatiquement.
+
 ## Combats sur plusieurs rounds — GO du 13 septembre 2026
 
 Le GO actuel demande de corriger les victoires trop rapides, la progression de difficulté, puis d’ajouter un moment avec Fredo et une décision des juges. Les combats officiels utilisent maintenant **3 × 45 s**, dégâts joueur 5/7/9 avec puissance proportionnelle maximale +20 %, relevés 80/72/65 % du maximum. Rémi garde ses exercices et timings. Les fenêtres adverses restent annoncées et indépendantes des commandes ; le danger progresse jusqu’à Le Feu. Kramer abandonne toujours après deux chutes cumulées.

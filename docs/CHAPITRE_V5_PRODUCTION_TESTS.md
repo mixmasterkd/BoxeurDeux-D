@@ -27,3 +27,9 @@ CHAPTER_PUBLIC_URL='https://mixmasterkd.github.io/BoxeurDeux-D/' node tests/chap
 ```
 
 Ce second mode écrit un rapport et des captures avec le préfixe `chapter-v5-public`. Il utilise ses propres contextes de navigateur et sauvegardes isolées.
+
+## Vérification publique après déploiement
+
+Le même parcours a ensuite été exécuté sur https://mixmasterkd.github.io/BoxeurDeux-D/, après publication du commit `1c1f200`. Résultat final : **26 cas réussis, 159 ressources HTTP chargées, zéro erreur**. Les bundles servis sont `index-Dy1faqWr.js` et `index-B0HO_F6X.css`. Le rapport est `docs/chapter-v5-public-results.json`; les captures portent le préfixe `chapter-v5-public-`.
+
+Un premier passage avait rencontré un HTTP 503 temporaire sur une ancienne tenue (`boxing-burgundy/player-up-1.png`). Le fichier a ensuite répondu 200. La tentative a également révélé un appui automatisé trop précoce après la reprise du métro : le test attend maintenant le mode DOM `walking` avant de marcher. Aucun runtime n’a été changé. Cet essai initial est conservé séparément dans `docs/chapter-v5-public-initial-network-incident.json` et sa capture. La relance complète n’a rencontré aucune erreur; aucune erreur HTTP n’a été masquée ou retirée du rapport d’origine.

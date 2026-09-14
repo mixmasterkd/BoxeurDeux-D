@@ -57,7 +57,7 @@ async function setup(kind, mobile) {
   page.on('console', message => { if (message.type() === 'error') report.errors.push(message.text()); });
   page.on('response', response => {
     if (response.status() >= 400) report.errors.push(`${response.status()} ${response.url()}`);
-    else assets.add(new URL(response.url()).pathname);
+    else { const url = new URL(response.url()); if (['http:', 'https:'].includes(url.protocol)) assets.add(url.pathname); }
   });
   const cdp = mobile ? await context.newCDPSession(page) : null;
   const root = () => page.evaluate(() => ['gym','rhythm','sparring'].map(id => `#${id}-ui`).find(s => { const e = document.querySelector(s); return e && !e.hidden && e.getClientRects().length; }));
@@ -147,6 +147,7 @@ async function metro(mobile) {
   assert.equal(await page.locator('.metro-network-map li[data-current="true"]').count(), 1);
   await capture(page, c, mobile, 'metro-network-map');
   await c.back(); await c.choose('.gym-resume-button');
+  await wait(page, () => document.querySelector('#gym-ui')?.dataset.mode === 'walking');
   await c.hold('up', 780); await ready(page, 'metro-train');
   await wait(page, () => document.querySelector('#gym-ui')?.dataset.metroTrain === 'moving', null, 15000);
   assert.match(await page.locator('.prototype-label').textContent(), /PROCHAIN ARRÊT/);

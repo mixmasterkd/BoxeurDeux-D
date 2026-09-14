@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+const run=promisify(execFile),base=process.env.CHAPTER_PUBLIC_URL??'https://mixmasterkd.github.io/BoxeurDeux-D/';
+const walk=async dir=>{const out=[];for(const e of await fs.readdir(path.join('dist',dir),{withFileTypes:true})){const p=path.posix.join(dir,e.name);out.push(...e.isDirectory()?await walk(p):[p]);}return out;};
+const targets=['index.html',...(await fs.readdir('dist/assets')).filter(f=>/^(index-|PixelifySans)/.test(f)).map(f=>`assets/${f}`)];
+for(const dir of ['assets/marathon','assets/metro','assets/mexico','assets/sprites/marathon','assets/sprites/octopus-pads','assets/sprites/mexico-pablo','assets/sprites/decision-local','assets/sprites/decision-player',...['pablo','danielo','gold-rios','gold-moreau','gold-santos','runner','runner-player'].map(id=>`assets/sprites/opponents/${id}`)])targets.push(...await walk(dir));
+targets.push('assets/hotel/lobby-gold.png','assets/hotel/restaurant.png','assets/sprites/corner/octopus-coach.png');
+const pending=[...new Set(targets)],results=[],hash=b=>createHash('sha256').update(b).digest('hex');
+await Promise.all(Array.from({length:4},async()=>{while(pending.length){const file=pending.shift(),local=await fs.readFile(path.join('dist',file));const {stdout}=await run('curl',['-4','--fail','--silent','--show-error','--retry','2','--max-time','60',new URL(file,base).href],{encoding:'buffer',maxBuffer:12*1024*1024});const match=hash(stdout)===hash(local);results.push({file,bytes:stdout.length,sha256:hash(stdout),match});assert.ok(match,`Published asset differs from dist: ${file}`);}}));
+results.sort((a,b)=>a.file.localeCompare(b.file));
+await fs.writeFile('docs/chapter-v5-public-assets-results.json',JSON.stringify({date:new Date().toISOString(),base,files:results.length,allMatch:true,results},null,2)+'\n');
+console.log(`${results.length} fichiers publics identiques à dist (SHA-256).`);

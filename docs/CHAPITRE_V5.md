@@ -49,4 +49,10 @@ Les contextes navigateur de vérification utilisent des profils isolés prépar�
 
 ## Publication
 
-Vérifications locales terminées. Commits : `7a814ff` (ressources originales), `d82cdb0` (runtime, carrière et contrôles). Bundle final : `index-Dy1faqWr.js`, `index-B0HO_F6X.css`. Le résultat du déploiement et les contrôles du vrai site seront ajoutés après publication.
+**Version publiée et vérifiée.** Commits : `7a814ff` (ressources originales), `d82cdb0` (runtime, carrière et contrôles), `1c1f200` (documentation et vérifications locales). Le [workflow Pages 34792833027](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/34792833027) a réussi pour `1c1f200`. Bundle public : `index-Dy1faqWr.js`, `index-B0HO_F6X.css`.
+
+Le même parcours de production a ensuite réussi sur le **vrai site GitHub Pages** : **26 cas, 159 ressources HTTP, zéro erreur JavaScript/console/HTTP au dernier passage**, ordinateur et tactile simulé. Il comprend laptop/CLI et retour carrière, Mexique/pads Octopus avec touche, métro/plan/montée et train en mouvement, restaurant doré et bar à pain, départ du marathon avec déplacement, chrono/pause/reprise. Rapport : `chapter-v5-public-results.json`. Les 200 fichiers du chapitre et de la compilation comparés au site sont **identiques par SHA-256** : `chapter-v5-public-assets-results.json`.
+
+Le premier passage public avait reçu une erreur HTTP 503 temporaire sur une pose bordeaux déjà existante ; cette ressource répond ensuite 200 et correspond à `dist`. Une attente du scénario métro a également été corrigée : attendre la fermeture effective du menu pause avant d’envoyer la marche, puisque le jeu libère les appuis à cette transition. Aucune erreur n’est filtrée pendant la relance complète. L’incident initial reste consigné dans `chapter-v5-public-initial-network-incident.json`.
+
+Les captures `chapter-v5-public-*.png` proviennent de ce site public ; les captures de course complète et du pont sont dans `outputs/verification/chapter-v5/`. Les profils de ces essais sont isolés de la partie réelle de l’utilisateur.

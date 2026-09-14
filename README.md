@@ -15,7 +15,7 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 - Ordinateur : **http://127.0.0.1:5173/**
 - Wi-Fi du PC vérifié le 13 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
-- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Vérifier le déploiement avant de supposer qu’elle contient le chapitre V5.
+- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Chapitre V5 publié et vérifié ; voir [les résultats](docs/CHAPITRE_V5.md#publication).
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
@@ -256,7 +256,7 @@ npm run test:fight-presentation          # Fixtures visuelles de décision et me
 
 Le bilan global et les limites des vérifications sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md); les documents spécialisés indiquent les scénarios réellement joués et les fixtures utilisées. Les autres scripts de contrôle restent listés dans `package.json`. Playwright utilise l’installation déjà disponible dans cet environnement ou `PLAYWRIGHT_MODULE_PATH`; ce n’est pas une dépendance du jeu. Les essais mobiles sont des **simulations de viewport et de contacts tactiles**, pas des essais sur un téléphone physique.
 
-`npm run build` produit l’index statique dans `dist/`. Pour héberger, déployer **tout le contenu de dist/** avec ses ressources, pas le `index.html` source. La configuration Vite utilise `base: './'` pour le sous-chemin GitHub Pages. Le workflow `.github/workflows/pages.yml` construit puis publie `main`; consulter son résultat avant d’annoncer une mise en ligne. La présence du chapitre dans ce dépôt local ne prouve pas son déploiement public.
+`npm run build` produit l’index statique dans `dist/`. Pour héberger, déployer **tout le contenu de dist/** avec ses ressources, pas le `index.html` source. La configuration Vite utilise `base: './'` pour le sous-chemin GitHub Pages. Le workflow `.github/workflows/pages.yml` construit puis publie `main`. Le chapitre V5 a passé 26 contrôles sur le vrai site public ; 200 fichiers publiés correspondent à `dist` par SHA-256.
 
 Les liens `?scene=home`, `gym`, `bag`, `shadow`, `rope`, `speedball`, les lieux explorables et `fight&opponent=...` restent des raccourcis de développement. Ils ne donnent ni argent ni énergie ni qualification. Les lieux de séjour exigent leur voyage ou tournoi actif; les combats respectent leurs conditions. Pour tester un chapitre avec ses prérequis sans toucher à la carrière normale, utiliser le **terminal du laptop** et ses commandes `test ...`.
 
