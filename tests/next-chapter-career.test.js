@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CareerProfile, CAREER_VERSION, CAREER_STORAGE_KEY, CAREER_BACKUP_KEY } from '../src/game/CareerProfile.js';
 import { DELIVERY_STOPS, LEGACY_FIGHT_IDS, trainingCaps } from '../src/game/ChapterRules.js';
-import { NEXT_FIGHT_IDS, CUBA_PRICE, CUBA_HOME_SPAWN, CUBA_RETURN_SPAWN, CUBA_PLACES, postBronzeUnlocked } from '../src/game/NextChapterRules.js';
+import { NEXT_FIGHT_IDS, LEGACY_NEXT_FIGHT_IDS, AIRPORT_SPAWN, CUBA_PRICE, CUBA_HOME_SPAWN, CUBA_RETURN_SPAWN, CUBA_PLACES, postBronzeUnlocked } from '../src/game/NextChapterRules.js';
 
 class Storage {
   values = new Map(); writes = 0;
@@ -10,6 +10,12 @@ class Storage {
   setItem(key, value) { this.values.set(key, value); this.writes++; }
 }
 const make = (storage = new Storage()) => new CareerProfile({ storage, now: () => '2026-09-13T15:00:00Z' });
+function enterCuba(profile) {
+  const result = profile.startCuba();
+  if (!result.ok) return result;
+  profile.setLocation(AIRPORT_SPAWN);
+  return profile.boardTravel('cuba');
+}
 function work(profile, tours = 1) {
   for (let i = 0; i < tours; i++) {
     if (profile.dailyStatus().energy < 30) assert.equal(profile.sleep().ok, true);
@@ -64,7 +70,7 @@ for (const order of [['dyrex', 'lefeu', 'louisto'], ['lefeu', 'louisto', 'dyrex'
     const profile = make(); finishBronze(profile);
     const base = profile.snapshot(), caps = trainingCaps(base.fights);
     for (const opponent of order) {
-      if (opponent === 'louisto') profile.startCuba();
+      if (opponent === 'louisto') enterCuba(profile);
       const before = profile.snapshot();
       assert.equal(profile.canFight(opponent).ok, true);
       assert.equal(profile.recordFight({ opponent, winner: 'player', score: 10, matchId: `new-${opponent}` }).ok, true);
@@ -74,14 +80,14 @@ for (const order of [['dyrex', 'lefeu', 'louisto'], ['lefeu', 'louisto', 'dyrex'
       assert.deepEqual(profile.snapshot().daily, before.daily);
       if (opponent === 'louisto') profile.leaveCuba();
     }
-    for (const id of NEXT_FIGHT_IDS) assert.equal(profile.snapshot().fights[id].wins, 1);
+    for (const id of LEGACY_NEXT_FIGHT_IDS) assert.equal(profile.snapshot().fights[id].wins, 1);
   });
 }
 
 test('Cuba charges once, includes return, blocks overlapping activities and survives reload and all local locations', () => {
   const storage = new Storage(); let profile = make(storage); finishBronze(profile);
   const money = profile.moneyStatus().money, daily = profile.dailyStatus(), stats = profile.snapshot().stats;
-  assert.equal(profile.startCuba().ok, true);
+  assert.equal(enterCuba(profile).ok, true);
   assert.equal(profile.moneyStatus().money, money - CUBA_PRICE);
   assert.deepEqual(profile.dailyStatus(), daily);
   assert.deepEqual(profile.snapshot().location, CUBA_HOME_SPAWN);
@@ -125,20 +131,20 @@ test('Cuba at zero energy is possible, but insufficient funds and active deliver
   assert.equal(profile.startCuba().ok, false); assert.equal(profile.exportText(), working);
   profile.abandonDelivery();
   while (profile.dailyStatus().energy >= 10) profile.spendEnergy('lesson');
-  assert.equal(profile.startCuba().ok, true);
+  assert.equal(enterCuba(profile).ok, true);
   assert.equal(profile.dailyStatus().energy, 0);
   profile.leaveCuba();
   const broke = profile.exportText();
   assert.equal(profile.startCuba().ok, false); assert.match(profile.cubaOffer().message, /Il manque/);
   assert.equal(profile.exportText(), broke);
   profile.sleep(); work(profile, 8);
-  assert.equal(profile.startCuba().ok, true); assert.equal(profile.cubaStatus().active.id, 2);
+  assert.equal(enterCuba(profile).ok, true); assert.equal(profile.cubaStatus().active.id, 2);
 });
 
 test('old and repeated fight receipts cannot record a new result twice, including Louisto after reload', () => {
   const storage = new Storage(); let profile = make(storage); finishBronze(profile);
-  for (const opponent of NEXT_FIGHT_IDS) {
-    if (opponent === 'louisto') profile.startCuba();
+  for (const opponent of LEGACY_NEXT_FIGHT_IDS) {
+    if (opponent === 'louisto') enterCuba(profile);
     const result = { opponent, matchId: 'one-attempt', winner: 'remi', score: 2 };
     assert.equal(profile.recordFight(result).ok, true);
     profile = make(storage); const saved = profile.exportText();
@@ -194,8 +200,8 @@ test('double jab requires a completed Octopus drill after Bronze, persists once 
   assert.deepEqual(make(storage).snapshot().techniques, { doubleJab: true });
 });
 
-test('malformed v4 stays, duplicate identities, invalid technique and overlap reject import atomically', () => {
-  const profile = make(); finishBronze(profile); profile.startCuba();
+test('malformed current stays, duplicate identities, invalid technique and overlap reject import atomically', () => {
+  const profile = make(); finishBronze(profile); enterCuba(profile);
   const saved = profile.exportText();
   for (const mutate of [p => { delete p.cuba; }, p => { p.cuba.active.fee = 0; }, p => { p.cuba.active.startedAtDay = p.daily.day + 1; },
     p => { p.cuba.nextId = 1; }, p => { p.cuba.history.push({ ...p.cuba.active, returnedAtDay: p.daily.day }); },

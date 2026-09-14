@@ -4,7 +4,7 @@ import { SparringSession } from '../src/game/SparringSession.js';
 import { getOpponentProfile } from '../src/game/OpponentProfiles.js';
 import { sparringActivity } from '../src/game/DailyActivityGate.js';
 
-const ids=['dyrex','lefeu','louisto'];
+const ids=['dyrex','lefeu','louisto','danielo','gold-rios','gold-moreau','gold-santos'];
 function play(id,hz=60,defend=true){
  const game=new SparringSession({opponent:id});game.start();let sequence=null,clock=0;const events=[];
  while(clock<360&&game.state.phase!=='finished'){

@@ -195,3 +195,31 @@ html[data-career-open="true"] #stage .input-rail * { visibility: hidden !importa
 #scene-loading .loading-detail { line-height: 1.2; }
 #stage .chapter-readout { font-family: var(--menu-font); font-size: clamp(10px, 1.45cqw, 16px); line-height: 1.2; color: #f7e4b7; border: 1px solid #a2adb0; box-shadow: 1px 1px 0 #061021; background: #12243cf0; }
 #gym-ui:not([data-mode="walking"]) .chapter-readout { visibility: hidden; }
+
+/* Activity invitations/results have two obvious choices. Settings and help
+   remain together in the pause screen, shared by keyboard and touch. */
+#stage :is(#sparring-ui,#bag-ui,#shadow-ui,#rhythm-ui):is([data-phase="ready"],[data-phase="finished"]):not([data-options-open="true"]) :is(.commands-open-button,.career-journal-button,.career-journal-open,.journal-open-button,.console-settings-heading,.panel-options,.shadow-speed-setting,.lesson-choice,.next-lesson-button,.round-footnote,.bag-audio-button,.shadow-audio-button,.rhythm-audio-button) { display:none!important; }
+#stage #sparring-ui:is([data-phase="ready"],[data-phase="finished"]):not([data-options-open="true"]) .choose-session-button:not(.return-gym-button) { display:none!important; }
+#stage :is(#sparring-ui,#bag-ui,#shadow-ui,#rhythm-ui)[data-phase="finished"] :is(.bag-advice,.rhythm-result-advice,.training-summary) { font-size:.9em!important; }
+
+/* P / Escape and the console menu expose secondary choices before a session,
+   without starting it or charging its daily energy. */
+#stage [data-options-open="true"] :is(.panel-actions,.bag-panel-actions,.shadow-panel-actions,.rhythm-actions) > :is(.primary-button,.return-gym-button,.bag-return-button,.shadow-return-button,.rhythm-return,.daily-activity-note,.activity-options-tip) { display:none!important; }
+#stage [data-options-open="true"] :is(.round-results,.training-summary,.bag-results,.shadow-results,.rhythm-results,.bag-benefit,.rhythm-goal,.shadow-goal) { display:none!important; }
+#stage .activity-options-tip { grid-column:1/-1; margin:1px 0 0; color:#b5c5d1; text-align:center; font:clamp(10px,1.3cqw,14px)/1.15 var(--menu-font); }
+#stage :is([data-phase="running"],[data-phase="paused"],[data-phase="knockdown"],[data-phase="corner"],[data-phase="between"]) .activity-options-tip { display:none!important; }
+#stage .test-profile-indicator { position:absolute; z-index:25; left:50%; bottom:3px; transform:translateX(-50%); padding:2px 5px; color:#ffe6a8; background:#152539e8; border:1px solid #a68b54; font:clamp(8px,1.1cqw,12px)/1 var(--menu-font); letter-spacing:.06em; pointer-events:none; }
+#stage .test-profile-exit { color:#ffe1a5!important; }
+#stage #rhythm-ui[data-phase="finished"] .rhythm-panel-copy,
+#stage #sparring-ui[data-phase="finished"] :is(.panel-copy,.lesson-description,.lesson-objective) { display:none!important; }
+@container (max-width:640px) {
+  html[data-touch="true"] #stage .activity-options-tip { display:none!important; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .panel-eyebrow { display:none!important; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .panel-heading { font-size:16px!important; margin:0 0 3px!important; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .round-results { margin:3px 0; padding:3px 0; gap:3px; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .result-cell strong { font-size:18px; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .result-cell { flex-direction:row; align-items:center; gap:6px; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .result-cell span { font-size:10px; line-height:1.1; }
+  #stage #sparring-ui[data-phase="finished"]:not([data-decision="true"]) .panel-actions { gap:4px!important; }
+  #stage #rhythm-ui[data-phase="finished"] .rhythm-panel-title { font-size:16px!important; margin:2px 0 6px!important; }
+}

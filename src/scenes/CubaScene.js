@@ -1,3 +1,4 @@
+import {sceneForPlace} from '../game/SceneRouting.js';
 import Phaser from 'phaser';
 import {CubaWorld,CUBA_LAYOUTS,CUBA_PLACES,CUBA_FIGHT_RETURN,cubaDoorDestination} from '../game/CubaWorld.js';
 import {CUBA_HOME_SPAWN,CUBA_RETURN_SPAWN} from '../game/NextChapterRules.js';
@@ -43,7 +44,7 @@ export class CubaScene extends Phaser.Scene {
   }
   create(){
     if(!careerProfile.cubaStatus().active){
-      this.scene.start('ExplorationScene',{place:CUBA_RETURN_SPAWN.scene,location:CUBA_RETURN_SPAWN});return;
+      this.scene.start(sceneForPlace(CUBA_RETURN_SPAWN.scene),{place:CUBA_RETURN_SPAWN.scene,location:CUBA_RETURN_SPAWN});return;
     }
     setSceneShell(this.place);
     this.world=new CubaWorld({place:this.place,position:this.entry});
@@ -121,7 +122,7 @@ export class CubaScene extends Phaser.Scene {
     if(id==='leave-cuba'){
       const result=careerProfile.leaveCuba();if(!result.ok){this.show('Le retour',result.message);return;}
       this.changing=true;this.ui.clearInputs();this.world.pause();
-      this.scene.start('ExplorationScene',{place:result.location.scene,location:result.location});return;
+      this.scene.start(sceneForPlace(result.location.scene),{place:result.location.scene,location:result.location});return;
     }
     if(id.startsWith('activity-')){
       const activity=id.slice(9);if(!['bag','rope','pads'].includes(activity)||!careerProfile.canStartActivity(activity).ok)return;

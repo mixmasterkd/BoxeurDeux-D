@@ -10,6 +10,10 @@ const REFEREE_POSES = ['neutral', 'raise-left', 'raise-right'];
 export class DecisionView {
   static preload(scene) {
     const base = import.meta.env?.BASE_URL ?? '/';
+    for (const id of ['decision-player', 'decision-local']) {
+      scene.load.json(`${id}-poses`, `${base}assets/sprites/${id}/fighters.json`);
+      for (const pose of ['neutral', 'winner', 'loser']) scene.load.image(`${id}-${pose}`, `${base}assets/sprites/${id}/${pose}.png`);
+    }
     scene.load.json('referee-poses', `${base}assets/sprites/referee/fighters.json`);
     for (const pose of REFEREE_POSES) {
       if (!scene.textures.exists(`referee-${pose}`)) scene.load.image(`referee-${pose}`, `${base}assets/sprites/referee/${pose}.png`);
@@ -19,6 +23,8 @@ export class DecisionView {
   constructor(scene, { player, remi }) {
     this.scene = scene;
     this.fighters = { player, remi };
+    this.playerPrefix = player.tournament ? 'decision-player' : 'decision-local';
+    this.playerMetadata = scene.cache.json.get(`${this.playerPrefix}-poses`);
     this.elapsed = 0;
     this.active = false;
     this.announced = false;
@@ -58,6 +64,15 @@ export class DecisionView {
 
   _pose(who, pose) {
     const view = this.fighters[who];
+    if (who === 'player') {
+      const name = pose === 'cross' ? 'winner' : pose === 'hit' ? 'loser' : 'neutral';
+      const original = `${this.playerPrefix}-${name}`;
+      const texture = view.tournament ? original : boxingTexture(this.scene, original);
+      this.images.player.setTexture(texture).setOrigin(320 / 640, 624 / 640)
+        .setScale(this.height / this.playerMetadata.artHeight)
+        .setPosition(this.positions.player, this.feet).setFlipX(false).setAlpha(1).setRotation(0);
+      return this.playerMetadata.poses[name];
+    }
     const metadata = view.metadata;
     const spec = metadata.poses[`${who}-${pose}`] ?? metadata.poses[`${who}-guard`];
     const texturePose = spec.texturePose ?? pose;
@@ -94,22 +109,14 @@ export class DecisionView {
       this.announced = true;
       const winner = state.bout.result.winner;
       if (winner === 'player') {
-        // The authored player cross is an overhead arm extension seen from
-        // behind. It provides a natural victory pose without cutting up limbs.
         const spec = this._pose('player', 'cross');
-        const source = this.fighters.player;
-        const scale = this.height / source.metadata.artHeight;
-        const glove = spec.glove ?? spec.contact;
+        const scale = this.height / this.playerMetadata.artHeight;
         const hand = this.refereeMetadata.poses['raise-left'].handLeft;
-        if (glove) {
-          const gloveX = (glove.x - source.anchor.x) * scale * (spec.mirror ? -1 : 1);
-          const handX = 640 + (hand.x - 320) * this.scale;
-          // The stance moves only a few pixels to meet the referee's hand;
-          // the arm is raised by the authored pose, never by moving the body.
-          this.images.player.x = Math.round(handX - gloveX);
-        }
+        const handX = 640 + (hand.x - 320) * this.scale;
+        this.images.player.x = Math.round(handX - (spec.glove.x - 320) * scale);
         this.referee.setTexture('referee-raise-left');
       } else if (winner === 'remi') {
+        this._pose('player', 'hit');
         // Opponents currently have no authored overhead victory pose. Preserve
         // their exact identity and anatomy: the referee signals the winner's
         // side while that boxer remains in his own guard, rather than inventing

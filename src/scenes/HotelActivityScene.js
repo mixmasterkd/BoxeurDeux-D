@@ -13,24 +13,25 @@ const PLAYER_POSES=['guard','jab','cross','jab-windup','cross-windup','jab-recov
 const COACH_POSES=['ready','left','right','sweep'];
 export class HotelActivityScene extends Phaser.Scene{
   constructor(){super('HotelActivityScene');}
-  init(data={}){this.activity=(data.activity??new URLSearchParams(location.search).get('scene'))==='pool'?'pool':'pads';this.fromCuba=this.activity==='pads'&&Boolean(data.fromCuba);this.fromGym=this.activity==='pads'&&Boolean(data.fromGym);this.place=this.fromCuba?'cuba-gym':this.activity==='pool'?'hotel-pool':'hotel-gym';this.backgroundKey=`activity-${this.activity}-${this.fromCuba?'cuba':this.fromGym?'local':'hotel'}`;}
+  init(data={}){this.activity=(data.activity??new URLSearchParams(location.search).get('scene'))==='pool'?'pool':'pads';this.fromMexico=this.activity==='pads'&&Boolean(data.fromMexico);this.fromCuba=this.activity==='pads'&&Boolean(data.fromCuba);this.fromGym=this.activity==='pads'&&Boolean(data.fromGym);this.place=this.fromMexico?'mexico-gym':this.fromCuba?'cuba-gym':this.activity==='pool'?'hotel-pool':'hotel-gym';this.coachId=this.fromMexico?'octopus':'fredo';this.backgroundKey=`activity-${this.activity}-${this.fromMexico?'mexico':this.fromCuba?'cuba':this.fromGym?'local':'hotel'}`;}
   preload(){
-    const b=import.meta.env.BASE_URL;this.load.image(this.backgroundKey,this.fromCuba?`${b}assets/cuba/gym-training.png`:this.fromGym?`${b}assets/backgrounds/gym.png`:`${b}assets/hotel/${this.activity==='pool'?'pool':'gym'}.png`);
+    const b=import.meta.env.BASE_URL;this.load.image(this.backgroundKey,this.fromMexico?`${b}assets/mexico/gym-sparring.png`:this.fromCuba?`${b}assets/cuba/gym-training.png`:this.fromGym?`${b}assets/backgrounds/gym.png`:`${b}assets/hotel/${this.activity==='pool'?'pool':'gym'}.png`);
     if(this.activity==='pool'){
       this.load.json('hotel-swimmer-data',`${b}assets/hotel/swimmer.json`);
       for(let i=0;i<4;i++)this.load.image(`hotel-swimmer-${i}`,`${b}assets/hotel/swimmer-${i}.png`);
     }else{
-      this.load.json('hotel-pads-coach-data',`${b}assets/sprites/fredo/coach.json`);
-      for(const pose of COACH_POSES)this.load.image(`hotel-pads-coach-${pose}`,`${b}assets/sprites/fredo/${pose}.png`);
+      this.load.json(`hotel-pads-coach-${this.coachId}-data`,`${b}assets/sprites/${this.fromMexico?'octopus-pads':'fredo'}/coach.json`);
+      for(const pose of COACH_POSES)this.load.image(`hotel-pads-coach-${this.coachId}-${pose}`,`${b}assets/sprites/${this.fromMexico?'octopus-pads':'fredo'}/${pose}.png`);
       this.load.json('hotel-pads-player-data',`${b}assets/sprites/sparring-v2/fighters.json`);
       for(const pose of PLAYER_POSES)this.load.image(`hotel-pads-player-${pose}`,`${b}assets/sprites/sparring-v2/player-${pose}.png`);
       this.load.image('hotel-pads-player-block-body',`${b}assets/sprites/body-training/player-block-body.png`);
     }
   }
   create(){
+    if(this.fromMexico&&!careerProfile.mexicoStatus().active){this.scene.start('MetroScene',{place:'airport'});return;}
     if(this.fromCuba&&!careerProfile.cubaStatus().active){this.scene.start('ExplorationScene',{place:'riverside'});return;}
-    if(!this.fromGym&&!this.fromCuba&&!careerProfile.tournamentStatus().active){this.scene.start('ExplorationScene',{place:'neighborhood',entrance:'fight'});return;}
-    setSceneShell(this.activity,{fromGym:this.fromGym,fromCuba:this.fromCuba});this.session=new HotelActivitySession({activity:this.activity});this.rewarded=false;
+    if(!this.fromGym&&!this.fromCuba&&!this.fromMexico&&!careerProfile.tournamentStatus().active){this.scene.start('ExplorationScene',{place:'neighborhood',entrance:'fight'});return;}
+    setSceneShell(this.activity,{fromGym:this.fromGym,fromCuba:this.fromCuba,fromMexico:this.fromMexico,coach:this.coachId});this.session=new HotelActivitySession({activity:this.activity});this.rewarded=false;
     if(!this.fromGym&&careerProfile.snapshot().location.scene!==this.place)careerProfile.setLocation({scene:this.place,x:640,y:610,facing:'up'});
     this.add.image(0,0,this.backgroundKey).setOrigin(0).setDisplaySize(1280,720);
     this.audio=new SparringAudio();this.createActors();
@@ -39,9 +40,9 @@ export class HotelActivityScene extends Phaser.Scene{
     this.ui=new HotelActivityUI(this.activity,{
       onAction:action=>this.session.act(action),onGuard:(held,level)=>this.session.setGuard(held,level),onStart:start,
       onPause:()=>{this.session.pause();this.audio.setActive(false);},onResume:()=>{this.session.resume();this.audio.setActive(true);},
-      onReturnGym:()=>{this.session.pause();this.audio.setActive(false);this.scene.start(this.fromCuba?'CubaScene':this.fromGym?'GymScene':'HotelScene',this.fromGym?{}:{place:this.place,location:careerProfile.snapshot().location});},
+      onReturnGym:()=>{this.session.pause();this.audio.setActive(false);this.scene.start(this.fromMexico?'MexicoScene':this.fromCuba?'CubaScene':this.fromGym?'GymScene':'HotelScene',this.fromGym?{}:{place:this.place,location:careerProfile.snapshot().location});},
       onAudioGesture:()=>this.audio.unlock(),onMute:()=>{this.audio.setMuted(!this.audio.getState().muted);this.ui.setAudioState(this.audio.getState());if(!this.audio.getState().muted)this.audio.unlock();},
-    },{fromGym:this.fromGym,fromCuba:this.fromCuba});
+    },{fromGym:this.fromGym,fromCuba:this.fromCuba,fromMexico:this.fromMexico,coach:this.coachId});
     this.dailyNotice=new DailyActivityNotice({root:this.ui.root,gate:this.dailyGate,panel:'.rhythm-actions',primary:'.rhythm-primary',restarts:['.rhythm-restart']});
     this.ui.update(this.session.state);this.dailyNotice.update(this.session.state);this.ui.setAudioState(this.audio.getState());
     this.resizeObserver=new ResizeObserver(()=>{this.scale.getParentBounds();this.scale.refresh();});this.resizeObserver.observe(document.getElementById('game'));
@@ -54,8 +55,8 @@ export class HotelActivityScene extends Phaser.Scene{
     if(this.activity==='pool'){
       this.swimmer=this.add.image(255,416,'hotel-swimmer-0').setScale(.68).setDepth(3);this.swimmer.setOrigin(.5,.5);
     }else{
-      this.coachMeta=this.cache.json.get('hotel-pads-coach-data');this.playerMeta=this.cache.json.get('hotel-pads-player-data');
-      this.coach=this.add.image(640,594,'hotel-pads-coach-ready').setOrigin(.5,624/640).setScale(.76).setDepth(2);
+      this.coachMeta=this.cache.json.get(`hotel-pads-coach-${this.coachId}-data`);this.playerMeta=this.cache.json.get('hotel-pads-player-data');
+      this.coach=this.add.image(640,594,`hotel-pads-coach-${this.coachId}-ready`).setOrigin(.5,624/640).setScale(.76).setDepth(2);
       this.player=this.add.image(640,660,'hotel-pads-player-guard').setOrigin(.5,624/640).setScale(.74).setAlpha(.66).setDepth(4);
       prepareBoxingOutfits(this,PLAYER_POSES.map(pose=>`hotel-pads-player-${pose}`));
       this.add.ellipse(640,597,150,26,0x071a22,.25).setDepth(1);this.add.ellipse(640,663,140,28,0x071a22,.28).setDepth(3);
@@ -72,7 +73,7 @@ export class HotelActivityScene extends Phaser.Scene{
     }
     if(s.phase==='finished'&&!this.rewarded){this.rewarded=true;this.ui.setReward(careerProfile.reward(this.activity,s.summary));}
     this.renderActors(s);this.ui.update(s);this.dailyNotice.update(s);
-    if(!this.fromGym&&this.dailyNotice.note.textContent.includes('rentre dormir à la maison'))this.dailyNotice.note.textContent=this.dailyNotice.note.textContent.replace('rentre dormir à la maison',this.fromCuba?'retrouve ton lit à la casa':'repose-toi dans ta chambre après le combat');
+    if(!this.fromGym&&this.dailyNotice.note.textContent.includes('rentre dormir à la maison'))this.dailyNotice.note.textContent=this.dailyNotice.note.textContent.replace('rentre dormir à la maison',this.fromMexico?'retrouve ton lit à la posada':this.fromCuba?'retrouve ton lit à la casa':'repose-toi dans ta chambre après le combat');
     if(import.meta.env.DEV)for(const e of events)if(e.type==='hit')window.__hotelActivity.contacts.push({...e,visual:this.contact??null});
   }
   renderActors(s){
@@ -94,7 +95,7 @@ export class HotelActivityScene extends Phaser.Scene{
     }
     const layout=padsMotion(s,this.coachMeta,this.playerMeta);
     const {coachPose,coach,player,pose,aim,glove}=layout;
-    this.coach.setTexture(`hotel-pads-coach-${coachPose}`).setPosition(coach.x,coach.y).setScale(coach.scale);
+    this.coach.setTexture(`hotel-pads-coach-${this.coachId}-${coachPose}`).setPosition(coach.x,coach.y).setScale(coach.scale);
     this.player.setTexture(boxingTexture(this,`hotel-pads-player-${pose}`)).setFlipX(player.flip)
       .setPosition(player.x,player.y).setRotation(player.rotation).setScale(player.scale).setAlpha(layout.alpha);
     if(s.phase==='running'&&layout.raised) {

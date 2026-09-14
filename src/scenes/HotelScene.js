@@ -11,9 +11,11 @@ import { downloadCareer } from '../ui/CareerMenu.js';
 import { setSceneShell } from '../ui/SceneShell.js';
 import '../ui/hotel.css';
 import { preloadOutfits,streetTexture,boxingTexture } from './OutfitView.js';
-const close={id:'close',label:'Continuer la visite →'};
-const NAMES={bellini:'Marco Bellini',fortin:'Louis « Le Roc » Fortin',gagnon:'André « Le Patron » Gagnon'};
-const TALK={bellini:'Je reste léger sur les appuis. Pour me toucher, il faudra trouver mon rythme.',fortin:'Je viens pour avancer. Mais même une bonne garde a ses ouvertures.',gagnon:'Trois jours, trois combats. Économise tes gestes et observe jusqu’au dernier round.',
+const close={id:'close',label:'Retour'};
+const NAMES={bellini:'Marco Bellini',fortin:'Louis « Le Roc » Fortin',gagnon:'André « Le Patron » Gagnon','gold-rios':'Rafael Ríos','gold-moreau':'Émile Moreau','gold-santos':'Thiago Santos'};
+const TALK={'gold-rios':'Une feinte, puis le vrai coup. Regarde bien mes épaules avant de répondre.',
+  'gold-moreau':'La garde au corps compte autant que la garde haute. On verra ton placement.',
+  'gold-santos':'À ce niveau, chaque ouverture se mérite. Trois rounds pour faire la différence.',bellini:'Je reste léger sur les appuis. Pour me toucher, il faudra trouver mon rythme.',fortin:'Je viens pour avancer. Mais même une bonne garde a ses ouvertures.',gagnon:'Trois jours, trois combats. Économise tes gestes et observe jusqu’au dernier round.',
   bouchard:'Premiers Gants de bronze pour moi aussi. On va tout donner.',roy:'Le bruit des gradins, ça change du gym !',nguyen:'Je prends des notes entre les rencontres. Chaque boxeur a ses habitudes.',santos:'Bonne chance pour ton combat. On se croise au tableau.'};
 export class HotelScene extends Phaser.Scene {
   constructor(){super('HotelScene');}
@@ -21,11 +23,15 @@ export class HotelScene extends Phaser.Scene {
     const requested=data.place??new URLSearchParams(location.search).get('scene'),saved=careerProfile.snapshot().location;
     this.place=HOTEL_PLACES.includes(requested)?requested:HOTEL_PLACES.includes(saved.scene)?saved.scene:'hotel-room';
     this.entry=data.location??(saved.scene===this.place?saved:undefined);
+    this.tournamentInfo=careerProfile.tournamentStatus();this.tier=this.tournamentInfo.active?.tier??'bronze';this.tournamentLabel=this.tournamentInfo.label??(this.tier==='gold'?'Les Gants dorés':'Les Gants de bronze');
+    this.cast=this.tier==='gold'?['gold-rios','gold-moreau','gold-santos']:['bellini','fortin','gagnon'];
+    this.backgroundKey=`${this.place}-${this.tier}`;
+    this.breadPlate=null;
     this.changing=false;this.sleeping=false;this.interrupted=false;this.persistClock=0;
   }
   preload(){
     const base=import.meta.env.BASE_URL;preloadOutfits(this,{street:true,boxing:true});
-    this.load.image(this.place,`${base}assets/hotel/${this.place==='hotel-lobby'?'lobby-ground-floor':this.place.replace('hotel-','')}.png`);
+    this.load.image(this.backgroundKey,`${base}assets/hotel/${this.place==='hotel-lobby'?(this.tier==='gold'?'lobby-gold':'lobby-ground-floor'):this.place.replace('hotel-','')}.png`);
     for(const direction of ['down','right','up','left'])for(let step=0;step<3;step++){
       this.load.image(`hotel-player-${direction}-${step}`,`${base}assets/sprites/street/player-${direction}-${step}.png`);
       this.load.image(`hotel-boxer-${direction}-${step}`,`${base}assets/sprites/exploration/player-${direction}-${step}.png`);
@@ -33,18 +39,19 @@ export class HotelScene extends Phaser.Scene {
     this.load.json('hotel-player-data',`${base}assets/sprites/street/player.json`);
     this.load.json('hotel-boxer-data',`${base}assets/sprites/exploration/player.json`);
     this.load.image('hotel-fredo',`${base}assets/sprites/friends/fredo-idle.png`);
-    if(this.place==='hotel-venue')for(const id of ['bellini','fortin','gagnon','kramer'])this.load.image(`hotel-participant-${id}`,`${base}assets/sprites/chapter-combat/${id}/${id}-guard.png`);
-    if(this.place==='hotel-venue')for(const fighter of ['competition','bellini','fortin','gagnon']){
-      this.load.json(`hotel-ambient-${fighter}-data`,`${base}assets/sprites/${fighter==='competition'?'competition-v2':`chapter-combat/${fighter}`}/fighters.json`);
-      for(const pose of ['guard','jab','block'])this.load.image(`hotel-ambient-${fighter}-${pose}`,`${base}assets/sprites/${fighter==='competition'?'competition-v2':`chapter-combat/${fighter}`}/${fighter}-${pose}.png`);
+    if(this.place==='hotel-venue')for(const id of [...this.cast,'kramer'])this.load.image(`hotel-participant-${id}`,`${base}assets/sprites/${id.startsWith('gold-')?'opponents':'chapter-combat'}/${id}/${id}-guard.png`);
+    if(this.place==='hotel-venue')for(const fighter of ['competition',...this.cast]){
+      this.load.json(`hotel-ambient-${fighter}-data`,`${base}assets/sprites/${fighter==='competition'?'competition-v2':`${fighter.startsWith('gold-')?'opponents':'chapter-combat'}/${fighter}`}/fighters.json`);
+      for(const pose of ['guard','jab','block'])this.load.image(`hotel-ambient-${fighter}-${pose}`,`${base}assets/sprites/${fighter==='competition'?'competition-v2':`${fighter.startsWith('gold-')?'opponents':'chapter-combat'}/${fighter}`}/${fighter}-${pose}.png`);
     }
   }
   create(){
     if(!careerProfile.tournamentStatus().active){this.scene.start('ExplorationScene',{place:'neighborhood',entrance:'fight'});return;}
+    if(this.place==='hotel-restaurant'&&this.tier!=='gold'){this.scene.start('HotelScene',{place:'hotel-lobby'});return;}
     setSceneShell(this.place);
-    this.world=new HotelWorld({place:this.place,position:this.entry});const layout=this.world.layout;
+    this.world=new HotelWorld({place:this.place,position:this.entry,tier:this.tier,participants:this.tournamentInfo.participants});const layout=this.world.layout;
     this.doorTravel=new DoorTravel(layout.doors??[],this.world.state);
-    this.add.image(0,0,this.place).setOrigin(0).setDisplaySize(layout.width,layout.height);
+    this.add.image(0,0,this.backgroundKey).setOrigin(0).setDisplaySize(layout.width,layout.height);
     this.actorPrefix=this.place==='hotel-gym'?'hotel-boxer':'hotel-player';
     const meta=this.cache.json.get(this.place==='hotel-gym'?'hotel-boxer-data':'hotel-player-data');
     this.player=this.add.image(0,0,`${this.actorPrefix}-down-0`).setOrigin(meta.anchor.x/meta.width,meta.anchor.y/meta.height).setScale(layout.actorScale);
@@ -59,7 +66,7 @@ export class HotelScene extends Phaser.Scene {
       onDialogAction:action=>this.choose(action.id),onExportCareer:()=>{this.persist();downloadCareer();},
       onInspectCareer:text=>careerProfile.inspectImport(text),onImportCareer:text=>{careerProfile.importText(text);this.changing=true;window.dispatchEvent(new CustomEvent('career-imported'));},
       onRefreshCareer:()=>this.refresh(),
-    },{eyebrow:'LES GANTS DE BRONZE · HÔTEL',title:layout.name,welcome:layout.name,hint:this.hint(),
+    },{eyebrow:`${this.tournamentLabel.toUpperCase()} · HÔTEL`,title:layout.name,welcome:layout.name,hint:this.hint(),
       pauseText:'Ton séjour est sauvegardé. Marcher et visiter ne coûtent aucune énergie.',commandsTitle:'Commandes de l’hôtel',
       commandsHint:'Avance dans les portes et l’ascenseur. E pour parler à Fredo ou consulter le tableau. Chambre 201 pour dormir après le combat.'});
     this.refresh();this.renderWorld();this.ui.update(this.world.state);this.persist();
@@ -72,10 +79,10 @@ export class HotelScene extends Phaser.Scene {
     if(import.meta.env.DEV)window.__hotel={scene:this,world:this.world,ui:this.ui};
   }
   blocked(){return this.changing||this.sleeping||resumePending()||careerMenuOpen();}
-  hint(){return this.place==='hotel-room'?'Chambre 201. Le lit pour dormir, la porte pour sortir.':this.place==='hotel-corridor'?'Ta chambre à gauche; l’ascenseur au bout du couloir.':this.place==='hotel-venue'?'Le tableau au centre, ton combat au ring 1.':this.place==='hotel-gym'?'Approche-toi de Fredo pour les pads.':this.place==='hotel-pool'?'Entre dans l’eau par l’échelle, à gauche.':'À pied depuis le RC : accueil, gym, piscine et salle de boxe. Ascenseur pour ta chambre.';}
+  hint(){return this.place==='hotel-room'?'Chambre 201. Le lit pour dormir, la porte pour sortir.':this.place==='hotel-corridor'?'Ta chambre à gauche; l’ascenseur au bout du couloir.':this.place==='hotel-venue'?'Le tableau au centre, ton combat au ring 1.':this.place==='hotel-gym'?'Approche-toi de Fredo pour les pads.':this.place==='hotel-pool'?'Entre dans l’eau par l’échelle, à gauche.':this.place==='hotel-restaurant'?'Choisis ton pain au comptoir, passe au grille-pain, puis aux garnitures.':'À pied depuis le RC : accueil, gym, piscine et salle de boxe. Ascenseur pour ta chambre.';}
   refresh(){this.ui?.setCareer(careerProfile.snapshot(),careerProfile.saveStatus());}
   persist(){if(this.world&&!this.changing&&!careerMenuOpen()&&!resumePending())careerProfile.setLocation(this.world.location());}
-  show(title,text,actions=[close],speaker='LES GANTS DE BRONZE'){this.ui.showDialog({title,text,actions,speaker});}
+  show(title,text,actions=[close],speaker=this.tournamentLabel.toUpperCase()){this.ui.showDialog({title,text,actions,speaker});}
   interact(){
     if(this.blocked()||this.world.state.paused||this.ui.dialog)return;
     const target=this.world.getNearby();if(!target)return;
@@ -85,11 +92,12 @@ export class HotelScene extends Phaser.Scene {
       else if(this.place==='hotel-lobby')this.showLeave();
       else this.travel('hotel-lobby',this.lobbyReturn());
     }else if(target.id==='lift')this.useLift();
-    else if(['gym-door','pool-door','venue-door'].includes(target.id))this.travel({'gym-door':'hotel-gym','pool-door':'hotel-pool','venue-door':'hotel-venue'}[target.id]);
+    else if(['gym-door','pool-door','venue-door','restaurant-door'].includes(target.id))this.travel({'gym-door':'hotel-gym','pool-door':'hotel-pool','venue-door':'hotel-venue','restaurant-door':'hotel-restaurant'}[target.id]);
     else if(target.id==='room')this.travel('hotel-room',{x:640,y:610,facing:'up'});
     else if(target.id==='bed'){
       if(run.status==='ready')this.show('Ton combat reste à faire.',`Jour ${run.day} · ${status.roundLabel}. ${NAMES[status.opponent]} t’attend au ring 1. Le sommeil fera avancer le tournoi après ton combat.`,[close]);
       else this.show('Dormir jusqu’à demain ?',`Énergie ${careerProfile.dailyStatus().energy}/100. Une nuit remplit l’énergie quotidienne et conserve tes compétences.${run.status==='awaiting-sleep'?`\n\nVictoire enregistrée. Au réveil : jour ${run.day+1} du tournoi.`:'\n\nTon résultat est enregistré. Tu peux rester profiter de l’hôtel ou rentrer au quartier.'}`,[{id:'close',label:'Pas encore'},{id:'sleep',label:'Dormir → Le lendemain'}]);
+    }else if(['bread','toast','spread'].includes(target.id)){this.breadInteraction(target.id);
     }else if(target.id==='board'||target.id==='notebook')this.showBoard();
     else if(target.id==='fight')this.showFight();
     else if(target.id==='pads'||target.id==='swim'){
@@ -97,16 +105,36 @@ export class HotelScene extends Phaser.Scene {
       this.show(activity==='pads'?'Les pads avec Fredo':'Quelques longueurs',activity==='pads'?'Une courte séance : Fredo présente ses cibles, puis demande une garde ou une esquive. Mêmes commandes qu’en combat.\n\n45 secondes · 12 mouvements et 60 % de précision pour travailler la puissance.':'Alterne les bras pour traverser le bassin. Douze bonnes poussées font une longueur.\n\n45 secondes · 3 longueurs et 60 % de précision pour travailler l’endurance. Aucune récupération d’énergie quotidienne.',[
         {id:`activity-${activity}`,label:`Commencer · ${offer.cost} énergie →`,disabled:!offer.ok},close,
       ]);
-    }else if(target.id==='coach'||target.id==='remi')this.show('Une chose à la fois.',run.status==='ready'?`Aujourd’hui : ${NAMES[status.opponent]}. ${run.day===1?'Observe son jab et réponds dans l’ouverture.':run.day===2?'Le Roc avance derrière sa garde. Ses attaques au corps le découvrent.':'Le Patron mélange les rythmes. Tu connais déjà les défenses : garde ton calme.'}\n\nTu peux travailler aux pads au mini-gym. Garde de l’énergie, mais ton combat reste toujours accessible.`:'Beau travail. Consulte le tableau et retourne à ta chambre pour la suite. Ton résultat est déjà sauvegardé.',[close],'FREDO · TON COACH');
-    else if(target.id==='reception')this.show('Bienvenue aux Gants de bronze.',`Chambre 201 · Jour ${run.day} du tournoi.\n\nL’inscription comprend la chambre, le mini-gym et la piscine. Les rencontres ont lieu dans la salle d’événement. Le gym, la piscine et la salle de boxe sont tous au rez-de-chaussée. Marche dans leur porte. L’ascenseur rejoint seulement les chambres.\n\n${run.medal?MEDAL_LABELS[run.medal]+' enregistrée.':'Quart, demi-finale, finale : un combat par jour.'}`,[{id:'board',label:'Voir les participants'},close]);
+    }else if(target.id==='coach'||target.id==='remi')this.show('Une chose à la fois.',run.status==='ready'?`Aujourd’hui : ${NAMES[status.opponent]}. ${this.tier==='gold'?TALK[status.opponent]:run.day===1?'Observe son jab et réponds dans l’ouverture.':run.day===2?'Le Roc avance derrière sa garde. Ses attaques au corps le découvrent.':'Le Patron mélange les rythmes. Tu connais déjà les défenses : garde ton calme.'}\n\nTu peux travailler aux pads au mini-gym. Garde de l’énergie, mais ton combat reste toujours accessible.`:'Beau travail. Consulte le tableau et retourne à ta chambre pour la suite. Ton résultat est déjà sauvegardé.',[close],'FREDO · TON COACH');
+    else if(target.id==='reception')this.show(`Bienvenue · ${this.tournamentLabel}`,`Chambre 201 · Jour ${run.day} du tournoi.\n\nL’inscription comprend la chambre, le mini-gym et la piscine.${this.tier==='gold'?' La Croûte dorée et son bar à pain sont aussi au RC.':''} Les rencontres ont lieu dans la salle d’événement. Le gym, la piscine et la salle de boxe sont tous au rez-de-chaussée. Marche dans leur porte. L’ascenseur rejoint seulement les chambres.\n\n${run.medal?MEDAL_LABELS[run.medal]+' enregistrée.':'Quart, demi-finale, finale : un combat par jour.'}`,[{id:'board',label:'Voir les participants'},close]);
     else if(target.id==='wardrobe')this.show('La valise du séjour','Ta tenue de ville t’accompagne à l’hôtel. Tu choisis tes tenues dans la garde-robe de ta maison; Fredo prépare l’uniforme de compétition avant le combat.',[close]);
     else if(target.id.startsWith('ring'))this.show(`Au ${target.label.split(' · ')[0].toLowerCase()}`,'Les autres catégories s’échauffent et disputent leurs rencontres. Ton parcours se joue au ring 1; le tableau central présente les huit participants de ta catégorie.',[close]);
     else {
-      const id=target.id.startsWith('room-')?({'room-202':'bellini','room-203':'fortin','room-204':'gagnon'}[target.id]):target.id;
+      const id=target.id.startsWith('room-')?({'room-202':this.cast[0],'room-203':this.cast[1],'room-204':this.cast[2]}[target.id]):target.id;
       this.show(NAMES[id]??status.participants.find(p=>p.id===id)?.name??'Un participant',TALK[id]??'Bonne chance pour le tournoi.',[close],'DANS LES COULISSES');
     }
   }
-  lobbyReturn(){return {x:{'hotel-gym':945,'hotel-pool':1220,'hotel-venue':1495}[this.place]??1760,y:405,facing:'down'};}
+  breadInteraction(id){
+    if(id==='bread')this.show('Le bar à pain','Choisis une tranche, puis passe au grille-pain et aux garnitures. Le bar est compris dans le séjour.',[
+      {id:'bread-baguette',label:'Baguette'},{id:'bread-campagne',label:'Pain de campagne'},close],'LA CROÛTE DORÉE');
+    else if(!this.breadPlate)this.show('Il te manque le pain.','Les paniers sont à gauche du comptoir. Choisis une tranche pour commencer.',[close],'LE BAR À PAIN');
+    else if(id==='toast')this.show(this.breadPlate.toasted?'Bien doré !':'Une tranche grillée ?',this.breadPlate.toasted?'Ta tranche est prête pour les garnitures.':`${this.breadPlate.name} · Un petit passage sur le gril.`,this.breadPlate.toasted?[close]:[{id:'bread-toast',label:'Faire griller'},close],'LE BAR À PAIN');
+    else this.show('La touche finale',`${this.breadPlate.name}${this.breadPlate.toasted?', juste doré':''}. Choisis ta garniture.`,[
+      {id:'bread-herbs',label:'Beurre aux herbes'},{id:'bread-tomato',label:'Tartinade tomate'},close],'LE BAR À PAIN');
+  }
+  prepareBread(id){
+    if(id==='bread-baguette'||id==='bread-campagne'){
+      this.breadPlate={name:id==='bread-baguette'?'Baguette':'Pain de campagne',toasted:false};
+      this.show('Une belle tranche.',`${this.breadPlate.name}. Le grille-pain est à droite; les garnitures sont au centre du comptoir.`,[close],'LE BAR À PAIN');
+    }else if(id==='bread-toast'&&this.breadPlate){
+      this.breadPlate.toasted=true;
+      this.show('Ding !',`${this.breadPlate.name}, doré à point. Choisis une garniture au centre du comptoir.`,[close],'LE BAR À PAIN');
+    }else if(['bread-herbs','bread-tomato'].includes(id)&&this.breadPlate){
+      this.show('Bon appétit',`${this.breadPlate.name}${this.breadPlate.toasted?' grillé':''}, ${id==='bread-herbs'?'beurre aux herbes':'tartinade tomate'}.`,[close],'LA CROÛTE DORÉE');
+      this.breadPlate=null;
+    }
+  }
+  lobbyReturn(){return {x:{'hotel-gym':945,'hotel-pool':1220,'hotel-venue':1495,'hotel-restaurant':728}[this.place]??1760,y:405,facing:'down'};}
   useLift(){
     if(this.place==='hotel-corridor')this.travel('hotel-lobby',{x:1760,y:405,facing:'down'});
     else this.travel('hotel-corridor',{x:1710,y:430,facing:'down'});
@@ -119,17 +147,18 @@ export class HotelScene extends Phaser.Scene {
       if(this.place==='hotel-room')this.travel('hotel-corridor',{x:496,y:430,facing:'down'});
       else if(this.place==='hotel-lobby')this.showLeave();
       else this.travel('hotel-lobby',this.lobbyReturn());
-    }else this.travel({'gym-door':'hotel-gym','pool-door':'hotel-pool','venue-door':'hotel-venue'}[id]);
+    }else this.travel({'gym-door':'hotel-gym','pool-door':'hotel-pool','venue-door':'hotel-venue','restaurant-door':'hotel-restaurant'}[id]);
   }
   showBoard(){const status=careerProfile.tournamentStatus();this.show(`Tableau · Jour ${status.active.day}`,hotelBoard(status),[close]);}
   showFight(){const status=careerProfile.tournamentStatus(),run=status.active;
     if(run.status==='ready')this.show(`${status.roundLabel} · ${NAMES[status.opponent]}`,'Ton combat se dispute au ring 1. Fredo est dans ton coin. L’uniforme de compétition est préparé pour toi.\n\nAucun coût d’énergie quotidienne. La rencontre commence avec tes capacités entraînées.',[{id:'tournament-fight',label:'Rejoindre le ring →'},close]);
     else if(run.status==='awaiting-sleep')this.show('Victoire !',`Tu es qualifié pour ${run.day===1?'la demi-finale':'la finale'}.\n\nRetourne dans ta chambre et dors pour passer au jour ${run.day+1}.`,[{id:'board',label:'Voir le tableau'},close]);
-    else this.show(run.status==='champion'?'Champion des Gants de bronze !':'Ton parcours est terminé.',`${MEDAL_LABELS[run.medal]}. Ta récompense est sauvegardée et sera exposée à la maison.\n\nTu peux continuer la visite de l’hôtel ou rentrer au quartier.`,[{id:'board',label:'Voir le tableau'},{id:'leave-confirm',label:'Rentrer au quartier'},close]);
+    else this.show(run.status==='champion'?`Champion · ${this.tournamentLabel} !`:'Ton parcours est terminé.',`${MEDAL_LABELS[run.medal]}. Ta récompense est sauvegardée et sera exposée à la maison.\n\nTu peux continuer la visite de l’hôtel ou rentrer au quartier.`,[{id:'board',label:'Voir le tableau'},{id:'leave-confirm',label:'Rentrer au quartier'},close]);
   }
   showLeave(){const run=careerProfile.tournamentStatus().active;this.show('Rentrer au quartier ?',run.status==='ready'||run.status==='awaiting-sleep'?'Le tournoi est encore en cours. Rentrer maintenant termine ton inscription. Tu pourras revenir pour une nouvelle édition; les frais déjà payés ne sont pas remboursés.':'Ton résultat et ta récompense sont déjà sauvegardés. Retrouve ton quartier et ta maison quand tu le souhaites.',[{id:'close',label:'Rester à l’hôtel'},{id:'leave',label:'Terminer le séjour et rentrer →'}]);}
   choose(id){
     if(this.blocked()||this.world.state.paused||!this.ui.dialog)return;
+    if(id.startsWith('bread-')){this.prepareBread(id);return;}
     if(id.startsWith('travel-'))this.travel(id.slice(7));
     else if(id==='board')this.showBoard();
     else if(id==='leave-confirm')this.showLeave();
@@ -167,11 +196,13 @@ export class HotelScene extends Phaser.Scene {
   addPeople(){
     this.people=[];const list=this.place==='hotel-venue'?[
       {id:'coach',key:'hotel-fredo',x:1150,y:672,scale:1.65},
-      {id:'bellini',x:770,y:1150,tint:0xc4d6ff},{id:'fortin',x:1705,y:1150,tint:0xd1e3c8},{id:'gagnon',x:1150,y:275,tint:0xffd6ae},
+      {id:this.cast[0],x:770,y:1150,tint:0xc4d6ff},{id:this.cast[1],x:1705,y:1150,tint:0xd1e3c8},{id:this.cast[2],x:1150,y:275,tint:0xffd6ae},
       {id:'bouchard',x:311,y:1337,tint:0xd6c9f5},{id:'roy',x:1960,y:1305,tint:0xd8deed},{id:'nguyen',x:400,y:1170,tint:0xf0daa9},{id:'santos',x:1900,y:1170,tint:0xc4e1dd},
     ]:this.place==='hotel-gym'?[{id:'pads',key:'hotel-fredo',x:740,y:380,scale:2}]:[];
     for(const [i,p]of list.entries()){
-      const participant=({bellini:'bellini',fortin:'fortin',gagnon:'gagnon',bouchard:'kramer',roy:'fortin',nguyen:'bellini',santos:'gagnon'})[p.id];
+      const originalId=p.id;
+      const participant=(this.cast.includes(p.id)?p.id:({bouchard:'kramer',roy:this.cast[1],nguyen:this.cast[0],santos:this.cast[2]})[p.id]);
+      if(this.tier==='gold')p.id=({bouchard:'gold-chen',roy:'gold-dupuis',nguyen:'gold-belanger',santos:'gold-ali'})[originalId]??p.id;
       const key=p.key??(participant?`hotel-participant-${participant}`:'hotel-boxer-down-0'),meta=participant?{width:640,height:640,anchor:{x:320,y:624}}:p.key?{width:96,height:112,anchor:{x:48,y:104}}:this.cache.json.get('hotel-boxer-data');
       this.add.ellipse(p.x,p.y,40,12,0x102021,.24).setDepth(1);
       const sprite=this.add.image(p.x,p.y,key).setOrigin(meta.anchor.x/meta.width,meta.anchor.y/meta.height).setScale(p.scale??(participant?.25:1.45)).setDepth(p.y);
@@ -184,7 +215,7 @@ export class HotelScene extends Phaser.Scene {
     for(const [i,[x,y]]of [[765,380],[1520,380],[745,824],[1550,824]].entries()){
       // Small independent exhibition bouts decorate the four physical rings.
       // Their animations never affect the player's tournament results.
-      const rival=['bellini','fortin','gagnon','bellini'][i];
+      const rival=[...this.cast,this.cast[0]][i];
       const makeFighter=(id,px,py,depth)=>{
         const meta=this.cache.json.get(`hotel-ambient-${id}-data`).poses[`${id}-guard`];
         return this.add.image(px,py,`hotel-ambient-${id}-guard`).setOrigin(meta.anchor.x/meta.width,meta.anchor.y/meta.height).setScale(.23).setDepth(depth);

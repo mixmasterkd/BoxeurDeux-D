@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SparringSession } from '../src/game/SparringSession.js';
 
-const opponents = ['beton', 'kramer', 'bellini', 'fortin', 'gagnon', 'dyrex', 'louisto', 'lefeu'];
+const opponents = ['beton', 'kramer', 'bellini', 'fortin', 'gagnon', 'dyrex', 'louisto', 'lefeu', 'danielo', 'gold-rios', 'gold-moreau', 'gold-santos'];
 const trained = { maxStamina: 124, maxResistance: 122, powerBonus: 10, recoveryBonus: .20 };
 
 /** Only public observations and inputs. Perception is delayed 150ms; neither
@@ -71,7 +71,7 @@ for (const hz of [20, 60]) {
 
   test(`late opponents punish blind input at ${hz}Hz despite maximum training`, () => {
     for (const policy of ['spam', 'random']) {
-      for (const id of ['dyrex', 'louisto', 'lefeu']) {
+      for (const id of ['dyrex', 'louisto', 'lefeu', 'danielo', 'gold-rios', 'gold-moreau', 'gold-santos']) {
         const { game } = play(id, { hz, bonuses: trained, policy });
         assert.equal(game.state.bout.result.winner, 'remi', `${id} ${policy}`);
         assert.ok(game.state.stats.received > 0);

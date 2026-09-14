@@ -20,24 +20,26 @@ export class DecisionHUD {
     ui.root.dataset.decision = String(active);
     this.root.hidden = this.detail.hidden = !active;
     if (!active) { this.detail.querySelector('p').hidden = true; this.detail.querySelector('button').setAttribute('aria-expanded', 'false'); ui.elements['return-gym-button'].disabled = false; return; }
+    if (this.root.children.length !== decision.cards.length) this.root.innerHTML = decision.cards.map((_, i) => `<article aria-label="Carte du juge ${i + 1}"><strong>JUGE ${i + 1}</strong><b>…</b><small></small></article>`).join('');
+    this.root.style.gridTemplateColumns = `repeat(${decision.cards.length},minmax(0,1fr))`;
     const announced = elapsed >= 7;
     const won = decision.winner === 'player', draw = decision.winner === 'draw';
     put(ui.elements['panel-eyebrow'], announced ? KINDS[decision.kind] : 'LES JUGES ONT RENDU LEURS CARTES');
     put(ui.elements['panel-heading'], announced ? draw ? 'Match nul.' : won ? 'Victoire aux points !' : 'Votre adversaire l’emporte.' : 'La décision…');
     if (ui.root.clientWidth < 550) {
-      const destination = ui.root.dataset.tournament === 'true' ? 'Salle' : ui.root.dataset.opponent === 'louisto' ? 'Plage' : 'Quartier';
+      const destination = ui.root.dataset.tournament === 'true' ? 'Salle' : ui.root.dataset.opponent === 'louisto' ? 'Plage' : ui.root.dataset.opponent === 'danielo' ? 'Arène' : 'Quartier';
       put(ui.elements['primary-button'], ui.root.dataset.tournament === 'true' && !draw ? 'Retour à la salle' : 'Revanche');
       put(ui.elements['return-gym-button'], `← ${destination}`);
     }
     this.root.setAttribute('aria-label', 'Cartes des juges : votre score à gauche, adversaire à droite');
     [...this.root.children].forEach((card,i)=>{
-      const revealed = elapsed >= 1 + i * 2;
+      const revealed = elapsed >= 1 + i * (decision.cards.length === 5 ? 1 : 2);
       const score = decision.cards[i];
-      put(card.querySelector('b'), revealed ? `${score.player} — ${score.remi}` : '…');
+      put(card.querySelector('b'), revealed ? `${score.player}–${score.remi}${score.tiebreak ? '*' : ''}` : '…');
       put(card.querySelector('small'), revealed ? score.winner === 'draw' ? 'ÉGALITÉ' : score.winner === 'player' ? 'VOUS' : 'ADVERSAIRE' : 'VOUS · ADV.');
       card.dataset.winner = revealed ? score.winner : 'waiting';
     });
-    put(this.detail.querySelector('p'), decision.cards.map(card=>`${card.name} : ${card.rounds.map(r=>`R${r.round} ${r.player}–${r.remi}`).join(' · ')}`).join('\n'));
+    put(this.detail.querySelector('p'), decision.cards.map(card=>`${card.name}${card.tiebreak ? ' (départage technique)' : ''} : ${card.rounds.map(r=>`R${r.round} ${r.player}–${r.remi}`).join(' · ')}`).join('\n'));
     this.detail.hidden = !announced;
     ui.elements['primary-button'].disabled = !announced;
     ui.elements['return-gym-button'].disabled = !announced;

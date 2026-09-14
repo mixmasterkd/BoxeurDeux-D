@@ -1,5 +1,6 @@
 // Daily energy is independent from the stamina used during a fight.
-import { CUBA_PLACES } from './NextChapterRules.js';
+import { CUBA_PLACES, MEXICO_PLACES } from './NextChapterRules.js';
+import { MARATHON_PLACES } from './MarathonRules.js';
 // Prices are paid once when starting a session, including a restarted session.
 export const DAILY_ENERGY_MAX = 100;
 export const ACTIVITY_COSTS = Object.freeze({
@@ -19,7 +20,8 @@ export const HOME_SPAWN = Object.freeze({ scene: 'home', x: 640, y: 540, facing:
 export const LEGACY_GYM_SPAWN = Object.freeze({ scene: 'gym', x: 640, y: 585, facing: 'down' });
 export const WORLD_SCENES = Object.freeze(['home', 'gym', 'neighborhood', 'residential', 'commercial',
   'clothing-shop', 'boxing-shop', 'metro-station', 'metro-riverside', 'riverside',
-  'hotel-room', 'hotel-corridor', 'hotel-lobby', 'hotel-gym', 'hotel-pool', 'hotel-venue', ...CUBA_PLACES]);
+  'hotel-room', 'hotel-corridor', 'hotel-lobby', 'hotel-gym', 'hotel-pool', 'hotel-venue', 'hotel-restaurant', ...CUBA_PLACES, ...MEXICO_PLACES, ...MARATHON_PLACES,
+  'airport', 'metro-train', 'metro-island', 'metro-stadium', 'metro-airport']);
 export const WORLD_DIRECTIONS = Object.freeze(['up', 'down', 'left', 'right']);
 // Saved coordinates receive a final collision/spawn check when their scene opens.
 // This broad bound permits a scrolling neighborhood without trusting arbitrary JSON.

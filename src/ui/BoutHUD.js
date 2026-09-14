@@ -44,7 +44,7 @@ export class BoutHUD {
     const { ui } = this;
     const bout = state.bout;
     const profile = getOpponentProfile(state.settings?.opponent);
-    const opponent = profile.official ? profile.shortName : 'Rémi';
+    const opponent = profile.shortName ?? 'Rémi';
     const encounter = profile.official ? 'COMBAT' : 'SÉANCE';
     const enabled = Boolean(bout);
     const active = state.phase === 'running' || state.phase === 'knockdown';

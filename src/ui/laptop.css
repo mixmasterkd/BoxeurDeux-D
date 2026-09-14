@@ -1,0 +1,33 @@
+#gym-ui .laptop-window { border-color:#879be2!important; background:#142340!important; }
+#gym-ui .laptop-window .gym-dialog-speaker { color:#9cf1d8!important; }
+#gym-ui .laptop-window[data-page='terminal'] { grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)!important; }
+#gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy {
+  display:grid; grid-template-rows:auto auto auto minmax(0,1fr); overflow:hidden;
+}
+#gym-ui .terminal-console {
+  display:grid; grid-template-rows:minmax(0,1fr) auto; gap:.45rem;
+  min-height:0; min-width:0; font:13px/1.35 monospace; color:#9ce9b8; margin-top:.5rem;
+}
+#gym-ui .terminal-console pre {
+  min-height:0; margin:0; padding:2px; overflow:auto; overscroll-behavior:contain;
+  white-space:pre-wrap; overflow-wrap:anywhere; font:inherit; line-height:1.35;
+  scrollbar-width:thin; scrollbar-color:#91b6a2 #071627; touch-action:pan-y;
+}
+#gym-ui .terminal-console form { min-width:0; }
+#gym-ui .terminal-console label { display:flex; align-items:center; gap:.4rem; }
+#gym-ui .terminal-console input { min-width:0; width:100%; color:#b8ffca; background:#071627; border:1px solid #839cbc; padding:.45rem; font:16px/1.2 monospace; }
+#gym-ui .laptop-window[data-page='terminal'] #gym-dialog-text { font-size:.85em; }
+@container (max-width:640px) {
+  #gym-ui .laptop-window[data-page='terminal'] .gym-dialog-copy { grid-template-rows:auto minmax(0,1fr); }
+  #gym-ui .laptop-window[data-page='terminal'] :is(.gym-dialog-speaker,#gym-dialog-text) { display:none!important; }
+  #gym-ui .laptop-window[data-page='terminal'] #gym-dialog-title { margin:0 0 5px; font-size:19px!important; }
+  #gym-ui .terminal-console { margin:0; gap:4px; font-size:12px; }
+  #gym-ui .terminal-console input { padding:5px; }
+}
+/* A phone keyboard can leave only 200 px of landscape height. Keep all
+   three console controls available in the margins of this laptop window. */
+@media (max-height:240px) and (orientation:landscape) {
+  #gym-ui:has(.laptop-window:not([hidden])) .rail-right { gap:6px; }
+  #gym-ui:has(.laptop-window:not([hidden])) .console-actions { height:92px; }
+  #gym-ui:has(.laptop-window:not([hidden])) .console-actions .pad-action { width:48px; height:48px; }
+}

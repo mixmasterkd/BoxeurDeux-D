@@ -1,3 +1,4 @@
+import {sceneForPlace} from '../game/SceneRouting.js';
 import { careerProfile } from '../game/CareerProfile.js';
 import { MEDAL_LABELS } from '../game/ChapterRules.js';
 import { postBronzeUnlocked, CUBA_PRICE } from '../game/NextChapterRules.js';
@@ -11,7 +12,7 @@ export function chapterTravel(scene,place,from=scene.place){
   scene.persistLocation();scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();
   const position=place==='neighborhood'?(from==='metro-station'?{x:2047,y:1375,facing:'down'}:{x:170,y:715,facing:'right'}):DISTRICT_ARRIVALS[place]?.[from]??{x:640,y:615,facing:'up'};
   careerProfile.setLocation({scene:place,...position});
-  scene.scene.start('ExplorationScene',{place,location:position,returningBike:scene.returningBike});
+  scene.scene.start(sceneForPlace(place),{place,location:position,returningBike:scene.returningBike});
 }
 export function showEquipment(scene,slot='street',message=''){
   const p=careerProfile.snapshot(),items=careerProfile.catalogue(slot==='street'?'clothing':'boxing');
@@ -35,9 +36,9 @@ function showDepot(scene,message=''){
 function showFights(scene,message=''){
   const p=careerProfile.snapshot(),entry=careerProfile.canStartTournament();
   if (postBronzeUnlocked(p)) {
-    show(scene,'Tes prochains défis',`${message}${message?'\n\n':''}Dyrex, Le Feu et Cuba se jouent dans l’ordre choisi. Dyrex est technique; Le Feu met davantage de pression. Louisto t’attend sur son ring au bord de la mer.\n\nPour Cuba : métro → Des Rives → comptoir Voyages. Séjour ${CUBA_PRICE} $, retour inclus.`,
+    show(scene,'Tes prochains défis',`${message}${message?'\n\n':''}Dyrex, Le Feu, Cuba et le Mexique se jouent dans l’ordre choisi. Dyrex est technique; Le Feu met davantage de pression. Louisto t’attend sur son ring au bord de la mer.\n\nVoyages : réserve au laptop ou à Des Rives, puis métro → Aéroport. Cuba et Mexique : 160 $ chacun, retour inclus.`,
       [{id:'meet-dyrex',label:`${p.fights.dyrex.wins?'Revoir':'Affronter'} Dyrex →`,disabled:!careerProfile.canFight('dyrex').ok},{id:'meet-lefeu',label:`${p.fights.lefeu.wins?'Revoir':'Affronter'} Le Feu →`,disabled:!careerProfile.canFight('lefeu').ok},
-        {id:'cuba-info',label:`Cuba · ${p.wallet.money}/${CUBA_PRICE} $`},{id:'classic-fights',label:'Premiers combats et Gants de bronze'},close],'APRÈS LES GANTS DE BRONZE'); return;
+        {id:'cuba-info',label:'Cuba et Mexique · Voyages'},{id:'register-gold',label:'Gants dorés · 240 $',disabled:!careerProfile.canStartTournament('gold').ok},{id:'classic-fights',label:'Premiers combats et Gants de bronze'},close],'APRÈS LES GANTS DE BRONZE'); return;
   }
   showClassicFights(scene,message);
 }
@@ -50,7 +51,7 @@ function showClassicFights(scene,message=''){
 }
 export function chapterInteract(scene,station){
   const id=station.id;
-  if(id==='cuba-travel'){showCubaTravel(scene);return true;}
+  if(id==='cuba-travel'){showTravelDesk(scene);return true;}
   if(id==='to-residential'){chapterTravel(scene,'residential','neighborhood');return true;}
   if(id==='return-neighborhood'){chapterTravel(scene,'neighborhood');return true;}
   if(id==='to-commercial'){chapterTravel(scene,'commercial','residential');return true;}
@@ -65,8 +66,10 @@ export function chapterInteract(scene,station){
   if(id==='depot'){scene.returningBike=false;showDepot(scene);return true;}
   if(id==='fight'){showFights(scene);return true;}
   if(id==='medals'){
-    const medals=careerProfile.snapshot().tournament.medals;
-    show(scene,'Tes Gants de bronze',medals.length?medals.map(m=>`Édition ${m.tournamentId} · ${MEDAL_LABELS[m.type]} · Jour ${m.day}`).join('\n'):'Ta première médaille trouvera sa place ici. Gagne contre Kramer puis prépare ton inscription aux Gants de bronze.',[close],'CHEZ TOI');return true;
+    const p=careerProfile.snapshot(),medals=p.tournament.medals;
+    const lines=medals.map(m=>`${m.tier==='gold'?'Gants dorés':'Gants de bronze'} · Édition ${m.tournamentId} · ${MEDAL_LABELS[m.type]} · Jour ${m.day}`);
+    if(p.marathon.medals.length)lines.push('Marathon de Montréal · Médaille souvenir');
+    show(scene,'Ta collection',lines.length?lines.join('\n'):'Ta première médaille trouvera sa place ici.',[close],'CHEZ TOI');return true;
   }
   if(id==='shop'){
     show(scene,'Le dépanneur du coin','Les livraisons partent du dépôt de la nouvelle rue. Rejoins le passage ouvert à gauche du quartier pour travailler à vélo, puis découvre la place commerçante.',[close]);return true;
@@ -89,13 +92,12 @@ export function chapterInteract(scene,station){
 }
 export function chapterChoose(scene,id){
   if(id==='classic-fights'){showClassicFights(scene);return true;}
-  if(id==='cuba-info'){show(scene,'Le camp de Cuba',`Va au comptoir Voyages à Des Rives, accessible par le métro au sud-est du quartier du gym.\n\nSéjour : ${CUBA_PRICE} $. Logement, gym et retour inclus. Louisto t’attend plus loin sur la plage. Aucun combat contre Dyrex ou Le Feu n’est imposé avant le départ.`);return true;}
-  if(id==='confirm-cuba'){
-    const result=careerProfile.startCuba();
-    if(!result.ok){showCubaTravel(scene,result.message);return true;}
-    scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();scene.scene.start('CubaScene',{place:'cuba-home',location:result.location});return true;
+  if(id==='cuba-info'){show(scene,'Cuba et Mexique',`Réserve ton séjour sur le navigateur de ton laptop à la maison, ou au comptoir Voyages de Des Rives. 160 $ par destination, logement et retour inclus. Puis prends le métro pour l’aéroport et avance dans la porte d’embarquement. Cuba et Mexique sont disponibles ensemble, dans l’ordre choisi.`);return true;}
+  if(id==='travel-cuba'||id==='travel-mexico'){showTravelDesk(scene,'',id.slice(7));return true;}
+  if(id==='confirm-cuba'||id==='confirm-mexico'){
+    const dest=id.slice(8),result=careerProfile.reserveTravel(dest);scene.refreshProfile();showTravelDesk(scene,result.message,dest);return true;
   }
-  if(id==='take-metro'){scene.ui.closeDialog();scene.world.pause();scene.cameras.main.fadeOut(350,8,21,38);scene.cameras.main.once('camerafadeoutcomplete',()=>chapterTravel(scene,scene.place==='metro-station'?'metro-riverside':'metro-station'));return true;}
+  if(id==='take-metro'){scene.ui.closeDialog();chapterTravel(scene,scene.place);return true;}
   if(id.startsWith('equip-')){const item=id.slice(6),slot=item.startsWith('street-')?'street':'boxing',r=careerProfile.equipItem(item,slot==='street'?'home':'gym');scene.refreshProfile?.();showEquipment(scene,slot,r.message);return true;}
   if(id.startsWith('buy-')){
     const item=careerProfile.catalogue().find(i=>i.id===id.slice(4));if(!item)return true;
@@ -114,6 +116,8 @@ export function chapterChoose(scene,id){
     if(!careerProfile.canFight(id.slice(5)).ok)return true;
     scene.persistLocation();scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();scene.scene.start('SparringScene',{opponent:id.slice(5),lesson:'resistance'});return true;
   }
+  if(id==='register-gold'){const offer=careerProfile.canStartTournament('gold');show(scene,'Les Gants dorés',`${offer.message}\nTrois jours : quart, demi, finale. Hôtel, gym, piscine et restaurant inclus.`,[{id:'confirm-gold',label:'S’inscrire · 240 $',disabled:!offer.ok},close],'GANTS DORÉS');return true;}
+  if(id==='confirm-gold'){const result=careerProfile.startTournament('gold');if(!result.ok){showFights(scene,result.message);return true;}scene.changingPlace=true;scene.ui.clearInputs();scene.world.pause();scene.scene.start('HotelScene',{place:'hotel-room'});return true;}
   if(id==='register-tournament'){
     const p=careerProfile.snapshot();show(scene,'Partir aux Gants de bronze ?',`Inscription : ${p.tournament.entries?60:120} $. Hôtel et installations inclus pour les trois jours.\nQuart, demi, finale : un combat par jour, puis retour au lit. Tes tenues de compétition sont fournies.`,[{id:'close',label:'Pas encore'},{id:'confirm-tournament',label:'Payer et rejoindre l’hôtel →'}],'LES GANTS DE BRONZE');return true;
   }
@@ -130,12 +134,12 @@ export function installChapterReadout(scene){
 }
 export function updateChapterReadout(scene){
   const p=careerProfile.snapshot(),run=p.delivery.active,target=run?.stops[run.completed.length];
-  const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':postBronzeUnlocked(p)?scene.place==='riverside'?`VOYAGES → comptoir au nord-est du métro · Cuba ${CUBA_PRICE} $`:'Dyrex, Le Feu ou Cuba · Consulte ton carnet':'Épargne pour les Gants de bronze'}`;
+  const text=run?`VÉLO ${run.completed.length}/3 · ${deliveryAddress(target).address} · ${routeDirection(scene.place,deliveryAddress(target))}`:`${p.wallet.money} $ · ${scene.place==='residential'?'DÉPÔT → guichet au bord de la rue, devant l’entrepôt':scene.place==='commercial'?'Deux boutiques ouvertes':p.tournament.active?'Gants de bronze · séjour en cours':postBronzeUnlocked(p)?scene.place==='riverside'?`VOYAGES → Cuba ou Mexique · ${CUBA_PRICE} $`:'Défis, voyages et Gants dorés · Consulte ton carnet':'Épargne pour les Gants de bronze'}`;
   if(scene.chapterReadout&&scene.chapterReadout.textContent!==text)scene.chapterReadout.textContent=text;
 }
 
-function showCubaTravel(scene,message='') {
-  const offer=careerProfile.cubaOffer(),p=careerProfile.snapshot();
-  show(scene,'Un camp au bord de la mer',`${message}${message?'\n\n':''}Cuba · ${CUBA_PRICE} $ le séjour. Logement, gym et billet retour inclus.\n\nTu y marches librement, t’entraînes avec Fredo et affrontes Louisto sur la plage quand tu veux. Dormir avance la journée et rend seulement l’énergie quotidienne.\n\nPortefeuille : ${p.wallet.money} $. ${offer.ok?`Après paiement : ${p.wallet.money-CUBA_PRICE} $.`:offer.message}`,
-    [{id:'close',label:'Pas maintenant'},{id:'confirm-cuba',label:`Payer ${CUBA_PRICE} $ et partir →`,disabled:!offer.ok}],'VOYAGES · DES RIVES');
+export function showTravelDesk(scene,message='',destination=null) {
+ if(!destination){show(scene,'Camps de boxe',`${message}\n160 $ par séjour. Logement et retour inclus. Réserve ici, puis prends le métro jusqu’à l’aéroport.`,[{id:'travel-cuba',label:'Cuba · Louisto'},{id:'travel-mexico',label:'Mexique · Pablo et Danielo'},close],'VOYAGES · DES RIVES');return;}
+ const offer=careerProfile.travelOffer(destination),name=destination==='cuba'?'Cuba':'Mexique';
+ show(scene,name,`${message}\n${offer.message}\nDépart à l’aéroport après réservation. Ton billet n’est pas facturé une deuxième fois en embarquant.`,[{id:`confirm-${destination}`,label:'Réserver · 160 $',disabled:!offer.ok},close],'VOYAGES · DES RIVES');
 }

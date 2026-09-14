@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { LaptopUI } from '../ui/LaptopUI.js';
 import { DoorTravel } from '../game/DoorTravel.js';
 import { deliveryAddress } from '../game/DeliveryRoute.js';
 import { ExplorationWorld, STREET_SCALE, WORLD_ENTRANCES } from '../game/ExplorationWorld.js';
@@ -27,7 +28,7 @@ const COPY = {
 };
 
 export class ExplorationScene extends Phaser.Scene {
-  constructor() { super('ExplorationScene'); }
+  constructor(key = 'ExplorationScene') { super(key); }
 
   init(data = {}) {
     const entry = new URLSearchParams(location.search).get('scene');
@@ -47,7 +48,7 @@ export class ExplorationScene extends Phaser.Scene {
   preload() {
     const base = import.meta.env.BASE_URL;
     preloadOutfits(this,{street:true});
-    this.load.image(`world-${this.place}`, `${base}assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`);
+    this.load.image(`world-${this.place}`, `${base}${this.assetPath ?? `assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`}`);
     if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
     if(this.place==='residential')this.load.image('depot-kiosk',`${base}assets/world/depot-kiosk.png`);
     if(this.place==='riverside')this.load.image('cuba-travel-kiosk',`${base}assets/cuba/travel-kiosk.png`);
@@ -62,9 +63,10 @@ export class ExplorationScene extends Phaser.Scene {
   }
 
   create() {
+    if (careerProfile.snapshot().mexico?.active) { this.changingPlace = true; this.scene.start('MexicoScene'); return; }
     if (careerProfile.snapshot().cuba?.active) { this.changingPlace = true; this.scene.start('CubaScene'); return; }
     setSceneShell(this.place);
-    this.world = DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
+    this.world = this.makeWorld ? this.makeWorld() : DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
     this.doorTravel = new DoorTravel(this.world.layout.doors ?? [], this.world.state);
     const { width, height } = this.world.layout;
     this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
@@ -72,11 +74,11 @@ export class ExplorationScene extends Phaser.Scene {
     if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
     if(this.place==='riverside')this.add.image(1520,700,'cuba-travel-kiosk').setOrigin(.5,1).setDepth(700);
     this.addForeground();
-    if(this.place==='home')addMedalDisplay(this,careerProfile.snapshot().tournament.medals);
+    if(this.place==='home')addMedalDisplay(this,[...careerProfile.snapshot().tournament.medals,...careerProfile.snapshot().marathon.medals.map(m=>({...m,type:'marathon'}))]);
     const metadata = this.cache.json.get('street-player-data');
     // The house furniture is drawn at twice the street actor's scale. Keep an
     // integer scale for crisp pixels, with the same foot anchor in every pose.
-    const actorScale = this.place.startsWith('metro-') ? 1.25 : this.place === 'home' || this.place.endsWith('-shop') ? 2 : 1;
+    const actorScale = this.actorScale ?? (this.place.startsWith('metro-') ? 1.25 : this.place === 'home' || this.place.endsWith('-shop') ? 2 : 1);
     this.shadow = this.add.ellipse(0, 0, 33, 11, 0x132323, .24).setScale(actorScale).setDepth(1);
     this.player = this.add.image(0, 0, 'street-player-down-0')
       .setOrigin(metadata.anchor.x / metadata.width, metadata.anchor.y / metadata.height).setScale(actorScale);
@@ -92,7 +94,7 @@ export class ExplorationScene extends Phaser.Scene {
         if (this.sleeping) this.sleepInterrupted = true;
         this.persistLocation(); this.world.pause();
       },
-      onCloseDialog: () => { this.ui.closeDialog(); this.world.releaseControls(); },
+      onCloseDialog: () => { if(this.laptop?.opened) this.laptop.back(); else this.ui.closeDialog(); this.world.releaseControls(); },
       onDialogAction: action => this.choose(action.id),
       onExportCareer: () => { this.persistLocation(); downloadCareer(); },
       onInspectCareer: text => careerProfile.inspectImport(text),
@@ -102,7 +104,7 @@ export class ExplorationScene extends Phaser.Scene {
         window.dispatchEvent(new CustomEvent('career-imported'));
       },
       onRefreshCareer: () => this.refreshProfile(),
-    }, COPY[this.place] ? {eyebrow:'MONTRÉAL · LE QUARTIER',...COPY[this.place],pauseText:'Ta journée attend. La tournée reprend après la pause.',commandsTitle:'Commandes du quartier',commandsHint:'Marche ou roule jusqu’à une porte ou un comptoir, les portes s’ouvrent en avançant. E pour parler ou utiliser un objet.'} : this.place === 'home' ? {
+    }, this.placeCopy ?? (COPY[this.place] ? {eyebrow:'MONTRÉAL · LE QUARTIER',...COPY[this.place],pauseText:'Ta journée attend. La tournée reprend après la pause.',commandsTitle:'Commandes du quartier',commandsHint:'Marche ou roule jusqu’à une porte ou un comptoir, les portes s’ouvrent en avançant. E pour parler ou utiliser un objet.'} : this.place === 'home' ? {
       eyebrow: 'CHEZ TOI · MONTRÉAL', title: 'Un nouveau jour', welcome: 'Chez toi',
       hint: 'Le lit pour dormir, la porte pour sortir.', pauseText: 'Ta journée attend. Se promener ne coûte aucune énergie.',
       commandsTitle: 'Commandes de la maison', commandsHint: 'Approche-toi du lit ou de la porte, les portes s’ouvrent en avançant. E pour parler ou utiliser un objet.',
@@ -110,7 +112,8 @@ export class ExplorationScene extends Phaser.Scene {
       eyebrow: 'MONTRÉAL · LE QUARTIER', title: 'À deux pas du gym', welcome: 'Le quartier',
       hint: 'Explore les rues. Maison, gym et salle de boxe sont ouverts.', pauseText: 'Les rues t’attendent. Se promener ne coûte aucune énergie.',
       commandsTitle: 'Commandes du quartier', commandsHint: 'Avance dans une porte pour entrer. Les cônes indiquent les rues encore fermées.',
-    });
+    }));
+    if(this.place === 'home') this.laptop = new LaptopUI(this);
     installChapterReadout(this); this.refreshProfile();
     this.renderWorld();
     const camera = this.cameras.main;
@@ -129,7 +132,7 @@ export class ExplorationScene extends Phaser.Scene {
     const cleanup = () => {
       if (disposed) return; disposed = true;
       this.events.off('shutdown', cleanup); this.events.off('destroy', cleanup);
-      this.world.releaseControls(); this.ui.destroy(); this.abort.abort(); this.resizeObserver.disconnect();
+      this.laptop?.destroy(); this.world.releaseControls(); this.ui.destroy(); this.abort.abort(); this.resizeObserver.disconnect();
       if (import.meta.env.DEV && window.__exploration?.scene === this) delete window.__exploration;
     };
     this.events.once('shutdown', cleanup); this.events.once('destroy', cleanup);
@@ -149,6 +152,7 @@ export class ExplorationScene extends Phaser.Scene {
     const station = this.world.getNearby();
     if (!station) return;
     this.world.releaseControls(); this.persistLocation();
+    if (station.id === 'laptop') { this.laptop.open(); return; }
     if(chapterInteract(this,station)) return;
     const daily = careerProfile.dailyStatus();
     const show = (title, text, actions = []) => this.ui.showDialog({ speaker: this.place === 'home' ? 'CHEZ TOI' : 'LA VIE DE QUARTIER', title, text, actions });
@@ -178,6 +182,7 @@ export class ExplorationScene extends Phaser.Scene {
 
   choose(id) {
     if (this.changingPlace || this.sleeping || resumePending() || this.world.state.paused || !this.ui.dialog) return;
+    if(this.laptop?.choose(id)) return;
     if(chapterChoose(this,id))return;
     if (id === 'sleep' && this.world.getNearby()?.id === 'bed') this.sleep();
     else if (id === 'enter-fight' && this.world.getNearby()?.id === 'fight') {

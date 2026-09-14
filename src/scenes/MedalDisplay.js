@@ -2,8 +2,8 @@
 // readable by interacting with it, including previous editions of the event.
 export function addMedalDisplay(scene, medals) {
   if (!medals.length) return;
-  const distinct = ['gold', 'silver', 'bronze', 'participation'].filter(type => medals.some(m => m.type === type));
-  const colors = { gold: [0xf7da79,0xb77d2e], silver: [0xdbe5ee,0x758d9a], bronze: [0xe1a16a,0x855237], participation: [0xb9d6db,0x547c86] };
+  const distinct = ['gold', 'silver', 'bronze', 'participation','marathon'].filter(type => medals.some(m => m.type === type));
+  const colors = { gold: [0xf7da79,0xb77d2e], silver: [0xdbe5ee,0x758d9a], bronze: [0xe1a16a,0x855237], participation: [0xb9d6db,0x547c86],marathon:[0xdfc1ed,0x745c9c] };
   const art = scene.add.graphics().setDepth(366);
   distinct.forEach((type,i) => {
     const x=1210+(i%2)*22, y=283+Math.floor(i/2)*33;

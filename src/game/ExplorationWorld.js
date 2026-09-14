@@ -54,7 +54,7 @@ export const HOME_LAYOUT = {
     { id: 'bed', label: 'Ton lit · Passer au lendemain', x: 969, y: 322, radius: 84 },
     { id: 'exit', label: 'Sortir dans le quartier', x: 640, y: 655, radius: 58 },
     { id: 'wardrobe', label: 'Ta garde-robe', x: 164, y: 291, radius: 60 },
-    { id: 'notebook', label: 'Carnet de boxe', x: 213, y: 545, radius: 64 },
+    { id: 'laptop', label: 'Ton laptop · Internet et terminal', x: 213, y: 545, radius: 72 },
     { id: 'medals', label: 'Tes médailles', x: 1175, y: 385, radius: 74 },
   ],
 };

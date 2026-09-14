@@ -1,15 +1,21 @@
 import { careerProfile } from '../game/CareerProfile.js';
 import { CUBA_PRICE, postBronzeUnlocked } from '../game/NextChapterRules.js';
-import { MEDAL_LABELS, moneyCap } from '../game/ChapterRules.js';
+import { MEDAL_LABELS, moneyCap, tournamentLabel, goldTournamentUnlocked } from '../game/ChapterRules.js';
 import { installMenuScrollCues } from './MenuWindow.js';
 import './career-journal.css';
 
-const names = { beton: 'Béton', kramer: 'Kramer', bellini: 'Bellini', fortin: 'Fortin', gagnon: 'Gagnon', dyrex: 'Dyrex', lefeu: 'Le Feu', louisto: 'Louisto' };
+const names = { beton: 'Béton', kramer: 'Kramer', bellini: 'Bellini', fortin: 'Fortin', gagnon: 'Gagnon', dyrex: 'Dyrex', lefeu: 'Le Feu', louisto: 'Louisto', danielo: 'Danielo', 'gold-rios': 'Rafael Ríos', 'gold-moreau': 'Émile Moreau', 'gold-santos': 'Thiago Santos' };
 const record = fight => `${fight?.wins ?? 0} V · ${fight?.losses ?? 0} D · ${fight?.draws ?? 0} N`;
 const completed = (profile, id) => profile.fights[id]?.wins ? `Victoire acquise · ${record(profile.fights[id])}` : 'À découvrir, puis à rejouer librement';
 
 export function careerJournalPages(profile, touch = false) {
-  const unlocked = postBronzeUnlocked(profile), cuba = profile.cuba?.active, run = profile.tournament?.active;
+  const unlocked = postBronzeUnlocked(profile), cuba = profile.cuba?.active, mexico = profile.mexico?.active, run = profile.tournament?.active;
+  const marathon = profile.marathon, medalLines = [];
+  for (const tier of ['bronze', 'gold']) for (const [id, label] of Object.entries(MEDAL_LABELS)) {
+    const count = profile.tournament.medals.filter(medal => (medal.tier ?? 'bronze') === tier && medal.type === id).length;
+    if (count) medalLines.push(`${tournamentLabel(tier)} · ${label} × ${count}`);
+  }
+  if (marathon?.medals.length) medalLines.push('Marathon de Montréal · Médaille souvenir');
   const money = profile.wallet.money, missing = Math.max(0, CUBA_PRICE - money);
   const firstObjective = run ? run.status === 'awaiting-sleep' ? 'Dors à l’hôtel pour ouvrir le combat du lendemain.'
     : ['champion', 'eliminated'].includes(run.status) ? 'Ton tournoi est terminé. Rentre par l’accueil de l’hôtel pour choisir la suite.'
@@ -19,22 +25,25 @@ export function careerJournalPages(profile, touch = false) {
         : 'Inscris-toi aux Gants de bronze à la salle communautaire. Termine une participation : une élimination compte aussi.';
   return [
     { id: 'objectives', title: 'Tes prochains défis', description: unlocked
-      ? 'Dyrex, Le Feu ou Cuba : trois défis, dans l’ordre de ton choix.'
+      ? 'Dyrex, Le Feu, Cuba et Mexique : choisis l’ordre de tes défis.'
       : 'Avance à ton rythme. Le gym aide à préparer les combats; aucune capacité maximale n’est obligatoire.', rows: [
       ...(!unlocked || run ? [{ title: 'En ce moment', text: firstObjective }] : []),
       { title: 'Dyrex · Montréal', text: unlocked ? completed(profile, 'dyrex') : 'Après une participation terminée aux Gants de bronze.' },
       { title: 'Le Feu · Montréal', text: unlocked ? `${completed(profile, 'lefeu')}. Le défi le plus exigeant de Montréal.` : 'Même déblocage que Dyrex; aucun ordre imposé.' },
       { title: 'Louisto · Cuba', text: unlocked ? `${completed(profile, 'louisto')}. Rencontre sur le ring de la plage pendant le séjour.` : 'Le séjour à Cuba ouvre après les Gants de bronze.' },
+      { title: 'Danielo · Mexique', text: unlocked ? `${completed(profile, 'danielo')}. Combat dans les arènes; Pablo est ton partenaire de sparring au gym.` : 'Même déblocage et même prix que Cuba; aucun ordre imposé.' },
+      { title: 'Gants dorés', text: goldTournamentUnlocked(profile) ? 'Accessibles · 240 $ pour trois jours de tournoi, avec l’hôtel et son restaurant. Le marathon reste facultatif.' : 'Après les Gants de bronze et les victoires sur Dyrex, Le Feu, Louisto et Danielo. Marathon facultatif.' },
       { title: cuba ? 'Séjour déjà payé' : `Projet Cuba · ${CUBA_PRICE} $`, text: cuba ? 'Le logement et le retour sont compris. Dors pour récupérer ton énergie; rentre à Montréal quand tu le souhaites.'
-        : `${Math.min(money, CUBA_PRICE)} / ${CUBA_PRICE} $ réunis${missing ? ` · encore ${missing} $` : ' · budget prêt'}. Les livraisons financent le voyage; départ à Des Rives après les Gants.` },
+        : `${Math.min(money, CUBA_PRICE)} / ${CUBA_PRICE} $ réunis${missing ? ` · encore ${missing} $` : ' · budget prêt'}. Réserve sur le laptop ou au kiosque, puis embarque à l’aéroport accessible en métro.` },
+      { title: mexico ? 'Mexique · Séjour en cours' : 'Mexique · 160 $', text: mexico ? 'Logement et retour inclus. Pablo t’attend au gym, Danielo dans les arènes.' : profile.mexico?.reserved ? 'Déjà réservé. Rejoins l’embarquement à l’aéroport.' : 'Même disponibilité que Cuba. Réserve puis rejoins l’aéroport, dans l’ordre de ton choix.' },
+      { title: 'Marathon de Montréal · Facultatif', text: marathon?.active ? marathon.active.status === 'registered' ? 'Inscrit ! Métro vers l’île, puis rejoins le départ à pied.' : 'Course en cours : rejoins le Stade olympique en suivant les rues du parcours.' : '100 $ l’inscription dans le navigateur du laptop. Déplacement simple; médaille souvenir à la première arrivée, aucune prime d’argent.' },
     ] },
     { id: 'record', title: 'Ton parcours', description: `Jour ${profile.daily.day} · ${profile.daily.energy}/100 énergie quotidienne · ${money}/${moneyCap(profile.fights)} $.`, rows: [
-      { title: 'Capacités et plafonds', text: `Endurance ${profile.stats.endurance}/${profile.caps.endurance} · Résistance ${profile.stats.resistance}/${profile.caps.resistance}\nPuissance +${profile.stats.power}/${profile.caps.power} · Récupération +${Math.round((profile.stats.recovery - 1) * 100)}/${Math.round((profile.caps.recovery - 1) * 100)} %. Les trois nouveaux défis gardent les mêmes plafonds.` },
+      { title: 'Capacités et plafonds', text: `Endurance ${profile.stats.endurance}/${profile.caps.endurance} · Résistance ${profile.stats.resistance}/${profile.caps.resistance}\nPuissance +${profile.stats.power}/${profile.caps.power} · Récupération +${Math.round((profile.stats.recovery - 1) * 100)}/${Math.round((profile.caps.recovery - 1) * 100)} %. Les nouveaux défis gardent les mêmes plafonds.` },
       ...Object.entries(names).map(([id, name]) => ({ title: name, text: record(profile.fights[id]) })),
-      { title: 'Médailles et souvenirs', text: profile.tournament.medals.length ? Object.entries(MEDAL_LABELS).map(([id, label]) => {
-        const count = profile.tournament.medals.filter(medal => medal.type === id).length; return count ? `${label} × ${count}` : null;
-      }).filter(Boolean).join('\n') : 'Ta collection se remplit à la fin des participations aux Gants de bronze.' },
-      { title: 'Voyages', text: `${profile.cuba?.history.length ?? 0} séjour(s) terminé(s) à Cuba${cuba ? ' · un séjour en cours' : ''}.` },
+      { title: 'Médailles et souvenirs', text: medalLines.join('\n') || 'Ta collection se remplit au fil des tournois et à ta première arrivée au marathon.' },
+      { title: 'Voyages', text: `${profile.cuba?.history.length ?? 0} séjour(s) terminé(s) à Cuba${cuba ? ' · séjour en cours' : profile.cuba?.reserved ? ' · réservé' : ''}\n${profile.mexico?.history.length ?? 0} séjour(s) terminé(s) au Mexique${mexico ? ' · séjour en cours' : profile.mexico?.reserved ? ' · réservé' : ''}.` },
+      { title: 'Marathon', text: marathon?.bestTime != null ? `Record personnel : ${Math.floor(marathon.bestTime / 60)} min ${Math.floor(marathon.bestTime % 60).toString().padStart(2, '0')} s · ${marathon.history.filter(run => run.status === 'finished').length} arrivée(s). La médaille souvenir n’est décernée qu’une fois.` : 'Les lieux restent accessibles en promenade, même sans inscription.' },
     ] },
     { id: 'techniques', title: 'Tes techniques', description: 'Une pression par frappe.', rows: [
       { title: 'Jab · direct · crochet', text: `${touch ? 'A → B → A' : 'J → K → J'} · technique de départ. Le troisième geste devient un crochet gauche. Garde le rythme du retour en garde.` },

@@ -11,8 +11,8 @@ const BETON_ASSETS = 'assets/sprites/beton/';
 const BETON_POSES = ['guard', 'block', 'jab-windup', 'jab-recover', 'jab',
   'cross-windup-body', 'cross-recover-body', 'cross-body', 'block-body',
   'hit', 'hit-body', 'fall', 'down', 'rise'];
-const CHAPTER_OPPONENTS = ['kramer', 'bellini', 'fortin', 'gagnon', 'dyrex', 'lefeu', 'louisto'];
-const NEW_OPPONENTS = ['dyrex', 'lefeu', 'louisto'];
+const CHAPTER_OPPONENTS = ['kramer', 'bellini', 'fortin', 'gagnon', 'dyrex', 'lefeu', 'louisto', 'pablo', 'danielo', 'gold-rios', 'gold-moreau', 'gold-santos', 'runner', 'runner-player'];
+const NEW_OPPONENTS = ['dyrex', 'lefeu', 'louisto', 'pablo', 'danielo', 'gold-rios', 'gold-moreau', 'gold-santos', 'runner', 'runner-player'];
 const CHAPTER_ASSETS = 'assets/sprites/chapter-combat/';
 const CHAPTER_POSES = ['guard', 'block', 'jab-windup', 'jab', 'cross-windup', 'cross',
   'cross-windup-body', 'cross-body', 'block-body', 'hit', 'hit-body', 'fall', 'down', 'rise', 'dodge', 'surrender'];
@@ -38,7 +38,7 @@ const BODY_POSES = ['jab-body', 'cross-body', 'jab-windup-body', 'cross-windup-b
 
 /** Rendering only. The session owns every timer and every scored contact. */
 export class FighterView {
-  static preload(scene, { opponent = 'remi', tournament = false } = {}) {
+  static preload(scene, { opponent = 'remi', tournament = false, streetFight = false } = {}) {
     const base = import.meta.env?.BASE_URL ?? '/';
     scene.load.json('fighters', `${base}${ASSETS}fighters.json`);
     for (const who of ['remi', 'player']) {
@@ -63,6 +63,7 @@ export class FighterView {
       scene.load.json('fighters-beton', `${base}${BETON_ASSETS}fighters.json`);
       for (const pose of BETON_POSES) scene.load.image(`beton-${pose}`, `${base}${BETON_ASSETS}beton-${pose}.png`);
     }
+    if (streetFight) FighterView.preloadRunner(scene);
     if (CHAPTER_OPPONENTS.includes(opponent)) {
       const folder = NEW_OPPONENTS.includes(opponent) ? 'assets/sprites/opponents/' : CHAPTER_ASSETS;
       scene.load.json(`fighters-${opponent}`, `${base}${folder}${opponent}/fighters.json`);
@@ -74,16 +75,31 @@ export class FighterView {
     }
   }
 
-  constructor(scene, who, x, feet, height, { opponent = 'remi', tournament = false } = {}) {
+  static preloadRunner(scene) {
+    const base = import.meta.env?.BASE_URL ?? '/';
+    scene.load.json('fighters-runner-player', `${base}assets/sprites/opponents/runner-player/fighters.json`);
+    for(const pose of [...CHAPTER_POSES.filter(p => p !== 'surrender'), 'hook', 'hook-windup', 'hook-recover', 'jab-body', 'jab-windup-body', 'hook-body', 'hook-windup-body']) scene.load.image(`runner-player-${pose}`, `${base}assets/sprites/opponents/runner-player/runner-player-${pose}.png`);
+  }
+
+  constructor(scene, who, x, feet, height, { opponent = 'remi', tournament = false, streetFight = false } = {}) {
     this.scene = scene;
     this.who = who;
     this.tournament = tournament;
-    this.texturePrefix = who === 'remi' && opponent !== 'remi' ? opponent : who === 'player' && tournament ? 'competition' : who;
+    this.streetFight = streetFight;
+    this.texturePrefix = who === 'player' && streetFight ? 'runner-player' : who === 'remi' && opponent !== 'remi' ? opponent : who === 'player' && tournament ? 'competition' : who;
     this.x = x;
     this.feet = feet;
     this.height = height;
     const original = scene.cache.json.get('fighters');
     this.metadata = { ...original, poses: { ...original.poses, ...scene.cache.json.get('fighters-hook')?.poses, ...scene.cache.json.get('fighters-body')?.poses, ...scene.cache.json.get('fighters-knockdown')?.poses } };
+    if (who === 'remi' && opponent === 'remi') {
+      // The original head atlas illustrated the opposite physical hand; body
+      // artwork was already orthodox. Mirror only the six head punch poses.
+      for (const pose of ['jab', 'cross', 'jab-windup', 'cross-windup', 'jab-recover', 'cross-recover']) {
+        const spec = this.metadata.poses[`remi-${pose}`];
+        this.metadata.poses[`remi-${pose}`] = { ...spec, mirror: !spec.mirror };
+      }
+    }
     if (this.texturePrefix === 'beton') {
       const beton = scene.cache.json.get('fighters-beton');
       if (!beton) throw new Error('Béton sprites must be preloaded before constructing his view.');
@@ -110,7 +126,7 @@ export class FighterView {
       this.metadata = { ...atlas, poses };
     }
     this.anchor = this.metadata.anchor;
-    if (who === 'player' && !tournament) prepareBoxingOutfits(scene, Object.keys(this.metadata.poses).filter(key => key.startsWith('player-')));
+    if (who === 'player' && !tournament && !streetFight) prepareBoxingOutfits(scene, Object.keys(this.metadata.poses).filter(key => key.startsWith('player-')));
     this.shadow = scene.add.ellipse(x, feet - 3, who === 'remi' ? 228 : 250, 30, 0x0b1523, .3);
     this.sprite = scene.add.image(x, feet, `${this.texturePrefix}-guard`).setOrigin(
       this.anchor.x / this.metadata.canvas.width,
@@ -174,7 +190,7 @@ export class FighterView {
       if (this.lastAction !== action || progress < this.lastProgress) this.attackAim = null;
       const target = { ...this.target };
       if (!player) {
-        target.x += action === 'jab' ? -36 : 36;
+        target.x += action === 'jab' ? 36 : -36;
         if (fighter.target !== 'body') target.y += 18;
       }
       // Track the visible target during preparation, then freeze the aim while
@@ -194,7 +210,7 @@ export class FighterView {
     // asset correction with the directional dodge, rather than applying twice.
     const flip = Boolean(poseSpec.mirror) !== motion.flip;
     const originalTexture = `${this.texturePrefix}-${poseSpec.texturePose ?? motion.pose}`;
-    const texture = player && !this.tournament ? boxingTexture(this.scene, originalTexture) : originalTexture;
+    const texture = player && !this.tournament && !this.streetFight ? boxingTexture(this.scene, originalTexture) : originalTexture;
     this.sprite.setTexture(texture)
       .setScale(this.baseScale)
       .setPosition(Math.round(this.x + dx + spacing), Math.round(this.feet + dy))

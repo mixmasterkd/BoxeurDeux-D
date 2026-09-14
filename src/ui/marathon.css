@@ -1,0 +1,5 @@
+.marathon-readout { position:absolute; bottom:2%; left:50%; transform:translateX(-50%); max-width:94%; padding:4px 10px; background:#102838d9; color:#fff1c9; font:600 clamp(10px,1.3cqw,16px) monospace; pointer-events:none; white-space:nowrap; border-bottom:2px solid #ad88d9; }
+#gym-ui:not([data-mode="walking"]) .marathon-readout { visibility:hidden; }
+#stage[data-scene^="marathon-"] .test-profile-indicator { left:5px; top:5px; bottom:auto; transform:none; }
+#stage[data-scene^="marathon-"] .gym-heading { display:none!important; }
+#stage[data-scene^="marathon-"] .gym-nearby { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; overflow:hidden!important; clip-path:inset(50%)!important; white-space:nowrap!important; }

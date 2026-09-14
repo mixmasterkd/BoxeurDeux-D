@@ -1,3 +1,4 @@
+import { getOpponentProfile } from '../game/OpponentProfiles.js';
 import { cornerBeat } from '../game/CornerRecovery.js';
 import './corner-recovery.css';
 const text = (element, value) => { if (element.textContent !== String(value)) element.textContent = value; };
@@ -15,11 +16,12 @@ export class CornerHUD {
     if (!active) return;
     const { ui } = this, corner = state.bout.corner, beat = cornerBeat(corner);
     const touch = ui.controlsQuery.matches;
+    const coach = getOpponentProfile(state.settings.opponent).coach ?? 'Fredo';
     const key = beat.action === 'jab' ? touch ? 'A' : 'J' : touch ? 'B' : 'K';
     const inhale = beat.action === 'jab';
     text(ui.elements['panel-heading'], ui.root.clientWidth < 550 ? 'Soufflez.' : 'Un souffle à la fois.');
-    text(ui.elements['panel-eyebrow'], `FREDO · ${Math.ceil(corner.duration - corner.elapsed)} SECONDES`);
-    text(ui.elements['panel-copy'], `${touch ? 'A puis B' : 'J puis K'} quand le cercle rejoint le repère. +20 résistance garantis ; jusqu’à +8 avec Fredo.`);
+    text(ui.elements['panel-eyebrow'], `${coach.toUpperCase()} · ${Math.ceil(corner.duration - corner.elapsed)} SECONDES`);
+    text(ui.elements['panel-copy'], `${touch ? 'A puis B' : 'J puis K'} quand le cercle rejoint le repère. +20 résistance garantis ; jusqu’à +8 avec ${coach}.`);
     text(ui.elements['primary-button'], touch ? 'Passer la récupération →' : 'Passer · E →');
     ui.elements['commands-open-button'].hidden = true;
     ui.elements['round-results'].hidden = true;

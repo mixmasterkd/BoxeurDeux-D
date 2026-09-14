@@ -1,7 +1,7 @@
 /** Nine active seconds: one alternating breath every second. No mash bonus. */
 export const CORNER_RULES = Object.freeze({ duration: 9, firstBeat: 1, beats: 8, window: .23, baseline: 20, maxBonus: 8 });
-export function createCornerRecovery() {
-  return { elapsed: 0, duration: CORNER_RULES.duration, hits: 0, bonus: 0, completed: false, attempted: [], feedback: 'Suivez le souffle de Fredo.' };
+export function createCornerRecovery(coach = 'Fredo') {
+  return { elapsed: 0, duration: CORNER_RULES.duration, hits: 0, bonus: 0, completed: false, attempted: [], feedback: `Suivez le souffle de ${coach}.` };
 }
 export function cornerBeat(corner) {
   const index = Math.max(0, Math.min(CORNER_RULES.beats - 1, Math.round(corner.elapsed - CORNER_RULES.firstBeat)));

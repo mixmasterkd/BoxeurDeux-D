@@ -35,3 +35,5 @@
  #stage #sparring-ui[data-decision="true"] .judge-cards article { padding: 1px; }
  #stage #sparring-ui[data-decision="true"] .judge-detail-toggle { font-size: 10px !important; min-height: 16px !important; }
 }
+
+#stage #sparring-ui[data-tournament="true"] .judge-cards b { font-size: clamp(11px,2.3cqw,24px); white-space: nowrap; }

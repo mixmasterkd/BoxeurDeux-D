@@ -74,12 +74,13 @@ function normalizeSettings(settings = {}, previous = {}) {
   const powerBonus = boundedBonus(settings.powerBonus ?? previous.powerBonus ?? 0, 0, 10);
   const requestedLesson = settings.lesson ?? previous.lesson ?? 'free';
   const official = getOpponentProfile(opponent).official;
-  const lesson = official ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
+  const streetFight = getOpponentProfile(opponent).streetFight === true;
+  const lesson = official || streetFight ? 'resistance' : Object.hasOwn(LESSONS, requestedLesson) ? requestedLesson : 'free';
   return {
     duration: unguided(lesson) && Number.isFinite(duration) ? clamp(duration, 1, 600) : 60,
     tempo: official ? 'normal' : !unguided(lesson) ? 'calm' : Object.hasOwn(TEMPOS, tempo) ? tempo : 'normal',
     recovery: Number.isFinite(recovery) ? clamp(recovery, 0.5, 2) : 1,
-    lesson, opponent, maxStamina, maxResistance, recoveryBonus, powerBonus,
+    lesson, opponent, streetFight, maxStamina, maxResistance, recoveryBonus, powerBonus,
     tournament: Boolean(settings.tournament ?? previous.tournament),
     techniques: { doubleJab: (settings.techniques ?? previous.techniques)?.doubleJab === true },
   };
@@ -110,6 +111,7 @@ export class SparringSession {
     this.settings = normalizeSettings(settings, this.settings);
     this.profile = getOpponentProfile(this.settings.opponent);
     this._roundFatigue = 0;
+    this._roundJudging = { quality: { player: 0, remi: 0 }, firstClean: null, initiative: null };
     this._events = [];
     this._guardHeld = false;
     this._guardRequested = false;
@@ -143,7 +145,7 @@ export class SparringSession {
       settings: { ...this.settings },
       training: null,
       bout: this.settings.lesson === 'resistance' ? {
-        round: 1, rounds: KNOCKDOWN_RULES.rounds, maxResistance: this.profile.maxResistance ?? KNOCKDOWN_RULES.maxResistance, playerMaxResistance: this.settings.maxResistance,
+        round: 1, rounds: this.settings.streetFight ? 1 : KNOCKDOWN_RULES.rounds, maxResistance: this.profile.maxResistance ?? KNOCKDOWN_RULES.maxResistance, playerMaxResistance: this.settings.maxResistance,
         resistance: { player: this.settings.maxResistance, remi: this.profile.maxResistance ?? 100 },
         downs: { player: { round: 0, total: 0 }, remi: { round: 0, total: 0 } },
         count: null, result: null, roundHistory: [],
@@ -253,7 +255,7 @@ export class SparringSession {
     this.state.stamina = Math.max(0, this.state.stamina - timing.cost);
     this._playerAction = { action, target, elapsed: 0, duration: timing.duration, impact: timing.impact ?? null, impacted: false, sequence, ...(finisher ? { finisher } : {}) };
     this._recoverAt = this.state.elapsed + timing.duration + RECOVERY_DELAY;
-    if (timing.impact !== undefined) this.state.stats.thrown += 1;
+    if (timing.impact !== undefined) { this.state.stats.thrown += 1; this._roundJudging.initiative ??= 'player'; }
     this._syncState();
     return true;
   }
@@ -310,7 +312,7 @@ export class SparringSession {
         remaining -= dt;
         continue;
       }
-      dt = Math.min(dt, this.state.remaining);
+      if (!this.settings.streetFight) dt = Math.min(dt, this.state.remaining);
       for (const action of [this._playerAction, this._remiAction]) {
         if (!action) continue;
         const boundary = action.impact !== null && !action.impacted
@@ -326,8 +328,8 @@ export class SparringSession {
   }
 
   _step(dt) {
-    this.state.elapsed = Math.min(this.settings.duration, this.state.elapsed + dt);
-    this.state.remaining = Math.max(0, this.settings.duration - this.state.elapsed);
+    this.state.elapsed = this.settings.streetFight ? this.state.elapsed + dt : Math.min(this.settings.duration, this.state.elapsed + dt);
+    this.state.remaining = this.settings.streetFight ? this.settings.duration : Math.max(0, this.settings.duration - this.state.elapsed);
     this._playerHurt = Math.max(0, this._playerHurt - dt);
     this._remiHurt = Math.max(0, this._remiHurt - dt);
 
@@ -404,6 +406,8 @@ export class SparringSession {
       this._damage('remi', attack, finisher ? DOUBLE_JAB_FINISHER.extraDamage : 0);
       if (this.state.bout?.score) this.state.bout.score.player += 1;
       this.state.stats.landed += 1;
+      this._roundJudging.firstClean ??= 'player';
+      this._roundJudging.quality.player += attack === 'jab' ? 1 : attack === 'cross' ? 1.15 : 1.25;
       this.state.stats[target === 'body' ? 'landedBody' : 'landedHead'] += 1;
       const combo = (attack === 'hook' || finisher) && sequence?.valid === true && sequence.hits === 2;
       if (attack === 'hook') {
@@ -445,6 +449,8 @@ export class SparringSession {
     this._damage('player', attack);
     if (this.state.bout?.score) this.state.bout.score.remi += 1;
     this.state.stats.received += 1;
+    this._roundJudging.firstClean ??= 'remi';
+    this._roundJudging.quality.remi += attack === 'jab' ? 1 : attack === 'cross' ? 1.15 : 1.25;
     this.state.stats[target === 'body' ? 'receivedBody' : 'receivedHead'] += 1;
     this._clearCombo();
     this._queuedPunch = null;
@@ -457,6 +463,7 @@ export class SparringSession {
   }
 
   _setRemiAction(action, duration, extra = {}) {
+    if (action === 'jab' || action === 'cross') this._roundJudging.initiative ??= 'remi';
     this._remiAction = { action, duration, elapsed: 0, impact: null, impacted: false, side: null, safeDodge: null, target: 'head', guardLevel: 'head', ...extra };
     this._remiStage += 1;
     this._coach?.onStage(this._trainingContext());
@@ -628,6 +635,7 @@ export class SparringSession {
     this.state.remaining = this.settings.duration;
     this.state.stamina = this.settings.maxStamina;
     this._roundStartStats = { ...this.state.stats };
+    this._roundJudging = { quality: { player: 0, remi: 0 }, firstClean: null, initiative: null };
     this._roundStartScore = bout.score ? { ...bout.score } : null;
     this._roundFatigue = 0;
     this._clearCombatActions();
@@ -644,7 +652,7 @@ export class SparringSession {
     if (!this.state.bout) return;
     const resistance = this.state.bout.resistance;
     const power = actor === 'remi' ? this.settings.powerBonus : 0;
-    const damage = this.profile.official ? officialDamage(this.profile, actor, attack, power, extra) : KNOCKDOWN_RULES.damage[attack] + power + extra;
+    const damage = this.profile.official || this.settings.streetFight ? officialDamage(this.profile, actor, attack, power, extra) : KNOCKDOWN_RULES.damage[attack] + power + extra;
     resistance[actor] = Math.max(0, resistance[actor] - damage);
   }
 
@@ -713,6 +721,11 @@ export class SparringSession {
     count.elapsed += dt;
     if (count.stage === 'fall') {
       if (count.elapsed + EPSILON < KNOCKDOWN_RULES.fall) return;
+      if (this.settings.streetFight) {
+        const won = count.downed.remi && !count.downed.player;
+        this._finishBout({ reason: 'street-stop', winner: won ? 'player' : 'remi', loser: won ? 'remi' : 'player' });
+        return;
+      }
       count.elapsed = 0;
       const eligible = ACTORS.filter(actor => count.downed[actor] && !count.eliminated[actor]);
       if (!eligible.length) { this._finishEliminations(); return; }
@@ -846,6 +859,7 @@ export class SparringSession {
     if (bout.roundHistory.some(round => round.round === bout.round)) return;
     bout.roundHistory.push({
       round: bout.round, duration: this.state.elapsed,
+      judging: structuredClone(this._roundJudging),
       stats: Object.fromEntries(Object.entries(this.state.stats).map(([key, value]) => [key, value - this._roundStartStats[key]])),
       downs: { player: bout.downs.player.round, remi: bout.downs.remi.round },
       resistance: { ...bout.resistance },
@@ -866,12 +880,12 @@ export class SparringSession {
     this._guardHeld = false; this._guardRequested = false; this._guardLevel = 'head';
     if (this.state.bout.round >= this.state.bout.rounds) {
       const score = this.state.bout.score;
-      const decision = score ? judgeBout(this.state.bout.roundHistory) : null;
+      const decision = score ? judgeBout(this.state.bout.roundHistory, { judges: this.profile.tournament ? 5 : 3 }) : null;
       const winner = decision?.winner ?? null;
       this._finishBout({ reason: score ? 'points' : 'time', ...(decision ? { decision } : {}), winner, loser: !score || winner === 'draw' ? null : winner === 'player' ? 'remi' : 'player' });
       return;
     }
-    this.state.bout.corner = this.profile.official ? createCornerRecovery() : null;
+    this.state.bout.corner = this.profile.official ? createCornerRecovery(this.profile.coach ?? 'Fredo') : null;
     this.state.phase = this.profile.official ? 'corner' : 'between';
     this.state.pausedPhase = null;
     this._emit('round-break', { round: this.state.bout.round, history: structuredClone(this.state.bout.roundHistory.at(-1)) });

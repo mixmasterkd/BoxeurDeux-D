@@ -1,17 +1,28 @@
 import { activityCost, DAILY_ENERGY_MAX, freshDaily, HOME_SPAWN, LEGACY_GYM_SPAWN,
   validDaily, cleanLocation } from './DayRules.js';
 import { BASE_STATS, trainingCaps, moneyCap, freshFight, freshChapter, normalizeChapter, cleanFight,
-  SHOP_CATALOG, FIGHT_IDS, LEGACY_FIGHT_IDS, DELIVERY_STOPS, DELIVERY_PAY, DELIVERY_MAX_TIP, validDeliveryStops,
-  TOURNAMENT_OPPONENTS, TOURNAMENT_PARTICIPANTS, TOURNAMENT_ROUNDS, TOURNAMENT_FEES, MEDAL_LABELS,
-  HOTEL_ROOM_SPAWN, TOURNAMENT_RETURN_SPAWN } from './ChapterRules.js';
-import { NEXT_FIGHT_IDS, CUBA_PRICE, CUBA_HOME_SPAWN, CUBA_RETURN_SPAWN,
+  SHOP_CATALOG, FIGHT_IDS, LEGACY_FIGHT_IDS, V4_FIGHT_IDS, DELIVERY_STOPS, DELIVERY_PAY, DELIVERY_MAX_TIP, validDeliveryStops,
+  TOURNAMENT_PARTICIPANTS, TOURNAMENT_ROUNDS, TOURNAMENT_FEES, MEDAL_LABELS,
+  HOTEL_ROOM_SPAWN, TOURNAMENT_RETURN_SPAWN, GOLD_TOURNAMENT_PARTICIPANTS,
+  GOLD_TOURNAMENT_FEE, TOURNAMENT_TIERS, tournamentOpponents, tournamentLabel, goldTournamentUnlocked } from './ChapterRules.js';
+import { NEXT_FIGHT_IDS, CUBA_HOME_SPAWN, MEXICO_HOME_SPAWN, AIRPORT_SPAWN, TRAVEL_DESTINATIONS,
   postBronzeUnlocked, freshNextChapter, normalizeNextChapter } from './NextChapterRules.js';
+
+import { MARATHON_PRICE, MARATHON_ID, MARATHON_PLACES, MARATHON_START, freshMarathon, normalizeMarathon, cleanMarathonCheckpoint } from './MarathonRules.js';
 
 // Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
 const BACKUP_KEY = `${STORAGE_KEY}-backup`;
-const CORRUPT_KEY = `${STORAGE_KEY}-corrupt`;
-const VERSION = 4;
+const VERSION = 5;
+const TEST_STORAGE_KEY = `${STORAGE_KEY}-test`;
+const TEST_COMMANDS = Object.freeze([
+  ['liste', 'Afficher les commandes.'], ['test maison', 'Maison et laptop.'], ['test gym', 'Gym de Montréal.'],
+  ['test cuba', 'Séjour de test à Cuba.'], ['test mexique', 'Séjour de test au Mexique.'], ['test aeroport', 'Aéroport avec réservations Cuba et Mexique.'],
+  ['test marathon', 'Inscription et départ sur l’île.'], ['test bronze', 'Gants de bronze, jour 1.'], ['test dore', 'Gants dorés, jour 1.'],
+  ['combat feu', 'Combat de test (beton, kramer, dyrex, feu, louisto, danielo).'],
+  ['argent 500', 'Fixer l’argent de test, dans le plafond de carrière.'], ['energie 100', 'Fixer l’énergie quotidienne de test.'],
+  ['retour', 'Revenir à la carrière normale, inchangée.'],
+]);
 const LEGACY_ACTIVITIES = ['bag', 'speedball', 'rope', 'sparring', 'shadow'];
 const ACTIVITIES = [...LEGACY_ACTIVITIES, 'pads', 'pool'];
 const clone = value => JSON.parse(JSON.stringify(value));
@@ -27,12 +38,12 @@ function freshProfile(now = new Date().toISOString()) {
     stats: { ...BASE_STATS }, caps: trainingCaps({}),
     activities: Object.fromEntries(ACTIVITIES.map(id => [id, { sessions: 0, best: 0 }])),
     fights: Object.fromEntries(FIGHT_IDS.map(id => [id, freshFight()])),
-    ...freshChapter(), ...freshNextChapter(),
+    ...freshChapter(), ...freshNextChapter(), marathon: freshMarathon(),
   };
 }
 
 function normalize(raw) {
-  if (!object(raw) || ![1, 2, 3, VERSION].includes(raw.version)) {
+  if (!object(raw) || ![1, 2, 3, 4, VERSION].includes(raw.version)) {
     if (object(raw) && typeof raw.version === 'number' && raw.version > VERSION) {
       const error = new Error('Cette sauvegarde vient d’une version plus récente du jeu.');
       error.code = 'future-version'; throw error;
@@ -51,7 +62,7 @@ function normalize(raw) {
     profile.daily = { day: raw.daily.day, energy: raw.daily.energy, maxEnergy: DAILY_ENERGY_MAX };
     profile.location = cleanLocation(raw.location);
   }
-  for (const id of raw.version < 3 ? ['beton'] : raw.version === 3 ? LEGACY_FIGHT_IDS : FIGHT_IDS) profile.fights[id] = cleanFight(raw.fights[id]);
+  for (const id of raw.version < 3 ? ['beton'] : raw.version === 3 ? LEGACY_FIGHT_IDS : raw.version === 4 ? V4_FIGHT_IDS : FIGHT_IDS) profile.fights[id] = cleanFight(raw.fights[id]);
   profile.caps = trainingCaps(profile.fights);
   for (const stat of Object.keys(BASE_STATS)) {
     const value = raw.stats[stat];
@@ -70,7 +81,8 @@ function normalize(raw) {
     profile.activities[id] = { sessions: activity.sessions, best: activity.best };
   }
   if (raw.version >= 3) Object.assign(profile, normalizeChapter(raw, profile.fights));
-  if (raw.version === VERSION) Object.assign(profile, normalizeNextChapter(raw, profile));
+  if (raw.version >= 4) Object.assign(profile, normalizeNextChapter(raw, profile));
+  profile.marathon = normalizeMarathon(raw, profile);
   return profile;
 }
 
@@ -93,6 +105,8 @@ const POLICIES = {
 
 export class CareerProfile {
   constructor(options = {}) {
+    this.mode = options.testProfile ? 'test' : 'normal';
+    this.storageKey = this.mode === 'test' ? TEST_STORAGE_KEY : STORAGE_KEY;
     this.now = options.now ?? (() => new Date().toISOString());
     this.storage = null; this.lastPersisted = null; this.backupAvailable = false;
     this.status = { state: 'new', persisted: false, message: 'Votre journée sera enregistrée automatiquement pendant la partie.' };
@@ -110,7 +124,7 @@ export class CareerProfile {
   _load() {
     if (!this.storage) { this._unavailable(); return freshProfile(this.now()); }
     let primary, backup;
-    try { primary = this.storage.getItem(STORAGE_KEY); backup = this.storage.getItem(BACKUP_KEY); }
+    try { primary = this.storage.getItem(this.storageKey); backup = this.storage.getItem(`${this.storageKey}-backup`); }
     catch { this._unavailable(); return freshProfile(this.now()); }
     let backupProfile = null;
     if (backup) { try { backupProfile = parse(backup); this.backupAvailable = true; } catch { /* Never restore malformed backups. */ } }
@@ -121,11 +135,11 @@ export class CareerProfile {
         this.status = { state: 'saved', persisted: true, message: `Sauvegarde locale · révision ${profile.revision}` };
         if (migrated) {
           let backupFailed = false;
-          try { this.storage.setItem(BACKUP_KEY, primary); this.backupAvailable = true; }
+          try { this.storage.setItem(`${this.storageKey}-backup`, primary); this.backupAvailable = true; }
           catch { backupFailed = true; }
           try {
             this.lastPersisted = JSON.stringify(profile);
-            this.storage.setItem(STORAGE_KEY, this.lastPersisted);
+            this.storage.setItem(this.storageKey, this.lastPersisted);
             this.status.message = `Ancienne progression conservée · jour ${profile.daily.day}${backupFailed ? ' · copie de secours indisponible' : ''}`;
           } catch { this.lastPersisted = primary; this._unavailable(); }
         }
@@ -138,13 +152,13 @@ export class CareerProfile {
           return backupProfile ?? freshProfile(this.now());
         }
         // Keep the rejected source separate from the last valid backup.
-        try { this.storage.setItem(CORRUPT_KEY, primary); } catch { /* Optional diagnostic copy. */ }
+        try { this.storage.setItem(`${this.storageKey}-corrupt`, primary); } catch { /* Optional diagnostic copy. */ }
       }
     }
     if (backupProfile) {
       this.lastPersisted = JSON.stringify(backupProfile);
       this.status = { state: 'recovered', persisted: true, message: 'Progression récupérée depuis la dernière copie de secours.' };
-      try { this.storage.setItem(STORAGE_KEY, this.lastPersisted); }
+      try { this.storage.setItem(this.storageKey, this.lastPersisted); }
       catch { this.lastPersisted = backup; this._unavailable(); }
       return backupProfile;
     }
@@ -160,6 +174,7 @@ export class CareerProfile {
   activityCost(activity) { return activityCost(activity); }
   canStartActivity(activity) {
     const cost = activityCost(activity), { energy } = this.profile.daily;
+    if (this._marathonRunning()) return { ok: false, activity, cost, energy, message: 'Terminez ou quittez votre course avant de commencer une autre activité.' };
     const ok = energy >= cost;
     return { ok, activity, cost, energy,
       message: ok ? (cost ? `Cette séance coûte ${cost} points d’énergie de journée.` : 'Cette activité ne coûte pas d’énergie de journée.')
@@ -177,6 +192,7 @@ export class CareerProfile {
   sleep() {
     const active = this.profile.tournament.active;
     if (this.profile.delivery.active) return this._result(false, 'Terminez ou abandonnez votre tournée avant de dormir.');
+    if (this._marathonRunning()) return this._result(false, 'Terminez ou quittez la course avant de dormir.');
     if (active?.status === 'ready') return this._result(false, 'Votre combat du jour reste à disputer dans la salle d’événement.');
     if (this.profile.daily.day === Number.MAX_SAFE_INTEGER) {
       return { ok: false, ...this.dailyStatus(), saved: this.status.persisted,
@@ -187,6 +203,8 @@ export class CareerProfile {
     if (active) {
       if (active.status === 'awaiting-sleep') { active.day += 1; active.status = 'ready'; }
       this.profile.location = { ...HOTEL_ROOM_SPAWN };
+    } else if (this.profile.mexico.active) {
+      this.profile.location = { ...MEXICO_HOME_SPAWN };
     } else if (this.profile.cuba.active) {
       this.profile.location = { ...CUBA_HOME_SPAWN };
     } else if (this.profile.location.scene !== 'home') this.profile.location = { ...HOME_SPAWN };
@@ -217,11 +235,11 @@ export class CareerProfile {
     if (!this.storage) { this._unavailable(); return this.snapshot(); }
     let backupFailed = false;
     if (this.lastPersisted) {
-      try { this.storage.setItem(BACKUP_KEY, this.lastPersisted); this.backupAvailable = true; }
+      try { this.storage.setItem(`${this.storageKey}-backup`, this.lastPersisted); this.backupAvailable = true; }
       catch { backupFailed = true; }
     }
     try {
-      this.storage.setItem(STORAGE_KEY, text); this.lastPersisted = text;
+      this.storage.setItem(this.storageKey, text); this.lastPersisted = text;
       this.status = { state: 'saved', persisted: true,
         message: `Sauvegarde locale · révision ${this.profile.revision}${backupFailed ? ' · copie de secours indisponible' : ''}` };
     } catch { this._unavailable(); }
@@ -282,7 +300,8 @@ export class CareerProfile {
   }
   startDelivery(stops = DELIVERY_STOPS) {
     if (!validDeliveryStops(stops)) return this._result(false, 'Une tournée doit avoir trois adresses différentes.');
-    if (this.profile.cuba.active) return this._result(false, 'Rentrez de Cuba avant de reprendre les livraisons.');
+    if (this._activeTravel()) return this._result(false, 'Rentrez de voyage avant de reprendre les livraisons.');
+    if (this._marathonRunning()) return this._result(false, 'Terminez ou quittez la course avant les livraisons.');
     if (this.profile.tournament.active) return this._result(false, 'Terminez votre séjour au tournoi avant de reprendre les livraisons.');
     if (this.profile.delivery.active) return this._result(false, 'Une tournée est déjà en cours. Retrouvez la prochaine adresse.');
     const offer = this.canStartActivity('delivery');
@@ -330,92 +349,225 @@ export class CareerProfile {
     this._save();
     return this._result(true, 'Tournée abandonnée. Les gains déjà reçus sont conservés; l’énergie dépensée reste utilisée.');
   }
+  _activeTravel() { return Object.keys(TRAVEL_DESTINATIONS).find(id => this.profile[id].active) ?? null; }
+  _marathonRunning() { return this.profile.marathon.active && this.profile.marathon.active.status !== 'registered'; }
   canFight(opponent = 'beton') {
-    if (this.profile.cuba.active && opponent !== 'louisto') return { ok: false, opponent, message: 'Ce combat se déroule à Montréal. Rentrez de Cuba pour y participer.' };
+    if (opponent === 'pablo') return { ok: Boolean(this.profile.mexico.active), opponent, message: 'Pablo vous attend au gym du Mexique.' };
+    const travel = this._activeTravel();
+    if (this._marathonRunning()) return { ok: false, opponent, message: 'Terminez ou quittez votre course avant un combat officiel.' };
+    if (travel && TRAVEL_DESTINATIONS[travel].opponent !== opponent) return { ok: false, opponent, message: 'Rentrez de voyage pour ce combat.' };
     if (NEXT_FIGHT_IDS.includes(opponent)) {
       if (!postBronzeUnlocked(this.profile)) return { ok: false, opponent, message: 'Terminez une participation aux Gants de bronze, puis rentrez à Montréal pour ouvrir ces défis.' };
-      if (this.profile.tournament.active) return { ok: false, opponent, message: 'Terminez votre séjour aux Gants de bronze avant de choisir ce défi.' };
-      if (opponent === 'louisto' && !this.profile.cuba.active) return { ok: false, opponent, message: 'Louisto vous attend sur le ring de la plage pendant votre séjour à Cuba.' };
+      if (this.profile.tournament.active) return { ok: false, opponent, message: 'Terminez votre séjour au tournoi avant de choisir ce défi.' };
+      const required = Object.values(TRAVEL_DESTINATIONS).find(destination => destination.opponent === opponent);
+      if (required && !this.profile[required.id].active) return { ok: false, opponent, message: `${opponent === 'louisto' ? 'Louisto' : 'Danielo'} vous attend pendant votre séjour ${required.id === 'cuba' ? 'à Cuba' : 'au Mexique'}.` };
       return { ok: true, opponent };
     }
     if (opponent === 'beton') return { ok: true, opponent };
-    if (opponent === 'kramer') return { ok: this.profile.fights.beton.wins > 0, opponent,
-      message: 'Battez Béton pour rencontrer Kramer « The Quitter ».' };
+    if (opponent === 'kramer') return { ok: this.profile.fights.beton.wins > 0, opponent, message: 'Battez Béton pour rencontrer Kramer « The Quitter ».' };
     const active = this.profile.tournament.active;
-    return { ok: active?.status === 'ready' && TOURNAMENT_OPPONENTS[active.day - 1] === opponent,
-      opponent, message: 'Cet adversaire vous attend dans le tableau des Gants de bronze.' };
+    return { ok: active?.status === 'ready' && tournamentOpponents(active.tier)[active.day - 1] === opponent,
+      opponent, message: 'Cet adversaire vous attend dans le tableau de votre tournoi.' };
   }
-  canStartTournament() {
-    const fee = this.profile.tournament.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first;
-    const base = { fee, money: this.profile.wallet.money };
-    if (this.profile.cuba.active) return { ...base, ok: false, message: 'Rentrez de Cuba avant une nouvelle inscription aux Gants de bronze.' };
-    if (this.profile.tournament.active) return { ...base, ok: false, message: 'Votre séjour aux Gants de bronze est déjà en cours.' };
-    if (this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez ou abandonnez votre tournée avant de partir.' };
+  canStartTournament(tier = 'bronze') {
+    const fee = tier === 'gold' ? GOLD_TOURNAMENT_FEE : this.profile.tournament.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first;
+    const base = { tier, fee, money: this.profile.wallet.money, label: tournamentLabel(tier) };
+    if (!TOURNAMENT_TIERS.includes(tier)) return { ...base, ok: false, message: 'Ce tournoi n’existe pas.' };
+    if (this._activeTravel()) return { ...base, ok: false, message: 'Rentrez de voyage avant une nouvelle inscription au tournoi.' };
+    if (this.profile.tournament.active) return { ...base, ok: false, message: 'Votre séjour au tournoi est déjà en cours.' };
+    if (this.profile.delivery.active || this._marathonRunning()) return { ...base, ok: false, message: 'Terminez votre tournée ou votre course avant de partir.' };
     if (!this.profile.fights.kramer.wins) return { ...base, ok: false, message: 'Battez Kramer pour vous inscrire aux Gants de bronze.' };
+    if (tier === 'gold' && !goldTournamentUnlocked(this.profile)) return { ...base, ok: false,
+      message: 'Gants dorés : terminez les Gants de bronze et battez Dyrex, Le Feu, Louisto et Danielo. Le marathon est facultatif.' };
     if (this.profile.wallet.money < fee) return { ...base, ok: false, message: `Inscription : ${fee} $. Quelques tournées vous aideront à réunir la somme.` };
     if (this.profile.tournament.nextId === Number.MAX_SAFE_INTEGER) return { ...base, ok: false, message: 'Le nombre maximal d’inscriptions est atteint.' };
     return { ...base, ok: true, message: `${fee} $ · tournoi, hôtel et installations compris pendant les trois jours.` };
   }
-  startTournament() {
-    const offer = this.canStartTournament();
+  startTournament(tier = 'bronze') {
+    const offer = this.canStartTournament(tier);
     if (!offer.ok) return this._result(false, offer.message, offer);
     this.profile.wallet.money -= offer.fee;
     const tournament = this.profile.tournament;
-    tournament.active = { id: tournament.nextId++, day: 1, status: 'ready', results: [], medal: null };
+    tournament.active = { id: tournament.nextId++, day: 1, status: 'ready', results: [], medal: null, tier };
     tournament.entries += 1;
     this.profile.location = { ...HOTEL_ROOM_SPAWN };
     this._save();
-    return this._result(true, 'Bienvenue aux Gants de bronze. Votre quart de finale vous attend au jour 1.', { ...this.tournamentStatus(), fee: offer.fee });
+    return this._result(true, `Bienvenue aux ${tournamentLabel(tier)}. Votre quart de finale vous attend au jour 1.`, { ...this.tournamentStatus(), fee: offer.fee });
   }
   tournamentStatus() {
-    const state = clone(this.profile.tournament), active = state.active;
-    return { ...state, opponent: active ? TOURNAMENT_OPPONENTS[active.day - 1] : null,
+    const state = clone(this.profile.tournament), active = state.active, tier = active?.tier ?? 'bronze';
+    const opponents = [...tournamentOpponents(tier)];
+    return { ...state, tier, label: tournamentLabel(tier), judges: 5, opponents, opponent: active ? opponents[active.day - 1] : null,
       currentMatchId: active ? `${active.id}:${active.day}` : null,
       roundLabel: active ? TOURNAMENT_ROUNDS[active.day - 1] : null,
-      participants: clone(TOURNAMENT_PARTICIPANTS), canSleep: !active || active.status !== 'ready',
-      canFight: active?.status === 'ready', fee: state.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first };
+      participants: clone(tier === 'gold' ? GOLD_TOURNAMENT_PARTICIPANTS : TOURNAMENT_PARTICIPANTS), canSleep: !active || active.status !== 'ready',
+      canFight: active?.status === 'ready', fee: tier === 'gold' ? GOLD_TOURNAMENT_FEE : state.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first,
+      goldUnlocked: goldTournamentUnlocked(this.profile) };
   }
-  cubaOffer() {
-    const base = { fee: CUBA_PRICE, price: CUBA_PRICE, money: this.profile.wallet.money };
-    if (this.profile.cuba.active) return { ...base, ok: false, duplicate: true, message: 'Votre séjour à Cuba est déjà payé et en cours.' };
-    if (this.profile.tournament.active) return { ...base, ok: false, message: 'Rentrez des Gants de bronze avant de partir à Cuba.' };
-    if (this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez ou abandonnez votre tournée avant de partir à Cuba.' };
-    if (!postBronzeUnlocked(this.profile)) return { ...base, ok: false, message: 'Une participation terminée aux Gants de bronze ouvre les voyages à Cuba. Une élimination compte aussi; un abandon ne suffit pas.' };
-    if (this.profile.wallet.money < CUBA_PRICE) return { ...base, ok: false, message: `Séjour à Cuba : ${CUBA_PRICE} $. Il manque ${CUBA_PRICE - this.profile.wallet.money} $. Le retour est compris.` };
-    if (this.profile.cuba.nextId === Number.MAX_SAFE_INTEGER) return { ...base, ok: false, message: 'Le nombre maximal de séjours à Cuba est atteint.' };
-    return { ...base, ok: true, message: `${CUBA_PRICE} $ pour ce séjour : logement et retour à Montréal compris. Aucun nombre de nuits imposé.` };
+  travelOffer(destination = 'cuba') {
+    const config = TRAVEL_DESTINATIONS[destination];
+    if (!config) return { ok: false, message: 'Cette destination n’existe pas.' };
+    const travel = this.profile[destination], base = { destination, label: config.label, fee: config.price, price: config.price, money: this.profile.wallet.money };
+    if (travel.active || travel.reserved) return { ...base, ok: false, duplicate: true, reserved: Boolean(travel.reserved), message: `Votre séjour ${config.label} est déjà payé${travel.reserved ? ' : rendez-vous à l’aéroport pour embarquer' : ' et en cours'}.` };
+    if (this._activeTravel()) return { ...base, ok: false, message: 'Rentrez de votre séjour avant de réserver le suivant.' };
+    if (this.profile.tournament.active) return { ...base, ok: false, message: 'Rentrez du tournoi avant de réserver votre voyage.' };
+    if (this.profile.delivery.active || this._marathonRunning()) return { ...base, ok: false, message: 'Terminez ou quittez votre tournée ou votre course avant de réserver.' };
+    if (!postBronzeUnlocked(this.profile)) return { ...base, ok: false, message: 'Une participation terminée aux Gants de bronze ouvre les voyages. Une élimination compte aussi; un abandon ne suffit pas.' };
+    if (this.profile.wallet.money < config.price) return { ...base, ok: false, message: `Séjour ${config.label} : ${config.price} $. Il manque ${config.price - this.profile.wallet.money} $. Le retour est compris.` };
+    if (travel.nextId === Number.MAX_SAFE_INTEGER) return { ...base, ok: false, message: 'Le nombre maximal de séjours est atteint.' };
+    return { ...base, ok: true, message: `${config.price} $ : logement et retour compris. Réservez ici, puis embarquez à l’aéroport. Aucun nombre de nuits imposé.` };
   }
-  startCuba() {
-    const offer = this.cubaOffer();
+  reserveTravel(destination = 'cuba') {
+    const offer = this.travelOffer(destination);
     if (!offer.ok) return this._result(false, offer.message, offer);
-    const cuba = this.profile.cuba;
-    this.profile.wallet.money -= CUBA_PRICE;
-    cuba.active = { id: cuba.nextId++, startedAtDay: this.profile.daily.day, fee: CUBA_PRICE };
-    cuba.entries++;
-    this.profile.location = { ...CUBA_HOME_SPAWN };
+    const travel = this.profile[destination];
+    this.profile.wallet.money -= offer.price;
+    travel.reserved = { id: travel.nextId++, startedAtDay: this.profile.daily.day, fee: offer.price };
+    travel.entries++;
     this._save();
-    return this._result(true, 'Bienvenue à Cuba. Installez-vous, explorez le village et retrouvez Louisto sur le ring de la plage.',
-      { ...this.cubaStatus(), location: { ...this.profile.location } });
+    return this._result(true, `Séjour ${offer.label} réservé. Prenez le métro vers l’aéroport, puis présentez-vous à l’embarquement.`, this.travelStatus(destination));
   }
-  cubaStatus() {
-    const cuba = clone(this.profile.cuba);
-    return { ...cuba, fee: CUBA_PRICE, price: CUBA_PRICE, unlocked: postBronzeUnlocked(this.profile),
-      canLeave: Boolean(cuba.active), canFight: Boolean(cuba.active), opponent: cuba.active ? 'louisto' : null };
-  }
-  leaveCuba() {
-    const cuba = this.profile.cuba, active = cuba.active;
-    if (!active) return this._result(false, 'Aucun séjour à Cuba en cours.');
-    cuba.history.push({ ...active, returnedAtDay: this.profile.daily.day });
-    cuba.active = null;
-    this.profile.location = { ...CUBA_RETURN_SPAWN };
+  boardTravel(destination = 'cuba') {
+    const config = TRAVEL_DESTINATIONS[destination], travel = this.profile[destination];
+    if (!config || !travel?.reserved) return this._result(false, 'Réservez ce séjour avant de vous présenter à l’embarquement.');
+    if (this._activeTravel() || this.profile.tournament.active || this.profile.delivery.active || this._marathonRunning()) return this._result(false, 'Terminez votre activité en cours avant d’embarquer.');
+    if (this.profile.location.scene !== 'airport') return this._result(false, 'Rendez-vous à l’aéroport pour embarquer.');
+    travel.active = travel.reserved; travel.reserved = null;
+    this.profile.location = { ...config.home };
     this._save();
-    return this._result(true, 'Retour à Des Rives. Votre séjour est terminé; vos acquis sont conservés.',
-      { ...this.cubaStatus(), location: { ...this.profile.location } });
+    return this._result(true, `Bienvenue ${destination === 'cuba' ? 'à Cuba' : 'au Mexique'} ! Votre logement et votre vol de retour sont compris.`,
+      { ...this.travelStatus(destination), location: { ...this.profile.location } });
   }
+  travelStatus(destination = 'cuba') {
+    const config = TRAVEL_DESTINATIONS[destination];
+    if (!config) return { ok: false, message: 'Cette destination n’existe pas.' };
+    const travel = clone(this.profile[destination]);
+    return { ...travel, destination, label: config.label, fee: config.price, price: config.price, unlocked: postBronzeUnlocked(this.profile),
+      canBoard: Boolean(travel.reserved) && !this._activeTravel() && !this.profile.tournament.active && !this.profile.delivery.active && !this._marathonRunning(),
+      canLeave: Boolean(travel.active), canFight: Boolean(travel.active), opponent: travel.active ? config.opponent : null };
+  }
+  leaveTravel(destination = 'cuba') {
+    const config = TRAVEL_DESTINATIONS[destination], travel = this.profile[destination];
+    if (!config || !travel?.active) return this._result(false, 'Aucun séjour en cours dans cette destination.');
+    travel.history.push({ ...travel.active, returnedAtDay: this.profile.daily.day });
+    travel.active = null;
+    this.profile.location = { ...AIRPORT_SPAWN };
+    this._save();
+    return this._result(true, 'Retour à l’aéroport de Montréal. Le métro vous ramène au quartier; vos acquis sont conservés.',
+      { ...this.travelStatus(destination), location: { ...this.profile.location } });
+  }
+  cubaOffer() { return this.travelOffer('cuba'); }
+  startCuba() { return this.reserveTravel('cuba'); }
+  cubaStatus() { return this.travelStatus('cuba'); }
+  leaveCuba() { return this.leaveTravel('cuba'); }
+  mexicoOffer() { return this.travelOffer('mexico'); }
+  startMexico() { return this.reserveTravel('mexico'); }
+  mexicoStatus() { return this.travelStatus('mexico'); }
+  leaveMexico() { return this.leaveTravel('mexico'); }
+  marathonOffer() {
+    const base = { fee: MARATHON_PRICE, price: MARATHON_PRICE, money: this.profile.wallet.money };
+    if (this.profile.marathon.active) return { ...base, ok: false, duplicate: true, message: 'Vous êtes déjà inscrit. Retrouvez le départ sur l’île.' };
+    if (this._activeTravel() || this.profile.tournament.active || this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez votre activité ou votre séjour avant de vous inscrire.' };
+    if (this.profile.wallet.money < MARATHON_PRICE) return { ...base, ok: false, message: `Inscription : ${MARATHON_PRICE} $. Une médaille souvenir, sans prime d’argent, récompense votre première arrivée.` };
+    if (this.profile.marathon.nextId === Number.MAX_SAFE_INTEGER) return { ...base, ok: false, message: 'Le nombre maximal d’inscriptions est atteint.' };
+    return { ...base, ok: true, message: `${MARATHON_PRICE} $ l’inscription. Parcours libre au joypad ou aux directions; départ sur l’île, arrivée au Stade olympique. Médaille souvenir unique, aucune prime d’argent.` };
+  }
+  registerMarathon() {
+    const offer = this.marathonOffer();
+    if (!offer.ok) return this._result(false, offer.message, offer);
+    const m = this.profile.marathon;
+    this.profile.wallet.money -= MARATHON_PRICE;
+    m.active = { id: m.nextId++, registeredAtDay: this.profile.daily.day, fee: MARATHON_PRICE, status: 'registered',
+      elapsed: 0, stage: 0, routePoint: 0, checkpoint: { ...MARATHON_START }, encounterUsed: false, encounter: 'none' };
+    m.entries++;
+    this._save();
+    return this._result(true, 'Inscription confirmée. Prenez le métro pour l’île et rejoignez le départ à votre rythme.', this.marathonStatus());
+  }
+  startMarathon() {
+    const active = this.profile.marathon.active;
+    if (!active) return this._result(false, 'Inscrivez-vous au marathon depuis le navigateur du laptop.');
+    if (active.status !== 'registered') return this._result(false, 'Votre course a déjà commencé.', { duplicate: true });
+    if (this.profile.location.scene !== 'marathon-island') return this._result(false, 'Rejoignez le départ sur l’île.');
+    if (this._activeTravel() || this.profile.tournament.active || this.profile.delivery.active) return this._result(false, 'Terminez votre activité en cours avant le départ.');
+    active.status = 'running'; active.checkpoint = { ...this.profile.location };
+    this._save();
+    return this._result(true, 'C’est parti ! Suivez le parcours en vous déplaçant simplement.', this.marathonStatus());
+  }
+  marathonStatus() {
+    return { ...clone(this.profile.marathon), fee: MARATHON_PRICE, price: MARATHON_PRICE,
+      registered: this.profile.marathon.active?.status === 'registered', running: Boolean(this._marathonRunning()),
+      medalOwned: this.profile.marathon.medals.length > 0 };
+  }
+  recordMarathonProgress({ elapsed, checkpoint, routePoint } = {}) {
+    const active = this.profile.marathon.active;
+    if (!active || active.status !== 'running') return this._result(false, 'Aucune course en mouvement.');
+    elapsed ??= active.elapsed; checkpoint ??= active.checkpoint;
+    let clean;
+    try { clean = cleanMarathonCheckpoint(checkpoint); } catch (error) { return this._result(false, error.message); }
+    const stage = MARATHON_PLACES.indexOf(clean.scene);
+    const previousPoint = active.routePoint ?? 0;
+    routePoint ??= stage === active.stage ? previousPoint : 0;
+    if (!counter(routePoint) || routePoint > 50 || (stage === active.stage ? routePoint < previousPoint : routePoint !== 0)) return this._result(false, 'Les points de passage doivent être suivis sans reculer dans le même secteur.');
+    if (typeof elapsed !== 'number' || !Number.isFinite(elapsed) || elapsed < active.elapsed || elapsed > Number.MAX_SAFE_INTEGER
+      || stage < active.stage || stage > active.stage + 1) return this._result(false, 'Le parcours doit être suivi dans l’ordre, sans reculer le chronomètre.');
+    if (elapsed === active.elapsed && routePoint === previousPoint && Object.keys(clean).every(key => clean[key] === active.checkpoint[key])) return this._result(true, 'Course déjà enregistrée.', { unchanged: true });
+    active.elapsed = elapsed; active.checkpoint = clean; active.stage = stage; active.routePoint = routePoint;
+    this.profile.location = { ...clean };
+    this._save();
+    return this._result(true, 'Point de course enregistré.', this.marathonStatus());
+  }
+  encounterMarathon(choice = 'avoid') {
+    const active = this.profile.marathon.active;
+    if (!active || active.status !== 'running' || active.encounterUsed) return this._result(false, 'Cette rencontre a déjà été dépassée.', { duplicate: Boolean(active?.encounterUsed) });
+    if (!['avoid', 'fight'].includes(choice)) return this._result(false, 'Choix de rencontre invalide.');
+    active.encounterUsed = true; active.encounter = choice === 'avoid' ? 'avoided' : 'pending';
+    if (choice === 'fight') active.status = 'encounter';
+    this._save();
+    return this._result(true, choice === 'avoid' ? 'Vous poursuivez tranquillement votre course.' : 'Une seule mise au sol met fin à l’altercation.',
+      { ...this.marathonStatus(), location: { ...active.checkpoint } });
+  }
+  resolveMarathonEncounter(result = {}) {
+    const active = this.profile.marathon.active;
+    if (!active || active.status !== 'encounter') return this._result(false, 'Aucune altercation en cours.', { duplicate: true });
+    const winner = typeof result === 'string' ? result : object(result) ? result.winner ?? (typeof result.won === 'boolean' ? result.won ? 'player' : 'remi' : null) : null;
+    if (object(result) && result.elapsed !== undefined && (typeof result.elapsed !== 'number' || !Number.isFinite(result.elapsed) || result.elapsed < active.elapsed || result.elapsed > Number.MAX_SAFE_INTEGER)) return this._result(false, 'Le temps de course est invalide.');
+    if (!['player', 'remi', 'runner'].includes(winner)) return this._result(false, 'Résultat de l’altercation invalide.');
+    active.encounter = winner === 'player' ? 'won' : 'lost'; active.status = 'running';
+    if (object(result) && result.elapsed !== undefined) active.elapsed = result.elapsed;
+    // The run resumes from precisely the saved position. No money, skill or official fight reward.
+    this.profile.location = { ...active.checkpoint };
+    this._save();
+    return this._result(true, 'L’altercation est terminée. Reprenez votre course.', { ...this.marathonStatus(), location: { ...active.checkpoint } });
+  }
+  finishMarathon({ elapsed } = {}) {
+    const m = this.profile.marathon, active = m.active;
+    if (!active || active.status !== 'running') return this._result(false, 'Aucune course à terminer.', { duplicate: !active });
+    elapsed ??= active.elapsed;
+    if (active.stage !== MARATHON_PLACES.length - 1 || this.profile.location.scene !== 'marathon-stadium'
+      || typeof elapsed !== 'number' || !Number.isFinite(elapsed) || elapsed <= 0 || elapsed < active.elapsed || elapsed > Number.MAX_SAFE_INTEGER)
+      return this._result(false, 'Suivez tout le parcours jusqu’à la ligne d’arrivée au Stade olympique.');
+    active.elapsed = elapsed; active.status = 'finished'; active.finishedAtDay = this.profile.daily.day;
+    const firstMedal = m.medals.length === 0, best = m.bestTime === null || elapsed < m.bestTime;
+    if (firstMedal) m.medals.push({ event: MARATHON_ID, runId: active.id, day: this.profile.daily.day });
+    m.bestTime = m.bestTime === null ? elapsed : Math.min(m.bestTime, elapsed);
+    m.history.push(active); m.active = null;
+    this._save();
+    return this._result(true, `Marathon terminé !${firstMedal ? ' Votre médaille souvenir vous attend à la maison.' : ' Votre arrivée est enregistrée.'}${best ? ' Nouveau record personnel.' : ''}`,
+      { ...this.marathonStatus(), firstMedal, personalBest: best, elapsed });
+  }
+  abandonMarathon() {
+    const m = this.profile.marathon, active = m.active;
+    if (!active) return this._result(false, 'Aucune inscription en cours.');
+    active.status = 'abandoned'; active.finishedAtDay = this.profile.daily.day;
+    m.history.push(active); m.active = null;
+    this._save();
+    return this._result(true, 'Participation terminée. Les frais d’inscription restent utilisés; les lieux restent accessibles.', this.marathonStatus());
+  }
+
   unlockTechnique(id, { completed = false, source = null } = {}) {
     if (id !== 'doubleJab') return this._result(false, 'Cette technique n’existe pas.');
     if (this.profile.techniques.doubleJab) return this._result(true, 'Le double jab–direct est déjà appris.', { unchanged: true });
-    if (!postBronzeUnlocked(this.profile) || this.profile.tournament.active || this.profile.cuba.active) return this._result(false, 'Cette technique se travaille avec The Octopus au gym de Montréal, après votre retour des Gants de bronze.');
+    if (!postBronzeUnlocked(this.profile) || this.profile.tournament.active || this._activeTravel()) return this._result(false, 'Cette technique se travaille avec The Octopus au gym de Montréal, après votre retour des Gants de bronze.');
     if (completed !== true || source !== 'octopus') return this._result(false, 'Terminez le drill du double jab avec The Octopus pour apprendre cette technique.');
     this.profile.techniques.doubleJab = true;
     this._save();
@@ -450,7 +602,7 @@ export class CareerProfile {
     if (!active) return this._result(false, 'Aucun séjour au tournoi en cours.');
     if (active.results.some(recorded => recorded.matchId === result.matchId)) return this._result(false, 'Ce résultat est déjà enregistré.', { duplicate: true });
     if (active.status !== 'ready' || result.matchId !== `${active.id}:${active.day}`
-      || result.opponent !== TOURNAMENT_OPPONENTS[active.day - 1] || !['player', 'remi', 'draw'].includes(result.winner))
+      || result.opponent !== tournamentOpponents(active.tier)[active.day - 1] || !['player', 'remi', 'draw'].includes(result.winner))
       return this._result(false, 'Ce résultat ne correspond pas au combat prévu aujourd’hui.');
     // The arcade rules can yield a points draw. A tournament needs a winner:
     // replay this match for free, without advancing the bracket or the day.
@@ -462,7 +614,7 @@ export class CareerProfile {
       active.status = active.day === 3 ? 'champion' : 'awaiting-sleep';
       if (active.day === 3) active.medal = 'gold';
     } else { active.status = 'eliminated'; active.medal = ['participation', 'bronze', 'silver'][active.day - 1]; }
-    if (active.medal) this.profile.tournament.medals.push({ tournamentId: active.id, type: active.medal, day: this.profile.daily.day });
+    if (active.medal) this.profile.tournament.medals.push({ tournamentId: active.id, type: active.medal, day: this.profile.daily.day, ...(active.tier === 'gold' ? { tier: 'gold' } : {}) });
     this._save();
     const message = active.medal ? `${MEDAL_LABELS[active.medal]} ajoutée à votre collection à la maison.` : 'Victoire ! Retrouvez votre lit à l’hôtel pour passer au prochain jour.';
     return this._result(true, message, this.tournamentStatus());
@@ -479,6 +631,113 @@ export class CareerProfile {
       { location: { ...this.profile.location }, medal: active.medal });
   }
 
+  testStatus() { return { active: this.mode === 'test', mode: this.mode, storageKey: this.storageKey }; }
+  enterTestProfile({ reset = false } = {}) {
+    if (this.mode === 'test' && !reset) return this._result(true, 'Profil de test déjà actif.', this.testStatus());
+    const source = this.mode === 'test' ? null : this.snapshot();
+    if (source) this.normalState = { profile: source, lastPersisted: this.lastPersisted, backupAvailable: this.backupAvailable, writeProtected: this.writeProtected, status: { ...this.status } };
+    this.mode = 'test'; this.storageKey = TEST_STORAGE_KEY;
+    this.lastPersisted = null; this.backupAvailable = false; this.writeProtected = false;
+    let existing = false;
+    try { existing = Boolean(this.storage?.getItem(TEST_STORAGE_KEY)); } catch { /* Session-only tests still isolate the normal profile. */ }
+    if (source) this.normalSession = source;
+    this.profile = reset ? clone(this.normalSession ?? freshProfile(this.now())) : existing ? this._load() : clone(this.normalSession ?? freshProfile(this.now()));
+    this._save({ increment: false });
+    return this._result(true, 'Profil de test actif. Votre carrière normale est conservée séparément. Tapez retour pour la retrouver.', this.testStatus());
+  }
+  leaveTestProfile() {
+    if (this.mode !== 'test') return this._result(true, 'Votre carrière normale est déjà active.', { ...this.testStatus(), location: { ...this.profile.location } });
+    this.mode = 'normal'; this.storageKey = STORAGE_KEY;
+    this.lastPersisted = null; this.backupAvailable = false; this.writeProtected = false;
+    if (this.normalState) {
+      const state = this.normalState; this.profile = clone(state.profile); this.lastPersisted = state.lastPersisted;
+      this.backupAvailable = state.backupAvailable; this.writeProtected = state.writeProtected; this.status = { ...state.status };
+    } else if (this.storage) this.profile = this._load();
+    else { this.profile = clone(this.normalSession ?? freshProfile(this.now())); this._unavailable(); }
+    return this._result(true, 'Retour à votre carrière normale, inchangée.', { ...this.testStatus(), location: { ...this.profile.location } });
+  }
+  _testClearActivities() {
+    if (this.profile.delivery.active) this.abandonDelivery();
+    if (this.profile.marathon.active) this.abandonMarathon();
+    if (this.profile.tournament.active) this.leaveTournament();
+    const travel = this._activeTravel(); if (travel) this.leaveTravel(travel);
+  }
+  _testMoney() {
+    this.profile.wallet.money = moneyCap(this.profile.fights);
+    this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, this.profile.wallet.money);
+  }
+  _testBronze() {
+    if (!this.profile.fights.beton.wins) this.recordFight({ opponent: 'beton', winner: 'player' });
+    if (!this.profile.fights.kramer.wins) this.recordFight({ opponent: 'kramer', winner: 'player' });
+    this._testMoney();
+    if (!postBronzeUnlocked(this.profile)) {
+      this.startTournament();
+      const status = this.tournamentStatus();
+      this.recordTournamentFight({ opponent: status.opponent, matchId: status.currentMatchId, winner: 'remi' });
+      this.leaveTournament();
+    }
+    this._testMoney(); this.profile.techniques.doubleJab = true;
+  }
+  _testTrip(destination) {
+    this._testMoney();
+    if (!this.profile[destination].reserved) this.reserveTravel(destination);
+    this.setLocation(AIRPORT_SPAWN);
+    return this.boardTravel(destination);
+  }
+  applyTestCommand(input) {
+    if (typeof input !== 'string' || input.length > 100) return this._result(false, 'Commande invalide. Tapez liste.');
+    const [command, argument, ...extra] = input.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/\s+/);
+    if (extra.length) return this._result(false, 'Une commande contient un ou deux mots. Tapez liste.');
+    if (['liste', 'aide'].includes(command)) return this._result(true, 'Commandes du terminal · les commandes de test utilisent une sauvegarde distincte.', { commands: TEST_COMMANDS.map(([command, description]) => ({ command, description })), ...this.testStatus() });
+    if (command === 'retour') return this.leaveTestProfile();
+    const destinations = { maison: 'home', gym: 'gym', aeroport: 'airport', cuba: 'cuba', mexique: 'mexico', mexico: 'mexico', marathon: 'marathon', bronze: 'bronze', hotel: 'bronze', dore: 'gold', gold: 'gold' };
+    const opponents = { beton: 'beton', kramer: 'kramer', dyrex: 'dyrex', feu: 'lefeu', lefeu: 'lefeu', louisto: 'louisto', danielo: 'danielo' };
+    if (!(['test', 'combat', 'argent', 'energie'].includes(command))
+      || command === 'test' && !destinations[argument] || command === 'combat' && !opponents[argument]
+      || ['argent', 'energie'].includes(command) && !/^\d{1,6}$/.test(argument ?? '')) return this._result(false, 'Commande inconnue. Tapez liste pour les commandes disponibles.');
+    this.enterTestProfile();
+    if (command === 'argent' || command === 'energie') {
+      const max = command === 'argent' ? moneyCap(this.profile.fights) : DAILY_ENERGY_MAX;
+      const value = Math.min(Number(argument), max);
+      if (command === 'argent') { this.profile.wallet.money = value; this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, value); }
+      else this.profile.daily.energy = value;
+      this._save();
+      return this._result(true, `${command === 'argent' ? 'Argent' : 'Énergie'} de test : ${value}${Number(argument) > max ? ` · plafond ${max}` : ''}.`, this.testStatus());
+    }
+    this._testClearActivities();
+    this.profile.daily.energy = DAILY_ENERGY_MAX;
+    const target = command === 'combat' ? opponents[argument] : destinations[argument];
+    if (['home', 'gym'].includes(target)) {
+      this.setLocation(target === 'home' ? HOME_SPAWN : LEGACY_GYM_SPAWN);
+    } else {
+      this._testBronze();
+      if (['cuba', 'mexico'].includes(target)) this._testTrip(target);
+      else if (target === 'airport') {
+        for (const destination of ['cuba', 'mexico']) { this._testMoney(); if (!this.profile[destination].reserved) this.reserveTravel(destination); }
+        this.setLocation(AIRPORT_SPAWN);
+      } else if (target === 'marathon') {
+        this.registerMarathon(); this.setLocation(MARATHON_START);
+      } else if (['bronze', 'gold'].includes(target)) {
+        if (target === 'gold') {
+          for (const opponent of ['dyrex', 'lefeu']) if (!this.profile.fights[opponent].wins) this.recordFight({ opponent, winner: 'player' });
+          for (const destination of ['cuba', 'mexico']) {
+            const opponent = TRAVEL_DESTINATIONS[destination].opponent;
+            if (!this.profile.fights[opponent].wins) { this._testTrip(destination); this.recordFight({ opponent, winner: 'player' }); this.leaveTravel(destination); }
+          }
+          this._testMoney();
+        }
+        this.startTournament(target);
+      } else {
+        if (target === 'louisto') this._testTrip('cuba');
+        else if (target === 'danielo') this._testTrip('mexico');
+        else this.setLocation({ scene: 'neighborhood', x: 1900, y: 562, facing: 'down' });
+      }
+    }
+    this._save();
+    return this._result(true, `Profil de test prêt · ${argument}. Tapez retour dans le terminal pour retrouver votre carrière.`,
+      { ...this.testStatus(), location: { ...this.profile.location }, ...(command === 'combat' ? { opponent: target } : {}) });
+  }
+
   exportText() { return `${JSON.stringify(this.profile, null, 2)}\n`; }
   inspectImport(text) { return clone(parse(text)); }
   importText(text) {
@@ -490,4 +749,4 @@ export class CareerProfile {
 }
 
 export const careerProfile = new CareerProfile();
-export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY, VERSION as CAREER_VERSION };
+export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY, VERSION as CAREER_VERSION, TEST_STORAGE_KEY as CAREER_TEST_STORAGE_KEY, TEST_COMMANDS };

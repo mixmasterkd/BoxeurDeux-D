@@ -86,7 +86,7 @@ test('Rémi keeps a readable windup and meets his contact on both committed atta
       attacks.add(event.attack);
       assert.equal(boxer.pose, `${event.attack}${event.target === 'body' ? '-body' : ''}`);
       const contact = boxer.contact();
-      const expectedX = boxer.target.x + (event.attack === 'jab' ? -36 : 36);
+      const expectedX = boxer.target.x + (event.attack === 'jab' ? 36 : -36);
       assert.ok(Math.hypot(contact.x - expectedX, contact.y - boxer.target.y - (event.target === 'body' ? 0 : 18)) < 1);
     }
   }

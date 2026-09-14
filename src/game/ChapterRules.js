@@ -18,7 +18,9 @@ export const SHOP_CATALOG = Object.freeze([
 export const DEFAULT_INVENTORY = Object.freeze({ street: 'street-black', boxing: 'boxing-blue' });
 export const TOURNAMENT_OPPONENTS = Object.freeze(['bellini', 'fortin', 'gagnon']);
 export const LEGACY_FIGHT_IDS = Object.freeze(['beton', 'kramer', ...TOURNAMENT_OPPONENTS]);
-export const FIGHT_IDS = Object.freeze([...LEGACY_FIGHT_IDS, ...NEXT_FIGHT_IDS]);
+export const GOLD_TOURNAMENT_OPPONENTS = Object.freeze(['gold-rios', 'gold-moreau', 'gold-santos']);
+export const V4_FIGHT_IDS = Object.freeze([...LEGACY_FIGHT_IDS, 'dyrex', 'lefeu', 'louisto']);
+export const FIGHT_IDS = Object.freeze([...LEGACY_FIGHT_IDS, ...NEXT_FIGHT_IDS, ...GOLD_TOURNAMENT_OPPONENTS]);
 export const TOURNAMENT_PARTICIPANTS = Object.freeze([
   { id: 'player', name: 'La Tuque rouge', seed: 1 },
   { id: 'bellini', name: 'Marco Bellini', seed: 2 },
@@ -29,6 +31,22 @@ export const TOURNAMENT_PARTICIPANTS = Object.freeze([
   { id: 'nguyen', name: 'Alex Nguyen', seed: 7 },
   { id: 'santos', name: 'David Santos', seed: 8 },
 ].map(participant => Object.freeze(participant)));
+export const GOLD_TOURNAMENT_PARTICIPANTS = Object.freeze([
+  { id: 'player', name: 'La Tuque rouge', seed: 1 },
+  { id: 'gold-rios', name: 'Rafael Ríos', seed: 2 },
+  { id: 'gold-moreau', name: 'Émile Moreau', seed: 3 },
+  { id: 'gold-chen', name: 'Julien Chen', seed: 4 },
+  { id: 'gold-santos', name: 'Thiago Santos', seed: 5 },
+  { id: 'gold-dupuis', name: 'Alexis Dupuis', seed: 6 },
+  { id: 'gold-belanger', name: 'Marc Bélanger', seed: 7 },
+  { id: 'gold-ali', name: 'Nassim Ali', seed: 8 },
+].map(participant => Object.freeze(participant)));
+export const GOLD_TOURNAMENT_FEE = 240;
+export const TOURNAMENT_TIERS = Object.freeze(['bronze', 'gold']);
+export const tournamentOpponents = (tier = 'bronze') => tier === 'gold' ? GOLD_TOURNAMENT_OPPONENTS : TOURNAMENT_OPPONENTS;
+export const tournamentLabel = (tier = 'bronze') => tier === 'gold' ? 'Gants dorés' : 'Gants de bronze';
+export const goldTournamentUnlocked = profile => Boolean(profile?.tournament?.history?.some(run => (run.tier ?? 'bronze') === 'bronze' && ['champion', 'eliminated'].includes(run.status))
+  && ['dyrex', 'lefeu', 'louisto', 'danielo'].every(id => profile?.fights?.[id]?.wins > 0));
 export const TOURNAMENT_ROUNDS = Object.freeze(['Quart de finale', 'Demi-finale', 'Finale']);
 export const TOURNAMENT_FEES = Object.freeze({ first: 120, retry: 60 });
 export const MEDAL_LABELS = Object.freeze({ gold: 'Médaille d’or', silver: 'Médaille d’argent', bronze: 'Médaille de bronze', participation: 'Souvenir de participation' });
@@ -66,12 +84,15 @@ export function validDeliveryStops(stops) {
   return Array.isArray(stops) && stops.length === 3 && stops.every(id) && new Set(stops).size === stops.length;
 }
 function cleanTournamentRun(run, archived = false) {
+  const tier = run?.tier ?? 'bronze';
+  requireValue(TOURNAMENT_TIERS.includes(tier), 'Le niveau du tournoi est invalide.');
+  const opponents = tournamentOpponents(tier);
   requireValue(object(run) && counter(run.id) && run.id > 0 && [1, 2, 3].includes(run.day)
     && ['ready', 'awaiting-sleep', 'eliminated', 'champion', ...(archived ? ['forfeited'] : [])].includes(run.status)
     && Array.isArray(run.results) && run.results.length <= 3 && (run.medal === null || Object.hasOwn(MEDAL_LABELS, run.medal)),
   'Le séjour au tournoi est invalide.');
   const results = run.results.map((result, index) => {
-    requireValue(object(result) && result.day === index + 1 && result.opponent === TOURNAMENT_OPPONENTS[index]
+    requireValue(object(result) && result.day === index + 1 && result.opponent === opponents[index]
       && result.matchId === `${run.id}:${result.day}` && ['player', 'remi', 'draw'].includes(result.winner)
       && validScore(result.score) && (index === run.results.length - 1 || result.winner === 'player'), 'Le tableau du tournoi est invalide.');
     return { day: result.day, opponent: result.opponent, matchId: result.matchId, winner: result.winner, score: result.score };
@@ -84,7 +105,7 @@ function cleanTournamentRun(run, archived = false) {
           : results.length <= run.day && results.every(r => r.winner === 'player') && run.medal === null;
   requireValue(consistent, 'Le résultat et le jour du tournoi ne concordent pas.');
   if (archived) requireValue(['eliminated', 'champion', 'forfeited'].includes(run.status) && counter(run.returnedAtDay) && run.returnedAtDay > 0, 'Le séjour terminé est invalide.');
-  return { id: run.id, day: run.day, status: run.status, results, medal: run.medal, ...(archived ? { returnedAtDay: run.returnedAtDay } : {}) };
+  return { id: run.id, day: run.day, status: run.status, results, medal: run.medal, ...(run.tier || tier === 'gold' ? { tier } : {}), ...(archived ? { returnedAtDay: run.returnedAtDay } : {}) };
 }
 
 export function normalizeChapter(raw, fights) {
@@ -126,13 +147,14 @@ export function normalizeChapter(raw, fights) {
   const active = tournament.active === null ? null : cleanTournamentRun(tournament.active);
   const runs = [...history, ...(active ? [active] : [])];
   requireValue(new Set(runs.map(run => run.id)).size === runs.length && runs.every(run => run.id <= tournament.entries)
-    && (!active || fights.kramer.wins > 0) && !(active && out.delivery.active), 'Les séjours de cette sauvegarde sont incohérents.');
+    && (!active || fights.kramer.wins > 0) && !(active && out.delivery.active)
+    && runs.filter(run => run.tier === 'gold').every(() => goldTournamentUnlocked({ fights, tournament: { history } })), 'Les séjours de cette sauvegarde sont incohérents.');
   const earnedMedals = runs.filter(run => run.medal);
   requireValue(tournament.medals.length === earnedMedals.length && tournament.medals.every(medal => object(medal)
-    && earnedMedals.some(run => run.id === medal.tournamentId && run.medal === medal.type) && counter(medal.day) && medal.day > 0)
+    && earnedMedals.some(run => run.id === medal.tournamentId && run.medal === medal.type && (run.tier ?? 'bronze') === (medal.tier ?? 'bronze')) && counter(medal.day) && medal.day > 0)
     && new Set(tournament.medals.map(medal => medal.tournamentId)).size === tournament.medals.length, 'La collection de médailles est invalide.');
   out.tournament = { entries: tournament.entries, nextId: tournament.nextId, active, history,
-    medals: tournament.medals.map(medal => ({ tournamentId: medal.tournamentId, type: medal.type, day: medal.day })) };
+    medals: tournament.medals.map(medal => ({ tournamentId: medal.tournamentId, type: medal.type, day: medal.day, ...(medal.tier ? { tier: medal.tier } : {}) })) };
   requireValue(Array.isArray(raw.fightReceipts) && raw.fightReceipts.length <= 10000 && raw.fightReceipts.every(id)
     && new Set(raw.fightReceipts).size === raw.fightReceipts.length, 'Les résultats enregistrés sont invalides.');
   out.fightReceipts = clone(raw.fightReceipts);

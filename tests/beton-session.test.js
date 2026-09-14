@@ -163,7 +163,7 @@ test('an undefended opponent fight can be lost by the real ten-count without any
   assert.equal(session.state.bout.score.remi, session.state.stats.received + 3);
 });
 
-test('three complete forty-five-second rounds decide win, loss and draw on judge cards while keeping round history and recovery', () => {
+test('three complete forty-five-second rounds decide wins, losses and scoreless technical rounds without a draw while keeping round history and recovery', () => {
   for (const outcome of ['player', 'remi', 'draw']) {
     const session = create();
     for (let round = 1; round <= 3; round++) {
@@ -197,11 +197,11 @@ test('three complete forty-five-second rounds decide win, loss and draw on judge
     }
     assert.equal(session.state.phase, 'finished');
     assert.equal(session.state.bout.result.reason, 'points');
-    assert.equal(session.state.bout.result.winner, outcome);
+    assert.equal(session.state.bout.result.winner, outcome === 'draw' ? 'player' : outcome);
     assert.equal(session.state.bout.result.decision.cards.length, 3);
     for (const card of session.state.bout.result.decision.cards) {
       assert.equal(card.player, outcome === 'remi' ? 27 : 30);
-      assert.equal(card.remi, outcome === 'player' ? 27 : 30);
+      assert.equal(card.remi, outcome === 'remi' ? 30 : 27);
       assert.equal(card.rounds.length, 3);
     }
     assert.deepEqual(session.state.bout.score, { player: outcome === 'player' ? 3 : 0, remi: outcome === 'remi' ? 3 : 0 });

@@ -126,9 +126,9 @@ export function fighterMotion(fighter, elapsed, who) {
     const side = action === 'tellLeft' ? -1 : 1;
     motion.pose = p < .2 ? 'block' : `${side < 0 ? 'jab' : 'cross'}-windup`;
     motion.phase = 'tell';
-    motion.dx = side * 8 * smooth(p);
+    motion.dx = -side * 8 * smooth(p);
     motion.dy = 2 * smooth(p);
-    motion.rotation = side * .014 * smooth(p);
+    motion.rotation = -side * .014 * smooth(p);
   } else if (action === 'open') {
     // An opening is relaxed, but still an athletic guard.
     motion.dy += 2 * Math.sin(Math.PI * p);

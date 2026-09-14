@@ -136,7 +136,7 @@ test('Béton plays both actual model attacks with scored glove contact, readable
         assert.equal(opponent.sprite.texture.key, `beton-${pose}`);
         const contact = opponent.contact(), aim = opponent.attackAim;
         assert.ok(Math.hypot(contact.x - aim.x, contact.y - aim.y) < 1, 'the visible glove reaches the promised target on the scored frame');
-        assert.equal(aim.x, opponent.target.x + (event.attack === 'jab' ? -36 : 36));
+        assert.equal(aim.x, opponent.target.x + (event.attack === 'jab' ? 36 : -36));
         assert.equal(aim.y, opponent.target.y + (event.target === 'head' ? 18 : 0));
         contacts.set(event.target, contact);
       }

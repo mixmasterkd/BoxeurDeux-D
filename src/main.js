@@ -7,6 +7,10 @@ import { RhythmScene } from './scenes/RhythmScene.js';
 import { ExplorationScene } from './scenes/ExplorationScene.js';
 import { HotelScene } from './scenes/HotelScene.js';
 import { HotelActivityScene } from './scenes/HotelActivityScene.js';
+import { MarathonScene } from './scenes/MarathonScene.js';
+import { MetroScene } from './scenes/MetroScene.js';
+import { MexicoScene } from './scenes/MexicoScene.js';
+import { sceneForPlace } from './game/SceneRouting.js';
 import { CubaScene } from './scenes/CubaScene.js';
 import { careerProfile } from './game/CareerProfile.js';
 import { resumePending, requestResume, clearResume } from './game/ResumeRouting.js';
@@ -20,11 +24,12 @@ import './ui/snes.css';
 const disposeLayout = installGameLayout();
 const disposeCareer = installCareerMenu();
 const entry = new URLSearchParams(location.search).get('scene');
-const savedPlace=careerProfile.snapshot().location.scene;
-const initialScene = entry?.startsWith('cuba-') ? CubaScene : entry?.startsWith('hotel-') ? HotelScene : ['pads','pool'].includes(entry) ? HotelActivityScene
-  : {gym:GymScene,home:ExplorationScene,neighborhood:ExplorationScene,residential:ExplorationScene,commercial:ExplorationScene,'clothing-shop':ExplorationScene,'boxing-shop':ExplorationScene,'metro-station':ExplorationScene,'metro-riverside':ExplorationScene,riverside:ExplorationScene,bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene}[entry]
-  ?? (careerProfile.snapshot().cuba?.active || savedPlace.startsWith('cuba-') ? CubaScene : savedPlace.startsWith('hotel-')?HotelScene:savedPlace==='gym'?GymScene:ExplorationScene);
-const scenes = [initialScene, ...[ExplorationScene, GymScene, SparringScene, BagScene, ShadowScene, RhythmScene,HotelScene,HotelActivityScene,CubaScene].filter(scene => scene !== initialScene)];
+const saved=careerProfile.snapshot();
+const savedPlace=saved.mexico?.active?(saved.location.scene.startsWith('mexico-')?saved.location.scene:'mexico-home'):saved.cuba?.active?(saved.location.scene.startsWith('cuba-')?saved.location.scene:'cuba-home'):saved.location.scene;
+const placeScenes={ExplorationScene,GymScene,CubaScene,MexicoScene,HotelScene,MetroScene,MarathonScene};
+const activityScenes={bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene,pads:HotelActivityScene,pool:HotelActivityScene};
+const initialScene=activityScenes[entry]??placeScenes[sceneForPlace(entry??savedPlace)];
+const scenes=[initialScene,...[ExplorationScene,GymScene,SparringScene,BagScene,ShadowScene,RhythmScene,HotelScene,HotelActivityScene,CubaScene,MexicoScene,MetroScene,MarathonScene].filter(scene=>scene!==initialScene)];
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -55,10 +60,11 @@ function resumeSavedPlace() {
   active.world?.pause();
   active.ui?.clearInputs();
   clearResume();
-  if (careerProfile.snapshot().cuba?.active || saved.scene.startsWith('cuba-')) active.scene.start('CubaScene', { place: saved.scene.startsWith('cuba-') ? saved.scene : 'cuba-home', location: saved.scene.startsWith('cuba-') ? saved : undefined });
+  if (careerProfile.snapshot().mexico?.active || saved.scene.startsWith('mexico-')) active.scene.start('MexicoScene',{place:saved.scene.startsWith('mexico-')?saved.scene:'mexico-home',location:saved.scene.startsWith('mexico-')?saved:undefined});
+  else if (careerProfile.snapshot().cuba?.active || saved.scene.startsWith('cuba-')) active.scene.start('CubaScene', { place: saved.scene.startsWith('cuba-') ? saved.scene : 'cuba-home', location: saved.scene.startsWith('cuba-') ? saved : undefined });
   else if (saved.scene === 'gym') active.scene.start('GymScene', { location: saved });
   else if(saved.scene.startsWith('hotel-')) active.scene.start('HotelScene',{place:saved.scene,location:saved});
-  else active.scene.start('ExplorationScene', { place: saved.scene, location: saved });
+  else active.scene.start(sceneForPlace(saved.scene), { place: saved.scene, location: saved });
 }
 window.addEventListener('career-menu-change', event => { if (!event.detail.open) requestResume(); }, { signal: routing.signal });
 window.addEventListener('career-imported', requestResume, { signal: routing.signal });

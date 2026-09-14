@@ -1,3 +1,4 @@
+import { careerProfile } from '../game/CareerProfile.js';
 const GUIDES = {
   gym: '<span><kbd>WASD</kbd> Marcher</span><span><kbd>E</kbd> Interagir et confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
   sparring: '<span><kbd>J</kbd> Jab <kbd>K</kbd> Direct</span><span><kbd>W</kbd> Garde haute <kbd>S</kbd> Garde basse et coups au corps</span><span><kbd>A</kbd><kbd>D</kbd> Esquiver</span><span><kbd>E</kbd> Confirmer</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
@@ -7,9 +8,9 @@ const GUIDES = {
   rope: '<span><kbd>J</kbd> Appui gauche <kbd>K</kbd> Appui droit</span><span>Alterne au passage de la corde</span><span><kbd>P</kbd> / <kbd>Échap</kbd> Pause</span>',
 };
 
-export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCuba = false } = {}) {
-  const chapterPlaces={'metro-station':'MÉTRO · DU QUARTIER','metro-riverside':'MÉTRO · DES RIVES',riverside:'DES RIVES',residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
-    'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · REZ-DE-CHAUSSÉE','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':'LES GANTS DE BRONZE',
+export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCuba = false, fromMexico = false, streetFight = false } = {}) {
+  const chapterPlaces={'metro-island':'MÉTRO · ÎLE','metro-stadium':'MÉTRO · STADE','metro-airport':'MÉTRO · AÉROPORT','metro-train':'MÉTRO · EN VOITURE',airport:'AÉROPORT · DÉPARTS','marathon-island':'ÎLE SAINTE-HÉLÈNE','marathon-downtown':'LE CENTRE-VILLE','marathon-oldport':'LE VIEUX-PORT','marathon-stadium':'LE STADE OLYMPIQUE','mexico-village':'MEXIQUE · LE VILLAGE','mexico-home':'MEXIQUE · LA POSADA','mexico-gym':'MEXIQUE · LE GYM','mexico-beach':'MEXIQUE · LA PLAGE','mexico-arena':'MEXIQUE · LES ARÈNES','hotel-restaurant':'HÔTEL · LE RESTAURANT','metro-station':'MÉTRO · DU QUARTIER','metro-riverside':'MÉTRO · DES RIVES',riverside:'DES RIVES',residential:'RUE DES LIVREURS',commercial:'PLACE COMMERÇANTE','clothing-shop':'RUE NORD','boxing-shop':'LE COIN BLEU',
+    'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · REZ-DE-CHAUSSÉE','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':careerProfile.tournamentStatus().active?.tier==='gold'?'LES GANTS DORÉS':'LES GANTS DE BRONZE',
     'cuba-home':'CUBA · TON LOGEMENT','cuba-village':'CUBA · LE VILLAGE','cuba-gym':'CUBA · LE GYM AUX PNEUS','cuba-beach':'CUBA · LA PLAGE'};
   if(chapterPlaces[mode]){
     setSceneShell('gym');document.getElementById('stage').dataset.scene=mode;
@@ -20,8 +21,8 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
   if(mode==='pads'||mode==='pool'){
     setSceneShell('rope');document.getElementById('stage').dataset.scene=mode;
     document.getElementById('stage').setAttribute('aria-label',mode==='pads'?'Pads avec Fredo':'Longueurs à la piscine');
-    document.querySelector('.gym-location').textContent=fromCuba?'CUBA · LE GYM AUX PNEUS':fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
-    document.querySelector('.prototype-label').textContent=mode==='pads'?'PADS AVEC FREDO':'PISCINE · LONGUEURS';return;
+    document.querySelector('.gym-location').textContent=fromMexico?'MEXIQUE · LE GYM':fromCuba?'CUBA · LE GYM AUX PNEUS':fromGym?'LE GYM DU QUARTIER':'LES GANTS DE BRONZE · HÔTEL';
+    document.querySelector('.prototype-label').textContent=mode==='pads'?(fromMexico?'PADS AVEC THE OCTOPUS':'PADS AVEC FREDO'):'PISCINE · LONGUEURS';return;
   }
   if (mode === 'home' || mode === 'neighborhood') {
     setSceneShell('gym');
@@ -33,7 +34,7 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
     return;
   }
   const fight = mode === 'sparring' && opponent !== 'remi';
-  document.querySelector('.gym-location').innerHTML = `${fromCuba || opponent === 'louisto' ? 'CUBA' : 'MONTRÉAL'} <span aria-hidden="true">/</span> ${opponent === 'louisto' ? 'RING DE LA PLAGE' : fight ? 'SALLE DE BOXE' : 'AU GYM'}`;
+  document.querySelector('.gym-location').innerHTML = `${fromCuba || opponent === 'louisto' ? 'CUBA' : fromMexico||['danielo','pablo'].includes(opponent)?'MEXIQUE':'MONTRÉAL'} <span aria-hidden="true">/</span> ${opponent === 'louisto' ? 'RING DE LA PLAGE' : fight ? 'SALLE DE BOXE' : 'AU GYM'}`;
   document.getElementById('stage').dataset.scene = mode;
   document.getElementById('stage').setAttribute('aria-label', { gym: 'Visite du gym', sparring: 'Sparring avec Rémi le Tank', bag: 'Entraînement au sac de frappe', shadow: 'Shadow boxing devant le miroir', speedball: 'Entraînement à la speed ball', rope: 'Entraînement à la corde à danser' }[mode]);
   document.getElementById('game').setAttribute('aria-label', mode === 'gym'
@@ -46,10 +47,12 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
   document.getElementById('game-commands').innerHTML = GUIDES[mode];
   document.querySelector('.prototype-label').textContent = { gym: 'LE GYM', sparring: 'SPARRING AVEC RÉMI', bag: 'SAC · ENCHAÎNEMENTS', shadow: 'MIROIR · SHADOW BOXING', speedball: 'SPEED BALL · RYTHME', rope: 'CORDE · ENDURANCE' }[mode];
   if (fight) {
-    const name={beton:'Béton',kramer:'Kramer',bellini:'Marco Bellini',fortin:'Louis Fortin',gagnon:'André Gagnon',dyrex:'Dyrex',lefeu:'Le Feu',louisto:'Louisto'}[opponent]??opponent;
+    const name={beton:'Béton',kramer:'Kramer',bellini:'Marco Bellini',fortin:'Louis Fortin',gagnon:'André Gagnon',dyrex:'Dyrex',lefeu:'Le Feu',louisto:'Louisto',pablo:'Pablo',danielo:'Danielo','gold-rios':'Rafael Ríos','gold-moreau':'Émile Moreau','gold-santos':'Thiago Santos',runner:'Le coureur'}[opponent]??opponent;
     document.getElementById('stage').setAttribute('aria-label', `Combat contre ${name} dans une salle de boxe`);
     document.getElementById('game').setAttribute('aria-label', `Salle de boxe en pixel art, public autour du ring. Vous êtes de dos face à ${name}.`);
     document.querySelector('.prototype-label').textContent = `COMBAT EN SALLE · ${name.toUpperCase()}`;
+    if(opponent==='runner'||streetFight){document.querySelector('.gym-location').textContent='MONTRÉAL · SUR LE PARCOURS';document.querySelector('.prototype-label').textContent='MARATHON · ALTERCATION';document.getElementById('stage').setAttribute('aria-label','Altercation sur le parcours du marathon');}
+    if(['danielo','pablo'].includes(opponent)){document.querySelector('.gym-location').textContent='MEXIQUE · '+(opponent==='pablo'?'LE GYM':'LES ARÈNES');document.querySelector('.prototype-label').textContent=opponent==='pablo'?'SPARRING · PABLO':'LES ARÈNES · DANIELO';document.getElementById('stage').setAttribute('aria-label',opponent==='pablo'?'Sparring avec Pablo au Mexique':'Combat contre Danielo dans les arènes');}
     if (opponent === 'louisto') {
       document.getElementById('stage').setAttribute('aria-label', 'Combat contre Louisto sur la plage de Cuba');
       document.getElementById('game').setAttribute('aria-label', 'Ring extérieur sur la plage. Louisto fait face à ton boxeur; Fredo est dans ton coin.');

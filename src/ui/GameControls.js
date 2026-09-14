@@ -1,5 +1,6 @@
 import { prepareCommandWindows, installMenuScrollCues } from './MenuWindow.js';
 import { installCareerJournal } from './CareerJournal.js';
+import { installActivityOptions } from './ActivityOptions.js';
 const DIRECTIONS = {
   ArrowUp: 'up', KeyW: 'up', KeyZ: 'up', ArrowDown: 'down', KeyS: 'down',
   ArrowLeft: 'left', KeyA: 'left', KeyQ: 'left', ArrowRight: 'right', KeyD: 'right',
@@ -130,7 +131,7 @@ export class GameControls {
       // A new press is required after every screen transition. A held old finger
       // only releases; it cannot click the newly focused menu item.
       this.clear();
-      if (letter === 'a') this.confirmMenu(); else this.onBack();
+      if (letter === 'a') this.confirmMenu(); else this.onBack('touch');
     } else if (this.canPlay()) {
       if (this.mode === 'gym') { if (letter === 'a') { this.clear(); this.onInteract(); } }
       else this.onAction(letter === 'a' ? 'jab' : 'cross');
@@ -187,7 +188,7 @@ export class GameControls {
       if (direction) this.navigateMenu(direction);
       else if (event.code === 'KeyE') this.confirmMenu();
       else if (event.code === 'KeyP') { this.clear(); this.onMenu(); }
-      else if (event.code === 'Escape') { this.clear(); this.onBack(); }
+      else if (event.code === 'Escape') { this.clear(); this.onBack('keyboard'); }
       else if (event.code === 'KeyM') this.onMute();
       return;
     }
@@ -266,6 +267,7 @@ export class GameControls {
     this.refreshDirections();
   }
   refresh() {
+    this.beforeRefresh?.();
     const menu = Boolean(this.menu()); this.root.dataset.controlMode = menu ? 'menu' : 'play';
     this.a.disabled = this.mode === 'gym' && !menu && (!this.canPlay() || !this.canInteract());
     this.b.disabled = false;
@@ -301,23 +303,25 @@ export function installConsoleControls(ui, mode = 'combat') {
       if (ui.journal?.isOpen) ui.journal.close();
       else if (ui.pendingCareerImport) ui.cancelCareerImport();
       else if (ui.commandsOpen) ui.showCommands(false);
+      else if (ui.activityOptions?.isOpen) ui.activityOptions.close();
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
         else if (ui.dialog) ui.callbacks.onCloseDialog();
         else ui.requestPause();
       } else if (ui.phase === 'paused') ui.callbacks.onResume();
       else if (ui.phase === 'running' || ui.phase === 'knockdown' || ui.phase === 'corner') ui.callbacks.onPause();
-      // The ready screen and the results already are menus. Opening the menu
-      // again leaves them in place; only B or the explicit exit returns outside.
+      else if (['ready', 'finished'].includes(ui.phase)) ui.activityOptions?.toggle();
     },
-    onBack: () => {
+    onBack: source => {
       if (ui.journal?.isOpen) ui.journal.close();
       else if (ui.pendingCareerImport) ui.cancelCareerImport();
       else if (ui.commandsOpen) ui.showCommands(false);
+      else if (ui.activityOptions?.isOpen) ui.activityOptions.close();
       else if (mode === 'gym') {
         if (ui.paused) ui.callbacks.onResume();
         else if (ui.dialog) ui.callbacks.onCloseDialog();
       } else if (ui.phase === 'paused') ui.callbacks.onResume();
+      else if (source === 'keyboard' && ['ready', 'finished'].includes(ui.phase)) ui.activityOptions?.toggle();
       else ui.callbacks.onReturnGym();
     },
     onMute: () => ui.changeAudio ? ui.changeAudio({ muted: !ui.audio.muted }) : ui.callbacks.onMute?.(),
@@ -326,5 +330,8 @@ export function installConsoleControls(ui, mode = 'combat') {
   });
   ui.controls = controls;
   installCareerJournal(ui);
+  ui.activityOptions = installActivityOptions(ui, controls, mode);
+  controls.beforeRefresh = () => ui.activityOptions.refresh();
+  controls.refresh();
   return controls;
 }

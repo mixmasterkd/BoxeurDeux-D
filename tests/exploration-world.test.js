@@ -135,14 +135,14 @@ test('the east construction barrier remains closed while the west reaches the de
   }
 });
 
-test('the bed, wardrobe, notebook and exit are reachable by walking around furniture', () => {
+test('the bed, wardrobe, laptop and exit are reachable by walking around furniture', () => {
   const model = new ExplorationWorld({ place: 'home' });
   walk(model, [{ x: 875, y: 540 }, { x: 950, y: 405 }, { x: 960, y: 330 }]);
   assert.equal(model.getNearby()?.id, 'bed');
   walk(model, [{ x: 870, y: 330 }, { x: 270, y: 330 }, { x: 170, y: 320 }]);
   assert.equal(model.getNearby()?.id, 'wardrobe');
   walk(model, [{ x: 260, y: 350 }, { x: 240, y: 545 }]);
-  assert.equal(model.getNearby()?.id, 'notebook');
+  assert.equal(model.getNearby()?.id, 'laptop');
   walk(model, [{ x: 290, y: 545 }, { x: 640, y: 550 }, { x: 640, y: 645 }]);
   assert.equal(model.getNearby()?.id, 'exit');
 });
