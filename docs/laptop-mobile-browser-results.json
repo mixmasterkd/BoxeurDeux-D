@@ -1,0 +1,793 @@
+{
+  "date": "2026-09-14T00:01:55.811Z",
+  "url": "http://127.0.0.1:5173/",
+  "fixture": "Isolated Playwright contexts; valid late career created through the model test API, then seeded as the normal profile. All laptop navigation, purchases and CLI commands use keyboard or actual CDP touch.",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "desktop-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 126.46875,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 272.46875,
+            "scrollWidth": 126,
+            "clientWidth": 126,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          },
+          {
+            "x": 281.46875,
+            "y": 105.625,
+            "width": 140.53125,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 141,
+            "clientWidth": 141,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "marathon-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 126.46875,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 272.46875,
+            "scrollWidth": 126,
+            "clientWidth": 126,
+            "scrollHeight": 489,
+            "clientHeight": 138
+          },
+          {
+            "x": 281.46875,
+            "y": 105.625,
+            "width": 140.53125,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 141,
+            "clientWidth": 141,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "reserved-cuba-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 126.46875,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 272.46875,
+            "scrollWidth": 126,
+            "clientWidth": 126,
+            "scrollHeight": 373,
+            "clientHeight": 138
+          },
+          {
+            "x": 281.46875,
+            "y": 105.625,
+            "width": 140.53125,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 141,
+            "clientWidth": 141,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "reserved-mexico-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 126.46875,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 272.46875,
+            "scrollWidth": 126,
+            "clientWidth": 126,
+            "scrollHeight": 390,
+            "clientHeight": 138
+          },
+          {
+            "x": 281.46875,
+            "y": 105.625,
+            "width": 140.53125,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 141,
+            "clientWidth": 141,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "purchases-mobile568",
+      "marathonFee": 100,
+      "travelFees": [
+        160,
+        160
+      ],
+      "finalBalance": 80,
+      "duplicateCharges": false,
+      "automaticDeparture": false,
+      "worldStill": true
+    },
+    {
+      "name": "terminal-list-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": {
+          "x": 163.21875,
+          "y": 209.1875,
+          "width": 135.796875,
+          "height": 31.1875,
+          "bottom": 240.375,
+          "right": 299.015625
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 158.015625,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 304.015625,
+            "scrollWidth": 158,
+            "clientWidth": 158,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          },
+          {
+            "x": 313.015625,
+            "y": 105.625,
+            "width": 108.984375,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 109,
+            "clientWidth": 109,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-commands-scrolled-mobile568",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 93.625,
+          "width": 300,
+          "height": 161.75,
+          "bottom": 255.375,
+          "right": 434
+        },
+        "input": {
+          "x": 163.21875,
+          "y": 209.1875,
+          "width": 135.796875,
+          "height": 31.1875,
+          "bottom": 240.375,
+          "right": 299.015625
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 105.625,
+            "width": 158.015625,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 304.015625,
+            "scrollWidth": 158,
+            "clientWidth": 158,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          },
+          {
+            "x": 313.015625,
+            "y": 105.625,
+            "width": 108.984375,
+            "height": 137.75,
+            "bottom": 243.375,
+            "right": 422,
+            "scrollWidth": 109,
+            "clientWidth": 109,
+            "scrollHeight": 138,
+            "clientHeight": 138
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-list-mobile844",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 13,
+            "y": 157.5,
+            "width": 104,
+            "height": 104,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 755,
+            "y": 114,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 724,
+            "y": 244,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 773,
+            "y": 183,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 134,
+          "y": 51,
+          "width": 576,
+          "height": 317,
+          "bottom": 368,
+          "right": 710
+        },
+        "input": {
+          "x": 163.21875,
+          "y": 321.8125,
+          "width": 299.140625,
+          "height": 31.1875,
+          "bottom": 353,
+          "right": 462.359375
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 146,
+            "y": 63,
+            "width": 321.359375,
+            "height": 293,
+            "bottom": 356,
+            "right": 467.359375,
+            "scrollWidth": 321,
+            "clientWidth": 321,
+            "scrollHeight": 293,
+            "clientHeight": 293
+          },
+          {
+            "x": 476.359375,
+            "y": 63,
+            "width": 221.625,
+            "height": 293,
+            "bottom": 356,
+            "right": 697.984375,
+            "scrollWidth": 222,
+            "clientWidth": 222,
+            "scrollHeight": 293,
+            "clientHeight": 293
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-keyboard-mobile568x200",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 37.08000183105469,
+            "y": 64.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 457,
+            "y": 43.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 426,
+            "y": 137.5,
+            "width": 48,
+            "height": 48,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 488,
+            "y": 101.5,
+            "width": 48,
+            "height": 48,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "panel": {
+          "x": 156,
+          "y": 46,
+          "width": 256,
+          "height": 137,
+          "bottom": 183,
+          "right": 412
+        },
+        "input": {
+          "x": 185.21875,
+          "y": 136.8125,
+          "width": 109.75,
+          "height": 31.1875,
+          "bottom": 168,
+          "right": 294.96875
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 168,
+            "y": 58,
+            "width": 131.96875,
+            "height": 113,
+            "bottom": 171,
+            "right": 299.96875,
+            "scrollWidth": 132,
+            "clientWidth": 132,
+            "scrollHeight": 113,
+            "clientHeight": 113
+          },
+          {
+            "x": 308.96875,
+            "y": 58,
+            "width": 91.03125,
+            "height": 113,
+            "bottom": 171,
+            "right": 400,
+            "scrollWidth": 91,
+            "clientWidth": 91,
+            "scrollHeight": 152,
+            "clientHeight": 113
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-isolation-mobile568",
+      "realEnter": true,
+      "directionalTypingDoesNotMovePlayer": true,
+      "listeFindsCommands": true,
+      "testMoney": 450,
+      "normalMoney": 80,
+      "normalBytesIntact": true,
+      "backupBytesIntact": true
+    },
+    {
+      "name": "portrait-mobile",
+      "turnPhonePrompt": true,
+      "worldPaused": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

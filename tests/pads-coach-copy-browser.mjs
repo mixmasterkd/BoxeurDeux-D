@@ -31,6 +31,7 @@ try {
     await wait(page, () => __hotelActivity.session.state.phase === 'finished' && document.querySelector('.rhythm-panel-title')?.textContent === 'Observe la cible.');
     const expected = mexico ? 'The Octopus' : 'Fredo';
     const copy = await page.locator('.rhythm-panel-copy').textContent();
+    const finishedCopyVisible = await page.locator('.rhythm-panel-copy').isVisible();
     assert.match(copy, new RegExp(`${expected} attend ton coup`));
     assert.ok(!copy.includes(mexico ? 'Fredo' : 'Octopus'));
     assert.equal(await page.evaluate(() => __hotelActivity.session.state.summary.qualified), false);
@@ -46,8 +47,14 @@ try {
     assert.ok(commands.includes(expected));
     assert.ok(!commands.includes(mexico ? 'Fredo' : 'Octopus'));
     assert.match(commands, mobile ? /A : jab.*B : direct/ : /J : jab.*K : direct/);
+    // The menu's reading column scrolls. Position its coach sentence in view
+    // for the evidence image; this changes only the DOM scroll, not game state.
+    await page.locator('#rhythm-ui .commands-notes p').first().evaluate(paragraph => {
+      const reading = paragraph.closest('.snes-reading');
+      reading.scrollTop += paragraph.getBoundingClientRect().bottom - reading.getBoundingClientRect().bottom + 4;
+    });
     await page.screenshot({ path: `docs/pads-copy-commands-${name}.png` });
-    report.cases.push({ name, expectedCoach: expected, qualified: false, copy, commands, geometry });
+    report.cases.push({ name, expectedCoach: expected, qualified: false, copy, finishedCopyVisible, finishedCopyNote: 'The simplified result menu intentionally hides this descriptive paragraph in snes.css; its DOM text is checked. The command page shows the coach name.', commands, geometry });
     console.log(`Pads coach copy: ${name}`);
     await context.close();
   }

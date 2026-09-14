@@ -1,0 +1,42 @@
+{
+  "fixture": "Paid running marathon saved with pending encounter",
+  "fight": {
+    "stats": {
+      "landed": 15,
+      "received": 2,
+      "blocked": 7,
+      "dodged": 0,
+      "thrown": 16,
+      "opponentBlocked": 1,
+      "missed": 0,
+      "hooks": 0,
+      "combos": 0,
+      "doubleJabCombos": 0,
+      "landedHead": 15,
+      "landedBody": 0,
+      "receivedHead": 2,
+      "receivedBody": 0,
+      "blockedHead": 4,
+      "blockedBody": 3
+    },
+    "result": {
+      "reason": "street-stop",
+      "winner": "player",
+      "loser": "remi"
+    }
+  },
+  "returned": {
+    "location": {
+      "scene": "marathon-oldport",
+      "x": 1475,
+      "y": 970,
+      "facing": "down"
+    },
+    "elapsed": 164.38666,
+    "routePoint": 4,
+    "dialog": null
+  },
+  "encounterOnceAfterReload": true,
+  "careerUnchanged": true,
+  "errors": []
+}

@@ -1,0 +1,277 @@
+{
+  "date": "2026-09-13T23:12:20.563Z",
+  "url": "http://127.0.0.1:5173/",
+  "fixture": "Isolated career seeded through the in-game test-profile API; subsequent walks, doors, meals and actions use actual keyboard/CDP touch.",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "gold-lobby-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "restaurant-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "bread-served-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "gold-venue-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "gold-board-mobile",
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "gold-hotel-mobile",
+      "walkingRestaurant": true,
+      "breadToastSpread": true,
+      "noStatsOrEnergyChange": true,
+      "ownBracket": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

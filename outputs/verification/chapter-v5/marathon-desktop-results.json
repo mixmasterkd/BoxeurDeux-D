@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-14T00:17:27.746Z",
+  "results": [
+    "CLI liste et profil de test isolé : carrière normale inchangée",
+    "Course complète via clavier, pause, altercation évitée, médaille",
+    "Retour au métro du Stade à pied après l’arrivée"
+  ],
+  "errors": [],
+  "mobileEmulated": false,
+  "fit": {
+    "mobile": false,
+    "menu": false,
+    "width": 1280,
+    "height": 720,
+    "ratio": 1.7777777777777777,
+    "noScroll": true,
+    "fits": true,
+    "controls": [],
+    "primaryFine": true,
+    "touchPoints": 0
+  }
+}

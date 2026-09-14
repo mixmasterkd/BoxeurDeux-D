@@ -1,0 +1,157 @@
+{
+  "cases": [
+    {
+      "name": "mobile568",
+      "activity": "sparring",
+      "ready": [
+        "Entrer en sparring →",
+        "← Retour au gym"
+      ],
+      "finished": [
+        "Un autre round →",
+        "← Retour au gym"
+      ],
+      "options": [
+        "Sparring libreRésistance et relevésPlacer son jabBloquer et soufflerEsquiver et répondre",
+        "Commandes",
+        "Carnet",
+        "TranquilleNormalVif",
+        "NormaleRapide",
+        "",
+        "♪Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "bag",
+      "ready": [
+        "Commencer · 45 s →",
+        "← Retour au gym"
+      ],
+      "finished": [
+        "Refaire la séance →",
+        "← Retour au gym"
+      ],
+      "options": [
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "shadow",
+      "ready": [
+        "Pratiquer →",
+        "← Retour au gym"
+      ],
+      "finished": [
+        "Nouvelle séance →",
+        "← Retour au gym"
+      ],
+      "options": [
+        "NormaleRalenti · observer le geste",
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "rope",
+      "ready": [
+        "Commencer · 45 s →",
+        "← Retour au gym"
+      ],
+      "finished": [
+        "Refaire la séance →",
+        "← Retour au gym"
+      ],
+      "options": [
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "speedball",
+      "ready": [
+        "Commencer · 45 s →",
+        "← Retour au gym"
+      ],
+      "finished": [
+        "Refaire la séance →",
+        "← Retour au gym"
+      ],
+      "options": [
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "pads",
+      "ready": [
+        "Commencer · 45 s →",
+        "← Retour au mini-gym"
+      ],
+      "finished": [
+        "Refaire la séance →",
+        "← Retour au mini-gym"
+      ],
+      "options": [
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "pool",
+      "ready": [
+        "Commencer · 45 s →",
+        "← Retour à la piscine"
+      ],
+      "finished": [
+        "Refaire la séance →",
+        "← Retour à la piscine"
+      ],
+      "options": [
+        "Commandes",
+        "Carnet",
+        "♪ Son",
+        "← Retour aux choix"
+      ],
+      "pause": true,
+      "replay": true
+    },
+    {
+      "name": "mobile568",
+      "activity": "test-profile-return",
+      "normalMoneyRestored": true,
+      "normalFightsRestored": true
+    }
+  ],
+  "errors": [],
+  "note": "All navigation/start/pause/help/replay uses real keyboard or touch. To inspect every result promptly, timed activities are advanced through their public simulation update; shadow ends through its real pause button. Mobile is a browser viewport, not a physical phone."
+}

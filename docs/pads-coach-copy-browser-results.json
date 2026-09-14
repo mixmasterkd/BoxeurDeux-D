@@ -1,0 +1,165 @@
+{
+  "date": "2026-09-14T00:25:40.321Z",
+  "fixture": "Isolated browser profile, direct pads scene entry; session.finish() with zero hits and reward disabled. Presentation check, not a completed real-time session.",
+  "cases": [
+    {
+      "name": "octopus-mexico-desktop",
+      "expectedCoach": "The Octopus",
+      "qualified": false,
+      "copy": "Prends ton temps. Jab vers son pad à droite, direct vers celui à gauche. The Octopus attend ton coup.",
+      "finishedCopyVisible": false,
+      "finishedCopyNote": "The simplified result menu intentionally hides this descriptive paragraph in snes.css; its DOM text is checked. The command page shows the coach name.",
+      "commands": "J : jab gauche vers son pad à droite de l’écran. K : direct droit vers son pad à gauche. The Octopus garde la cible levée; aucune cadence imposée.",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "fredo-montreal-desktop",
+      "expectedCoach": "Fredo",
+      "qualified": false,
+      "copy": "Prends ton temps. Jab vers son pad à droite, direct vers celui à gauche. Fredo attend ton coup.",
+      "finishedCopyVisible": false,
+      "finishedCopyNote": "The simplified result menu intentionally hides this descriptive paragraph in snes.css; its DOM text is checked. The command page shows the coach name.",
+      "commands": "J : jab gauche vers son pad à droite de l’écran. K : direct droit vers son pad à gauche. Fredo garde la cible levée; aucune cadence imposée.",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "octopus-mexico-mobile",
+      "expectedCoach": "The Octopus",
+      "qualified": false,
+      "copy": "Prends ton temps. Jab vers son pad à droite, direct vers celui à gauche. The Octopus attend ton coup.",
+      "finishedCopyVisible": false,
+      "finishedCopyNote": "The simplified result menu intentionally hides this descriptive paragraph in snes.css; its DOM text is checked. The command page shows the coach name.",
+      "commands": "A : jab gauche vers le pad à droite de l’écran. B : direct droit vers le pad à gauche. Frappe le pad levé, à ton rythme. The Octopus attend ton contact avant de changer.",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "fredo-montreal-mobile",
+      "expectedCoach": "Fredo",
+      "qualified": false,
+      "copy": "Prends ton temps. Jab vers son pad à droite, direct vers celui à gauche. Fredo attend ton coup.",
+      "finishedCopyVisible": false,
+      "finishedCopyNote": "The simplified result menu intentionally hides this descriptive paragraph in snes.css; its DOM text is checked. The command page shows the coach name.",
+      "commands": "A : jab gauche vers le pad à droite de l’écran. B : direct droit vers le pad à gauche. Frappe le pad levé, à ton rythme. Fredo attend ton contact avant de changer.",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": []
+}

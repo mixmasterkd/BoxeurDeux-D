@@ -1,0 +1,92 @@
+{
+  "date": "2026-09-13T23:06:11.275Z",
+  "url": "http://127.0.0.1:5173/",
+  "fixture": "Isolated career seeded through the in-game test-profile API; subsequent walks, doors, meals and actions use actual keyboard/CDP touch.",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "gold-lobby-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "restaurant-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "bread-served-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "gold-venue-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "gold-board-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "gold-hotel-desktop",
+      "walkingRestaurant": true,
+      "breadToastSpread": true,
+      "noStatsOrEnergyChange": true,
+      "ownBracket": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

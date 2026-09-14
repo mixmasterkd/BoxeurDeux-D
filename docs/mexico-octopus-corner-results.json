@@ -1,0 +1,17 @@
+{
+  "actualRoundSeconds": 45,
+  "corner": {
+    "elapsed": 2.114900000000002,
+    "duration": 9,
+    "hits": 2,
+    "bonus": 2,
+    "completed": false,
+    "attempted": [
+      0,
+      1
+    ],
+    "feedback": "Bien. Gardez ce rythme."
+  },
+  "round2": true,
+  "errors": []
+}

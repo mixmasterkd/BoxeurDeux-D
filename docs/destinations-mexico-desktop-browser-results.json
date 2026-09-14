@@ -1,0 +1,140 @@
+{
+  "date": "2026-09-13T23:20:53.356Z",
+  "url": "http://127.0.0.1:5173/",
+  "fixture": "Isolated career seeded through the in-game test-profile API; subsequent walks, doors, meals and actions use actual keyboard/CDP touch.",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "posada-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "village-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "gym-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "pads-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "pablo-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "promenade-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "arena-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "danielo-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "mexico-full-trip-desktop",
+      "sleepOnlyRefills": true,
+      "padsHit": true,
+      "pabloRealPunch": true,
+      "danieloRealPunch": true,
+      "paidOnce": true,
+      "returnAirport": true,
+      "walkingDoors": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

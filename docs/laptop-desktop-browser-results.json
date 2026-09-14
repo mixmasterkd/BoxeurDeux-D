@@ -1,0 +1,370 @@
+{
+  "date": "2026-09-14T00:01:55.889Z",
+  "url": "http://127.0.0.1:5173/",
+  "fixture": "Isolated Playwright contexts; valid late career created through the model test API, then seeded as the normal profile. All laptop navigation, purchases and CLI commands use keyboard or actual CDP touch.",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "desktop-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 357.234375,
+            "height": 426,
+            "bottom": 735,
+            "right": 724.234375,
+            "scrollWidth": 357,
+            "clientWidth": 357,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 748.234375,
+            "y": 309,
+            "width": 324.765625,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 325,
+            "clientWidth": 325,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "marathon-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 357.234375,
+            "height": 426,
+            "bottom": 735,
+            "right": 724.234375,
+            "scrollWidth": 357,
+            "clientWidth": 357,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 748.234375,
+            "y": 309,
+            "width": 324.765625,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 325,
+            "clientWidth": 325,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "reserved-cuba-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 357.234375,
+            "height": 426,
+            "bottom": 735,
+            "right": 724.234375,
+            "scrollWidth": 357,
+            "clientWidth": 357,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 748.234375,
+            "y": 309,
+            "width": 324.765625,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 325,
+            "clientWidth": 325,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "reserved-mexico-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": null,
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 357.234375,
+            "height": 426,
+            "bottom": 735,
+            "right": 724.234375,
+            "scrollWidth": 357,
+            "clientWidth": 357,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 748.234375,
+            "y": 309,
+            "width": 324.765625,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 325,
+            "clientWidth": 325,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "purchases-desktop",
+      "marathonFee": 100,
+      "travelFees": [
+        160,
+        160
+      ],
+      "finalBalance": 80,
+      "duplicateCharges": false,
+      "automaticDeparture": false,
+      "worldStill": true
+    },
+    {
+      "name": "terminal-list-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": {
+          "x": 386.640625,
+          "y": 696.4375,
+          "width": 378.984375,
+          "height": 35.5625,
+          "bottom": 732,
+          "right": 765.625
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 403.625,
+            "height": 426,
+            "bottom": 735,
+            "right": 770.625,
+            "scrollWidth": 404,
+            "clientWidth": 404,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 794.625,
+            "y": 309,
+            "width": 278.375,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 278,
+            "clientWidth": 278,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-commands-scrolled-desktop",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "panel": {
+          "x": 340,
+          "y": 282,
+          "width": 760,
+          "height": 480,
+          "bottom": 762,
+          "right": 1100
+        },
+        "input": {
+          "x": 386.640625,
+          "y": 696.4375,
+          "width": 378.984375,
+          "height": 35.5625,
+          "bottom": 732,
+          "right": 765.625
+        },
+        "panelFits": true,
+        "inputFits": true,
+        "columns": [
+          {
+            "x": 367,
+            "y": 309,
+            "width": 403.625,
+            "height": 426,
+            "bottom": 735,
+            "right": 770.625,
+            "scrollWidth": 404,
+            "clientWidth": 404,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          },
+          {
+            "x": 794.625,
+            "y": 309,
+            "width": 278.375,
+            "height": 426,
+            "bottom": 735,
+            "right": 1073,
+            "scrollWidth": 278,
+            "clientWidth": 278,
+            "scrollHeight": 426,
+            "clientHeight": 426
+          }
+        ]
+      }
+    },
+    {
+      "name": "terminal-isolation-desktop",
+      "realEnter": true,
+      "directionalTypingDoesNotMovePlayer": true,
+      "listeFindsCommands": true,
+      "testMoney": 450,
+      "normalMoney": 80,
+      "normalBytesIntact": true,
+      "backupBytesIntact": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

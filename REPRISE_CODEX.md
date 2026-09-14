@@ -1,5 +1,21 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Chapitre V5 — métro, marathon, Mexique et Gants dorés (13 septembre 2026)
+
+Le GO utilisateur regroupe le métro parcouru en train avec cinq stations et aéroport, le laptop maison (navigateur et CLI de test), le marathon optionnel, le Mexique et les Gants dorés, ainsi que les esquives, le barème des juges, la présentation des décisions et les menus simplifiés. Ce bloc remplace les anciennes descriptions contradictoires ci-dessous ; elles restent historiques.
+
+Les dernières corrections demandées sont intégrées : voitures du centre-ville proportionnées ; pont de l’île avec collisions sur le tablier et structure au premier plan ; parcours avec une boucle dans le parc, des virages en ville, détour du Vieux-Port et approche libre du stade avec caméra plus haute. **The Octopus remplace Fredo au Mexique uniquement**, aux pads et au coin de Danielo. Fredo demeure ailleurs. Rémi et Pablo sont les partenaires de sparring.
+
+Le métro comporte Quartier, Des Rives, Île Sainte-Hélène, Stade olympique et Aéroport. Le plan indique l’arrêt et le sens ; on entre/sort du train en marchant quand les portes sont ouvertes. Réserver Cuba ou Mexique coûte 160 $ dans le navigateur du laptop ou au kiosque ; le départ se fait à l’aéroport, retour compris. Même déblocage après une participation terminée aux Gants de bronze ; ordre libre avec Dyrex et Le Feu. Mexique : posada, village, promenade/plage, gym, arènes de Danielo au sol en terre.
+
+Le marathon coûte 100 $ par inscription, sans prime d’arrivée. Quatre cartes 2880 × 1620, déplacements seulement, chrono indicatif gelé en pause, sauvegarde du secteur/repère/position/temps. Une altercation facultative par tentative ; une chute termine la bagarre sans chrono de combat puis reprend la course. Première arrivée : médaille souvenir unique à la maison, les suivantes peuvent améliorer le temps. Les lieux se visitent sans inscription. Le marathon n’est pas requis pour les Gants dorés.
+
+Gants dorés 240 $ : Bronze terminé et victoires Dyrex, Le Feu, Louisto, Danielo. Rafael Ríos, Émile Moreau, Thiago Santos sur trois jours. Hôtel, chambre et activités conservés ; restaurant La Croûte dorée avec pain, grille-pain et garniture, sans mutation de capacités/énergie/argent. Juges 10-point-must 10–9/8/7, trois en local/cinq au tournoi, aucune égalité finale ni déduction automatique de chute. Joueur de face à la décision. Rounds officiels 3 × 45 s conservés.
+
+Sauvegarde V5 sur la clé historique, migrations v1–4, paiements et récompenses idempotents. Le Terminal accepte `liste`, `test cuba`, `test mexique`, `test marathon`, `test dore` et autres commandes annoncées. **Profil de test séparé** ; `retour` ou Quitter le mode test rend la carrière normale et son secours inchangés. L’entrée de texte est la seule exception à la convention E seul : le Terminal utilise la saisie habituelle et Entrée/Exécuter.
+
+Sources finales et prompts conservés ; aucune IA appelée pendant le jeu. Vite existant sur 0.0.0.0:5173 réutilisé, Wi-Fi vérifié 192.168.50.123. Les essais mobiles sont des simulations Chromium, pas le téléphone physique. Les vérifications, limites et état de publication actuels sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md), qui prévaut sur les rapports intermédiaires.
+
 ## Combats sur plusieurs rounds — GO du 13 septembre 2026
 
 Le GO actuel demande de corriger les victoires trop rapides, la progression de difficulté, puis d’ajouter un moment avec Fredo et une décision des juges. Les combats officiels utilisent maintenant **3 × 45 s**, dégâts joueur 5/7/9 avec puissance proportionnelle maximale +20 %, relevés 80/72/65 % du maximum. Rémi garde ses exercices et timings. Les fenêtres adverses restent annoncées et indépendantes des commandes ; le danger progresse jusqu’à Le Feu. Kramer abandonne toujours après deux chutes cumulées.

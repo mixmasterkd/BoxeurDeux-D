@@ -1,0 +1,40 @@
+{
+  "reports": [
+    {
+      "opponent": "pablo",
+      "mobile": false,
+      "blocked": [
+        "body",
+        "head"
+      ],
+      "exteriorDodged": [
+        "cross",
+        "jab"
+      ],
+      "landed": [
+        "body",
+        "head"
+      ],
+      "alignedContacts": 11,
+      "errors": []
+    },
+    {
+      "opponent": "danielo",
+      "mobile": true,
+      "blocked": [
+        "body",
+        "head"
+      ],
+      "exteriorDodged": [
+        "cross",
+        "jab"
+      ],
+      "landed": [
+        "body",
+        "head"
+      ],
+      "alignedContacts": 9,
+      "errors": []
+    }
+  ]
+}
