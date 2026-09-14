@@ -1,7 +1,17 @@
 {
-  "date": "2026-09-14T01:14:07.660Z",
+  "date": "2026-09-14T02:02:00.408Z",
   "url": "http://127.0.0.1:5173/",
   "mobileEmulated": true,
+  "runs": [
+    {
+      "device": "desktop",
+      "date": "2026-09-14T01:54:05.160Z"
+    },
+    {
+      "device": "mobile",
+      "date": "2026-09-14T01:59:02.081Z"
+    }
+  ],
   "cases": [
     {
       "name": "platform",
@@ -76,13 +86,13 @@
           "index": 0,
           "direction": 1,
           "phase": "stopped",
-          "elapsed": 0.8666000000000007,
+          "elapsed": 0.7500000000000001,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": true,
-          "progress": 0.10832500000000009
+          "progress": 0.09375000000000001
         },
         "doorAmount": 0
       }
@@ -112,13 +122,13 @@
           "index": 0,
           "direction": 1,
           "phase": "moving",
-          "elapsed": 1.249700000000016,
+          "elapsed": 2.4497000000000466,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": false,
-          "progress": 0.312425000000004
+          "progress": 0.6124250000000117
         },
         "doorAmount": 1
       }
@@ -395,13 +405,13 @@
           "index": 0,
           "direction": 1,
           "phase": "stopped",
-          "elapsed": 0.5667,
+          "elapsed": 0.5333000000000001,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": true,
-          "progress": 0.0708375
+          "progress": 0.06666250000000001
         },
         "doorAmount": 0
       }
@@ -468,13 +478,13 @@
           "index": 0,
           "direction": 1,
           "phase": "moving",
-          "elapsed": 0.8497000000000251,
+          "elapsed": 2.3330000000000406,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": false,
-          "progress": 0.21242500000000628
+          "progress": 0.5832500000000101
         },
         "doorAmount": 1
       }

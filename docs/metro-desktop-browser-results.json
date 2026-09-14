@@ -1,0 +1,216 @@
+{
+  "date": "2026-09-14T01:54:05.160Z",
+  "url": "http://127.0.0.1:5173/",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "platform",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-station",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "network-map",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-station",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": true,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "train-open",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-train",
+        "x": 640,
+        "y": 495,
+        "paused": false,
+        "dialog": false,
+        "train": {
+          "index": 0,
+          "direction": 1,
+          "phase": "stopped",
+          "elapsed": 0.7500000000000001,
+          "stops": 0,
+          "paused": false,
+          "station": "metro-station",
+          "next": "metro-riverside",
+          "doorsOpen": true,
+          "progress": 0.09375000000000001
+        },
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "train-moving",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-train",
+        "x": 640,
+        "y": 495,
+        "paused": false,
+        "dialog": false,
+        "train": {
+          "index": 0,
+          "direction": 1,
+          "phase": "moving",
+          "elapsed": 2.4497000000000466,
+          "stops": 0,
+          "paused": false,
+          "station": "metro-station",
+          "next": "metro-riverside",
+          "doorsOpen": false,
+          "progress": 0.6124250000000117
+        },
+        "doorAmount": 1
+      }
+    },
+    {
+      "name": "hall",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-island-hall",
+        "x": 640,
+        "y": 470,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "quai-b",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "metro-island-return",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "route-choice-pause-reload",
+      "mobile": false,
+      "passedStop": "metro-riverside",
+      "chosenStop": "metro-island",
+      "oppositeDirection": true,
+      "reloadOnLastPlatform": true,
+      "free": true
+    },
+    {
+      "name": "airport",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "state": {
+        "place": "airport",
+        "x": 640,
+        "y": 435,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "airport-reserves-both-physical-boarding",
+      "mobile": false,
+      "paid": 320,
+      "boardingFree": true,
+      "destination": "cuba-home"
+    }
+  ],
+  "errors": []
+}

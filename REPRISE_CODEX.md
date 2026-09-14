@@ -1,5 +1,11 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Fenêtres animées et wagon réutilisé — 13 septembre 2026
+
+Dernier retour utilisateur : voir le quai défiler puis le tunnel apparaître/disparaître progressivement dans les vitres; corriger aussi le wagon remplacé par un agrandissement du tunnel lors d’une remontée. Correctif local terminé : fond explicitement `__BASE` (Phaser change le cadre par défaut quand on ajoute un découpage), panoramas séparés et défilement accéléré/freiné avec passages spatiaux quai/tunnel/quai. Poignées/barres restent fixes, y compris aux trois embarquements successifs. Vitres des portes intégrées; pause fige le décor. Les horaires, commandes, direction, sauvegarde et reste du jeu sont conservés.
+
+429 tests et compilation passent; 9 contrôles métro PC et 9 tactiles simulés, plus parcours visuel ciblé six embarquements/pixels fixes/pause sans erreur du jeu. Aucun téléphone physique testé. Sources et préparation dans `references/metro-motion/`, `scripts/prepare-metro-windows.mjs`; rapport courant [docs/METRO_ANIMATION.md](docs/METRO_ANIMATION.md). Le bundle compilé passe aussi les six embarquements/pixels/pauses sous `/BoxeurDeux-D/`, sans erreur. Publication en cours. Aucun nouveau chapitre à lancer automatiquement.
+
 ## Retouches de confort V5 — 13 septembre 2026
 
 Dernière demande : poursuivre les corrections du métro et du laptop, enlever aussi les bandeaux qui cachent le décor. **Ne pas recommencer le chapitre précédent.** Détails et preuves actuels : [docs/CONFORT_V5.md](docs/CONFORT_V5.md).

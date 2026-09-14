@@ -70,7 +70,9 @@ export class ExplorationScene extends Phaser.Scene {
     this.world = this.makeWorld ? this.makeWorld() : DISTRICT_PLACES.includes(this.place) ? new DistrictWorld({place:this.place,position:this.entryPosition}) : new ExplorationWorld({ place: this.place, position: this.entryPosition });
     this.doorTravel = new DoorTravel(this.world.layout.doors ?? [], this.world.state);
     const { width, height } = this.world.layout;
-    this.add.image(0, 0, `world-${this.place}`).setOrigin(0).setDisplaySize(width, height);
+    // Adding atlas frames changes Phaser's default frame. Always request the
+    // full scene on every visit, including when its texture is already cached.
+    this.background = this.add.image(0, 0, `world-${this.place}`, '__BASE').setOrigin(0).setDisplaySize(width, height);
     if(this.place==='neighborhood') {this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1230*STREET_SCALE,675*STREET_SCALE,'neighborhood-metro').setOrigin(0).setScale(STREET_SCALE);}
     if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
     if(this.place==='riverside')this.add.image(1520,700,'cuba-travel-kiosk').setOrigin(.5,1).setDepth(700);

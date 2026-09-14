@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-13T23:04:20.112Z",
+  "date": "2026-09-14T01:59:02.081Z",
   "url": "http://127.0.0.1:5173/",
   "mobileEmulated": true,
   "cases": [
@@ -187,13 +187,13 @@
           "index": 0,
           "direction": 1,
           "phase": "stopped",
-          "elapsed": 0.33329999999999976,
+          "elapsed": 0.5333000000000001,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": true,
-          "progress": 0.04166249999999997
+          "progress": 0.06666250000000001
         },
         "doorAmount": 0
       }
@@ -260,15 +260,137 @@
           "index": 0,
           "direction": 1,
           "phase": "moving",
-          "elapsed": 0.8329000000000427,
+          "elapsed": 2.3330000000000406,
           "stops": 0,
           "paused": false,
           "station": "metro-station",
           "next": "metro-riverside",
           "doorsOpen": false,
-          "progress": 0.20822500000001068
+          "progress": 0.5832500000000101
         },
         "doorAmount": 1
+      }
+    },
+    {
+      "name": "hall",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "state": {
+        "place": "metro-island-hall",
+        "x": 640,
+        "y": 470,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
+      }
+    },
+    {
+      "name": "quai-b",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "state": {
+        "place": "metro-island-return",
+        "x": 640,
+        "y": 490,
+        "paused": false,
+        "dialog": false,
+        "doorAmount": 0
       }
     },
     {

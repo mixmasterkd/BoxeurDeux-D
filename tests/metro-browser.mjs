@@ -28,9 +28,9 @@ try{
     const {context,seed}=await contextFor(mobile,'metro-station'),c=await controls(mobile);
     await capture('platform',mobile);await c.pause();await c.choose('.metro-plan-button');await page.locator('.metro-network-map').waitFor({state:'visible'});
     assert.equal(await page.locator('.metro-network-map li').count(),5);await capture('network-map',mobile);await c.back();assert.equal((await state(page)).paused,true);await c.choose('.gym-resume-button');
-    await c.hold('up',780);await ready('metro-train');await capture('train-open',mobile);assert.equal(await page.evaluate(()=>__metro.scene.player.scaleX),2.5);assert.ok(await page.evaluate(()=>__metro.scene.windowViews.every(v=>v.stopped.visible&&!v.moving.visible)));
+    await c.hold('up',780);await ready('metro-train');await capture('train-open',mobile);assert.equal(await page.evaluate(()=>__metro.scene.player.scaleX),2.5);assert.ok(await page.evaluate(()=>__metro.scene.windowView.frame.tunnel===null));
     await wait(page,()=>__metro.train.state.phase==='moving',null,15000);await c.pause();const frozen=await state(page);await page.waitForTimeout(1100);assert.deepEqual((await state(page)).train,frozen.train);
-    await c.choose('.gym-resume-button');await page.waitForTimeout(450);await capture('train-moving',mobile);assert.ok(await page.evaluate(()=>__metro.scene.windowViews.every(v=>!v.stopped.visible&&v.moving.visible)));
+    await c.choose('.gym-resume-button');await page.waitForTimeout(1850);await capture('train-moving',mobile);assert.ok(await page.evaluate(()=>__metro.scene.windowView.layers.every(v=>v.tunnel.tiles.some(tile=>tile.visible))));
     await wait(page,()=>__metro.train.station.id==='metro-riverside'&&__metro.train.doorsOpen,null,10000);
     // Deliberately stay aboard at Des Rives. There is no automatic destination teleport.
     await wait(page,()=>__metro.train.station.id==='metro-island'&&__metro.train.doorsOpen,null,15000);

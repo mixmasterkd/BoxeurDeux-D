@@ -1,3 +1,4 @@
+import { MetroWindowView } from './MetroWindowView.js';
 import { ExplorationScene } from './ExplorationScene.js';
 import { MetroWorld } from '../game/MetroWorld.js';
 import { TrainSession } from '../game/TrainSession.js';
@@ -15,7 +16,7 @@ export class MetroScene extends ExplorationScene {
     const requested=data.place??new URLSearchParams(location.search).get('scene')??saved.scene;
     const place=METRO_PLACES.includes(requested)?requested:'metro-station';
     super.init({...data,place});
-    this.world=null;this.train=null;this.mapElement=null;this.mapFromPause=false;this.closedDoors=null;this.routeSign=null;this.doorAmount=0;this.windowViews=[];
+    this.world=null;this.train=null;this.mapElement=null;this.mapFromPause=false;this.closedDoors=null;this.routeSign=null;this.doorAmount=0;this.windowView=null;
     this.stationId=metroStation(place==='airport'?'metro-airport':place).id;this.hall=place.endsWith('-hall');
     this.direction=metroDirection(this.stationId,place.endsWith('-return')?-1:data.direction??1);
     if(place==='metro-train')this.train=new TrainSession({station:data.station??metroStation(saved.scene).id,direction:data.direction??1});
@@ -30,7 +31,7 @@ export class MetroScene extends ExplorationScene {
       pauseText:'Le trajet attend pendant la pause. Une recharge te replace sur le quai de la dernière station, sans coût.',
       commandsTitle:'Commandes · Métro et voyages',commandsHint:'WASD ou les flèches pour marcher; E pour le plan ou le comptoir. Au mobile, joypad et A. Avance dans les portes pour monter, descendre ou embarquer.'};
   }
-  preload(){super.preload();if(this.train){this.load.image('metro-doors-closed',`${import.meta.env.BASE_URL}assets/metro/train-doors.png`);this.load.image('metro-train-station',`${import.meta.env.BASE_URL}assets/metro/train-at-station.png`);}}
+  preload(){super.preload();if(this.train){this.load.image('metro-doors-closed',`${import.meta.env.BASE_URL}assets/metro/train-doors.png`);for(const name of ['platform','tunnel'])this.load.image(`metro-window-${name}`,`${import.meta.env.BASE_URL}assets/metro/window-${name}.png`);}}
   create(){
     super.create();if(!this.world||!this.ui)return;
     const mapButton=document.createElement('button');mapButton.type='button';mapButton.className='metro-plan-button';mapButton.textContent='Plan du métro';
@@ -45,14 +46,7 @@ export class MetroScene extends ExplorationScene {
   }
   addForeground(){
     if(!this.train)return;
-    const room=this.textures.get('world-metro-train'),station=this.textures.get('metro-train-station');
-    for(const [id,x,width]of [['left-window',135,230],['right-window',829,318]]){
-      if(!room.has(id))room.add(id,0,x,86,width,104);
-      if(!station.has(id))station.add(id,0,x,86,width,104);
-      const moving=this.add.image(x+width/2,138,'world-metro-train',id).setDepth(1);
-      const stopped=this.add.image(x+width/2,138,'metro-train-station',id).setDepth(2);
-      this.windowViews.push({moving,stopped});
-    }
+    this.windowView=new MetroWindowView(this);
     const texture=this.textures.get('metro-doors-closed');
     if(!texture.has('left'))texture.add('left',0,0,0,96,252);
     if(!texture.has('right'))texture.add('right',0,96,0,95,252);
@@ -179,7 +173,6 @@ export class MetroScene extends ExplorationScene {
       if(this.blocked()||document.hidden||this.ui.portraitQuery.matches)this.train.pause();else this.train.resume();
       const events=this.train.update((this.game.loop.rawDelta??delta)/1000);
       this.world.setDoorsOpen(this.train.doorsOpen);
-      for(const view of this.windowViews){view.stopped.setVisible(this.train.doorsOpen);view.moving.setVisible(!this.train.doorsOpen);}
       const target=this.train.doorsOpen?0:1;
       if(!this.blocked())this.doorAmount+=Math.sign(target-this.doorAmount)*Math.min(Math.abs(target-this.doorAmount),Math.min(delta/1000,.1)/.3);
       if(this.closedDoors){
@@ -187,6 +180,7 @@ export class MetroScene extends ExplorationScene {
         this.closedDoors[0].setVisible(amount>.001).setCrop(offset,0,96-offset,252).setX(546-offset);
         this.closedDoors[1].setVisible(amount>.001).setCrop(0,0,95*amount,252).setX(642+95*(1-amount));
       }
+      this.windowView.update(this.train.snapshot(),this.doorAmount);
       if(events.some(event=>event.type==='arrive'))this.persistLocation();
     }
     super.update(time,delta);this.updateSigns();
