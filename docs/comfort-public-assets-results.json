@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-14T01:27:25.666Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": 7,
+  "allMatch": true,
+  "results": [
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "29b6489a1bbba81fe0b4ea4f31adfb9785449d11c678e88ae4b00a4fa0b9e965",
+      "match": true
+    },
+    {
+      "file": "assets/index-Bl_NKUT6.css",
+      "bytes": 102843,
+      "sha256": "142da0cf54013353a075bcc7b7cc2925d9f37d52bddfe7cae009df1465229d57",
+      "match": true
+    },
+    {
+      "file": "assets/index-DfmOQ3Ku.js",
+      "bytes": 1888981,
+      "sha256": "d27047068d5f16859d909e47d55d015b433f2a649d56b3d5ed421e3df74b50a8",
+      "match": true
+    },
+    {
+      "file": "assets/laptop/device.png",
+      "bytes": 1690149,
+      "sha256": "10d33d41e48a30f7d79f3b12e24b2f3f0c724c0b82376e0a2e53e92ebe84cf47",
+      "match": true
+    },
+    {
+      "file": "assets/metro/concourse.png",
+      "bytes": 2593426,
+      "sha256": "18aff5b4dbe30b8aae6f8b10dbe215196e9499af7e1cbf5dd9840ac069545d21",
+      "match": true
+    },
+    {
+      "file": "assets/metro/platform.png",
+      "bytes": 2577331,
+      "sha256": "f0934389ad23a646ac856c45d95475967b39f72df9978941c68f07498fe93c79",
+      "match": true
+    },
+    {
+      "file": "assets/metro/train-at-station.png",
+      "bytes": 2247747,
+      "sha256": "4ac60d17b7b45535cbd70fcf2723db7f12461635b0f0a1e25e0d4c1f40da91e6",
+      "match": true
+    }
+  ]
+}

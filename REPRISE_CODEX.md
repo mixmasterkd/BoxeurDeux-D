@@ -8,7 +8,7 @@ Pablo nommé dans toutes les commandes et phases du sparring mexicain; The Octop
 
 Promenade : pas de grand titre, bannière de proximité ni budget flottant dans le décor, PC et mobile. Lieu dans la bordure; jour, argent et énergie en tête de Pause. Annonces accessibles et dialogues volontaires conservés, adresse de livraison conservée pendant une tournée.
 
-Validation locale : **426 tests**, compilation, **19 contrôles laptop**, **18 contrôles métro**, **34 contrôles du bundle final / 219 ressources**, sans erreur au passage final. Clavier, clic, joypad/CDP, portrait et petite fenêtre clavier simulés, aucun téléphone physique. Vite existant conservé sur 5173; Wi-Fi revérifié 192.168.50.123. Publication en cours de vérification; aucun nouveau chapitre à lancer après ces retouches sans discussion.
+Validation locale : **426 tests**, compilation, **19 contrôles laptop**, **18 contrôles métro**, **34 contrôles du bundle final / 219 ressources**, sans erreur au passage final. Clavier, clic, joypad/CDP, portrait et petite fenêtre clavier simulés, aucun téléphone physique. Vite existant conservé sur 5173; Wi-Fi revérifié 192.168.50.123. **Publié** : `6a78af0`, workflow `34795791666` réussi, **36 contrôles publics / 220 ressources**, zéro erreur au passage final. Index, bundles et quatre visuels identiques à `dist`. Les commits suivants consignent seulement preuves/documentation/tests. Aucun nouveau chapitre à lancer après ces retouches sans discussion.
 
 ## Chapitre V5 — métro, marathon, Mexique et Gants dorés (13 septembre 2026)
 

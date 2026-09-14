@@ -144,6 +144,10 @@ async function pads(mobile) {
 }
 async function metro(mobile) {
   const {page, context, controls: c} = await setup('metro', mobile);
+  await c.hold('down',650);await ready(page,'metro-station-hall');
+  await capture(page,c,mobile,'metro-hall');
+  await c.hold('left',1360);await c.hold('up',1100);await ready(page,'metro-station');
+  assert.equal(await page.locator('#gym-ui').getAttribute('data-metro-direction'),'1');
   await c.pause(); await c.choose('.metro-plan-button');
   await page.locator('.metro-network-map').waitFor({state: 'visible'});
   assert.equal(await page.locator('.metro-network-map li').count(), 5);

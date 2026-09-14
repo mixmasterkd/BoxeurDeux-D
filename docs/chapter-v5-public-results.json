@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-14T00:35:14.215Z",
+  "date": "2026-09-14T01:27:24.099Z",
   "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
   "fixture": "Isolated exported careers and initial nearby access positions; no game-state mutation or DEV bridge. Navigation, CLI, doors and pads use real UI inputs.",
   "mobileEmulated": true,
@@ -87,6 +87,45 @@
       "announcedEnergyCost": 10
     },
     {
+      "name": "pablo-pause",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "pablo-correct-name",
+      "mobile": false,
+      "readyAndRunningAndPause": true,
+      "settingsAndHelpRenamed": true,
+      "returnMexico": true
+    },
+    {
+      "name": "metro-hall",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
       "name": "metro-network-map",
       "mobile": false,
       "layout": {
@@ -124,6 +163,38 @@
       "plan5Stops": true,
       "physicalBoarding": true,
       "trainMoves": true
+    },
+    {
+      "name": "hotel-clear-view",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "hotel-pause-daily",
+      "mobile": false,
+      "layout": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
     },
     {
       "name": "gold-restaurant",
@@ -183,11 +254,11 @@
       "actualStartAndMovement": true,
       "savedCheckpoint": {
         "scene": "marathon-island",
-        "x": 1035,
+        "x": 1031,
         "y": 708,
         "facing": "up"
       },
-      "pausedElapsed": 2.012003333333332,
+      "pausedElapsed": 2.0111599999999994,
       "pause800Stable": true,
       "resumesClock": true,
       "runnerDirections": 4,
@@ -425,6 +496,119 @@
       "announcedEnergyCost": 10
     },
     {
+      "name": "pablo-pause",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : garde haute ou basse, esquives et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "pablo-correct-name",
+      "mobile": true,
+      "readyAndRunningAndPause": true,
+      "settingsAndHelpRenamed": true,
+      "returnMexico": true
+    },
+    {
+      "name": "metro-hall",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
       "name": "metro-network-map",
       "mobile": true,
       "layout": {
@@ -536,6 +720,112 @@
       "plan5Stops": true,
       "physicalBoarding": true,
       "trainMoves": true
+    },
+    {
+      "name": "hotel-clear-view",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "hotel-pause-daily",
+      "mobile": true,
+      "layout": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
     },
     {
       "name": "gold-restaurant",
@@ -706,11 +996,11 @@
       "actualStartAndMovement": true,
       "savedCheckpoint": {
         "scene": "marathon-island",
-        "x": 1034,
-        "y": 701,
+        "x": 1038,
+        "y": 705,
         "facing": "up"
       },
-      "pausedElapsed": 2.270823333333334,
+      "pausedElapsed": 2.2492399999999986,
       "pause800Stable": true,
       "resumesClock": true,
       "runnerDirections": 4,
@@ -723,15 +1013,38 @@
     "/BoxeurDeux-D/assets/PixelifySans-lrcDQVzA.ttf",
     "/BoxeurDeux-D/assets/hotel/lobby-gold.png",
     "/BoxeurDeux-D/assets/hotel/restaurant.png",
-    "/BoxeurDeux-D/assets/index-B0HO_F6X.css",
-    "/BoxeurDeux-D/assets/index-Dy1faqWr.js",
+    "/BoxeurDeux-D/assets/index-Bl_NKUT6.css",
+    "/BoxeurDeux-D/assets/index-DfmOQ3Ku.js",
+    "/BoxeurDeux-D/assets/laptop/device.png",
     "/BoxeurDeux-D/assets/marathon/island.png",
+    "/BoxeurDeux-D/assets/metro/concourse.png",
+    "/BoxeurDeux-D/assets/metro/platform.png",
+    "/BoxeurDeux-D/assets/metro/train-at-station.png",
     "/BoxeurDeux-D/assets/metro/train-doors.png",
     "/BoxeurDeux-D/assets/metro/train.png",
     "/BoxeurDeux-D/assets/mexico/gym-sparring.png",
     "/BoxeurDeux-D/assets/mexico/gym.png",
     "/BoxeurDeux-D/assets/mexico/home.png",
     "/BoxeurDeux-D/assets/sprites/body-training/player-block-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-cross-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-cross-recover-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-cross-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-hit-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-hook-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-hook-recover-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-hook-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-jab-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-jab-recover-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/player-jab-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-block-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-cross-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-cross-recover-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-cross-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-hit-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-jab-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-jab-recover-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/remi-jab-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/body-training/sparring.json",
     "/BoxeurDeux-D/assets/sprites/exploration/player-down-0.png",
     "/BoxeurDeux-D/assets/sprites/exploration/player-down-1.png",
     "/BoxeurDeux-D/assets/sprites/exploration/player-down-2.png",
@@ -749,6 +1062,13 @@
     "/BoxeurDeux-D/assets/sprites/friends/octopus-idle.png",
     "/BoxeurDeux-D/assets/sprites/friends/octopus-portrait.png",
     "/BoxeurDeux-D/assets/sprites/friends/octopus-ready.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/fighters.json",
+    "/BoxeurDeux-D/assets/sprites/knockdown/player-down.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/player-fall.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/player-rise.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/remi-down.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/remi-fall.png",
+    "/BoxeurDeux-D/assets/sprites/knockdown/remi-rise.png",
     "/BoxeurDeux-D/assets/sprites/marathon/crowd-0-down-0.png",
     "/BoxeurDeux-D/assets/sprites/marathon/crowd-0-down-1.png",
     "/BoxeurDeux-D/assets/sprites/marathon/crowd-0-right-0.png",
@@ -793,6 +1113,23 @@
     "/BoxeurDeux-D/assets/sprites/octopus-pads/ready.png",
     "/BoxeurDeux-D/assets/sprites/octopus-pads/right.png",
     "/BoxeurDeux-D/assets/sprites/octopus-pads/sweep.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/fighters.json",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-block-body.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-block.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-cross-body.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-cross-windup-body.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-cross-windup.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-cross.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-dodge.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-down.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-fall.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-guard.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-hit-body.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-hit.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-jab-windup.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-jab.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-rise.png",
+    "/BoxeurDeux-D/assets/sprites/opponents/pablo/pablo-surrender.png",
     "/BoxeurDeux-D/assets/sprites/outfits/boxing-burgundy/player-down-0.png",
     "/BoxeurDeux-D/assets/sprites/outfits/boxing-burgundy/player-down-1.png",
     "/BoxeurDeux-D/assets/sprites/outfits/boxing-burgundy/player-down-2.png",
@@ -853,6 +1190,10 @@
     "/BoxeurDeux-D/assets/sprites/outfits/street-octopus/player-up-0.png",
     "/BoxeurDeux-D/assets/sprites/outfits/street-octopus/player-up-1.png",
     "/BoxeurDeux-D/assets/sprites/outfits/street-octopus/player-up-2.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-hook/fighters.json",
+    "/BoxeurDeux-D/assets/sprites/sparring-hook/player-hook-recover.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-hook/player-hook-windup.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-hook/player-hook.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/fighters.json",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-block.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-cross-recover.png",
@@ -860,9 +1201,20 @@
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-cross.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-dodge.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-guard.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/player-hit.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-jab-recover.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-jab-windup.png",
     "/BoxeurDeux-D/assets/sprites/sparring-v2/player-jab.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-block.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-cross-recover.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-cross-windup.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-cross.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-dodge.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-guard.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-hit.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-jab-recover.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-jab-windup.png",
+    "/BoxeurDeux-D/assets/sprites/sparring-v2/remi-jab.png",
     "/BoxeurDeux-D/assets/sprites/street/player-down-0.png",
     "/BoxeurDeux-D/assets/sprites/street/player-down-1.png",
     "/BoxeurDeux-D/assets/sprites/street/player-down-2.png",
@@ -876,8 +1228,7 @@
     "/BoxeurDeux-D/assets/sprites/street/player-up-1.png",
     "/BoxeurDeux-D/assets/sprites/street/player-up-2.png",
     "/BoxeurDeux-D/assets/sprites/street/player.json",
-    "/BoxeurDeux-D/assets/world/home.png",
-    "/BoxeurDeux-D/assets/world/metro-station.png"
+    "/BoxeurDeux-D/assets/world/home.png"
   ],
   "errors": []
 }
