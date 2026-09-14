@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "gold-rios",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.5609756097560976,
+  "poses": {
+    "gold-rios-guard": {
+      "file": "opponents/gold-rios/gold-rios-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 112,
+        "width": 361,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 64,
+        "y": 10,
+        "w": 231,
+        "h": 328
+      },
+      "head": {
+        "x": 320,
+        "y": 199
+      },
+      "body": {
+        "x": 320,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-block": {
+      "file": "opponents/gold-rios/gold-rios-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 151,
+        "y": 112,
+        "width": 340,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 371,
+        "y": 10,
+        "w": 218,
+        "h": 328
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-jab-windup": {
+      "file": "opponents/gold-rios/gold-rios-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 112,
+        "width": 362,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 658,
+        "y": 10,
+        "w": 232,
+        "h": 328
+      },
+      "head": {
+        "x": 296,
+        "y": 199
+      },
+      "body": {
+        "x": 314,
+        "y": 312
+      },
+      "glove": {
+        "x": 459,
+        "y": 245
+      },
+      "contact": {
+        "x": 459,
+        "y": 245
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-jab": {
+      "file": "opponents/gold-rios/gold-rios-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 139,
+        "y": 112,
+        "width": 415,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 10,
+        "w": 266,
+        "h": 328
+      },
+      "head": {
+        "x": 293,
+        "y": 199
+      },
+      "body": {
+        "x": 322,
+        "y": 317
+      },
+      "glove": {
+        "x": 504,
+        "y": 204
+      },
+      "contact": {
+        "x": 504,
+        "y": 204
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-cross-windup": {
+      "file": "opponents/gold-rios/gold-rios-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 124,
+        "y": 129,
+        "width": 393,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 44,
+        "y": 335,
+        "w": 252,
+        "h": 317
+      },
+      "head": {
+        "x": 364,
+        "y": 213
+      },
+      "body": {
+        "x": 340,
+        "y": 332
+      },
+      "glove": {
+        "x": 226,
+        "y": 238
+      },
+      "contact": {
+        "x": 226,
+        "y": 238
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-cross": {
+      "file": "opponents/gold-rios/gold-rios-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 85,
+        "y": 129,
+        "width": 429,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 336,
+        "y": 335,
+        "w": 275,
+        "h": 317
+      },
+      "head": {
+        "x": 313,
+        "y": 213
+      },
+      "body": {
+        "x": 308,
+        "y": 337
+      },
+      "glove": {
+        "x": 141,
+        "y": 243
+      },
+      "contact": {
+        "x": 141,
+        "y": 243
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-cross-windup-body": {
+      "file": "opponents/gold-rios/gold-rios-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 116,
+        "y": 198,
+        "width": 409,
+        "height": 426
+      },
+      "sourceBounds": {
+        "x": 648,
+        "y": 379,
+        "w": 262,
+        "h": 273
+      },
+      "head": {
+        "x": 386,
+        "y": 300
+      },
+      "body": {
+        "x": 341,
+        "y": 381
+      },
+      "glove": {
+        "x": 320,
+        "y": 420
+      },
+      "contact": {
+        "x": 320,
+        "y": 420
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-cross-body": {
+      "file": "opponents/gold-rios/gold-rios-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 173,
+        "width": 400,
+        "height": 451
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 363,
+        "w": 256,
+        "h": 289
+      },
+      "head": {
+        "x": 357,
+        "y": 268
+      },
+      "body": {
+        "x": 329,
+        "y": 367
+      },
+      "glove": {
+        "x": 393,
+        "y": 426
+      },
+      "contact": {
+        "x": 393,
+        "y": 426
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-block-body": {
+      "file": "opponents/gold-rios/gold-rios-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 140,
+        "width": 370,
+        "height": 484
+      },
+      "sourceBounds": {
+        "x": 59,
+        "y": 649,
+        "w": 237,
+        "h": 310
+      },
+      "head": {
+        "x": 321,
+        "y": 222
+      },
+      "body": {
+        "x": 321,
+        "y": 348
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-hit": {
+      "file": "opponents/gold-rios/gold-rios-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 126,
+        "width": 372,
+        "height": 498
+      },
+      "sourceBounds": {
+        "x": 382,
+        "y": 639,
+        "w": 238,
+        "h": 319
+      },
+      "head": {
+        "x": 303,
+        "y": 211
+      },
+      "body": {
+        "x": 329,
+        "y": 320
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-hit-body": {
+      "file": "opponents/gold-rios/gold-rios-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 134,
+        "y": 181,
+        "width": 373,
+        "height": 443
+      },
+      "sourceBounds": {
+        "x": 675,
+        "y": 672,
+        "w": 239,
+        "h": 284
+      },
+      "head": {
+        "x": 354,
+        "y": 287
+      },
+      "body": {
+        "x": 332,
+        "y": 380
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-fall": {
+      "file": "opponents/gold-rios/gold-rios-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 231,
+        "width": 368,
+        "height": 393
+      },
+      "sourceBounds": {
+        "x": 989,
+        "y": 703,
+        "w": 236,
+        "h": 252
+      },
+      "head": {
+        "x": 302,
+        "y": 314
+      },
+      "body": {
+        "x": 313,
+        "y": 396
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-down": {
+      "file": "opponents/gold-rios/gold-rios-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 81,
+        "y": 265,
+        "width": 478,
+        "height": 359
+      },
+      "sourceBounds": {
+        "x": 31,
+        "y": 1015,
+        "w": 306,
+        "h": 230
+      },
+      "head": {
+        "x": 272,
+        "y": 340
+      },
+      "body": {
+        "x": 305,
+        "y": 430
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-rise": {
+      "file": "opponents/gold-rios/gold-rios-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 165,
+        "y": 201,
+        "width": 309,
+        "height": 423
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 969,
+        "w": 198,
+        "h": 271
+      },
+      "head": {
+        "x": 289,
+        "y": 290
+      },
+      "body": {
+        "x": 313,
+        "y": 383
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-dodge": {
+      "file": "opponents/gold-rios/gold-rios-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 123,
+        "y": 203,
+        "width": 395,
+        "height": 421
+      },
+      "sourceBounds": {
+        "x": 677,
+        "y": 971,
+        "w": 253,
+        "h": 270
+      },
+      "head": {
+        "x": 238,
+        "y": 279
+      },
+      "body": {
+        "x": 297,
+        "y": 359
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "gold-rios-surrender": {
+      "file": "opponents/gold-rios/gold-rios-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 174,
+        "width": 348,
+        "height": 450
+      },
+      "sourceBounds": {
+        "x": 981,
+        "y": 957,
+        "w": 223,
+        "h": 288
+      },
+      "head": {
+        "x": 311,
+        "y": 250
+      },
+      "body": {
+        "x": 314,
+        "y": 363
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-rios-alpha.png",
+      "physicalScale": 1.5609756097560976
+    }
+  }
+}

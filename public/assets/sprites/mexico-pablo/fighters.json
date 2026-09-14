@@ -1,0 +1,54 @@
+{
+  "width": 96,
+  "height": 112,
+  "anchor": {
+    "x": 48,
+    "y": 104
+  },
+  "artHeight": 88,
+  "source": "references/mexico/pablo-world-source.png",
+  "poses": {
+    "idle": {
+      "file": "mexico-pablo/idle.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 25,
+        "y": 16,
+        "width": 47,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 323,
+        "y": 106,
+        "w": 388,
+        "h": 728
+      }
+    },
+    "ready": {
+      "file": "mexico-pablo/ready.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 27,
+        "y": 16,
+        "width": 43,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 1079,
+        "y": 106,
+        "w": 357,
+        "h": 728
+      }
+    }
+  }
+}

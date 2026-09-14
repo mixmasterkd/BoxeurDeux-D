@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "gold-moreau",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.532934131736527,
+  "poses": {
+    "gold-moreau-guard": {
+      "file": "opponents/gold-moreau/gold-moreau-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 131,
+        "y": 112,
+        "width": 380,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 52,
+        "y": 6,
+        "w": 248,
+        "h": 334
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-block": {
+      "file": "opponents/gold-moreau/gold-moreau-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 135,
+        "y": 112,
+        "width": 371,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 359,
+        "y": 6,
+        "w": 242,
+        "h": 334
+      },
+      "head": {
+        "x": 320,
+        "y": 199
+      },
+      "body": {
+        "x": 320,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-jab-windup": {
+      "file": "opponents/gold-moreau/gold-moreau-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 129,
+        "y": 114,
+        "width": 383,
+        "height": 510
+      },
+      "sourceBounds": {
+        "x": 650,
+        "y": 7,
+        "w": 250,
+        "h": 333
+      },
+      "head": {
+        "x": 294,
+        "y": 201
+      },
+      "body": {
+        "x": 313,
+        "y": 313
+      },
+      "glove": {
+        "x": 466,
+        "y": 247
+      },
+      "contact": {
+        "x": 466,
+        "y": 247
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-jab": {
+      "file": "opponents/gold-moreau/gold-moreau-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 115,
+        "width": 415,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 960,
+        "y": 8,
+        "w": 271,
+        "h": 332
+      },
+      "head": {
+        "x": 281,
+        "y": 202
+      },
+      "body": {
+        "x": 310,
+        "y": 319
+      },
+      "glove": {
+        "x": 493,
+        "y": 207
+      },
+      "contact": {
+        "x": 493,
+        "y": 207
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-cross-windup": {
+      "file": "opponents/gold-moreau/gold-moreau-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 127,
+        "width": 400,
+        "height": 497
+      },
+      "sourceBounds": {
+        "x": 37,
+        "y": 330,
+        "w": 261,
+        "h": 324
+      },
+      "head": {
+        "x": 365,
+        "y": 211
+      },
+      "body": {
+        "x": 341,
+        "y": 331
+      },
+      "glove": {
+        "x": 225,
+        "y": 236
+      },
+      "contact": {
+        "x": 225,
+        "y": 236
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-cross": {
+      "file": "opponents/gold-moreau/gold-moreau-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 80,
+        "y": 127,
+        "width": 437,
+        "height": 497
+      },
+      "sourceBounds": {
+        "x": 330,
+        "y": 331,
+        "w": 285,
+        "h": 324
+      },
+      "head": {
+        "x": 312,
+        "y": 211
+      },
+      "body": {
+        "x": 307,
+        "y": 336
+      },
+      "glove": {
+        "x": 137,
+        "y": 241
+      },
+      "contact": {
+        "x": 137,
+        "y": 241
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-cross-windup-body": {
+      "file": "opponents/gold-moreau/gold-moreau-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 107,
+        "y": 175,
+        "width": 428,
+        "height": 449
+      },
+      "sourceBounds": {
+        "x": 645,
+        "y": 362,
+        "w": 279,
+        "h": 293
+      },
+      "head": {
+        "x": 389,
+        "y": 283
+      },
+      "body": {
+        "x": 342,
+        "y": 368
+      },
+      "glove": {
+        "x": 321,
+        "y": 409
+      },
+      "contact": {
+        "x": 321,
+        "y": 409
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-cross-body": {
+      "file": "opponents/gold-moreau/gold-moreau-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 115,
+        "y": 167,
+        "width": 412,
+        "height": 457
+      },
+      "sourceBounds": {
+        "x": 968,
+        "y": 357,
+        "w": 269,
+        "h": 298
+      },
+      "head": {
+        "x": 358,
+        "y": 263
+      },
+      "body": {
+        "x": 329,
+        "y": 363
+      },
+      "glove": {
+        "x": 395,
+        "y": 423
+      },
+      "contact": {
+        "x": 395,
+        "y": 423
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-block-body": {
+      "file": "opponents/gold-moreau/gold-moreau-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 125,
+        "y": 149,
+        "width": 391,
+        "height": 475
+      },
+      "sourceBounds": {
+        "x": 48,
+        "y": 649,
+        "w": 255,
+        "h": 310
+      },
+      "head": {
+        "x": 320,
+        "y": 230
+      },
+      "body": {
+        "x": 320,
+        "y": 353
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-hit": {
+      "file": "opponents/gold-moreau/gold-moreau-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 119,
+        "y": 126,
+        "width": 403,
+        "height": 498
+      },
+      "sourceBounds": {
+        "x": 366,
+        "y": 635,
+        "w": 263,
+        "h": 325
+      },
+      "head": {
+        "x": 300,
+        "y": 211
+      },
+      "body": {
+        "x": 329,
+        "y": 320
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-hit-body": {
+      "file": "opponents/gold-moreau/gold-moreau-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 115,
+        "y": 189,
+        "width": 412,
+        "height": 435
+      },
+      "sourceBounds": {
+        "x": 662,
+        "y": 675,
+        "w": 269,
+        "h": 284
+      },
+      "head": {
+        "x": 358,
+        "y": 293
+      },
+      "body": {
+        "x": 334,
+        "y": 385
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-fall": {
+      "file": "opponents/gold-moreau/gold-moreau-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 230,
+        "width": 397,
+        "height": 394
+      },
+      "sourceBounds": {
+        "x": 968,
+        "y": 699,
+        "w": 259,
+        "h": 257
+      },
+      "head": {
+        "x": 300,
+        "y": 313
+      },
+      "body": {
+        "x": 312,
+        "y": 395
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-down": {
+      "file": "opponents/gold-moreau/gold-moreau-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 69,
+        "y": 265,
+        "width": 503,
+        "height": 359
+      },
+      "sourceBounds": {
+        "x": 24,
+        "y": 1013,
+        "w": 328,
+        "h": 234
+      },
+      "head": {
+        "x": 270,
+        "y": 340
+      },
+      "body": {
+        "x": 305,
+        "y": 430
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-rise": {
+      "file": "opponents/gold-moreau/gold-moreau-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 161,
+        "y": 196,
+        "width": 319,
+        "height": 428
+      },
+      "sourceBounds": {
+        "x": 388,
+        "y": 964,
+        "w": 208,
+        "h": 279
+      },
+      "head": {
+        "x": 289,
+        "y": 286
+      },
+      "body": {
+        "x": 314,
+        "y": 380
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-dodge": {
+      "file": "opponents/gold-moreau/gold-moreau-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 115,
+        "y": 195,
+        "width": 412,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 661,
+        "y": 964,
+        "w": 269,
+        "h": 280
+      },
+      "head": {
+        "x": 235,
+        "y": 272
+      },
+      "body": {
+        "x": 296,
+        "y": 354
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    },
+    "gold-moreau-surrender": {
+      "file": "opponents/gold-moreau/gold-moreau-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 166,
+        "width": 348,
+        "height": 458
+      },
+      "sourceBounds": {
+        "x": 985,
+        "y": 947,
+        "w": 227,
+        "h": 299
+      },
+      "head": {
+        "x": 324,
+        "y": 244
+      },
+      "body": {
+        "x": 328,
+        "y": 359
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-moreau-alpha.png",
+      "physicalScale": 1.532934131736527
+    }
+  }
+}

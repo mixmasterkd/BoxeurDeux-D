@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "poses": {
+    "neutral": {
+      "file": "decision-local/neutral.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 196,
+        "y": 112,
+        "width": 248,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 63,
+        "y": 113,
+        "w": 420,
+        "h": 866
+      },
+      "head": {
+        "x": 320,
+        "y": 166
+      },
+      "glove": {
+        "x": 222,
+        "y": 389
+      },
+      "contact": {
+        "x": 222,
+        "y": 389
+      }
+    },
+    "winner": {
+      "file": "decision-local/winner.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 195,
+        "y": 59,
+        "width": 265,
+        "height": 565
+      },
+      "sourceBounds": {
+        "x": 556,
+        "y": 23,
+        "w": 448,
+        "h": 956
+      },
+      "head": {
+        "x": 320,
+        "y": 166
+      },
+      "glove": {
+        "x": 431,
+        "y": 90
+      },
+      "contact": {
+        "x": 431,
+        "y": 90
+      }
+    },
+    "loser": {
+      "file": "decision-local/loser.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 195,
+        "y": 116,
+        "width": 248,
+        "height": 508
+      },
+      "sourceBounds": {
+        "x": 1053,
+        "y": 121,
+        "w": 419,
+        "h": 860
+      },
+      "head": {
+        "x": 320,
+        "y": 165
+      },
+      "glove": {
+        "x": 222,
+        "y": 388
+      },
+      "contact": {
+        "x": 222,
+        "y": 388
+      }
+    }
+  }
+}

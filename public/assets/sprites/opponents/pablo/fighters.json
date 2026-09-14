@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "pablo",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.5657492354740061,
+  "poses": {
+    "pablo-guard": {
+      "file": "opponents/pablo/pablo-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 150,
+        "y": 112,
+        "width": 341,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 74,
+        "y": 12,
+        "w": 218,
+        "h": 327
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-block": {
+      "file": "opponents/pablo/pablo-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 156,
+        "y": 112,
+        "width": 330,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 377,
+        "y": 12,
+        "w": 211,
+        "h": 327
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-jab-windup": {
+      "file": "opponents/pablo/pablo-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 117,
+        "width": 376,
+        "height": 507
+      },
+      "sourceBounds": {
+        "x": 659,
+        "y": 15,
+        "w": 240,
+        "h": 324
+      },
+      "head": {
+        "x": 300,
+        "y": 203
+      },
+      "body": {
+        "x": 318,
+        "y": 315
+      },
+      "glove": {
+        "x": 469,
+        "y": 249
+      },
+      "contact": {
+        "x": 469,
+        "y": 249
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-jab": {
+      "file": "opponents/pablo/pablo-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 142,
+        "y": 112,
+        "width": 406,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 975,
+        "y": 12,
+        "w": 259,
+        "h": 327
+      },
+      "head": {
+        "x": 292,
+        "y": 199
+      },
+      "body": {
+        "x": 320,
+        "y": 317
+      },
+      "glove": {
+        "x": 499,
+        "y": 204
+      },
+      "contact": {
+        "x": 499,
+        "y": 204
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-cross-windup": {
+      "file": "opponents/pablo/pablo-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 123,
+        "y": 132,
+        "width": 395,
+        "height": 492
+      },
+      "sourceBounds": {
+        "x": 45,
+        "y": 338,
+        "w": 252,
+        "h": 314
+      },
+      "head": {
+        "x": 364,
+        "y": 216
+      },
+      "body": {
+        "x": 340,
+        "y": 334
+      },
+      "glove": {
+        "x": 226,
+        "y": 240
+      },
+      "contact": {
+        "x": 226,
+        "y": 240
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-cross": {
+      "file": "opponents/pablo/pablo-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 107,
+        "y": 135,
+        "width": 407,
+        "height": 489
+      },
+      "sourceBounds": {
+        "x": 349,
+        "y": 340,
+        "w": 260,
+        "h": 312
+      },
+      "head": {
+        "x": 323,
+        "y": 218
+      },
+      "body": {
+        "x": 319,
+        "y": 340
+      },
+      "glove": {
+        "x": 160,
+        "y": 247
+      },
+      "contact": {
+        "x": 160,
+        "y": 247
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-cross-windup-body": {
+      "file": "opponents/pablo/pablo-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 112,
+        "y": 197,
+        "width": 416,
+        "height": 427
+      },
+      "sourceBounds": {
+        "x": 648,
+        "y": 378,
+        "w": 266,
+        "h": 273
+      },
+      "head": {
+        "x": 387,
+        "y": 300
+      },
+      "body": {
+        "x": 341,
+        "y": 381
+      },
+      "glove": {
+        "x": 320,
+        "y": 419
+      },
+      "contact": {
+        "x": 320,
+        "y": 419
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-cross-body": {
+      "file": "opponents/pablo/pablo-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 123,
+        "y": 197,
+        "width": 396,
+        "height": 427
+      },
+      "sourceBounds": {
+        "x": 975,
+        "y": 378,
+        "w": 253,
+        "h": 273
+      },
+      "head": {
+        "x": 357,
+        "y": 287
+      },
+      "body": {
+        "x": 329,
+        "y": 381
+      },
+      "glove": {
+        "x": 392,
+        "y": 436
+      },
+      "contact": {
+        "x": 392,
+        "y": 436
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-block-body": {
+      "file": "opponents/pablo/pablo-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 148,
+        "width": 371,
+        "height": 476
+      },
+      "sourceBounds": {
+        "x": 59,
+        "y": 655,
+        "w": 237,
+        "h": 304
+      },
+      "head": {
+        "x": 322,
+        "y": 229
+      },
+      "body": {
+        "x": 322,
+        "y": 353
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-hit": {
+      "file": "opponents/pablo/pablo-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 129,
+        "width": 377,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 380,
+        "y": 642,
+        "w": 241,
+        "h": 316
+      },
+      "head": {
+        "x": 302,
+        "y": 213
+      },
+      "body": {
+        "x": 328,
+        "y": 322
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-hit-body": {
+      "file": "opponents/pablo/pablo-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 198,
+        "width": 388,
+        "height": 426
+      },
+      "sourceBounds": {
+        "x": 674,
+        "y": 684,
+        "w": 248,
+        "h": 272
+      },
+      "head": {
+        "x": 356,
+        "y": 300
+      },
+      "body": {
+        "x": 333,
+        "y": 390
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-fall": {
+      "file": "opponents/pablo/pablo-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 131,
+        "y": 226,
+        "width": 379,
+        "height": 398
+      },
+      "sourceBounds": {
+        "x": 981,
+        "y": 702,
+        "w": 242,
+        "h": 254
+      },
+      "head": {
+        "x": 302,
+        "y": 310
+      },
+      "body": {
+        "x": 313,
+        "y": 393
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-down": {
+      "file": "opponents/pablo/pablo-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 74,
+        "y": 270,
+        "width": 492,
+        "height": 354
+      },
+      "sourceBounds": {
+        "x": 33,
+        "y": 1017,
+        "w": 314,
+        "h": 226
+      },
+      "head": {
+        "x": 271,
+        "y": 344
+      },
+      "body": {
+        "x": 305,
+        "y": 433
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-rise": {
+      "file": "opponents/pablo/pablo-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 160,
+        "y": 192,
+        "width": 321,
+        "height": 432
+      },
+      "sourceBounds": {
+        "x": 390,
+        "y": 964,
+        "w": 205,
+        "h": 276
+      },
+      "head": {
+        "x": 288,
+        "y": 283
+      },
+      "body": {
+        "x": 314,
+        "y": 378
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-dodge": {
+      "file": "opponents/pablo/pablo-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 126,
+        "y": 187,
+        "width": 390,
+        "height": 437
+      },
+      "sourceBounds": {
+        "x": 673,
+        "y": 962,
+        "w": 249,
+        "h": 279
+      },
+      "head": {
+        "x": 239,
+        "y": 266
+      },
+      "body": {
+        "x": 298,
+        "y": 349
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    },
+    "pablo-surrender": {
+      "file": "opponents/pablo/pablo-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 157,
+        "y": 161,
+        "width": 327,
+        "height": 463
+      },
+      "sourceBounds": {
+        "x": 990,
+        "y": 950,
+        "w": 209,
+        "h": 296
+      },
+      "head": {
+        "x": 324,
+        "y": 240
+      },
+      "body": {
+        "x": 327,
+        "y": 356
+      },
+      "sourceFile": "references/characters/new-chapter-combat/pablo-alpha.png",
+      "physicalScale": 1.5657492354740061
+    }
+  }
+}

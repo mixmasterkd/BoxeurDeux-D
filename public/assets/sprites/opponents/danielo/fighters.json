@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "danielo",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.5609756097560976,
+  "poses": {
+    "danielo-guard": {
+      "file": "opponents/danielo/danielo-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 112,
+        "width": 359,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 65,
+        "y": 10,
+        "w": 230,
+        "h": 328
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-block": {
+      "file": "opponents/danielo/danielo-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 149,
+        "y": 112,
+        "width": 343,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 370,
+        "y": 10,
+        "w": 220,
+        "h": 328
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-jab-windup": {
+      "file": "opponents/danielo/danielo-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 137,
+        "y": 112,
+        "width": 403,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 654,
+        "y": 10,
+        "w": 258,
+        "h": 328
+      },
+      "head": {
+        "x": 310,
+        "y": 199
+      },
+      "body": {
+        "x": 330,
+        "y": 312
+      },
+      "glove": {
+        "x": 491,
+        "y": 245
+      },
+      "contact": {
+        "x": 491,
+        "y": 245
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-jab": {
+      "file": "opponents/danielo/danielo-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 133,
+        "y": 112,
+        "width": 418,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 964,
+        "y": 10,
+        "w": 268,
+        "h": 328
+      },
+      "head": {
+        "x": 288,
+        "y": 199
+      },
+      "body": {
+        "x": 317,
+        "y": 317
+      },
+      "glove": {
+        "x": 501,
+        "y": 204
+      },
+      "contact": {
+        "x": 501,
+        "y": 204
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-cross-windup": {
+      "file": "opponents/danielo/danielo-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 124,
+        "y": 124,
+        "width": 393,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 43,
+        "y": 332,
+        "w": 252,
+        "h": 320
+      },
+      "head": {
+        "x": 364,
+        "y": 209
+      },
+      "body": {
+        "x": 340,
+        "y": 329
+      },
+      "glove": {
+        "x": 226,
+        "y": 234
+      },
+      "contact": {
+        "x": 226,
+        "y": 234
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-cross": {
+      "file": "opponents/danielo/danielo-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 80,
+        "y": 129,
+        "width": 434,
+        "height": 495
+      },
+      "sourceBounds": {
+        "x": 333,
+        "y": 335,
+        "w": 278,
+        "h": 317
+      },
+      "head": {
+        "x": 310,
+        "y": 213
+      },
+      "body": {
+        "x": 306,
+        "y": 337
+      },
+      "glove": {
+        "x": 136,
+        "y": 243
+      },
+      "contact": {
+        "x": 136,
+        "y": 243
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-cross-windup-body": {
+      "file": "opponents/danielo/danielo-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 119,
+        "y": 195,
+        "width": 404,
+        "height": 429
+      },
+      "sourceBounds": {
+        "x": 651,
+        "y": 377,
+        "w": 259,
+        "h": 275
+      },
+      "head": {
+        "x": 386,
+        "y": 298
+      },
+      "body": {
+        "x": 341,
+        "y": 380
+      },
+      "glove": {
+        "x": 321,
+        "y": 418
+      },
+      "contact": {
+        "x": 321,
+        "y": 418
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-cross-body": {
+      "file": "opponents/danielo/danielo-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 122,
+        "y": 184,
+        "width": 398,
+        "height": 440
+      },
+      "sourceBounds": {
+        "x": 973,
+        "y": 370,
+        "w": 255,
+        "h": 282
+      },
+      "head": {
+        "x": 357,
+        "y": 276
+      },
+      "body": {
+        "x": 329,
+        "y": 373
+      },
+      "glove": {
+        "x": 393,
+        "y": 431
+      },
+      "contact": {
+        "x": 393,
+        "y": 431
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-block-body": {
+      "file": "opponents/danielo/danielo-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 142,
+        "width": 359,
+        "height": 482
+      },
+      "sourceBounds": {
+        "x": 63,
+        "y": 649,
+        "w": 230,
+        "h": 309
+      },
+      "head": {
+        "x": 321,
+        "y": 224
+      },
+      "body": {
+        "x": 321,
+        "y": 349
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-hit": {
+      "file": "opponents/danielo/danielo-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 126,
+        "width": 378,
+        "height": 498
+      },
+      "sourceBounds": {
+        "x": 382,
+        "y": 638,
+        "w": 242,
+        "h": 319
+      },
+      "head": {
+        "x": 302,
+        "y": 211
+      },
+      "body": {
+        "x": 328,
+        "y": 320
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-hit-body": {
+      "file": "opponents/danielo/danielo-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 130,
+        "y": 188,
+        "width": 381,
+        "height": 436
+      },
+      "sourceBounds": {
+        "x": 675,
+        "y": 678,
+        "w": 244,
+        "h": 279
+      },
+      "head": {
+        "x": 355,
+        "y": 293
+      },
+      "body": {
+        "x": 332,
+        "y": 384
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-fall": {
+      "file": "opponents/danielo/danielo-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 129,
+        "y": 238,
+        "width": 382,
+        "height": 386
+      },
+      "sourceBounds": {
+        "x": 976,
+        "y": 711,
+        "w": 245,
+        "h": 247
+      },
+      "head": {
+        "x": 301,
+        "y": 319
+      },
+      "body": {
+        "x": 313,
+        "y": 400
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-down": {
+      "file": "opponents/danielo/danielo-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 71,
+        "y": 267,
+        "width": 498,
+        "height": 357
+      },
+      "sourceBounds": {
+        "x": 24,
+        "y": 1014,
+        "w": 319,
+        "h": 229
+      },
+      "head": {
+        "x": 270,
+        "y": 342
+      },
+      "body": {
+        "x": 305,
+        "y": 431
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-rise": {
+      "file": "opponents/danielo/danielo-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 159,
+        "y": 187,
+        "width": 322,
+        "height": 437
+      },
+      "sourceBounds": {
+        "x": 391,
+        "y": 959,
+        "w": 206,
+        "h": 280
+      },
+      "head": {
+        "x": 288,
+        "y": 279
+      },
+      "body": {
+        "x": 313,
+        "y": 375
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-dodge": {
+      "file": "opponents/danielo/danielo-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 123,
+        "y": 190,
+        "width": 396,
+        "height": 434
+      },
+      "sourceBounds": {
+        "x": 670,
+        "y": 963,
+        "w": 254,
+        "h": 278
+      },
+      "head": {
+        "x": 238,
+        "y": 268
+      },
+      "body": {
+        "x": 297,
+        "y": 351
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    },
+    "danielo-surrender": {
+      "file": "opponents/danielo/danielo-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 162,
+        "y": 178,
+        "width": 317,
+        "height": 446
+      },
+      "sourceBounds": {
+        "x": 994,
+        "y": 957,
+        "w": 203,
+        "h": 286
+      },
+      "head": {
+        "x": 324,
+        "y": 254
+      },
+      "body": {
+        "x": 327,
+        "y": 366
+      },
+      "sourceFile": "references/characters/new-chapter-combat/danielo-alpha.png",
+      "physicalScale": 1.5609756097560976
+    }
+  }
+}

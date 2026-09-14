@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "runner",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.6623376623376624,
+  "poses": {
+    "runner-guard": {
+      "file": "opponents/runner/runner-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 136,
+        "y": 112,
+        "width": 369,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 68,
+        "y": 14,
+        "w": 222,
+        "h": 308
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-block": {
+      "file": "opponents/runner/runner-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 140,
+        "y": 112,
+        "width": 362,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 372,
+        "y": 14,
+        "w": 218,
+        "h": 308
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-jab-windup": {
+      "file": "opponents/runner/runner-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 112,
+        "width": 377,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 662,
+        "y": 14,
+        "w": 227,
+        "h": 308
+      },
+      "head": {
+        "x": 294,
+        "y": 199
+      },
+      "body": {
+        "x": 313,
+        "y": 312
+      },
+      "glove": {
+        "x": 464,
+        "y": 245
+      },
+      "contact": {
+        "x": 464,
+        "y": 245
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-jab": {
+      "file": "opponents/runner/runner-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 112,
+        "width": 434,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 971,
+        "y": 14,
+        "w": 261,
+        "h": 308
+      },
+      "head": {
+        "x": 288,
+        "y": 199
+      },
+      "body": {
+        "x": 318,
+        "y": 317
+      },
+      "glove": {
+        "x": 509,
+        "y": 204
+      },
+      "contact": {
+        "x": 509,
+        "y": 204
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-cross-windup": {
+      "file": "opponents/runner/runner-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 120,
+        "y": 115,
+        "width": 402,
+        "height": 509
+      },
+      "sourceBounds": {
+        "x": 48,
+        "y": 336,
+        "w": 242,
+        "h": 306
+      },
+      "head": {
+        "x": 365,
+        "y": 201
+      },
+      "body": {
+        "x": 341,
+        "y": 324
+      },
+      "glove": {
+        "x": 225,
+        "y": 227
+      },
+      "contact": {
+        "x": 225,
+        "y": 227
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-cross": {
+      "file": "opponents/runner/runner-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 94,
+        "y": 119,
+        "width": 427,
+        "height": 505
+      },
+      "sourceBounds": {
+        "x": 350,
+        "y": 338,
+        "w": 257,
+        "h": 304
+      },
+      "head": {
+        "x": 320,
+        "y": 205
+      },
+      "body": {
+        "x": 316,
+        "y": 331
+      },
+      "glove": {
+        "x": 150,
+        "y": 235
+      },
+      "contact": {
+        "x": 150,
+        "y": 235
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-cross-windup-body": {
+      "file": "opponents/runner/runner-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 109,
+        "y": 180,
+        "width": 424,
+        "height": 444
+      },
+      "sourceBounds": {
+        "x": 652,
+        "y": 375,
+        "w": 255,
+        "h": 267
+      },
+      "head": {
+        "x": 389,
+        "y": 287
+      },
+      "body": {
+        "x": 342,
+        "y": 371
+      },
+      "glove": {
+        "x": 321,
+        "y": 411
+      },
+      "contact": {
+        "x": 321,
+        "y": 411
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-cross-body": {
+      "file": "opponents/runner/runner-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 114,
+        "y": 162,
+        "width": 414,
+        "height": 462
+      },
+      "sourceBounds": {
+        "x": 977,
+        "y": 364,
+        "w": 249,
+        "h": 278
+      },
+      "head": {
+        "x": 358,
+        "y": 259
+      },
+      "body": {
+        "x": 329,
+        "y": 361
+      },
+      "glove": {
+        "x": 395,
+        "y": 421
+      },
+      "contact": {
+        "x": 395,
+        "y": 421
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-block-body": {
+      "file": "opponents/runner/runner-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 174,
+        "width": 366,
+        "height": 450
+      },
+      "sourceBounds": {
+        "x": 66,
+        "y": 663,
+        "w": 220,
+        "h": 271
+      },
+      "head": {
+        "x": 321,
+        "y": 251
+      },
+      "body": {
+        "x": 321,
+        "y": 368
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-hit": {
+      "file": "opponents/runner/runner-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 129,
+        "y": 130,
+        "width": 384,
+        "height": 494
+      },
+      "sourceBounds": {
+        "x": 382,
+        "y": 637,
+        "w": 231,
+        "h": 297
+      },
+      "head": {
+        "x": 302,
+        "y": 214
+      },
+      "body": {
+        "x": 329,
+        "y": 323
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-hit-body": {
+      "file": "opponents/runner/runner-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 190,
+        "width": 401,
+        "height": 434
+      },
+      "sourceBounds": {
+        "x": 675,
+        "y": 671,
+        "w": 241,
+        "h": 261
+      },
+      "head": {
+        "x": 357,
+        "y": 294
+      },
+      "body": {
+        "x": 333,
+        "y": 385
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-fall": {
+      "file": "opponents/runner/runner-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 113,
+        "y": 242,
+        "width": 414,
+        "height": 382
+      },
+      "sourceBounds": {
+        "x": 977,
+        "y": 698,
+        "w": 249,
+        "h": 230
+      },
+      "head": {
+        "x": 299,
+        "y": 322
+      },
+      "body": {
+        "x": 312,
+        "y": 403
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-down": {
+      "file": "opponents/runner/runner-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 56,
+        "y": 238,
+        "width": 529,
+        "height": 386
+      },
+      "sourceBounds": {
+        "x": 27,
+        "y": 1006,
+        "w": 318,
+        "h": 232
+      },
+      "head": {
+        "x": 267,
+        "y": 319
+      },
+      "body": {
+        "x": 304,
+        "y": 415
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-rise": {
+      "file": "opponents/runner/runner-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 156,
+        "y": 193,
+        "width": 327,
+        "height": 431
+      },
+      "sourceBounds": {
+        "x": 392,
+        "y": 963,
+        "w": 197,
+        "h": 259
+      },
+      "head": {
+        "x": 287,
+        "y": 283
+      },
+      "body": {
+        "x": 313,
+        "y": 378
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-dodge": {
+      "file": "opponents/runner/runner-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 120,
+        "y": 165,
+        "width": 364,
+        "height": 459
+      },
+      "sourceBounds": {
+        "x": 702,
+        "y": 958,
+        "w": 219,
+        "h": 276
+      },
+      "head": {
+        "x": 226,
+        "y": 248
+      },
+      "body": {
+        "x": 280,
+        "y": 335
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    },
+    "runner-surrender": {
+      "file": "opponents/runner/runner-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 138,
+        "y": 125,
+        "width": 361,
+        "height": 499
+      },
+      "sourceBounds": {
+        "x": 984,
+        "y": 938,
+        "w": 217,
+        "h": 300
+      },
+      "head": {
+        "x": 322,
+        "y": 210
+      },
+      "body": {
+        "x": 326,
+        "y": 334
+      },
+      "sourceFile": "references/characters/new-chapter-combat/runner-alpha.png",
+      "physicalScale": 1.6623376623376624
+    }
+  }
+}

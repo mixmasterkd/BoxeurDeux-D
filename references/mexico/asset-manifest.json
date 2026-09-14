@@ -1,0 +1,65 @@
+[
+  {
+    "name": "village",
+    "w": 1920,
+    "h": 1080,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-bde35fb3-9540-47a2-b3f3-7fc456260d73.png"
+  },
+  {
+    "name": "home",
+    "w": 1280,
+    "h": 720,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-c1a01a97-d07f-4803-8966-0a5ee2d75c1b.png"
+  },
+  {
+    "name": "gym",
+    "w": 1280,
+    "h": 720,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-efa94767-41c0-47c8-b27e-6d4916050680.png"
+  },
+  {
+    "name": "beach",
+    "w": 1920,
+    "h": 1080,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-6d321fa5-ed80-40f4-920c-b21ee6ca56cb.png"
+  },
+  {
+    "name": "arena",
+    "w": 1920,
+    "h": 1080,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-4e2032b5-d092-48b9-895a-c645de719bf6.png"
+  },
+  {
+    "name": "arena-ring",
+    "w": 1280,
+    "h": 720,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-390d2014-269e-40dc-b003-67bca2da3c00.png"
+  },
+  {
+    "name": "gym-sparring",
+    "w": 1280,
+    "h": 720,
+    "group": "mexico",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-31cc43b9-4c9b-48fe-9d3d-497703f2171c.png"
+  },
+  {
+    "name": "restaurant",
+    "w": 1280,
+    "h": 720,
+    "group": "hotel",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-5d489971-1dc5-4cd8-a458-a687301850bc.png"
+  },
+  {
+    "name": "lobby-gold",
+    "w": 1920,
+    "h": 1080,
+    "group": "hotel",
+    "path": "/home/mixmasterkd/.codex/generated_images/01a09ccb-ceb0-75a3-8eb4-1546093e59d2/exec-00be6a9f-bf6c-4e35-89a0-8985b5cd1aa4.png"
+  }
+]

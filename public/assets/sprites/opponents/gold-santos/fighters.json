@@ -1,0 +1,560 @@
+{
+  "version": 1,
+  "identity": "gold-santos",
+  "canvas": {
+    "width": 640,
+    "height": 640
+  },
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "physicalScale": 1.8351254480286738,
+  "poses": {
+    "gold-santos-guard": {
+      "file": "opponents/gold-santos/gold-santos-guard.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 112,
+        "width": 378,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 83,
+        "y": 43,
+        "w": 206,
+        "h": 279
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 301
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-block": {
+      "file": "opponents/gold-santos/gold-santos-block.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 141,
+        "y": 112,
+        "width": 360,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 383,
+        "y": 43,
+        "w": 196,
+        "h": 279
+      },
+      "head": {
+        "x": 321,
+        "y": 199
+      },
+      "body": {
+        "x": 321,
+        "y": 312
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-jab-windup": {
+      "file": "opponents/gold-santos/gold-santos-jab-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 130,
+        "y": 110,
+        "width": 385,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 667,
+        "y": 42,
+        "w": 210,
+        "h": 280
+      },
+      "head": {
+        "x": 296,
+        "y": 197
+      },
+      "body": {
+        "x": 315,
+        "y": 310
+      },
+      "glove": {
+        "x": 469,
+        "y": 244
+      },
+      "contact": {
+        "x": 469,
+        "y": 244
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-jab": {
+      "file": "opponents/gold-santos/gold-santos-jab.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 127,
+        "y": 110,
+        "width": 435,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 973,
+        "y": 42,
+        "w": 237,
+        "h": 280
+      },
+      "head": {
+        "x": 288,
+        "y": 197
+      },
+      "body": {
+        "x": 318,
+        "y": 316
+      },
+      "glove": {
+        "x": 510,
+        "y": 202
+      },
+      "contact": {
+        "x": 510,
+        "y": 202
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-cross-windup": {
+      "file": "opponents/gold-santos/gold-santos-cross-windup.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 110,
+        "y": 110,
+        "width": 422,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 62,
+        "y": 355,
+        "w": 230,
+        "h": 280
+      },
+      "head": {
+        "x": 367,
+        "y": 197
+      },
+      "body": {
+        "x": 342,
+        "y": 321
+      },
+      "glove": {
+        "x": 220,
+        "y": 223
+      },
+      "contact": {
+        "x": 220,
+        "y": 223
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-cross": {
+      "file": "opponents/gold-santos/gold-santos-cross.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 102,
+        "y": 110,
+        "width": 426,
+        "height": 514
+      },
+      "sourceBounds": {
+        "x": 368,
+        "y": 355,
+        "w": 232,
+        "h": 280
+      },
+      "head": {
+        "x": 328,
+        "y": 197
+      },
+      "body": {
+        "x": 323,
+        "y": 326
+      },
+      "glove": {
+        "x": 157,
+        "y": 228
+      },
+      "contact": {
+        "x": 157,
+        "y": 228
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-cross-windup-body": {
+      "file": "opponents/gold-santos/gold-santos-cross-windup-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 106,
+        "y": 173,
+        "width": 429,
+        "height": 451
+      },
+      "sourceBounds": {
+        "x": 667,
+        "y": 389,
+        "w": 234,
+        "h": 246
+      },
+      "head": {
+        "x": 389,
+        "y": 281
+      },
+      "body": {
+        "x": 342,
+        "y": 367
+      },
+      "glove": {
+        "x": 321,
+        "y": 408
+      },
+      "contact": {
+        "x": 321,
+        "y": 408
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-cross-body": {
+      "file": "opponents/gold-santos/gold-santos-cross-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 109,
+        "y": 162,
+        "width": 424,
+        "height": 462
+      },
+      "sourceBounds": {
+        "x": 977,
+        "y": 383,
+        "w": 231,
+        "h": 252
+      },
+      "head": {
+        "x": 359,
+        "y": 259
+      },
+      "body": {
+        "x": 329,
+        "y": 361
+      },
+      "glove": {
+        "x": 397,
+        "y": 421
+      },
+      "contact": {
+        "x": 397,
+        "y": 421
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-block-body": {
+      "file": "opponents/gold-santos/gold-santos-block-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 126,
+        "y": 134,
+        "width": 389,
+        "height": 490
+      },
+      "sourceBounds": {
+        "x": 79,
+        "y": 660,
+        "w": 212,
+        "h": 267
+      },
+      "head": {
+        "x": 321,
+        "y": 217
+      },
+      "body": {
+        "x": 321,
+        "y": 345
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-hit": {
+      "file": "opponents/gold-santos/gold-santos-hit.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 125,
+        "y": 119,
+        "width": 393,
+        "height": 505
+      },
+      "sourceBounds": {
+        "x": 399,
+        "y": 652,
+        "w": 214,
+        "h": 275
+      },
+      "head": {
+        "x": 302,
+        "y": 205
+      },
+      "body": {
+        "x": 329,
+        "y": 316
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-hit-body": {
+      "file": "opponents/gold-santos/gold-santos-hit-body.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 114,
+        "y": 176,
+        "width": 415,
+        "height": 448
+      },
+      "sourceBounds": {
+        "x": 679,
+        "y": 683,
+        "w": 226,
+        "h": 244
+      },
+      "head": {
+        "x": 359,
+        "y": 283
+      },
+      "body": {
+        "x": 334,
+        "y": 377
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-fall": {
+      "file": "opponents/gold-santos/gold-santos-fall.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 121,
+        "y": 217,
+        "width": 398,
+        "height": 407
+      },
+      "sourceBounds": {
+        "x": 986,
+        "y": 705,
+        "w": 217,
+        "h": 222
+      },
+      "head": {
+        "x": 300,
+        "y": 303
+      },
+      "body": {
+        "x": 312,
+        "y": 388
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-down": {
+      "file": "opponents/gold-santos/gold-santos-down.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 58,
+        "y": 250,
+        "width": 525,
+        "height": 374
+      },
+      "sourceBounds": {
+        "x": 42,
+        "y": 1012,
+        "w": 286,
+        "h": 204
+      },
+      "head": {
+        "x": 268,
+        "y": 329
+      },
+      "body": {
+        "x": 305,
+        "y": 422
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-rise": {
+      "file": "opponents/gold-santos/gold-santos-rise.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 147,
+        "y": 167,
+        "width": 347,
+        "height": 457
+      },
+      "sourceBounds": {
+        "x": 402,
+        "y": 961,
+        "w": 189,
+        "h": 249
+      },
+      "head": {
+        "x": 286,
+        "y": 263
+      },
+      "body": {
+        "x": 313,
+        "y": 363
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-dodge": {
+      "file": "opponents/gold-santos/gold-santos-dodge.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 114,
+        "y": 158,
+        "width": 413,
+        "height": 466
+      },
+      "sourceBounds": {
+        "x": 673,
+        "y": 956,
+        "w": 225,
+        "h": 254
+      },
+      "head": {
+        "x": 234,
+        "y": 242
+      },
+      "body": {
+        "x": 296,
+        "y": 330
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    },
+    "gold-santos-surrender": {
+      "file": "opponents/gold-santos/gold-santos-surrender.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 132,
+        "y": 95,
+        "width": 378,
+        "height": 529
+      },
+      "sourceBounds": {
+        "x": 985,
+        "y": 943,
+        "w": 206,
+        "h": 288
+      },
+      "head": {
+        "x": 325,
+        "y": 185
+      },
+      "body": {
+        "x": 329,
+        "y": 317
+      },
+      "sourceFile": "references/characters/new-chapter-combat/gold-santos-alpha.png",
+      "physicalScale": 1.8351254480286738
+    }
+  }
+}

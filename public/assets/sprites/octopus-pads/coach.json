@@ -1,0 +1,130 @@
+{
+  "width": 640,
+  "height": 640,
+  "anchor": {
+    "x": 320,
+    "y": 624
+  },
+  "artHeight": 512,
+  "source": "references/characters/octopus-pads/atlas-chroma.png",
+  "scale": 0.810126582278481,
+  "identity": "The Octopus · tresses, barbe, tatouages et chandail au poulpe blanc; coach au Mexique.",
+  "poses": {
+    "ready": {
+      "file": "octopus-pads/ready.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 191,
+        "y": 112,
+        "width": 258,
+        "height": 512
+      },
+      "sourceBounds": {
+        "x": 151,
+        "y": 37,
+        "w": 319,
+        "h": 632
+      },
+      "leftTarget": {
+        "x": 380,
+        "y": 290
+      },
+      "rightTarget": {
+        "x": 261,
+        "y": 289
+      }
+    },
+    "left": {
+      "file": "octopus-pads/left.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 175,
+        "y": 116,
+        "width": 292,
+        "height": 508
+      },
+      "sourceBounds": {
+        "x": 658,
+        "y": 41,
+        "w": 360,
+        "h": 627
+      },
+      "leftTarget": {
+        "x": 369,
+        "y": 200
+      },
+      "rightTarget": {
+        "x": 252,
+        "y": 397
+      }
+    },
+    "right": {
+      "file": "octopus-pads/right.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 170,
+        "y": 124,
+        "width": 300,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 120,
+        "y": 727,
+        "w": 370,
+        "h": 617
+      },
+      "leftTarget": {
+        "x": 374,
+        "y": 382
+      },
+      "rightTarget": {
+        "x": 266,
+        "y": 209
+      }
+    },
+    "sweep": {
+      "file": "octopus-pads/sweep.png",
+      "width": 640,
+      "height": 640,
+      "anchor": {
+        "x": 320,
+        "y": 624
+      },
+      "bounds": {
+        "x": 62,
+        "y": 124,
+        "width": 403,
+        "height": 500
+      },
+      "sourceBounds": {
+        "x": 570,
+        "y": 727,
+        "w": 497,
+        "h": 617
+      },
+      "leftTarget": {
+        "x": 375,
+        "y": 297
+      },
+      "rightTarget": {
+        "x": 97,
+        "y": 213
+      }
+    }
+  }
+}

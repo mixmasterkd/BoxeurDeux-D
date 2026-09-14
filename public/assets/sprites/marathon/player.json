@@ -1,0 +1,263 @@
+{
+  "width": 96,
+  "height": 112,
+  "anchor": {
+    "x": 48,
+    "y": 104
+  },
+  "artHeight": 88,
+  "poses": {
+    "down-0": {
+      "file": "marathon/player-down-0.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 30,
+        "y": 16,
+        "width": 36,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 171,
+        "y": 24,
+        "w": 137,
+        "h": 334
+      }
+    },
+    "down-1": {
+      "file": "marathon/player-down-1.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 28,
+        "y": 16,
+        "width": 40,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 466,
+        "y": 24,
+        "w": 152,
+        "h": 336
+      }
+    },
+    "down-2": {
+      "file": "marathon/player-down-2.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 29,
+        "y": 16,
+        "width": 39,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 769,
+        "y": 24,
+        "w": 148,
+        "h": 336
+      }
+    },
+    "right-0": {
+      "file": "marathon/player-right-0.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 37,
+        "y": 16,
+        "width": 23,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 192,
+        "y": 383,
+        "w": 88,
+        "h": 331
+      }
+    },
+    "right-1": {
+      "file": "marathon/player-right-1.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 22,
+        "y": 16,
+        "width": 53,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 430,
+        "y": 383,
+        "w": 196,
+        "h": 328
+      }
+    },
+    "right-2": {
+      "file": "marathon/player-right-2.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 21,
+        "y": 16,
+        "width": 55,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 737,
+        "y": 384,
+        "w": 207,
+        "h": 329
+      }
+    },
+    "up-0": {
+      "file": "marathon/player-up-0.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 31,
+        "y": 16,
+        "width": 34,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 167,
+        "y": 735,
+        "w": 136,
+        "h": 351
+      }
+    },
+    "up-1": {
+      "file": "marathon/player-up-1.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 30,
+        "y": 16,
+        "width": 37,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 469,
+        "y": 737,
+        "w": 148,
+        "h": 349
+      }
+    },
+    "up-2": {
+      "file": "marathon/player-up-2.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 28,
+        "y": 16,
+        "width": 41,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 771,
+        "y": 737,
+        "w": 150,
+        "h": 321
+      }
+    },
+    "left-0": {
+      "file": "marathon/player-left-0.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 36,
+        "y": 16,
+        "width": 24,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 181,
+        "y": 1086,
+        "w": 91,
+        "h": 330
+      }
+    },
+    "left-1": {
+      "file": "marathon/player-left-1.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 20,
+        "y": 16,
+        "width": 57,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 425,
+        "y": 1086,
+        "w": 213,
+        "h": 330
+      }
+    },
+    "left-2": {
+      "file": "marathon/player-left-2.png",
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 20,
+        "y": 16,
+        "width": 57,
+        "height": 88
+      },
+      "sourceBounds": {
+        "x": 737,
+        "y": 1086,
+        "w": 213,
+        "h": 330
+      }
+    }
+  }
+}
