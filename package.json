@@ -56,7 +56,10 @@
     "test:cuba": "node tests/cuba-browser.mjs",
     "test:next-static": "node tests/next-chapter-static-browser.mjs",
     "test:fight-pacing": "node tests/fight-pacing-browser.mjs",
-    "test:fight-presentation": "node tests/fight-presentation-browser.mjs"
+    "test:fight-presentation": "node tests/fight-presentation-browser.mjs",
+    "test:casino": "node --test tests/casino-*.test.js",
+    "test:casino-browser": "node tests/casino-browser.mjs",
+    "test:casino-world": "node tests/casino-world-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

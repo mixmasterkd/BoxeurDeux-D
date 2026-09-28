@@ -257,7 +257,7 @@ test('invalid money, inventory, delivery and tournament data cannot replace the 
   const storage = new MemoryStorage(), profile = create(storage); tournamentReady(profile);
   const before = profile.exportText(), saved = storage.getItem(CAREER_STORAGE_KEY);
   const mutations = [p => { delete p.wallet; }, p => { p.wallet.money = -1; }, p => { p.wallet.money = 501; },
-    p => { p.wallet.money = 12.5; }, p => { p.wallet.totalEarned = 0; },
+    p => { p.wallet.money = 12.25; }, p => { p.wallet.totalEarned = 0; },
     p => { p.inventory.owned.push('invented'); }, p => { p.inventory.equipped.street = 'street-blue'; },
     p => { p.inventory.equipped.boxing = 'street-black'; }, p => { p.delivery.nextId = 0; },
     p => { p.delivery.active = { id: 1, stops: [...DELIVERY_STOPS], completed: [], earned: 0 }; },

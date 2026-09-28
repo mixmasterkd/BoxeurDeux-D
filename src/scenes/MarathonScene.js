@@ -5,6 +5,7 @@ import {careerMenuOpen} from '../ui/GameControls.js';
 import {resumePending} from '../game/ResumeRouting.js';
 import {startAt} from '../game/SceneRouting.js';
 import {metroHallLocation} from '../game/MetroNetwork.js';
+import {CASINO_ENTRANCE} from '../game/CasinoWorld.js';
 import '../ui/marathon.css';
 const timer=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
 export class MarathonScene extends ExplorationScene{
@@ -17,9 +18,20 @@ export class MarathonScene extends ExplorationScene{
   const run=careerProfile.marathonStatus().active;this.elapsed=run?.elapsed??0;this.runners=[];this.runId=run?.status==='running'||run?.status==='encounter'?run.id:null;this.encounterShown=false;this.justFinished=false;this.routePoint=run?.checkpoint.scene===place?(run.routePoint??0):0;
  }
  makeWorld(){return new MarathonWorld({place:this.place,position:this.entryPosition});}
- preload(){super.preload();const base=import.meta.env.BASE_URL;this.load.json('marathon-player-data',`${base}assets/sprites/marathon/player.json`);for(const d of ['down','right','up','left'])for(let f=0;f<3;f++)this.load.image(`marathon-player-${d}-${f}`,`${base}assets/sprites/marathon/player-${d}-${f}.png`);for(let p=0;p<4;p++)for(const d of ['down','up','right'])for(let f=0;f<2;f++)this.load.image(`marathon-crowd-${p}-${d}-${f}`,`${base}assets/sprites/marathon/crowd-${p}-${d}-${f}.png`);}
+ preload(){super.preload();const base=import.meta.env.BASE_URL;if(this.place==='marathon-island')this.load.image('casino-exterior',`${base}assets/casino/exterior.png`);this.load.json('marathon-player-data',`${base}assets/sprites/marathon/player.json`);for(const d of ['down','right','up','left'])for(let f=0;f<3;f++)this.load.image(`marathon-player-${d}-${f}`,`${base}assets/sprites/marathon/player-${d}-${f}.png`);for(let p=0;p<4;p++)for(const d of ['down','up','right'])for(let f=0;f<2;f++)this.load.image(`marathon-crowd-${p}-${d}-${f}`,`${base}assets/sprites/marathon/crowd-${p}-${d}-${f}.png`);}
  addForeground(){
   if(this.place!=='marathon-island')return;
+  // The casino occupies the unused west edge. Its short approach meets the
+  // existing promenade, leaving the marathon park paths and bridge intact.
+  const pavingKey='casino-island-paving';
+  if(!this.textures.exists(pavingKey)){
+   const source=this.textures.get(`world-${this.place}`).getSourceImage(),texture=this.textures.createCanvas(pavingKey,64,64);
+   texture.context.drawImage(source,600,464,64,64,0,0,64,64);texture.refresh();
+  }
+  this.add.tileSprite(260,765,365,175,pavingKey).setOrigin(0).setTileScale(1.5).setDepth(0);
+  this.add.tileSprite(590,860,140,200,pavingKey).setOrigin(0).setTileScale(1.5).setDepth(0);
+  const casino=this.add.image(385,770,'casino-exterior').setOrigin(.5,1).setDepth(735);
+  casino.setDisplaySize(730,730*casino.height/casino.width);
   const key='marathon-bridge-foreground';
   if(!this.textures.exists(key)){
    const source=this.textures.get(`world-${this.place}`).getSourceImage(),texture=this.textures.createCanvas(key,1920,1080),ctx=texture.context;
@@ -36,7 +48,7 @@ export class MarathonScene extends ExplorationScene{
   this.waySigns=[];const sign=(x,sy,label)=>{const t=this.add.text(x,sy,label,{fontFamily:'monospace',fontSize:'18px',fontStyle:'bold',color:'#ffdf92',backgroundColor:'#173047',padding:{x:9,y:6}}).setOrigin(.5,1).setDepth(sy);this.waySigns.push(t);};
   if(index<3)sign(2620,y-85,`${MARATHON_NAMES[MARATHON_PLACES[index+1]]} →`);
   if(index>0)sign(250,y-85,`← ${MARATHON_NAMES[MARATHON_PLACES[index-1]]}`);
-  if(this.place==='marathon-island'){sign(428,1260,'MÉTRO · ÎLE');sign(930,780,'PARCOURS · DÉPART');sign(690,1240,'DÉPART ↑');}
+  if(this.place==='marathon-island'){sign(428,1260,'MÉTRO · ÎLE');sign(930,780,'PARCOURS · DÉPART');sign(690,1240,'DÉPART ↑');sign(670,1010,'← CASINO');}
   if(this.place==='marathon-stadium')sign(2370,1440,'MÉTRO · STADE');
  }
  create(){
@@ -111,6 +123,13 @@ export class MarathonScene extends ExplorationScene{
   this.ui.showDialog({speaker:'SUR LE PARCOURS',title:'« Hé ! Regarde où tu cours ! »',text:pending?'L’altercation était en cours. Tu peux reprendre ou choisir de repartir courir.':'Un coureur te bouscule et cherche la dispute. Tu peux poursuivre tranquillement. Cette rencontre n’arrivera qu’une fois pendant ta course.',actions:[{id:pending?'resume-course':'avoid-encounter',label:'Continuer ma course'},{id:'accept-encounter',label:'Lui tenir tête'}]});
  }
  interactDoor(id){
+  if(id==='casino'){
+   this.world.releaseControls();this.persistLocation();
+   if(this.isRunning()){this.ui.showDialog({speaker:'CASINO DE MONTRÉAL',title:'Après la course',text:'Termine ta course ou quitte-la par le métro avant de venir te détendre au casino.',actions:[{id:'close',label:'Reprendre la course'}]});return;}
+   const status=careerProfile.casinoStatus();
+   if(!status.unlocked){this.ui.showDialog({speaker:'CASINO DE MONTRÉAL',title:'Une prochaine soirée',text:'Termine une participation aux Gants de bronze, puis reviens à Montréal pour découvrir le casino. Pas besoin de remporter l’or.',actions:[{id:'close',label:'Continuer la promenade'}]});return;}
+   careerProfile.setLocation(CASINO_ENTRANCE);startAt(this,CASINO_ENTRANCE);return;
+  }
   if(id==='metro'){
    if(this.isRunning()){this.ui.showDialog({title:'Quitter la course ?',text:'L’inscription sera utilisée. Tu pourras toujours visiter ces lieux et te réinscrire plus tard.',actions:[{id:'close',label:'Continuer la course'},{id:'abandon-course',label:'Quitter et prendre le métro'}]});return;}
    this.returnMetro();return;

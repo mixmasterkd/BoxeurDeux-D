@@ -10,11 +10,15 @@ import { NEXT_FIGHT_IDS, CUBA_HOME_SPAWN, MEXICO_HOME_SPAWN, AIRPORT_SPAWN, TRAV
 
 import { MARATHON_PRICE, MARATHON_ID, MARATHON_PLACES, MARATHON_START, freshMarathon, normalizeMarathon, cleanMarathonCheckpoint } from './MarathonRules.js';
 
+import {freshCasino, CASINO_PLACES} from './CasinoRules.js';
+import {casinoMethods, normalizeCasino} from './CasinoCareer.js';
+
 // Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
 const BACKUP_KEY = `${STORAGE_KEY}-backup`;
-const VERSION = 5;
+const VERSION = 6;
 const TEST_STORAGE_KEY = `${STORAGE_KEY}-test`;
+const CASINO_PENDING_MESSAGE = 'Termine ta main au casino avant de commencer une autre activité ou de partir.';
 const TEST_COMMANDS = Object.freeze([
   ['liste', 'Afficher les commandes.'], ['test maison', 'Maison et laptop.'], ['test gym', 'Gym de Montréal.'],
   ['test cuba', 'Séjour de test à Cuba.'], ['test mexique', 'Séjour de test au Mexique.'], ['test aeroport', 'Aéroport avec réservations Cuba et Mexique.'],
@@ -38,12 +42,12 @@ function freshProfile(now = new Date().toISOString()) {
     stats: { ...BASE_STATS }, caps: trainingCaps({}),
     activities: Object.fromEntries(ACTIVITIES.map(id => [id, { sessions: 0, best: 0 }])),
     fights: Object.fromEntries(FIGHT_IDS.map(id => [id, freshFight()])),
-    ...freshChapter(), ...freshNextChapter(), marathon: freshMarathon(),
+    ...freshChapter(), ...freshNextChapter(), marathon: freshMarathon(), casino: freshCasino(),
   };
 }
 
 function normalize(raw) {
-  if (!object(raw) || ![1, 2, 3, 4, VERSION].includes(raw.version)) {
+  if (!object(raw) || ![1, 2, 3, 4, 5, VERSION].includes(raw.version)) {
     if (object(raw) && typeof raw.version === 'number' && raw.version > VERSION) {
       const error = new Error('Cette sauvegarde vient d’une version plus récente du jeu.');
       error.code = 'future-version'; throw error;
@@ -83,6 +87,7 @@ function normalize(raw) {
   if (raw.version >= 3) Object.assign(profile, normalizeChapter(raw, profile.fights));
   if (raw.version >= 4) Object.assign(profile, normalizeNextChapter(raw, profile));
   profile.marathon = normalizeMarathon(raw, profile);
+  profile.casino = normalizeCasino(raw, profile);
   return profile;
 }
 
@@ -174,6 +179,7 @@ export class CareerProfile {
   activityCost(activity) { return activityCost(activity); }
   canStartActivity(activity) {
     const cost = activityCost(activity), { energy } = this.profile.daily;
+    if (activity !== 'casino' && this._casinoPending()) return { ok: false, activity, cost, energy, message: CASINO_PENDING_MESSAGE };
     if (this._marathonRunning()) return { ok: false, activity, cost, energy, message: 'Terminez ou quittez votre course avant de commencer une autre activité.' };
     const ok = energy >= cost;
     return { ok, activity, cost, energy,
@@ -190,6 +196,7 @@ export class CareerProfile {
       message: this.status.persisted ? message : `${message} ${this.status.message}` };
   }
   sleep() {
+    if (this._casinoPending()) return this._result(false, CASINO_PENDING_MESSAGE);
     const active = this.profile.tournament.active;
     if (this.profile.delivery.active) return this._result(false, 'Terminez ou abandonnez votre tournée avant de dormir.');
     if (this._marathonRunning()) return this._result(false, 'Terminez ou quittez la course avant de dormir.');
@@ -215,6 +222,7 @@ export class CareerProfile {
   }
   setLocation(location) {
     const next = cleanLocation(location), previous = this.profile.location;
+    if (this._casinoPending() && !CASINO_PLACES.includes(next.scene)) return this._result(false, CASINO_PENDING_MESSAGE, { location: { ...previous } });
     if (Object.keys(next).some(key => next[key] !== previous[key])) {
       this.profile.location = next;
       this._save();
@@ -268,7 +276,7 @@ export class CareerProfile {
   _result(ok, message, extra = {}) {
     return { ok, message, saved: this.status.persisted, saveMessage: this.status.message, ...extra };
   }
-  moneyStatus() { return { ...this.profile.wallet, cap: moneyCap(this.profile.fights) }; }
+  moneyStatus() { return { ...this.profile.wallet, cap: moneyCap(this.profile.fights, this.profile.tournament) }; }
   catalogue(shop) {
     return SHOP_CATALOG.filter(item => !shop || item.shop === shop).map(item => ({ ...item,
       owned: this.profile.inventory.owned.includes(item.id), equipped: this.profile.inventory.equipped[item.slot] === item.id }));
@@ -332,7 +340,7 @@ export class CareerProfile {
     const tip = options.tip ?? 1;
     if (!Number.isInteger(tip) || tip < 0 || tip > DELIVERY_MAX_TIP) return this._result(false, 'Ce pourboire est invalide.');
     const gross = DELIVERY_PAY + tip;
-    const paid = Math.min(gross, moneyCap(this.profile.fights) - this.profile.wallet.money,
+    const paid = Math.min(gross, Math.max(0, moneyCap(this.profile.fights, this.profile.tournament) - this.profile.wallet.money - this.profile.casino.chips),
       Number.MAX_SAFE_INTEGER - this.profile.wallet.totalEarned);
     this.profile.wallet.money += paid; this.profile.wallet.totalEarned += paid;
     active.completed.push(stopId); active.earned += paid;
@@ -349,9 +357,11 @@ export class CareerProfile {
     this._save();
     return this._result(true, 'Tournée abandonnée. Les gains déjà reçus sont conservés; l’énergie dépensée reste utilisée.');
   }
+  _casinoPending() { return Boolean(this.profile.casino.active && !this.profile.casino.active.settled); }
   _activeTravel() { return Object.keys(TRAVEL_DESTINATIONS).find(id => this.profile[id].active) ?? null; }
   _marathonRunning() { return this.profile.marathon.active && this.profile.marathon.active.status !== 'registered'; }
   canFight(opponent = 'beton') {
+    if (this._casinoPending()) return { ok: false, opponent, message: CASINO_PENDING_MESSAGE };
     if (opponent === 'pablo') return { ok: Boolean(this.profile.mexico.active), opponent, message: 'Pablo vous attend au gym du Mexique.' };
     const travel = this._activeTravel();
     if (this._marathonRunning()) return { ok: false, opponent, message: 'Terminez ou quittez votre course avant un combat officiel.' };
@@ -372,6 +382,7 @@ export class CareerProfile {
   canStartTournament(tier = 'bronze') {
     const fee = tier === 'gold' ? GOLD_TOURNAMENT_FEE : this.profile.tournament.entries ? TOURNAMENT_FEES.retry : TOURNAMENT_FEES.first;
     const base = { tier, fee, money: this.profile.wallet.money, label: tournamentLabel(tier) };
+    if (this._casinoPending()) return { ...base, ok: false, message: CASINO_PENDING_MESSAGE };
     if (!TOURNAMENT_TIERS.includes(tier)) return { ...base, ok: false, message: 'Ce tournoi n’existe pas.' };
     if (this._activeTravel()) return { ...base, ok: false, message: 'Rentrez de voyage avant une nouvelle inscription au tournoi.' };
     if (this.profile.tournament.active) return { ...base, ok: false, message: 'Votre séjour au tournoi est déjà en cours.' };
@@ -408,6 +419,7 @@ export class CareerProfile {
     const config = TRAVEL_DESTINATIONS[destination];
     if (!config) return { ok: false, message: 'Cette destination n’existe pas.' };
     const travel = this.profile[destination], base = { destination, label: config.label, fee: config.price, price: config.price, money: this.profile.wallet.money };
+    if (this._casinoPending()) return { ...base, ok: false, message: CASINO_PENDING_MESSAGE };
     if (travel.active || travel.reserved) return { ...base, ok: false, duplicate: true, reserved: Boolean(travel.reserved), message: `Votre séjour ${config.label} est déjà payé${travel.reserved ? ' : rendez-vous à l’aéroport pour embarquer' : ' et en cours'}.` };
     if (this._activeTravel()) return { ...base, ok: false, message: 'Rentrez de votre séjour avant de réserver le suivant.' };
     if (this.profile.tournament.active) return { ...base, ok: false, message: 'Rentrez du tournoi avant de réserver votre voyage.' };
@@ -428,6 +440,7 @@ export class CareerProfile {
     return this._result(true, `Séjour ${offer.label} réservé. Prenez le métro vers l’aéroport, puis présentez-vous à l’embarquement.`, this.travelStatus(destination));
   }
   boardTravel(destination = 'cuba') {
+    if (this._casinoPending()) return this._result(false, CASINO_PENDING_MESSAGE);
     const config = TRAVEL_DESTINATIONS[destination], travel = this.profile[destination];
     if (!config || !travel?.reserved) return this._result(false, 'Réservez ce séjour avant de vous présenter à l’embarquement.');
     if (this._activeTravel() || this.profile.tournament.active || this.profile.delivery.active || this._marathonRunning()) return this._result(false, 'Terminez votre activité en cours avant d’embarquer.');
@@ -443,7 +456,7 @@ export class CareerProfile {
     if (!config) return { ok: false, message: 'Cette destination n’existe pas.' };
     const travel = clone(this.profile[destination]);
     return { ...travel, destination, label: config.label, fee: config.price, price: config.price, unlocked: postBronzeUnlocked(this.profile),
-      canBoard: Boolean(travel.reserved) && !this._activeTravel() && !this.profile.tournament.active && !this.profile.delivery.active && !this._marathonRunning(),
+      canBoard: Boolean(travel.reserved) && !this._casinoPending() && !this._activeTravel() && !this.profile.tournament.active && !this.profile.delivery.active && !this._marathonRunning(),
       canLeave: Boolean(travel.active), canFight: Boolean(travel.active), opponent: travel.active ? config.opponent : null };
   }
   leaveTravel(destination = 'cuba') {
@@ -466,6 +479,7 @@ export class CareerProfile {
   leaveMexico() { return this.leaveTravel('mexico'); }
   marathonOffer() {
     const base = { fee: MARATHON_PRICE, price: MARATHON_PRICE, money: this.profile.wallet.money };
+    if (this._casinoPending()) return { ...base, ok: false, message: CASINO_PENDING_MESSAGE };
     if (this.profile.marathon.active) return { ...base, ok: false, duplicate: true, message: 'Vous êtes déjà inscrit. Retrouvez le départ sur l’île.' };
     if (this._activeTravel() || this.profile.tournament.active || this.profile.delivery.active) return { ...base, ok: false, message: 'Terminez votre activité ou votre séjour avant de vous inscrire.' };
     if (this.profile.wallet.money < MARATHON_PRICE) return { ...base, ok: false, message: `Inscription : ${MARATHON_PRICE} $. Une médaille souvenir, sans prime d’argent, récompense votre première arrivée.` };
@@ -484,6 +498,7 @@ export class CareerProfile {
     return this._result(true, 'Inscription confirmée. Prenez le métro pour l’île et rejoignez le départ à votre rythme.', this.marathonStatus());
   }
   startMarathon() {
+    if (this._casinoPending()) return this._result(false, CASINO_PENDING_MESSAGE);
     const active = this.profile.marathon.active;
     if (!active) return this._result(false, 'Inscrivez-vous au marathon depuis le navigateur du laptop.');
     if (active.status !== 'registered') return this._result(false, 'Votre course a déjà commencé.', { duplicate: true });
@@ -657,14 +672,21 @@ export class CareerProfile {
     return this._result(true, 'Retour à votre carrière normale, inchangée.', { ...this.testStatus(), location: { ...this.profile.location } });
   }
   _testClearActivities() {
+    // Only the isolated test copy can abandon an unfinished deal. The normal
+    // profile retains its original cards and stake when returning from tests.
+    if (this.mode === 'test' && this._casinoPending()) {
+      const casino = this.profile.casino;
+      casino.chips += casino.active.stake; casino.wagered -= casino.active.stake;
+      casino.nextId -= 1; casino.active = null;
+    }
     if (this.profile.delivery.active) this.abandonDelivery();
     if (this.profile.marathon.active) this.abandonMarathon();
     if (this.profile.tournament.active) this.leaveTournament();
     const travel = this._activeTravel(); if (travel) this.leaveTravel(travel);
   }
   _testMoney() {
-    this.profile.wallet.money = moneyCap(this.profile.fights);
-    this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, this.profile.wallet.money);
+    this.profile.wallet.money = Math.max(0, moneyCap(this.profile.fights, this.profile.tournament) - this.profile.casino.chips);
+    this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, this.profile.wallet.money + this.profile.casino.chips);
   }
   _testBronze() {
     if (!this.profile.fights.beton.wins) this.recordFight({ opponent: 'beton', winner: 'player' });
@@ -697,9 +719,11 @@ export class CareerProfile {
       || ['argent', 'energie'].includes(command) && !/^\d{1,6}$/.test(argument ?? '')) return this._result(false, 'Commande inconnue. Tapez liste pour les commandes disponibles.');
     this.enterTestProfile();
     if (command === 'argent' || command === 'energie') {
-      const max = command === 'argent' ? moneyCap(this.profile.fights) : DAILY_ENERGY_MAX;
+      const pending = this._casinoPending() ? this.profile.casino.active : null;
+      const max = command === 'argent' ? Math.max(0, moneyCap(this.profile.fights, this.profile.tournament)
+        - this.profile.casino.chips - (pending ? pending.stake + pending.maxNetWin : 0)) : DAILY_ENERGY_MAX;
       const value = Math.min(Number(argument), max);
-      if (command === 'argent') { this.profile.wallet.money = value; this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, value); }
+      if (command === 'argent') { this.profile.wallet.money = value; this.profile.wallet.totalEarned = Math.max(this.profile.wallet.totalEarned, value + this.profile.casino.chips + (pending ? pending.stake : 0)); }
       else this.profile.daily.energy = value;
       this._save();
       return this._result(true, `${command === 'argent' ? 'Argent' : 'Énergie'} de test : ${value}${Number(argument) > max ? ` · plafond ${max}` : ''}.`, this.testStatus());
@@ -747,6 +771,8 @@ export class CareerProfile {
   }
   reset() { this.profile = freshProfile(this.now()); this.writeProtected = false; return this._save({ increment: false }); }
 }
+
+Object.assign(CareerProfile.prototype, casinoMethods);
 
 export const careerProfile = new CareerProfile();
 export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY, VERSION as CAREER_VERSION, TEST_STORAGE_KEY as CAREER_TEST_STORAGE_KEY, TEST_COMMANDS };

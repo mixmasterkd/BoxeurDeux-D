@@ -1,5 +1,16 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Casino V6 — GO du 27 septembre 2026
+
+L’utilisateur a donné GO pour le casino discuté : bâtiment extérieur inspiré du Casino de Montréal à gauche de l’île, trois étages avec ascenseur, Karl au blackjack d’après la référence fournie, roulette, Hold’em quatre joueurs dont Luc à lunettes/Mireille/Marco, et quatre modèles de machines. Déblocage après participation terminée aux Gants de bronze et retour hôtel. Entrée gratuite, aucune énergie, petites mises et plafond combiné argent/jetons de 1 000 $. Aucun crédit ni argent réel.
+
+Intégré : sauvegarde V6 sur clé historique avec migrations1–5, reprise exacte des mains et règlement unique, plafond réservé avant mise sans gain tronqué, pause/focus/portrait, commandes communes E/WASD et joypadA/B, caméra suiveuse, collisions alignées aux décors, caisse1/5/10/20/50 $ et retrait, PNJ originaux, ailes et future salle de gala fermées. Les jeux, illustrations, prompts et extraction sont locaux; aucune IA pendant le jeu. Détails dans [docs/CASINO.md](docs/CASINO.md).
+
+La chambre de Karl concerne **la maison actuelle**; autre maison chez les pros et galas professionnels au casino restent des idées futures, hors de ce GO. Ne pas les implémenter automatiquement.
+
+Vérifications en fin d’intégration : 494 tests autonomes passent; exploration complète clavier et tactile844×390, parties clavier et tactile568×320; rendu mobile corrigé pour montrer d’abord cartes/board. Validation finale du bundle et publication à consigner dans docs/CASINO.md. Serveur Vite sur0.0.0.0:5173; Wi-Fi27septembre192.168.50.123. Pas de téléphone physique testé.
+
+
 ## Fenêtres animées et wagon réutilisé — 13 septembre 2026
 
 Dernier retour utilisateur : voir le quai défiler puis le tunnel apparaître/disparaître progressivement dans les vitres; corriger aussi le wagon remplacé par un agrandissement du tunnel lors d’une remontée. Correctif terminé et publié : fond explicitement `__BASE` (Phaser change le cadre par défaut quand on ajoute un découpage), panoramas séparés et défilement accéléré/freiné avec passages spatiaux quai/tunnel/quai. Poignées/barres restent fixes, y compris aux trois embarquements successifs. Vitres des portes intégrées; pause fige le décor. Les horaires, commandes, direction, sauvegarde et reste du jeu sont conservés.

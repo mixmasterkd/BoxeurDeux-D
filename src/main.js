@@ -8,6 +8,7 @@ import { ExplorationScene } from './scenes/ExplorationScene.js';
 import { HotelScene } from './scenes/HotelScene.js';
 import { HotelActivityScene } from './scenes/HotelActivityScene.js';
 import { MarathonScene } from './scenes/MarathonScene.js';
+import { CasinoScene } from './scenes/CasinoScene.js';
 import { MetroScene } from './scenes/MetroScene.js';
 import { MexicoScene } from './scenes/MexicoScene.js';
 import { sceneForPlace } from './game/SceneRouting.js';
@@ -26,10 +27,12 @@ const disposeCareer = installCareerMenu();
 const entry = new URLSearchParams(location.search).get('scene');
 const saved=careerProfile.snapshot();
 const savedPlace=saved.mexico?.active?(saved.location.scene.startsWith('mexico-')?saved.location.scene:'mexico-home'):saved.cuba?.active?(saved.location.scene.startsWith('cuba-')?saved.location.scene:'cuba-home'):saved.location.scene;
-const placeScenes={ExplorationScene,GymScene,CubaScene,MexicoScene,HotelScene,MetroScene,MarathonScene};
+const placeScenes={ExplorationScene,GymScene,CubaScene,MexicoScene,HotelScene,MetroScene,MarathonScene,CasinoScene};
 const activityScenes={bag:BagScene,sparring:SparringScene,fight:SparringScene,shadow:ShadowScene,speedball:RhythmScene,rope:RhythmScene,pads:HotelActivityScene,pool:HotelActivityScene};
-const initialScene=activityScenes[entry]??placeScenes[sceneForPlace(entry??savedPlace)];
-const scenes=[initialScene,...[ExplorationScene,GymScene,SparringScene,BagScene,ShadowScene,RhythmScene,HotelScene,HotelActivityScene,CubaScene,MexicoScene,MetroScene,MarathonScene].filter(scene=>scene!==initialScene)];
+// A committed casino hand must resume before a debug URL can start another activity.
+const effectiveEntry=saved.casino?.active&&!saved.casino.active.settled?savedPlace:entry;
+const initialScene=activityScenes[effectiveEntry]??placeScenes[sceneForPlace(effectiveEntry??savedPlace)];
+const scenes=[initialScene,...[ExplorationScene,GymScene,SparringScene,BagScene,ShadowScene,RhythmScene,HotelScene,HotelActivityScene,CubaScene,MexicoScene,MetroScene,MarathonScene,CasinoScene].filter(scene=>scene!==initialScene)];
 
 export const game = new Phaser.Game({
   type: Phaser.AUTO,

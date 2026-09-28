@@ -163,7 +163,7 @@ test('CLI list is read-only, test commands persist separately across reopening, 
   const entered = p.applyTestCommand('test mexique'); assert.equal(entered.ok, true); assert.equal(entered.location.scene, 'mexico-home');
   assert.ok(p.mexicoStatus().active); assert.ok(storage.getItem(CAREER_TEST_STORAGE_KEY));
   assert.equal(storage.getItem(CAREER_STORAGE_KEY), primary); assert.equal(storage.getItem(CAREER_BACKUP_KEY), backup);
-  p.applyTestCommand('argent 999999'); assert.equal(p.moneyStatus().money, 500); p.spendEnergy('pads');
+  p.applyTestCommand('argent 999999'); assert.equal(p.moneyStatus().money, 1000); p.spendEnergy('pads');
   const testState = p.exportText(); assert.equal(p.applyTestCommand('retour').ok, true); assert.equal(p.exportText(), normal);
   assert.equal(storage.getItem(CAREER_STORAGE_KEY), primary); assert.equal(storage.getItem(CAREER_BACKUP_KEY), backup);
   const reopened = create(storage); assert.equal(reopened.testStatus().active, false); assert.equal(reopened.exportText(), normal);

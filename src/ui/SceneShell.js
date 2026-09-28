@@ -14,6 +14,7 @@ export function setSceneShell(mode, { opponent = 'remi', fromGym = false, fromCu
     'hotel-room':'CHAMBRE 201','hotel-corridor':'ÉTAGE DES CHAMBRES','hotel-lobby':'HÔTEL · REZ-DE-CHAUSSÉE','hotel-gym':'HÔTEL · MINI-GYM','hotel-pool':'HÔTEL · PISCINE','hotel-venue':careerProfile.tournamentStatus().active?.tier==='gold'?'LES GANTS DORÉS':'LES GANTS DE BRONZE',
     'cuba-home':'CUBA · TON LOGEMENT','cuba-village':'CUBA · LE VILLAGE','cuba-gym':'CUBA · LE GYM AUX PNEUS','cuba-beach':'CUBA · LA PLAGE'};
   if(mode.startsWith('metro-')&&/-(hall|return)$/.test(mode))chapterPlaces[mode]=`MÉTRO · ${metroStation(mode).name.toUpperCase()} · ${mode.endsWith('-hall')?'HALL':'QUAI B'}`;
+  if(mode.startsWith('casino-'))chapterPlaces[mode]={'casino-lobby':'CASINO · ACCUEIL ET MACHINES','casino-tables':'CASINO · BLACKJACK ET ROULETTE','casino-poker':'CASINO · SALON DE POKER'}[mode];
   if(chapterPlaces[mode]){
     setSceneShell('gym');document.getElementById('stage').dataset.scene=mode;
     document.getElementById('stage').setAttribute('aria-label',chapterPlaces[mode]);

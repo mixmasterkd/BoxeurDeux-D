@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-28T03:33:17.477Z",
+  "url": "http://127.0.0.1:5173/",
+  "built": false,
+  "mobileEmulated": true,
+  "fixture": "Valid unlocked career via model methods; seeded pending hands are created by casinoStart with a fixed fixture RNG. Browser actions use the shipped UI only. No live game state or clock is altered.",
+  "cases": [],
+  "layouts": [],
+  "errors": [
+    "500 http://127.0.0.1:5173/src/ui/CareerSummary.js?t=1790566174502",
+    "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
+  ],
+  "warnings": [],
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#gym-ui') to be visible\u001b[22m\n\u001b[2m    34 × locator resolved to hidden <div hidden=\"\" id=\"gym-ui\"></div>\u001b[22m\n\n    at ready (/home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/casino-browser.mjs:111:35)\n    at setup (/home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/casino-browser.mjs:117:61)\n    at async runBlackjack (/home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/casino-browser.mjs:194:19)\n    at async file:///home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/casino-browser.mjs:330:38"
+}

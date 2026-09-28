@@ -57,7 +57,7 @@ export const DELIVERY_PAY = 5;
 export const DELIVERY_MAX_TIP = 2;
 export const chapterTier = fights => fights.kramer?.wins > 0 ? 2 : fights.beton?.wins > 0 ? 1 : 0;
 export const trainingCaps = fights => ({ ...TRAINING_TIERS[chapterTier(fights)] });
-export const moneyCap = fights => [200, 350, 500][chapterTier(fights)];
+export const moneyCap = (fights, tournament) => tournament?.history?.some(run => (run.tier ?? 'bronze') === 'bronze' && ['champion', 'eliminated'].includes(run.status)) ? 1000 : [200, 350, 500][chapterTier(fights)];
 export const freshFight = () => ({ wins: 0, losses: 0, draws: 0, attempts: 0, bestScore: null });
 export function freshChapter() {
   return {
@@ -110,8 +110,9 @@ function cleanTournamentRun(run, archived = false) {
 
 export function normalizeChapter(raw, fights) {
   const out = freshChapter();
-  requireValue(object(raw.wallet) && counter(raw.wallet.money) && counter(raw.wallet.totalEarned)
-    && raw.wallet.money <= moneyCap(fights) && raw.wallet.totalEarned >= raw.wallet.money, 'Le portefeuille de cette sauvegarde est invalide.');
+  const amount = raw.version >= 6 ? value => typeof value === 'number' && value >= 0 && Number.isSafeInteger(value * 2) : counter;
+  requireValue(object(raw.wallet) && amount(raw.wallet.money) && amount(raw.wallet.totalEarned)
+    && raw.wallet.money <= moneyCap(fights, raw.tournament) && raw.wallet.totalEarned >= raw.wallet.money, 'Le portefeuille de cette sauvegarde est invalide.');
   out.wallet = { money: raw.wallet.money, totalEarned: raw.wallet.totalEarned };
   const inventory = raw.inventory;
   requireValue(object(inventory) && Array.isArray(inventory.owned) && object(inventory.equipped)
@@ -128,7 +129,7 @@ export function normalizeChapter(raw, fights) {
     const active = delivery.active;
     requireValue(counter(active.id) && active.id > 0 && active.id < delivery.nextId && validDeliveryStops(active.stops)
       && Array.isArray(active.completed) && active.completed.length < 3 && active.completed.every((value, index) => value === active.stops[index])
-      && counter(active.earned) && active.earned <= active.completed.length * (DELIVERY_PAY + DELIVERY_MAX_TIP), 'La tournée en cours est invalide.');
+      && amount(active.earned) && active.earned <= active.completed.length * (DELIVERY_PAY + DELIVERY_MAX_TIP), 'La tournée en cours est invalide.');
     // Early v3 saves did not retain per-parcel timing. Missing fields are zero;
     // present malformed fields still invalidate an import before any mutation.
     const elapsed = active.elapsed === undefined ? 0 : active.elapsed;

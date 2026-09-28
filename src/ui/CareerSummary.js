@@ -14,7 +14,7 @@ const PLACES = {
   'hotel-gym': 'Hôtel · Mini-gym', 'hotel-pool': 'Hôtel · Piscine', 'hotel-venue': 'Hôtel · Salle des combats',
 };
 export const careerPlace = profile => PLACES[profile.location?.scene] ?? 'Le quartier';
-export const careerMoney = profile => `${profile.wallet?.money ?? 0} / ${moneyCap(profile.fights)} $`;
+export const careerMoney = profile => `${profile.wallet?.money ?? 0} $${profile.casino?.chips ? ` + ${profile.casino.chips} jetons` : ''} / ${moneyCap(profile.fights, profile.tournament)} $`;
 export function careerMedals(profile) {
   const medals = profile.tournament?.medals ?? [];
   const competitionCount = medals.filter(medal => medal.type !== 'participation').length;

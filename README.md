@@ -6,6 +6,8 @@ Le décor de sparring validé est préservé. L’exploration utilise une camér
 
 Les fenêtres et personnages conservent le style 16 bits. Les portes se traversent à pied et les commandes suivent la même convention dans les lieux et activités. **Fredo** est le coach à Montréal, à Cuba et en tournoi; **The Octopus** donne des conseils et drills au gym montréalais et prend le rôle de coach pendant le séjour au Mexique.
 
+Le chapitre **Casino V6** ajoute un bâtiment explorable sur l’île, Karl au blackjack, le Hold’em, la roulette et quatre modèles de machines à sous. Il ouvre après les Gants de bronze; aucun coût d’énergie. Voir [le chapitre casino](docs/CASINO.md).
+
 ## Lancer le jeu
 
 ```bash
@@ -14,7 +16,7 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 ```
 
 - Ordinateur : **http://127.0.0.1:5173/**
-- Wi-Fi du PC vérifié le 13 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
+- Wi-Fi du PC vérifié le 27 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
 - Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Chapitre V5 publié et vérifié ; voir [les résultats](docs/CHAPITRE_V5.md#publication).
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
@@ -72,7 +74,7 @@ Au dépôt, prendre une tournée coûte **30 énergie quotidienne** une seule fo
 
 Chaque livraison rapporte **5 $**, plus **0 à 2 $ de pourboire** selon le temps actif et les obstacles heurtés. Les pauses ne font pas avancer ce temps; une livraison lente reste payée. Une tournée rapporte donc **15 à 21 $**. Le vélo a douze poses de déplacement dédiées; les pédales et l’orientation accompagnent le mouvement. On peut arrêter une tournée au dépôt : paiements acquis conservés, énergie non remboursée. Terminer ou arrêter la tournée permet de dormir.
 
-L’épargne est plafonnée à **200 $**, puis **350 $ après Béton** et **500 $ après Kramer**. Les paiements respectent le plafond. Les victoires débloquent les plafonds, sans donner gratuitement des capacités ou de l’argent. Deux bonnes tournées par journée financent une première inscription en environ trois jours de jeu, en gardant de l’énergie pour le gym.
+L’épargne est plafonnée à **200 $**, puis **350 $ après Béton**, **500 $ après Kramer** et **1 000 $ après une participation terminée aux Gants de bronze et le retour de l’hôtel**. Argent et jetons de casino conservés partagent ce plafond. Les paiements respectent le plafond. Les victoires débloquent les plafonds, sans donner gratuitement des capacités ou de l’argent. Deux bonnes tournées par journée financent une première inscription en environ trois jours de jeu, en gardant de l’énergie pour le gym.
 
 | Boutique | Collection de départ | Prix |
 | --- | --- | --- |
@@ -83,6 +85,12 @@ L’épargne est plafonnée à **200 $**, puis **350 $ après Béton** et **500 
 | Le Coin Bleu | Tenue émeraude / bordeaux | 32 $ / 48 $ |
 
 Acheter et équiper sont deux actions séparées. **Vêtements : garde-robe à la maison. Équipement : casier au gym.** Les nouvelles tenues changent l’apparence dans l’exploration et les ateliers; elles ne donnent aucun bonus caché. La tuque rouge reste la signature du personnage. Le vélo conserve sa tenue de travail et les combats du tournoi utilisent leur uniforme fourni.
+
+## Une soirée au casino
+
+Après les Gants de bronze et le retour à Montréal, prends le métro jusqu’à l’île. Le casino est à gauche du parc; entre en marchant. La caisse du rez-de-chaussée échange 1 $ contre 1 jeton et rend tous les jetons en dollars, sans frais. L’ascenseur mène à Karl et à la roulette au premier étage, puis au salon Hold’em au deuxième.
+
+Blackjack de 1 à 5 $, machines à 1 $, roulette jusqu’à 5 $ par tour, poker contre Luc à lunettes, Mireille et Marco avec une cave de 10 ou 20 $. Règles et gains affichés à chaque table, aucune énergie consommée, aucun emprunt. Les mises et cartes sont sauvegardées; une main engagée se reprend à l’identique et doit être terminée avant de quitter le casino. Les ailes fermées et la salle de gala préparent de futures extensions.
 
 ## Gym, capacités et journées
 
@@ -206,7 +214,7 @@ Le **Carnet**, dans les menus des lieux et activités, suit les objectifs, voyag
 
 ## Sauvegarde et transfert
 
-La sauvegarde **v5** conserve jour, énergie, lieu et position, capacités, résultats, argent, inventaire, équipement, livraisons, les deux tournois, médailles, réservations et séjours Cuba/Mexique, marathon et technique du double jab. Les parties **v1 à v4** sont migrées automatiquement, en conservant les acquis et une copie valide de secours lorsque le stockage est disponible. Une ancienne tournée, un séjour à l’hôtel ou **un séjour à Cuba v4 déjà payé** reste reprenable; aucune nouvelle réservation n’est exigée pour ce voyage actif. La clé normale reste `boxeur-deux-d-career-v1`; le profil de test utilise une clé séparée `boxeur-deux-d-career-v1-test`.
+La sauvegarde **v6** conserve jour, énergie, lieu et position, capacités, résultats, argent, inventaire, équipement, livraisons, les deux tournois, médailles, réservations et séjours Cuba/Mexique, marathon, technique du double jab, jetons et parties de casino engagées. Les parties **v1 à v5** sont migrées automatiquement, en conservant les acquis et une copie valide de secours lorsque le stockage est disponible. Une ancienne tournée, un séjour à l’hôtel ou **un séjour à Cuba v4 déjà payé** reste reprenable; aucune nouvelle réservation n’est exigée pour ce voyage actif. La clé normale reste `boxeur-deux-d-career-v1`; le profil de test utilise une clé séparée `boxeur-deux-d-career-v1-test`.
 
 **Continuer** reprend le lieu sauvegardé. Un combat interrompu reprend depuis le lieu d’accès, sans reconstituer un round au milieu d’une animation. Coûts payés et résultats validés restent enregistrés. Les transactions de livraison, réservation, inscription et récompense empêchent les doubles paiements. Le marathon conserve son temps et ses points de passage; la rencontre facultative ne se rejoue pas après une recharge. Un trajet de métro interrompu reprend sur un quai sûr.
 
@@ -219,6 +227,11 @@ Dans l’accueil et les pauses des lieux explorables : **Exporter la sauvegarde*
 ```bash
 npm test                         # Ensemble des tests unitaires du projet
 npm run build                    # Production dist/
+
+# Casino V6
+npm run test:casino
+npm run test:casino-browser
+npm run test:casino-world
 
 # Modèles et ressources du chapitre V5
 node --test tests/travel-marathon-career.test.js tests/metro-network.test.js tests/marathon-world.test.js tests/mexico-world.test.js
