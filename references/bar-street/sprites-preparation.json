@@ -1,0 +1,66 @@
+{
+  "method": "Alpha-bounds crops (>64); uniform nearest-neighbour resize; source RGBA preserved without recolouring or redraw.",
+  "source": "references/bar-street/people-alpha-source.png",
+  "sourceSize": {
+    "width": 1642,
+    "height": 958
+  },
+  "transparentPixels": 1371657,
+  "alphaThreshold": 64,
+  "outputs": [
+    {
+      "id": "beton",
+      "destination": "public/assets/bar/beton.png",
+      "region": {
+        "left": 0,
+        "right": 821
+      },
+      "sourceBounds": {
+        "x": 438,
+        "y": 373,
+        "width": 304,
+        "height": 504
+      },
+      "scale": 0.1746031746031746,
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 22,
+        "y": 16,
+        "width": 53,
+        "height": 88
+      }
+    },
+    {
+      "id": "kramer",
+      "destination": "public/assets/bar/kramer.png",
+      "region": {
+        "left": 821,
+        "right": 1642
+      },
+      "sourceBounds": {
+        "x": 914,
+        "y": 374,
+        "width": 297,
+        "height": 501
+      },
+      "scale": 0.17964071856287425,
+      "width": 96,
+      "height": 112,
+      "anchor": {
+        "x": 48,
+        "y": 104
+      },
+      "bounds": {
+        "x": 22,
+        "y": 14,
+        "width": 53,
+        "height": 90
+      }
+    }
+  ]
+}

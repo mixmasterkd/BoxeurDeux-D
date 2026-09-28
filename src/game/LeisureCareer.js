@@ -37,7 +37,7 @@ export const leisureMethods = {
     const place = this.profile.location.scene;
     if (!((kind === 'race' && opponent === 'karl' && place === 'home')
       || (kind === 'billiards' && ['beton', 'kramer'].includes(opponent) && place === 'island-bar'))) {
-      return this._result(false, kind === 'race' ? 'Retrouvez Karl et la console dans le salon.' : 'Retrouvez la table de pool au bar de l’île.');
+      return this._result(false, kind === 'race' ? 'Retrouvez Karl et la console dans le salon.' : 'Retrouvez la table de pool au Bar de l’Île, dans le quartier.');
     }
     if (this._casinoPending() || this._marathonRunning()) return this._result(false, 'Terminez votre activité en cours avant de jouer.');
     const active = tickets.get(this);

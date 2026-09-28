@@ -6,7 +6,7 @@ const base=process.env.HOME_URL??'https://mixmasterkd.github.io/BoxeurDeux-D/';
 const output=process.env.HOME_ASSET_OUTPUT??'outputs/verification/home-bar/public';
 const index=await fs.readFile('dist/index.html','utf8');
 const bundles=[...index.matchAll(/(?:src|href)="\.\/([^" ]+\.(?:js|css))"/g)].map(m=>m[1]);
-const files=['index.html',...bundles,...(await fs.readdir('dist/assets/home')).map(f=>`assets/home/${f}`),...(await fs.readdir('dist/assets/bar')).map(f=>`assets/bar/${f}`)];
+const files=['index.html',...bundles,'assets/world/neighborhood-east-open.png',...(await fs.readdir('dist/assets/home')).map(f=>`assets/home/${f}`),...(await fs.readdir('dist/assets/bar')).map(f=>`assets/bar/${f}`)];
 const report={date:new Date().toISOString(),base,files:[],errors:[]};
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 for(let i=0;i<files.length;i+=6)await Promise.all(files.slice(i,i+6).map(async file=>{

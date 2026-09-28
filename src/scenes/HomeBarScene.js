@@ -20,13 +20,13 @@ export class HomeBarScene extends ExplorationScene {
     super.init({ ...data, place });
     this.customHome = true; this.actorScale = 2; this.assetPath = HOME_BAR_ASSETS[place];
     this.laptop = null; this.medalDisplay = null; this.people = []; this.banter = null; this.banterText = null; this.banterTime = 0; this.visitTime = 0;
-    this.placeCopy = { eyebrow: place === 'island-bar' ? 'MONTRÉAL · SUR L’ÎLE' : 'CHEZ TOI · MONTRÉAL',
+    this.placeCopy = { eyebrow: place === 'island-bar' ? 'MONTRÉAL · LE QUARTIER' : 'CHEZ TOI · MONTRÉAL',
       title: HOME_BAR_NAMES[place], welcome: HOME_BAR_NAMES[place],
-      hint: place === 'island-bar' ? 'Béton et Kramer sont près du billard. La porte ramène au parc.'
+      hint: place === 'island-bar' ? 'Béton et Kramer sont près du billard. La porte ramène à la rue du quartier.'
         : place === 'home' ? 'La Xbox au salon, le bureau et le garage en bas, les chambres à l’étage.'
           : place === 'home-bedroom' ? 'Ton lit, ta garde-robe et tes médailles.' : 'Approche-toi des objets. Les portes se franchissent en avançant.',
       pauseText: 'Ta visite et tes résultats de jeux sont sauvegardés. Aucun coût d’énergie.',
-      commandsTitle: place === 'island-bar' ? 'Un tour au bar de l’île' : 'La maison agrandie',
+      commandsTitle: place === 'island-bar' ? 'Au Bar de l’Île, dans le quartier' : 'La maison agrandie',
       commandsHint: 'Flèches ou WASD pour marcher. Avance dans une porte ou sur l’escalier pour passer à la pièce suivante. E pour parler ou utiliser un objet.' };
   }
   makeWorld() { return new HomeBarWorld({ place: this.place, position: this.entryPosition }); }
@@ -66,8 +66,9 @@ export class HomeBarScene extends ExplorationScene {
   }
   addPerson(id, key, x, y) {
     // Karl stands roughly one player-head taller; seated art keeps the same proportions.
-    const scale = id === 'karl' ? this.actorScale * .6 : .9;
-    const sprite = this.add.image(x, y, key).setOrigin(.5, 1).setScale(scale).setDepth(y);
+    const isKarl = id === 'karl';
+    const scale = isKarl ? this.actorScale * .6 : this.actorScale;
+    const sprite = this.add.image(x, y, key).setOrigin(.5, isKarl ? 1 : 104 / 112).setScale(scale).setDepth(y);
     this.people.push({ id, sprite, x, y });
   }
   syncKarl() {

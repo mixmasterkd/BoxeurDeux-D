@@ -21,7 +21,7 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
-Le chapitre **Maison et bar V7** agrandit la maison actuelle : salon avec Xbox, course contre Karl, bureau équipé, garage avec GR Corolla et chambres à l’étage. Le bar de l’île propose le pool contre Béton et Kramer. Voir [maison et loisirs](docs/HOME_BAR.md).
+Le chapitre **Maison et bar V7** agrandit la maison actuelle : salon avec Xbox, course contre Karl, bureau équipé, garage avec GR Corolla et chambres à l’étage. Le **Bar de l’Île**, dans une nouvelle rue à droite du quartier, propose le pool contre Béton et Kramer. Voir [maison et loisirs](docs/HOME_BAR.md).
 
 Le dernier chapitre et son bilan sont dans [docs/HOME_BAR.md](docs/HOME_BAR.md); le chapitre précédent reste décrit dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md). Les détails sont répartis entre [sauvegarde et règles V5](docs/CHAPITRE_V5_MODELE.md), [métro et aéroport](docs/METRO_ET_AEROPORT.md), [combats V5](docs/COMBATS_CHAPITRE_V5.md) et [menus d’activités](docs/MENUS_ACTIVITES.md). [Cuba et défis](docs/CUBA_ET_DEFIS.md) et [harmonisation SNES](docs/HARMONISATION_SNES.md) conservent les livraisons antérieures; le présent README décrit les règles actuelles.
 

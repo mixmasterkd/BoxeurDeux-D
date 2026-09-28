@@ -4,19 +4,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { chromium, wait, suppressHotReload, fit, dispatch, joyPoint, buttonPoint } from './control-helpers.mjs';
 import { CareerProfile, CAREER_STORAGE_KEY } from '../src/game/CareerProfile.js';
-import { HOME_BAR_LAYOUTS } from '../src/game/HomeBarWorld.js';
+import { HOME_BAR_LAYOUTS, ISLAND_BAR_RETURN } from '../src/game/HomeBarWorld.js';
 
 const built = process.env.HOME_BUILT === '1', publicSite = !built && Boolean(process.env.HOME_URL);
 const url = built ? 'https://home-build.invalid/BoxeurDeux-D/' : process.env.HOME_URL ?? process.env.SPARRING_URL ?? 'http://127.0.0.1:5173/';
-const output = `outputs/verification/home-bar/${built ? 'built' : publicSite ? 'public' : 'dev'}`;
+const scope = process.env.HOME_SCOPE ?? 'all';
+const output = `outputs/verification/${scope === 'bar' ? 'bar-street' : 'home-bar'}/${built ? 'built' : publicSite ? 'public' : 'dev'}`;
 fs.mkdirSync(output, { recursive: true });
-const report = { date: new Date().toISOString(), url, built, mobileEmulated: true, cases: [], errors: [], failure: null };
+const report = { date: new Date().toISOString(), url, built, publicSite, scope, mobileEmulated: true, cases: [], errors: [], failure: null };
 const browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } : {}) });
 const progress = profile => ({ stats: profile.stats, caps: profile.caps, wallet: profile.wallet, inventory: profile.inventory, fights: profile.fights, tournament: profile.tournament, marathon: profile.marathon, casino: profile.casino, leisure: profile.leisure });
 let activePage;
 
-async function session(mobile, location) {
-  const profile = new CareerProfile({ storage: null }); profile.setLocation(location); profile.inspectImport(profile.exportText());
+async function session(mobile, location, { legacyBar = false } = {}) {
+  const profile = new CareerProfile({ storage: null }); profile.setLocation(location);
+  if (legacyBar) {
+    // This is the existing version-7 bar save format: no new street fields,
+    // imported as-is with previously completed games against both opponents.
+    for (const [opponent, winner] of [['beton', 'player'], ['kramer', 'opponent']]) {
+      const game = profile.beginLeisureGame('billiards', opponent); assert.ok(game.ok);
+      assert.ok(profile.recordLeisureResult({ id: game.id, winner }).ok);
+    }
+  }
+  profile.inspectImport(profile.exportText());
   const context = await browser.newContext({ viewport: mobile ? { width: 568, height: 320 } : { width: 1440, height: 1000 }, hasTouch: mobile, isMobile: mobile, deviceScaleFactor: 1 });
   if (!built && !publicSite) await suppressHotReload(context);
   if (built) await context.route('https://home-build.invalid/BoxeurDeux-D/**', async route => {
@@ -26,7 +36,8 @@ async function session(mobile, location) {
     catch { await route.fulfill({ status: 404, body: 'Missing asset' }); }
   });
   await context.addInitScript(({ key, data }) => { if (!localStorage.getItem(key)) { localStorage.setItem(key, data); localStorage.setItem(`${key}-backup`, data); } }, { key: CAREER_STORAGE_KEY, data: profile.exportText() });
-  const page = await context.newPage(); activePage = page; page.setDefaultTimeout(20000);
+  const page = await context.newPage(); activePage = page; page.setDefaultTimeout(20000); page.setDefaultNavigationTimeout(publicSite ? 60000 : 30000);
+  const requests = []; page.on('request', request => requests.push(request.url()));
   page.on('pageerror', error => report.errors.push(error.message));
   page.on('response', response => { if (response.status() >= 400) report.errors.push(`${response.status()} ${response.url()}`); });
   const cdp = mobile ? await context.newCDPSession(page) : null;
@@ -76,7 +87,7 @@ async function session(mobile, location) {
   const choose = id => tap(`[data-gym-action="${id}"]`);
   const shot = name => page.screenshot({ path: `${output}/${mobile ? 'mobile568' : 'desktop'}-${name}.png` });
   const reload = async place => { const before = await save(); await page.reload(); await ready(place); const after = await save(); assert.deepEqual(progress(after), progress(before)); assert.deepEqual(after.daily, before.daily); assert.deepEqual(after.location, before.location); };
-  return { context, page, initial: profile.snapshot(), save, state, tap, ready, drive, axis, move, follow, interact, choose, shot, reload };
+  return { context, page, requests, initial: profile.snapshot(), save, state, tap, ready, drive, axis, move, follow, interact, choose, shot, reload };
 }
 
 async function house(mobile) {
@@ -128,30 +139,66 @@ async function house(mobile) {
 }
 
 async function bar(mobile) {
-  const s = await session(mobile,{scene:'marathon-island',x:428,y:1375,facing:'down'}); console.log(`BAR tour ${mobile?'mobile':'desktop'}`);
+  const s = await session(mobile,{scene:'neighborhood',x:2150,y:716,facing:'right'}); console.log(`BAR street tour ${mobile?'mobile':'desktop'}`);
   try {
-    await s.page.goto(url); await s.ready('marathon-island'); await s.follow([[660,1375],[660,930],[660,800],[440,800]]); await s.shot('bar-exterior');
-    await s.axis('y',735); await s.ready('island-bar'); await s.reload('island-bar');
-    await s.page.waitForTimeout(7700); await s.shot('beton-banter'); const before = await s.state();
-    await s.drive('left',300,false); await s.page.waitForTimeout(2700); const after = await s.state();
-    assert.equal(after.mode,'walking'); assert.ok(after.x<before.x-20,'Silent banter never blocks movement'); await s.shot('kramer-banter');
+    await s.page.goto(url); await s.ready('neighborhood'); await s.shot('neighborhood-east');
+    await s.axis('x',2350); await s.ready('bar-street'); await s.reload('bar-street'); await s.shot('street-west-arrival');
+    await s.follow([[1450,760],[1450,710]]); await s.shot('street-bar-exterior');
+    await s.axis('y',630); await s.ready('island-bar'); await s.reload('island-bar');
+    if (scope !== 'bar') {
+      await s.page.waitForTimeout(7700); await s.shot('beton-banter'); const before = await s.state();
+      await s.drive('left',300,false); await s.page.waitForTimeout(2700); const after = await s.state();
+      assert.equal(after.mode,'walking'); assert.ok(after.x<before.x-20,'Silent banter never blocks movement'); await s.shot('kramer-banter');
+    }
     for (const opponent of ['beton','kramer']) {
       const npc = HOME_BAR_LAYOUTS['island-bar'].stations.find(station=>station.id===opponent);
-      await s.follow([[640,530],[npc.x,530],[npc.x,npc.y+65]]); await s.interact();
+      await s.follow([[640,530],[npc.x,530],[npc.x,npc.y+65]]); await s.shot(`${opponent}-walking`); await s.interact();
       const text = await s.page.locator('#gym-dialog-text').textContent(); assert.match(text,/Yo tu cé pas chui qui man !/); assert.match(text,/Non TOI tu cé pas chui qui man !/);
-      assert.ok(await s.page.locator(`[data-gym-action="pool-${opponent}"]`).isVisible()); await s.shot(`${opponent}-invitation`); await s.choose('close');
+      assert.ok(await s.page.locator(`[data-gym-action="pool-${opponent}"]`).isVisible()); await s.shot(`${opponent}-invitation`); await s.choose('close'); await s.shot(`${opponent}-after-dialogue`);
     }
-    await s.follow([[1030,530],[640,530],[640,675]]); await s.ready('marathon-island');
-    await s.follow([[440,800],[660,800],[660,1375],[428,1375],[428,1310]]); await s.ready('metro-island-hall');
+    await s.follow([[1030,530],[640,530],[640,675]]); await s.ready('bar-street');
+    assert.deepEqual((await s.save()).location,ISLAND_BAR_RETURN); await s.shot('bar-street-return');
+    await s.follow([[1450,760],[110,760],[40,760]]); await s.ready('neighborhood'); await s.shot('neighborhood-return');
     const final = await s.save(); assert.deepEqual(progress(final),progress(s.initial)); assert.deepEqual(final.daily,s.initial.daily);
     new CareerProfile({storage:null}).inspectImport(JSON.stringify(final));
-    report.cases.push({name:`bar-${mobile?'mobile':'desktop'}`,freeBeforeBronze:true,bothOpponents:true,silentBanterNonblocking:true,metroRoundTrip:true,progressionUnchanged:true});
+    const geometry=await fit(s.page,'#gym-ui',mobile); assert.ok(geometry.fits&&geometry.noScroll&&geometry.controls.every(control=>control.outside&&control.fits));
+    report.cases.push({name:`bar-street-${mobile?'mobile':'desktop'}`,freeBeforeBronze:true,bothOpponents:true,...(scope!=='bar'?{silentBanterNonblocking:true}:{}),neighborhoodStreetBarRoundTrip:true,exactReload:true,progressionUnchanged:true,geometry});
   } catch(error) { await s.shot('bar-failure').catch(()=>{}); throw error; } finally { await s.context.close(); }
+}
+
+async function legacyBar(mobile) {
+  const s=await session(mobile,{scene:'island-bar',x:640,y:610,facing:'down'},{legacyBar:true}); console.log(`BAR legacy save ${mobile?'mobile':'desktop'}`);
+  try {
+    await s.page.goto(url); await s.ready('island-bar'); await s.reload('island-bar');
+    assert.deepEqual((await s.save()).leisure,s.initial.leisure); await s.shot('legacy-bar-loaded');
+    await s.axis('y',675); await s.ready('bar-street');
+    assert.deepEqual((await s.save()).location,ISLAND_BAR_RETURN,'An existing island-bar save now exits into the new city street.');
+    await s.reload('bar-street'); await s.shot('legacy-bar-new-exit');
+    await s.follow([[1450,760],[110,760],[40,760]]); await s.ready('neighborhood');
+    const after=await s.save(); assert.deepEqual(progress(after),progress(s.initial)); assert.deepEqual(after.daily,s.initial.daily);
+    assert.deepEqual(after.leisure.billiards,{beton:{playerWins:1,opponentWins:0},kramer:{playerWins:0,opponentWins:1}});
+    report.cases.push({name:`legacy-bar-${mobile?'mobile':'desktop'}`,originalInteriorId:'island-bar',savedVersion:s.initial.version,oldScoresPreserved:true,exitToNewStreet:true,newStreetSaveReload:true,returnToNeighborhood:true,moneyEnergyProgressUnchanged:true});
+  } catch(error) { await s.shot('legacy-bar-failure').catch(()=>{}); throw error; } finally { await s.context.close(); }
+}
+
+async function formerIslandBar(mobile) {
+  const s=await session(mobile,{scene:'marathon-island',x:440,y:800,facing:'up'}); console.log(`BAR former island site ${mobile?'mobile':'desktop'}`);
+  try {
+    await s.page.goto(url); await s.ready('marathon-island'); assert.deepEqual((await s.save()).location,s.initial.location); await s.axis('y',738); await s.drive('up',500);
+    assert.equal((await s.state()).scene,'marathon-island'); assert.equal((await s.state()).mode,'walking');
+    assert.doesNotMatch(await s.page.locator('.gym-nearby-label').textContent(),/bar|billard/i);
+    if(!mobile)await s.page.keyboard.press('KeyE');
+    assert.equal(await s.page.locator('.gym-dialog:not([hidden])').count(),0,'The removed island doorway offers no ghost interaction.');
+    assert.ok(!s.requests.some(url=>new URL(url).pathname.endsWith('/assets/bar/exterior.png')),'The old island no longer loads the removed bar facade.');
+    await s.shot('island-former-bar'); await s.reload('marathon-island');
+    const after=await s.save(); assert.deepEqual(progress(after),progress(s.initial)); assert.deepEqual(after.daily,s.initial.daily);
+    report.cases.push({name:`former-island-bar-${mobile?'mobile':'desktop'}`,oldPositionStillValid:true,noPhantomDoor:true,noBarInteraction:true,noBarFacadeAsset:true,reloadSafe:true,progressionUnchanged:true});
+  } catch(error) { await s.shot('former-island-bar-failure').catch(()=>{}); throw error; } finally { await s.context.close(); }
 }
 
 try {
   const modes=process.env.HOME_MOBILE==='1'?[true]:process.env.HOME_DESKTOP==='1'?[false]:[false,true];
-  for(const mobile of modes){await house(mobile);await bar(mobile);} assert.deepEqual(report.errors,[]);
+  for(const mobile of modes){if(scope!=='bar')await house(mobile);await bar(mobile);await legacyBar(mobile);await formerIslandBar(mobile);} assert.deepEqual(report.errors,[]);
 } catch(error) { report.failure=error.stack;process.exitCode=1;console.error(error);if(activePage&&!activePage.isClosed())await activePage.screenshot({path:`${output}/failure.png`}).catch(()=>{}); }
 finally { await browser.close();fs.writeFileSync(`${output}/results${process.env.HOME_MOBILE==='1'?'-mobile':process.env.HOME_DESKTOP==='1'?'-desktop':''}.json`,JSON.stringify(report,null,2)+'\n'); }
 console.log(JSON.stringify(report,null,2));

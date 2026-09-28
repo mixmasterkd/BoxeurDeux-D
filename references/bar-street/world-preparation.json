@@ -1,0 +1,35 @@
+{
+  "method": "Uniform nearest-neighbor resizing and exact crop; no painting or stretching.",
+  "outputs": [
+    {
+      "source": "street-source.png",
+      "destination": "public/assets/bar/street.png",
+      "width": 1920,
+      "height": 1080,
+      "sourceWidth": 1672,
+      "sourceHeight": 941,
+      "crop": {
+        "x": 0,
+        "y": 0.25,
+        "width": 1672,
+        "height": 940.5
+      },
+      "scale": 1.1483253588516746
+    },
+    {
+      "source": "east-open-source.png",
+      "destination": "public/assets/world/neighborhood-east-open.png",
+      "width": 146,
+      "height": 240,
+      "sourceWidth": 1586,
+      "sourceHeight": 992,
+      "crop": {
+        "x": 1440,
+        "y": 350,
+        "width": 146,
+        "height": 240
+      },
+      "scale": 1
+    }
+  ]
+}

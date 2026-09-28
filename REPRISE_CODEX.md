@@ -1,5 +1,11 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Bar déplacé dans le quartier — correction du 28 septembre 2026
+
+Demande utilisateur : ouvrir une nouvelle rue du quartier pour le bar et corriger les proportions de Béton/Kramer. Rue accessible à droite après la salle de boxe, façade du bar sur le trottoir nord, retour vers le quartier à gauche. Ancienne implantation sur l’île retirée; id intérieur `island-bar` conservé pour les sauvegardes V7. Nouveaux sprites 96×112 à l’échelle ×2, proportions du joueur, Karl inchangé. Musique existante seulement.
+
+Sources/préparation ImageGen et détails : [docs/BAR_STREET.md](docs/BAR_STREET.md). **591 tests** et compilation finale réussis (`index-BVXARDUc.js`, CSS inchangé). Six parcours PC/tactile compilés, 28 captures, aucune erreur. Après ces parcours, seul le drapeau `returningBike` a été transmis dans `startAt`, avec son test de transitions. Publication et vérifications publiques en cours. Aucun nouveau chapitre à lancer automatiquement.
+
 ## Taille de Karl — précision du 28 septembre 2026
 
 L’utilisateur précise que Karl a une tête de plus que lui. À la maison, son échelle passe de 0,9 à 1,2, debout et assis, avec le même ancrage aux pieds. Sa silhouette debout fait environ 224 px contre 174–176 px pour le joueur : environ 50 px de différence. Le casino avait déjà ce rapport de taille et conserve son rendu. Contrôle visuel ciblé sur ordinateur et mobile simulé, debout et assis ; quatre captures et mesures dans `outputs/verification/karl-height/dev/`. Compilation réussie (`index-4s46XECO.js`, CSS inchangé). Publié : `b784bba`, workflow Pages `36465149912` réussi. Les fichiers publics sont comparés à la compilation locale dans `outputs/verification/karl-height/public/assets.json`.

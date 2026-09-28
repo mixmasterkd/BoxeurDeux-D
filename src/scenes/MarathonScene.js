@@ -6,7 +6,6 @@ import {resumePending} from '../game/ResumeRouting.js';
 import {startAt} from '../game/SceneRouting.js';
 import {metroHallLocation} from '../game/MetroNetwork.js';
 import {CASINO_ISLAND_SPAWN} from '../game/CasinoIslandWorld.js';
-import {ISLAND_BAR_ENTRY,ISLAND_BAR_BUILDING} from '../game/HomeBarWorld.js';
 import '../ui/marathon.css';
 const timer=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
 export class MarathonScene extends ExplorationScene{
@@ -19,11 +18,9 @@ export class MarathonScene extends ExplorationScene{
   const run=careerProfile.marathonStatus().active;this.elapsed=run?.elapsed??0;this.runners=[];this.runId=run?.status==='running'||run?.status==='encounter'?run.id:null;this.encounterShown=false;this.justFinished=false;this.routePoint=run?.checkpoint.scene===place?(run.routePoint??0):0;
  }
  makeWorld(){return new MarathonWorld({place:this.place,position:this.entryPosition});}
- preload(){super.preload();const base=import.meta.env.BASE_URL;if(this.place==='marathon-island')this.load.image('island-bar-exterior',`${base}assets/bar/exterior.png`);this.load.json('marathon-player-data',`${base}assets/sprites/marathon/player.json`);for(const d of ['down','right','up','left'])for(let f=0;f<3;f++)this.load.image(`marathon-player-${d}-${f}`,`${base}assets/sprites/marathon/player-${d}-${f}.png`);for(let p=0;p<4;p++)for(const d of ['down','up','right'])for(let f=0;f<2;f++)this.load.image(`marathon-crowd-${p}-${d}-${f}`,`${base}assets/sprites/marathon/crowd-${p}-${d}-${f}.png`);}
+ preload(){super.preload();const base=import.meta.env.BASE_URL;this.load.json('marathon-player-data',`${base}assets/sprites/marathon/player.json`);for(const d of ['down','right','up','left'])for(let f=0;f<3;f++)this.load.image(`marathon-player-${d}-${f}`,`${base}assets/sprites/marathon/player-${d}-${f}.png`);for(let p=0;p<4;p++)for(const d of ['down','up','right'])for(let f=0;f<2;f++)this.load.image(`marathon-crowd-${p}-${d}-${f}`,`${base}assets/sprites/marathon/crowd-${p}-${d}-${f}.png`);}
  addForeground(){
   if(this.place!=='marathon-island')return;
-  const facade=this.add.image(ISLAND_BAR_BUILDING.x,ISLAND_BAR_BUILDING.y,'island-bar-exterior').setOrigin(.5,1).setDepth(ISLAND_BAR_BUILDING.y);
-  facade.setDisplaySize(ISLAND_BAR_BUILDING.width,ISLAND_BAR_BUILDING.width*facade.height/facade.width);
   const key='marathon-bridge-foreground';
   if(!this.textures.exists(key)){
    const source=this.textures.get(`world-${this.place}`).getSourceImage(),texture=this.textures.createCanvas(key,1920,1080),ctx=texture.context;
@@ -40,7 +37,7 @@ export class MarathonScene extends ExplorationScene{
   this.waySigns=[];const sign=(x,sy,label)=>{const t=this.add.text(x,sy,label,{fontFamily:'monospace',fontSize:'18px',fontStyle:'bold',color:'#ffdf92',backgroundColor:'#173047',padding:{x:9,y:6}}).setOrigin(.5,1).setDepth(sy);this.waySigns.push(t);};
   if(index<3)sign(2620,y-85,`${MARATHON_NAMES[MARATHON_PLACES[index+1]]} →`);
   if(index>0)sign(250,y-85,`← ${MARATHON_NAMES[MARATHON_PLACES[index-1]]}`);
-  if(this.place==='marathon-island'){sign(428,1260,'MÉTRO · ÎLE');sign(930,780,'PARCOURS · DÉPART');sign(690,1240,'DÉPART ↑');sign(165,1270,'← PONT DU CASINO');sign(665,845,'← BAR · BILLARD');}
+  if(this.place==='marathon-island'){sign(428,1260,'MÉTRO · ÎLE');sign(930,780,'PARCOURS · DÉPART');sign(690,1240,'DÉPART ↑');sign(165,1270,'← PONT DU CASINO');}
   if(this.place==='marathon-stadium')sign(2370,1440,'MÉTRO · STADE');
  }
  create(){
@@ -115,11 +112,6 @@ export class MarathonScene extends ExplorationScene{
   this.ui.showDialog({speaker:'SUR LE PARCOURS',title:'« Hé ! Regarde où tu cours ! »',text:pending?'L’altercation était en cours. Tu peux reprendre ou choisir de repartir courir.':'Un coureur te bouscule et cherche la dispute. Tu peux poursuivre tranquillement. Cette rencontre n’arrivera qu’une fois pendant ta course.',actions:[{id:pending?'resume-course':'avoid-encounter',label:'Continuer ma course'},{id:'accept-encounter',label:'Lui tenir tête'}]});
  }
  interactDoor(id){
-  if(id==='bar'){
-   this.world.releaseControls();this.persistLocation();
-   if(this.isRunning()){this.ui.showDialog({speaker:'SUR LE PARCOURS',title:'Une partie après la course',text:'Le bar reste ouvert. Termine ta course ou quitte-la par le métro avant de rejoindre Béton et Kramer au billard.',actions:[{id:'close',label:'Reprendre la course'}]});return;}
-   careerProfile.setLocation(ISLAND_BAR_ENTRY);startAt(this,ISLAND_BAR_ENTRY);return;
-  }
   if(id==='west-casino'){
    this.world.releaseControls();this.persistLocation();
    if(this.isRunning()){this.ui.showDialog({speaker:'SUR LE PARCOURS',title:'Après la course',text:'Le petit pont mène à l’île du casino, en dehors du parcours. Termine ta course ou quitte-la par le métro avant de continuer la promenade.',actions:[{id:'close',label:'Reprendre la course'}]});return;}

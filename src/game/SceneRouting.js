@@ -1,4 +1,5 @@
 export function sceneForPlace(place) {
+  if (place === 'bar-street') return 'BarStreetScene';
   if (place === 'home' || place?.startsWith('home-') || place === 'island-bar') return 'HomeBarScene';
   if (place?.startsWith('mexico-')) return 'MexicoScene';
   if (place?.startsWith('cuba-')) return 'CubaScene';
@@ -11,5 +12,5 @@ export function sceneForPlace(place) {
 }
 export function startAt(scene, location) {
   scene.changingPlace = true; scene.ui?.clearInputs(); scene.world?.pause();
-  scene.scene.start(sceneForPlace(location.scene), { place: location.scene, location });
+  scene.scene.start(sceneForPlace(location.scene), { place: location.scene, location, returningBike: Boolean(scene.returningBike) });
 }

@@ -54,7 +54,7 @@ DISTRICT_LAYOUTS.residential.doors=[doorway('return-neighborhood',2240,575,115,2
 DISTRICT_LAYOUTS.commercial.doors=[doorway('return-residential',2240,665,115,220,'right'),doorway('clothing-store',905,411,116,25,'up'),doorway('boxing-store',1464,411,116,25,'up')];
 for(const place of ['clothing-shop','boxing-shop'])DISTRICT_LAYOUTS[place].doors=[doorway('shop-exit',584,643,112,40,'down')];
 for(const layout of Object.values(DISTRICT_LAYOUTS))markDoors(layout);
-export const OUTDOOR_PLACES=['neighborhood','residential','commercial','riverside'];
+export const OUTDOOR_PLACES=['neighborhood','residential','commercial','riverside','bar-street'];
 export const DISTRICT_ARRIVALS = {
   residential:{neighborhood:{x:2265,y:680,facing:'left'},commercial:{x:120,y:680,facing:'right'}},
   'metro-station':{neighborhood:{x:640,y:490,facing:'up'},'metro-riverside':{x:640,y:410,facing:'down'}},

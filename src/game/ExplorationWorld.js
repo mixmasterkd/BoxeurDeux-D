@@ -14,7 +14,6 @@ export const NEIGHBORHOOD_LAYOUT = {
   obstacles: [
     rect('maison', 137, 0, 280, 329), rect('gym', 568, 0, 390, 329), rect('salle', 1084, 0, 374, 340),
     rect('cloture-ruelle-ouest', 417, 138, 151, 15), rect('cloture-ruelle-est', 958, 138, 126, 15),
-    rect('chantier-est', 1504, 406, 82, 154),
     rect('chantier-sud', 717, 920, 167, 72), rect('cone-sud-ouest', 695, 940, 24, 42), rect('cone-sud-est', 854, 900, 28, 41),
     rect('commerces', 982, 567, 532, 292),
     rect('parc-nord', 55, 593, 607, 16), rect('parc-est', 650, 609, 17, 318),
@@ -30,7 +29,7 @@ export const NEIGHBORHOOD_LAYOUT = {
     station('home', 'Chez toi · 1736', 272, 335), station('gym', 'Le gym du quartier', 752, 336),
     station('fight', 'Salle de boxe · Les rencontres', 1267, 341), station('depanneur-84', '84, avenue du Gym · Dépanneur', 1095, 873, 52),
     station('to-metro', 'Métro · Station du Quartier', 1365, 874, 52), station('to-residential', 'Rue des livreurs · Passage ouvert', 70, 477, 67),
-    station('works-east', 'Rue barrée', 1492, 477, 67), station('works-south', 'Travaux en cours', 778, 892, 67),
+    station('to-bar-street', 'Rue du bar · Passage ouvert', 1492, 477, 67), station('works-south', 'Travaux en cours', 778, 892, 67),
   ],
 };
 
@@ -59,7 +58,7 @@ export const HOME_LAYOUT = {
   ],
 };
 
-NEIGHBORHOOD_LAYOUT.doors = [doorway('home',360,497,96,24,'up'), doorway('gym',1070,500,116,24,'up'), doorway('fight',1840,512,124,24,'up'), doorway('to-residential',82,625,52,170,'left'), doorway('to-metro',1980,1285,138,35,'up')];
+NEIGHBORHOOD_LAYOUT.doors = [doorway('home',360,497,96,24,'up'), doorway('gym',1070,500,116,24,'up'), doorway('fight',1840,512,124,24,'up'), doorway('to-residential',82,625,52,170,'left'), doorway('to-metro',1980,1285,138,35,'up'), doorway('to-bar-street',2270,625,25,170,'right')];
 HOME_LAYOUT.doors = [doorway('exit',586,643,108,38,'down')];
 markDoors(NEIGHBORHOOD_LAYOUT); markDoors(HOME_LAYOUT);
 

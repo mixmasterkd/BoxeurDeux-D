@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { LaptopUI } from '../ui/LaptopUI.js';
 import { DoorTravel } from '../game/DoorTravel.js';
-import { sceneForPlace } from '../game/SceneRouting.js';
+import { BAR_STREET_ENTRY } from '../game/BarStreetWorld.js';
+import { sceneForPlace, startAt } from '../game/SceneRouting.js';
 import { deliveryAddress } from '../game/DeliveryRoute.js';
 import { ExplorationWorld, STREET_SCALE, WORLD_ENTRANCES } from '../game/ExplorationWorld.js';
 import { careerProfile } from '../game/CareerProfile.js';
@@ -51,7 +52,7 @@ export class ExplorationScene extends Phaser.Scene {
     preloadOutfits(this,{street:true});
     if(this.place==='home')this.load.image('laptop-device',`${base}assets/laptop/device.png`);
     this.load.image(`world-${this.place}`, `${base}${this.assetPath ?? `assets/world/${this.place==='metro-riverside'?'metro-station':this.place}.png`}`);
-    if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
+    if(this.place==='neighborhood') {this.load.image('neighborhood-west-open',`${base}assets/world/neighborhood-west-open.png`);this.load.image('neighborhood-east-open',`${base}assets/world/neighborhood-east-open.png`);this.load.image('neighborhood-metro',`${base}assets/world/neighborhood-metro.png`);}
     if(this.place==='residential')this.load.image('depot-kiosk',`${base}assets/world/depot-kiosk.png`);
     if(this.place==='riverside')this.load.image('cuba-travel-kiosk',`${base}assets/cuba/travel-kiosk.png`);
     if(OUTDOOR_PLACES.includes(this.place)) {
@@ -74,7 +75,7 @@ export class ExplorationScene extends Phaser.Scene {
     // Adding atlas frames changes Phaser's default frame. Always request the
     // full scene on every visit, including when its texture is already cached.
     this.background = this.add.image(0, 0, `world-${this.place}`, '__BASE').setOrigin(0).setDisplaySize(width, height);
-    if(this.place==='neighborhood') {this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1230*STREET_SCALE,675*STREET_SCALE,'neighborhood-metro').setOrigin(0).setScale(STREET_SCALE);}
+    if(this.place==='neighborhood') {this.add.image(0,350*STREET_SCALE,'neighborhood-west-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1440*STREET_SCALE,350*STREET_SCALE,'neighborhood-east-open').setOrigin(0).setScale(STREET_SCALE);this.add.image(1230*STREET_SCALE,675*STREET_SCALE,'neighborhood-metro').setOrigin(0).setScale(STREET_SCALE);}
     if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
     if(this.place==='riverside')this.add.image(1520,700,'cuba-travel-kiosk').setOrigin(.5,1).setDepth(700);
     this.addForeground();
@@ -157,6 +158,7 @@ export class ExplorationScene extends Phaser.Scene {
     if (!station) return;
     this.world.releaseControls(); this.persistLocation();
     if (station.id === 'laptop') { this.laptop.open(); return; }
+    if (station.id === 'to-bar-street') { this.enterBarStreet(); return; }
     if(chapterInteract(this,station)) return;
     const daily = careerProfile.dailyStatus();
     const show = (title, text, actions = []) => this.ui.showDialog({ speaker: this.place === 'home' ? 'CHEZ TOI' : 'LA VIE DE QUARTIER', title, text, actions });
@@ -233,10 +235,15 @@ export class ExplorationScene extends Phaser.Scene {
   interactDoor(id) {
     const station=this.world.layout.stations.find(s=>s.id===id); if(!station)return;
     this.world.releaseControls();this.persistLocation();
+    if (id === 'to-bar-street') { this.enterBarStreet(); return; }
     if(chapterInteract(this,station))return;
     if(id==='exit')this.travel('neighborhood','home');
     else if(id==='home')this.travel('home','street');
     else if(id==='gym')this.travel('gym');
+  }
+  enterBarStreet() {
+    const result = careerProfile.setLocation(BAR_STREET_ENTRY);
+    if (result.ok) startAt(this, BAR_STREET_ENTRY);
   }
   addWayfinding() {
     const sign=(x,y,text,color='#f1d68f',size=18)=>this.add.text(x,y,text,{fontFamily:'monospace',fontStyle:'bold',fontSize:`${size}px`,color,backgroundColor:'#152834',padding:{x:10,y:7},align:'center'}).setOrigin(.5,1).setDepth(1800);
@@ -245,7 +252,7 @@ export class ExplorationScene extends Phaser.Scene {
       sign(215,845,'← BOUTIQUES', '#f1d68f',16);sign(2200,845,'GYM / MÉTRO →','#f1d68f',16);
       for(const [x,n]of [[441,12],[1189,24],[1942,36]])sign(x,480,String(n),'#fff0a8',15);
     }
-    if(this.place==='neighborhood'){sign(1642,1280,'84','#fff0a8',16);sign(245,820,'← DÉPÔT / BOUTIQUES','#f1d68f',16);}
+    if(this.place==='neighborhood'){sign(1642,1280,'84','#fff0a8',16);sign(245,820,'← DÉPÔT / BOUTIQUES','#f1d68f',16);sign(2170,820,'RUE DU BAR →','#f1d68f',16);}
     if(this.place==='commercial')sign(1096,423,'210 · COLIS','#fff0a8',15);
     if(this.place==='metro-riverside'){this.add.rectangle(448,75,140,32,0x1c345c).setDepth(1799);sign(448,88,'DES RIVES','#e7e7dc',16);}
     if(this.place.startsWith('metro-'))sign(760,152,this.place==='metro-station'?'QUARTIER  →  DES RIVES':'DES RIVES  →  QUARTIER','#dbeaff',20);

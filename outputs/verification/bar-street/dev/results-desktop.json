@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-28T18:43:35.249Z",
+  "url": "http://127.0.0.1:5173/",
+  "built": false,
+  "publicSite": false,
+  "scope": "bar",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "bar-street-desktop",
+      "freeBeforeBronze": true,
+      "bothOpponents": true,
+      "neighborhoodStreetBarRoundTrip": true,
+      "exactReload": true,
+      "progressionUnchanged": true,
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "legacy-bar-desktop",
+      "originalInteriorId": "island-bar",
+      "savedVersion": 7,
+      "oldScoresPreserved": true,
+      "exitToNewStreet": true,
+      "newStreetSaveReload": true,
+      "returnToNeighborhood": true,
+      "moneyEnergyProgressUnchanged": true
+    },
+    {
+      "name": "former-island-bar-desktop",
+      "oldPositionStillValid": true,
+      "noPhantomDoor": true,
+      "noBarInteraction": true,
+      "noBarFacadeAsset": true,
+      "reloadSafe": true,
+      "progressionUnchanged": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

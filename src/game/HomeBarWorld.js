@@ -1,11 +1,12 @@
 import { GymWorld } from './GymWorld.js';
 import { doorway, markDoors } from './DoorTravel.js';
+import { BAR_STREET_BAR_RETURN, BAR_STREET_BUILDING } from './BarStreetWorld.js';
 
 export const HOME_BAR_PLACES = Object.freeze(['home', 'home-office', 'home-garage', 'home-landing', 'home-bedroom', 'home-karl', 'island-bar']);
 export const HOME_BAR_NAMES = Object.freeze({
   home: 'Chez toi · Le salon', 'home-office': 'La salle d’ordinateur', 'home-garage': 'Le garage',
   'home-landing': 'L’étage des chambres', 'home-bedroom': 'Ta chambre', 'home-karl': 'La chambre de Karl',
-  'island-bar': 'Le petit bar de l’île',
+  'island-bar': 'Bar de l’Île · Quartier',
 });
 export const HOME_BAR_ASSETS = Object.freeze({
   home: 'assets/home/living.png', 'home-office': 'assets/home/office.png', 'home-garage': 'assets/home/garage.png',
@@ -16,8 +17,8 @@ export const HOME_ENTRY = Object.freeze({ scene: 'home', x: 640, y: 610, facing:
 export const HOME_RACE_RETURN = Object.freeze({ scene: 'home', x: 770, y: 580, facing: 'up' });
 export const HOME_WAKE = Object.freeze({ scene: 'home-bedroom', x: 510, y: 445, facing: 'down' });
 export const ISLAND_BAR_ENTRY = Object.freeze({ scene: 'island-bar', x: 640, y: 610, facing: 'up' });
-export const ISLAND_BAR_RETURN = Object.freeze({ scene: 'marathon-island', x: 440, y: 800, facing: 'down' });
-export const ISLAND_BAR_BUILDING = Object.freeze({ x: 440, y: 724, width: 560 });
+export const ISLAND_BAR_RETURN = BAR_STREET_BAR_RETURN;
+export const ISLAND_BAR_BUILDING = BAR_STREET_BUILDING;
 export const ISLAND_BAR_RETURNS = Object.freeze({
   beton: { scene: 'island-bar', x: 440, y: 535, facing: 'up' },
   kramer: { scene: 'island-bar', x: 1030, y: 520, facing: 'up' },
@@ -66,7 +67,7 @@ export const HOME_BAR_LAYOUTS = {
     rect('bar-stool-1', 158, 216, 55, 86), rect('bar-stool-2', 263, 216, 56, 86), rect('bar-stool-3', 368, 216, 54, 86),
     rect('bar-left-table', 76, 302, 103, 138), rect('bar-booths', 1080, 216, 200, 336), rect('bar-front-west', 0, 567, 510, 123), rect('bar-front-east', 775, 567, 505, 123),
     rect('beton', 422, 444, 36, 28), rect('kramer', 1012, 424, 36, 28)],
-    [exit('Retour à l’île et au métro'), station('beton', 'Béton · Billard et grandes phrases', 440, 472, 90),
+    [exit('Retour à la rue du quartier'), station('beton', 'Béton · Billard et grandes phrases', 440, 472, 90),
       station('kramer', 'Kramer · Billard et répartie', 1030, 452, 90), station('billiards', 'La table de billard', 810, 416, 90)]),
 };
 for (const layout of Object.values(HOME_BAR_LAYOUTS)) markDoors(layout);

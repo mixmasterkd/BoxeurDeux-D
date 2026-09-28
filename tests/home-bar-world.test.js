@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { HomeBarWorld, HOME_BAR_PLACES, HOME_BAR_LAYOUTS, HOME_ENTRY, HOME_RACE_RETURN, HOME_WAKE,
   ISLAND_BAR_ENTRY, ISLAND_BAR_RETURN, ISLAND_BAR_RETURNS, BAR_BANTER, BAR_BANTER_INTERVAL, homeBarDestination } from '../src/game/HomeBarWorld.js';
 import { MarathonWorld, COURSE_POINTS, MARATHON_METRO_ARRIVALS } from '../src/game/MarathonWorld.js';
+import { BarStreetWorld, BAR_STREET_ENTRY, BAR_STREET_BAR_RETURN, BAR_STREET_NEIGHBORHOOD_RETURN } from '../src/game/BarStreetWorld.js';
+import { CareerProfile } from '../src/game/CareerProfile.js';
 import { ExplorationWorld, canStand } from '../src/game/ExplorationWorld.js';
 import { DoorTravel } from '../src/game/DoorTravel.js';
 import { WORLD_SCENES } from '../src/game/DayRules.js';
@@ -22,13 +24,16 @@ function reach(world, x, y, doors) {
 const path = (world, points) => points.forEach(([x, y]) => reach(world, x, y));
 const crossing = (world, x, y) => reach(world, x, y, new DoorTravel(world.layout.doors, world.state));
 
-test('the expanded house and island bar are saved places with explicit routes and existing music', () => {
+test('the expanded house and compatible bar interior remain saved places with explicit routes and music', () => {
   for (const place of HOME_BAR_PLACES) {
     assert.ok(WORLD_SCENES.includes(place), place); assert.equal(sceneForPlace(place), 'HomeBarScene');
     assert.equal(musicTrackForPlace(place), place === 'island-bar' ? 'casino' : 'home');
   }
   assert.equal(musicTrackForScene({ sys: { settings: { key: 'RetroRaceScene' } } }), 'home');
   assert.equal(musicTrackForScene({ sys: { settings: { key: 'BilliardsScene' } } }), 'casino');
+  assert.ok(WORLD_SCENES.includes('bar-street'));
+  assert.equal(sceneForPlace('bar-street'), 'BarStreetScene');
+  assert.equal(musicTrackForPlace('bar-street'), 'city');
   assert.equal(sceneForPlace('neighborhood'), 'ExplorationScene');
   assert.equal(sceneForPlace('marathon-island'), 'MarathonScene');
 });
@@ -37,7 +42,7 @@ test('every room door arrives outside its return threshold at a valid saved posi
   for (const [place, layout] of Object.entries(HOME_BAR_LAYOUTS)) for (const door of layout.doors) {
     const location = homeBarDestination(place, door.id); assert.ok(location, `${place}/${door.id}`);
     const world = location.scene === 'neighborhood' ? new ExplorationWorld({ place: location.scene, position: location })
-      : location.scene === 'marathon-island' ? new MarathonWorld({ position: location })
+      : location.scene === 'bar-street' ? new BarStreetWorld({ position: location })
         : new HomeBarWorld({ place: location.scene, position: location });
     assert.deepEqual(world.location(), location, `${place}/${door.id} restores exactly`);
     const latch = new DoorTravel(world.layout.doors, world.state);
@@ -88,15 +93,64 @@ test('the computer and parked Corolla have clear approaches and solid furniture'
   for (const place of ['home-office','home-garage']) assert.equal(crossing(new HomeBarWorld({place}),640,675),'exit');
 });
 
-test('the island bar is reachable from the metro without blocking the casino bridge or marathon course', () => {
-  const island = new MarathonWorld({position:MARATHON_METRO_ARRIVALS['marathon-island']});
-  path(island,[[660,1375],[660,930],[660,800],[440,800]]);
-  assert.equal(crossing(island,440,735),'bar');
-  assert.deepEqual(new MarathonWorld({position:ISLAND_BAR_RETURN}).location(),ISLAND_BAR_RETURN);
+test('the bar is reached through the east neighborhood street with safe return thresholds', () => {
+  const neighborhood=new ExplorationWorld({place:'neighborhood',position:{x:2150,y:716,facing:'right'}});
+  assert.equal(crossing(neighborhood,2290,716),'to-bar-street');
+  assert.ok(!neighborhood.layout.obstacles.some(obstacle=>obstacle.id==='chantier-est'));
+  const street=new BarStreetWorld(); assert.deepEqual(street.location(),BAR_STREET_ENTRY);
+  path(street,[[1450,760],[1450,710]]); assert.equal(crossing(street,1450,630),'bar');
+  assert.deepEqual(ISLAND_BAR_RETURN,BAR_STREET_BAR_RETURN);
+  const outside=new BarStreetWorld({position:homeBarDestination('island-bar','exit')});
+  assert.deepEqual(outside.location(),BAR_STREET_BAR_RETURN);
+  const latch=new DoorTravel(outside.layout.doors,outside.state);
+  assert.equal(latch.update(outside.state,{x:0,y:0}),null);
+  path(outside,[[1450,760],[110,760]]); assert.equal(crossing(outside,40,760),'neighborhood');
+  const returned=new ExplorationWorld({place:'neighborhood',position:BAR_STREET_NEIGHBORHOOD_RETURN});
+  assert.deepEqual(returned.location(),BAR_STREET_NEIGHBORHOOD_RETURN);
+  assert.equal(new DoorTravel(returned.layout.doors,returned.state).update(returned.state,{x:0,y:0}),null);
+});
+
+test('the new street keeps full footprints outside facades and rejects invalid imported positions', () => {
+  for(const start of [BAR_STREET_ENTRY,BAR_STREET_BAR_RETURN]){
+    const street=new BarStreetWorld({position:start});street.setInput({x:0,y:-1});
+    for(let i=0;i<240;i++)street.update(1/120);
+    assert.ok(canStand(street.layout,street.state));
+    assert.ok(street.state.y>= (start===BAR_STREET_ENTRY?510:620)+street.layout.footprint.halfHeight);
+    assert.equal(street.state.moving,false);
+  }
+  for(const position of [{x:1450,y:500},{x:-1,y:760},{x:2900,y:760},{x:100,y:1200}]){
+    const street=new BarStreetWorld({position});assert.deepEqual(street.location(),BAR_STREET_ENTRY);
+  }
+});
+
+test('the old island location is a walkable promenade with no bar facade collider, doorway or interaction', () => {
+  const island=new MarathonWorld({position:{x:440,y:800,facing:'up'}});
+  assert.deepEqual(island.location(),{scene:'marathon-island',x:440,y:800,facing:'up'});
+  for(const group of ['doors','stations','obstacles'])assert.ok(!island.layout[group].some(item=>['bar','island-bar'].includes(item.id)),group);
+  path(island,[[440,735]]); assert.ok(!island.getNearby()?.id?.includes('bar'));
+  const latch=new DoorTravel(island.layout.doors,island.state);island.setInput({x:0,y:-1});
+  for(let i=0;i<120;i++){island.update(1/120);assert.equal(latch.update(island.state,island.input),null);}
   const course = new MarathonWorld({position:{x:960,y:790,facing:'right'}});
   for (const point of COURSE_POINTS['marathon-island']) reach(course,point.x,point.y);
   const west = new MarathonWorld({position:MARATHON_METRO_ARRIVALS['marathon-island']});
   path(west,[[125,1375],[125,1335]]);assert.equal(crossing(west,40,1335),'west-casino');
+});
+
+test('an existing version-7 island-bar save preserves both scores and exits toward the new street', () => {
+  const before=new CareerProfile({storage:null}); before.setLocation({scene:'island-bar',x:640,y:610,facing:'down'});
+  for(const [opponent,winner] of [['beton','player'],['kramer','opponent']]){
+    const ticket=before.beginLeisureGame('billiards',opponent);assert.ok(ticket.ok);
+    assert.ok(before.recordLeisureResult({id:ticket.id,winner}).ok);
+  }
+  const raw=before.exportText();assert.equal(JSON.parse(raw).version,7);
+  const loaded=new CareerProfile({storage:null});assert.doesNotThrow(()=>loaded.importText(raw));
+  for(const [key,value] of Object.entries(before.snapshot()))if(!['revision','updatedAt'].includes(key))assert.deepEqual(loaded.snapshot()[key],value,key);
+  const inside=new HomeBarWorld({place:loaded.snapshot().location.scene,position:loaded.snapshot().location});
+  assert.equal(crossing(inside,640,675),'exit');
+  const location=homeBarDestination('island-bar','exit');assert.equal(location.scene,'bar-street');
+  loaded.setLocation(location); const next=new CareerProfile({storage:null});assert.doesNotThrow(()=>next.importText(loaded.exportText()));
+  assert.deepEqual(next.snapshot().location,BAR_STREET_BAR_RETURN);
+  for(const key of ['leisure','daily','wallet','stats','fights'])assert.deepEqual(next.snapshot()[key],before.snapshot()[key],key);
 });
 
 test('both opponents and the pool table are reachable; saved returns do not start another game', () => {

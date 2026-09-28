@@ -12,7 +12,7 @@ Karl joue sur son laptop dans sa chambre. Parlez-lui ou approchez de la Xbox au 
 
 Dans le garage, la GR Corolla blanche, rouge et noire est préparée pour la course. Elle est exposée et accessible depuis la maison ; les déplacements en voiture sont une extension future.
 
-Le bar est sur l’île du parc et du métro. Il s’ouvre depuis la promenade, indépendamment de la petite île du casino. Béton et Kramer y jouent au pool. De temps en temps, ils reprennent leur échange : « Yo tu cé pas chui qui man ! » / « Non TOI tu cé pas chui qui man ! ». Les bulles sont temporaires et la visite reste libre.
+Le **Bar de l’Île est dans le quartier** : prenez la rue à droite, après la salle de boxe, puis entrez dans le bar sur le trottoir du haut. La rue remplace l’ancien passage barré à l’est. Béton et Kramer y jouent au pool. Leurs sprites reprennent les proportions du joueur : grandes têtes, silhouettes compactes et même échelle intérieure. De temps en temps, ils reprennent leur échange : « Yo tu cé pas chui qui man ! » / « Non TOI tu cé pas chui qui man ! ». Les bulles sont temporaires et la visite reste libre.
 
 ## Jeux entre amis
 
@@ -41,7 +41,9 @@ Version de profil **7**, sur la même clé de stockage. Les sauvegardes V1–V6 
 
 Les décors et personnages ont été générés avec le **tool ImageGen intégré**, sans appel IA pendant le jeu. Les sources, le jeu de prompts exact et les paramètres de préparation sont dans [references/home-bar](../references/home-bar/) et [prompts.json](../references/home-bar/prompts.json). Les PNG finaux sont dans [public/assets/home](../public/assets/home/) et [public/assets/bar](../public/assets/bar/). Les scripts `prepare-home-bar.mjs` et `prepare-home-bar-sprites.mjs` effectuent uniquement le cadrage, le redimensionnement uniforme et l’extraction des sprites avec leur alpha généré.
 
-## Vérifications
+La correction de l’emplacement et des proportions est détaillée dans [BAR_STREET.md](BAR_STREET.md), avec ses nouveaux visuels et ses vérifications. L’identifiant sauvegardé `island-bar` est conservé ; une partie déjà dans le bar ressort maintenant dans le quartier.
+
+## Vérifications du chapitre initial
 
 Les commandes dédiées sont `npm run test:home-bar`, `test:home-bar-browser`, `test:race-browser`, `test:billiards-browser` et `test:computer-browser`.
 
