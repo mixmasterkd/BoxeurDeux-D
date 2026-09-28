@@ -6,6 +6,8 @@ Chapitre autorisé par le GO du 28 septembre 2026. La maison actuelle s’agrand
 
 Le salon ouvre sur le quartier par sa porte du bas. À gauche, la porte mène au garage ; au fond, le bureau ; à droite, l’escalier vers le palier. À l’étage se trouvent votre chambre et celle de Karl. Votre lit, votre garde-robe et vos médailles sont maintenant dans votre chambre.
 
+Karl mesure environ une tête de plus que le joueur. Ses poses debout et assise conservent les mêmes proportions.
+
 Karl joue sur son laptop dans sa chambre. Parlez-lui ou approchez de la Xbox au salon pour l’inviter. Il descend avec sa manette ; on peut ensuite lui proposer de retourner à son laptop. Son emplacement se conserve pendant la session et revient à sa chambre au rechargement. Ses résultats restent sauvegardés.
 
 Dans le garage, la GR Corolla blanche, rouge et noire est préparée pour la course. Elle est exposée et accessible depuis la maison ; les déplacements en voiture sont une extension future.

@@ -65,7 +65,9 @@ export class HomeBarScene extends ExplorationScene {
     this.events.once('shutdown', () => { if (window.__homeBar?.scene === this) delete window.__homeBar; });
   }
   addPerson(id, key, x, y) {
-    const sprite = this.add.image(x, y, key).setOrigin(.5, 1).setScale(.9).setDepth(y);
+    // Karl stands roughly one player-head taller; seated art keeps the same proportions.
+    const scale = id === 'karl' ? this.actorScale * .6 : .9;
+    const sprite = this.add.image(x, y, key).setOrigin(.5, 1).setScale(scale).setDepth(y);
     this.people.push({ id, sprite, x, y });
   }
   syncKarl() {

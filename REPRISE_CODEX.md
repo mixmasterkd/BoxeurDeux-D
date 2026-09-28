@@ -1,5 +1,9 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Taille de Karl — précision du 28 septembre 2026
+
+L’utilisateur précise que Karl a une tête de plus que lui. À la maison, son échelle passe de 0,9 à 1,2, debout et assis, avec le même ancrage aux pieds. Sa silhouette debout fait environ 224 px contre 174–176 px pour le joueur : environ 50 px de différence. Le casino avait déjà ce rapport de taille et conserve son rendu. Contrôle visuel ciblé sur ordinateur et mobile simulé, debout et assis ; quatre captures et mesures dans `outputs/verification/karl-height/dev/`. Compilation réussie (`index-4s46XECO.js`, CSS inchangé). Publication en cours.
+
 ## Maison actuelle agrandie et bar de l’île — GO du 28 septembre 2026
 
 Le GO explicite (« bon tu as mon GO fait tout ça », puis « oups ... GO ») autorise ce chapitre : salon avec Xbox et course contre Karl, bureau avec ordinateur amélioré, garage avec GR Corolla exposée, palier et deux chambres dont celle de Karl au laptop ; petit bar sur l’île principale avec pool contre Béton/Kramer et leur échange réciproque « Yo tu cé pas chui qui man ! ». Karl conduit une Camaro jaune à bandes noires dans le jeu de course. La seconde maison chez les pros, la conduite dans le monde et les galas au casino restent futurs.
