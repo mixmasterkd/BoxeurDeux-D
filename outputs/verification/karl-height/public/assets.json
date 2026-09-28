@@ -1,0 +1,97 @@
+{
+  "date": "2026-09-28T18:28:33.216Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": [
+    {
+      "file": "assets/bar/beton.png",
+      "bytes": 29413,
+      "sha256": "1a0b71e5d8dc4c769e953cffdc5d7a9c62aee7809a1f7ad2fe769691284685fe",
+      "identical": true
+    },
+    {
+      "file": "assets/bar/exterior.png",
+      "bytes": 411685,
+      "sha256": "cc0cc7d3666d37299a4a997fbd6895e8b14d6cf49c0a7009679e3c83ce6f205e",
+      "identical": true
+    },
+    {
+      "file": "assets/bar/interior.png",
+      "bytes": 2087096,
+      "sha256": "7a31aa57afed0d2ca7d5df5fe37f84feb9bce38313287aee3f8b8ee79b3528fa",
+      "identical": true
+    },
+    {
+      "file": "assets/bar/kramer.png",
+      "bytes": 33407,
+      "sha256": "764e6a34643a94f3078623cbeb3818435fc9c80a056d1ac4d456435951499dbc",
+      "identical": true
+    },
+    {
+      "file": "assets/home/bedroom.png",
+      "bytes": 2412963,
+      "sha256": "2139b7a9af586f27b592c351aff86ba6f41fdb4cba35d5df41d4e9d8db9267b8",
+      "identical": true
+    },
+    {
+      "file": "assets/home/garage.png",
+      "bytes": 2354866,
+      "sha256": "589515023d94eb56183e7044643d3607a7dc42afa835098cf1c2d5701d148dd1",
+      "identical": true
+    },
+    {
+      "file": "assets/home/karl-gaming.png",
+      "bytes": 30006,
+      "sha256": "8c5ae8552438b5128153be1a580cf559554b58a88107f7e7daf51cb972a83fa0",
+      "identical": true
+    },
+    {
+      "file": "assets/home/karl-guest.png",
+      "bytes": 25672,
+      "sha256": "3d4be6954c208ee6a98dd0d3029209a0266f66a773ac70b8868a5cdabac23bb8",
+      "identical": true
+    },
+    {
+      "file": "assets/home/karl.png",
+      "bytes": 2085438,
+      "sha256": "5152036717747a212a1896486f4cf318407232d2e6dd62ff356641e6bfdf877d",
+      "identical": true
+    },
+    {
+      "file": "assets/home/landing.png",
+      "bytes": 2339309,
+      "sha256": "81d3c970fe5fbc612818aaf06b708556486f3fe97c1da6c686c2866a716e6c0b",
+      "identical": true
+    },
+    {
+      "file": "assets/home/living.png",
+      "bytes": 2458494,
+      "sha256": "8b6821109fcd569414c3ff6e8655c4ec56aa0b1856205b702567c71af3da6b77",
+      "identical": true
+    },
+    {
+      "file": "assets/home/office.png",
+      "bytes": 2497036,
+      "sha256": "e2b12966620827f4a156734442faa999bb5c8ddb9040f14619687bfd2a2836e4",
+      "identical": true
+    },
+    {
+      "file": "assets/index-4s46XECO.js",
+      "bytes": 2050263,
+      "sha256": "9db51ff6952311e14caa61eb7f4fbed77f337b4a8416b6acd0b0442d6b3d0f71",
+      "identical": true
+    },
+    {
+      "file": "assets/index-CORD--UA.css",
+      "bytes": 123713,
+      "sha256": "a12465f41f982590570d099ab304e572d8ce38b78f0327d6e5f3e6833f38c476",
+      "identical": true
+    },
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "986a83e38068898814b0ba8ef257dfd742a3338d84408804990ff5cd0497421e",
+      "identical": true
+    }
+  ],
+  "errors": []
+}

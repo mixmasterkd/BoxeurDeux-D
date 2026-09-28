@@ -2,7 +2,7 @@
 
 ## Taille de Karl — précision du 28 septembre 2026
 
-L’utilisateur précise que Karl a une tête de plus que lui. À la maison, son échelle passe de 0,9 à 1,2, debout et assis, avec le même ancrage aux pieds. Sa silhouette debout fait environ 224 px contre 174–176 px pour le joueur : environ 50 px de différence. Le casino avait déjà ce rapport de taille et conserve son rendu. Contrôle visuel ciblé sur ordinateur et mobile simulé, debout et assis ; quatre captures et mesures dans `outputs/verification/karl-height/dev/`. Compilation réussie (`index-4s46XECO.js`, CSS inchangé). Publication en cours.
+L’utilisateur précise que Karl a une tête de plus que lui. À la maison, son échelle passe de 0,9 à 1,2, debout et assis, avec le même ancrage aux pieds. Sa silhouette debout fait environ 224 px contre 174–176 px pour le joueur : environ 50 px de différence. Le casino avait déjà ce rapport de taille et conserve son rendu. Contrôle visuel ciblé sur ordinateur et mobile simulé, debout et assis ; quatre captures et mesures dans `outputs/verification/karl-height/dev/`. Compilation réussie (`index-4s46XECO.js`, CSS inchangé). Publié : `b784bba`, workflow Pages `36465149912` réussi. Les fichiers publics sont comparés à la compilation locale dans `outputs/verification/karl-height/public/assets.json`.
 
 ## Maison actuelle agrandie et bar de l’île — GO du 28 septembre 2026
 
