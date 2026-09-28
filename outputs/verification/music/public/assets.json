@@ -1,0 +1,97 @@
+{
+  "date": "2026-09-28T15:38:11.775Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": [
+    {
+      "file": "assets/index-Bkvbivgg.css",
+      "bytes": 115177,
+      "sha256": "440e72af802a280edd6d5c18768a2354fbe297a99fd06ecdc13dc0768515e29e",
+      "identical": true
+    },
+    {
+      "file": "assets/index-CAudy3uK.js",
+      "bytes": 1981109,
+      "sha256": "aba4281ee906df640c78323d0a3e45dd2c6dcc2b978577da15f32892e09d532c",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/bout.mid",
+      "bytes": 8325,
+      "sha256": "d12244aa29cf0e5ebedea2d9bc57ba33f4bb9afc9d9f93703d3f874c7e2f8c83",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/casino.mid",
+      "bytes": 6642,
+      "sha256": "a7e90de9d4241c556222f2f6c5d7764a608863b0b0e5d8cff50143057cbaca81",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/city.mid",
+      "bytes": 5679,
+      "sha256": "081b6090125eac8635b0796b09f8fa5a0bfbefc7a8ede80c085405492d34c626",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/cuba.mid",
+      "bytes": 7070,
+      "sha256": "ae6ebc1bc7e5964561c767385a8de1a5de3f7ccc18e3e9ef124cebbd409d7fc4",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/gym.mid",
+      "bytes": 5779,
+      "sha256": "b8103a2bda8548b06f5b2111a4241e3f7436dcd74cc954d091ab82aff23e6ce2",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/home.mid",
+      "bytes": 3810,
+      "sha256": "d2fa7db5716ba56cda9bd592f91e2dd107b3b4d95b400edfd843f1048dcd2512",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/hotel.mid",
+      "bytes": 3836,
+      "sha256": "5d15f48b930fde0badf4cdd7d6b80b4384a61fe75c11a8b52a8458af421d98d6",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/island.mid",
+      "bytes": 6880,
+      "sha256": "869056d60dee157f4e12c1757a9a914ddfcb9394957b7ca1d7bbb5d6f381fa57",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/marathon.mid",
+      "bytes": 8081,
+      "sha256": "690e5576424ae62db2c18b2fcd32d4cfa703ab06c0802f839c6b8e0d24be1e72",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/metro.mid",
+      "bytes": 5516,
+      "sha256": "4bc4ec54609c404aa109cf351152c428442d4f88fab3ca3359dbaf4c49c83189",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/mexico.mid",
+      "bytes": 5090,
+      "sha256": "f0cf330eeea0f71e7fc83e179412fff6303451109ca75566225f15d646830e8f",
+      "identical": true
+    },
+    {
+      "file": "assets/music/midi/shops.mid",
+      "bytes": 6386,
+      "sha256": "cd30cf51de70c99dded102e1b54fdc5825225c66c7da890ca3708d949af2561b",
+      "identical": true
+    },
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "26441d876bdff085d307d30165f319a4c2c4057d8a3670df405d4e80fa4b75d6",
+      "identical": true
+    }
+  ],
+  "errors": []
+}

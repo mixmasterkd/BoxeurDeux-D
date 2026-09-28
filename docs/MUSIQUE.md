@@ -50,4 +50,4 @@ La version compilée passe **18 parcours**, sur ordinateur et mobile tactile sim
 
 La vérification a également corrigé une reprise silencieuse après Continuer à l’hôtel ou en voyage : le routeur ne pose désormais que le drapeau de transition réellement utilisé par la scène. Un test de contexte audio interrompu vérifie sa reprise sans nouveau geste, en respectant une éventuelle pause du joueur.
 
-Aucun téléphone physique n’a été testé. Les résultats de publication seront ajoutés après le contrôle du site public.
+**Publié et vérifié** : commit `1fe50c6`, [workflow Pages 36444860267](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36444860267) réussi. Les **18 mêmes parcours passent sur le site public**, sans erreur ni avertissement navigateur. [Rapport public](../outputs/verification/music/public/results.json), 21 captures et preuve du déploiement dans le même dossier. L’index, les deux bundles et les douze MIDI sont identiques à `dist/` par SHA-256 : [15 fichiers contrôlés](../outputs/verification/music/public/assets.json). Les commits suivants consignent uniquement les preuves et cette documentation. Aucun téléphone physique testé.
