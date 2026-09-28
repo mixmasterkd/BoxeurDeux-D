@@ -171,7 +171,7 @@ test('CLI list is read-only, test commands persist separately across reopening, 
 });
 
 test('every documented teleport creates an importable test save and normal mode remains exact even with denied storage', () => {
-  for (const destination of ['maison', 'gym', 'aeroport', 'cuba', 'mexique', 'marathon', 'bronze', 'dore']) {
+  for (const destination of ['maison', 'gym', 'aeroport', 'cuba', 'mexique', 'marathon', 'casino', 'bronze', 'dore']) {
     const p = create(); const original = p.exportText();
     assert.equal(p.applyTestCommand(`test ${destination}`).ok, true, destination); assert.doesNotThrow(() => p.inspectImport(p.exportText()), destination);
     p.leaveTestProfile(); assert.equal(p.exportText(), original);

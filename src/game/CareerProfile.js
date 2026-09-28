@@ -12,6 +12,7 @@ import { MARATHON_PRICE, MARATHON_ID, MARATHON_PLACES, MARATHON_START, freshMara
 
 import {freshCasino, CASINO_PLACES} from './CasinoRules.js';
 import {casinoMethods, normalizeCasino} from './CasinoCareer.js';
+import {CASINO_ISLAND_RETURN} from './CasinoIslandWorld.js';
 
 // Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
@@ -22,6 +23,7 @@ const CASINO_PENDING_MESSAGE = 'Termine ta main au casino avant de commencer une
 const TEST_COMMANDS = Object.freeze([
   ['liste', 'Afficher les commandes.'], ['test maison', 'Maison et laptop.'], ['test gym', 'Gym de Montréal.'],
   ['test cuba', 'Séjour de test à Cuba.'], ['test mexique', 'Séjour de test au Mexique.'], ['test aeroport', 'Aéroport avec réservations Cuba et Mexique.'],
+  ['test casino', 'Île du casino · 400 $ et 100 jetons de test.'],
   ['test marathon', 'Inscription et départ sur l’île.'], ['test bronze', 'Gants de bronze, jour 1.'], ['test dore', 'Gants dorés, jour 1.'],
   ['combat feu', 'Combat de test (beton, kramer, dyrex, feu, louisto, danielo).'],
   ['argent 500', 'Fixer l’argent de test, dans le plafond de carrière.'], ['energie 100', 'Fixer l’énergie quotidienne de test.'],
@@ -712,7 +714,7 @@ export class CareerProfile {
     if (extra.length) return this._result(false, 'Une commande contient un ou deux mots. Tapez liste.');
     if (['liste', 'aide'].includes(command)) return this._result(true, 'Commandes du terminal · les commandes de test utilisent une sauvegarde distincte.', { commands: TEST_COMMANDS.map(([command, description]) => ({ command, description })), ...this.testStatus() });
     if (command === 'retour') return this.leaveTestProfile();
-    const destinations = { maison: 'home', gym: 'gym', aeroport: 'airport', cuba: 'cuba', mexique: 'mexico', mexico: 'mexico', marathon: 'marathon', bronze: 'bronze', hotel: 'bronze', dore: 'gold', gold: 'gold' };
+    const destinations = { maison: 'home', gym: 'gym', aeroport: 'airport', cuba: 'cuba', mexique: 'mexico', mexico: 'mexico', marathon: 'marathon', casino: 'casino', bronze: 'bronze', hotel: 'bronze', dore: 'gold', gold: 'gold' };
     const opponents = { beton: 'beton', kramer: 'kramer', dyrex: 'dyrex', feu: 'lefeu', lefeu: 'lefeu', louisto: 'louisto', danielo: 'danielo' };
     if (!(['test', 'combat', 'argent', 'energie'].includes(command))
       || command === 'test' && !destinations[argument] || command === 'combat' && !opponents[argument]
@@ -739,6 +741,11 @@ export class CareerProfile {
       else if (target === 'airport') {
         for (const destination of ['cuba', 'mexico']) { this._testMoney(); if (!this.profile[destination].reserved) this.reserveTravel(destination); }
         this.setLocation(AIRPORT_SPAWN);
+      } else if (target === 'casino') {
+        // Ready-to-play test funds leave enough headroom for every table’s maximum gain.
+        this.casinoDismiss();
+        this.profile.wallet.money = 400; this.profile.casino.chips = 100;
+        this.setLocation(CASINO_ISLAND_RETURN);
       } else if (target === 'marathon') {
         this.registerMarathon(); this.setLocation(MARATHON_START);
       } else if (['bronze', 'gold'].includes(target)) {

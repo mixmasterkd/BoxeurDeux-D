@@ -1,5 +1,11 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Terminal : test casino — 28 septembre 2026
+
+Demande explicite de l’utilisateur : ajouter `test casino` dans le terminal du laptop. La commande figure dans `liste`/`aide` et prépare un profil de test séparé : Gants de bronze terminés, 400 $ et 100 jetons, énergie 100, arrivée devant le casino sur sa petite île. Ce budget laisse la place aux gains maximaux des quatre jeux. Les activités et la main engagée de la copie de test sont nettoyées; `retour` ou Pause → Quitter le mode test restaurent la carrière normale et sa main exacte. Les octets de la sauvegarde normale et du secours restent identiques. Le terminal conserve sa présentation discrète.
+
+Validation locale : **512 tests réussis**, compilation, puis **2 parcours navigateur sur le bundle** (ordinateur et mobile tactile simulé), sans erreur ni avertissement. Vrai terminal, commande listée, arrivée, solde, entrée au hall et retour au profil normal vérifiés. Rapport et huit captures : `outputs/verification/casino-terminal/built/`. Bundle `index--hah4NZb.js` et `index-BilBeM5G.css`. Publication à consigner après les contrôles publics.
+
 ## Casino sur sa petite île — correction du 28 septembre 2026
 
 L’utilisateur a précisé l’implantation : le casino doit se trouver plus à gauche, dans un autre secteur relié au parc par un petit pont, sur sa propre petite île. Cette correction remplace l’emplacement directement à côté du métro de la livraison du 27 septembre.
