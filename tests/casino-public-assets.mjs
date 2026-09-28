@@ -3,6 +3,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 const base=process.env.CASINO_URL??'https://mixmasterkd.github.io/BoxeurDeux-D/';
+const output=process.env.CASINO_ASSET_OUTPUT??'outputs/verification/casino/public';
 const index=await fs.readFile('dist/index.html','utf8');
 const bundles=[...index.matchAll(/(?:src|href)="\.\/([^" ]+\.(?:js|css))"/g)].map(m=>m[1]);
 const files=['index.html',...bundles,...(await fs.readdir('dist/assets/casino')).map(f=>`assets/casino/${f}`)];
@@ -19,7 +20,7 @@ for(let i=0;i<files.length;i+=6)await Promise.all(files.slice(i,i+6).map(async f
  }catch(error){report.errors.push({file,message:error.message});}
 }));
 report.files.sort((a,b)=>a.file.localeCompare(b.file));
-await fs.mkdir('outputs/verification/casino/public',{recursive:true});
-await fs.writeFile('outputs/verification/casino/public/assets.json',JSON.stringify(report,null,2)+'\n');
+await fs.mkdir(output,{recursive:true});
+await fs.writeFile(path.join(output,'assets.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({files:report.files.length,errors:report.errors},null,2));
 if(report.errors.length)process.exitCode=1;

@@ -2,12 +2,12 @@
   "url": "http://127.0.0.1:5173/",
   "mobile": false,
   "tests": [
-    "Accès direct avant les Gants de bronze renvoyé sur l’île",
-    "Métro de l’île → entrée du casino à pied",
+    "Accès direct avant les Gants de bronze renvoyé sur l’île du casino",
+    "Métro de l’île → carte de l’île du casino → pont → entrée à pied",
     "Caisse : échange de 20 dollars contre 20 jetons sauvegardés",
     "Karl reconnaît les Gants de bronze; règles et future salle de gala accessibles",
     "Trois étages reliés par ascenseur; trois profils au poker",
-    "Récupération de tous les jetons, énergie conservée, sortie sur l’île"
+    "Récupération de tous les jetons, énergie conservée, sortie sur l’île du casino"
   ],
   "errors": [],
   "geometry": {

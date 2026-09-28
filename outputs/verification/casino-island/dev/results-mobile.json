@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-28T13:29:07.250Z",
+  "url": "http://127.0.0.1:5173/",
+  "built": false,
+  "publicSite": false,
+  "mobileEmulated": true,
+  "fixture": "Valid career methods and isolated browser contexts. Every journey, bridge collision and doorway uses real keyboard or CDP touch. Ordinary pauses flush observable position. No teleports, forced scene changes or accelerated clock.",
+  "cases": [
+    {
+      "name": "locked-mobile",
+      "directUrlBlocked": true,
+      "doorBlocked": true,
+      "progressionUnchanged": true
+    },
+    {
+      "name": "journey-mobile",
+      "checks": [
+        "Old casino doorway removed from marathon island",
+        "Real crossing from marathon island to separate casino island, with exact reload",
+        "Both sides of bridge block real walking into water",
+        "Casino entry and interior reload preserve exact position",
+        "Casino exits to its own island, without doorway rebound",
+        "Same bridge returns to marathon island and original metro entrance"
+      ],
+      "progressionUnchanged": true,
+      "savedCareerValid": true,
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "failure": null
+}

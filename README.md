@@ -6,7 +6,7 @@ Le décor de sparring validé est préservé. L’exploration utilise une camér
 
 Les fenêtres et personnages conservent le style 16 bits. Les portes se traversent à pied et les commandes suivent la même convention dans les lieux et activités. **Fredo** est le coach à Montréal, à Cuba et en tournoi; **The Octopus** donne des conseils et drills au gym montréalais et prend le rôle de coach pendant le séjour au Mexique.
 
-Le chapitre **Casino V6** ajoute un bâtiment explorable sur l’île, Karl au blackjack, le Hold’em, la roulette et quatre modèles de machines à sous. Il ouvre après les Gants de bronze; aucun coût d’énergie. Voir [le chapitre casino](docs/CASINO.md).
+Le chapitre **Casino V6** ajoute un bâtiment explorable sur sa petite île, reliée au parc par un pont, Karl au blackjack, le Hold’em, la roulette et quatre modèles de machines à sous. Il ouvre après les Gants de bronze; aucun coût d’énergie. Voir [le chapitre casino](docs/CASINO.md).
 
 ## Lancer le jeu
 
@@ -88,7 +88,7 @@ Acheter et équiper sont deux actions séparées. **Vêtements : garde-robe à l
 
 ## Une soirée au casino
 
-Après les Gants de bronze et le retour à Montréal, prends le métro jusqu’à l’île. Le casino est à gauche du parc; entre en marchant. La caisse du rez-de-chaussée échange 1 $ contre 1 jeton et rend tous les jetons en dollars, sans frais. L’ascenseur mène à Karl et à la roulette au premier étage, puis au salon Hold’em au deuxième.
+Après les Gants de bronze et le retour à Montréal, prends le métro jusqu’à l’île. Prends le chemin à gauche sous le métro pour rejoindre le nouveau secteur, puis traverse le petit pont vers l’île du casino. Entre en marchant par la porte du parvis. La caisse du rez-de-chaussée échange 1 $ contre 1 jeton et rend tous les jetons en dollars, sans frais. L’ascenseur mène à Karl et à la roulette au premier étage, puis au salon Hold’em au deuxième.
 
 Blackjack de 1 à 5 $, machines à 1 $, roulette jusqu’à 5 $ par tour, poker contre Luc à lunettes, Mireille et Marco avec une cave de 10 ou 20 $. Règles et gains affichés à chaque table, aucune énergie consommée, aucun emprunt. Les mises et cartes sont sauvegardées; une main engagée se reprend à l’identique et doit être terminée avant de quitter le casino. Les ailes fermées et la salle de gala préparent de futures extensions.
 

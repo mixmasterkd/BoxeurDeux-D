@@ -12,7 +12,7 @@ for(let pose=0;pose<4;pose++){
   writePng(`public/assets/casino/karl-${pose}.png`,112,200,canvas);
 }
 fs.copyFileSync('public/assets/casino/karl-0.png','public/assets/casino/karl.png');
-for(const name of ['lobby','tables','poker']){
+for(const name of ['lobby','tables','poker','island']){
   fs.copyFileSync(`references/casino/${name}-source.png`,`public/assets/casino/${name}.png`);
 }
 const exterior=readOpaquePng('references/casino/exterior-source.png');

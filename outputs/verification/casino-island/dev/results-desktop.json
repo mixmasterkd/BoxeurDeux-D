@@ -1,0 +1,44 @@
+{
+  "date": "2026-09-28T13:28:55.032Z",
+  "url": "http://127.0.0.1:5173/",
+  "built": false,
+  "publicSite": false,
+  "mobileEmulated": true,
+  "fixture": "Valid career methods and isolated browser contexts. Every journey, bridge collision and doorway uses real keyboard or CDP touch. Ordinary pauses flush observable position. No teleports, forced scene changes or accelerated clock.",
+  "cases": [
+    {
+      "name": "locked-desktop",
+      "directUrlBlocked": true,
+      "doorBlocked": true,
+      "progressionUnchanged": true
+    },
+    {
+      "name": "journey-desktop",
+      "checks": [
+        "Old casino doorway removed from marathon island",
+        "Real crossing from marathon island to separate casino island, with exact reload",
+        "Both sides of bridge block real walking into water",
+        "Casino entry and interior reload preserve exact position",
+        "Casino exits to its own island, without doorway rebound",
+        "Same bridge returns to marathon island and original metro entrance"
+      ],
+      "progressionUnchanged": true,
+      "savedCareerValid": true,
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "failure": null
+}

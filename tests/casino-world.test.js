@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {CasinoWorld,CASINO_PLACES,CASINO_LAYOUTS,CASINO_ENTRANCE,CASINO_ISLAND_RETURN,casinoFloorDestination,karlGreeting,casinoPoint} from '../src/game/CasinoWorld.js';
+import {CasinoWorld,CASINO_PLACES,CASINO_LAYOUTS,CASINO_ENTRANCE,casinoFloorDestination,karlGreeting,casinoPoint} from '../src/game/CasinoWorld.js';
 import {MarathonWorld,MARATHON_METRO_ARRIVALS} from '../src/game/MarathonWorld.js';
+import {CASINO_MAIN_ISLAND_RETURN} from '../src/game/CasinoIslandWorld.js';
 import {DoorTravel} from '../src/game/DoorTravel.js';
 import {sceneForPlace} from '../src/game/SceneRouting.js';
 
@@ -18,14 +19,16 @@ function reach(world,x,y,travel) {
 const path=(world,points)=>points.forEach(([x,y])=>reach(world,x,y));
 const artPath=(world,points)=>points.forEach(([x,y])=>{const p=casinoPoint(x,y);reach(world,p.x,p.y);});
 
-test('casino entrance is physically reachable from the island metro without entering the marathon',()=>{
+test('the island metro reaches the west passage while the old casino frontage is clear',()=>{
   const island=new MarathonWorld({position:MARATHON_METRO_ARRIVALS['marathon-island']});
-  path(island,[[680,1375],[680,930],[420,930],[420,850]]);
+  path(island,[[125,1375],[125,1335]]);
   const travel=new DoorTravel(island.layout.doors,island.state);
-  assert.equal(reach(island,420,760,travel),'casino');
-  assert.deepEqual(new MarathonWorld({position:CASINO_ISLAND_RETURN}).location(),CASINO_ISLAND_RETURN);
-  const returned=new MarathonWorld({position:CASINO_ISLAND_RETURN});
+  assert.equal(reach(island,40,1335,travel),'west-casino');
+  assert.deepEqual(new MarathonWorld({position:CASINO_MAIN_ISLAND_RETURN}).location(),CASINO_MAIN_ISLAND_RETURN);
+  const returned=new MarathonWorld({position:CASINO_MAIN_ISLAND_RETURN});
   assert.equal(new DoorTravel(returned.layout.doors,returned.state).update(returned.state,{x:0,y:0}),null);
+  assert.ok(!island.layout.stations.some(station=>station.id==='casino'));
+  assert.ok(!island.layout.obstacles.some(obstacle=>obstacle.id.startsWith('casino-')));
 });
 
 test('all four machine models, cashier, reception, lift and exit have clear walking approaches',()=>{

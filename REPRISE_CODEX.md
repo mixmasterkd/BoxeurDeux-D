@@ -1,5 +1,13 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Casino sur sa petite île — correction du 28 septembre 2026
+
+L’utilisateur a précisé l’implantation : le casino doit se trouver plus à gauche, dans un autre secteur relié au parc par un petit pont, sur sa propre petite île. Cette correction remplace l’emplacement directement à côté du métro de la livraison du 27 septembre.
+
+Nouvelle carte extérieure `casino-island`, décor ImageGen entouré d’eau, façade existante et parvis. Le chemin commence à gauche sous le métro de l’île; le pont arrive à droite de la nouvelle carte. La sortie du lobby ramène devant le casino. Les trois étages, Karl, les jeux et leurs règles restent ceux du chapitre V6. Le lieu extérieur est librement explorable; le déblocage du bâtiment reste après les Gants de bronze. Les sauvegardes V5/V6 et les parties engagées conservent leur reprise. Détails dans [docs/CASINO_ISLAND.md](docs/CASINO_ISLAND.md).
+
+Validation locale terminée : **507 tests réussis**, compilation et parcours du nouveau secteur en développement puis sur le bundle final (4 scénarios PC/tactile dans chaque environnement, aucune erreur ni avertissement navigateur). Le parcours des trois étages passe également ses 6 contrôles. Rapport et 18 captures du bundle dans `outputs/verification/casino-island/built/`; détails dans [docs/CASINO_ISLAND.md](docs/CASINO_ISLAND.md). Publication à consigner après vérification publique. La chambre de Karl, les maisons et les galas professionnels restent des idées futures.
+
 ## Casino V6 — GO du 27 septembre 2026
 
 L’utilisateur a donné GO pour le casino discuté : bâtiment extérieur inspiré du Casino de Montréal à gauche de l’île, trois étages avec ascenseur, Karl au blackjack d’après la référence fournie, roulette, Hold’em quatre joueurs dont Luc à lunettes/Mireille/Marco, et quatre modèles de machines. Déblocage après participation terminée aux Gants de bronze et retour hôtel. Entrée gratuite, aucune énergie, petites mises et plafond combiné argent/jetons de 1 000 $. Aucun crédit ni argent réel.

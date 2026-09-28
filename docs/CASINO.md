@@ -4,7 +4,7 @@ Le GO ajoute un casino à gauche de l’île de la carte existante. Il ouvre apr
 
 ## Visite et jeux
 
-Depuis le métro de l’île, contourner le bâtiment du métro par la droite, puis rejoindre le casino vers le nord-ouest. Avancer dans sa porte. La façade reprend la silhouette du vrai bâtiment; l’intérieur et l’implantation dans notre carte sont des adaptations pour le jeu.
+Depuis la sortie du métro de l’île, suivre le chemin vers la gauche, sous le bâtiment du métro, pour rejoindre le nouveau secteur. Traverser le petit pont vers la petite île du casino, puis avancer dans la porte du parvis. Voir [le déplacement sur sa propre île](CASINO_ISLAND.md). La façade reprend la silhouette du vrai bâtiment; l’intérieur et l’implantation dans notre carte sont des adaptations pour le jeu.
 
 - Rez-de-chaussée : réception, caisse, vestiaire fermé, coin détente et six machines proposant quatre modèles.
 - Premier étage : Karl au blackjack, croupière à la roulette, salle de spectacles fermée annonçant les futurs galas de boxe professionnelle, aile réservée.

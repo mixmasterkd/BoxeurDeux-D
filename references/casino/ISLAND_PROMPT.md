@@ -1,0 +1,14 @@
+# Petite île du casino — 28 septembre 2026
+
+Nouvelle carte créée avec l’outil ImageGen intégré. Image originale copiée sans retouche dans `public/assets/casino/island.png`; copie source `references/casino/island-source.png`. Dimensions natives 1672 × 941, affichage proportionnel dans le monde 2880 × 1620. Façade existante ajoutée par la scène. Le pont généré est au milieu de la hauteur de l’image; les collisions suivent le résultat réel plutôt que les coordonnées demandées dans le prompt.
+
+## Prompt final
+
+```text
+Use case: stylized-concept.
+Asset type: new detailed SNES 16-bit pixel-art scrolling outdoor RPG map, landscape 16:9, crisp pixels and architectural near-orthographic mildly elevated front view, compatible with a 2880x1620 logical game world.
+Primary request: A small landscaped private island for the Montréal casino, surrounded on all sides by dark blue St Lawrence river water, reached by a SHORT pedestrian bridge from the RIGHT edge. Do NOT draw the casino building: its existing transparent game sprite will be placed on the empty paved plaza.
+Scene and composition: Entire small island visibly framed by water, no horizon or sky. Main land oval/polygon shape occupies x12%..79% and y16%..91%. Stone shoreline and small autumn trees around edges. Large EMPTY flat cream-and-salmon paved plaza centered around (43%,48%), open clear rectangle x25%..64%, y29%..72%, suitable for casino footprint and front entrance. Keep this large plaza empty: no fountain, no garden, no furniture in center. A wide unobstructed walking path goes horizontally from plaza at (60%,68%) to island's east shore at (79%,68%). A SHORT elegant low stone-and-dark-green-metal pedestrian bridge continues RIGHT horizontally over water from (79%,68%) to the right edge (100%,68%); walkable deck between y64% and72%, railings only along upper and lower edges, no arches or structures covering the deck, no diagonal bridge. At far right edge deck joins the next map; no second island filling right edge. Bridge MUST be at precisely 68% height.
+Details: Amber and red autumn maples, small evergreens and golden flower beds only at island perimeter, a few discreet warm lampposts, benches near shore, elegant casino garden atmosphere. Water with clean small pixel ripples all around the island. Flat walking surfaces; no stairs. Refined evening golden light, teal navy water, cream stone, autumn gold and emerald accents, dense carefully placed pixel clusters like a richly illustrated SNES RPG. Match a Montréal autumn park setting.
+Constraints: no buildings whatsoever, no casino drawing, no people, no cars, no boats, no lettering, no text, no HUD, no arrows, no watermark. Do not use isometric diamond map or dramatic perspective. Entire composition fills canvas. The empty central plaza and bridge deck are essential usable game geometry.
+```

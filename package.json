@@ -59,7 +59,8 @@
     "test:fight-presentation": "node tests/fight-presentation-browser.mjs",
     "test:casino": "node --test tests/casino-*.test.js",
     "test:casino-browser": "node tests/casino-browser.mjs",
-    "test:casino-world": "node tests/casino-world-browser.mjs"
+    "test:casino-world": "node tests/casino-world-browser.mjs",
+    "test:casino-island": "node tests/casino-island-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

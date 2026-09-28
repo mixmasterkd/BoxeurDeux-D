@@ -17,9 +17,9 @@ try{
  const lockedProfile=new CareerProfile({storage:null});
  await lockedContext.addInitScript(({key,save})=>localStorage.setItem(key,save),{key:CAREER_STORAGE_KEY,save:lockedProfile.exportText()});
  const lockedPage=await lockedContext.newPage();await lockedPage.goto(`${url}?scene=casino-lobby`);
- await wait(lockedPage,()=>window.__marathon?.scene.place==='marathon-island',null,30000);
+ await wait(lockedPage,()=>window.__casinoIsland?.scene.place==='casino-island',null,30000);
  assert.equal(await lockedPage.evaluate(()=>Boolean(window.__casino)),false,'Une URL directe ne contourne pas le déblocage des Gants de bronze');
- await lockedContext.close();report.tests.push('Accès direct avant les Gants de bronze renvoyé sur l’île');
+ await lockedContext.close();report.tests.push('Accès direct avant les Gants de bronze renvoyé sur l’île du casino');
  const profile=new CareerProfile({storage:null});profile._testBronze();
  profile.setLocation({scene:'marathon-island',x:428,y:1375,facing:'down'});
  const context=await browser.newContext({viewport:mobile?{width:844,height:390}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile});
@@ -31,14 +31,14 @@ try{
  const tap=async selector=>{if(!mobile)return page.locator(selector).click();await dispatch(cdp,'touchStart',[await buttonPoint(page,selector)]);await dispatch(cdp,'touchEnd');};
  const interact=async()=>mobile?tap('#gym-ui [data-pad-button="a"]'):page.keyboard.press('KeyE');
  const choose=id=>tap(`[data-gym-action="${id}"]`);
- const state=()=>page.evaluate(()=>{const host=window.__casino??window.__marathon;return host?{x:host.world.state.x,y:host.world.state.y,place:host.scene.place}:null;});
- const ready=place=>wait(page,place=>(window.__casino??window.__marathon)?.scene.place===place&&document.getElementById('stage').dataset.scene===place,place,30000);
+ const state=()=>page.evaluate(()=>{const host=window.__casino??window.__casinoIsland??window.__marathon??window.__metro;return host?{x:host.world.state.x,y:host.world.state.y,place:host.scene.place}:null;});
+ const ready=place=>wait(page,place=>(window.__casino??window.__casinoIsland??window.__marathon??window.__metro)?.scene.place===place&&document.getElementById('stage').dataset.scene===place,place,30000);
  async function axis(axis,target){
   const before=await state();if(Math.abs(before[axis]-target)<10)return;
   const positive=before[axis]<target,dir=axis==='x'?(positive?'right':'left'):(positive?'down':'up');
   const key={left:'ArrowLeft',right:'ArrowRight',up:'ArrowUp',down:'ArrowDown'}[dir];
   if(mobile)await dispatch(cdp,'touchStart',[await joyPoint(page,'#gym-ui',dir)]);else await page.keyboard.down(key);
-  try{await wait(page,({axis,target,positive,place})=>{const h=window.__casino??window.__marathon;return h?.scene.place!==place||h&&(positive?h.world.state[axis]>=target-7:h.world.state[axis]<=target+7);},{axis,target,positive,place:before.place},15000);}
+  try{await wait(page,({axis,target,positive,place})=>{const h=window.__casino??window.__casinoIsland??window.__marathon??window.__metro;return h?.scene.place!==place||h&&(positive?h.world.state[axis]>=target-7:h.world.state[axis]<=target+7);},{axis,target,positive,place:before.place},15000);}
   finally{if(mobile)await dispatch(cdp,'touchEnd');else await page.keyboard.up(key);}
   await page.waitForTimeout(65);
  }
@@ -47,8 +47,9 @@ try{
  const shot=label=>page.screenshot({path:`${output}/world-${mobile?'mobile':'desktop'}-${label}.png`});
  await page.goto(url,{waitUntil:'domcontentloaded'});await ready('marathon-island');
  for(const selector of ['.career-start-continue','.career-continue'])if(await page.locator(selector).isVisible())await page.locator(selector).click();
- await move(680,1375);await move(680,930);await move(420,930);await shot('exterior');await axis('y',760);await ready('casino-lobby');
- report.tests.push('Métro de l’île → entrée du casino à pied');await shot('lobby');
+ await move(125,1375);await move(125,1335);await axis('x',40);await ready('casino-island');
+ await move(1700,800);await move(1700,930);await move(1250,930);await move(1250,915);await shot('exterior');await axis('y',830);await ready('casino-lobby');
+ report.tests.push('Métro de l’île → carte de l’île du casino → pont → entrée à pied');await shot('lobby');
  const initial=profile.snapshot();
  await art(835,690);await art(1040,690);await art(1040,300);await art(1230,285);await interact();
  await choose('cash-deposit-20');let saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),CAREER_STORAGE_KEY);
@@ -67,9 +68,9 @@ try{
  await art(837,300);await art(1040,300);await art(1230,285);await interact();await choose('cash-withdraw-all');await choose('close');
  saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),CAREER_STORAGE_KEY);assert.equal(saved.casino.chips,0);assert.equal(saved.wallet.money,initial.wallet.money);
  assert.deepEqual(saved.daily,initial.daily,'La promenade et les échanges ne consomment aucune énergie');
- await art(1040,300);await art(1040,690);await art(835,690);await art(835,875);await axis('y',casinoPoint(835,919).y);await ready('marathon-island');
- assert.ok((await state()).y>790,'La sortie ne rebondit pas dans l’entrée');
- report.tests.push('Récupération de tous les jetons, énergie conservée, sortie sur l’île');
+ await art(1040,300);await art(1040,690);await art(835,690);await art(835,875);await axis('y',casinoPoint(835,919).y);await ready('casino-island');
+ assert.ok((await state()).y>880,'La sortie ne rebondit pas dans l’entrée');
+ report.tests.push('Récupération de tous les jetons, énergie conservée, sortie sur l’île du casino');
  const geometry=await fit(page,'#gym-ui',mobile);assert.ok(geometry.fits&&geometry.noScroll);if(mobile)assert.ok(geometry.controls.every(control=>control.outside&&control.fits));
  assert.deepEqual(report.errors,[]);
  await fs.writeFile(`${output}/world-${mobile?'mobile':'desktop'}-results.json`,JSON.stringify({...report,geometry},null,2));

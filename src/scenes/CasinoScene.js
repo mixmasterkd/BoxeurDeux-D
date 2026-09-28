@@ -37,7 +37,7 @@ export class CasinoScene extends ExplorationScene {
   create() {
     if(!careerProfile.casinoStatus().unlocked){
       careerProfile.setLocation(CASINO_ISLAND_RETURN);this.changingPlace=true;
-      this.scene.start('MarathonScene',{place:CASINO_ISLAND_RETURN.scene,location:CASINO_ISLAND_RETURN});return;
+      this.scene.start('CasinoIslandScene',{place:CASINO_ISLAND_RETURN.scene,location:CASINO_ISLAND_RETURN});return;
     }
     super.create();if(this.changingPlace)return;
     this.tableUi=new CasinoTableUI({scene:this,onClose:()=>{

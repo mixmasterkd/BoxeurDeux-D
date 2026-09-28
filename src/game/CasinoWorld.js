@@ -8,7 +8,7 @@ export const CASINO_NAMES = Object.freeze({
   'casino-tables':'Casino · Blackjack et roulette',
   'casino-poker':'Casino · Salon de poker',
 });
-export const CASINO_ISLAND_RETURN = Object.freeze({scene:'marathon-island',x:420,y:850,facing:'down'});
+export { CASINO_ISLAND_RETURN } from './CasinoIslandWorld.js';
 // Coordinates below follow the supplied paintings' original 1672 × 941 frame.
 // The exported layouts use the common, scrollable 2880 × 1620 world.
 export const casinoPoint=(x,y)=>({x:Math.round(x*2880/1672),y:Math.round(y*1620/941)});
@@ -35,7 +35,7 @@ export const CASINO_LAYOUTS={
    station('slots-diamants','Machine · Les Diamants',800,584,85,{machineId:'diamants'}),station('slots-montreal','Machine · Nuit de Montréal',880,584,85,{machineId:'montreal'}),
    station('slots-cerises-east','Machine · Les Cerises',1230,584,85,{machineId:'cerises'}),station('slots-cloches-east','Machine · Les Cloches',1310,584,85,{machineId:'cloches'}),
    station('lounge','Coin détente · Une pause',1490,309),station('cloakroom','Vestiaire · Aile réservée',140,225,75),
-   station('exit','Sortie · Île Sainte-Hélène',835,919,82)],
+   station('exit','Sortie · Petite île du casino',835,919,82)],
   doors:[{...doorway('exit',0,0,0,0,'down'),...rect('exit',732,905,202,26)}],
  },
  'casino-tables':{
