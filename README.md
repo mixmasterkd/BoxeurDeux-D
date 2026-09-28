@@ -17,7 +17,7 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 - Ordinateur : **http://127.0.0.1:5173/**
 - Wi-Fi du PC vérifié le 27 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
-- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Chapitre Casino V6 publié et vérifié ; voir [les résultats](docs/CASINO.md#publication).
+- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Casino sur sa petite île publié ; voir [le nouveau trajet et les vérifications](docs/CASINO_ISLAND.md#publication).
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
@@ -232,6 +232,7 @@ npm run build                    # Production dist/
 npm run test:casino
 npm run test:casino-browser
 npm run test:casino-world
+npm run test:casino-island
 
 # Modèles et ressources du chapitre V5
 node --test tests/travel-marathon-career.test.js tests/metro-network.test.js tests/marathon-world.test.js tests/mexico-world.test.js

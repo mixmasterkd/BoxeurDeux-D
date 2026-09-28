@@ -1,0 +1,12 @@
+{
+  "commit": "1219f34a34309b713f7db12f906ec7df257666de",
+  "workflowRun": 36430365523,
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36430365523",
+  "site": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "bundles": [
+    "index-BBuh_9JZ.js",
+    "index-BilBeM5G.css"
+  ]
+}

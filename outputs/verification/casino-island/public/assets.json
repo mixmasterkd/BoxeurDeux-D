@@ -1,0 +1,133 @@
+{
+  "date": "2026-09-28T13:43:57.550Z",
+  "base": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "files": [
+    {
+      "file": "assets/casino/exterior.png",
+      "bytes": 2171986,
+      "sha256": "7d4a3494659c546b3e175d9c0a63c48dea5add4fc42bea9a71c3ca74e327d4ba",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-0-talk.png",
+      "bytes": 27149,
+      "sha256": "b742967cbe887fa6d34096a7a4c47902f38505f4d0abd493d80eccd89af7a759",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-0.png",
+      "bytes": 27888,
+      "sha256": "5aa6a26181d50f8639cc815b9079feccbd32489f73f50b85151c9cf33e02faf9",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-1-talk.png",
+      "bytes": 29198,
+      "sha256": "8c1288faae6e22fee5da04f79869f3173d8bccae9ca81d4467a6cd91d79be3c3",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-1.png",
+      "bytes": 29742,
+      "sha256": "23990f19c0a5570598bc8c71222c9471cbbb9e8c747611f1e912cac17044b60e",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-2-talk.png",
+      "bytes": 27474,
+      "sha256": "0f72bce892fac54e73275cf52817368788e570039420a476a94bef605e65d4c5",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-2.png",
+      "bytes": 29568,
+      "sha256": "cf0f70ba1ad8835a49efa109dc9fd2a52d4c65addbd45cb2f58f476309e4240b",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-3-talk.png",
+      "bytes": 24039,
+      "sha256": "0d16e1811ce62f8313eb9508355ca2bf28ffa6fa8e47dbf55bf4fdd3eb36b547",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/guest-3.png",
+      "bytes": 22355,
+      "sha256": "15d2038f511c3bbba0f0248c28a39777f485d59fa55dc89c6f60bcc90af53928",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/island.png",
+      "bytes": 3253196,
+      "sha256": "61e944ae87143b3cff00a3fba1a3408d38710f62b334e68b47d8fac02d326d29",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/karl-0.png",
+      "bytes": 34931,
+      "sha256": "9c40aa862dab71549f044d5f561fd18312ead2b92f116904015ea7fd2ab63f73",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/karl-1.png",
+      "bytes": 35826,
+      "sha256": "c6b251afc81ba81a897754115d1edfc78958bb0dd304f6fca950ecb9a0c6ea65",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/karl-2.png",
+      "bytes": 36525,
+      "sha256": "e3e8f5a1bf3aa85122c5efa35f2a56fec2acbdf89d3aad3a5efbefb9ab66cc54",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/karl-3.png",
+      "bytes": 35396,
+      "sha256": "74dbe0daaebcc59a6a6d7885576408956dff5ab31b8e4c2ed8ee85adc8b12ee8",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/karl.png",
+      "bytes": 34931,
+      "sha256": "9c40aa862dab71549f044d5f561fd18312ead2b92f116904015ea7fd2ab63f73",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/lobby.png",
+      "bytes": 2739425,
+      "sha256": "248dafe6179c8e63455c6ef87c5230cdc16791bec3ddd01cd2a56c0ad6a671b6",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/poker.png",
+      "bytes": 2147199,
+      "sha256": "1ff267ae7b113d810fb4b3ae97842de671dc6b53cdbc2b9388ad5bb36916ba06",
+      "identical": true
+    },
+    {
+      "file": "assets/casino/tables.png",
+      "bytes": 2186506,
+      "sha256": "83ac4bd2fed81e308e82ccc4bef60aebe8b0b84b425318204f435916060d7cb8",
+      "identical": true
+    },
+    {
+      "file": "assets/index-BBuh_9JZ.js",
+      "bytes": 1953900,
+      "sha256": "8c553df81aa42ef5452cfcbb887be96f806984eabce0cf71cc45f2b205b191ed",
+      "identical": true
+    },
+    {
+      "file": "assets/index-BilBeM5G.css",
+      "bytes": 113872,
+      "sha256": "81529a7c826726cb7d6724ea866362a52765e3734e8776115d93d4ecc7d47326",
+      "identical": true
+    },
+    {
+      "file": "index.html",
+      "bytes": 2429,
+      "sha256": "d3db1424dc8d92b07bbe0323150f1dd86a40445982f65de6eed5c57c354d79d7",
+      "identical": true
+    }
+  ],
+  "errors": []
+}

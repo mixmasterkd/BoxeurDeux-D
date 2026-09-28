@@ -26,4 +26,8 @@ Bundle final : `index-BBuh_9JZ.js` et `index-BilBeM5G.css`. L’avertissement Vi
 
 ## Publication
 
-La publication et la vérification du site public seront consignées après le déploiement.
+La correction est **publiée et vérifiée le 28 septembre 2026** sur [le jeu public](https://mixmasterkd.github.io/BoxeurDeux-D/). Commit d’implémentation : `1219f34`. Le [workflow GitHub Pages 36430365523](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36430365523) a réussi.
+
+L’index, les deux bundles et les dix-huit visuels du casino — **21 fichiers** — sont identiques à la compilation locale par SHA-256. Les **4 scénarios sur le vrai site public** passent : verrou Bronze et aller-retour complet, ordinateur et tactile simulé. Les rechargements conservent la position et la carrière; le pont bloque l’accès à l’eau. Aucune erreur, aucun avertissement navigateur et aucun incident réseau pendant ce passage.
+
+Les rapports, les empreintes, la preuve du déploiement et les **18 captures publiques** sont dans `outputs/verification/casino-island/public/`. Les commits suivants consignent seulement ces preuves et la documentation. Aucun téléphone physique n’a été testé.
