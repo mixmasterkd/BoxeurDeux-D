@@ -1,9 +1,0 @@
-{
-  "date": "2026-09-28T17:35:25.453Z",
-  "url": "http://127.0.0.1:5173/",
-  "built": false,
-  "mobileEmulated": true,
-  "cases": [],
-  "errors": [],
-  "failure": "browserContext.close: Target page, context or browser has been closed\n    at async house (/home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/home-bar-browser.mjs:125:90)\n    at async file:///home/mixmasterkd/Documents/HTML/BoxeurDeux-D/tests/home-bar-browser.mjs:152:30"
-}

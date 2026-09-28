@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-28T17:44:08.922Z",
+  "date": "2026-09-28T18:07:32.653Z",
   "unitTests": 587,
-  "status": "Local validation passed; publication pending",
+  "status": "Completed and published",
   "bundle": {
     "js": "index-Bjt8Q7nB.js",
     "css": "index-CORD--UA.css"
@@ -47,5 +47,41 @@
       "errors": [],
       "failure": null
     }
-  ]
+  ],
+  "publicCases": 14,
+  "publicReports": [
+    {
+      "path": "home-bar/public/results-mobile.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "retro-race/public/results.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "billiards/public/report.json",
+      "cases": 4,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "computer/public/results.json",
+      "cases": 4,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "casino-terminal/public/results.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    }
+  ],
+  "sourceCommit": "5f64cecb31a17216b59ed676c8c243ee6b8323a6",
+  "deployment": 36461559222,
+  "publicFilesVerified": 15
 }

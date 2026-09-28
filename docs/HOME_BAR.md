@@ -47,4 +47,8 @@ La suite globale finale compte **587 tests réussis** : migrations et unicité d
 
 Les parcours de la version compilée couvrent la maison et le bar, la course, le pool, les applications de l’ordinateur et le terminal. Les rapports et captures sont dans `outputs/verification/home-bar/built/`, `retro-race/built/`, `billiards/built/`, `computer/built/` et `casino-terminal/built/`. La compilation produit `index-Bjt8Q7nB.js` et `index-CORD--UA.css`. Vite signale la taille du bundle principal (Phaser inclus) ; la compilation réussit.
 
-La publication et ses contrôles publics seront consignés après déploiement.
+## Publication
+
+Le commit `5f64cec` est publié sur [GitHub Pages](https://mixmasterkd.github.io/BoxeurDeux-D/). Le [workflow 36461559222](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36461559222) a réussi. L’index, les deux bundles et les 12 images nouvelles sont identiques à `dist` par SHA-256 (**15 fichiers**) ; preuve dans `outputs/verification/home-bar/public/assets.json`. Les **14 parcours publics** passent sans erreur : maison/bar tactile2, course PC/tactile2, billard PC/tactile4, ordinateur PC/tactile4, terminal PC/tactile2. Le monde a aussi passé ses deux parcours PC sur la compilation locale ; ils ne sont pas rejoués sur le public puisque les fichiers sont identiques. Rapports et captures dans les dossiers `public/` correspondants. Aucun téléphone physique testé.
+
+Les anciens diagnostics de développement ont été archivés dans `/tmp`; le dépôt conserve les rapports finaux du bundle et du site public. Le seul ajustement après publication concerne les attentes de fermeture du panneau pause dans le script de test du pool. Les sources du jeu et ses fichiers publiés sont inchangés. Les commits suivants consignent uniquement les preuves et la documentation.
