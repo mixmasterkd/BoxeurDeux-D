@@ -25,7 +25,11 @@ Les scripts `scripts/prepare-bar-street.mjs` et `scripts/prepare-bar-people.mjs`
 
 **591 tests automatisés réussis** et compilation finale `index-DO9d0asY.js` / `index-CORD--UA.css`. Six parcours compilés PC/tactile passent sans erreur, avec 28 captures dans `outputs/verification/bar-street/built/` : trajet quartier/rue/bar, sauvegarde V7 ancienne avec scores et sortie vers la nouvelle rue, ancien site de l’île sans entrée fantôme. Les personnages et l’alignement de la façade ont été revus visuellement. Aucun téléphone physique testé.
 
-Les six parcours locaux ont été joués sur `index-PWhsa7_j.js`. Le dernier bundle ajoute la transmission du drapeau de retour du vélo, couverte par le test de transitions, et des URL de sprites versionnées pour éviter les anciennes dimensions en cache; la version publiée sera rejouée après déploiement. La publication et ses contrôles restent à terminer.
+Les six parcours locaux ont été joués sur `index-PWhsa7_j.js`. Le dernier bundle ajoute la transmission du drapeau de retour du vélo, couverte par le test de transitions, et des URL de sprites versionnées pour éviter les anciennes dimensions en cache; la version publiée finale a ensuite été rejouée dans les six mêmes scénarios, avec succès.
+
+## Publication
+
+Le commit `ef29b68` est publié sur [GitHub Pages](https://mixmasterkd.github.io/BoxeurDeux-D/). Le [workflow 36468657786](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36468657786) a réussi. Les 17 fichiers contrôlés (index, bundles, images de maison/bar et raccord est) sont identiques à la compilation locale par SHA-256. Les **six parcours publics PC/tactile passent sans erreur**, avec 28 captures. Rapports, empreintes et preuve de déploiement : `outputs/verification/bar-street/public/`. Les commits suivants consignent uniquement les preuves et la documentation.
 
 Commandes ciblées :
 

@@ -1,0 +1,127 @@
+{
+  "date": "2026-09-28T18:59:18.914Z",
+  "url": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "built": false,
+  "publicSite": true,
+  "scope": "bar",
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "bar-street-desktop",
+      "freeBeforeBronze": true,
+      "bothOpponents": true,
+      "neighborhoodStreetBarRoundTrip": true,
+      "exactReload": true,
+      "progressionUnchanged": true,
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "legacy-bar-desktop",
+      "originalInteriorId": "island-bar",
+      "savedVersion": 7,
+      "oldScoresPreserved": true,
+      "exitToNewStreet": true,
+      "newStreetSaveReload": true,
+      "returnToNeighborhood": true,
+      "moneyEnergyProgressUnchanged": true
+    },
+    {
+      "name": "former-island-bar-desktop",
+      "oldPositionStillValid": true,
+      "noPhantomDoor": true,
+      "noBarInteraction": true,
+      "noBarFacadeAsset": true,
+      "reloadSafe": true,
+      "progressionUnchanged": true
+    },
+    {
+      "name": "bar-street-mobile",
+      "freeBeforeBronze": true,
+      "bothOpponents": true,
+      "neighborhoodStreetBarRoundTrip": true,
+      "exactReload": true,
+      "progressionUnchanged": true,
+      "geometry": {
+        "mobile": true,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Interagir",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "legacy-bar-mobile",
+      "originalInteriorId": "island-bar",
+      "savedVersion": 7,
+      "oldScoresPreserved": true,
+      "exitToNewStreet": true,
+      "newStreetSaveReload": true,
+      "returnToNeighborhood": true,
+      "moneyEnergyProgressUnchanged": true
+    },
+    {
+      "name": "former-island-bar-mobile",
+      "oldPositionStillValid": true,
+      "noPhantomDoor": true,
+      "noBarInteraction": true,
+      "noBarFacadeAsset": true,
+      "reloadSafe": true,
+      "progressionUnchanged": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}
