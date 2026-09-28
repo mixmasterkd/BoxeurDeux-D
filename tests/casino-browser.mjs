@@ -92,6 +92,7 @@ async function setup(game, mobile, options = {}) {
     if (!localStorage.getItem(key)) { localStorage.setItem(key, data); localStorage.setItem(`${key}-backup`, data); }
   }, { key: CAREER_STORAGE_KEY, data });
   const page = await context.newPage(); activePage = page; page.setDefaultTimeout(15000);
+  page.setDefaultNavigationTimeout(publicSite ? 60000 : 30000);
   page.on('pageerror', error => report.errors.push(error.stack ?? error.message));
   page.on('console', message => {
     if (message.type() === 'error') report.errors.push(message.text());

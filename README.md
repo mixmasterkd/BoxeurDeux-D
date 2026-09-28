@@ -17,11 +17,11 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 - Ordinateur : **http://127.0.0.1:5173/**
 - Wi-Fi du PC vérifié le 27 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
-- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Chapitre V5 publié et vérifié ; voir [les résultats](docs/CHAPITRE_V5.md#publication).
+- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Chapitre Casino V6 publié et vérifié ; voir [les résultats](docs/CASINO.md#publication).
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
-L’état intégré et le bilan des vérifications sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md). Les détails sont répartis entre [sauvegarde et règles V5](docs/CHAPITRE_V5_MODELE.md), [métro et aéroport](docs/METRO_ET_AEROPORT.md), [combats V5](docs/COMBATS_CHAPITRE_V5.md) et [menus d’activités](docs/MENUS_ACTIVITES.md). [Cuba et défis](docs/CUBA_ET_DEFIS.md) et [harmonisation SNES](docs/HARMONISATION_SNES.md) conservent les livraisons antérieures; le présent README décrit les règles actuelles.
+Le dernier chapitre et son bilan sont dans [docs/CASINO.md](docs/CASINO.md); le chapitre précédent reste décrit dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md). Les détails sont répartis entre [sauvegarde et règles V5](docs/CHAPITRE_V5_MODELE.md), [métro et aéroport](docs/METRO_ET_AEROPORT.md), [combats V5](docs/COMBATS_CHAPITRE_V5.md) et [menus d’activités](docs/MENUS_ACTIVITES.md). [Cuba et défis](docs/CUBA_ET_DEFIS.md) et [harmonisation SNES](docs/HARMONISATION_SNES.md) conservent les livraisons antérieures; le présent README décrit les règles actuelles.
 
 ## Commencer et découvrir le chapitre
 
@@ -252,7 +252,7 @@ npm run test:fight-pacing                # Vrais rounds, coin et cartes des juge
 npm run test:fight-presentation          # Fixtures visuelles de décision et menus
 ```
 
-Le bilan global et les limites des vérifications sont dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md); les documents spécialisés indiquent les scénarios réellement joués et les fixtures utilisées. Les autres scripts de contrôle restent listés dans `package.json`. Playwright utilise l’installation déjà disponible dans cet environnement ou `PLAYWRIGHT_MODULE_PATH`; ce n’est pas une dépendance du jeu. Les essais mobiles sont des **simulations de viewport et de contacts tactiles**, pas des essais sur un téléphone physique.
+Les bilans et limites des vérifications sont dans [docs/CASINO.md](docs/CASINO.md) et [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md); les documents spécialisés indiquent les scénarios réellement joués et les fixtures utilisées. Les autres scripts de contrôle restent listés dans `package.json`. Playwright utilise l’installation déjà disponible dans cet environnement ou `PLAYWRIGHT_MODULE_PATH`; ce n’est pas une dépendance du jeu. Les essais mobiles sont des **simulations de viewport et de contacts tactiles**, pas des essais sur un téléphone physique.
 
 `npm run build` produit l’index statique dans `dist/`. Pour héberger, déployer **tout le contenu de dist/** avec ses ressources, pas le `index.html` source. La configuration Vite utilise `base: './'` pour le sous-chemin GitHub Pages. Le workflow `.github/workflows/pages.yml` construit puis publie `main`. Le chapitre V5 a passé 26 contrôles sur le vrai site public ; 200 fichiers publiés correspondent à `dist` par SHA-256.
 

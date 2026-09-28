@@ -1,0 +1,3876 @@
+{
+  "date": "2026-09-28T03:55:17.154Z",
+  "url": "https://mixmasterkd.github.io/BoxeurDeux-D/",
+  "built": false,
+  "publicSite": true,
+  "mobileEmulated": true,
+  "fixture": "Valid unlocked career via model methods; seeded pending hands are created by casinoStart with a fixed fixture RNG. Browser actions use the shipped UI only. No live game state or clock is altered.",
+  "cases": [
+    {
+      "name": "blackjack-desktop",
+      "pendingReload": true,
+      "routeEscapeBlocked": true,
+      "split": true,
+      "double": true,
+      "hit": true,
+      "stand": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "roulette-desktop",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-desktop-cerises",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-desktop-cloches",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-desktop-diamants",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-desktop-montreal",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "poker-desktop",
+      "humanTurnReload": true,
+      "allInConfirmation": true,
+      "botCompletion": true,
+      "botPause": true,
+      "portraitFrozen": false,
+      "energyFree": true
+    },
+    {
+      "name": "blackjack-mobile568",
+      "pendingReload": true,
+      "routeEscapeBlocked": true,
+      "split": true,
+      "double": true,
+      "hit": true,
+      "stand": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "roulette-mobile568",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-mobile568-cerises",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-mobile568-cloches",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-mobile568-diamants",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "slots-mobile568-montreal",
+      "independentRounds": 2,
+      "reloadExact": true,
+      "duplicatePayout": false,
+      "energyFree": true
+    },
+    {
+      "name": "poker-mobile568",
+      "humanTurnReload": true,
+      "allInConfirmation": true,
+      "botCompletion": true,
+      "botPause": true,
+      "portraitFrozen": true,
+      "energyFree": true
+    }
+  ],
+  "layouts": [
+    {
+      "name": "blackjack-desktop-pending",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [
+          {
+            "label": "K♠",
+            "top": 534.4140625,
+            "bottom": 624.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "10♥",
+            "top": 534.4140625,
+            "bottom": 624.4140625,
+            "fullyVisible": true
+          }
+        ],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Tirer",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Rester",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Doubler",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Séparer",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "blackjack-desktop-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-desktop-offer",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "0",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "1",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "2",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "3",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "4",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "5",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "6",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "7",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "8",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "9",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "10",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "11",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "12",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "13",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "14",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "15",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "16",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "17",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "18",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "19",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "20",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "21",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "22",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "23",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "24",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "25",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "26",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "27",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "28",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "29",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "30",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "31",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "32",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "33",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "34",
+            "disabled": false,
+            "width": 82.78125,
+            "height": 40.6875
+          },
+          {
+            "text": "35",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "36",
+            "disabled": false,
+            "width": 82.765625,
+            "height": 40.6875
+          },
+          {
+            "text": "Lancer la bille",
+            "disabled": true,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Ajouter 1 jeton extérieur",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Retirer mes mises",
+            "disabled": true,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-desktop-rules",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-desktop-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cerises-offer",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cerises-rules",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cerises-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cloches-offer",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cloches-rules",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-cloches-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-diamants-offer",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-diamants-rules",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-diamants-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-montreal-offer",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-montreal-rules",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-desktop-montreal-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-desktop-human-turn",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [
+          {
+            "label": "Carte cachée",
+            "top": 370.4140625,
+            "bottom": 449.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 370.4140625,
+            "bottom": 449.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 370.4140625,
+            "bottom": 449.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 370.4140625,
+            "bottom": 449.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 370.4140625,
+            "bottom": 449.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "Q♠",
+            "top": 501.4140625,
+            "bottom": 553.4140625,
+            "fullyVisible": true
+          },
+          {
+            "label": "4♣",
+            "top": 501.4140625,
+            "bottom": 553.4140625,
+            "fullyVisible": true
+          }
+        ],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Checker",
+            "disabled": true,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Suivre · 2 jetons",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Relancer",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Me coucher",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Faire tapis",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles / pause",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-desktop-allin-confirm",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Garder ma décision en attente",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Confirmer mon tapis",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-desktop-pause",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Reprendre la main",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Consulter les règles",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-desktop-result",
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 105.6015625,
+          "y": 190.8046875,
+          "width": 1228.796875,
+          "height": 662.390625,
+          "right": 1334.3984375,
+          "bottom": 853.1953125
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 863,
+            "width": 863
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 308,
+            "width": 308
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 300.09375,
+            "height": 39.546875
+          }
+        ]
+      }
+    },
+    {
+      "name": "blackjack-mobile568-pending",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [
+          {
+            "label": "K♠",
+            "top": 166.375,
+            "bottom": 199.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "10♥",
+            "top": 166.375,
+            "bottom": 199.375,
+            "fullyVisible": true
+          }
+        ],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Tirer",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Rester",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Doubler",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Séparer",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Règles",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          }
+        ]
+      }
+    },
+    {
+      "name": "blackjack-mobile568-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-mobile568-offer",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "0",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "1",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "2",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "3",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "4",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "5",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 34
+          },
+          {
+            "text": "6",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "7",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "8",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "9",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "10",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "11",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "12",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "13",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "14",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "15",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "16",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "17",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "18",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "19",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "20",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "21",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "22",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "23",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "24",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "25",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "26",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "27",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "28",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "29",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "30",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "31",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "32",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "33",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "34",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "35",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "36",
+            "disabled": false,
+            "width": 23.890625,
+            "height": 48.1875
+          },
+          {
+            "text": "Lancer la bille",
+            "disabled": true,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Ajouter 1 jeton extérieur",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Retirer mes mises",
+            "disabled": true,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-mobile568-rules",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "roulette-mobile568-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cerises-offer",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cerises-rules",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cerises-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cloches-offer",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cloches-rules",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-cloches-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-diamants-offer",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-diamants-rules",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-diamants-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-montreal-offer",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Jouer · 1 jeton",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-montreal-rules",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "← Revenir à la table",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "slots-mobile568-montreal-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-mobile568-human-turn",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [
+          {
+            "label": "Carte cachée",
+            "top": 161.375,
+            "bottom": 188.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 161.375,
+            "bottom": 188.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 161.375,
+            "bottom": 188.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 161.375,
+            "bottom": 188.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "Carte cachée",
+            "top": 161.375,
+            "bottom": 188.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "Q♠",
+            "top": 197.375,
+            "bottom": 230.375,
+            "fullyVisible": true
+          },
+          {
+            "label": "4♣",
+            "top": 197.375,
+            "bottom": 230.375,
+            "fullyVisible": true
+          }
+        ],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Checker",
+            "disabled": true,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Suivre · 2 jetons",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Relancer",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Me coucher",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Faire tapis",
+            "disabled": false,
+            "width": 104,
+            "height": 34
+          },
+          {
+            "text": "Règles / pause",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-mobile568-allin-confirm",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Garder ma décision en attente",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Confirmer mon tapis",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-mobile568-pause",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Reprendre la main",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "Consulter les règles",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    },
+    {
+      "name": "poker-mobile568-result",
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      },
+      "layout": {
+        "essentialCards": [],
+        "panel": {
+          "x": 132.3203125,
+          "y": 93.625,
+          "width": 303.359375,
+          "height": 161.75,
+          "right": 435.6796875,
+          "bottom": 255.375
+        },
+        "fits": true,
+        "horizontalOverflow": [
+          {
+            "class": "gym-dialog-copy",
+            "scroll": 161,
+            "width": 161
+          },
+          {
+            "class": "gym-dialog-actions",
+            "scroll": 112,
+            "width": 112
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Nouvelle main / nouveau tour",
+            "disabled": false,
+            "width": 104,
+            "height": 60.8125
+          },
+          {
+            "text": "Règles et gains",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          },
+          {
+            "text": "← Revenir à la salle",
+            "disabled": false,
+            "width": 104,
+            "height": 45.875
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "failure": null
+}

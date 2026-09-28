@@ -42,4 +42,10 @@ Le contrôle final comprend **494 tests automatisés réussis**, une compilation
 
 La compilation finale contient `index-VAFeLcvW.js` et `index-BilBeM5G.css`. Vite conserve son avertissement de taille du bundle Phaser. Les contrôles mobiles utilisent l’émulation Chromium ; aucun téléphone physique n’a été testé.
 
-La vérification de la publication sera ajoutée après le déploiement GitHub Pages.
+## Publication
+
+Le casino est **publié et vérifié le 27 septembre 2026** sur [le jeu public](https://mixmasterkd.github.io/BoxeurDeux-D/). Le commit d’implémentation est `7620578`; le [workflow GitHub Pages 36375220352](https://github.com/mixmasterkd/BoxeurDeux-D/actions/runs/36375220352) a réussi.
+
+L’index, les deux bundles et les dix-sept visuels du casino — **20 fichiers** — sont identiques à `dist` par SHA-256. Sur ce vrai site public, les **14 scénarios ordinateur et mobile simulé** passent, avec **42 contrôles de disposition**, aucune erreur JavaScript et aucun avertissement navigateur. Le rapport consolidé, les captures, les empreintes et la preuve du déploiement sont dans `outputs/verification/casino/public/`.
+
+Le premier passage public avait terminé les sept scénarios ordinateur avant un délai réseau dépassé au chargement mobile. Le script accorde désormais 60 secondes aux navigations publiques; toutes les assertions sont conservées. La relance complète réussie remplace ce résultat provisoire, conservé dans `results-first-attempt.json`. Aucun téléphone physique n’a été testé.
