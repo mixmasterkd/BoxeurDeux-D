@@ -4,7 +4,7 @@
 
 Demande utilisateur : ouvrir une nouvelle rue du quartier pour le bar et corriger les proportions de Béton/Kramer. Rue accessible à droite après la salle de boxe, façade du bar sur le trottoir nord, retour vers le quartier à gauche. Ancienne implantation sur l’île retirée; id intérieur `island-bar` conservé pour les sauvegardes V7. Nouveaux sprites 96×112 à l’échelle ×2, proportions du joueur, Karl inchangé. Musique existante seulement.
 
-Sources/préparation ImageGen et détails : [docs/BAR_STREET.md](docs/BAR_STREET.md). **591 tests** et compilation finale réussis (`index-BVXARDUc.js`, CSS inchangé). Six parcours PC/tactile compilés, 28 captures, aucune erreur. Après ces parcours, seul le drapeau `returningBike` a été transmis dans `startAt`, avec son test de transitions. Publication et vérifications publiques en cours. Aucun nouveau chapitre à lancer automatiquement.
+Sources/préparation ImageGen et détails : [docs/BAR_STREET.md](docs/BAR_STREET.md). **591 tests** et compilation finale réussis (`index-DO9d0asY.js`, CSS inchangé). Six parcours PC/tactile compilés, 28 captures, aucune erreur. Après ces parcours, le drapeau `returningBike` a été transmis dans `startAt`, avec son test de transitions; les URL des deux sprites sont versionnées pour éviter les anciennes dimensions en cache. Publication et vérifications publiques en cours. Aucun nouveau chapitre à lancer automatiquement.
 
 ## Taille de Karl — précision du 28 septembre 2026
 

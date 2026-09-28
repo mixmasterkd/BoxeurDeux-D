@@ -23,9 +23,9 @@ Les scripts `scripts/prepare-bar-street.mjs` et `scripts/prepare-bar-people.mjs`
 
 ## Vérification
 
-**591 tests automatisés réussis** et compilation finale `index-BVXARDUc.js` / `index-CORD--UA.css`. Six parcours compilés PC/tactile passent sans erreur, avec 28 captures dans `outputs/verification/bar-street/built/` : trajet quartier/rue/bar, sauvegarde V7 ancienne avec scores et sortie vers la nouvelle rue, ancien site de l’île sans entrée fantôme. Les personnages et l’alignement de la façade ont été revus visuellement. Aucun téléphone physique testé.
+**591 tests automatisés réussis** et compilation finale `index-DO9d0asY.js` / `index-CORD--UA.css`. Six parcours compilés PC/tactile passent sans erreur, avec 28 captures dans `outputs/verification/bar-street/built/` : trajet quartier/rue/bar, sauvegarde V7 ancienne avec scores et sortie vers la nouvelle rue, ancien site de l’île sans entrée fantôme. Les personnages et l’alignement de la façade ont été revus visuellement. Aucun téléphone physique testé.
 
-Les six parcours locaux ont été joués sur `index-PWhsa7_j.js`. Le dernier bundle ajoute uniquement la transmission du drapeau de retour du vélo, couverte par le test de transitions; la version publiée sera rejouée après déploiement. La publication et ses contrôles restent à terminer.
+Les six parcours locaux ont été joués sur `index-PWhsa7_j.js`. Le dernier bundle ajoute la transmission du drapeau de retour du vélo, couverte par le test de transitions, et des URL de sprites versionnées pour éviter les anciennes dimensions en cache; la version publiée sera rejouée après déploiement. La publication et ses contrôles restent à terminer.
 
 Commandes ciblées :
 

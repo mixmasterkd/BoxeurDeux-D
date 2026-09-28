@@ -36,7 +36,7 @@ export class HomeBarScene extends ExplorationScene {
       this.load.image('home-karl-guest', `${base}assets/home/karl-guest.png`);
       this.load.image('home-karl-gaming', `${base}assets/home/karl-gaming.png`);
     }
-    if (this.place === 'island-bar') for (const person of ['beton', 'kramer']) this.load.image(`bar-${person}`, `${base}assets/bar/${person}.png`);
+    if (this.place === 'island-bar') for (const person of ['beton', 'kramer']) this.load.image(`bar-${person}`, `${base}assets/bar/${person}.png?v=2`);
   }
   create() {
     const run = careerProfile.marathonStatus().active;
