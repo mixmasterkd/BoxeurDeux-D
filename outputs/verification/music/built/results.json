@@ -1,0 +1,1182 @@
+{
+  "date": "2026-09-28T15:32:35.130Z",
+  "url": "https://music-build.invalid/BoxeurDeux-D/",
+  "built": true,
+  "publicSite": false,
+  "mobileEmulated": true,
+  "evidence": "Native AudioContext/source instrumentation and analyser RMS/peak. Valid career fixtures; real keys/CDP touch for gestures, settings and doors. Visibility loss explicitly simulated in headless Chromium; portrait uses a real viewport change. No production test hooks.",
+  "cases": [
+    {
+      "name": "lifecycle-desktop",
+      "checks": [
+        "Native audio and scheduler stop on pause",
+        "Music volume and mute use real menu navigation and leave FX preference unchanged",
+        "Music preferences persist after reload and a real gesture restarts playback",
+        "Simulated visibility loss silences native audio; explicit resume restores it",
+        "Real home→city door selects city score with the same transport",
+        "Pagehide disposes transport, timers and oscillators"
+      ],
+      "initialSound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 28,
+            "activeSources": 19,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.012689494432402876,
+            "peak": 0.03713829070329666,
+            "samples": 57344
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "citySound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 82,
+            "activeSources": 5,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.016582358457116947,
+            "peak": 0.12194259464740753,
+            "samples": 55296
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "volumePersisted": 35,
+      "fxPreferenceUnchanged": true,
+      "destroyed": {
+        "closedContexts": [
+          {
+            "id": 1,
+            "state": "closed",
+            "time": 6.410666666666667,
+            "sampleRate": 48000,
+            "resumes": 0,
+            "suspends": 0,
+            "closes": 1,
+            "outputs": 1,
+            "starts": 83,
+            "activeSources": 0
+          }
+        ],
+        "noPostDisposeSources": true
+      }
+    },
+    {
+      "name": "theme-gym-desktop",
+      "place": "gym",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 54,
+            "activeSources": 15,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.014755879498787016,
+            "peak": 0.05055255442857742,
+            "samples": 14336
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-shops-desktop",
+      "place": "clothing-shop",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 46,
+            "activeSources": 7,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.011635072651991223,
+            "peak": 0.04952280968427658,
+            "samples": 45056
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-metro-desktop",
+      "place": "metro-station",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 41,
+            "activeSources": 12,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.012571543901970853,
+            "peak": 0.07437778264284134,
+            "samples": 43008
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-island-desktop",
+      "place": "casino-island",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 55,
+            "activeSources": 15,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.011468320789110654,
+            "peak": 0.04299958050251007,
+            "samples": 34816
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-casino-desktop",
+      "place": "casino-lobby",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 44,
+            "activeSources": 7,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.013443873285449404,
+            "peak": 0.06141083687543869,
+            "samples": 53248
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-hotel-desktop",
+      "place": "hotel-lobby",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 25,
+            "activeSources": 16,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.012462938989874384,
+            "peak": 0.03305397182703018,
+            "samples": 55296
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-cuba-desktop",
+      "place": "cuba-village",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 49,
+            "activeSources": 7,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.01327839981390359,
+            "peak": 0.0653020367026329,
+            "samples": 51200
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-mexico-desktop",
+      "place": "mexico-village",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 36,
+            "activeSources": 8,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.01262006418331214,
+            "peak": 0.05242374166846275,
+            "samples": 49152
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-marathon-desktop",
+      "place": "marathon-island",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 80,
+            "activeSources": 21,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.01432487321535231,
+            "peak": 0.10257802158594131,
+            "samples": 26624
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 315,
+          "scrollWidth": 315,
+          "controls": [
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 298.765625,
+              "left": 760.234375,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-bout-desktop",
+      "place": "sparring",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 60,
+            "activeSources": 12,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.013977923370753095,
+            "peak": 0.06696315854787827,
+            "samples": 40960
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0,
+        "musicLayout": {
+          "width": 321,
+          "scrollWidth": 321,
+          "controls": [
+            {
+              "width": 304.859375,
+              "left": 754.140625,
+              "right": 1059,
+              "horizontalFit": true
+            },
+            {
+              "width": 304.859375,
+              "left": 754.140625,
+              "right": 1059,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "independent-fx-desktop",
+      "bellWithMusicMuted": [
+        {
+          "id": 2,
+          "energy": 9.927602333334761,
+          "samples": 34816,
+          "peak": 0.06705795973539352,
+          "nonzero": 34816,
+          "rms": 0.016886231907931617
+        }
+      ],
+      "musicWithFxMuted": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 59,
+            "activeSources": 15,
+            "sampleRate": 48000
+          },
+          {
+            "id": 2,
+            "state": "running",
+            "starts": 3,
+            "activeSources": 0,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.013830468529098024,
+            "peak": 0.06696300208568573,
+            "samples": 55296
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "independentStorage": true
+    },
+    {
+      "name": "lifecycle-mobile",
+      "checks": [
+        "Native audio and scheduler stop on pause",
+        "Music volume and mute use real menu navigation and leave FX preference unchanged",
+        "Music preferences persist after reload and a real gesture restarts playback",
+        "Real portrait viewport stops audio until explicit landscape resume",
+        "Simulated visibility loss silences native audio; explicit resume restores it",
+        "Real home→city door selects city score with the same transport",
+        "Pagehide disposes transport, timers and oscillators"
+      ],
+      "initialSound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 28,
+            "activeSources": 19,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.01272508062272035,
+            "peak": 0.0368150994181633,
+            "samples": 55296
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "citySound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 108,
+            "activeSources": 6,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.016520800492560703,
+            "peak": 0.12194282561540604,
+            "samples": 43008
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "volumePersisted": 35,
+      "fxPreferenceUnchanged": true,
+      "destroyed": {
+        "closedContexts": [
+          {
+            "id": 1,
+            "state": "closed",
+            "time": 14.986666666666666,
+            "sampleRate": 48000,
+            "resumes": 0,
+            "suspends": 0,
+            "closes": 1,
+            "outputs": 1,
+            "starts": 132,
+            "activeSources": 0
+          }
+        ],
+        "noPostDisposeSources": true
+      }
+    },
+    {
+      "name": "theme-gym-mobile",
+      "place": "gym",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 45,
+            "activeSources": 9,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.012912982741281706,
+            "peak": 0.052666932344436646,
+            "samples": 14336
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1,
+        "musicLayout": {
+          "width": 131,
+          "scrollWidth": 131,
+          "controls": [
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            },
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-casino-mobile",
+      "place": "casino-lobby",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 44,
+            "activeSources": 9,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.013155589827178234,
+            "peak": 0.06141100823879242,
+            "samples": 38912
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1,
+        "musicLayout": {
+          "width": 131,
+          "scrollWidth": 131,
+          "controls": [
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            },
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-cuba-mobile",
+      "place": "cuba-village",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 49,
+            "activeSources": 7,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.013718567067951907,
+            "peak": 0.06530158966779709,
+            "samples": 49152
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1,
+        "musicLayout": {
+          "width": 131,
+          "scrollWidth": 131,
+          "controls": [
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            },
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "theme-mexico-mobile",
+      "place": "mexico-village",
+      "autoplayLocked": true,
+      "gestureUnlock": true,
+      "fxMutedMusicAudible": true,
+      "sound": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 36,
+            "activeSources": 6,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.012396825441300349,
+            "peak": 0.052423350512981415,
+            "samples": 47104
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1,
+        "musicLayout": {
+          "width": 131,
+          "scrollWidth": 131,
+          "controls": [
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            },
+            {
+              "width": 114.53125,
+              "left": 293.46875,
+              "right": 408,
+              "horizontalFit": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "independent-fx-mobile",
+      "bellWithMusicMuted": [
+        {
+          "id": 2,
+          "energy": 2.4686305785023483,
+          "samples": 26624,
+          "peak": 0.04851876199245453,
+          "nonzero": 26624,
+          "rms": 0.009629226443327265
+        }
+      ],
+      "musicWithFxMuted": {
+        "contexts": [
+          {
+            "id": 1,
+            "state": "running",
+            "starts": 60,
+            "activeSources": 12,
+            "sampleRate": 48000
+          },
+          {
+            "id": 2,
+            "state": "running",
+            "starts": 3,
+            "activeSources": 0,
+            "sampleRate": 48000
+          }
+        ],
+        "levels": [
+          {
+            "id": 1,
+            "rms": 0.014415149980064589,
+            "peak": 0.06696265190839767,
+            "samples": 43008
+          }
+        ],
+        "scorePitchesObserved": true
+      },
+      "independentStorage": true
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "failure": null
+}

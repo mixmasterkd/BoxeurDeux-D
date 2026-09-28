@@ -16,7 +16,7 @@ export class CasinoScene extends ExplorationScene {
     const requested=profile.casino?.active&&!profile.casino.active.settled?saved.scene:data.place??entry;
     const place=CASINO_PLACES.includes(requested)?requested:CASINO_PLACES.includes(saved.scene)?saved.scene:'casino-lobby';
     super.init({...data,place});
-    this.actorScale=1.5;this.tableUi=null;this.karl=null;this.crowd=[];this.audioContext=null;this.ambienceClock=0;this.ambienceMuted=false;this.ambienceVolume=.35;
+    this.actorScale=1.5;this.tableUi=null;this.karl=null;this.crowd=[];
     this.assetPath=`assets/casino/${place.slice(7)==='tables'?'tables':place.slice(7)}.png`;
     this.placeCopy={
       eyebrow:'MONTRÉAL · UNE SOIRÉE AU CASINO',title:CASINO_NAMES[place],welcome:CASINO_NAMES[place],
@@ -49,19 +49,11 @@ export class CasinoScene extends ExplorationScene {
       this.world.releaseControls();
     };
     this.addGuests();this.cameras.main.setFollowOffset(0,this.place==='casino-poker'?320:240);
-    try{const audio=JSON.parse(localStorage.getItem('boxeurdeux-d:audio:v1')??'null');this.ambienceMuted=Boolean(audio?.muted);this.ambienceVolume=typeof audio?.volume==='number'?Math.max(0,Math.min(1,audio.volume)):.35;}catch{}
-    const soundButton=document.createElement('button');soundButton.type='button';soundButton.className='casino-ambience-toggle gym-dialog-button';soundButton.style.cssText='font:inherit;margin-top:8px;padding:10px;cursor:pointer';
-    const refreshSound=()=>{soundButton.textContent=`Ambiance du casino : ${this.ambienceMuted?'coupée':'activée'}`;soundButton.setAttribute('aria-pressed',String(!this.ambienceMuted));};
-    refreshSound();soundButton.addEventListener('click',()=>{this.ambienceMuted=!this.ambienceMuted;try{localStorage.setItem('boxeurdeux-d:audio:v1',JSON.stringify({muted:this.ambienceMuted,volume:this.ambienceVolume}));}catch{}refreshSound();});
-    this.ui.elements['gym-pause-panel'].querySelector('.snes-choices').append(soundButton);
-    const unlockAudio=()=>this.unlockAmbience();
-    window.addEventListener('pointerdown',unlockAudio,{signal:this.abort.signal});
-    window.addEventListener('keydown',unlockAudio,{signal:this.abort.signal});
     this.casinoReadout=document.createElement('div');this.casinoReadout.className='sr-only';
     this.casinoReadout.setAttribute('role','status');this.ui.root.append(this.casinoReadout);
     this.refreshCasinoReadout();
     this.events.once('shutdown',()=>{
-      this.tableUi?.destroy();this.casinoReadout?.remove();this.audioContext?.close().catch(()=>{});
+      this.tableUi?.destroy();this.casinoReadout?.remove();
       if(window.__casino?.scene===this)delete window.__casino;
     });
     if(import.meta.env.DEV)window.__casino={scene:this,world:this.world,ui:this.ui,table:this.tableUi};
@@ -188,25 +180,9 @@ export class CasinoScene extends ExplorationScene {
     if(this.casinoReadout.textContent!==label)this.casinoReadout.textContent=label;
     if(this.chapterReadout)this.chapterReadout.hidden=true;
   }
-  unlockAmbience() {
-    if(this.audioContext||this.blocked()||this.ambienceMuted||!this.ambienceVolume)return;
-    const Audio=window.AudioContext??window.webkitAudioContext;if(!Audio)return;
-    try{this.audioContext=new Audio();this.audioContext.resume().catch(()=>{});}catch{}
-  }
-  playAmbience() {
-    const context=this.audioContext;if(!context||context.state!=='running'||document.hidden||this.blocked()||this.ui.dialog||this.ambienceMuted||!this.ambienceVolume)return;
-    const lobby=this.place==='casino-lobby',frequency=lobby?660: this.place==='casino-tables'?310:220;
-    for(let index=0;index<(lobby?2:1);index++){
-      const oscillator=context.createOscillator(),gain=context.createGain(),start=context.currentTime+index*.13;
-      oscillator.type='sine';oscillator.frequency.value=frequency*(index?1.5:1);
-      gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime((lobby?.009:.005)*this.ambienceVolume/.35,start+.015);gain.gain.exponentialRampToValueAtTime(.0001,start+.22);
-      oscillator.connect(gain);gain.connect(context.destination);oscillator.start(start);oscillator.stop(start+.25);
-    }
-  }
   update(time,delta) {
     super.update(time,delta);if(!this.world||this.changingPlace)return;
-    this.refreshCasinoReadout();this.ambienceClock+=delta;
-    if(this.ambienceClock>6500){this.ambienceClock=0;this.playAmbience();}
+    this.refreshCasinoReadout();
     if(this.karl&&!this.blocked()&&!this.ui?.dialog)this.karl.y=this.karlBaseY+Math.sin(time/830)*1.5;
     for(const guest of this.crowd){
       const nearby=Math.hypot(this.world.state.x-guest.x,this.world.state.y-guest.y)<270;

@@ -50,7 +50,8 @@ Marcher, rouler sur une tournée déjà payée, franchir une porte, ouvrir un me
 | Garde haute / basse | W / S | Joypad haut / bas |
 | Esquive gauche / droite | A / D | Joypad gauche / droite |
 | Coup au corps | S + J ou K | Joypad bas + A ou B |
-| Couper / rétablir le son | Menu pause | Menu pause |
+| Musique : activer / couper et volume | Menu pause | Menu pause |
+| Effets sonores : activer / couper | Menu pause des activités | Menu pause des activités |
 
 **J → K → J** (ou **A → B → A**) permet jab, direct, crochet gauche. Le prochain coup peut être préparé juste avant le retour en garde : les échanges répondent plus vite, avec une pression par frappe. Maintenir le bouton ne répète pas les coups. La garde et les diagonales utiles acceptent les appuis simultanés. Les flèches et ZQSD restent compatibles pour les directions; **E est la confirmation des menus au clavier**, y compris pour les sauvegardes et les achats. Entrée, Espace et J/K ne valident pas les menus. Seul le champ de saisie du terminal accepte Entrée pour envoyer une commande écrite.
 
@@ -67,6 +68,8 @@ La promenade laisse les décors dégagés : le lieu figure dans la bordure exté
 Les menus ont un encadrement pixel et une police hébergée dans le jeu. Dans les petits cadrages, le texte et les listes de choix défilent à l’intérieur de leur fenêtre; le repère **↕** signale la suite. Glissez le doigt pour lire, ou naviguez au joypad. Les actions principales des combats restent accessibles en bas du menu.
 
 Une perte de focus, un changement de périphérique ou le passage en portrait libère les appuis et met en pause. Le portrait tactile affiche une invitation à tourner l’appareil; aucune API de verrouillage n’est requise. La reprise reste explicite. Un ordinateur déclarant aussi du tactile reste sans manette si son périphérique principal est une souris.
+
+Une **bande-son originale rétro 16 bits** accompagne les lieux : maison, quartier, gym, boutiques, métro, îles, casino, hôtel, Cuba et Mexique, avec deux thèmes supplémentaires pour la course et le ring. La musique démarre après une première touche ou un toucher. **Pause → Musique** règle son volume et permet de la couper, séparément des effets sonores; vos choix sont mémorisés. Les dialogues atténuent la musique, les pauses et interruptions la suspendent. [Détails et fichiers MIDI](docs/MUSIQUE.md).
 
 ## Livraisons et argent
 

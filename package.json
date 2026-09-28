@@ -60,7 +60,11 @@
     "test:casino": "node --test tests/casino-*.test.js",
     "test:casino-browser": "node tests/casino-browser.mjs",
     "test:casino-world": "node tests/casino-world-browser.mjs",
-    "test:casino-island": "node tests/casino-island-browser.mjs"
+    "test:casino-island": "node tests/casino-island-browser.mjs",
+    "test:music": "node --test tests/music-*.test.js",
+    "test:music-browser": "node tests/music-browser.mjs",
+    "music:midi": "node scripts/export-music-midi.mjs",
+    "music:render": "node scripts/render-music.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

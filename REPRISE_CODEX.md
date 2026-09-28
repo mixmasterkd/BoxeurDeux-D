@@ -1,5 +1,13 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Bande-son rétro par lieu — 28 septembre 2026
+
+L’utilisateur demande de la musique rétro 16 bits et choisit une petite bande-son avec un thème par lieu. **12 compositions originales** intégrées : maison, quartier, gym, boutiques, métro/aéroport, îles, casino, hôtel, Cuba, Mexique, marathon et ring. Boucles de 16 mesures (30–47 s), mélodie, variations, accords, basse et percussions; synthèse locale WebAudio et 12 MIDI rééditables. Aucun service musical externe utilisé. Sources et détails : [docs/MUSIQUE.md](docs/MUSIQUE.md), [references/music/SCORES.md](references/music/SCORES.md).
+
+Réglages dans Pause → Musique, volume initial 25 %, mémoire indépendante des effets. Un premier geste autorise le son. Un seul transport, thèmes stables entre pièces du même lieu; dialogues atténués, pauses/chargements/carrière/portrait/onglet masqué suspendus. Nettoyage des voix et contextes; récupération après interruption du périphérique. L’ancienne ponctuation sonore du casino est remplacée par son thème funk. Le routeur de reprise ne pose plus de drapeau `changingPlace` étranger aux scènes hôtel/voyages/ateliers, ce qui empêchait la musique après Continuer.
+
+Validation locale : **535 tests réussis**, compilation `index-CAudy3uK.js` / `index-Bkvbivgg.css`, rendu des 12 compositions sur deux boucles sans saturation ni raccord vide, **18 parcours du bundle PC/mobile simulé** sans erreur ni avertissement. 21 captures et rapport dans `outputs/verification/music/built/`, mesures dans `outputs/verification/music/render-report.json`. WAV locaux et aperçu dans `/tmp/boxeur-music-renders/`, régénérables avec `npm run music:render`; MIDI avec `npm run music:midi`. Aucun téléphone physique testé. Publication en cours; la confirmation du site public sera consignée après sa vérification.
+
 ## Terminal : test casino — 28 septembre 2026
 
 Demande explicite de l’utilisateur : ajouter `test casino` dans le terminal du laptop. La commande figure dans `liste`/`aide` et prépare un profil de test séparé : Gants de bronze terminés, 400 $ et 100 jetons, énergie 100, arrivée devant le casino sur sa petite île. Ce budget laisse la place aux gains maximaux des quatre jeux. Les activités et la main engagée de la copie de test sont nettoyées; `retour` ou Pause → Quitter le mode test restaurent la carrière normale et sa main exacte. Les octets de la sauvegarde normale et du secours restent identiques. Le terminal conserve sa présentation discrète.

@@ -21,6 +21,7 @@ import { installGameLayout } from './ui/GameLayout.js';
 import './ui/layout.css';
 import { installCareerMenu } from './ui/CareerMenu.js';
 import { installSceneLoading } from './ui/SceneLoading.js';
+import { installGameMusic } from './audio/GameMusic.js';
 import './ui/snes.css';
 
 const disposeLayout = installGameLayout();
@@ -43,7 +44,7 @@ export const game = new Phaser.Game({
   backgroundColor: '#172432',
   pixelArt: true,
   roundPixels: true,
-  // Sounds are synthesized by SparringAudio, unlocked by a user gesture.
+  // Music and effects use separate Web Audio mixers, unlocked by a real user gesture.
   audio: { noAudio: true },
   scale: {
     mode: Phaser.Scale.FIT,
@@ -52,6 +53,7 @@ export const game = new Phaser.Game({
   scene: scenes,
 });
 const disposeLoading = installSceneLoading(game);
+const disposeMusic = installGameMusic(game);
 
 const routing = new AbortController();
 function resumeSavedPlace() {
@@ -60,7 +62,10 @@ function resumeSavedPlace() {
   if (!active) return;
   const saved = careerProfile.snapshot().location;
   game.registry.remove('gym-world');
-  active.changingPlace = true;
+  // Each world resets its own transition flag in init; do not inject a stale
+  // changingPlace property into hotel/travel scenes or training activities.
+  if (Object.hasOwn(active, 'changingPlace')) active.changingPlace = true;
+  else if (Object.hasOwn(active, 'changing')) active.changing = true;
   active.world?.pause();
   active.ui?.clearInputs();
   clearResume();
@@ -80,6 +85,6 @@ game.events.on('poststep', resumeSavedPlace);
 if (import.meta.hot) {
   import.meta.hot.dispose(() => {
     routing.abort(); game.events.off('poststep', resumeSavedPlace); clearResume();
-    disposeLoading(); disposeLayout(); disposeCareer(); game.destroy(true);
+    disposeMusic(); disposeLoading(); disposeLayout(); disposeCareer(); game.destroy(true);
   });
 }

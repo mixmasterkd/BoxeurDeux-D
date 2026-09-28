@@ -1,0 +1,151 @@
+{
+  "sampleRate": 22050,
+  "previewGain": 0.75,
+  "runtimeDefaultGain": 0.25,
+  "tracks": [
+    {
+      "id": "home",
+      "title": "La lumière du salon",
+      "bpm": 82,
+      "duration": 46.829268292682926,
+      "frames": 1032585,
+      "peak": 0.1999233067035675,
+      "rms": 0.03225552501819461,
+      "maxSampleDelta": 0.044694866286590695,
+      "joinRms": 0.039641774618132675,
+      "joinPeakDelta": 0.02219230681657791
+    },
+    {
+      "id": "city",
+      "title": "La tuque sur le trottoir",
+      "bpm": 108,
+      "duration": 35.55555555555556,
+      "frames": 784000,
+      "peak": 0.2578880786895752,
+      "rms": 0.0354139293863329,
+      "maxSampleDelta": 0.0704793743789196,
+      "joinRms": 0.04554149341093385,
+      "joinPeakDelta": 0.023577913641929626
+    },
+    {
+      "id": "gym",
+      "title": "Des rounds et du cœur",
+      "bpm": 96,
+      "duration": 40,
+      "frames": 882000,
+      "peak": 0.3328867554664612,
+      "rms": 0.0418735850986815,
+      "maxSampleDelta": 0.09253867715597153,
+      "joinRms": 0.04737315953096024,
+      "joinPeakDelta": 0.02356317639350891
+    },
+    {
+      "id": "shops",
+      "title": "Vitrines de quartier",
+      "bpm": 112,
+      "duration": 34.285714285714285,
+      "frames": 756000,
+      "peak": 0.2521737813949585,
+      "rms": 0.03578139431911053,
+      "maxSampleDelta": 0.0681968117132783,
+      "joinRms": 0.05271732700456202,
+      "joinPeakDelta": 0.039280378725379705
+    },
+    {
+      "id": "metro",
+      "title": "Prochain arrêt",
+      "bpm": 120,
+      "duration": 32,
+      "frames": 705600,
+      "peak": 0.28383374214172363,
+      "rms": 0.03966473538587777,
+      "maxSampleDelta": 0.053733010310679674,
+      "joinRms": 0.0441278718825579,
+      "joinPeakDelta": 0.015736978501081467
+    },
+    {
+      "id": "island",
+      "title": "Le pont au soleil",
+      "bpm": 100,
+      "duration": 38.4,
+      "frames": 846720,
+      "peak": 0.22131282091140747,
+      "rms": 0.03523377698293342,
+      "maxSampleDelta": 0.051266203372506425,
+      "joinRms": 0.047690502335730245,
+      "joinPeakDelta": 0.019883413799107075
+    },
+    {
+      "id": "casino",
+      "title": "Minuit sur le tapis vert",
+      "bpm": 106,
+      "duration": 36.22641509433962,
+      "frames": 798792,
+      "peak": 0.24870841205120087,
+      "rms": 0.04137365094748788,
+      "maxSampleDelta": 0.08831939846277237,
+      "joinRms": 0.04558960550783699,
+      "joinPeakDelta": 0.016700586304068565
+    },
+    {
+      "id": "hotel",
+      "title": "Chambre 201",
+      "bpm": 88,
+      "duration": 43.63636363636363,
+      "frames": 962182,
+      "peak": 0.19619989395141602,
+      "rms": 0.03213050737470289,
+      "maxSampleDelta": 0.04365859925746918,
+      "joinRms": 0.037328534720595774,
+      "joinPeakDelta": 0.016495704650878906
+    },
+    {
+      "id": "cuba",
+      "title": "Les gants sous les palmiers",
+      "bpm": 116,
+      "duration": 33.10344827586207,
+      "frames": 729931,
+      "peak": 0.247147798538208,
+      "rms": 0.03909052399335976,
+      "maxSampleDelta": 0.04986933525651693,
+      "joinRms": 0.028395554284069913,
+      "joinPeakDelta": 0.024419795721769333
+    },
+    {
+      "id": "mexico",
+      "title": "Cordes et soleil",
+      "bpm": 110,
+      "duration": 34.90909090909091,
+      "frames": 769745,
+      "peak": 0.27707624435424805,
+      "rms": 0.03804982707379436,
+      "maxSampleDelta": 0.07883577700704336,
+      "joinRms": 0.05111455419351665,
+      "joinPeakDelta": 0.014484547078609467
+    },
+    {
+      "id": "marathon",
+      "title": "Vers le Stade",
+      "bpm": 128,
+      "duration": 30,
+      "frames": 661500,
+      "peak": 0.33333346247673035,
+      "rms": 0.04483119875077554,
+      "maxSampleDelta": 0.1454797461628914,
+      "joinRms": 0.04895963141494334,
+      "joinPeakDelta": 0.02812086045742035
+    },
+    {
+      "id": "bout",
+      "title": "Sous les projecteurs",
+      "bpm": 124,
+      "duration": 30.967741935483872,
+      "frames": 682839,
+      "peak": 0.3592601716518402,
+      "rms": 0.04359242925564797,
+      "maxSampleDelta": 0.12873444240540266,
+      "joinRms": 0.047478232299928966,
+      "joinPeakDelta": 0.030130624771118164
+    }
+  ]
+}
