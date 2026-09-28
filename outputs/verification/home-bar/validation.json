@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-28T17:44:08.922Z",
+  "unitTests": 587,
+  "status": "Local validation passed; publication pending",
+  "bundle": {
+    "js": "index-Bjt8Q7nB.js",
+    "css": "index-CORD--UA.css"
+  },
+  "mobile": "Chromium touch emulation; no physical phone tested",
+  "knownBuildWarning": "Vite bundle exceeds 500 kB; existing application includes Phaser.",
+  "unitResult": "passed",
+  "browserCases": 16,
+  "reports": [
+    {
+      "path": "home-bar/built/results-desktop.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "home-bar/built/results-mobile.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "retro-race/built/results.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "billiards/built/report.json",
+      "cases": 4,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "computer/built/results.json",
+      "cases": 4,
+      "errors": [],
+      "failure": null
+    },
+    {
+      "path": "casino-terminal/built/results.json",
+      "cases": 2,
+      "errors": [],
+      "failure": null
+    }
+  ]
+}

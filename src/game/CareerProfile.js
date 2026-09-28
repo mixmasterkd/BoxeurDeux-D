@@ -13,11 +13,12 @@ import { MARATHON_PRICE, MARATHON_ID, MARATHON_PLACES, MARATHON_START, freshMara
 import {freshCasino, CASINO_PLACES} from './CasinoRules.js';
 import {casinoMethods, normalizeCasino} from './CasinoCareer.js';
 import {CASINO_ISLAND_RETURN} from './CasinoIslandWorld.js';
+import { freshLeisure, normalizeLeisure, leisureMethods } from './LeisureCareer.js';
 
 // Retain the original key so existing players are migrated automatically.
 const STORAGE_KEY = 'boxeur-deux-d-career-v1';
 const BACKUP_KEY = `${STORAGE_KEY}-backup`;
-const VERSION = 6;
+const VERSION = 7;
 const TEST_STORAGE_KEY = `${STORAGE_KEY}-test`;
 const CASINO_PENDING_MESSAGE = 'Termine ta main au casino avant de commencer une autre activité ou de partir.';
 const TEST_COMMANDS = Object.freeze([
@@ -44,12 +45,12 @@ function freshProfile(now = new Date().toISOString()) {
     stats: { ...BASE_STATS }, caps: trainingCaps({}),
     activities: Object.fromEntries(ACTIVITIES.map(id => [id, { sessions: 0, best: 0 }])),
     fights: Object.fromEntries(FIGHT_IDS.map(id => [id, freshFight()])),
-    ...freshChapter(), ...freshNextChapter(), marathon: freshMarathon(), casino: freshCasino(),
+    ...freshChapter(), ...freshNextChapter(), marathon: freshMarathon(), casino: freshCasino(), leisure: freshLeisure(),
   };
 }
 
 function normalize(raw) {
-  if (!object(raw) || ![1, 2, 3, 4, 5, VERSION].includes(raw.version)) {
+  if (!object(raw) || ![1, 2, 3, 4, 5, 6, VERSION].includes(raw.version)) {
     if (object(raw) && typeof raw.version === 'number' && raw.version > VERSION) {
       const error = new Error('Cette sauvegarde vient d’une version plus récente du jeu.');
       error.code = 'future-version'; throw error;
@@ -90,6 +91,7 @@ function normalize(raw) {
   if (raw.version >= 4) Object.assign(profile, normalizeNextChapter(raw, profile));
   profile.marathon = normalizeMarathon(raw, profile);
   profile.casino = normalizeCasino(raw, profile);
+  profile.leisure = normalizeLeisure(raw);
   return profile;
 }
 
@@ -216,7 +218,7 @@ export class CareerProfile {
       this.profile.location = { ...MEXICO_HOME_SPAWN };
     } else if (this.profile.cuba.active) {
       this.profile.location = { ...CUBA_HOME_SPAWN };
-    } else if (this.profile.location.scene !== 'home') this.profile.location = { ...HOME_SPAWN };
+    } else if (!['home', 'home-bedroom'].includes(this.profile.location.scene)) this.profile.location = { ...HOME_SPAWN };
     this._save();
     const message = `Jour ${this.profile.daily.day} : énergie de journée récupérée.`;
     return { ok: true, ...this.dailyStatus(), saved: this.status.persisted, saveMessage: this.status.message,
@@ -296,7 +298,7 @@ export class CareerProfile {
   equipItem(id, place = this.profile.location.scene) {
     const item = SHOP_CATALOG.find(item => item.id === id);
     if (!item || !this.profile.inventory.owned.includes(id)) return this._result(false, 'Vous ne possédez pas cet article.');
-    if (place !== (item.slot === 'street' ? 'home' : 'gym')) return this._result(false,
+    if (!(item.slot === 'street' ? ['home', 'home-bedroom'].includes(place) : place === 'gym')) return this._result(false,
       item.slot === 'street' ? 'Changez de tenue dans la garde-robe à la maison.' : 'Changez de tenue de boxe au casier du gym.');
     if (this.profile.inventory.equipped[item.slot] === id) return this._result(true, 'Cette tenue est déjà équipée.', { unchanged: true });
     this.profile.inventory.equipped[item.slot] = id;
@@ -779,7 +781,7 @@ export class CareerProfile {
   reset() { this.profile = freshProfile(this.now()); this.writeProtected = false; return this._save({ increment: false }); }
 }
 
-Object.assign(CareerProfile.prototype, casinoMethods);
+Object.assign(CareerProfile.prototype, casinoMethods, leisureMethods);
 
 export const careerProfile = new CareerProfile();
 export { STORAGE_KEY as CAREER_STORAGE_KEY, BACKUP_KEY as CAREER_BACKUP_KEY, VERSION as CAREER_VERSION, TEST_STORAGE_KEY as CAREER_TEST_STORAGE_KEY, TEST_COMMANDS };

@@ -1,0 +1,11 @@
+.billiards-ui .billiards-hud{position:absolute;top:2.6%;left:3%;right:3%;display:flex;justify-content:space-between;align-items:center;color:#f8eed7;pointer-events:none;text-shadow:0 2px 3px #071815}.billiards-ui .billiards-hud h2{margin:.18em 0;font-size:clamp(13px,2.6cqw,28px)}.billiards-ui .billiards-groups{font-size:clamp(8px,1.5cqw,17px);max-width:50%;text-align:right}.billiards-ui .billiards-status{position:absolute;top:13%;left:3%;right:30%;color:#fceac5;font-size:clamp(8px,1.65cqw,19px);line-height:1.35;pointer-events:none}.billiards-ui .billiards-power{position:absolute;top:11%;right:3%;width:24%;display:grid;gap:2px;color:#fceac5;font-size:clamp(9px,1.3cqw,16px);pointer-events:auto}.billiards-ui .billiards-power label{display:flex;justify-content:space-between}.billiards-ui .billiards-power input{width:100%;accent-color:#e9b35e;margin:0;min-height:22px;cursor:pointer}.billiards-ui .billiards-hint{position:absolute;bottom:1%;left:3%;right:3%;margin:0;text-align:center;color:#f1dfba;font-size:clamp(7px,1.3cqw,15px);pointer-events:none}.billiards-ui .billiards-panel{max-height:80%;}.billiards-ui .billiards-copy{white-space:pre-line;line-height:1.6}.billiards-ui .billiards-record{color:#ffd382}.billiards-ui .gym-dialog-actions>button{flex-shrink:0}.billiards-ui[data-mode="dialog"] .billiards-power{pointer-events:none;visibility:hidden}
+@container (max-width:640px){
+  .billiards-ui .billiards-hud{top:3%;display:block;right:32%}
+  .billiards-ui .billiards-hud>.billiards-groups{position:absolute;top:14px;left:0;max-width:none;width:100%;text-align:left;font-size:7px;white-space:nowrap}
+  #stage .billiards-ui .billiards-hud .gym-eyebrow{display:none}
+  .billiards-ui .billiards-hud h2{font-size:11px;line-height:1;margin:0}
+  .billiards-ui .billiards-status{top:17%;right:32%;font-size:8px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .billiards-ui .billiards-power{top:4%;width:27%;font-size:8px;gap:0}
+  .billiards-ui .billiards-power input{min-height:16px;height:16px}
+  .billiards-ui .billiards-hint{font-size:7px;bottom:1%;line-height:1.1}
+}

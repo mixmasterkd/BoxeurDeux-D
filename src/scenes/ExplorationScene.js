@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { LaptopUI } from '../ui/LaptopUI.js';
 import { DoorTravel } from '../game/DoorTravel.js';
+import { sceneForPlace } from '../game/SceneRouting.js';
 import { deliveryAddress } from '../game/DeliveryRoute.js';
 import { ExplorationWorld, STREET_SCALE, WORLD_ENTRANCES } from '../game/ExplorationWorld.js';
 import { careerProfile } from '../game/CareerProfile.js';
@@ -77,7 +78,7 @@ export class ExplorationScene extends Phaser.Scene {
     if(this.place==='residential')this.add.image(977*STREET_SCALE,624*STREET_SCALE,'depot-kiosk').setOrigin(0).setScale(STREET_SCALE);
     if(this.place==='riverside')this.add.image(1520,700,'cuba-travel-kiosk').setOrigin(.5,1).setDepth(700);
     this.addForeground();
-    if(this.place==='home')addMedalDisplay(this,[...careerProfile.snapshot().tournament.medals,...careerProfile.snapshot().marathon.medals.map(m=>({...m,type:'marathon'}))]);
+    if(this.place==='home'&&!this.customHome)addMedalDisplay(this,[...careerProfile.snapshot().tournament.medals,...careerProfile.snapshot().marathon.medals.map(m=>({...m,type:'marathon'}))]);
     const metadata = this.cache.json.get('street-player-data');
     // The house furniture is drawn at twice the street actor's scale. Keep an
     // integer scale for crisp pixels, with the same foot anchor in every pose.
@@ -116,7 +117,7 @@ export class ExplorationScene extends Phaser.Scene {
       hint: 'Explore les rues. Maison, gym et salle de boxe sont ouverts.', pauseText: 'Les rues t’attendent. Se promener ne coûte aucune énergie.',
       commandsTitle: 'Commandes du quartier', commandsHint: 'Avance dans une porte pour entrer. Les cônes indiquent les rues encore fermées.',
     }));
-    if(this.place === 'home') this.laptop = new LaptopUI(this);
+    if(this.place === 'home' && !this.customHome) this.laptop = new LaptopUI(this);
     installChapterReadout(this); this.refreshProfile();
     this.renderWorld();
     const camera = this.cameras.main;
@@ -200,6 +201,7 @@ export class ExplorationScene extends Phaser.Scene {
       : place === 'home' ? { x: 640, y: 622, facing: 'up' } : WORLD_ENTRANCES[entrance];
     careerProfile.setLocation({ scene: place, ...position });
     if (place === 'gym') this.scene.start('GymScene', { fromNeighborhood: true });
+    else if (place === 'home') this.scene.start(sceneForPlace(place), { place, entrance, location: position });
     else this.scene.restart({ place, entrance, location: position });
   }
 

@@ -64,7 +64,12 @@
     "test:music": "node --test tests/music-*.test.js",
     "test:music-browser": "node tests/music-browser.mjs",
     "music:midi": "node scripts/export-music-midi.mjs",
-    "music:render": "node scripts/render-music.mjs"
+    "music:render": "node scripts/render-music.mjs",
+    "test:home-bar": "node --test tests/home-bar-world.test.js tests/leisure-career.test.js tests/retro-race.test.js tests/billiards-session.test.js",
+    "test:home-bar-browser": "node tests/home-bar-browser.mjs",
+    "test:race-browser": "node tests/retro-race-browser.mjs",
+    "test:billiards-browser": "node tests/billiards-browser.mjs",
+    "test:computer-browser": "node tests/computer-browser.mjs"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"

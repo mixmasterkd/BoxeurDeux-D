@@ -1,0 +1,75 @@
+{
+  "method": "Alpha-bounds crops; uniform nearest-neighbour scale; source alpha preserved without recolouring or redraw.",
+  "outputs": [
+    {
+      "destination": "public/assets/home/karl-guest.png",
+      "crop": {
+        "x": 75,
+        "y": 69,
+        "width": 271,
+        "height": 760
+      },
+      "scale": 0.2458628841607565,
+      "width": 112,
+      "height": 200,
+      "offsetX": 22,
+      "offsetY": 11
+    },
+    {
+      "destination": "public/assets/home/karl-gaming.png",
+      "crop": {
+        "x": 446,
+        "y": 199,
+        "width": 414,
+        "height": 612
+      },
+      "scale": 0.2458628841607565,
+      "width": 112,
+      "height": 200,
+      "offsetX": 5,
+      "offsetY": 48
+    },
+    {
+      "destination": "public/assets/bar/beton.png",
+      "crop": {
+        "x": 877,
+        "y": 69,
+        "width": 423,
+        "height": 764
+      },
+      "scale": 0.2458628841607565,
+      "width": 112,
+      "height": 200,
+      "offsetX": 4,
+      "offsetY": 10
+    },
+    {
+      "destination": "public/assets/bar/kramer.png",
+      "crop": {
+        "x": 1329,
+        "y": 82,
+        "width": 422,
+        "height": 757
+      },
+      "scale": 0.2458628841607565,
+      "width": 112,
+      "height": 200,
+      "offsetX": 4,
+      "offsetY": 12
+    },
+    {
+      "destination": "public/assets/bar/exterior.png",
+      "crop": {
+        "x": 96,
+        "y": 87,
+        "width": 1416,
+        "height": 775
+      },
+      "scale": 0.3954802259887006,
+      "width": 560,
+      "height": 306,
+      "offsetX": 0,
+      "offsetY": 0
+    }
+  ]
+}

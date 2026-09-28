@@ -4,7 +4,8 @@ import { postBronzeUnlocked, CUBA_PRICE } from '../game/NextChapterRules.js';
 const PLACES = {
   'casino-island': 'La petite île du casino', 'casino-lobby': 'Casino · Accueil et machines',
   'casino-tables': 'Casino · Blackjack et roulette', 'casino-poker': 'Casino · Salon de poker',
-  home: 'Chez toi', gym: 'Au gym', neighborhood: 'Le quartier', residential: 'Rue des livraisons',
+  home: 'Chez toi · Salon', 'home-office': 'Maison · Salle d’ordinateur', 'home-garage': 'Maison · Garage',
+  'home-landing': 'Maison · Étage des chambres', 'home-bedroom': 'Maison · Ta chambre', 'home-karl': 'Maison · Chambre de Karl', 'island-bar': 'Le petit bar de l’île', gym: 'Au gym', neighborhood: 'Le quartier', residential: 'Rue des livraisons',
   'cuba-home': 'Cuba · Logement', 'cuba-village': 'Cuba · Village', 'cuba-gym': 'Cuba · Gym aux pneus', 'cuba-beach': 'Cuba · Plage de Louisto',
   'metro-station': 'Métro du quartier', 'metro-riverside': 'Métro des Rives', riverside: 'Des Rives',
   commercial: 'Quartier des boutiques', 'clothing-shop': 'Boutique de vêtements', 'boxing-shop': 'Boutique de boxe',

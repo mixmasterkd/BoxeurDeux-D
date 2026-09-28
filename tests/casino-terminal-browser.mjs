@@ -1,4 +1,4 @@
-// Focused terminal smoke. Fixture placement is beside the home laptop; every
+// Focused terminal smoke. Fixture placement is beside the home-office computer; every
 // command, transition and mode switch then uses visible UI and real controls.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -6,13 +6,14 @@ import path from 'node:path';
 import {chromium,wait,dispatch,joyPoint,buttonPoint,suppressHotReload,fit} from './control-helpers.mjs';
 import {CareerProfile,CAREER_STORAGE_KEY,CAREER_TEST_STORAGE_KEY} from '../src/game/CareerProfile.js';
 import {CASINO_ISLAND_RETURN} from '../src/game/CasinoIslandWorld.js';
+import {HOME_BAR_LAYOUTS} from '../src/game/HomeBarWorld.js';
 
 const built=process.env.CASINO_BUILT==='1',publicSite=!built&&Boolean(process.env.CASINO_URL);
 const url=built?'https://casino-terminal-build.invalid/BoxeurDeux-D/':process.env.CASINO_URL??process.env.SPARRING_URL??'http://127.0.0.1:5173/';
-const output=`outputs/verification/casino-terminal/${built?'built':publicSite?'public':'dev'}`;
+const output=process.env.CASINO_TERMINAL_OUTPUT??`outputs/verification/casino-terminal/${built?'built':publicSite?'public':'dev'}`;
 fs.mkdirSync(output,{recursive:true});
 const report={date:new Date().toISOString(),url,built,publicSite,mobileEmulated:true,
- fixture:'Isolated valid normal career beside the laptop. Real terminal commands, keyboard/CDP touch, doorway and pause exit. No gameplay hooks or test-state injection.',cases:[],errors:[],warnings:[],failure:null};
+ fixture:'Isolated valid normal career beside the office computer. Real terminal commands, keyboard/CDP touch, doorway and pause exit. No gameplay hooks or test-state injection.',cases:[],errors:[],warnings:[],failure:null};
 const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_EXECUTABLE_PATH}:{})});
 const bytes=page=>page.evaluate(key=>({normal:localStorage.getItem(key),backup:localStorage.getItem(`${key}-backup`)}),CAREER_STORAGE_KEY);
 const testSave=page=>page.evaluate(key=>JSON.parse(localStorage.getItem(key)),CAREER_TEST_STORAGE_KEY);
@@ -22,7 +23,8 @@ async function run(mobile){
  const name=mobile?'mobile568':'desktop';console.log(`CASINO TERMINAL ${name}`);
  const profile=new CareerProfile({storage:null});
  assert.ok(profile.recordFight({opponent:'beton',winner:'player'}).ok);
- profile.setLocation({scene:'home',x:255,y:545,facing:'left'});
+ const computer=HOME_BAR_LAYOUTS['home-office'].stations.find(station=>station.id==='laptop');
+ profile.setLocation({scene:'home-office',x:computer.x,y:computer.y+38,facing:'up'});
  assert.equal(profile.casinoStatus().unlocked,false);
  const context=await browser.newContext({viewport:mobile?{width:568,height:320}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
  if(!built&&!publicSite)await suppressHotReload(context);
@@ -62,7 +64,7 @@ async function run(mobile){
   if(mobile)await tap('[data-gym-action="laptop-run"]');else await page.keyboard.press('Enter');
  };
  try{
-  await page.goto(url);await ready('home',false);
+  await page.goto(url);await ready('home-office',false);
   await confirm();await pageIs(page,'desktop');
   await choose('[data-gym-action="laptop-terminal"]');await pageIs(page,'terminal');
   const normal=await bytes(page);
@@ -85,7 +87,7 @@ async function run(mobile){
   assert.deepEqual(await bytes(page),normal);
   const geometry=await screenshot('lobby-test');
   if(mobile)await tap('#gym-ui .gym-pause-button');else await page.keyboard.press('KeyP');
-  await choose('#gym-ui .test-profile-exit');await ready('home',false);await page.waitForTimeout(1700);
+  await choose('#gym-ui .test-profile-exit');await ready('home-office',false);await page.waitForTimeout(1700);
   assert.deepEqual(await bytes(page),normal,'Leaving test mode keeps normal career and backup byte-for-byte, even after autosave.');
   const restored=new CareerProfile({storage:null});restored.importText((await bytes(page)).normal);assert.equal(restored.casinoStatus().unlocked,false);
   assert.equal(await page.locator('#gym-ui .test-profile-indicator').isVisible(),false);

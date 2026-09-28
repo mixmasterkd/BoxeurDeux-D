@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-28T17:39:45.071Z",
+  "url": "https://home-build.invalid/BoxeurDeux-D/",
+  "built": true,
+  "mobileEmulated": true,
+  "cases": [
+    {
+      "name": "house-desktop",
+      "checks": [
+        "Physical living room / computer room with working desktop",
+        "Parked GR Corolla and return door",
+        "Upstairs, Karl gaming / invitation, sleep once, wardrobe, medals, exact reload and Xbox invitation",
+        "Original house door still joins the neighborhood in both directions"
+      ],
+      "geometry": {
+        "mobile": false,
+        "menu": false,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "bar-desktop",
+      "freeBeforeBronze": true,
+      "bothOpponents": true,
+      "silentBanterNonblocking": true,
+      "metroRoundTrip": true,
+      "progressionUnchanged": true
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

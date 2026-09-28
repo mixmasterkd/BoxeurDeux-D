@@ -17,22 +17,24 @@ npm run dev       # Port strict 5173, accessible sur le réseau local
 
 - Ordinateur : **http://127.0.0.1:5173/**
 - Wi-Fi du PC vérifié le 27 septembre 2026 : **http://192.168.50.123:5173/**. Téléphone sur le même réseau; l’adresse peut changer après un redémarrage.
-- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. Casino sur sa petite île publié ; voir [le nouveau trajet et les vérifications](docs/CASINO_ISLAND.md#publication).
+- Adresse publique du projet : **https://mixmasterkd.github.io/BoxeurDeux-D/**. État du chapitre maison et bar : [fonctionnalités et vérifications](docs/HOME_BAR.md).
 
 Réutiliser le serveur déjà lancé. Ne pas démarrer un deuxième Vite ni changer de port silencieusement. Le jeu ne demande aucun compte, abonnement ni clé d’IA. Les illustrations sont des fichiers locaux; aucune génération d’images ne se produit pendant une partie.
 
-Le dernier chapitre et son bilan sont dans [docs/CASINO.md](docs/CASINO.md); le chapitre précédent reste décrit dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md). Les détails sont répartis entre [sauvegarde et règles V5](docs/CHAPITRE_V5_MODELE.md), [métro et aéroport](docs/METRO_ET_AEROPORT.md), [combats V5](docs/COMBATS_CHAPITRE_V5.md) et [menus d’activités](docs/MENUS_ACTIVITES.md). [Cuba et défis](docs/CUBA_ET_DEFIS.md) et [harmonisation SNES](docs/HARMONISATION_SNES.md) conservent les livraisons antérieures; le présent README décrit les règles actuelles.
+Le chapitre **Maison et bar V7** agrandit la maison actuelle : salon avec Xbox, course contre Karl, bureau équipé, garage avec GR Corolla et chambres à l’étage. Le bar de l’île propose le pool contre Béton et Kramer. Voir [maison et loisirs](docs/HOME_BAR.md).
+
+Le dernier chapitre et son bilan sont dans [docs/HOME_BAR.md](docs/HOME_BAR.md); le chapitre précédent reste décrit dans [docs/CHAPITRE_V5.md](docs/CHAPITRE_V5.md). Les détails sont répartis entre [sauvegarde et règles V5](docs/CHAPITRE_V5_MODELE.md), [métro et aéroport](docs/METRO_ET_AEROPORT.md), [combats V5](docs/COMBATS_CHAPITRE_V5.md) et [menus d’activités](docs/MENUS_ACTIVITES.md). [Cuba et défis](docs/CUBA_ET_DEFIS.md) et [harmonisation SNES](docs/HARMONISATION_SNES.md) conservent les livraisons antérieures; le présent README décrit les règles actuelles.
 
 ## Commencer et découvrir le chapitre
 
-1. Une nouvelle partie commence **à la maison**. Le lit fait passer au lendemain; la garde-robe permet d’équiper les vêtements achetés. Le **laptop** donne accès au navigateur du jeu et au terminal de test.
+1. Une nouvelle partie commence **dans le salon de la maison**. À l’étage : votre chambre avec lit, garde-robe et médailles, puis la chambre de Karl où il joue sur son laptop. Invitez-le au salon pour une course sur Xbox. Au rez-de-chaussée : le bureau avec ordinateur et le garage avec la GR Corolla.
 2. Sortez dans le quartier. Le **gym** donne accès au sac, au miroir, à la corde, à la speed ball, au sparring avec **Rémi**, aux pads de **Fredo** et aux drills de **The Octopus**. La **salle communautaire** ouvre les combats sans intérieur supplémentaire.
 3. Le passage ouvert **à gauche du quartier** mène à la **rue des Érables**. Prenez une tournée au **guichet jaune DÉPÔT**, devant l’entrepôt au sud. Le colis suivant indique son adresse, son quartier et la direction à prendre; la tournée traverse maintenant trois secteurs.
 4. Continuez à gauche vers la **place commerçante inspirée du DIX30**. Entrez chez **Rue Nord** pour les vêtements et au **Coin Bleu** pour la boxe. Les autres commerces restent fermés; cônes et barrières ferment les futures extensions.
 5. Battez **Béton**, puis **Kramer « The Quitter »**. Épargnez l’inscription aux **Gants de bronze**, puis partez depuis la salle communautaire.
 6. L’entrée du **métro** est au sud-est du quartier du gym. Descendez à pied, consultez le plan sur le quai et avancez dans la porte du train. Restez à bord jusqu’à la station voulue, puis descendez par sa porte ouverte.
-7. Après une participation terminée aux Gants de bronze et votre retour de l’hôtel, la **salle communautaire** propose Dyrex et Le Feu. Réservez **Cuba** ou le **Mexique** sur le laptop ou au comptoir de l’aéroport, puis rejoignez physiquement la porte d’embarquement du pays.
-8. Le **marathon de Montréal** est facultatif : inscription à 100 $ sur le laptop, métro jusqu’à l’île, puis départ à pied. Après les victoires sur Dyrex, Le Feu, Louisto et Danielo, la salle communautaire ouvre les **Gants dorés**.
+7. Après une participation terminée aux Gants de bronze et votre retour de l’hôtel, la **salle communautaire** propose Dyrex et Le Feu. Réservez **Cuba** ou le **Mexique** sur l’ordinateur ou au comptoir de l’aéroport, puis rejoignez physiquement la porte d’embarquement du pays.
+8. Le **marathon de Montréal** est facultatif : inscription à 100 $ sur l’ordinateur, métro jusqu’à l’île, puis départ à pied. Après les victoires sur Dyrex, Le Feu, Louisto et Danielo, la salle communautaire ouvre les **Gants dorés**.
 
 Avancez dans les portes ouvertes et les passages pour changer de lieu. **E / A** sert aux personnes, ateliers, panneaux, achats, livraisons et confirmations. Monter dans le métro, en descendre ou embarquer vers un pays réservé se fait en marchant.
 
@@ -195,9 +197,9 @@ Dans le **hall de chaque station**, marchez vers le **quai A pour l’Aéroport*
 
 Le plan est aussi accessible à bord et depuis la pause. Les indications discrètes donnent la station actuelle ou le prochain arrêt. Pause, perte de focus et portrait suspendent le train. Le métro est gratuit et ne consomme pas d’énergie. Une recharge pendant le trajet reprend sur le quai de la dernière station atteinte, dans le même sens. Le passage au sud du quai rejoint le hall; sa sortie au sud mène à la rue. Le quai reste visible pendant la fermeture des portes, puis défile avec l’accélération. Le tunnel traverse progressivement les fenêtres; le quai suivant revient pendant le freinage, avant la réouverture. La pause fige aussi le décor extérieur.
 
-## Laptop et marathon de Montréal
+## Ordinateur et marathon de Montréal
 
-À la maison, approchez-vous du **laptop** et utilisez **E / A**. Le **Navigateur** apparaît dans un véritable visuel de laptop. Cliquez sur ordinateur, ou choisissez avec le joypad et validez avec A sur mobile. Ces services appartiennent au jeu : aucun compte extérieur requis.
+Dans le **bureau de la maison**, approchez-vous de l’ordinateur et utilisez **E / A**. Le bureau propose les applications Navigateur, Messages, Carrière, Scores et Garage. Cliquez sur ordinateur, ou choisissez avec le joypad et validez avec A sur mobile. Ces services appartiennent au jeu : aucun compte extérieur requis.
 
 Dans le navigateur, **Marathon de Montréal** permet de s’inscrire pour **100 $ par participation**. La course est **facultative** et n’entre pas dans les conditions des Gants dorés. L’inscription conserve votre lieu; rejoignez le départ sur l’île en métro puis à pied.
 
@@ -217,7 +219,7 @@ Le **Carnet**, dans les menus des lieux et activités, suit les objectifs, voyag
 
 ## Sauvegarde et transfert
 
-La sauvegarde **v6** conserve jour, énergie, lieu et position, capacités, résultats, argent, inventaire, équipement, livraisons, les deux tournois, médailles, réservations et séjours Cuba/Mexique, marathon, technique du double jab, jetons et parties de casino engagées. Les parties **v1 à v5** sont migrées automatiquement, en conservant les acquis et une copie valide de secours lorsque le stockage est disponible. Une ancienne tournée, un séjour à l’hôtel ou **un séjour à Cuba v4 déjà payé** reste reprenable; aucune nouvelle réservation n’est exigée pour ce voyage actif. La clé normale reste `boxeur-deux-d-career-v1`; le profil de test utilise une clé séparée `boxeur-deux-d-career-v1-test`.
+La sauvegarde **v7** conserve jour, énergie, lieu et position, capacités, résultats, argent, inventaire, équipement, livraisons, les deux tournois, médailles, réservations et séjours Cuba/Mexique, marathon, technique du double jab, jetons et parties de casino engagées, ainsi que les résultats des courses avec Karl et du pool. Les parties **v1 à v6** sont migrées automatiquement, en conservant les acquis et une copie valide de secours lorsque le stockage est disponible. Une ancienne tournée, un séjour à l’hôtel ou **un séjour à Cuba v4 déjà payé** reste reprenable; aucune nouvelle réservation n’est exigée pour ce voyage actif. La clé normale reste `boxeur-deux-d-career-v1`.
 
 **Continuer** reprend le lieu sauvegardé. Un combat interrompu reprend depuis le lieu d’accès, sans reconstituer un round au milieu d’une animation. Coûts payés et résultats validés restent enregistrés. Les transactions de livraison, réservation, inscription et récompense empêchent les doubles paiements. Le marathon conserve son temps et ses points de passage; la rencontre facultative ne se rejoue pas après une recharge. Un trajet de métro interrompu reprend sur un quai sûr.
 
@@ -230,6 +232,13 @@ Dans l’accueil et les pauses des lieux explorables : **Exporter la sauvegarde*
 ```bash
 npm test                         # Ensemble des tests unitaires du projet
 npm run build                    # Production dist/
+
+# Maison et loisirs V7
+npm run test:home-bar
+npm run test:home-bar-browser
+npm run test:race-browser
+npm run test:billiards-browser
+npm run test:computer-browser
 
 # Casino V6
 npm run test:casino

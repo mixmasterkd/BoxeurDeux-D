@@ -1,4 +1,5 @@
 export function sceneForPlace(place) {
+  if (place === 'home' || place?.startsWith('home-') || place === 'island-bar') return 'HomeBarScene';
   if (place?.startsWith('mexico-')) return 'MexicoScene';
   if (place?.startsWith('cuba-')) return 'CubaScene';
   if (place?.startsWith('hotel-')) return 'HotelScene';

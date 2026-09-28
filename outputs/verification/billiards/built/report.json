@@ -1,0 +1,191 @@
+{
+  "date": "2026-09-28T17:31:58.361Z",
+  "url": "https://billiards-build.invalid/BoxeurDeux-D/",
+  "built": true,
+  "publicSite": false,
+  "mobileEmulated": true,
+  "evidence": "Real bar choices, keyboard/CDP touch, break, AI, pause, abandon and reload. No development globals or gameplay injection.",
+  "limitation": "Complete matches are covered by model tests and the development final8 test. This production smoke deliberately abandons its live matches and does not claim a complete browser win.",
+  "cases": [
+    {
+      "name": "desktop",
+      "opponent": "beton",
+      "realBarEntry": true,
+      "actualAimAndBreak": true,
+      "aiShot": true,
+      "pauseFrozenScreenshot": true,
+      "focusPause": true,
+      "portraitPause": false,
+      "abandonReturns": true,
+      "reloadReturns": true,
+      "scoresMoneyEnergyUnchanged": true,
+      "noDebugHandles": true,
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "desktop",
+      "opponent": "kramer",
+      "realBarEntry": true,
+      "actualAimAndBreak": true,
+      "aiShot": true,
+      "pauseFrozenScreenshot": true,
+      "focusPause": true,
+      "portraitPause": false,
+      "abandonReturns": true,
+      "reloadReturns": true,
+      "scoresMoneyEnergyUnchanged": true,
+      "noDebugHandles": true,
+      "geometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "mobile568",
+      "opponent": "beton",
+      "realBarEntry": true,
+      "actualAimAndBreak": true,
+      "aiShot": true,
+      "pauseFrozenScreenshot": true,
+      "focusPause": true,
+      "portraitPause": true,
+      "abandonReturns": true,
+      "reloadReturns": true,
+      "scoresMoneyEnergyUnchanged": true,
+      "noDebugHandles": true,
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    },
+    {
+      "name": "mobile568",
+      "opponent": "kramer",
+      "realBarEntry": true,
+      "actualAimAndBreak": true,
+      "aiShot": true,
+      "pauseFrozenScreenshot": true,
+      "focusPause": true,
+      "portraitPause": true,
+      "abandonReturns": true,
+      "reloadReturns": true,
+      "scoresMoneyEnergyUnchanged": true,
+      "noDebugHandles": true,
+      "geometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : déplacements et navigation des menus",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Retour",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Valider",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": [],
+  "failure": null
+}

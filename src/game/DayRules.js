@@ -24,7 +24,7 @@ export const LEGACY_GYM_SPAWN = Object.freeze({ scene: 'gym', x: 640, y: 585, fa
 export const WORLD_SCENES = Object.freeze(['home', 'gym', 'neighborhood', 'residential', 'commercial',
   'clothing-shop', 'boxing-shop', 'metro-station', 'metro-riverside', 'riverside',
   'hotel-room', 'hotel-corridor', 'hotel-lobby', 'hotel-gym', 'hotel-pool', 'hotel-venue', 'hotel-restaurant', ...CUBA_PLACES, ...MEXICO_PLACES, ...MARATHON_PLACES,
-  'airport', 'metro-train', 'metro-island', 'metro-stadium', 'metro-airport', ...METRO_HALLS, ...METRO_RETURN_PLATFORMS, ...CASINO_PLACES, 'casino-island']);
+  'airport', 'metro-train', 'metro-island', 'metro-stadium', 'metro-airport', ...METRO_HALLS, ...METRO_RETURN_PLATFORMS, ...CASINO_PLACES, 'casino-island', 'home-office', 'home-garage', 'home-landing', 'home-bedroom', 'home-karl', 'island-bar']);
 export const WORLD_DIRECTIONS = Object.freeze(['up', 'down', 'left', 'right']);
 // Saved coordinates receive a final collision/spawn check when their scene opens.
 // This broad bound permits a scrolling neighborhood without trusting arbitrary JSON.

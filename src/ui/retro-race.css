@@ -1,0 +1,27 @@
+#retro-race-ui { position:absolute; inset:0; z-index:6; pointer-events:none; color:#ffedbd; font-family:var(--font-ui,monospace); }
+.race-hud { position:absolute; left:2%; right:2%; top:2%; display:flex; align-items:center; justify-content:space-between; gap:8px; border:2px solid #cfb674; padding:9px 15px; background:#122c2fee; box-shadow:0 3px #071d23; font-size:13px; letter-spacing:1px; }
+.race-time { font-size:22px; font-variant-numeric:tabular-nums; }
+.race-countdown { position:absolute; left:50%; top:37%; transform:translate(-50%,-50%); color:#fff1b5; font:bold 100px/1 monospace; text-shadow:6px 6px #132129; }
+.race-warning { position:absolute; bottom:3%; left:50%; transform:translateX(-50%); background:#17262dd9; padding:5px 12px; white-space:nowrap; font-size:13px; }
+.race-warning:empty { display:none; }
+.race-shade { position:absolute; inset:0; background:#071b2370; }
+.race-panel { pointer-events:auto; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(570px,calc(100% - 26px)); max-height:calc(100% - 20px); overflow:auto; overscroll-behavior:contain; padding:22px; border:3px solid #d8bb80; box-shadow:5px 5px 0 #081b24; background:linear-gradient(145deg,#18373f,#10262e); }
+.race-panel h2 { color:#fff0c4; font:700 28px/1.12 Georgia,serif; margin:5px 0 11px; }
+.race-eyebrow { color:#dcba7b; font-size:10px; letter-spacing:1px; margin:0; }
+.race-copy,.race-record,.race-help,.race-message { font-size:12px; line-height:1.5; margin:8px 0; }
+.race-record { color:#f2cf84; }.race-help { color:#c0d0c3; }.race-message:empty { display:none; }
+.race-actions { display:flex; gap:8px; margin-top:13px; flex-wrap:wrap; }
+.race-actions button { flex:1; min-width:130px; min-height:42px; padding:9px; border:1px solid #899c85; background:#25484a; color:#f9e6ba; font:inherit; font-size:12px; cursor:pointer; }
+.race-actions .primary-button { background:#c49a56; color:#16272b; border-color:#ffdf9a; font-weight:700; }
+#retro-race-ui [hidden] { display:none!important; }
+#retro-race-ui .panel-options { margin-top:8px; }
+html[data-touch="true"] #retro-race-ui .input-rail { visibility:visible; }
+html[data-touch="true"] .race-panel { width:calc(var(--play-width) - 250px); min-width:260px; max-width:570px; max-height:calc(var(--play-height) - 14px); padding:12px; }
+html[data-touch="true"] .race-panel h2 { font-size:20px; margin-bottom:5px; }
+html[data-touch="true"] :is(.race-copy,.race-record,.race-help,.race-message) { font-size:10px; margin:5px 0; line-height:1.35; }
+html[data-touch="true"] .race-actions { gap:5px; margin-top:7px; }.race-actions button:focus-visible { outline:2px solid #fff0b5; outline-offset:2px; }
+html[data-touch="true"] .race-actions button { min-width:100px; min-height:38px; font-size:10px; padding:6px; }
+html[data-touch="true"] .race-hud { font-size:7px; padding:4px; gap:3px; letter-spacing:0; }.race-hud .race-time { font-size:18px; }
+html[data-touch="true"] .race-hud .race-time { font-size:12px; }
+html[data-touch="true"] .race-countdown { font-size:50px; }
+html[data-touch="true"] .race-warning { font-size:8px; padding:3px 5px; }

@@ -1,5 +1,13 @@
 # Reprise dans Codex pour VS Code — BoxeurDeux-D
 
+## Maison actuelle agrandie et bar de l’île — GO du 28 septembre 2026
+
+Le GO explicite (« bon tu as mon GO fait tout ça », puis « oups ... GO ») autorise ce chapitre : salon avec Xbox et course contre Karl, bureau avec ordinateur amélioré, garage avec GR Corolla exposée, palier et deux chambres dont celle de Karl au laptop ; petit bar sur l’île principale avec pool contre Béton/Kramer et leur échange réciproque « Yo tu cé pas chui qui man ! ». Karl conduit une Camaro jaune à bandes noires dans le jeu de course. La seconde maison chez les pros, la conduite dans le monde et les galas au casino restent futurs.
+
+Sauvegarde V7 : scores amicaux persistés, aucune récompense économique ou de boxe. Les loisirs interrompus sont abandonnés sans résultat. Les versions V1–V6 migrent sur la clé historique. Les sept lieux et leurs accès, les deux modèles de jeux et l’ordinateur sont intégrés ; arts ImageGen locaux dans `public/assets/home/` et `public/assets/bar/`, sources/prompts dans `references/home-bar/`. Les compositions musicales restent celles déjà présentes : l’utilisateur veut en rediscuter et aucune nouvelle composition n’est autorisée ici.
+
+Détails, commandes et limites dans [docs/HOME_BAR.md](docs/HOME_BAR.md). Validation locale : **587 tests réussis**, compilation `index-Bjt8Q7nB.js` / `index-CORD--UA.css`, **16 parcours compilés PC/mobile tactile simulé** sans erreur (maison/bar4, course2, billard4, ordinateur4, terminal2). Le retour carrière de la course et le signalement de stockage refusé sont corrigés. Aucun téléphone physique testé. Publication et contrôles publics en cours ; ne pas les considérer terminés avant leur bilan ci-dessous. Ne pas lancer un autre chapitre sans discussion et GO.
+
 ## Bande-son rétro par lieu — 28 septembre 2026
 
 L’utilisateur demande de la musique rétro 16 bits et choisit une petite bande-son avec un thème par lieu. **12 compositions originales** intégrées : maison, quartier, gym, boutiques, métro/aéroport, îles, casino, hôtel, Cuba, Mexique, marathon et ring. Boucles de 16 mesures (30–47 s), mélodie, variations, accords, basse et percussions; synthèse locale WebAudio et 12 MIDI rééditables. Aucun service musical externe utilisé. Sources et détails : [docs/MUSIQUE.md](docs/MUSIQUE.md), [references/music/SCORES.md](references/music/SCORES.md).

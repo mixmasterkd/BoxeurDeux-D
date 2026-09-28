@@ -1,0 +1,117 @@
+{
+  "date": "2026-09-28T17:35:50.446Z",
+  "url": "https://retro-race-build.invalid/BoxeurDeux-D/",
+  "built": true,
+  "publicSite": false,
+  "direct": false,
+  "mobileEmulated": true,
+  "evidence": "Real keyboard and CDP multi-touch. Karl physically completes all 48 gates. Saved career assertions; no game state injection. Visibility/blur/career-overlay events explicitly simulated, portrait uses viewport change.",
+  "cases": [
+    {
+      "name": "desktop",
+      "keyboard": true,
+      "cdpTouch": false,
+      "invitationFromSalon": true,
+      "countdown": true,
+      "realAccelerationAndSteering": true,
+      "realBrake": true,
+      "pauseFreezesTime": true,
+      "blurAndVisibilityPause": true,
+      "portraitPause": false,
+      "actualKarlThreeLaps": true,
+      "idempotentSavedResult": {
+        "playerWins": 0,
+        "karlWins": 1,
+        "bestMs": null
+      },
+      "moneyEnergyAndCareerUnchanged": true,
+      "abandonReturn": true,
+      "reloadAndCareerReturn": true,
+      "trackGeometry": {
+        "mobile": false,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [],
+        "primaryFine": true,
+        "touchPoints": 0
+      }
+    },
+    {
+      "name": "mobile568",
+      "keyboard": false,
+      "cdpTouch": true,
+      "invitationFromSalon": true,
+      "countdown": true,
+      "realAccelerationAndSteering": true,
+      "realBrake": true,
+      "pauseFreezesTime": true,
+      "blurAndVisibilityPause": true,
+      "portraitPause": true,
+      "actualKarlThreeLaps": true,
+      "idempotentSavedResult": {
+        "playerWins": 0,
+        "karlWins": 1,
+        "bestMs": null
+      },
+      "moneyEnergyAndCareerUnchanged": true,
+      "abandonReturn": true,
+      "reloadAndCareerReturn": true,
+      "trackGeometry": {
+        "mobile": true,
+        "menu": true,
+        "width": 1280,
+        "height": 720,
+        "ratio": 1.7777777777777777,
+        "noScroll": true,
+        "fits": true,
+        "controls": [
+          {
+            "name": "Joypad : gauche et droite pour braquer, haut pour accélérer, bas pour freiner",
+            "x": 15.080001831054688,
+            "y": 124.58000183105469,
+            "width": 99.83999633789062,
+            "height": 99.83999633789062,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "Menu pause",
+            "x": 479,
+            "y": 83.5,
+            "width": 48,
+            "height": 44,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "B — Freiner (maintenir)",
+            "x": 448,
+            "y": 204.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          },
+          {
+            "name": "A — Accélérer (maintenir)",
+            "x": 497,
+            "y": 143.5,
+            "width": 61,
+            "height": 61,
+            "outside": true,
+            "fits": true
+          }
+        ],
+        "primaryFine": false,
+        "touchPoints": 1
+      }
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "failure": null
+}

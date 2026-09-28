@@ -69,7 +69,7 @@ test('casino career: V5 migration preserves progression and original backup, add
   const original = ready(), old = original.snapshot(); old.version = 5; delete old.casino;
   const text = JSON.stringify(old), storage = new MemoryStorage(); storage.setItem(CAREER_STORAGE_KEY, text);
   const migrated = make(storage);
-  assert.equal(CAREER_VERSION, 6); assert.equal(migrated.snapshot().version, CAREER_VERSION);
+  assert.equal(CAREER_VERSION, 7); assert.equal(migrated.snapshot().version, CAREER_VERSION);
   for (const key of ['wallet', 'inventory', 'fights', 'daily', 'location', 'tournament', 'cuba', 'mexico', 'marathon']) {
     assert.deepEqual(migrated.snapshot()[key], old[key], key);
   }

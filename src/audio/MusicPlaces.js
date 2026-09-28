@@ -6,7 +6,8 @@ export const MUSIC_PLACES = Object.freeze({
 });
 
 export function musicTrackForPlace(place = '') {
-  if (place === 'home') return 'home';
+  if (place === 'home' || place.startsWith('home-')) return 'home';
+  if (place === 'island-bar') return 'casino';
   if (place === 'gym') return 'gym';
   if (place === 'commercial' || place.endsWith('-shop')) return 'shops';
   if (place === 'airport' || place.startsWith('metro-')) return 'metro';
@@ -23,6 +24,8 @@ export function musicTrackForScene(scene) {
   const key = scene.sys?.settings?.key;
   // A ring keeps its own theme, including a bout on the marathon course.
   if (key === 'SparringScene') return 'bout';
+  if (key === 'RetroRaceScene') return 'home';
+  if (key === 'BilliardsScene') return 'casino';
   if (key === 'MarathonScene' && scene.isRunning?.()) return 'marathon';
   if (scene.fromMexico) return 'mexico';
   if (scene.fromCuba || scene.activityReturn?.place?.startsWith('cuba-')) return 'cuba';
